@@ -13,7 +13,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@ethersproject/providers": "^5.7.2",
-    "@moon/moon-api": "file:../moon-api"
+    "@moon/moon-api": "file:../moon-api",
+    "ethers": "^6.8.0"
   }
 }

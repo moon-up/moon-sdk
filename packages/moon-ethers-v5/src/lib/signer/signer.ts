@@ -32,9 +32,9 @@ export class MoonSigner extends Signer {
 	}
 
 	async populateTransaction(
-		txIn: TransactionRequest
-	): Promise<TransactionResponse> {
-		let tx: TransactionRequest = { ...txIn };
+		tx: Deferrable<TransactionRequest>
+	): Promise<TransactionRequest> {
+		// let tx: TransactionRequest = { ...transaction };
 
 		// If 'from' address is not provided, set it using the signer's address
 		if (!tx.from) {
@@ -49,7 +49,7 @@ export class MoonSigner extends Signer {
 		// If 'gasPrice' is not provided, fetch the current gas price
 		if (!tx.gasPrice) {
 			let feeData = await this.provider.getFeeData();
-			tx.gasPrice = feeData.gasPrice;
+			tx.gasPrice = feeData.gasPrice || BigNumber.from(0);
 		}
 
 		// If 'gasLimit' is not provided and 'to' address is provided, estimate the gas limit
@@ -65,6 +65,41 @@ export class MoonSigner extends Signer {
 		// Return the populated transaction
 		return tx as TransactionResponse;
 	}
+
+	// async populateTransaction(
+	// 	txIn: TransactionRequest
+	// ): Promise<TransactionResponse> {
+	// 	let tx: TransactionRequest = { ...txIn };
+
+	// 	// If 'from' address is not provided, set it using the signer's address
+	// 	if (!tx.from) {
+	// 		tx.from = await this.getAddress();
+	// 	}
+
+	// 	// If 'nonce' is not provided, fetch the current nonce for the 'from' address
+	// 	if (!tx.nonce) {
+	// 		tx.nonce = await this.provider.getTransactionCount(tx.from, 'latest');
+	// 	}
+
+	// 	// If 'gasPrice' is not provided, fetch the current gas price
+	// 	if (!tx.gasPrice) {
+	// 		let feeData = await this.provider.getFeeData();
+	// 		tx.gasPrice = feeData.gasPrice || BigNumber.from(0);
+	// 	}
+
+	// 	// If 'gasLimit' is not provided and 'to' address is provided, estimate the gas limit
+	// 	if (!tx.gasLimit && tx.to) {
+	// 		tx.gasLimit = await this.provider.estimateGas(tx);
+	// 	}
+
+	// 	// If 'chainId' is not provided, get it from the provider
+	// 	if (!tx.chainId) {
+	// 		let network = await this.provider.getNetwork();
+	// 		tx.chainId = network.chainId;
+	// 	}
+	// 	// Return the populated transaction
+	// 	return tx as TransactionResponse;
+	// }
 
 	async estimateGas(
 		transaction: Deferrable<TransactionRequest>
@@ -89,7 +124,6 @@ export class MoonSigner extends Signer {
 		types: Record<string, TypedDataField[]>,
 		value: Record<string, any>
 	): Promise<string> {
-		// throw new Error('Method not implemented.');
 		const data = this.getTypedData(domain, types, value);
 		// convert data to string
 		const response = await this.account.signTypedData(this.accountName, {
