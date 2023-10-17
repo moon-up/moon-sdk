@@ -1,0 +1,3683 @@
+{
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"GetSwapDto": {
+				"properties": {
+					"src": {
+						"type": "string"
+					},
+					"dst": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "string"
+					},
+					"from": {
+						"type": "string"
+					},
+					"slippage": {
+						"type": "number",
+						"format": "double"
+					},
+					"protocols": {
+						"type": "string"
+					},
+					"fee": {
+						"type": "string"
+					},
+					"disableEstimate": {
+						"type": "boolean"
+					},
+					"permit": {
+						"type": "string"
+					},
+					"includeTokensInfo": {
+						"type": "boolean"
+					},
+					"includeProtocols": {
+						"type": "boolean"
+					},
+					"compatibility": {
+						"type": "boolean"
+					},
+					"allowPartialFill": {
+						"type": "boolean"
+					},
+					"parts": {
+						"type": "string"
+					},
+					"mainRouteParts": {
+						"type": "string"
+					},
+					"connectorTokens": {
+						"type": "string"
+					},
+					"complexityLevel": {
+						"type": "string"
+					},
+					"gasLimit": {
+						"type": "string"
+					},
+					"gasPrice": {
+						"type": "string"
+					},
+					"referrer": {
+						"type": "string"
+					},
+					"receiver": {
+						"type": "string"
+					},
+					"chainId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"src",
+					"dst",
+					"amount",
+					"from",
+					"slippage"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"NonceResponse": {
+				"properties": {
+					"nonce": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"nonce"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BalanceResponse": {
+				"properties": {
+					"balance": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"balance"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Transaction": {
+				"properties": {
+					"moon_scan_url": {
+						"type": "string"
+					},
+					"transaction_hash": {
+						"type": "string"
+					},
+					"signed_transaction": {
+						"type": "string"
+					},
+					"signed_message": {
+						"type": "string"
+					},
+					"raw_transaction": {
+						"type": "string"
+					},
+					"signature": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"transaction_hash",
+					"signed_transaction"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Account": {
+				"properties": {
+					"address": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"address"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AccountResponse": {
+				"properties": {
+					"keys": {
+						"items": {
+							"$ref": "#/components/schemas/Account"
+						},
+						"type": "array"
+					},
+					"address": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"SignMessage": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					},
+					"encoding": {
+						"type": "string"
+					},
+					"header": {
+						"type": "boolean"
+					},
+					"signtype": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"EnsResolveResponse": {
+				"properties": {
+					"address": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"address"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ENSReverseResolveResponse": {
+				"properties": {
+					"domain": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"domain"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AaveReservesData": {
+				"properties": {
+					"current_atoken_balance": {
+						"type": "string"
+					},
+					"current_borrow_balance": {
+						"type": "string"
+					},
+					"principal_borrow_balance": {
+						"type": "string"
+					},
+					"borrow_rate_mode": {
+						"type": "string"
+					},
+					"borrow_rate": {
+						"type": "string"
+					},
+					"liquidity_rate": {
+						"type": "string"
+					},
+					"origination_fee": {
+						"type": "string"
+					},
+					"variable_borrow_index": {
+						"type": "string"
+					},
+					"last_update_timestamp": {
+						"type": "string"
+					},
+					"usage_as_collateral_enabled": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"current_atoken_balance",
+					"current_borrow_balance",
+					"principal_borrow_balance",
+					"borrow_rate_mode",
+					"borrow_rate",
+					"liquidity_rate",
+					"origination_fee",
+					"variable_borrow_index",
+					"last_update_timestamp",
+					"usage_as_collateral_enabled"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Erc20": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"symbol": {
+						"type": "string"
+					},
+					"decimals": {
+						"type": "string"
+					},
+					"totalSupply": {
+						"type": "string"
+					},
+					"contract_address": {
+						"type": "string"
+					},
+					"balanceOf": {
+						"type": "string"
+					},
+					"allowance": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Erc1155": {
+				"properties": {
+					"balance_of": {
+						"type": "string"
+					},
+					"balance_of_batch": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BroadCastRawTransactionResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"success",
+					"message",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Erc721": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"symbol": {
+						"type": "string"
+					},
+					"balance_of": {
+						"type": "string"
+					},
+					"owner_of": {
+						"type": "string"
+					},
+					"token_uri": {
+						"type": "string"
+					},
+					"contract_address": {
+						"type": "string"
+					},
+					"isApprovedForAll": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AccountControllerResponse": {
+				"properties": {
+					"data": {
+						"anyOf": [
+							{
+								"$ref": "#/components/schemas/NonceResponse"
+							},
+							{
+								"$ref": "#/components/schemas/BalanceResponse"
+							},
+							{
+								"$ref": "#/components/schemas/Transaction"
+							},
+							{
+								"$ref": "#/components/schemas/AccountResponse"
+							},
+							{
+								"$ref": "#/components/schemas/SignMessage"
+							},
+							{
+								"$ref": "#/components/schemas/EnsResolveResponse"
+							},
+							{
+								"$ref": "#/components/schemas/ENSReverseResolveResponse"
+							},
+							{
+								"$ref": "#/components/schemas/AaveReservesData"
+							},
+							{
+								"$ref": "#/components/schemas/Erc20"
+							},
+							{
+								"$ref": "#/components/schemas/Erc1155"
+							},
+							{
+								"$ref": "#/components/schemas/BroadCastRawTransactionResponse"
+							},
+							{
+								"$ref": "#/components/schemas/Erc721"
+							}
+						]
+					},
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"InputBody": {
+				"properties": {
+					"chain_id": {
+						"type": "string"
+					},
+					"encoding": {
+						"type": "string"
+					},
+					"contract_address": {
+						"type": "string"
+					},
+					"to": {
+						"type": "string"
+					},
+					"input": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "string"
+					},
+					"gas": {
+						"type": "string"
+					},
+					"gasPrice": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateAccountInput": {
+				"properties": {
+					"private_key": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"DeployInput": {
+				"properties": {
+					"chain_id": {
+						"type": "string"
+					},
+					"abi": {
+						"type": "string"
+					},
+					"bytecode": {
+						"type": "string"
+					},
+					"constructor_args": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"abi",
+					"bytecode"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BroadcastInput": {
+				"properties": {
+					"chainId": {
+						"type": "string"
+					},
+					"rawTransaction": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"chainId",
+					"rawTransaction"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AaveInput": {
+				"properties": {
+					"chain_id": {
+						"type": "string"
+					},
+					"encoding": {
+						"type": "string"
+					},
+					"contract_address": {
+						"type": "string"
+					},
+					"to": {
+						"type": "string"
+					},
+					"input": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "string"
+					},
+					"gas": {
+						"type": "string"
+					},
+					"gasPrice": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					},
+					"lending_pool": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "string"
+					},
+					"atoken_to_redeeem": {
+						"type": "string"
+					},
+					"ref_code": {
+						"type": "string"
+					},
+					"interest_rate_mode": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TransactionResponse": {
+				"properties": {
+					"message": {
+						"type": "string"
+					},
+					"tx": {
+						"properties": {
+							"data": {
+								"type": "string"
+							},
+							"value": {
+								"type": "string"
+							},
+							"nonce": {
+								"type": "number",
+								"format": "double"
+							},
+							"gas": {
+								"type": "string"
+							},
+							"to": {
+								"type": "string"
+							},
+							"from": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"data",
+							"value",
+							"nonce",
+							"gas",
+							"to",
+							"from"
+						],
+						"type": "object"
+					},
+					"info": {
+						"properties": {
+							"conveyorGas": {
+								"type": "string"
+							},
+							"affiliateGas": {
+								"type": "string"
+							},
+							"affiliateAggregator": {
+								"type": "string"
+							},
+							"amountOut": {
+								"type": "string"
+							},
+							"amountOutMin": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"conveyorGas",
+							"affiliateGas",
+							"affiliateAggregator",
+							"amountOut",
+							"amountOutMin"
+						],
+						"type": "object"
+					},
+					"chainId": {
+						"type": "number",
+						"format": "double"
+					},
+					"currentBlockNumber": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"message",
+					"tx",
+					"info",
+					"chainId",
+					"currentBlockNumber"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ConveyorFinanceControllerResponse": {
+				"properties": {
+					"input": {
+						"$ref": "#/components/schemas/InputBody"
+					},
+					"convey": {
+						"$ref": "#/components/schemas/TransactionResponse"
+					},
+					"tx": {
+						"properties": {
+							"data": {
+								"type": "string"
+							},
+							"value": {
+								"type": "string"
+							},
+							"nonce": {
+								"type": "number",
+								"format": "double"
+							},
+							"gas": {
+								"type": "string"
+							},
+							"to": {
+								"type": "string"
+							},
+							"from": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"data",
+							"value",
+							"nonce",
+							"gas",
+							"to",
+							"from"
+						],
+						"type": "object"
+					},
+					"signed": {
+						"$ref": "#/components/schemas/Transaction"
+					},
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TokenSwapParams": {
+				"properties": {
+					"tokenIn": {
+						"type": "string"
+					},
+					"tokenOut": {
+						"type": "string"
+					},
+					"tokenInDecimals": {
+						"type": "number",
+						"format": "double"
+					},
+					"tokenOutDecimals": {
+						"type": "number",
+						"format": "double"
+					},
+					"amountIn": {
+						"type": "string"
+					},
+					"slippage": {
+						"type": "string"
+					},
+					"chainId": {
+						"type": "number",
+						"format": "double"
+					},
+					"recipient": {
+						"type": "string"
+					},
+					"referrer": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"tokenIn",
+					"tokenOut",
+					"tokenInDecimals",
+					"tokenOutDecimals",
+					"amountIn",
+					"slippage",
+					"chainId",
+					"recipient",
+					"referrer"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"EnsResolveInput": {
+				"properties": {
+					"domain": {
+						"type": "string"
+					},
+					"chain_id": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"domain",
+					"chain_id"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Erc1155Request": {
+				"properties": {
+					"chain_id": {
+						"type": "string"
+					},
+					"encoding": {
+						"type": "string"
+					},
+					"contract_address": {
+						"type": "string"
+					},
+					"to": {
+						"type": "string"
+					},
+					"input": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "string"
+					},
+					"gas": {
+						"type": "string"
+					},
+					"gasPrice": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					},
+					"token_ids": {
+						"type": "string"
+					},
+					"approved": {
+						"type": "boolean"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Erc721Request": {
+				"properties": {
+					"chain_id": {
+						"type": "string"
+					},
+					"encoding": {
+						"type": "string"
+					},
+					"contract_address": {
+						"type": "string"
+					},
+					"to": {
+						"type": "string"
+					},
+					"input": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "string"
+					},
+					"gas": {
+						"type": "string"
+					},
+					"gasPrice": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					},
+					"token_id": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PingResponse": {
+				"properties": {
+					"message": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UniswapInput": {
+				"properties": {
+					"chain_id": {
+						"type": "string"
+					},
+					"encoding": {
+						"type": "string"
+					},
+					"contract_address": {
+						"type": "string"
+					},
+					"to": {
+						"type": "string"
+					},
+					"input": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "string"
+					},
+					"gas": {
+						"type": "string"
+					},
+					"gasPrice": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					},
+					"token_a": {
+						"type": "string"
+					},
+					"token_b": {
+						"type": "string"
+					},
+					"amount_a": {
+						"type": "string"
+					},
+					"amount_b": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "moon-vault-api",
+		"version": "1.0.0",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {}
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/oneinch/tokens": {
+			"post": {
+				"operationId": "Tokens",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"oneinch"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {}
+						}
+					}
+				}
+			}
+		},
+		"/oneinch/protocols": {
+			"post": {
+				"operationId": "Protocols",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"oneinch"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {}
+						}
+					}
+				}
+			}
+		},
+		"/oneinch/quote": {
+			"post": {
+				"operationId": "Quote",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"oneinch"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {}
+						}
+					}
+				}
+			}
+		},
+		"/oneinch/{accountName}/swap": {
+			"post": {
+				"operationId": "Swap",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"oneinch"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/GetSwapDto"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/oneinch/approve-spender": {
+			"post": {
+				"operationId": "ApproveSpender",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"oneinch"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {}
+						}
+					}
+				}
+			}
+		},
+		"/oneinch/approve-call-data": {
+			"post": {
+				"operationId": "ApproveCallData",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"oneinch"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {}
+						}
+					}
+				}
+			}
+		},
+		"/accounts/{accountName}/nonce": {
+			"get": {
+				"operationId": "GetNonce",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Accounts"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/accounts/{accountName}/balance": {
+			"get": {
+				"operationId": "GetBalance",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Accounts"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/accounts/{accountName}/transfer-eth": {
+			"post": {
+				"operationId": "TransferEth",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Accounts"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/accounts/{accountName}/sign-message": {
+			"post": {
+				"operationId": "SignMessage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Accounts"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SignMessage"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/accounts/{accountName}/sign-transaction": {
+			"post": {
+				"operationId": "SignTransaction",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Accounts"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/accounts": {
+			"get": {
+				"operationId": "ListAccounts",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Accounts"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"post": {
+				"operationId": "CreateAccount",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Accounts"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateAccountInput"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/accounts/{accountName}": {
+			"get": {
+				"operationId": "GetAccount",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Accounts"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "DeleteAccount",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Accounts"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/accounts/{accountName}/deploy": {
+			"post": {
+				"operationId": "DeployContract",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Accounts"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/DeployInput"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/accounts/{accountName}/broadcast-tx": {
+			"post": {
+				"operationId": "BroadcastTx",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Accounts"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/BroadcastInput"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/aave/{name}/lend": {
+			"post": {
+				"operationId": "Lend",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Aave"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AaveInput"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/aave/{name}/borrow": {
+			"post": {
+				"operationId": "Borrow",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Aave"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AaveInput"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/aave/{name}/user-reserve-data": {
+			"post": {
+				"operationId": "UserReserveData",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Aave"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AaveInput"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/aave/{name}/repay": {
+			"post": {
+				"operationId": "Repay",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Aave"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AaveInput"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/conveyorfinance/{name}/swap": {
+			"post": {
+				"operationId": "Swap",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ConveyorFinanceControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"ConveyorFinance"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/TokenSwapParams"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/ens/resolve": {
+			"post": {
+				"operationId": "Resolve",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"ENS"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/EnsResolveInput"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc1155/{name}/balance-of": {
+			"post": {
+				"operationId": "BalanceOf",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"ERC1155"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Erc1155Request"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc1155/{name}/balance-of-batch": {
+			"post": {
+				"operationId": "BalanceOfBatch",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"ERC1155"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Erc1155Request"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc1155/{name}/set-approval-for-all": {
+			"post": {
+				"operationId": "SetApprovalForAll",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"ERC1155"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Erc1155Request"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc1155/{name}/is-approved-for-all": {
+			"post": {
+				"operationId": "IsApprovedForAll",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"ERC1155"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Erc1155Request"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc1155/{name}/safe-transfer-from": {
+			"post": {
+				"operationId": "SafeTransferFrom",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"ERC1155"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Erc1155Request"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc1155/{name}/safe-batch-transfer-from": {
+			"post": {
+				"operationId": "SafeBatchTransferFrom",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"ERC1155"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Erc1155Request"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc20/{name}/name": {
+			"post": {
+				"operationId": "NameErc20",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Erc20"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc20/{name}/symbol": {
+			"post": {
+				"operationId": "SymbolErc20",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Erc20"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc20/{name}/decimals": {
+			"post": {
+				"operationId": "DecimalsErc20",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Erc20"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc20/{name}/total-supply": {
+			"post": {
+				"operationId": "TotalSupplyErc20",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Erc20"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc20/{name}/balance-of": {
+			"post": {
+				"operationId": "BalanceOfErc20",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Erc20"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc20/{name}/allowance": {
+			"post": {
+				"operationId": "AllowanceErc20",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Erc20"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc20/{name}/transfer": {
+			"post": {
+				"operationId": "TransferErc20",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Erc20"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc20/{name}/approve": {
+			"post": {
+				"operationId": "ApproveErc20",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Erc20"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc20/{name}/transfer-from": {
+			"post": {
+				"operationId": "TransferFromErc20",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Erc20"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc4337/{accountName}/address": {
+			"post": {
+				"operationId": "GetAddress",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Erc4337"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc4337/{accountName}/sign-broadcast-userop-tx": {
+			"post": {
+				"operationId": "SignBroadcastUserOpTx",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Erc4337"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc721/{name}/token-uri": {
+			"post": {
+				"operationId": "TokenUri",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Erc721"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Erc721Request"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc721/{name}/transfer": {
+			"post": {
+				"operationId": "Transfer",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Erc721"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Erc721Request"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc721/{name}/transfer-from": {
+			"post": {
+				"operationId": "TransferFrom",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Erc721"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Erc721Request"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc721/{name}/approve": {
+			"post": {
+				"operationId": "Approve",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Erc721"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Erc721Request"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc721/{name}/get-approved": {
+			"post": {
+				"operationId": "GetApproved",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Erc721"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Erc721Request"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc721/{name}/is-approved-for-all": {
+			"post": {
+				"operationId": "IsApprovedForAll",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Erc721"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Erc721Request"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc721/{name}/name": {
+			"post": {
+				"operationId": "Name",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Erc721"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Erc721Request"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc721/{name}/symbol": {
+			"post": {
+				"operationId": "Symbol",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Erc721"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Erc721Request"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc721/{name}/balance-of": {
+			"post": {
+				"operationId": "BalanceOf",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Erc721"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Erc721Request"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc721/{name}/owner-of": {
+			"post": {
+				"operationId": "OwnerOf",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Erc721"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Erc721Request"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc721/{name}/safe-transfer-from": {
+			"post": {
+				"operationId": "SafeTransferFrom",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Erc721"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Erc721Request"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc721/{name}/set-approval-for-all": {
+			"post": {
+				"operationId": "SetApprovalForAll",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Erc721"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Erc721Request"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/ping": {
+			"get": {
+				"operationId": "GetMessage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PingResponse"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/uniswap/{name}/add-liquidity": {
+			"post": {
+				"operationId": "AddLiquidity",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"UniSwap"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UniswapInput"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/uniswap/{name}/remove-liquidity": {
+			"post": {
+				"operationId": "RemoveLiquidity",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"UniSwap"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UniswapInput"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/uniswap/{name}/swap-exact-tokens-for-tokens": {
+			"post": {
+				"operationId": "SwapExactTokensForTokens",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"UniSwap"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UniswapInput"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/uniswap/{name}/swap-exact-eth-for-tokens": {
+			"post": {
+				"operationId": "SwapExactETHForTokens",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"UniSwap"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UniswapInput"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/yearn/{name}/add-liquidity": {
+			"post": {
+				"operationId": "AddLiquidity",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"yearn"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/yearn/{name}/remove-liquidity": {
+			"post": {
+				"operationId": "RemoveLiquidity",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"yearn"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/yearn/{name}/add-liquidity-weth": {
+			"post": {
+				"operationId": "AddLiquidityWeth",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"yearn"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/yearn/{name}/remove-liquidity-weth": {
+			"post": {
+				"operationId": "RemoveLiquidityWeth",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"yearn"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputBody"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "https://vault-api.usemoon.ai/"
+		}
+	]
+}
