@@ -1,21 +1,27 @@
-import { TypedDataField } from '@ethersproject/abstract-signer';
+import {
+	TypedDataDomain,
+	TypedDataField,
+} from '@ethersproject/abstract-signer';
 import { BytesLike } from '@ethersproject/bytes';
-import { JsonRpcProvider, TransactionRequest } from '@ethersproject/providers';
-import { TypedDataDomain } from 'ethers';
+import { JsonRpcProvider, TransactionResponse } from '@ethersproject/providers';
+import { MoonApi } from '../../moon-api/src/moon-api';
+import { MoonSDKConfig } from './config';
 export class MoonSDK {
-	AccountsSDK: Accounts | undefined;
 	MoonProvider: JsonRpcProvider | undefined;
+	MoonApi: MoonApi | undefined;
+	MoonSDKConfig: MoonSDKConfig | undefined;
 
-	constructor() {
-		// this.MoonProvider = new Provider('');
+	constructor(config: MoonSDKConfig) {
+		this.MoonApi = new MoonApi();
+		this.MoonSDKConfig = config;
 	}
 
-	public async SignTransaction(transaction: TransactionRequest): Promise<any> {
-		return this.AccountsSDK?.signTransaction(transaction.from, transaction);
+	public async SignTransaction(transaction: TransactionResponse): Promise<any> {
+		return this.MoonApi?.SignTransaction(transaction);
 	}
 
 	public async SignMessage(message: BytesLike): Promise<any> {
-		return this.AccountsSDK?.signMessage();
+		return this.MoonApi?.SignMessage(message);
 	}
 
 	public async SignTypedData(
@@ -27,15 +33,21 @@ export class MoonSDK {
 		throw new Error('Method not implemented.');
 	}
 
-	public async SendTransaction(body: any): Promise<any> {
-		throw new Error('Method not implemented.');
+	public async SendTransaction(rawTransaction: string): Promise<any> {
+		this.MoonApi?.SendTransaction(rawTransaction);
 	}
 
 	public async getAccounts(): Promise<any> {
-		return this.AccountsSDK?.listAccounts();
+		return this.MoonApi?.listAccounts();
 	}
 
-	public async selectAccount(body: any): Promise<any> {}
+	public async selectAccount(wallet: string): Promise<any> {
+		this.MoonApi?.setWallet(wallet);
+	}
+
+	public async setCurrentNetwork(network: number): Promise<any> {
+		this.MoonApi?.setChainId(network);
+	}
 
 	// todo
 	// handle configuration options

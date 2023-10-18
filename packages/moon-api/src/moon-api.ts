@@ -34,6 +34,9 @@ export class MoonApi {
 		this.wallet = '';
 		this.chainId = 1;
 	}
+	// public setAuthorization(type: string) {
+	// return this.AccountsSDK.sec
+	// }
 	public setToken(token: string) {
 		return this.AccountsSDK.setSecurityData({ token });
 	}
@@ -55,6 +58,11 @@ export class MoonApi {
 
 	public getChainId(): number {
 		return this.chainId;
+	}
+
+	public async listAccounts(): Promise<AccountControllerResponse> {
+		const response = await this.AccountsSDK.listAccounts();
+		return response.data;
 	}
 	transactionRequestToInputBody(tx: TransactionResponse): InputBody {
 		return {
