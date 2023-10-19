@@ -3,12 +3,17 @@ import {
 	TypedDataField,
 } from '@ethersproject/abstract-signer';
 import { BytesLike } from '@ethersproject/bytes';
-import { JsonRpcProvider, TransactionRequest } from '@ethersproject/providers';
+import { JsonRpcProvider, TransactionResponse } from '@ethersproject/providers';
 import { Chain, MOON_SUPPORTED_NETWORKS } from '@moon/types/src/chains';
 import { MoonAccount, MoonSDKConfig } from '@moon/types/src/types';
-import { AccountControllerResponse } from '../../moon-api/src/lib/data-contracts';
+import {
+	AccountControllerResponse,
+	BroadCastRawTransactionResponse,
+	Transaction,
+} from '../../moon-api/src/lib/data-contracts';
 import { MoonApi } from '../../moon-api/src/moon-api';
 import { useAuth } from './auth';
+import { MoonMessageHandler, MoonMessageType } from './messages';
 import { useStorage } from './storage';
 
 export class MoonSDK {
@@ -16,16 +21,19 @@ export class MoonSDK {
 	MoonApi: MoonApi;
 	MoonSDKConfig: MoonSDKConfig;
 	MoonAccount: MoonAccount;
+	MoonMessageHandler: MoonMessageHandler;
 
 	constructor(config: MoonSDKConfig) {
 		this.MoonSDKConfig = this.initialiseConfig(config);
 		this.MoonApi = new MoonApi(config);
+		this.MoonMessageHandler = new MoonMessageHandler();
 		this.MoonAccount =
 			this.MoonSDKConfig.Storage.getItem() ||
 			({
 				token: '',
 				email: '',
 				expiry: 0,
+				refreshToken: '',
 				wallet: '',
 				network: MOON_SUPPORTED_NETWORKS[0],
 			} as MoonAccount);
@@ -40,13 +48,69 @@ export class MoonSDK {
 
 		return sdkConfig;
 	}
+	public updateAccount(account: MoonAccount) {
+		this.MoonAccount = account;
+		this.MoonSDKConfig.Storage.setItem(account);
+	}
+
+	public async connect() {
+		// fetch account
+		this.MoonAccount =
+			this.MoonSDKConfig.Storage.getItem() ||
+			({
+				token: '',
+				email: '',
+				expiry: 0,
+				refreshToken: '',
+				wallet: '',
+				network: MOON_SUPPORTED_NETWORKS[0],
+			} as MoonAccount);
+		// check if account is valid
+		if (this.MoonAccount) {
+			// check if account is expired
+			if (this.MoonAccount.expiry < Date.now()) {
+				// refresh account
+				const account = await this.MoonApi.refreshAccount(
+					this.MoonAccount.token
+				);
+				this.updateAccount({
+					...this.MoonAccount,
+					token: account.accessToken,
+				});
+			}
+		}
+		await this.MoonMessageHandler.handle({
+			type: MoonMessageType.login,
+			data: this.MoonAccount,
+		});
+		return this.MoonAccount;
+	}
+
+	public async disconnect() {
+		this.MoonSDKConfig.Storage.removeItem();
+		this.MoonAccount = {
+			token: '',
+			email: '',
+			expiry: 0,
+			refreshToken: '',
+			wallet: '',
+			network: MOON_SUPPORTED_NETWORKS[0],
+		};
+		await this.MoonMessageHandler.handle({
+			type: MoonMessageType.logout,
+			data: this.MoonAccount,
+		});
+		return this.MoonAccount;
+	}
 
 	async logout(): Promise<void> {
 		this.MoonSDKConfig.Storage.removeItem();
 		// this.MoonApi.setToken('');
 	}
 
-	public async SignTransaction(transaction: TransactionRequest): Promise<any> {
+	public async SignTransaction(
+		transaction: TransactionResponse
+	): Promise<Transaction> {
 		return this.MoonApi?.SignTransaction(transaction);
 	}
 
@@ -65,7 +129,7 @@ export class MoonSDK {
 
 	public async SendTransaction(
 		rawTransaction: string
-	): Promise<AccountControllerResponse> {
+	): Promise<BroadCastRawTransactionResponse> {
 		return this.MoonApi?.SendTransaction(rawTransaction);
 	}
 

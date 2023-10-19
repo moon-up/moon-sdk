@@ -1,83 +1,72 @@
+import { Provider } from '@ethersproject/abstract-provider';
+import { JsonRpcProvider } from '@ethersproject/providers';
+import { MoonSDK } from '@moon/moon-sdk/src/moon';
+import { MoonAccount } from '@moon/types/src/types';
 import {
 	IEthereumProvider,
 	ProviderAccounts,
 	RequestArguments,
 } from 'eip1193-provider';
 import { EventEmitter } from 'events';
-import { JsonRpcProvider } from './json-rpc-provider';
-import { MoonSigner } from './signer';
-import { UniPassProviderOptions } from './type';
-import { SUPPORTED_CHAIN_ID, isCorrectChainId } from './utils';
-import { MoonAccount } from '@moon/types/src/types';
+import { MoonProviderOptions } from './types';
 
-export class UniPassProvider implements IEthereumProvider {
+export class MoonProvider implements IEthereumProvider {
 	private account?: MoonAccount = undefined;
+	private MoonSDK: MoonSDK;
 
 	public events: EventEmitter = new EventEmitter();
 	public chainId: number;
-	public readonly signer: MoonSigner;
+	public readonly provider: Provider;
 
-	constructor(options: UniPassProviderOptions) {
-		if (!SUPPORTED_CHAIN_ID.includes(options.chainId)) {
-			throw new Error(`Not supported chain id: ${options.chainId}`);
-		}
+	constructor(options: MoonProviderOptions) {
 		this.chainId = options.chainId;
-		this.signer = new JsonRpcProvider(
-			this.chainId,
-			options.returnEmail,
-			options.configurations,
-			options.rpcUrls,
-			options.appSettings
-		);
+		this.MoonSDK = new MoonSDK(options.MoonSDKConfig);
+		this.provider = new JsonRpcProvider(options.rpcUrl);
 	}
 
 	public async request(args: RequestArguments): Promise<any> {
-		switch (args.method) {
-			case 'eth_requestAccounts':
-				const account = await this.connect();
-				return account;
-			case 'eth_accounts':
-				return this.account?.address ? [this.account?.address] : [];
-			case 'eth_chainId':
-				return this.chainId;
-			case 'wallet_switchEthereumChain':
-				const _params =
-					args?.params && Array.isArray(args?.params) && args?.params[0]
-						? args?.params[0]
-						: undefined;
-				const chainId =
-					typeof _params?.chainId === 'string' &&
-					_params?.chainId?.startsWith('0x')
-						? parseInt(_params?.chainId, 16)
-						: _params?.chainId;
-
-				if (!SUPPORTED_CHAIN_ID.includes(chainId)) {
-					throw new Error(`chainId ${chainId} not supported`);
-				}
-				if (!isCorrectChainId(this.chainId, chainId)) {
-					throw new Error(
-						'mainnet and testnet cannot be switched to each other'
-					);
-				}
-				this.signer.updateUpWalletConfig(chainId);
-				this.chainId = chainId;
-				this.events.emit('chainChanged', _params?.chainId);
-				return;
-			default:
-				break;
+		console.log('Moon::args', args);
+		switch (
+			args.method
+			// case 'eth_requestAccounts':
+			// 	return await this._requestAccounts(args);
+			// case 'eth_getBalance':
+			// 	return await this.getBalance(args);
+			// case 'eth_accounts':
+			// 	return await this._accounts;
+			// case 'eth_chainId':
+			// 	return this._chain.chainId;
+			// case 'wallet_switchEthereumChain':
+			// 	return this.switchChain(args);
+			// case 'wallet_addEthereumChain':
+			// 	return this.addChain(args);
+			// case 'eth_call':
+			// 	return this._call(args);
+			// case 'eth_sendTransaction':
+			// 	return this._sendTransaction(args);
+			// case 'eth_blockNumber':
+			// 	return this.getBlockNumber();
+			// case 'eth_getBlockByNumber':
+			// 	return this.getBlockByBlockNumber(args);
+			// case 'eth_gasPrice':
+			// 	return this.getGasPrice();
+			// case 'eth_estimateGas':
+			// 	return this._estimateGas(args);
+			// default:
+			// 	throw this._createRpcError(4200, 'Unsupported Method');
+		) {
 		}
-		return await this.signer.request(args);
 	}
 
 	public async connect() {
-		const account = await this.signer.connect();
+		const account = await this.MoonSDK.connect();
 		this.account = account;
 		this.events.emit('connect', account);
 		return account;
 	}
 
 	public async disconnect(): Promise<void> {
-		await this.signer.disconnect();
+		await this.MoonSDK.disconnect();
 		this.events.emit('disconnect');
 		this.account = undefined;
 	}
@@ -109,7 +98,7 @@ export class UniPassProvider implements IEthereumProvider {
 	}
 
 	public getSigner() {
-		return this.signer;
+		return this.MoonSDK;
 	}
 
 	on(event: string, listener: any): void {

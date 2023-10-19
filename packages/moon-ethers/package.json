@@ -1,8 +1,9 @@
 {
   "name": "@moon/moon-ethers",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc"
@@ -11,6 +12,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/events": "^3.0.1",
+    "@types/node": "^20.8.7",
     "typescript": "^5.2.2"
   },
   "dependencies": {
@@ -21,7 +23,7 @@
     "@ethersproject/properties": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",
     "@moon/moon-sdk": "file:../moon-sdk",
-    "@moon/moon-types": "file:../moon-types",
+    "@moon/types": "file:../moon-types",
     "eip1193-provider": "^1.0.1",
     "events": "^3.3.0"
   }

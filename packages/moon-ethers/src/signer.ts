@@ -10,23 +10,28 @@ import {
 	TransactionRequest,
 	TransactionResponse,
 } from '@ethersproject/providers';
-// import { MoonApi } from '@moon/moon-api';
-// import { BytesLike, TypedDataDomain, TypedDataField, ethers } from 'ethers';
 import { MoonSDK } from '@moon/moon-sdk/src/moon';
+import { MoonSDKConfig } from '@moon/types/src/types';
+import {
+	BroadCastRawTransactionResponse,
+	Transaction,
+} from '../../moon-api/src/lib/data-contracts';
 
 export class MoonSigner extends Signer {
 	declare readonly provider: Provider;
 	declare readonly _isSigner: boolean;
 	MoonSDK: MoonSDK;
+	Config: MoonSDKConfig;
 
-	constructor(provider: Provider) {
+	constructor(provider: Provider, MoonSDKConfig: MoonSDKConfig) {
 		super();
 		defineReadOnly(this, '_isSigner', true);
-		this.MoonSDK = new MoonSDK();
+		this.Config = MoonSDKConfig;
+		this.MoonSDK = new MoonSDK(MoonSDKConfig);
 	}
 	connect(provider: Provider): Signer {
 		console.log('Moon::connect', provider);
-		return new MoonSigner(provider);
+		return new MoonSigner(provider, this.Config);
 	}
 
 	async signTypedData(
@@ -34,8 +39,7 @@ export class MoonSigner extends Signer {
 		types: Record<string, TypedDataField[]>,
 		value: Record<string, any>
 	): Promise<string> {
-		const data = this.getTypedData(domain, types, value);
-		const response = await this.MoonSDK.SignTypedData(data);
+		const response = await this.MoonSDK.SignTypedData(domain, types, value);
 		return response.signature;
 	}
 
@@ -46,19 +50,15 @@ export class MoonSigner extends Signer {
 	async getAddress(): Promise<string> {
 		throw new Error('Method not implemented.');
 	}
-
-	/**
-	 * @summary Get nonce
-	 * @returns  {number} successful operation
-	 */
-	async getNonce(): Promise<number> {
-		const response = await this.account.getNonce(this.accountName);
-		return response.nonce;
-	}
-
 	async signMessage(message: BytesLike): Promise<string> {
 		const response = await this.MoonSDK.SignMessage(message);
 		return response.signed_message;
+	}
+	async broadcastTransaction(
+		signedTransaction: string
+	): Promise<BroadCastRawTransactionResponse> {
+		const response = await this.MoonSDK.SendTransaction(signedTransaction);
+		return response;
 	}
 
 	async sendTransaction(
@@ -69,21 +69,23 @@ export class MoonSigner extends Signer {
 		const signedRes = await this.signTransaction(tx);
 		console.log('Moon::sendTransaction: signedRawTx', signedRes);
 
-		const response = await this.broadcastTx(signedRes, tx?.chainId);
+		const response = await this.broadcastTransaction(signedRes || '');
 		console.log('Moon::sendTransaction: broadcastTx res', response);
 		const txResponse =
-			(await this.provider.getTransaction(signedRes?.transaction_hash || '')) ||
+			(await this.provider.getTransaction(response.data || '')) ||
 			(tx as TransactionResponse);
 		console.log('Moon::sendTransaction: txResponse', txResponse);
 
 		return txResponse;
 	}
 
-	async signTransaction(transaction: TransactionRequest): Promise<any> {
+	async signTransaction(transaction: TransactionRequest): Promise<string> {
 		try {
-			const tx = await this.populateTransaction(transaction);
-			const signedTx = await this.MoonSDK.SignTransaction(tx);
-			return response;
+			const tx = (await this.populateTransaction(
+				transaction
+			)) as TransactionResponse;
+			const signedTx: Transaction = await this.MoonSDK.SignTransaction(tx);
+			return signedTx.signed_transaction;
 		} catch (e) {
 			console.log(e);
 			throw e;
@@ -107,17 +109,11 @@ export class MoonSigner extends Signer {
 		domain: TypedDataDomain,
 		types: Record<string, Array<TypedDataField>>,
 		message: Record<string, any>
-	): Promise<TypedData> {
+	): Promise<any> {
 		return {
 			domain,
 			types,
 			message,
 		};
 	}
-}
-
-export interface TypedData {
-	domain: TypedDataDomain;
-	types: Record<string, Array<TypedDataField>>;
-	message: Record<string, any>;
 }

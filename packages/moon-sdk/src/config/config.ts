@@ -14,6 +14,7 @@ export const baseConfig: MoonSDKConfig = {
 			email: '',
 			expiry: 0,
 			wallet: '',
+			refreshToken: '',
 			network: MOON_SUPPORTED_NETWORKS[0],
 		},
 		securityWorker: () => {},

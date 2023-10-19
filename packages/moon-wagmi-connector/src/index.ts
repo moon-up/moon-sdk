@@ -1,8 +1,5 @@
-import {
-	UniPassProvider,
-	UniPassProviderOptions,
-} from '@unipasswallet/ethereum-provider';
-import { UPAccount } from '@unipasswallet/popup-types';
+import { MoonProvider } from '@moon/ethers/src/provider';
+import { MoonProviderOptions } from '@moon/ethers/src/types';
 import { providers } from 'ethers';
 import {
 	ProviderRpcError,
@@ -11,31 +8,32 @@ import {
 	custom,
 } from 'viem';
 import { Address, Chain, Connector, WalletClient } from 'wagmi';
+import { MoonAccount } from '../../moon-types/src/types';
 
-interface UniPassConnectorOptions {
+interface MoonConnectorOptions {
 	chains?: Chain[];
-	options: UniPassProviderOptions;
+	options: MoonProviderOptions;
 }
 
-export class UniPassConnector extends Connector<
-	UniPassProvider,
-	UniPassProviderOptions
+export class MoonConnector extends Connector<
+	MoonProvider,
+	MoonProviderOptions
 > {
-	id = 'unipass';
-	name = 'UniPass';
+	id = 'moon';
+	name = 'Moon';
 	ready = true;
 
-	options: UniPassProviderOptions;
-	provider: UniPassProvider;
+	options: MoonProviderOptions;
+	provider: MoonProvider;
 
-	constructor({ chains, options }: UniPassConnectorOptions) {
+	constructor({ chains, options }: MoonConnectorOptions) {
 		super({ chains, options });
 		this.options = options;
-		this.provider = new UniPassProvider(options);
+		this.provider = new MoonProvider(options);
 	}
 
-	public get upAccount() {
-		return this.getUpAccount();
+	public get MoonAccount() {
+		return this.getMoonAccount();
 	}
 
 	async connect() {
@@ -75,24 +73,28 @@ export class UniPassConnector extends Connector<
 		]);
 		const chainId = await this.getChainId();
 		const chain = this.chains.find((x) => x.id === chainId);
-		if (!provider || !account) throw new Error('provider is required.');
+		if (!provider || !account || !chain)
+			throw new Error('provider, account and chain are required.');
 
 		return createWalletClient({
-			account: account as `0x${any}`,
+			account: {
+				address: account,
+				type: 'json-rpc',
+			},
 			chain,
 			transport: custom(provider),
 		});
 	}
 
 	async getAccount(): Promise<any> {
-		return Promise.resolve(this.upAccount?.address || '');
+		return Promise.resolve(this.MoonAccount?.wallet || '');
 	}
 
 	async getChainId(): Promise<number> {
 		return Promise.resolve(this.provider.getChainId());
 	}
 
-	async getProvider(): Promise<UniPassProvider> {
+	async getProvider(): Promise<MoonProvider> {
 		return Promise.resolve(this.provider);
 	}
 
@@ -133,7 +135,7 @@ export class UniPassConnector extends Connector<
 		this?.emit('disconnect');
 	}
 
-	private getUpAccount(): UPAccount | undefined {
+	private getMoonAccount(): MoonAccount | undefined {
 		try {
 			const sessionAccount = sessionStorage.getItem('UP-A');
 			const localAccount = localStorage.getItem('UP-A');

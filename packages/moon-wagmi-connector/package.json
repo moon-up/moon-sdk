@@ -1,8 +1,9 @@
 {
   "name": "@moon/wagmi-connector",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc"
@@ -13,8 +14,10 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "@moon/ethers": "file:../moon-ethers",
+    "@moon/types": "file:../types",
+    "ethers": "^5.7.2",
     "viem": "^1.16.6",
-    "wagmi": "^1.4.4",
-    "@moon/moon-api": "file:../moon-api"
+    "wagmi": "^1.4.4"
   }
 }

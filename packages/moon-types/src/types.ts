@@ -14,6 +14,7 @@ export interface MoonStorage {
 
 export interface MoonAccount {
 	token: string;
+	refreshToken: string;
 	email: string;
 	expiry: number;
 	wallet: string;

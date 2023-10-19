@@ -1,7 +1,4 @@
-import {
-	TransactionRequest,
-	TransactionResponse,
-} from '@ethersproject/abstract-provider';
+import { TransactionResponse } from '@ethersproject/abstract-provider';
 import {
 	TypedDataDomain,
 	TypedDataField,
@@ -10,12 +7,19 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { BytesLike, arrayify } from '@ethersproject/bytes';
 import { hashMessage } from '@ethersproject/hash';
 import { MoonSDKConfig } from '@moon/types/src/types';
+import { Auth, RefreshTokenResponse } from './auth';
 import { Accounts } from './lib';
-import { AccountControllerResponse, InputBody } from './lib/data-contracts';
+import {
+	AccountControllerResponse,
+	BroadCastRawTransactionResponse,
+	InputBody,
+	Transaction,
+} from './lib/data-contracts';
 import { ContentType } from './lib/http-client';
 
 export class MoonApi {
 	private AccountsSDK: Accounts;
+	private AuthSDK: Auth;
 	private wallet: string;
 	private chainId: number;
 	private config: MoonSDKConfig;
@@ -23,6 +27,15 @@ export class MoonApi {
 	constructor(MoonSDKConfig: MoonSDKConfig) {
 		this.config = MoonSDKConfig;
 		this.AccountsSDK = new Accounts({
+			baseUrl: 'https://vault-api.usemoon.ai',
+			baseApiParams: {
+				secure: true,
+				type: ContentType.Json,
+				format: 'json',
+			},
+			securityWorker: this.config.Auth.securityWorker,
+		});
+		this.AuthSDK = new Auth({
 			baseUrl: 'https://vault-api.usemoon.ai',
 			baseApiParams: {
 				secure: true,
@@ -60,6 +73,11 @@ export class MoonApi {
 	// 	return this.chainId;
 	// }
 
+	public async refreshAccount(token: string): Promise<RefreshTokenResponse> {
+		const response = await this.AuthSDK.refreshToken({ refreshToken: token });
+		return response.data;
+	}
+
 	public async listAccounts(): Promise<AccountControllerResponse> {
 		const response = await this.AccountsSDK.listAccounts();
 		return response.data;
@@ -78,13 +96,13 @@ export class MoonApi {
 	}
 
 	public async SignTransaction(
-		transaction: TransactionRequest
-	): Promise<AccountControllerResponse> {
+		transaction: TransactionResponse
+	): Promise<Transaction> {
 		const response = await this.AccountsSDK?.signTransaction(
 			this.wallet,
 			this.transactionRequestToInputBody(transaction)
 		);
-		return response.data;
+		return response.data as Transaction;
 	}
 
 	public async SignMessage(
@@ -108,11 +126,11 @@ export class MoonApi {
 
 	public async SendTransaction(
 		rawTransaction: string
-	): Promise<AccountControllerResponse> {
+	): Promise<BroadCastRawTransactionResponse> {
 		const response = await this.AccountsSDK.broadcastTx(this.wallet, {
 			rawTransaction: rawTransaction,
 			chainId: this.chainId.toString(),
 		});
-		return response.data;
+		return response.data as BroadCastRawTransactionResponse;
 	}
 }
