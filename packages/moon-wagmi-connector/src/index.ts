@@ -1,79 +1,147 @@
-import { CoolWalletOptions, CoolWalletProvider } from 'cool-wallet-sdk';
-import { Address, Chain, Connector, ConnectorData, WalletClient } from 'wagmi';
+import {
+	UniPassProvider,
+	UniPassProviderOptions,
+} from '@unipasswallet/ethereum-provider';
+import { UPAccount } from '@unipasswallet/popup-types';
+import { providers } from 'ethers';
+import {
+	ProviderRpcError,
+	UserRejectedRequestError,
+	createWalletClient,
+	custom,
+} from 'viem';
+import { Address, Chain, Connector, WalletClient } from 'wagmi';
 
-export class CoolWalletConnector extends Connector<
-	CoolWalletProvider,
-	CoolWalletOptions
+interface UniPassConnectorOptions {
+	chains?: Chain[];
+	options: UniPassProviderOptions;
+}
+
+export class UniPassConnector extends Connector<
+	UniPassProvider,
+	UniPassProviderOptions
 > {
-	readonly id = 'coolWallet';
-	readonly name = 'Cool Wallet';
-	readonly ready = true;
+	id = 'unipass';
+	name = 'UniPass';
+	ready = true;
 
-	#provider?: CoolWalletProvider;
+	options: UniPassProviderOptions;
+	provider: UniPassProvider;
 
-	constructor(config: { chains?: Chain[]; options: CoolWalletOptions }) {
-		super(config);
-	}
-	connect(
-		config?: { chainId?: number | undefined } | undefined
-	): Promise<Required<ConnectorData>> {
-		throw new Error('Method not implemented.');
+	constructor({ chains, options }: UniPassConnectorOptions) {
+		super({ chains, options });
+		this.options = options;
+		this.provider = new UniPassProvider(options);
 	}
 
-	disconnect(): Promise<void> {
-		throw new Error('Method not implemented.');
+	public get upAccount() {
+		return this.getUpAccount();
 	}
 
-	getAccount(): Promise<Address> {
-		throw new Error('Method not implemented.');
-	}
-	getChainId(): Promise<number> {
-		throw new Error('Method not implemented.');
-	}
-	async getProvider() {
-		if (!this.#provider) {
-			this.#provider = new CoolWalletProvider(this.options);
+	async connect() {
+		let _account: any;
+		try {
+			// @ts-ignore-next-line
+			this?.emit('message', { type: 'connecting' });
+			_account = await this.provider.connect();
+		} catch (error) {
+			if (/user rejected/i.test((error as ProviderRpcError)?.message)) {
+				throw new UserRejectedRequestError(error as Error);
+			}
+			throw error;
 		}
-		return this.#provider;
+
+		const chianId = this.provider.getChainId();
+		const address = _account.address as Address;
+
+		return {
+			account: address,
+			chain: {
+				id: chianId,
+				unsupported: false,
+			},
+			provider: new providers.Web3Provider(this.provider, 'any'),
+		};
 	}
 
-	getWalletClient(
-		config?: { chainId?: number | undefined } | undefined
-	): Promise<WalletClient> {
-		throw new Error('Method not implemented.');
+	async disconnect(): Promise<void> {
+		await this.provider.disconnect();
 	}
 
-	isAuthorized(): Promise<boolean> {
-		throw new Error('Method not implemented.');
+	async getWalletClient(): Promise<WalletClient> {
+		const [provider, account] = await Promise.all([
+			this.getProvider(),
+			this.getAccount(),
+		]);
+		const chainId = await this.getChainId();
+		const chain = this.chains.find((x) => x.id === chainId);
+		if (!provider || !account) throw new Error('provider is required.');
+
+		return createWalletClient({
+			account: account as `0x${any}`,
+			chain,
+			transport: custom(provider),
+		});
 	}
 
-	switchChain?(chainId: number): Promise<Chain> {
-		throw new Error('Method not implemented.');
+	async getAccount(): Promise<any> {
+		return Promise.resolve(this.upAccount?.address || '');
 	}
 
-	watchAsset(asset: {
-		address: string;
-		decimals?: number | undefined;
-		image?: string | undefined;
-		symbol: string;
-	}): Promise<boolean> {
-		throw new Error('Method not implemented.');
+	async getChainId(): Promise<number> {
+		return Promise.resolve(this.provider.getChainId());
 	}
 
-	protected onAccountsChanged(accounts: `0x${string}`[]): void {
-		throw new Error('Method not implemented.');
+	async getProvider(): Promise<UniPassProvider> {
+		return Promise.resolve(this.provider);
 	}
 
-	protected onChainChanged(chain: string | number): void {
-		throw new Error('Method not implemented.');
+	async getSigner(): Promise<any> {
+		const chainId = await this.getChainId();
+		const account = await this.getAccount();
+		return Promise.resolve(
+			new providers.Web3Provider(this.provider, chainId).getSigner(account)
+		);
 	}
-	protected onDisconnect(error: Error): void {
-		throw new Error('Method not implemented.');
+
+	async switchChain(chainId: number): Promise<Chain> {
+		await this.provider?.request({
+			method: 'wallet_switchEthereumChain',
+			params: [{ chainId: `0x${chainId.toString(16)}` }],
+		});
+		// @ts-ignore-next-line
+		this?.emit('change', { chain: { id: chainId, unsupported: false } });
+		return { id: chainId } as Chain;
 	}
-	protected getBlockExplorerUrls(chain: Chain): string[] | undefined {
-		throw new Error('Method not implemented.');
+
+	async isAuthorized(): Promise<boolean> {
+		return Promise.resolve(!!sessionStorage.getItem('UP-A'));
 	}
-	protected isChainUnsupported(chainId: number): boolean {
-		throw new Error('Method not implemented.');
+
+	protected onAccountsChanged(accounts: string[]) {
+		return { account: accounts[0] };
+	}
+
+	protected onChainChanged(chain: number): void {
+		this.provider?.events?.emit('chainChanged', chain);
+		// @ts-ignore-next-line
+		this?.emit('change', { chain: { id: chain, unsupported: true } });
+	}
+
+	protected onDisconnect() {
+		// @ts-ignore-next-line
+		this?.emit('disconnect');
+	}
+
+	private getUpAccount(): UPAccount | undefined {
+		try {
+			const sessionAccount = sessionStorage.getItem('UP-A');
+			const localAccount = localStorage.getItem('UP-A');
+			if (sessionAccount) return JSON.parse(sessionAccount);
+			if (localAccount) return JSON.parse(localAccount);
+		} catch {
+			return;
+		}
+		return;
 	}
 }

@@ -7,15 +7,17 @@ export const MOON_SESSION_KEY = 'MoonSessionKey';
 export interface MoonStorage {
 	type: Storage;
 	key: string;
-	setItem(key: string, value: string): void;
-	getItem(key: string): string | null;
-	removeItem(key: string): void;
+	setItem(account: MoonAccount): void;
+	getItem(): MoonAccount | null;
+	removeItem(): void;
 }
 
 export interface MoonAccount {
 	token: string;
 	email: string;
 	expiry: number;
+	wallet: string;
+	network: Chain;
 }
 
 export enum AUTH {
@@ -25,7 +27,8 @@ export enum AUTH {
 }
 export interface MoonToken {
 	type: AUTH;
-	token: string;
+	MoonAccount: MoonAccount;
+	securityWorker: (securityData: any) => Promise<any> | any;
 	CLIENT_ID?: string;
 	CLIENT_SECRET?: string;
 	REDIRECT_URI?: string;

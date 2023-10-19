@@ -3677,7 +3677,7 @@
 	},
 	"servers": [
 		{
-			"url": "https://vault-api.usemoon.ai/"
+			"url": "https://vault-api.usemoon.ai"
 		}
 	]
 }

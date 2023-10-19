@@ -1,5 +1,5 @@
 {
-  "name": "@moon/moon-sdk",
+  "name": "@moon/moon-ethers",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -17,11 +17,12 @@
     "@ethersproject/abstract-provider": "^5.7.0",
     "@ethersproject/abstract-signer": "^5.7.0",
     "@ethersproject/bignumber": "^5.7.0",
+    "@ethersproject/bytes": "^5.7.0",
     "@ethersproject/properties": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",
+    "@moon/moon-sdk": "file:../moon-sdk",
+    "@moon/moon-types": "file:../moon-types",
     "eip1193-provider": "^1.0.1",
-    "ethers": "^5.7.2",
-    "events": "^3.3.0",
-    "@moon/moon-api": "file:../moon-api"
+    "events": "^3.3.0"
   }
 }

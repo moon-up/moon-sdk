@@ -14,6 +14,8 @@
   },
   "dependencies": {
     "@ethersproject/providers": "^5.7.2",
-    "@moon/moon-api": "file:../moon-api"
+    "@moon/moon-api": "file:../moon-api",
+    "@moon/types": "file:../moon-types",
+    "typedots": "^0.0.2"
   }
 }

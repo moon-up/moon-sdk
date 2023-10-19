@@ -1,4 +1,3 @@
-import { UPAccount } from '@unipasswallet/popup-types';
 import {
 	IEthereumProvider,
 	ProviderAccounts,
@@ -6,15 +5,17 @@ import {
 } from 'eip1193-provider';
 import { EventEmitter } from 'events';
 import { JsonRpcProvider } from './json-rpc-provider';
+import { MoonSigner } from './signer';
 import { UniPassProviderOptions } from './type';
 import { SUPPORTED_CHAIN_ID, isCorrectChainId } from './utils';
+import { MoonAccount } from '@moon/types/src/types';
 
 export class UniPassProvider implements IEthereumProvider {
-	private account?: UPAccount = undefined;
+	private account?: MoonAccount = undefined;
 
 	public events: EventEmitter = new EventEmitter();
 	public chainId: number;
-	public readonly signer: JsonRpcProvider;
+	public readonly signer: MoonSigner;
 
 	constructor(options: UniPassProviderOptions) {
 		if (!SUPPORTED_CHAIN_ID.includes(options.chainId)) {

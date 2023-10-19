@@ -1,4 +1,7 @@
-import { TransactionResponse } from '@ethersproject/abstract-provider';
+import {
+	TransactionRequest,
+	TransactionResponse,
+} from '@ethersproject/abstract-provider';
 import {
 	TypedDataDomain,
 	TypedDataField,
@@ -6,6 +9,7 @@ import {
 import { BigNumber } from '@ethersproject/bignumber';
 import { BytesLike, arrayify } from '@ethersproject/bytes';
 import { hashMessage } from '@ethersproject/hash';
+import { MoonSDKConfig } from '@moon/types/src/types';
 import { Accounts } from './lib';
 import { AccountControllerResponse, InputBody } from './lib/data-contracts';
 import { ContentType } from './lib/http-client';
@@ -14,8 +18,10 @@ export class MoonApi {
 	private AccountsSDK: Accounts;
 	private wallet: string;
 	private chainId: number;
+	private config: MoonSDKConfig;
 
-	constructor() {
+	constructor(MoonSDKConfig: MoonSDKConfig) {
+		this.config = MoonSDKConfig;
 		this.AccountsSDK = new Accounts({
 			baseUrl: 'https://vault-api.usemoon.ai',
 			baseApiParams: {
@@ -23,42 +29,36 @@ export class MoonApi {
 				type: ContentType.Json,
 				format: 'json',
 			},
-			securityWorker(securityData: any) {
-				return {
-					headers: {
-						Authorization: `Bearer ${securityData.token}`,
-					},
-				};
-			},
+			securityWorker: this.config.Auth.securityWorker,
 		});
 		this.wallet = '';
 		this.chainId = 1;
 	}
-	// public setAuthorization(type: string) {
-	// return this.AccountsSDK.sec
+	// // public setAuthorization(type: string) {
+	// // return this.AccountsSDK.sec
+	// // }
+	// public setToken(token: string) {
+	// 	return this.AccountsSDK.setSecurityData({ token });
 	// }
-	public setToken(token: string) {
-		return this.AccountsSDK.setSecurityData({ token });
-	}
-	public setWallet(wallet: string) {
-		this.wallet = wallet;
-	}
+	// public setWallet(wallet: string) {
+	// 	this.wallet = wallet;
+	// }
 
-	public getWallet(): string {
-		return this.wallet;
-	}
+	// public getWallet(): string {
+	// 	return this.wallet;
+	// }
 
-	public getAccountsSDK(): Accounts {
-		return this.AccountsSDK;
-	}
+	// public getAccountsSDK(): Accounts {
+	// 	return this.AccountsSDK;
+	// }
 
-	public setChainId(chainId: number) {
-		this.chainId = chainId;
-	}
+	// public setChainId(chainId: number) {
+	// 	this.chainId = chainId;
+	// }
 
-	public getChainId(): number {
-		return this.chainId;
-	}
+	// public getChainId(): number {
+	// 	return this.chainId;
+	// }
 
 	public async listAccounts(): Promise<AccountControllerResponse> {
 		const response = await this.AccountsSDK.listAccounts();
@@ -78,7 +78,7 @@ export class MoonApi {
 	}
 
 	public async SignTransaction(
-		transaction: TransactionResponse
+		transaction: TransactionRequest
 	): Promise<AccountControllerResponse> {
 		const response = await this.AccountsSDK?.signTransaction(
 			this.wallet,
