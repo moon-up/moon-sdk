@@ -1,0 +1,1 @@
+npx swagger-typescript-api -p swagger.json -o ./src --modular

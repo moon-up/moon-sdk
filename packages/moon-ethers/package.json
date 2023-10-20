@@ -1,9 +1,14 @@
 {
-  "name": "@moon/moon-ethers",
+  "name": "@moon/ethers",
   "version": "0.0.1",
   "description": "",
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc"
