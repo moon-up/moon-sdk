@@ -1,6 +1,6 @@
 {
-  "name": "@moon/types",
-  "version": "0.0.1",
+  "name": "@moonup/types",
+  "version": "0.0.3",
   "description": "",
   "type": "module",
   "main": "dist/index.js",

@@ -10,12 +10,12 @@ import {
 	TransactionRequest,
 	TransactionResponse,
 } from '@ethersproject/providers';
-import { MoonSDK } from '@moon/moon-sdk/src/moon';
-import { MoonSDKConfig } from '@moon/types/src/types';
 import {
 	BroadCastRawTransactionResponse,
 	Transaction,
-} from '../../moon-api/src/lib/data-contracts';
+} from '@moonup/moon-api/src/lib/data-contracts';
+import { MoonSDK } from '@moonup/moon-sdk/src/moon';
+import { MoonSDKConfig } from '@moonup/types/src/types';
 
 export class MoonSigner extends Signer {
 	declare readonly provider: Provider;
@@ -27,6 +27,7 @@ export class MoonSigner extends Signer {
 		super();
 		defineReadOnly(this, '_isSigner', true);
 		this.Config = MoonSDKConfig;
+		this.provider = provider;
 		this.MoonSDK = new MoonSDK(MoonSDKConfig);
 	}
 	connect(provider: Provider): Signer {

@@ -1,5 +1,5 @@
-import { MoonProviderOptions } from '@moon/ethers/src/types';
-import { MoonConnector } from '@moon/wagmi-connector';
+import { MoonProviderOptions } from '@moonup/ethers/src/types';
+import { MoonConnector } from '@moonup/wagmi-connector/src/index';
 import { Chain, Wallet } from '@rainbow-me/rainbowkit';
 
 export interface MyWalletOptions {

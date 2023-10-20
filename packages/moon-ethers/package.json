@@ -1,6 +1,6 @@
 {
-  "name": "@moon/ethers",
-  "version": "0.0.1",
+  "name": "@moonup/ethers",
+  "version": "0.0.2",
   "description": "",
   "type": "module",
   "main": "dist/index.js",
@@ -27,8 +27,8 @@
     "@ethersproject/bytes": "^5.7.0",
     "@ethersproject/properties": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",
-    "@moon/moon-sdk": "file:../moon-sdk",
-    "@moon/types": "file:../moon-types",
+    "@moonup/moon-sdk": "^0.0.4",
+    "@moonup/types": "^0.0.3",
     "eip1193-provider": "^1.0.1",
     "events": "^3.3.0"
   }

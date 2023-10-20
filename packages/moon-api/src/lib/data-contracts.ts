@@ -45,6 +45,31 @@ export interface BalanceResponse {
   balance: string;
 }
 
+export interface Tx {
+  /** @format double */
+  type?: number;
+  /** @format double */
+  chain_id?: number;
+  data?: string;
+  gas?: string;
+  gas_price?: string;
+  gas_tip_cap?: string | null;
+  gas_fee_cap?: string | null;
+  value?: string;
+  /** @format double */
+  nonce?: number;
+  from?: string;
+  to?: string | null;
+  blob_gas?: string | null;
+  blob_gas_fee_cap?: string | null;
+  blob_hashes?: string[] | null;
+  v?: string;
+  r?: string;
+  s?: string;
+}
+
+export type TxMap = Record<string, Tx>;
+
 export interface Transaction {
   moon_scan_url?: string;
   transaction_hash: string;
@@ -52,6 +77,7 @@ export interface Transaction {
   signed_message?: string;
   raw_transaction?: string;
   signature?: string;
+  transaction?: TxMap;
 }
 
 export interface Account {
@@ -142,16 +168,24 @@ export interface AccountControllerResponse {
 }
 
 export interface InputBody {
-  chain_id?: string;
-  encoding?: string;
-  contract_address?: string;
   to?: string;
+  data?: string;
   input?: string;
   value?: string;
   nonce?: string;
   gas?: string;
   gasPrice?: string;
-  data?: string;
+  chain_id?: string;
+  encoding?: string;
+  EOA?: boolean;
+  contract_address?: string;
+  token_id?: string;
+  token_ids?: string;
+  approved?: boolean;
+}
+
+export interface SignTypedData {
+  data: string;
 }
 
 export interface CreateAccountInput {
@@ -171,16 +205,20 @@ export interface BroadcastInput {
 }
 
 export interface AaveInput {
-  chain_id?: string;
-  encoding?: string;
-  contract_address?: string;
   to?: string;
+  data?: string;
   input?: string;
   value?: string;
   nonce?: string;
   gas?: string;
   gasPrice?: string;
-  data?: string;
+  chain_id?: string;
+  encoding?: string;
+  EOA?: boolean;
+  contract_address?: string;
+  token_id?: string;
+  token_ids?: string;
+  approved?: boolean;
   lending_pool?: string;
   amount?: string;
   atoken_to_redeeem?: string;
@@ -250,32 +288,37 @@ export interface EnsResolveInput {
 }
 
 export interface Erc1155Request {
-  chain_id?: string;
-  encoding?: string;
-  contract_address?: string;
   to?: string;
+  data?: string;
   input?: string;
   value?: string;
   nonce?: string;
   gas?: string;
   gasPrice?: string;
-  data?: string;
+  chain_id?: string;
+  encoding?: string;
+  EOA?: boolean;
+  contract_address?: string;
+  token_id?: string;
   token_ids?: string;
   approved?: boolean;
 }
 
 export interface Erc721Request {
-  chain_id?: string;
-  encoding?: string;
-  contract_address?: string;
   to?: string;
+  data?: string;
   input?: string;
   value?: string;
   nonce?: string;
   gas?: string;
   gasPrice?: string;
-  data?: string;
+  chain_id?: string;
+  encoding?: string;
+  EOA?: boolean;
+  contract_address?: string;
   token_id?: string;
+  token_ids?: string;
+  approved?: boolean;
 }
 
 export interface PingResponse {
@@ -283,16 +326,20 @@ export interface PingResponse {
 }
 
 export interface UniswapInput {
-  chain_id?: string;
-  encoding?: string;
-  contract_address?: string;
   to?: string;
+  data?: string;
   input?: string;
   value?: string;
   nonce?: string;
   gas?: string;
   gasPrice?: string;
-  data?: string;
+  chain_id?: string;
+  encoding?: string;
+  EOA?: boolean;
+  contract_address?: string;
+  token_id?: string;
+  token_ids?: string;
+  approved?: boolean;
   token_a?: string;
   token_b?: string;
   amount_a?: string;

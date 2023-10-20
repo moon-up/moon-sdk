@@ -6,11 +6,12 @@ import {
 import { BigNumber } from '@ethersproject/bignumber';
 import { BytesLike, arrayify } from '@ethersproject/bytes';
 import { hashMessage } from '@ethersproject/hash';
-import { MoonSDKConfig } from '@moon/types/src/types';
+import { MoonSDKConfig } from '@moonup/types/src/types';
 import { Auth, RefreshTokenResponse } from './auth';
 import { Accounts } from './lib';
 import {
 	AccountControllerResponse,
+	AccountResponse,
 	BroadCastRawTransactionResponse,
 	InputBody,
 	Transaction,
@@ -78,9 +79,9 @@ export class MoonApi {
 		return response.data;
 	}
 
-	public async listAccounts(): Promise<AccountControllerResponse> {
+	public async listAccounts(): Promise<AccountResponse> {
 		const response = await this.AccountsSDK.listAccounts();
-		return response.data;
+		return response.data as AccountResponse;
 	}
 	transactionRequestToInputBody(tx: TransactionResponse): InputBody {
 		return {
@@ -119,9 +120,15 @@ export class MoonApi {
 		domain: TypedDataDomain,
 		types: Record<string, Array<TypedDataField>>,
 		value: Record<string, any>
-	): Promise<any> {
-		// return this.AccountsSDK.sign;
-		throw new Error('Method not implemented.');
+	): Promise<AccountControllerResponse> {
+		const response = await this.AccountsSDK.signTypedData(this.wallet, {
+			data: JSON.stringify({
+				domain,
+				types,
+				value,
+			}),
+		});
+		return response.data;
 	}
 
 	public async SendTransaction(

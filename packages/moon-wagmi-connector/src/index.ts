@@ -1,5 +1,6 @@
-import { MoonProvider } from '@moon/ethers/src/provider';
-import { MoonProviderOptions } from '@moon/ethers/src/types';
+import { MoonProvider } from '@moonup/ethers/src/provider';
+import { MoonProviderOptions } from '@moonup/ethers/src/types';
+import { MoonAccount } from '@moonup/types/src/types';
 import { providers } from 'ethers';
 import {
 	ProviderRpcError,
@@ -8,7 +9,6 @@ import {
 	custom,
 } from 'viem';
 import { Address, Chain, Connector, WalletClient } from 'wagmi';
-import { MoonAccount } from '../../moon-types/src/types';
 
 interface MoonConnectorOptions {
 	chains?: Chain[];

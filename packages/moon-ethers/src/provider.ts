@@ -1,13 +1,15 @@
 import { Provider } from '@ethersproject/abstract-provider';
 import { JsonRpcProvider } from '@ethersproject/providers';
-import { MoonSDK } from '@moon/moon-sdk/src/moon';
-import { MoonAccount } from '@moon/types/src/types';
+import { MoonSDK } from '@moonup/moon-sdk/src/moon';
+import { MoonAccount } from '@moonup/types/src/types';
 import {
 	IEthereumProvider,
 	ProviderAccounts,
+	ProviderRpcError,
 	RequestArguments,
 } from 'eip1193-provider';
 import { EventEmitter } from 'events';
+import { MoonSigner } from './signer';
 import { MoonProviderOptions } from './types';
 
 export class MoonProvider implements IEthereumProvider {
@@ -16,26 +18,29 @@ export class MoonProvider implements IEthereumProvider {
 
 	public events: EventEmitter = new EventEmitter();
 	public chainId: number;
+	public isMetaMask: boolean;
 	public readonly provider: Provider;
+	public readonly config: MoonProviderOptions;
 
 	constructor(options: MoonProviderOptions) {
 		this.chainId = options.chainId;
+		this.config = options;
+		this.isMetaMask = false;
 		this.MoonSDK = new MoonSDK(options.MoonSDKConfig);
 		this.provider = new JsonRpcProvider(options.rpcUrl);
 	}
 
 	public async request(args: RequestArguments): Promise<any> {
 		console.log('Moon::args', args);
-		switch (
-			args.method
-			// case 'eth_requestAccounts':
-			// 	return await this._requestAccounts(args);
-			// case 'eth_getBalance':
-			// 	return await this.getBalance(args);
-			// case 'eth_accounts':
-			// 	return await this._accounts;
-			// case 'eth_chainId':
-			// 	return this._chain.chainId;
+		switch (args.method) {
+			case 'eth_requestAccounts':
+				return await this._requestAccounts(args);
+			case 'eth_getBalance':
+				return await this.getBalance(args);
+			case 'eth_accounts':
+				return await this.MoonSDK.getAccounts();
+			case 'eth_chainId':
+				return this.getChainId();
 			// case 'wallet_switchEthereumChain':
 			// 	return this.switchChain(args);
 			// case 'wallet_addEthereumChain':
@@ -52,10 +57,91 @@ export class MoonProvider implements IEthereumProvider {
 			// 	return this.getGasPrice();
 			// case 'eth_estimateGas':
 			// 	return this._estimateGas(args);
-			// default:
-			// 	throw this._createRpcError(4200, 'Unsupported Method');
-		) {
+			default:
+				throw this._createRpcError(4200, 'Unsupported Method');
 		}
+	}
+
+	// private async _sendTransaction(args: any) {
+	// 	console.log('Moon::_sendTransaction', args);
+	// 	const tx = args?.params[0] as TransactionRequest;
+	// 	return this.send(tx);
+	// }
+
+	// async getBlockNumber(): Promise<number> {
+	// 	let res = await this._provider.getBlockNumber();
+	// 	console.log('Moon::getBlockNumber', res);
+	// 	return res;
+	// }
+	// async getBlockByBlockNumber(args: any): Promise<null | Block> {
+	// 	if (args?.params[0] && args?.params[1]) {
+	// 		let res = await this._provider.getBlock(args?.params[0], args?.params[1]);
+	// 		console.log('Moon::getBlockByBlockNumber', res);
+	// 		return res;
+	// 	}
+	// 	return null;
+	// }
+
+	// async getNetwork(): Promise<Network> {
+	// 	return this._provider.getNetwork();
+	// }
+
+	// async getTransaction(
+	// 	hash: string
+	// ): Promise<ethers.TransactionResponse | null> {
+	// 	return this._provider.getTransaction(hash);
+	// }
+
+	// async _estimateGas(args: any): Promise<bigint> {
+	// 	let txRequest = args?.params[0] as TransactionRequest;
+	// 	return this.estimateGas(txRequest);
+	// }
+
+	// async estimateGas(txRequest: TransactionRequest): Promise<bigint> {
+	// 	console.log('Moon::estimateGas', txRequest);
+	// 	return this._provider.estimateGas(txRequest);
+	// }
+
+	// async getGasPrice(): Promise<bigint | null> {
+	// 	let feeData = await this._provider.getFeeData();
+	// 	return feeData.gasPrice;
+	// }
+	// async getFeeData(): Promise<ethers.FeeData> {
+	// 	console.log('Moon::getFeeData...');
+	// 	let feeData = await this._provider.getFeeData();
+	// 	console.log('Moon::getFeeData', feeData);
+	// 	return feeData;
+	// }
+
+	// async getTransactionCount(
+	// 	addressOrName: ethers.AddressLike,
+	// 	blockTag?: ethers.BlockTag
+	// ): Promise<number> {
+	// 	return this._provider.getTransactionCount(addressOrName, blockTag);
+	// }
+
+	async _requestAccounts(args: RequestArguments): Promise<any> {
+		console.log(args);
+		if (this.account) {
+			await this.connect();
+		}
+		const accounts = await this.MoonSDK.getAccounts();
+
+		return accounts.keys;
+	}
+	private _createRpcError(code: number, message: string): ProviderRpcError {
+		return {
+			name: 'ProviderRpcError',
+			message,
+			code,
+			data: undefined,
+		};
+	}
+
+	async getBalance(args: RequestArguments): Promise<any> {
+		console.log(args);
+		const balance = await this.provider.getBalance(this.account?.wallet || '');
+		return balance;
 	}
 
 	public async connect() {
@@ -85,7 +171,7 @@ export class MoonProvider implements IEthereumProvider {
 		return [account?.address || ''];
 	}
 
-	public isUniPassProvider(): boolean {
+	public isMoonProvider(): boolean {
 		return true;
 	}
 
@@ -98,7 +184,7 @@ export class MoonProvider implements IEthereumProvider {
 	}
 
 	public getSigner() {
-		return this.MoonSDK;
+		return new MoonSigner(this.provider, this.config.MoonSDKConfig);
 	}
 
 	on(event: string, listener: any): void {

@@ -4,17 +4,18 @@ import {
 } from '@ethersproject/abstract-signer';
 import { BytesLike } from '@ethersproject/bytes';
 import { JsonRpcProvider, TransactionResponse } from '@ethersproject/providers';
-import { Chain, MOON_SUPPORTED_NETWORKS } from '@moon/types/src/chains';
-import { MoonAccount, MoonSDKConfig } from '@moon/types/src/types';
 import {
-	AccountControllerResponse,
+	AccountResponse,
 	BroadCastRawTransactionResponse,
 	Transaction,
-} from '../../moon-api/src/lib/data-contracts';
-import { MoonApi } from '../../moon-api/src/moon-api';
+} from '@moonup/moon-api/src/lib/data-contracts';
+import { MoonApi } from '@moonup/moon-api/src/moon-api';
+import { Chain, MOON_SUPPORTED_NETWORKS } from '@moonup/types/src/chains';
+import { MoonAccount, MoonSDKConfig } from '@moonup/types/src/types';
 import { useAuth } from './auth';
 import { MoonMessageHandler, MoonMessageType } from './messages';
 import { useStorage } from './storage';
+import { IframeController } from './viewController';
 
 export class MoonSDK {
 	MoonProvider: JsonRpcProvider | undefined;
@@ -22,6 +23,7 @@ export class MoonSDK {
 	MoonSDKConfig: MoonSDKConfig;
 	MoonAccount: MoonAccount;
 	MoonMessageHandler: MoonMessageHandler;
+	MoonIframe: IframeController | undefined;
 
 	constructor(config: MoonSDKConfig) {
 		this.MoonSDKConfig = this.initialiseConfig(config);
@@ -123,8 +125,7 @@ export class MoonSDK {
 		types: Record<string, Array<TypedDataField>>,
 		value: Record<string, any>
 	): Promise<any> {
-		// return this.AccountsSDK.sign;
-		throw new Error('Method not implemented.');
+		this.MoonApi.SignTypedData(domain, types, value);
 	}
 
 	public async SendTransaction(
@@ -133,7 +134,7 @@ export class MoonSDK {
 		return this.MoonApi?.SendTransaction(rawTransaction);
 	}
 
-	public async getAccounts(): Promise<AccountControllerResponse> {
+	public async getAccounts(): Promise<AccountResponse> {
 		return this.MoonApi?.listAccounts();
 	}
 

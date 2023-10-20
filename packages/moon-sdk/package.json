@@ -1,8 +1,8 @@
 {
-  "name": "@moon/moon-sdk",
-  "version": "0.0.1",
+  "name": "@moonup/moon-sdk",
+  "version": "0.0.4",
   "description": "",
-    "main": "dist/index.js",
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -17,8 +17,8 @@
   },
   "dependencies": {
     "@ethersproject/providers": "^5.7.2",
-    "@moon/moon-api": "file:../moon-api",
-    "@moon/types": "file:../moon-types",
+    "@moonup/moon-api": "^0.0.3",
+    "@moonup/types": "^0.0.3",
     "events": "^3.3.0",
     "typedots": "^0.0.2"
   }

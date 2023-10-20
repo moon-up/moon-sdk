@@ -16,6 +16,7 @@ import {
   DeployInput,
   InputBody,
   SignMessage,
+  SignTypedData,
 } from "./data-contracts";
 import { ContentType, HttpClient, RequestParams } from "./http-client";
 
@@ -97,6 +98,22 @@ export class Accounts<SecurityDataType = unknown> extends HttpClient<SecurityDat
   signTransaction = (accountName: string, data: InputBody, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/accounts/${accountName}/sign-transaction`,
+      method: "POST",
+      body: data,
+      type: ContentType.Json,
+      format: "json",
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Accounts
+   * @name SignTypedData
+   * @request POST:/accounts/{accountName}/sign-typed-data
+   */
+  signTypedData = (accountName: string, data: SignTypedData, params: RequestParams = {}) =>
+    this.request<AccountControllerResponse, any>({
+      path: `/accounts/${accountName}/sign-typed-data`,
       method: "POST",
       body: data,
       type: ContentType.Json,

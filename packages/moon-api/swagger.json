@@ -112,6 +112,82 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"Tx": {
+				"properties": {
+					"type": {
+						"type": "number",
+						"format": "double"
+					},
+					"chain_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"data": {
+						"type": "string"
+					},
+					"gas": {
+						"type": "string"
+					},
+					"gas_price": {
+						"type": "string"
+					},
+					"gas_tip_cap": {
+						"type": "string",
+						"nullable": true
+					},
+					"gas_fee_cap": {
+						"type": "string",
+						"nullable": true
+					},
+					"value": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "number",
+						"format": "double"
+					},
+					"from": {
+						"type": "string"
+					},
+					"to": {
+						"type": "string",
+						"nullable": true
+					},
+					"blob_gas": {
+						"type": "string",
+						"nullable": true
+					},
+					"blob_gas_fee_cap": {
+						"type": "string",
+						"nullable": true
+					},
+					"blob_hashes": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array",
+						"nullable": true
+					},
+					"v": {
+						"type": "string"
+					},
+					"r": {
+						"type": "string"
+					},
+					"s": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TxMap": {
+				"properties": {},
+				"type": "object",
+				"additionalProperties": {
+					"$ref": "#/components/schemas/Tx"
+				}
+			},
 			"Transaction": {
 				"properties": {
 					"moon_scan_url": {
@@ -131,6 +207,9 @@
 					},
 					"signature": {
 						"type": "string"
+					},
+					"transaction": {
+						"$ref": "#/components/schemas/TxMap"
 					}
 				},
 				"required": [
@@ -403,16 +482,10 @@
 			},
 			"InputBody": {
 				"properties": {
-					"chain_id": {
-						"type": "string"
-					},
-					"encoding": {
-						"type": "string"
-					},
-					"contract_address": {
-						"type": "string"
-					},
 					"to": {
+						"type": "string"
+					},
+					"data": {
 						"type": "string"
 					},
 					"input": {
@@ -430,10 +503,40 @@
 					"gasPrice": {
 						"type": "string"
 					},
+					"chain_id": {
+						"type": "string"
+					},
+					"encoding": {
+						"type": "string"
+					},
+					"EOA": {
+						"type": "boolean"
+					},
+					"contract_address": {
+						"type": "string"
+					},
+					"token_id": {
+						"type": "string"
+					},
+					"token_ids": {
+						"type": "string"
+					},
+					"approved": {
+						"type": "boolean"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"SignTypedData": {
+				"properties": {
 					"data": {
 						"type": "string"
 					}
 				},
+				"required": [
+					"data"
+				],
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -486,16 +589,10 @@
 			},
 			"AaveInput": {
 				"properties": {
-					"chain_id": {
-						"type": "string"
-					},
-					"encoding": {
-						"type": "string"
-					},
-					"contract_address": {
-						"type": "string"
-					},
 					"to": {
+						"type": "string"
+					},
+					"data": {
 						"type": "string"
 					},
 					"input": {
@@ -513,8 +610,26 @@
 					"gasPrice": {
 						"type": "string"
 					},
-					"data": {
+					"chain_id": {
 						"type": "string"
+					},
+					"encoding": {
+						"type": "string"
+					},
+					"EOA": {
+						"type": "boolean"
+					},
+					"contract_address": {
+						"type": "string"
+					},
+					"token_id": {
+						"type": "string"
+					},
+					"token_ids": {
+						"type": "string"
+					},
+					"approved": {
+						"type": "boolean"
 					},
 					"lending_pool": {
 						"type": "string"
@@ -740,16 +855,10 @@
 			},
 			"Erc1155Request": {
 				"properties": {
-					"chain_id": {
-						"type": "string"
-					},
-					"encoding": {
-						"type": "string"
-					},
-					"contract_address": {
-						"type": "string"
-					},
 					"to": {
+						"type": "string"
+					},
+					"data": {
 						"type": "string"
 					},
 					"input": {
@@ -767,7 +876,19 @@
 					"gasPrice": {
 						"type": "string"
 					},
-					"data": {
+					"chain_id": {
+						"type": "string"
+					},
+					"encoding": {
+						"type": "string"
+					},
+					"EOA": {
+						"type": "boolean"
+					},
+					"contract_address": {
+						"type": "string"
+					},
+					"token_id": {
 						"type": "string"
 					},
 					"token_ids": {
@@ -782,16 +903,10 @@
 			},
 			"Erc721Request": {
 				"properties": {
-					"chain_id": {
-						"type": "string"
-					},
-					"encoding": {
-						"type": "string"
-					},
-					"contract_address": {
-						"type": "string"
-					},
 					"to": {
+						"type": "string"
+					},
+					"data": {
 						"type": "string"
 					},
 					"input": {
@@ -809,11 +924,26 @@
 					"gasPrice": {
 						"type": "string"
 					},
-					"data": {
+					"chain_id": {
+						"type": "string"
+					},
+					"encoding": {
+						"type": "string"
+					},
+					"EOA": {
+						"type": "boolean"
+					},
+					"contract_address": {
 						"type": "string"
 					},
 					"token_id": {
 						"type": "string"
+					},
+					"token_ids": {
+						"type": "string"
+					},
+					"approved": {
+						"type": "boolean"
 					}
 				},
 				"type": "object",
@@ -833,16 +963,10 @@
 			},
 			"UniswapInput": {
 				"properties": {
-					"chain_id": {
-						"type": "string"
-					},
-					"encoding": {
-						"type": "string"
-					},
-					"contract_address": {
-						"type": "string"
-					},
 					"to": {
+						"type": "string"
+					},
+					"data": {
 						"type": "string"
 					},
 					"input": {
@@ -860,8 +984,26 @@
 					"gasPrice": {
 						"type": "string"
 					},
-					"data": {
+					"chain_id": {
 						"type": "string"
+					},
+					"encoding": {
+						"type": "string"
+					},
+					"EOA": {
+						"type": "boolean"
+					},
+					"contract_address": {
+						"type": "string"
+					},
+					"token_id": {
+						"type": "string"
+					},
+					"token_ids": {
+						"type": "string"
+					},
+					"approved": {
+						"type": "boolean"
 					},
 					"token_a": {
 						"type": "string"
@@ -1306,6 +1448,55 @@
 						"application/json": {
 							"schema": {
 								"$ref": "#/components/schemas/InputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/accounts/{accountName}/sign-typed-data": {
+			"post": {
+				"operationId": "SignTypedData",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Accounts"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SignTypedData"
 							}
 						}
 					}
@@ -3677,7 +3868,7 @@
 	},
 	"servers": [
 		{
-			"url": "https://vault-api.usemoon.ai"
+			"url": "https://vault-api.usemoon.ai/"
 		}
 	]
 }

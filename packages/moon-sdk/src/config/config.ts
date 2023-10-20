@@ -1,10 +1,10 @@
-import { MOON_SUPPORTED_NETWORKS } from '@moon/types/src/chains';
+import { MOON_SUPPORTED_NETWORKS } from '@moonup/types/src/chains';
 import {
 	AUTH,
 	MOON_SESSION_KEY,
 	MoonSDKConfig,
 	Storage,
-} from '@moon/types/src/types';
+} from '@moonup/types/src/types';
 // base config
 export const baseConfig: MoonSDKConfig = {
 	Auth: {

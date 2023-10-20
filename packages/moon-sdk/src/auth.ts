@@ -1,4 +1,4 @@
-import { AUTH, MoonToken } from '@moon/types/src/types';
+import { AUTH, MoonToken } from '@moonup/types/src/types';
 const jwtSecurityWorker = (securityData: any) => {
 	return {
 		headers: {

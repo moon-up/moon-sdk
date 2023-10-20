@@ -3,17 +3,20 @@ import {
 	MoonAccount,
 	MoonStorage,
 	Storage,
-} from '@moon/types/src/types';
+} from '@moonup/types/src/types';
 
 export const useStorage = (storageType: Storage): MoonStorage => {
 	let _storage: any;
 	switch (storageType) {
 		case Storage.LOCAL:
 			_storage = window.localStorage;
+			break;
 		case Storage.SESSION:
 			_storage = window.sessionStorage;
+			break;
 		default:
 			_storage = window.localStorage;
+			break;
 	}
 
 	const setItem = (account: MoonAccount): void => {

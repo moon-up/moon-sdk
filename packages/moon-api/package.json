@@ -1,6 +1,6 @@
 {
-  "name": "@moon/moon-api",
-  "version": "0.0.1",
+  "name": "@moonup/moon-api",
+  "version": "0.0.3",
   "description": "",
   "type": "module",
   "main": "dist/index.js",
@@ -25,6 +25,6 @@
     "@ethersproject/bignumber": "^5.7.0",
     "@ethersproject/bytes": "^5.7.0",
     "@ethersproject/hash": "^5.7.0",
-    "@moon/types": "file:../moon-types"
+    "@moonup/types": "^0.0.3"
   }
 }
