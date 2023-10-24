@@ -15,6 +15,7 @@ import {
 	GoogleAltCallbackInput,
 	GoogleCallbackInput,
 	GoogleCallbackResponse,
+	MoonOauth2AuthorizeInput,
 	MoonOauth2AuthorizeResponse,
 	MoonOauth2ExchangeInput,
 	MoonOauth2ExchangeResponse,
@@ -89,7 +90,7 @@ export class Auth<
 			...params,
 		});
 	moonOauth2Authorize = (
-		data: MoonOauth2QueryParamsInput,
+		data: MoonOauth2AuthorizeInput,
 		params: RequestParams = {}
 	) => {
 		return this.request<MoonOauth2AuthorizeResponse, any>({

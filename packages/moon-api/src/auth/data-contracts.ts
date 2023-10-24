@@ -48,6 +48,12 @@ export interface MoonOauth2QueryParamsInput {
 	scope: string;
 	state: string;
 }
+export interface MoonOauth2AuthorizeInput {
+	authorizationCode: string;
+	expiresAt: Date;
+	redirectUri: string;
+	scope: string;
+}
 
 export interface MoonOauth2AuthorizeResponse {
 	code: string;
@@ -56,7 +62,13 @@ export interface MoonOauth2AuthorizeResponse {
 	client_id: string;
 	scope: string;
 }
-export interface MoonOauth2ExchangeInput {}
+export interface MoonOauth2ExchangeInput {
+	grant_type: string;
+	client_id: string;
+	client_secret: string;
+	code: string;
+	redirect_uri: string;
+}
 
 export interface MoonOauth2ExchangeResponse {
 	access_token: string;
@@ -66,13 +78,25 @@ export interface MoonOauth2ExchangeResponse {
 	scope: string;
 }
 
-export interface GoogleCallbackInput {}
+export interface GoogleCallbackInput {
+	code: string;
+	scope: string;
+	authuser: string;
+	hd: string;
+	prompt: string;
+}
 
 export interface GoogleCallbackResponse {
 	token: string;
 	refreshToken: string;
 }
-export interface GoogleAltCallbackInput {}
+export interface GoogleAltCallbackInput {
+	code: string;
+	scope: string;
+	authuser: string;
+	hd: string;
+	prompt: string;
+}
 
 export interface GoogleAltCallbackResponse {
 	token: string;
