@@ -3,11 +3,16 @@ import {
 	CreateOauth2ClientInput,
 	CreateOauth2ClientResponse,
 	Disable2faInput,
+	DiscordCallbackInput,
+	DiscordCallbackResponse,
 	EmailLoginInput,
 	EmailLoginResponse,
 	EmailSignupInput,
 	EmailSignupResponse,
 	Enable2faInput,
+	GithubCallbackInput,
+	GithubCallbackResponse,
+	GoogleAltCallbackInput,
 	GoogleCallbackInput,
 	GoogleCallbackResponse,
 	MoonOauth2AuthorizeResponse,
@@ -23,6 +28,8 @@ import {
 	ResetPasswordResponse,
 	Verify2faInput,
 	Verify2faResponse,
+	WebAuthNRegisterVerifyInput,
+	WebAuthNRegisterVerifyResponse,
 	WebAuthnLoginInput,
 	WebAuthnLoginResponse,
 	WebAuthnLoginVerifyInput,
@@ -144,15 +151,13 @@ export class Auth<
 		});
 	//'/oauth/google-alt/callback'
 	googleAltOauth2Callback = (
-		data: MoonOauth2QueryParamsInput,
+		data: GoogleAltCallbackInput,
 		params: RequestParams = {}
 	) =>
-		this.request<RefreshTokenResponse, any>({
+		this.request<GoogleCallbackResponse, any>({
 			path: `/auth/oauth/google-alt/callback`,
-			method: 'POST',
-			body: data,
-			type: ContentType.Json,
-			format: 'json',
+			query: data,
+			method: 'GET',
 			...params,
 		});
 	// /email/signup'
@@ -188,10 +193,10 @@ export class Auth<
 		});
 	// '/oauth/github/callback',
 	githubOauth2Callback = (
-		query: MoonOauth2QueryParamsInput,
+		query: GithubCallbackInput,
 		params: RequestParams = {}
 	) =>
-		this.request<RefreshTokenResponse, any>({
+		this.request<GithubCallbackResponse, any>({
 			path: `/auth/oauth/github/callback`,
 			method: 'GET',
 			query: query,
@@ -210,15 +215,13 @@ export class Auth<
 		});
 	// '/oauth/discord/callback',
 	discordOAuth2Callback = (
-		data: MoonOauth2QueryParamsInput,
+		query: DiscordCallbackInput,
 		params: RequestParams = {}
 	) =>
-		this.request<RefreshTokenResponse, any>({
+		this.request<DiscordCallbackResponse, any>({
 			path: `/auth/oauth/discord/callback`,
-			method: 'POST',
-			body: data,
-			type: ContentType.Json,
-			format: 'json',
+			method: 'GET',
+			query: query,
 			...params,
 		});
 	// ('/webauthn
@@ -246,10 +249,10 @@ export class Auth<
 		});
 	// /webauth/register/verify
 	webauthnRegisterVerify = (
-		data: WebAuthnRegisterInput,
+		data: WebAuthNRegisterVerifyInput,
 		params: RequestParams = {}
 	) =>
-		this.request<WebAuthnRegisterResponse, any>({
+		this.request<WebAuthNRegisterVerifyResponse, any>({
 			path: `/auth/webauthn/register/verify`,
 			method: 'POST',
 			body: data,

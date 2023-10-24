@@ -3,8 +3,10 @@ import type {
 	VerifiedRegistrationResponse,
 } from '@simplewebauthn/server';
 import type {
+	AuthenticationResponseJSON,
 	PublicKeyCredentialCreationOptionsJSON,
 	PublicKeyCredentialRequestOptionsJSON,
+	RegistrationResponseJSON,
 } from '@simplewebauthn/typescript-types';
 export interface RefreshTokenInput {
 	refreshToken: string;
@@ -76,6 +78,19 @@ export interface GoogleAltCallbackResponse {
 	token: string;
 	refreshToken: string;
 }
+export interface DiscordCallbackInput {}
+
+export interface DiscordCallbackResponse {
+	token: string;
+	refreshToken: string;
+}
+
+export interface GithubCallbackInput {}
+
+export interface GithubCallbackResponse {
+	token: string;
+	refreshToken: string;
+}
 
 export interface WebAuthnRegisterInput {
 	username: string;
@@ -88,6 +103,14 @@ export interface WebAuthnRegisterResponse {
 	auth?: VerifiedAuthenticationResponse;
 	options?: PublicKeyCredentialCreationOptionsJSON;
 	optionsAuth?: PublicKeyCredentialRequestOptionsJSON;
+}
+
+export interface WebAuthNRegisterVerifyInput extends RegistrationResponseJSON {
+	username: string;
+}
+
+export interface WebAuthNRegisterVerifyResponse {
+	message: string;
 }
 
 export interface WebAuthnLoginInput {
@@ -103,10 +126,13 @@ export interface WebAuthnLoginResponse {
 	optionsAuth?: PublicKeyCredentialRequestOptionsJSON;
 }
 
-export interface WebAuthnLoginVerifyInput {}
+export interface WebAuthnLoginVerifyInput extends AuthenticationResponseJSON {
+	username: string;
+}
 
 export interface WebAuthnLoginVerifyResponse {
 	token: string;
+	refreshToken: string;
 }
 
 export interface EmailSignupInput {
