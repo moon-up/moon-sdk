@@ -188,6 +188,33 @@
 					"$ref": "#/components/schemas/Tx"
 				}
 			},
+			"TransactionRequest": {
+				"properties": {
+					"nonce": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"to": {
+						"type": "string"
+					},
+					"from": {
+						"type": "string"
+					},
+					"maxFeePerGas": {
+						"type": "string"
+					},
+					"maxPriorityFeePerGas": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
 			"Transaction": {
 				"properties": {
 					"moon_scan_url": {
@@ -210,6 +237,15 @@
 					},
 					"transaction": {
 						"$ref": "#/components/schemas/TxMap"
+					},
+					"userOps": {
+						"items": {
+							"$ref": "#/components/schemas/TransactionRequest"
+						},
+						"type": "array"
+					},
+					"userop_transaction": {
+						"type": "string"
 					}
 				},
 				"required": [
@@ -344,6 +380,36 @@
 			},
 			"Erc20": {
 				"properties": {
+					"moon_scan_url": {
+						"type": "string"
+					},
+					"transaction_hash": {
+						"type": "string"
+					},
+					"signed_transaction": {
+						"type": "string"
+					},
+					"signed_message": {
+						"type": "string"
+					},
+					"raw_transaction": {
+						"type": "string"
+					},
+					"signature": {
+						"type": "string"
+					},
+					"transaction": {
+						"$ref": "#/components/schemas/TxMap"
+					},
+					"userOps": {
+						"items": {
+							"$ref": "#/components/schemas/TransactionRequest"
+						},
+						"type": "array"
+					},
+					"userop_transaction": {
+						"type": "string"
+					},
 					"name": {
 						"type": "string"
 					},
@@ -366,11 +432,45 @@
 						"type": "string"
 					}
 				},
+				"required": [
+					"transaction_hash",
+					"signed_transaction"
+				],
 				"type": "object",
 				"additionalProperties": false
 			},
 			"Erc1155": {
 				"properties": {
+					"moon_scan_url": {
+						"type": "string"
+					},
+					"transaction_hash": {
+						"type": "string"
+					},
+					"signed_transaction": {
+						"type": "string"
+					},
+					"signed_message": {
+						"type": "string"
+					},
+					"raw_transaction": {
+						"type": "string"
+					},
+					"signature": {
+						"type": "string"
+					},
+					"transaction": {
+						"$ref": "#/components/schemas/TxMap"
+					},
+					"userOps": {
+						"items": {
+							"$ref": "#/components/schemas/TransactionRequest"
+						},
+						"type": "array"
+					},
+					"userop_transaction": {
+						"type": "string"
+					},
 					"balance_of": {
 						"type": "string"
 					},
@@ -378,6 +478,10 @@
 						"type": "string"
 					}
 				},
+				"required": [
+					"transaction_hash",
+					"signed_transaction"
+				],
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -403,6 +507,36 @@
 			},
 			"Erc721": {
 				"properties": {
+					"moon_scan_url": {
+						"type": "string"
+					},
+					"transaction_hash": {
+						"type": "string"
+					},
+					"signed_transaction": {
+						"type": "string"
+					},
+					"signed_message": {
+						"type": "string"
+					},
+					"raw_transaction": {
+						"type": "string"
+					},
+					"signature": {
+						"type": "string"
+					},
+					"transaction": {
+						"$ref": "#/components/schemas/TxMap"
+					},
+					"userOps": {
+						"items": {
+							"$ref": "#/components/schemas/TransactionRequest"
+						},
+						"type": "array"
+					},
+					"userop_transaction": {
+						"type": "string"
+					},
 					"name": {
 						"type": "string"
 					},
@@ -425,6 +559,10 @@
 						"type": "string"
 					}
 				},
+				"required": [
+					"transaction_hash",
+					"signed_transaction"
+				],
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -522,6 +660,9 @@
 						"type": "string"
 					},
 					"approved": {
+						"type": "boolean"
+					},
+					"broadcast": {
 						"type": "boolean"
 					}
 				},
@@ -629,6 +770,9 @@
 						"type": "string"
 					},
 					"approved": {
+						"type": "boolean"
+					},
+					"broadcast": {
 						"type": "boolean"
 					},
 					"lending_pool": {
@@ -741,6 +885,9 @@
 					"convey": {
 						"$ref": "#/components/schemas/TransactionResponse"
 					},
+					"data": {
+						"$ref": "#/components/schemas/Transaction"
+					},
 					"tx": {
 						"properties": {
 							"data": {
@@ -792,6 +939,51 @@
 			},
 			"TokenSwapParams": {
 				"properties": {
+					"to": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					},
+					"input": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "string"
+					},
+					"gas": {
+						"type": "string"
+					},
+					"gasPrice": {
+						"type": "string"
+					},
+					"chain_id": {
+						"type": "string"
+					},
+					"encoding": {
+						"type": "string"
+					},
+					"EOA": {
+						"type": "boolean"
+					},
+					"contract_address": {
+						"type": "string"
+					},
+					"token_id": {
+						"type": "string"
+					},
+					"token_ids": {
+						"type": "string"
+					},
+					"approved": {
+						"type": "boolean"
+					},
+					"broadcast": {
+						"type": "boolean"
+					},
 					"tokenIn": {
 						"type": "string"
 					},
@@ -812,10 +1004,6 @@
 					"slippage": {
 						"type": "string"
 					},
-					"chainId": {
-						"type": "number",
-						"format": "double"
-					},
 					"recipient": {
 						"type": "string"
 					},
@@ -830,7 +1018,6 @@
 					"tokenOutDecimals",
 					"amountIn",
 					"slippage",
-					"chainId",
 					"recipient",
 					"referrer"
 				],
@@ -896,6 +1083,9 @@
 					},
 					"approved": {
 						"type": "boolean"
+					},
+					"broadcast": {
+						"type": "boolean"
 					}
 				},
 				"type": "object",
@@ -943,6 +1133,9 @@
 						"type": "string"
 					},
 					"approved": {
+						"type": "boolean"
+					},
+					"broadcast": {
 						"type": "boolean"
 					}
 				},
@@ -1003,6 +1196,9 @@
 						"type": "string"
 					},
 					"approved": {
+						"type": "boolean"
+					},
+					"broadcast": {
 						"type": "boolean"
 					},
 					"token_a": {

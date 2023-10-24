@@ -1,3 +1,11 @@
+import type {
+	VerifiedAuthenticationResponse,
+	VerifiedRegistrationResponse,
+} from '@simplewebauthn/server';
+import type {
+	PublicKeyCredentialCreationOptionsJSON,
+	PublicKeyCredentialRequestOptionsJSON,
+} from '@simplewebauthn/typescript-types';
 export interface RefreshTokenInput {
 	refreshToken: string;
 }
@@ -46,21 +54,76 @@ export interface MoonOauth2AuthorizeResponse {
 	client_id: string;
 	scope: string;
 }
-export interface WebAuthnRegisterInput {}
+export interface MoonOauth2ExchangeInput {}
 
-export interface WebAuthnRegisterResponse {
-	credential: string;
+export interface MoonOauth2ExchangeResponse {
+	access_token: string;
+	token_type: string;
+	expires_in: number;
+	refresh_token: string;
+	scope: string;
 }
 
-export interface WebAuthnLoginInput {}
+export interface GoogleCallbackInput {}
+
+export interface GoogleCallbackResponse {
+	token: string;
+	refreshToken: string;
+}
+export interface GoogleAltCallbackInput {}
+
+export interface GoogleAltCallbackResponse {
+	token: string;
+	refreshToken: string;
+}
+
+export interface WebAuthnRegisterInput {
+	username: string;
+}
+
+export interface WebAuthnRegisterResponse {
+	message?: string;
+	success?: boolean;
+	register?: VerifiedRegistrationResponse;
+	auth?: VerifiedAuthenticationResponse;
+	options?: PublicKeyCredentialCreationOptionsJSON;
+	optionsAuth?: PublicKeyCredentialRequestOptionsJSON;
+}
+
+export interface WebAuthnLoginInput {
+	username: string;
+}
 
 export interface WebAuthnLoginResponse {
-	challenge: string;
+	message?: string;
+	success?: boolean;
+	register?: VerifiedRegistrationResponse;
+	auth?: VerifiedAuthenticationResponse;
+	options?: PublicKeyCredentialCreationOptionsJSON;
+	optionsAuth?: PublicKeyCredentialRequestOptionsJSON;
 }
 
 export interface WebAuthnLoginVerifyInput {}
 
 export interface WebAuthnLoginVerifyResponse {
+	token: string;
+}
+
+export interface EmailSignupInput {
+	email: string;
+	password: string;
+}
+
+export interface EmailSignupResponse {
+	message: string;
+}
+
+export interface EmailLoginInput {
+	email: string;
+	password: string;
+}
+
+export interface EmailLoginResponse {
 	token: string;
 }
 

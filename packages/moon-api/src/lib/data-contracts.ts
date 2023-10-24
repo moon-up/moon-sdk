@@ -70,6 +70,16 @@ export interface Tx {
 
 export type TxMap = Record<string, Tx>;
 
+export interface TransactionRequest {
+  nonce?: string;
+  data?: string;
+  value?: string;
+  to?: string;
+  from?: string;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+}
+
 export interface Transaction {
   moon_scan_url?: string;
   transaction_hash: string;
@@ -78,6 +88,8 @@ export interface Transaction {
   raw_transaction?: string;
   signature?: string;
   transaction?: TxMap;
+  userOps?: TransactionRequest[];
+  userop_transaction?: string;
 }
 
 export interface Account {
@@ -119,6 +131,15 @@ export interface AaveReservesData {
 }
 
 export interface Erc20 {
+  moon_scan_url?: string;
+  transaction_hash: string;
+  signed_transaction: string;
+  signed_message?: string;
+  raw_transaction?: string;
+  signature?: string;
+  transaction?: TxMap;
+  userOps?: TransactionRequest[];
+  userop_transaction?: string;
   name?: string;
   symbol?: string;
   decimals?: string;
@@ -129,6 +150,15 @@ export interface Erc20 {
 }
 
 export interface Erc1155 {
+  moon_scan_url?: string;
+  transaction_hash: string;
+  signed_transaction: string;
+  signed_message?: string;
+  raw_transaction?: string;
+  signature?: string;
+  transaction?: TxMap;
+  userOps?: TransactionRequest[];
+  userop_transaction?: string;
   balance_of?: string;
   balance_of_batch?: string;
 }
@@ -140,6 +170,15 @@ export interface BroadCastRawTransactionResponse {
 }
 
 export interface Erc721 {
+  moon_scan_url?: string;
+  transaction_hash: string;
+  signed_transaction: string;
+  signed_message?: string;
+  raw_transaction?: string;
+  signature?: string;
+  transaction?: TxMap;
+  userOps?: TransactionRequest[];
+  userop_transaction?: string;
   name?: string;
   symbol?: string;
   balance_of?: string;
@@ -182,6 +221,7 @@ export interface InputBody {
   token_id?: string;
   token_ids?: string;
   approved?: boolean;
+  broadcast?: boolean;
 }
 
 export interface SignTypedData {
@@ -219,6 +259,7 @@ export interface AaveInput {
   token_id?: string;
   token_ids?: string;
   approved?: boolean;
+  broadcast?: boolean;
   lending_pool?: string;
   amount?: string;
   atoken_to_redeeem?: string;
@@ -253,6 +294,7 @@ export interface TransactionResponse {
 export interface ConveyorFinanceControllerResponse {
   input?: InputBody;
   convey?: TransactionResponse;
+  data?: Transaction;
   tx?: {
     data: string;
     value: string;
@@ -268,6 +310,21 @@ export interface ConveyorFinanceControllerResponse {
 }
 
 export interface TokenSwapParams {
+  to?: string;
+  data?: string;
+  input?: string;
+  value?: string;
+  nonce?: string;
+  gas?: string;
+  gasPrice?: string;
+  chain_id?: string;
+  encoding?: string;
+  EOA?: boolean;
+  contract_address?: string;
+  token_id?: string;
+  token_ids?: string;
+  approved?: boolean;
+  broadcast?: boolean;
   tokenIn: string;
   tokenOut: string;
   /** @format double */
@@ -276,8 +333,6 @@ export interface TokenSwapParams {
   tokenOutDecimals: number;
   amountIn: string;
   slippage: string;
-  /** @format double */
-  chainId: number;
   recipient: string;
   referrer: string;
 }
@@ -302,6 +357,7 @@ export interface Erc1155Request {
   token_id?: string;
   token_ids?: string;
   approved?: boolean;
+  broadcast?: boolean;
 }
 
 export interface Erc721Request {
@@ -319,6 +375,7 @@ export interface Erc721Request {
   token_id?: string;
   token_ids?: string;
   approved?: boolean;
+  broadcast?: boolean;
 }
 
 export interface PingResponse {
@@ -340,6 +397,7 @@ export interface UniswapInput {
   token_id?: string;
   token_ids?: string;
   approved?: boolean;
+  broadcast?: boolean;
   token_a?: string;
   token_b?: string;
   amount_a?: string;

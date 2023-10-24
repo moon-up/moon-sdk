@@ -16,6 +16,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@simplewebauthn/server": "^8.3.2",
+    "@simplewebauthn/typescript-types": "^8.0.0",
     "@types/events": "^3.0.2",
     "typescript": "^5.2.2"
   },

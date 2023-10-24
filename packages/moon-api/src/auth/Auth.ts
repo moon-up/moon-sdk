@@ -1,22 +1,34 @@
 import { ContentType, HttpClient, RequestParams } from '../lib/http-client';
 import {
-	ResetPasswordConfirmInput,
-	ResetPasswordConfirmResponse,
-	ResetPasswordInput,
-	ResetPasswordResponse,
-} from './data-contracts';
-import {
 	CreateOauth2ClientInput,
 	CreateOauth2ClientResponse,
 	Disable2faInput,
+	EmailLoginInput,
+	EmailLoginResponse,
+	EmailSignupInput,
+	EmailSignupResponse,
 	Enable2faInput,
+	GoogleCallbackInput,
+	GoogleCallbackResponse,
 	MoonOauth2AuthorizeResponse,
+	MoonOauth2ExchangeInput,
+	MoonOauth2ExchangeResponse,
 	MoonOauth2QueryParamsInput,
 	ProfileResponse,
 	RefreshTokenInput,
 	RefreshTokenResponse,
+	ResetPasswordConfirmInput,
+	ResetPasswordConfirmResponse,
+	ResetPasswordInput,
+	ResetPasswordResponse,
 	Verify2faInput,
 	Verify2faResponse,
+	WebAuthnLoginInput,
+	WebAuthnLoginResponse,
+	WebAuthnLoginVerifyInput,
+	WebAuthnLoginVerifyResponse,
+	WebAuthnRegisterInput,
+	WebAuthnRegisterResponse,
 } from './data-contracts';
 
 export class Auth<
@@ -83,10 +95,10 @@ export class Auth<
 		});
 	};
 	moonOauth2Exchange = (
-		data: MoonOauth2QueryParamsInput,
+		data: MoonOauth2ExchangeInput,
 		params: RequestParams = {}
 	) => {
-		return this.request<MoonOauth2AuthorizeResponse, any>({
+		return this.request<MoonOauth2ExchangeResponse, any>({
 			path: `/auth/oauth/openai/exchange`,
 			method: 'POST',
 			body: data,
@@ -107,19 +119,168 @@ export class Auth<
 			...params,
 		});
 	//oauth/google/callback
+	googleOauth2Callback = (
+		data: GoogleCallbackInput,
+		params: RequestParams = {}
+	) =>
+		this.request<GoogleCallbackResponse, any>({
+			path: `/auth/oauth/google/callback`,
+			method: 'POST',
+			body: data,
+			type: ContentType.Json,
+			format: 'json',
+			...params,
+		});
 	///oauth/google-alt'
+	googleAltOauth2 = (
+		query: MoonOauth2QueryParamsInput,
+		params: RequestParams = {}
+	) =>
+		this.request<ProfileResponse, any>({
+			path: `/auth/oauth/google-alt`,
+			method: 'GET',
+			query: query,
+			...params,
+		});
 	//'/oauth/google-alt/callback'
+	googleAltOauth2Callback = (
+		data: MoonOauth2QueryParamsInput,
+		params: RequestParams = {}
+	) =>
+		this.request<RefreshTokenResponse, any>({
+			path: `/auth/oauth/google-alt/callback`,
+			method: 'POST',
+			body: data,
+			type: ContentType.Json,
+			format: 'json',
+			...params,
+		});
 	// /email/signup'
+	emailSignup = (data: EmailSignupInput, params: RequestParams = {}) =>
+		this.request<EmailSignupResponse, any>({
+			path: `/auth/email/signup`,
+			method: 'POST',
+			body: data,
+			type: ContentType.Json,
+			format: 'json',
+			...params,
+		});
 	// /email/login'
+	emailLogin = (data: EmailLoginInput, params: RequestParams = {}) =>
+		this.request<EmailLoginResponse, any>({
+			path: `/auth/email/login`,
+			method: 'POST',
+			body: data,
+			type: ContentType.Json,
+			format: 'json',
+			...params,
+		});
 	// /oauth/github'
+	githubOauth2 = (
+		query: MoonOauth2QueryParamsInput,
+		params: RequestParams = {}
+	) =>
+		this.request<ProfileResponse, any>({
+			path: `/auth/oauth/github`,
+			method: 'GET',
+			query: query,
+			...params,
+		});
 	// '/oauth/github/callback',
+	githubOauth2Callback = (
+		query: MoonOauth2QueryParamsInput,
+		params: RequestParams = {}
+	) =>
+		this.request<RefreshTokenResponse, any>({
+			path: `/auth/oauth/github/callback`,
+			method: 'GET',
+			query: query,
+			...params,
+		});
 	// '/oauth/discord',
+	discordOAuth2 = (
+		query: MoonOauth2QueryParamsInput,
+		params: RequestParams = {}
+	) =>
+		this.request<ProfileResponse, any>({
+			path: `/auth/oauth/discord`,
+			method: 'GET',
+			query: query,
+			...params,
+		});
 	// '/oauth/discord/callback',
+	discordOAuth2Callback = (
+		data: MoonOauth2QueryParamsInput,
+		params: RequestParams = {}
+	) =>
+		this.request<RefreshTokenResponse, any>({
+			path: `/auth/oauth/discord/callback`,
+			method: 'POST',
+			body: data,
+			type: ContentType.Json,
+			format: 'json',
+			...params,
+		});
 	// ('/webauthn
+	webauthn = (data: RefreshTokenInput, params: RequestParams = {}) =>
+		this.request<RefreshTokenResponse, any>({
+			path: `/auth/webauthn`,
+			method: 'POST',
+			body: data,
+			type: ContentType.Json,
+			format: 'json',
+			...params,
+		});
 	// ('/webauthn/register',
+	webauthnRegister = (
+		data: WebAuthnRegisterInput,
+		params: RequestParams = {}
+	) =>
+		this.request<WebAuthnRegisterResponse, any>({
+			path: `/auth/webauthn/register`,
+			method: 'POST',
+			body: data,
+			type: ContentType.Json,
+			format: 'json',
+			...params,
+		});
+	// /webauth/register/verify
+	webauthnRegisterVerify = (
+		data: WebAuthnRegisterInput,
+		params: RequestParams = {}
+	) =>
+		this.request<WebAuthnRegisterResponse, any>({
+			path: `/auth/webauthn/register/verify`,
+			method: 'POST',
+			body: data,
+			type: ContentType.Json,
+			format: 'json',
+			...params,
+		});
 	// /webauthn/login',
+	webAuthnLogin = (data: WebAuthnLoginInput, params: RequestParams = {}) =>
+		this.request<WebAuthnLoginResponse, any>({
+			path: `/auth/webauthn/login`,
+			method: 'POST',
+			body: data,
+			type: ContentType.Json,
+			format: 'json',
+			...params,
+		});
+
 	// '/webauthn/login/verify',
-	// '/webauthn/register/verify',
+	webauthnLoginVerify = (
+		data: WebAuthnLoginVerifyInput,
+		params: RequestParams = {}
+	) =>
+		this.request<WebAuthnLoginVerifyResponse, any>({
+			path: `/auth/webauthn/login/verify`,
+			method: 'POST',
+			body: data,
+			type: ContentType.Json,
+			format: 'json',
+			...params,
+		});
 	// '/forgot-password',
 	resetPassword = (data: ResetPasswordInput, params: RequestParams = {}) =>
 		this.request<ResetPasswordResponse, any>({

@@ -42,6 +42,7 @@ export const useAuth = (config: MoonToken): MoonToken => {
 		case AUTH.X_API_KEY:
 			return {
 				type: AUTH.X_API_KEY,
+
 				MoonAccount: config.MoonAccount,
 				securityWorker: xApiKeySecurityWorker,
 			};

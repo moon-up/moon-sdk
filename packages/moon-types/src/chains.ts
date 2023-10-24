@@ -79,4 +79,45 @@ export const MOON_SUPPORTED_NETWORKS: Chain[] = [
 		rpcUrls: ['https://mainnet.optimism.io/'],
 		blockExplorerUrls: ['https://optimistic.etherscan.io/'],
 	},
+	// arbitrum
+	{
+		chainId: '0xa4b1',
+		chainName: 'Arbitrum',
+		nativeCurrency: {
+			name: 'Arbitrum',
+			symbol: 'ARB',
+			decimals: 18,
+		},
+		rpcUrls: ['https://arb1.arbitrum.io/rpc'],
+		blockExplorerUrls: ['https://arbiscan.io/'],
+	},
+	// celo
+	{
+		chainId: '0xa4ec',
+		chainName: 'Celo',
+		nativeCurrency: {
+			name: 'Celo',
+			symbol: 'CELO',
+			decimals: 18,
+		},
+		rpcUrls: ['https://forno.celo.org'],
+		blockExplorerUrls: ['https://explorer.celo.org/'],
+	},
+
+	// skale
+	{
+		chainId: '0x50877ed6',
+		chainName: 'SKALE',
+		nativeCurrency: {
+			name: 'SKALE',
+			symbol: 'SKALE',
+			decimals: 18,
+		},
+		rpcUrls: [
+			'https://staging-v3.skalenodes.com/v1/staging-fast-active-bellatrix',
+		],
+		blockExplorerUrls: [
+			'https://staging-fast-active-bellatrix.explorer.staging-v3.skalenodes.com',
+		],
+	},
 ];
