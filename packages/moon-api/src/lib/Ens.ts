@@ -9,10 +9,12 @@
  * ---------------------------------------------------------------
  */
 
-import { AccountControllerResponse, EnsResolveInput } from "./data-contracts";
-import { ContentType, HttpClient, RequestParams } from "./http-client";
+import { AccountControllerResponse, EnsResolveInput } from './data-contracts';
+import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Ens<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class Ens<
+  SecurityDataType = unknown,
+> extends HttpClient<SecurityDataType> {
   /**
    * No description
    *
@@ -23,10 +25,10 @@ export class Ens<SecurityDataType = unknown> extends HttpClient<SecurityDataType
   resolve = (data: EnsResolveInput, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/ens/resolve`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
 }

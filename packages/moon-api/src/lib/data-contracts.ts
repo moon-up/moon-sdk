@@ -130,7 +130,7 @@ export interface AaveReservesData {
   usage_as_collateral_enabled: string;
 }
 
-export interface Erc20 {
+export interface Erc20Response {
   moon_scan_url?: string;
   transaction_hash: string;
   signed_transaction: string;
@@ -149,7 +149,7 @@ export interface Erc20 {
   allowance?: string;
 }
 
-export interface Erc1155 {
+export interface Erc1155Response {
   moon_scan_url?: string;
   transaction_hash: string;
   signed_transaction: string;
@@ -169,7 +169,7 @@ export interface BroadCastRawTransactionResponse {
   data: string;
 }
 
-export interface Erc721 {
+export interface Erc721Response {
   moon_scan_url?: string;
   transaction_hash: string;
   signed_transaction: string;
@@ -198,10 +198,10 @@ export interface AccountControllerResponse {
     | EnsResolveResponse
     | ENSReverseResolveResponse
     | AaveReservesData
-    | Erc20
-    | Erc1155
+    | Erc20Response
+    | Erc1155Response
     | BroadCastRawTransactionResponse
-    | Erc721;
+    | Erc721Response;
   success?: boolean;
   message?: string;
 }

@@ -9,10 +9,12 @@
  * ---------------------------------------------------------------
  */
 
-import { AccountControllerResponse, InputBody } from "./data-contracts";
-import { ContentType, HttpClient, RequestParams } from "./http-client";
+import { AccountControllerResponse, InputBody } from './data-contracts';
+import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Erc4337<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class Erc4337<
+  SecurityDataType = unknown,
+> extends HttpClient<SecurityDataType> {
   /**
    * No description
    *
@@ -20,13 +22,17 @@ export class Erc4337<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @name GetAddress
    * @request POST:/erc4337/{accountName}/address
    */
-  getAddress = (accountName: string, data: InputBody, params: RequestParams = {}) =>
+  getAddress = (
+    accountName: string,
+    data: InputBody,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/erc4337/${accountName}/address`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -36,13 +42,17 @@ export class Erc4337<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @name SignBroadcastUserOpTx
    * @request POST:/erc4337/{accountName}/sign-broadcast-userop-tx
    */
-  signBroadcastUserOpTx = (accountName: string, data: InputBody, params: RequestParams = {}) =>
+  signBroadcastUserOpTx = (
+    accountName: string,
+    data: InputBody,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/erc4337/${accountName}/sign-broadcast-userop-tx`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
 }

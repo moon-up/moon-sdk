@@ -9,10 +9,12 @@
  * ---------------------------------------------------------------
  */
 
-import { GetSwapDto } from "./data-contracts";
-import { ContentType, HttpClient, RequestParams } from "./http-client";
+import { GetSwapDto } from './data-contracts';
+import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Oneinch<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class Oneinch<
+  SecurityDataType = unknown,
+> extends HttpClient<SecurityDataType> {
   /**
    * No description
    *
@@ -23,10 +25,10 @@ export class Oneinch<SecurityDataType = unknown> extends HttpClient<SecurityData
   tokens = (data: any, params: RequestParams = {}) =>
     this.request<any, any>({
       path: `/oneinch/tokens`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -39,10 +41,10 @@ export class Oneinch<SecurityDataType = unknown> extends HttpClient<SecurityData
   protocols = (data: any, params: RequestParams = {}) =>
     this.request<any, any>({
       path: `/oneinch/protocols`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -55,10 +57,10 @@ export class Oneinch<SecurityDataType = unknown> extends HttpClient<SecurityData
   quote = (data: any, params: RequestParams = {}) =>
     this.request<any, any>({
       path: `/oneinch/quote`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -71,10 +73,10 @@ export class Oneinch<SecurityDataType = unknown> extends HttpClient<SecurityData
   swap = (accountName: string, data: GetSwapDto, params: RequestParams = {}) =>
     this.request<any, any>({
       path: `/oneinch/${accountName}/swap`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -87,10 +89,10 @@ export class Oneinch<SecurityDataType = unknown> extends HttpClient<SecurityData
   approveSpender = (data: any, params: RequestParams = {}) =>
     this.request<any, any>({
       path: `/oneinch/approve-spender`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -103,10 +105,10 @@ export class Oneinch<SecurityDataType = unknown> extends HttpClient<SecurityData
   approveCallData = (data: any, params: RequestParams = {}) =>
     this.request<any, any>({
       path: `/oneinch/approve-call-data`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
 }

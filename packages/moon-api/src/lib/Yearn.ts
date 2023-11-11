@@ -9,10 +9,12 @@
  * ---------------------------------------------------------------
  */
 
-import { AccountControllerResponse, InputBody } from "./data-contracts";
-import { ContentType, HttpClient, RequestParams } from "./http-client";
+import { AccountControllerResponse, InputBody } from './data-contracts';
+import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Yearn<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class Yearn<
+  SecurityDataType = unknown,
+> extends HttpClient<SecurityDataType> {
   /**
    * No description
    *
@@ -23,10 +25,10 @@ export class Yearn<SecurityDataType = unknown> extends HttpClient<SecurityDataTy
   addLiquidity = (name: string, data: InputBody, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/yearn/${name}/add-liquidity`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -36,13 +38,17 @@ export class Yearn<SecurityDataType = unknown> extends HttpClient<SecurityDataTy
    * @name RemoveLiquidity
    * @request POST:/yearn/{name}/remove-liquidity
    */
-  removeLiquidity = (name: string, data: InputBody, params: RequestParams = {}) =>
+  removeLiquidity = (
+    name: string,
+    data: InputBody,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/yearn/${name}/remove-liquidity`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -52,13 +58,17 @@ export class Yearn<SecurityDataType = unknown> extends HttpClient<SecurityDataTy
    * @name AddLiquidityWeth
    * @request POST:/yearn/{name}/add-liquidity-weth
    */
-  addLiquidityWeth = (name: string, data: InputBody, params: RequestParams = {}) =>
+  addLiquidityWeth = (
+    name: string,
+    data: InputBody,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/yearn/${name}/add-liquidity-weth`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -68,13 +78,17 @@ export class Yearn<SecurityDataType = unknown> extends HttpClient<SecurityDataTy
    * @name RemoveLiquidityWeth
    * @request POST:/yearn/{name}/remove-liquidity-weth
    */
-  removeLiquidityWeth = (name: string, data: InputBody, params: RequestParams = {}) =>
+  removeLiquidityWeth = (
+    name: string,
+    data: InputBody,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/yearn/${name}/remove-liquidity-weth`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
 }

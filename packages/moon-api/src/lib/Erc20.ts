@@ -9,10 +9,12 @@
  * ---------------------------------------------------------------
  */
 
-import { AccountControllerResponse, InputBody } from "./data-contracts";
-import { ContentType, HttpClient, RequestParams } from "./http-client";
+import { AccountControllerResponse, InputBody } from './data-contracts';
+import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Erc20<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class Erc20<
+  SecurityDataType = unknown,
+> extends HttpClient<SecurityDataType> {
   /**
    * No description
    *
@@ -23,10 +25,10 @@ export class Erc20<SecurityDataType = unknown> extends HttpClient<SecurityDataTy
   nameErc20 = (name: string, data: InputBody, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/erc20/${name}/name`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -39,10 +41,10 @@ export class Erc20<SecurityDataType = unknown> extends HttpClient<SecurityDataTy
   symbolErc20 = (name: string, data: InputBody, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/erc20/${name}/symbol`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -55,10 +57,10 @@ export class Erc20<SecurityDataType = unknown> extends HttpClient<SecurityDataTy
   decimalsErc20 = (name: string, data: InputBody, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/erc20/${name}/decimals`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -68,13 +70,17 @@ export class Erc20<SecurityDataType = unknown> extends HttpClient<SecurityDataTy
    * @name TotalSupplyErc20
    * @request POST:/erc20/{name}/total-supply
    */
-  totalSupplyErc20 = (name: string, data: InputBody, params: RequestParams = {}) =>
+  totalSupplyErc20 = (
+    name: string,
+    data: InputBody,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/erc20/${name}/total-supply`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -84,13 +90,17 @@ export class Erc20<SecurityDataType = unknown> extends HttpClient<SecurityDataTy
    * @name BalanceOfErc20
    * @request POST:/erc20/{name}/balance-of
    */
-  balanceOfErc20 = (name: string, data: InputBody, params: RequestParams = {}) =>
+  balanceOfErc20 = (
+    name: string,
+    data: InputBody,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/erc20/${name}/balance-of`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -100,13 +110,17 @@ export class Erc20<SecurityDataType = unknown> extends HttpClient<SecurityDataTy
    * @name AllowanceErc20
    * @request POST:/erc20/{name}/allowance
    */
-  allowanceErc20 = (name: string, data: InputBody, params: RequestParams = {}) =>
+  allowanceErc20 = (
+    name: string,
+    data: InputBody,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/erc20/${name}/allowance`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -119,10 +133,10 @@ export class Erc20<SecurityDataType = unknown> extends HttpClient<SecurityDataTy
   transferErc20 = (name: string, data: InputBody, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/erc20/${name}/transfer`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -135,10 +149,10 @@ export class Erc20<SecurityDataType = unknown> extends HttpClient<SecurityDataTy
   approveErc20 = (name: string, data: InputBody, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/erc20/${name}/approve`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -148,13 +162,17 @@ export class Erc20<SecurityDataType = unknown> extends HttpClient<SecurityDataTy
    * @name TransferFromErc20
    * @request POST:/erc20/{name}/transfer-from
    */
-  transferFromErc20 = (name: string, data: InputBody, params: RequestParams = {}) =>
+  transferFromErc20 = (
+    name: string,
+    data: InputBody,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/erc20/${name}/transfer-from`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
 }

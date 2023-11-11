@@ -378,7 +378,7 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"Erc20": {
+			"Erc20Response": {
 				"properties": {
 					"moon_scan_url": {
 						"type": "string"
@@ -439,7 +439,7 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"Erc1155": {
+			"Erc1155Response": {
 				"properties": {
 					"moon_scan_url": {
 						"type": "string"
@@ -505,7 +505,7 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"Erc721": {
+			"Erc721Response": {
 				"properties": {
 					"moon_scan_url": {
 						"type": "string"
@@ -595,16 +595,16 @@
 								"$ref": "#/components/schemas/AaveReservesData"
 							},
 							{
-								"$ref": "#/components/schemas/Erc20"
+								"$ref": "#/components/schemas/Erc20Response"
 							},
 							{
-								"$ref": "#/components/schemas/Erc1155"
+								"$ref": "#/components/schemas/Erc1155Response"
 							},
 							{
 								"$ref": "#/components/schemas/BroadCastRawTransactionResponse"
 							},
 							{
-								"$ref": "#/components/schemas/Erc721"
+								"$ref": "#/components/schemas/Erc721Response"
 							}
 						]
 					},

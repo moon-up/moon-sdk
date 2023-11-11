@@ -9,10 +9,12 @@
  * ---------------------------------------------------------------
  */
 
-import { AccountControllerResponse, UniswapInput } from "./data-contracts";
-import { ContentType, HttpClient, RequestParams } from "./http-client";
+import { AccountControllerResponse, UniswapInput } from './data-contracts';
+import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Uniswap<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class Uniswap<
+  SecurityDataType = unknown,
+> extends HttpClient<SecurityDataType> {
   /**
    * No description
    *
@@ -20,13 +22,17 @@ export class Uniswap<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @name AddLiquidity
    * @request POST:/uniswap/{name}/add-liquidity
    */
-  addLiquidity = (name: string, data: UniswapInput, params: RequestParams = {}) =>
+  addLiquidity = (
+    name: string,
+    data: UniswapInput,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/uniswap/${name}/add-liquidity`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -36,13 +42,17 @@ export class Uniswap<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @name RemoveLiquidity
    * @request POST:/uniswap/{name}/remove-liquidity
    */
-  removeLiquidity = (name: string, data: UniswapInput, params: RequestParams = {}) =>
+  removeLiquidity = (
+    name: string,
+    data: UniswapInput,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/uniswap/${name}/remove-liquidity`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -52,13 +62,17 @@ export class Uniswap<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @name SwapExactTokensForTokens
    * @request POST:/uniswap/{name}/swap-exact-tokens-for-tokens
    */
-  swapExactTokensForTokens = (name: string, data: UniswapInput, params: RequestParams = {}) =>
+  swapExactTokensForTokens = (
+    name: string,
+    data: UniswapInput,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/uniswap/${name}/swap-exact-tokens-for-tokens`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -68,13 +82,17 @@ export class Uniswap<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @name SwapExactEthForTokens
    * @request POST:/uniswap/{name}/swap-exact-eth-for-tokens
    */
-  swapExactEthForTokens = (name: string, data: UniswapInput, params: RequestParams = {}) =>
+  swapExactEthForTokens = (
+    name: string,
+    data: UniswapInput,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/uniswap/${name}/swap-exact-eth-for-tokens`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
 }

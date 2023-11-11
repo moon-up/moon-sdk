@@ -9,10 +9,12 @@
  * ---------------------------------------------------------------
  */
 
-import { AccountControllerResponse, Erc1155Request } from "./data-contracts";
-import { ContentType, HttpClient, RequestParams } from "./http-client";
+import { AccountControllerResponse, Erc1155Request } from './data-contracts';
+import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Erc1155<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class Erc1155<
+  SecurityDataType = unknown,
+> extends HttpClient<SecurityDataType> {
   /**
    * No description
    *
@@ -20,13 +22,17 @@ export class Erc1155<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @name BalanceOf
    * @request POST:/erc1155/{name}/balance-of
    */
-  balanceOf = (name: string, data: Erc1155Request, params: RequestParams = {}) =>
+  balanceOf = (
+    name: string,
+    data: Erc1155Request,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/erc1155/${name}/balance-of`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -36,13 +42,17 @@ export class Erc1155<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @name BalanceOfBatch
    * @request POST:/erc1155/{name}/balance-of-batch
    */
-  balanceOfBatch = (name: string, data: Erc1155Request, params: RequestParams = {}) =>
+  balanceOfBatch = (
+    name: string,
+    data: Erc1155Request,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/erc1155/${name}/balance-of-batch`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -52,13 +62,17 @@ export class Erc1155<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @name SetApprovalForAll
    * @request POST:/erc1155/{name}/set-approval-for-all
    */
-  setApprovalForAll = (name: string, data: Erc1155Request, params: RequestParams = {}) =>
+  setApprovalForAll = (
+    name: string,
+    data: Erc1155Request,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/erc1155/${name}/set-approval-for-all`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -68,13 +82,17 @@ export class Erc1155<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @name IsApprovedForAll
    * @request POST:/erc1155/{name}/is-approved-for-all
    */
-  isApprovedForAll = (name: string, data: Erc1155Request, params: RequestParams = {}) =>
+  isApprovedForAll = (
+    name: string,
+    data: Erc1155Request,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/erc1155/${name}/is-approved-for-all`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -84,13 +102,17 @@ export class Erc1155<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @name SafeTransferFrom
    * @request POST:/erc1155/{name}/safe-transfer-from
    */
-  safeTransferFrom = (name: string, data: Erc1155Request, params: RequestParams = {}) =>
+  safeTransferFrom = (
+    name: string,
+    data: Erc1155Request,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/erc1155/${name}/safe-transfer-from`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -100,13 +122,17 @@ export class Erc1155<SecurityDataType = unknown> extends HttpClient<SecurityData
    * @name SafeBatchTransferFrom
    * @request POST:/erc1155/{name}/safe-batch-transfer-from
    */
-  safeBatchTransferFrom = (name: string, data: Erc1155Request, params: RequestParams = {}) =>
+  safeBatchTransferFrom = (
+    name: string,
+    data: Erc1155Request,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/erc1155/${name}/safe-batch-transfer-from`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
 }

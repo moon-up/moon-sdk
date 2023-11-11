@@ -9,10 +9,12 @@
  * ---------------------------------------------------------------
  */
 
-import { AccountControllerResponse, Erc721Request } from "./data-contracts";
-import { ContentType, HttpClient, RequestParams } from "./http-client";
+import { AccountControllerResponse, Erc721Request } from './data-contracts';
+import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Erc721<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class Erc721<
+  SecurityDataType = unknown,
+> extends HttpClient<SecurityDataType> {
   /**
    * No description
    *
@@ -23,10 +25,10 @@ export class Erc721<SecurityDataType = unknown> extends HttpClient<SecurityDataT
   tokenUri = (name: string, data: Erc721Request, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/erc721/${name}/token-uri`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -39,10 +41,10 @@ export class Erc721<SecurityDataType = unknown> extends HttpClient<SecurityDataT
   transfer = (name: string, data: Erc721Request, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/erc721/${name}/transfer`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -52,13 +54,17 @@ export class Erc721<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @name TransferFrom
    * @request POST:/erc721/{name}/transfer-from
    */
-  transferFrom = (name: string, data: Erc721Request, params: RequestParams = {}) =>
+  transferFrom = (
+    name: string,
+    data: Erc721Request,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/erc721/${name}/transfer-from`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -71,10 +77,10 @@ export class Erc721<SecurityDataType = unknown> extends HttpClient<SecurityDataT
   approve = (name: string, data: Erc721Request, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/erc721/${name}/approve`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -84,13 +90,17 @@ export class Erc721<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @name GetApproved
    * @request POST:/erc721/{name}/get-approved
    */
-  getApproved = (name: string, data: Erc721Request, params: RequestParams = {}) =>
+  getApproved = (
+    name: string,
+    data: Erc721Request,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/erc721/${name}/get-approved`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -100,13 +110,17 @@ export class Erc721<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @name IsApprovedForAll
    * @request POST:/erc721/{name}/is-approved-for-all
    */
-  isApprovedForAll = (name: string, data: Erc721Request, params: RequestParams = {}) =>
+  isApprovedForAll = (
+    name: string,
+    data: Erc721Request,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/erc721/${name}/is-approved-for-all`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -119,10 +133,10 @@ export class Erc721<SecurityDataType = unknown> extends HttpClient<SecurityDataT
   name = (name: string, data: Erc721Request, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/erc721/${name}/name`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -135,10 +149,10 @@ export class Erc721<SecurityDataType = unknown> extends HttpClient<SecurityDataT
   symbol = (name: string, data: Erc721Request, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/erc721/${name}/symbol`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -151,10 +165,10 @@ export class Erc721<SecurityDataType = unknown> extends HttpClient<SecurityDataT
   balanceOf = (name: string, data: Erc721Request, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/erc721/${name}/balance-of`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -167,10 +181,10 @@ export class Erc721<SecurityDataType = unknown> extends HttpClient<SecurityDataT
   ownerOf = (name: string, data: Erc721Request, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/erc721/${name}/owner-of`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -180,13 +194,17 @@ export class Erc721<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @name SafeTransferFrom
    * @request POST:/erc721/{name}/safe-transfer-from
    */
-  safeTransferFrom = (name: string, data: Erc721Request, params: RequestParams = {}) =>
+  safeTransferFrom = (
+    name: string,
+    data: Erc721Request,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/erc721/${name}/safe-transfer-from`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -196,13 +214,17 @@ export class Erc721<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @name SetApprovalForAll
    * @request POST:/erc721/{name}/set-approval-for-all
    */
-  setApprovalForAll = (name: string, data: Erc721Request, params: RequestParams = {}) =>
+  setApprovalForAll = (
+    name: string,
+    data: Erc721Request,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/erc721/${name}/set-approval-for-all`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
 }

@@ -17,10 +17,12 @@ import {
   InputBody,
   SignMessage,
   SignTypedData,
-} from "./data-contracts";
-import { ContentType, HttpClient, RequestParams } from "./http-client";
+} from './data-contracts';
+import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Accounts<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class Accounts<
+  SecurityDataType = unknown,
+> extends HttpClient<SecurityDataType> {
   /**
    * No description
    *
@@ -31,8 +33,8 @@ export class Accounts<SecurityDataType = unknown> extends HttpClient<SecurityDat
   getNonce = (accountName: string, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/accounts/${accountName}/nonce`,
-      method: "GET",
-      format: "json",
+      method: 'GET',
+      format: 'json',
       ...params,
     });
   /**
@@ -47,13 +49,13 @@ export class Accounts<SecurityDataType = unknown> extends HttpClient<SecurityDat
     query: {
       chainId: string;
     },
-    params: RequestParams = {},
+    params: RequestParams = {}
   ) =>
     this.request<AccountControllerResponse, any>({
       path: `/accounts/${accountName}/balance`,
-      method: "GET",
+      method: 'GET',
       query: query,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -63,13 +65,17 @@ export class Accounts<SecurityDataType = unknown> extends HttpClient<SecurityDat
    * @name TransferEth
    * @request POST:/accounts/{accountName}/transfer-eth
    */
-  transferEth = (accountName: string, data: InputBody, params: RequestParams = {}) =>
+  transferEth = (
+    accountName: string,
+    data: InputBody,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/accounts/${accountName}/transfer-eth`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -79,13 +85,17 @@ export class Accounts<SecurityDataType = unknown> extends HttpClient<SecurityDat
    * @name SignMessage
    * @request POST:/accounts/{accountName}/sign-message
    */
-  signMessage = (accountName: string, data: SignMessage, params: RequestParams = {}) =>
+  signMessage = (
+    accountName: string,
+    data: SignMessage,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/accounts/${accountName}/sign-message`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -95,13 +105,17 @@ export class Accounts<SecurityDataType = unknown> extends HttpClient<SecurityDat
    * @name SignTransaction
    * @request POST:/accounts/{accountName}/sign-transaction
    */
-  signTransaction = (accountName: string, data: InputBody, params: RequestParams = {}) =>
+  signTransaction = (
+    accountName: string,
+    data: InputBody,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/accounts/${accountName}/sign-transaction`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -111,13 +125,17 @@ export class Accounts<SecurityDataType = unknown> extends HttpClient<SecurityDat
    * @name SignTypedData
    * @request POST:/accounts/{accountName}/sign-typed-data
    */
-  signTypedData = (accountName: string, data: SignTypedData, params: RequestParams = {}) =>
+  signTypedData = (
+    accountName: string,
+    data: SignTypedData,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/accounts/${accountName}/sign-typed-data`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -130,8 +148,8 @@ export class Accounts<SecurityDataType = unknown> extends HttpClient<SecurityDat
   listAccounts = (params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/accounts`,
-      method: "GET",
-      format: "json",
+      method: 'GET',
+      format: 'json',
       ...params,
     });
   /**
@@ -144,10 +162,10 @@ export class Accounts<SecurityDataType = unknown> extends HttpClient<SecurityDat
   createAccount = (data: CreateAccountInput, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/accounts`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -160,8 +178,8 @@ export class Accounts<SecurityDataType = unknown> extends HttpClient<SecurityDat
   getAccount = (accountName: string, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/accounts/${accountName}`,
-      method: "GET",
-      format: "json",
+      method: 'GET',
+      format: 'json',
       ...params,
     });
   /**
@@ -174,8 +192,8 @@ export class Accounts<SecurityDataType = unknown> extends HttpClient<SecurityDat
   deleteAccount = (accountName: string, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/accounts/${accountName}`,
-      method: "DELETE",
-      format: "json",
+      method: 'DELETE',
+      format: 'json',
       ...params,
     });
   /**
@@ -185,13 +203,17 @@ export class Accounts<SecurityDataType = unknown> extends HttpClient<SecurityDat
    * @name DeployContract
    * @request POST:/accounts/{accountName}/deploy
    */
-  deployContract = (accountName: string, data: DeployInput, params: RequestParams = {}) =>
+  deployContract = (
+    accountName: string,
+    data: DeployInput,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/accounts/${accountName}/deploy`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -201,13 +223,17 @@ export class Accounts<SecurityDataType = unknown> extends HttpClient<SecurityDat
    * @name BroadcastTx
    * @request POST:/accounts/{accountName}/broadcast-tx
    */
-  broadcastTx = (accountName: string, data: BroadcastInput, params: RequestParams = {}) =>
+  broadcastTx = (
+    accountName: string,
+    data: BroadcastInput,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/accounts/${accountName}/broadcast-tx`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
 }

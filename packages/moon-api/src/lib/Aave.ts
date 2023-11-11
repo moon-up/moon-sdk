@@ -9,10 +9,12 @@
  * ---------------------------------------------------------------
  */
 
-import { AaveInput, AccountControllerResponse } from "./data-contracts";
-import { ContentType, HttpClient, RequestParams } from "./http-client";
+import { AaveInput, AccountControllerResponse } from './data-contracts';
+import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Aave<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class Aave<
+  SecurityDataType = unknown,
+> extends HttpClient<SecurityDataType> {
   /**
    * No description
    *
@@ -23,10 +25,10 @@ export class Aave<SecurityDataType = unknown> extends HttpClient<SecurityDataTyp
   lend = (name: string, data: AaveInput, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/aave/${name}/lend`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -39,10 +41,10 @@ export class Aave<SecurityDataType = unknown> extends HttpClient<SecurityDataTyp
   borrow = (name: string, data: AaveInput, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/aave/${name}/borrow`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -52,13 +54,17 @@ export class Aave<SecurityDataType = unknown> extends HttpClient<SecurityDataTyp
    * @name UserReserveData
    * @request POST:/aave/{name}/user-reserve-data
    */
-  userReserveData = (name: string, data: AaveInput, params: RequestParams = {}) =>
+  userReserveData = (
+    name: string,
+    data: AaveInput,
+    params: RequestParams = {}
+  ) =>
     this.request<AccountControllerResponse, any>({
       path: `/aave/${name}/user-reserve-data`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
   /**
@@ -71,10 +77,10 @@ export class Aave<SecurityDataType = unknown> extends HttpClient<SecurityDataTyp
   repay = (name: string, data: AaveInput, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/aave/${name}/repay`,
-      method: "POST",
+      method: 'POST',
       body: data,
       type: ContentType.Json,
-      format: "json",
+      format: 'json',
       ...params,
     });
 }

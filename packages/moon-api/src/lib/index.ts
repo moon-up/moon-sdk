@@ -9,3 +9,6 @@ export * from './Erc721';
 export * from './Oneinch';
 export * from './Uniswap';
 export * from './Yearn';
+
+export * from './data-contracts';
+export * from './http-client';
