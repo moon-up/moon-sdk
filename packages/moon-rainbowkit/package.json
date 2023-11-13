@@ -1,31 +1,62 @@
 {
   "name": "@moonup/moon-rainbowkit",
-  "version": "0.0.1",
-  "description": "",
-  "type": "module",
+  "version": "0.0.2",
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",
   "files": [
     "dist",
     "src"
   ],
+  "engines": {
+    "node": ">=10"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
   },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@types/events": "^3.0.2",
-    "typescript": "^5.2.2"
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
   },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "author": "moonup",
+  "module": "dist/moon-rainbowkit.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/moon-rainbowkit.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/moon-rainbowkit.esm.js",
+      "limit": "10 KB"
+    }
+  ],
   "dependencies": {
-    "@moonup/ethers": "^0.0.2",
-    "@moonup/types": "^0.0.3",
-    "@moonup/wagmi-connector": "^0.0.1",
-    "@rainbow-me/rainbowkit": "^1.0.4",
+    "@moonup/ethers": "^0.0.4",
+    "@moonup/moon-types": "^0.0.16",
+    "@moonup/wagmi-connector": "^0.0.3",
+    "@rainbow-me/rainbowkit": "^1.2.0",
     "ethers": "^5.7.2",
-    "viem": "^1.2.9",
-    "wagmi": "^1.3.4"
+    "viem": "^1.19.0",
+    "wagmi": "^1.4.6"
+  },
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^8.1.0",
+    "husky": "^8.0.1",
+    "size-limit": "^8.1.0",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.4.0",
+    "typescript": "^5.2.2"
   }
 }

@@ -19,7 +19,7 @@ export function useMoonSDK(): MoonSDKHook {
 	const [moon, setMoon] = useState<MoonSDK | null>(null);
 
 	const initialize = async () => {
-		const kek1 = JSON.parse(
+		const auth = JSON.parse(
 			window.localStorage.getItem(MOON_SESSION_KEY) || '{}'
 		);
 
@@ -34,9 +34,9 @@ export function useMoonSDK(): MoonSDKHook {
 			},
 		});
 		console.log(moonInstance);
-		moonInstance.updateToken(kek1.token);
-		const kek = await moonInstance.listAccounts();
-		console.log(kek);
+		moonInstance.updateToken(auth.token);
+		const accounts = await moonInstance.listAccounts();
+		console.log(accounts);
 
 		setMoon(moonInstance);
 	};

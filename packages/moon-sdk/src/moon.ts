@@ -28,6 +28,7 @@ import {
   Yearn,
 } from '@moonup/moon-api';
 import {
+  Chain,
   MOON_SUPPORTED_NETWORKS,
   MoonAccount,
   MoonConfig,
@@ -232,6 +233,13 @@ export class MoonSDK {
     });
     return this.YearnSDK;
   }
+  public getMoonAccount(): MoonAccount {
+    return this.MoonAccount;
+  }
+
+  public updateRefreshToken(refreshToken: string) {
+    this.MoonAccount.setRefreshToken(refreshToken);
+  }
 
   public updateToken(token: string) {
     this.MoonAccount.setToken(token);
@@ -356,6 +364,14 @@ export class MoonSDK {
 
     return sdkConfig;
   }
+  public updateConfig(config: MoonConfig) {
+    this.MoonSDKConfig = this.initialiseConfig(config);
+  }
+
+  public getNetworks(): Chain[] {
+    return this.MoonSDKConfig.Networks;
+  }
+
   public updateAccount(account: MoonAccount) {
     this.MoonAccount = account;
     this.MoonSDKConfig.Storage.setItem(account);
@@ -363,6 +379,7 @@ export class MoonSDK {
 
   public async connect(): Promise<MoonAccount> {
     const account = new MoonAccount(this.MoonSDKConfig.Storage);
+    this.getMoonAccount().login();
     if (account.getToken() != '' && account.getRefreshToken() != '') {
       // check if account is expired
       if (account.getExpiry() < Date.now()) {
@@ -373,6 +390,10 @@ export class MoonSDK {
     }
 
     return new MoonAccount(this.MoonSDKConfig.Storage);
+  }
+
+  public updateNetwork(network: Chain) {
+    this.MoonAccount.setNetwork(network);
   }
 
   public async disconnect() {
@@ -393,7 +414,6 @@ export class MoonSDK {
   }
 
   async logout(): Promise<void> {
-    this.MoonSDKConfig.Storage.removeItem();
-    // this.MoonApi.setToken('');
+    this.MoonAccount.logout();
   }
 }

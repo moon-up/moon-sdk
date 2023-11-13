@@ -1,6 +1,5 @@
 import { MoonConfig } from '@moonup/moon-types';
 export interface MoonProviderOptions {
-  rpcUrl: string;
   chainId: number;
   MoonSDKConfig: MoonConfig;
 }

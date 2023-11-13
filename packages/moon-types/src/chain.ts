@@ -161,3 +161,28 @@ export const MOON_SUPPORTED_NETWORKS: Chain[] = [
     blockExplorerUrls: ['https://phoenix.lightlink.io/'],
   },
 ];
+
+// chainId number or string to rpcUrls
+// input chainId number or string
+// output rpcUrls string[]
+export const getRpcUrls = (chainId: string | number): string[] => {
+  // if number convert to big number
+  if (typeof chainId === 'number') {
+    chainId = chainId.toString(16);
+  }
+  const network = MOON_SUPPORTED_NETWORKS.find(
+    network => network.chainId === chainId
+  );
+  return network ? network.rpcUrls : [];
+};
+
+// chainId to chain
+// input chainId number or string
+// output chain object
+export const getChain = (chainId: string | number): Chain | undefined => {
+  // if number convert to big number
+  if (typeof chainId === 'number') {
+    chainId = chainId.toString(16);
+  }
+  return MOON_SUPPORTED_NETWORKS.find(network => network.chainId === chainId);
+};

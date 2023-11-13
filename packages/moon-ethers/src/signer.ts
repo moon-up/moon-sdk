@@ -1,19 +1,19 @@
 import { Provider } from '@ethersproject/abstract-provider';
 import {
-  Signer,
-  TypedDataDomain,
-  TypedDataField,
+    Signer,
+    TypedDataDomain,
+    TypedDataField,
 } from '@ethersproject/abstract-signer';
 import { BytesLike } from '@ethersproject/bytes';
 import { defineReadOnly } from '@ethersproject/properties';
 import {
-  TransactionRequest,
-  TransactionResponse,
+    TransactionRequest,
+    TransactionResponse,
 } from '@ethersproject/providers';
-import {
-  BroadCastRawTransactionResponse,
-  Transaction,
-} from '@moonup/moon-api/src/lib/data-contracts';
+import type {
+    BroadCastRawTransactionResponse,
+    Transaction
+} from '@moonup/moon-api';
 import { MoonSDK } from '@moonup/moon-sdk';
 import { MoonConfig } from '@moonup/moon-types';
 
@@ -48,8 +48,8 @@ export class MoonSigner extends Signer {
     types: Record<string, TypedDataField[]>,
     value: Record<string, any>
   ): Promise<string> {
-    const response = await this.MoonSDK.SignTypedData(domain, types, value);
-    return response.data;
+    const response = await this.MoonSDK.SignTypedData(domain, types, value) as Transaction;
+    return response.signed_message || '';
   }
 
   /**
@@ -60,8 +60,8 @@ export class MoonSigner extends Signer {
     throw new Error('Method not implemented.');
   }
   async signMessage(message: BytesLike): Promise<string> {
-    const response = await this.MoonSDK.SignMessage(message);
-    return response.signed_message;
+    const response = await this.MoonSDK.SignMessage(message) as Transaction;
+    return response.signed_message || '';
   }
   async broadcastTransaction(
     signedTransaction: string

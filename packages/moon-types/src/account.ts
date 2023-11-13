@@ -1,3 +1,4 @@
+import { EventEmitter } from 'events';
 import { Chain, MOON_SUPPORTED_NETWORKS } from './chain';
 import { MoonStorage } from './storage';
 export interface MoonAccountInterface {
@@ -17,9 +18,20 @@ export class MoonAccount {
   network: Chain;
   storage: MoonStorage;
   isAuth: boolean = false;
+  Events: EventEmitter;
 
   constructor(storage: MoonStorage) {
     this.storage = storage;
+    this.Events = new EventEmitter();
+
+    this.Events.on('updateToken', this.setToken.bind(this));
+    this.Events.on('updateRefreshToken', this.setRefreshToken.bind(this));
+    this.Events.on('updateEmail', this.setEmail.bind(this));
+    this.Events.on('updateExpiry', this.setExpiry.bind(this));
+    this.Events.on('updateWallet', this.setWallet.bind(this));
+    this.Events.on('updateNetwork', this.setNetwork.bind(this));
+    this.Events.on('logout', this.logout.bind(this));
+    this.Events.on('login', this.login.bind(this));
 
     // set defaults
     this.token = '';
@@ -28,10 +40,23 @@ export class MoonAccount {
     this.expiry = 0;
     this.wallet = '';
     this.network = MOON_SUPPORTED_NETWORKS[0];
+    this.login();
+  }
+  login() {
     const storedItem = this.storage.getItem();
     if (storedItem) {
       this.LoadFromJson(storedItem as MoonAccountInterface);
     }
+  }
+  logout() {
+    this.token = '';
+    this.refreshToken = '';
+    this.email = '';
+    this.expiry = 0;
+    this.wallet = '';
+    this.network = MOON_SUPPORTED_NETWORKS[0];
+    this.storage.removeItem();
+    this.isAuth = false;
   }
   LoadFromJson(json: MoonAccountInterface) {
     this.token = json.token;
@@ -40,7 +65,7 @@ export class MoonAccount {
     this.expiry = json.expiry;
     this.wallet = json.wallet;
     this.network = json.network;
-    if (this.token && this.refreshToken && this.email && this.expiry) {
+    if (this.token && this.refreshToken && this.expiry) {
       this.isAuth = true;
     }
   }
