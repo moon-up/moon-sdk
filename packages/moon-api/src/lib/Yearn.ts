@@ -21,12 +21,14 @@ export class Yearn<
    * @tags yearn
    * @name AddLiquidity
    * @request POST:/yearn/{name}/add-liquidity
+   * @secure
    */
   addLiquidity = (name: string, data: InputBody, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/yearn/${name}/add-liquidity`,
       method: 'POST',
       body: data,
+      secure: true,
       type: ContentType.Json,
       format: 'json',
       ...params,
@@ -37,6 +39,7 @@ export class Yearn<
    * @tags yearn
    * @name RemoveLiquidity
    * @request POST:/yearn/{name}/remove-liquidity
+   * @secure
    */
   removeLiquidity = (
     name: string,
@@ -47,6 +50,7 @@ export class Yearn<
       path: `/yearn/${name}/remove-liquidity`,
       method: 'POST',
       body: data,
+      secure: true,
       type: ContentType.Json,
       format: 'json',
       ...params,
@@ -57,6 +61,7 @@ export class Yearn<
    * @tags yearn
    * @name AddLiquidityWeth
    * @request POST:/yearn/{name}/add-liquidity-weth
+   * @secure
    */
   addLiquidityWeth = (
     name: string,
@@ -67,6 +72,7 @@ export class Yearn<
       path: `/yearn/${name}/add-liquidity-weth`,
       method: 'POST',
       body: data,
+      secure: true,
       type: ContentType.Json,
       format: 'json',
       ...params,
@@ -77,6 +83,7 @@ export class Yearn<
    * @tags yearn
    * @name RemoveLiquidityWeth
    * @request POST:/yearn/{name}/remove-liquidity-weth
+   * @secure
    */
   removeLiquidityWeth = (
     name: string,
@@ -87,6 +94,7 @@ export class Yearn<
       path: `/yearn/${name}/remove-liquidity-weth`,
       method: 'POST',
       body: data,
+      secure: true,
       type: ContentType.Json,
       format: 'json',
       ...params,

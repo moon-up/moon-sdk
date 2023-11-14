@@ -182,6 +182,9 @@ export class MoonSDK {
       securityWorker: this.MoonSDKConfig.Auth.securityWorker,
     });
   }
+  public login(): void {
+    this.updateToken(this.MoonAccount.getToken());
+  }
 
   public getAuthSDK(): Auth {
     return this.AuthSDK;

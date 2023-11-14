@@ -21,12 +21,14 @@ export class Aave<
    * @tags Aave
    * @name Lend
    * @request POST:/aave/{name}/lend
+   * @secure
    */
   lend = (name: string, data: AaveInput, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/aave/${name}/lend`,
       method: 'POST',
       body: data,
+      secure: true,
       type: ContentType.Json,
       format: 'json',
       ...params,
@@ -37,12 +39,14 @@ export class Aave<
    * @tags Aave
    * @name Borrow
    * @request POST:/aave/{name}/borrow
+   * @secure
    */
   borrow = (name: string, data: AaveInput, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/aave/${name}/borrow`,
       method: 'POST',
       body: data,
+      secure: true,
       type: ContentType.Json,
       format: 'json',
       ...params,
@@ -53,6 +57,7 @@ export class Aave<
    * @tags Aave
    * @name UserReserveData
    * @request POST:/aave/{name}/user-reserve-data
+   * @secure
    */
   userReserveData = (
     name: string,
@@ -63,6 +68,7 @@ export class Aave<
       path: `/aave/${name}/user-reserve-data`,
       method: 'POST',
       body: data,
+      secure: true,
       type: ContentType.Json,
       format: 'json',
       ...params,
@@ -73,12 +79,14 @@ export class Aave<
    * @tags Aave
    * @name Repay
    * @request POST:/aave/{name}/repay
+   * @secure
    */
   repay = (name: string, data: AaveInput, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/aave/${name}/repay`,
       method: 'POST',
       body: data,
+      secure: true,
       type: ContentType.Json,
       format: 'json',
       ...params,

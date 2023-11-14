@@ -92,12 +92,8 @@ export interface Transaction {
   userop_transaction?: string;
 }
 
-export interface Account {
-  address: string;
-}
-
 export interface AccountResponse {
-  keys?: Account[];
+  keys?: string[];
   address?: string;
 }
 

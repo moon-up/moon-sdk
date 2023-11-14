@@ -24,12 +24,14 @@ export class Conveyorfinance<
    * @tags ConveyorFinance
    * @name Swap
    * @request POST:/conveyorfinance/{name}/swap
+   * @secure
    */
   swap = (name: string, data: TokenSwapParams, params: RequestParams = {}) =>
     this.request<ConveyorFinanceControllerResponse, any>({
       path: `/conveyorfinance/${name}/swap`,
       method: 'POST',
       body: data,
+      secure: true,
       type: ContentType.Json,
       format: 'json',
       ...params,

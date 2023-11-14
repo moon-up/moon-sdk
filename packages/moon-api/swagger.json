@@ -255,23 +255,11 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"Account": {
-				"properties": {
-					"address": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"address"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
 			"AccountResponse": {
 				"properties": {
 					"keys": {
 						"items": {
-							"$ref": "#/components/schemas/Account"
+							"type": "string"
 						},
 						"type": "array"
 					},
@@ -1218,7 +1206,29 @@
 				"additionalProperties": false
 			}
 		},
-		"securitySchemes": {}
+		"securitySchemes": {
+			"BearerAuth": {
+				"type": "apiKey",
+				"name": "Authorization",
+				"in": "header"
+			},
+			"OAuth2": {
+				"type": "oauth2",
+				"flows": {
+					"password": {
+						"tokenUrl": "https://vault-api.usemoon.ai/auth/oauth/openai/oauth",
+						"scopes": {
+							"authorization_code": "grants authorization_code"
+						}
+					}
+				}
+			},
+			"ApiKeyAuth": {
+				"type": "apiKey",
+				"name": "x-api-key",
+				"in": "header"
+			}
+		}
 	},
 	"info": {
 		"title": "moon-vault-api",
@@ -1246,7 +1256,17 @@
 				"tags": [
 					"oneinch"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [],
 				"requestBody": {
 					"required": true,
@@ -1274,7 +1294,17 @@
 				"tags": [
 					"oneinch"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [],
 				"requestBody": {
 					"required": true,
@@ -1302,7 +1332,17 @@
 				"tags": [
 					"oneinch"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [],
 				"requestBody": {
 					"required": true,
@@ -1330,7 +1370,17 @@
 				"tags": [
 					"oneinch"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -1377,7 +1427,17 @@
 				"tags": [
 					"oneinch"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [],
 				"requestBody": {
 					"required": true,
@@ -1405,7 +1465,17 @@
 				"tags": [
 					"oneinch"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [],
 				"requestBody": {
 					"required": true,
@@ -1435,7 +1505,17 @@
 				"tags": [
 					"Accounts"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -1474,7 +1554,17 @@
 				"tags": [
 					"Accounts"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -1521,7 +1611,17 @@
 				"tags": [
 					"Accounts"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -1570,7 +1670,17 @@
 				"tags": [
 					"Accounts"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -1619,7 +1729,17 @@
 				"tags": [
 					"Accounts"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -1668,7 +1788,17 @@
 				"tags": [
 					"Accounts"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -1717,7 +1847,17 @@
 				"tags": [
 					"Accounts"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -1746,7 +1886,17 @@
 				"tags": [
 					"Accounts"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -1787,7 +1937,17 @@
 				"tags": [
 					"Accounts"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -1824,7 +1984,17 @@
 				"tags": [
 					"Accounts"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -1863,7 +2033,17 @@
 				"tags": [
 					"Accounts"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -1912,7 +2092,17 @@
 				"tags": [
 					"Accounts"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -1961,7 +2151,17 @@
 				"tags": [
 					"Aave"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -2010,7 +2210,17 @@
 				"tags": [
 					"Aave"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -2059,7 +2269,17 @@
 				"tags": [
 					"Aave"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -2108,7 +2328,17 @@
 				"tags": [
 					"Aave"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -2157,7 +2387,17 @@
 				"tags": [
 					"ConveyorFinance"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -2206,7 +2446,17 @@
 				"tags": [
 					"ENS"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -2247,7 +2497,17 @@
 				"tags": [
 					"ERC1155"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -2296,7 +2556,17 @@
 				"tags": [
 					"ERC1155"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -2345,7 +2615,17 @@
 				"tags": [
 					"ERC1155"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -2394,7 +2674,17 @@
 				"tags": [
 					"ERC1155"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -2443,7 +2733,17 @@
 				"tags": [
 					"ERC1155"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -2492,7 +2792,17 @@
 				"tags": [
 					"ERC1155"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -2541,7 +2851,17 @@
 				"tags": [
 					"Erc20"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -2590,7 +2910,17 @@
 				"tags": [
 					"Erc20"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -2639,7 +2969,17 @@
 				"tags": [
 					"Erc20"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -2688,7 +3028,17 @@
 				"tags": [
 					"Erc20"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -2737,7 +3087,17 @@
 				"tags": [
 					"Erc20"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -2786,7 +3146,17 @@
 				"tags": [
 					"Erc20"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -2835,7 +3205,17 @@
 				"tags": [
 					"Erc20"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -2884,7 +3264,17 @@
 				"tags": [
 					"Erc20"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -2933,7 +3323,17 @@
 				"tags": [
 					"Erc20"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -2982,7 +3382,17 @@
 				"tags": [
 					"Erc4337"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -3031,7 +3441,17 @@
 				"tags": [
 					"Erc4337"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -3080,7 +3500,17 @@
 				"tags": [
 					"Erc721"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -3129,7 +3559,17 @@
 				"tags": [
 					"Erc721"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -3178,7 +3618,17 @@
 				"tags": [
 					"Erc721"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -3227,7 +3677,17 @@
 				"tags": [
 					"Erc721"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -3276,7 +3736,17 @@
 				"tags": [
 					"Erc721"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -3325,7 +3795,17 @@
 				"tags": [
 					"Erc721"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -3374,7 +3854,17 @@
 				"tags": [
 					"Erc721"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -3423,7 +3913,17 @@
 				"tags": [
 					"Erc721"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -3472,7 +3972,17 @@
 				"tags": [
 					"Erc721"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -3521,7 +4031,17 @@
 				"tags": [
 					"Erc721"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -3570,7 +4090,17 @@
 				"tags": [
 					"Erc721"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -3619,7 +4149,17 @@
 				"tags": [
 					"Erc721"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -3687,7 +4227,17 @@
 				"tags": [
 					"UniSwap"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -3736,7 +4286,17 @@
 				"tags": [
 					"UniSwap"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -3785,7 +4345,17 @@
 				"tags": [
 					"UniSwap"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -3834,7 +4404,17 @@
 				"tags": [
 					"UniSwap"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -3883,7 +4463,17 @@
 				"tags": [
 					"yearn"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -3932,7 +4522,17 @@
 				"tags": [
 					"yearn"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -3981,7 +4581,17 @@
 				"tags": [
 					"yearn"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -4030,7 +4640,17 @@
 				"tags": [
 					"yearn"
 				],
-				"security": [],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "header",
@@ -4064,7 +4684,7 @@
 	},
 	"servers": [
 		{
-			"url": "https://vault-api.usemoon.ai/"
+			"url": "https://vault-api.usemoon.ai"
 		}
 	]
 }

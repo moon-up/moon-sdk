@@ -21,6 +21,7 @@ export class Erc4337<
    * @tags Erc4337
    * @name GetAddress
    * @request POST:/erc4337/{accountName}/address
+   * @secure
    */
   getAddress = (
     accountName: string,
@@ -31,6 +32,7 @@ export class Erc4337<
       path: `/erc4337/${accountName}/address`,
       method: 'POST',
       body: data,
+      secure: true,
       type: ContentType.Json,
       format: 'json',
       ...params,
@@ -41,6 +43,7 @@ export class Erc4337<
    * @tags Erc4337
    * @name SignBroadcastUserOpTx
    * @request POST:/erc4337/{accountName}/sign-broadcast-userop-tx
+   * @secure
    */
   signBroadcastUserOpTx = (
     accountName: string,
@@ -51,6 +54,7 @@ export class Erc4337<
       path: `/erc4337/${accountName}/sign-broadcast-userop-tx`,
       method: 'POST',
       body: data,
+      secure: true,
       type: ContentType.Json,
       format: 'json',
       ...params,

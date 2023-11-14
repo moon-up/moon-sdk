@@ -21,12 +21,14 @@ export class Ens<
    * @tags ENS
    * @name Resolve
    * @request POST:/ens/resolve
+   * @secure
    */
   resolve = (data: EnsResolveInput, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/ens/resolve`,
       method: 'POST',
       body: data,
+      secure: true,
       type: ContentType.Json,
       format: 'json',
       ...params,
