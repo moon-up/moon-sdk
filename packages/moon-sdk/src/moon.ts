@@ -12,6 +12,7 @@ import {
   AccountResponse,
   Accounts,
   Auth,
+  Bitcoin,
   BroadCastRawTransactionResponse,
   ContentType,
   Conveyorfinance,
@@ -52,6 +53,7 @@ export class MoonSDK {
   private UniswapSDK: Uniswap;
   private YearnSDK: Yearn;
   private AuthSDK: Auth;
+  private BitcoinSDK: Bitcoin;
   MoonProvider: JsonRpcProvider | undefined;
   MoonSDKConfig: MoonSDKConfig;
   MoonAccount: MoonAccount;
@@ -181,9 +183,20 @@ export class MoonSDK {
       },
       securityWorker: this.MoonSDKConfig.Auth.securityWorker,
     });
+
+    this.BitcoinSDK = new Bitcoin({
+      baseUrl: 'https://vault-api.usemoon.ai',
+      baseApiParams: {
+        secure: true,
+        type: ContentType.Json,
+        format: 'json',
+      },
+      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
+    });
   }
   public login(): void {
-    this.updateToken(this.MoonAccount.getToken());
+    this.getMoonAccount().login();
+    this.updateToken(this.getMoonAccount().getToken());
   }
 
   public getAuthSDK(): Auth {
@@ -247,6 +260,9 @@ export class MoonSDK {
   public updateToken(token: string) {
     this.MoonAccount.setToken(token);
     this.AuthSDK.setSecurityData({
+      token: this.MoonAccount.getToken(),
+    });
+    this.BitcoinSDK.setSecurityData({
       token: this.MoonAccount.getToken(),
     });
     this.AccountsSDK.setSecurityData({

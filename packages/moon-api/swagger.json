@@ -493,6 +493,39 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"BitcoinTransactionOutput": {
+				"properties": {
+					"txid": {
+						"type": "string"
+					},
+					"source_address": {
+						"type": "string"
+					},
+					"destination_address": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "number",
+						"format": "double"
+					},
+					"unsignedtx": {
+						"type": "string"
+					},
+					"signedtx": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"txid",
+					"source_address",
+					"destination_address",
+					"amount",
+					"unsignedtx",
+					"signedtx"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"Erc721Response": {
 				"properties": {
 					"moon_scan_url": {
@@ -590,6 +623,9 @@
 							},
 							{
 								"$ref": "#/components/schemas/BroadCastRawTransactionResponse"
+							},
+							{
+								"$ref": "#/components/schemas/BitcoinTransactionOutput"
 							},
 							{
 								"$ref": "#/components/schemas/Erc721Response"
@@ -779,6 +815,42 @@
 						"type": "string"
 					}
 				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BitcoinInput": {
+				"properties": {
+					"network": {
+						"type": "string"
+					},
+					"private_key": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BitcoinTransactionInput": {
+				"properties": {
+					"destination_address": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "number",
+						"format": "double"
+					},
+					"transaction_hash": {
+						"type": "string"
+					},
+					"network": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"destination_address",
+					"amount",
+					"transaction_hash"
+				],
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -2363,6 +2435,204 @@
 						"application/json": {
 							"schema": {
 								"$ref": "#/components/schemas/AaveInput"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/bitcoin": {
+			"get": {
+				"operationId": "ListAccounts",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Bitcoin"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"post": {
+				"operationId": "CreateAccount",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Bitcoin"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/BitcoinInput"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/bitcoin/{accountName}": {
+			"get": {
+				"operationId": "GetAccount",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Bitcoin"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/bitcoin/{accountName}/sign-tx": {
+			"post": {
+				"operationId": "SignTransaction",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AccountControllerResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Bitcoin"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/BitcoinTransactionInput"
 							}
 						}
 					}

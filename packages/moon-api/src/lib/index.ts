@@ -1,5 +1,6 @@
 export * from './Aave';
 export * from './Accounts';
+export * from './Bitcoin';
 export * from './Conveyorfinance';
 export * from './Ens';
 export * from './Erc1155';

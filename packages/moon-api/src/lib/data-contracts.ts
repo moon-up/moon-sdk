@@ -165,6 +165,16 @@ export interface BroadCastRawTransactionResponse {
   data: string;
 }
 
+export interface BitcoinTransactionOutput {
+  txid: string;
+  source_address: string;
+  destination_address: string;
+  /** @format double */
+  amount: number;
+  unsignedtx: string;
+  signedtx: string;
+}
+
 export interface Erc721Response {
   moon_scan_url?: string;
   transaction_hash: string;
@@ -197,6 +207,7 @@ export interface AccountControllerResponse {
     | Erc20Response
     | Erc1155Response
     | BroadCastRawTransactionResponse
+    | BitcoinTransactionOutput
     | Erc721Response;
   success?: boolean;
   message?: string;
@@ -261,6 +272,19 @@ export interface AaveInput {
   atoken_to_redeeem?: string;
   ref_code?: string;
   interest_rate_mode?: string;
+}
+
+export interface BitcoinInput {
+  network?: string;
+  private_key?: string;
+}
+
+export interface BitcoinTransactionInput {
+  destination_address: string;
+  /** @format double */
+  amount: number;
+  transaction_hash: string;
+  network?: string;
 }
 
 export interface TransactionResponse {
