@@ -13,18 +13,26 @@ import {
   Accounts,
   Auth,
   Bitcoin,
+  Bitcoincash,
   BroadCastRawTransactionResponse,
   ContentType,
   Conveyorfinance,
+  Cosmos,
+  Dogecoin,
   Ens,
+  Eos,
   Erc1155,
   Erc20,
   Erc4337,
   Erc721,
   InputBody,
+  Litecoin,
   Oneinch,
   RefreshTokenResponse,
+  Ripple,
+  Solana,
   Transaction,
+  Tron,
   Uniswap,
   Yearn,
 } from '@moonup/moon-api';
@@ -54,6 +62,14 @@ export class MoonSDK {
   private YearnSDK: Yearn;
   private AuthSDK: Auth;
   private BitcoinSDK: Bitcoin;
+  private SolanaSDK: Solana;
+  private CosmosSDK: Cosmos;
+  private EosSDK: Eos;
+  private LitecoinSDK: Litecoin;
+  private RippleSDK: Ripple;
+  private TronSDK: Tron;
+  private BitcoincashSDK: Bitcoincash;
+  private DogecoinSDK: Dogecoin;
   MoonProvider: JsonRpcProvider | undefined;
   MoonSDKConfig: MoonSDKConfig;
   MoonAccount: MoonAccount;
@@ -193,10 +209,125 @@ export class MoonSDK {
       },
       securityWorker: this.MoonSDKConfig.Auth.securityWorker,
     });
+
+    this.BitcoincashSDK = new Bitcoincash({
+      baseUrl: 'https://vault-api.usemoon.ai',
+      baseApiParams: {
+        secure: true,
+        type: ContentType.Json,
+        format: 'json',
+      },
+      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
+    });
+
+    this.DogecoinSDK = new Dogecoin({
+      baseUrl: 'https://vault-api.usemoon.ai',
+      baseApiParams: {
+        secure: true,
+        type: ContentType.Json,
+        format: 'json',
+      },
+      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
+    });
+
+    this.SolanaSDK = new Solana({
+      baseUrl: 'https://vault-api.usemoon.ai',
+      baseApiParams: {
+        secure: true,
+        type: ContentType.Json,
+        format: 'json',
+      },
+      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
+    });
+    this.CosmosSDK = new Cosmos({
+      baseUrl: 'https://vault-api.usemoon.ai',
+      baseApiParams: {
+        secure: true,
+        type: ContentType.Json,
+        format: 'json',
+      },
+      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
+    });
+
+    this.EosSDK = new Eos({
+      baseUrl: 'https://vault-api.usemoon.ai',
+      baseApiParams: {
+        secure: true,
+        type: ContentType.Json,
+        format: 'json',
+      },
+      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
+    });
+
+    this.LitecoinSDK = new Litecoin({
+      baseUrl: 'https://vault-api.usemoon.ai',
+      baseApiParams: {
+        secure: true,
+        type: ContentType.Json,
+        format: 'json',
+      },
+      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
+    });
+
+    this.RippleSDK = new Ripple({
+      baseUrl: 'https://vault-api.usemoon.ai',
+      baseApiParams: {
+        secure: true,
+        type: ContentType.Json,
+        format: 'json',
+      },
+      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
+    });
+
+    this.TronSDK = new Tron({
+      baseUrl: 'https://vault-api.usemoon.ai',
+      baseApiParams: {
+        secure: true,
+        type: ContentType.Json,
+        format: 'json',
+      },
+      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
+    });
   }
   public login(): void {
     this.getMoonAccount().login();
     this.updateToken(this.getMoonAccount().getToken());
+  }
+
+  public getSolanaSDK(): Solana {
+    return this.SolanaSDK;
+  }
+
+  public getBitcoinSDK(): Bitcoin {
+    return this.BitcoinSDK;
+  }
+
+  public getCosmosSDK(): Cosmos {
+    return this.CosmosSDK;
+  }
+
+  public getEosSDK(): Eos {
+    return this.EosSDK;
+  }
+
+  public getLitecoinSDK(): Litecoin {
+    return this.LitecoinSDK;
+  }
+
+  public getRippleSDK(): Ripple {
+    return this.RippleSDK;
+  }
+
+  public getTronSDK(): Tron {
+    return this.TronSDK;
+  }
+
+  public getBitcoincashSDK(): Bitcoincash {
+    return this.BitcoincashSDK;
+  }
+
+  public getDogecoinSDK(): Dogecoin {
+    return this.DogecoinSDK;
   }
 
   public getAuthSDK(): Auth {
@@ -293,6 +424,37 @@ export class MoonSDK {
       token: this.MoonAccount.getToken(),
     });
     this.UniswapSDK.setSecurityData({
+      token: this.MoonAccount.getToken(),
+    });
+    this.SolanaSDK.setSecurityData({
+      token: this.MoonAccount.getToken(),
+    });
+
+    this.CosmosSDK.setSecurityData({
+      token: this.MoonAccount.getToken(),
+    });
+
+    this.EosSDK.setSecurityData({
+      token: this.MoonAccount.getToken(),
+    });
+
+    this.LitecoinSDK.setSecurityData({
+      token: this.MoonAccount.getToken(),
+    });
+
+    this.RippleSDK.setSecurityData({
+      token: this.MoonAccount.getToken(),
+    });
+
+    this.TronSDK.setSecurityData({
+      token: this.MoonAccount.getToken(),
+    });
+
+    this.BitcoincashSDK.setSecurityData({
+      token: this.MoonAccount.getToken(),
+    });
+
+    this.DogecoinSDK.setSecurityData({
       token: this.MoonAccount.getToken(),
     });
   }

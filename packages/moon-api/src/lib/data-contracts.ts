@@ -287,6 +287,19 @@ export interface BitcoinTransactionInput {
   network?: string;
 }
 
+export interface BitcoinCashInput {
+  network?: string;
+  private_key?: string;
+}
+
+export interface BitcoinCashTransactionInput {
+  destination_address: string;
+  /** @format double */
+  amount: number;
+  transaction_hash: string;
+  network?: string;
+}
+
 export interface TransactionResponse {
   message: string;
   tx: {
@@ -357,9 +370,48 @@ export interface TokenSwapParams {
   referrer: string;
 }
 
+export interface CosmosInput {
+  network?: string;
+  private_key?: string;
+}
+
+export interface CosmosTransactionInput {
+  destination_address: string;
+  /** @format double */
+  amount: number;
+  transaction_hash: string;
+  network?: string;
+}
+
+export interface DogeCoinInput {
+  network?: string;
+  private_key?: string;
+}
+
+export interface DogeCoinTransactionInput {
+  destination_address: string;
+  /** @format double */
+  amount: number;
+  transaction_hash: string;
+  network?: string;
+}
+
 export interface EnsResolveInput {
   domain: string;
   chain_id: string;
+}
+
+export interface EosInput {
+  network?: string;
+  private_key?: string;
+}
+
+export interface EosTransactionInput {
+  destination_address: string;
+  /** @format double */
+  amount: number;
+  transaction_hash: string;
+  network?: string;
 }
 
 export interface Erc1155Request {
@@ -398,8 +450,60 @@ export interface Erc721Request {
   broadcast?: boolean;
 }
 
+export interface LitecoinInput {
+  network?: string;
+  private_key?: string;
+}
+
+export interface LitecoinTransactionInput {
+  destination_address: string;
+  /** @format double */
+  amount: number;
+  transaction_hash: string;
+  network?: string;
+}
+
 export interface PingResponse {
   message: string;
+}
+
+export interface RippleInput {
+  network?: string;
+  private_key?: string;
+}
+
+export interface RippleTransactionInput {
+  destination_address: string;
+  /** @format double */
+  amount: number;
+  transaction_hash: string;
+  network?: string;
+}
+
+export interface SolanaInput {
+  network?: string;
+  private_key?: string;
+}
+
+export interface SolanaTransactionInput {
+  destination_address: string;
+  /** @format double */
+  amount: number;
+  transaction_hash: string;
+  network?: string;
+}
+
+export interface TronInput {
+  network?: string;
+  private_key?: string;
+}
+
+export interface TronTransactionInput {
+  destination_address: string;
+  /** @format double */
+  amount: number;
+  transaction_hash: string;
+  network?: string;
 }
 
 export interface UniswapInput {
