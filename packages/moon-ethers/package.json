@@ -1,6 +1,6 @@
 {
   "name": "@moonup/ethers",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
@@ -49,8 +49,8 @@
     "@ethersproject/bytes": "^5.7.0",
     "@ethersproject/properties": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",
-    "@moonup/moon-api": "^0.0.11",
-    "@moonup/moon-sdk": "^0.0.19",
+    "@moonup/moon-api": "^0.0.16",
+    "@moonup/moon-sdk": "^0.0.27",
     "@moonup/moon-types": "^0.0.16",
     "eip1193-provider": "^1.0.1",
     "ethers": "^5.7.2",

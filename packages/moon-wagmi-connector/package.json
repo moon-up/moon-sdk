@@ -1,6 +1,6 @@
 {
   "name": "@moonup/wagmi-connector",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
@@ -43,7 +43,7 @@
     }
   ],
   "dependencies": {
-    "@moonup/ethers": "^0.0.4",
+    "@moonup/ethers": "^0.0.6",
     "@moonup/moon-types": "^0.0.16",
     "viem": "^1.19.0",
     "wagmi": "^1.4.6"

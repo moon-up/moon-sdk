@@ -1,6 +1,6 @@
 {
   "name": "@moonup/moon-rainbowkit",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
@@ -43,9 +43,9 @@
     }
   ],
   "dependencies": {
-    "@moonup/ethers": "^0.0.4",
+    "@moonup/ethers": "^0.0.6",
     "@moonup/moon-types": "^0.0.16",
-    "@moonup/wagmi-connector": "^0.0.3",
+    "@moonup/wagmi-connector": "^0.0.4",
     "@rainbow-me/rainbowkit": "^1.2.0",
     "ethers": "^5.7.2",
     "viem": "^1.19.0",
