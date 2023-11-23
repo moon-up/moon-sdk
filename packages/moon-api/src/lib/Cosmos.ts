@@ -23,11 +23,11 @@ export class Cosmos<
    * No description
    *
    * @tags Cosmos
-   * @name ListAccounts
+   * @name ListCosmosAccounts
    * @request GET:/cosmos
    * @secure
    */
-  listAccounts = (params: RequestParams = {}) =>
+  listCosmosAccounts = (params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/cosmos`,
       method: 'GET',
@@ -39,11 +39,11 @@ export class Cosmos<
    * No description
    *
    * @tags Cosmos
-   * @name CreateAccount
+   * @name CreateCosmosAccount
    * @request POST:/cosmos
    * @secure
    */
-  createAccount = (data: CosmosInput, params: RequestParams = {}) =>
+  createCosmosAccount = (data: CosmosInput, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/cosmos`,
       method: 'POST',
@@ -57,11 +57,11 @@ export class Cosmos<
    * No description
    *
    * @tags Cosmos
-   * @name GetAccount
+   * @name GetCosmosAccount
    * @request GET:/cosmos/{accountName}
    * @secure
    */
-  getAccount = (accountName: string, params: RequestParams = {}) =>
+  getCosmosAccount = (accountName: string, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/cosmos/${accountName}`,
       method: 'GET',
@@ -73,11 +73,11 @@ export class Cosmos<
    * No description
    *
    * @tags Cosmos
-   * @name SignTransaction
+   * @name SignCosmosTransaction
    * @request POST:/cosmos/{accountName}/sign-tx
    * @secure
    */
-  signTransaction = (
+  signCosmosTransaction = (
     accountName: string,
     data: CosmosTransactionInput,
     params: RequestParams = {}

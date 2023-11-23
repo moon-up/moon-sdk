@@ -23,11 +23,11 @@ export class Solana<
    * No description
    *
    * @tags Solana
-   * @name ListAccounts
+   * @name ListSolanaAccounts
    * @request GET:/solana
    * @secure
    */
-  listAccounts = (params: RequestParams = {}) =>
+  listSolanaAccounts = (params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/solana`,
       method: 'GET',
@@ -39,11 +39,11 @@ export class Solana<
    * No description
    *
    * @tags Solana
-   * @name CreateAccount
+   * @name CreateSolanaAccount
    * @request POST:/solana
    * @secure
    */
-  createAccount = (data: SolanaInput, params: RequestParams = {}) =>
+  createSolanaAccount = (data: SolanaInput, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/solana`,
       method: 'POST',
@@ -57,11 +57,11 @@ export class Solana<
    * No description
    *
    * @tags Solana
-   * @name GetAccount
+   * @name GetSolanaAccount
    * @request GET:/solana/{accountName}
    * @secure
    */
-  getAccount = (accountName: string, params: RequestParams = {}) =>
+  getSolanaAccount = (accountName: string, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/solana/${accountName}`,
       method: 'GET',
@@ -73,11 +73,11 @@ export class Solana<
    * No description
    *
    * @tags Solana
-   * @name SignTransaction
+   * @name SignSolanaTransaction
    * @request POST:/solana/{accountName}/sign-tx
    * @secure
    */
-  signTransaction = (
+  signSolanaTransaction = (
     accountName: string,
     data: SolanaTransactionInput,
     params: RequestParams = {}

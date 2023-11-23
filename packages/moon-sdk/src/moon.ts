@@ -90,6 +90,7 @@ export class MoonSDK {
       },
       securityWorker: this.MoonSDKConfig.Auth.securityWorker,
     });
+
     this.AuthSDK = new Auth({
       baseUrl: 'https://vault-api.usemoon.ai',
       baseApiParams: {

@@ -23,11 +23,11 @@ export class Tron<
    * No description
    *
    * @tags Tron
-   * @name ListAccounts
+   * @name ListTronAccounts
    * @request GET:/tron
    * @secure
    */
-  listAccounts = (params: RequestParams = {}) =>
+  listTronAccounts = (params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/tron`,
       method: 'GET',
@@ -39,11 +39,11 @@ export class Tron<
    * No description
    *
    * @tags Tron
-   * @name CreateAccount
+   * @name CreateTronAccount
    * @request POST:/tron
    * @secure
    */
-  createAccount = (data: TronInput, params: RequestParams = {}) =>
+  createTronAccount = (data: TronInput, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/tron`,
       method: 'POST',
@@ -57,11 +57,11 @@ export class Tron<
    * No description
    *
    * @tags Tron
-   * @name GetAccount
+   * @name GetTronAccount
    * @request GET:/tron/{accountName}
    * @secure
    */
-  getAccount = (accountName: string, params: RequestParams = {}) =>
+  getTronAccount = (accountName: string, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/tron/${accountName}`,
       method: 'GET',
@@ -73,11 +73,11 @@ export class Tron<
    * No description
    *
    * @tags Tron
-   * @name SignTransaction
+   * @name SignTronTransaction
    * @request POST:/tron/{accountName}/sign-tx
    * @secure
    */
-  signTransaction = (
+  signTronTransaction = (
     accountName: string,
     data: TronTransactionInput,
     params: RequestParams = {}

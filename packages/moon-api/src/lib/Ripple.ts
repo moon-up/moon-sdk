@@ -23,11 +23,11 @@ export class Ripple<
    * No description
    *
    * @tags ripple
-   * @name ListAccounts
+   * @name ListRippleAccounts
    * @request GET:/ripple
    * @secure
    */
-  listAccounts = (params: RequestParams = {}) =>
+  listRippleAccounts = (params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/ripple`,
       method: 'GET',
@@ -39,11 +39,11 @@ export class Ripple<
    * No description
    *
    * @tags ripple
-   * @name CreateAccount
+   * @name CreateRippleAccount
    * @request POST:/ripple
    * @secure
    */
-  createAccount = (data: RippleInput, params: RequestParams = {}) =>
+  createRippleAccount = (data: RippleInput, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/ripple`,
       method: 'POST',
@@ -57,11 +57,11 @@ export class Ripple<
    * No description
    *
    * @tags ripple
-   * @name GetAccount
+   * @name GetRippleAccount
    * @request GET:/ripple/{accountName}
    * @secure
    */
-  getAccount = (accountName: string, params: RequestParams = {}) =>
+  getRippleAccount = (accountName: string, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/ripple/${accountName}`,
       method: 'GET',
@@ -73,11 +73,11 @@ export class Ripple<
    * No description
    *
    * @tags ripple
-   * @name SignTransaction
+   * @name SignRippleTransaction
    * @request POST:/ripple/{accountName}/sign-tx
    * @secure
    */
-  signTransaction = (
+  signRippleTransaction = (
     accountName: string,
     data: RippleTransactionInput,
     params: RequestParams = {}

@@ -23,11 +23,11 @@ export class Litecoin<
    * No description
    *
    * @tags Litecoin
-   * @name ListAccounts
+   * @name ListLitecoinAccounts
    * @request GET:/litecoin
    * @secure
    */
-  listAccounts = (params: RequestParams = {}) =>
+  listLitecoinAccounts = (params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/litecoin`,
       method: 'GET',
@@ -39,11 +39,11 @@ export class Litecoin<
    * No description
    *
    * @tags Litecoin
-   * @name CreateAccount
+   * @name CreateLitecoinAccount
    * @request POST:/litecoin
    * @secure
    */
-  createAccount = (data: LitecoinInput, params: RequestParams = {}) =>
+  createLitecoinAccount = (data: LitecoinInput, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/litecoin`,
       method: 'POST',
@@ -57,11 +57,11 @@ export class Litecoin<
    * No description
    *
    * @tags Litecoin
-   * @name GetAccount
+   * @name GetLitecoinAccount
    * @request GET:/litecoin/{accountName}
    * @secure
    */
-  getAccount = (accountName: string, params: RequestParams = {}) =>
+  getLitecoinAccount = (accountName: string, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/litecoin/${accountName}`,
       method: 'GET',
@@ -73,11 +73,11 @@ export class Litecoin<
    * No description
    *
    * @tags Litecoin
-   * @name SignTransaction
+   * @name SignLitecoinTransaction
    * @request POST:/litecoin/{accountName}/sign-tx
    * @secure
    */
-  signTransaction = (
+  signLitecoinTransaction = (
     accountName: string,
     data: LitecoinTransactionInput,
     params: RequestParams = {}

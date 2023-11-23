@@ -23,11 +23,11 @@ export class Eos<
    * No description
    *
    * @tags eos
-   * @name ListAccounts
+   * @name ListEosAccounts
    * @request GET:/eos
    * @secure
    */
-  listAccounts = (params: RequestParams = {}) =>
+  listEosAccounts = (params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/eos`,
       method: 'GET',
@@ -39,11 +39,11 @@ export class Eos<
    * No description
    *
    * @tags eos
-   * @name CreateAccount
+   * @name CreateEosAccount
    * @request POST:/eos
    * @secure
    */
-  createAccount = (data: EosInput, params: RequestParams = {}) =>
+  createEosAccount = (data: EosInput, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/eos`,
       method: 'POST',
@@ -57,11 +57,11 @@ export class Eos<
    * No description
    *
    * @tags eos
-   * @name GetAccount
+   * @name GetEosAccount
    * @request GET:/eos/{accountName}
    * @secure
    */
-  getAccount = (accountName: string, params: RequestParams = {}) =>
+  getEosAccount = (accountName: string, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/eos/${accountName}`,
       method: 'GET',
@@ -73,11 +73,11 @@ export class Eos<
    * No description
    *
    * @tags eos
-   * @name SignTransaction
+   * @name SignEosTransaction
    * @request POST:/eos/{accountName}/sign-tx
    * @secure
    */
-  signTransaction = (
+  signEosTransaction = (
     accountName: string,
     data: EosTransactionInput,
     params: RequestParams = {}

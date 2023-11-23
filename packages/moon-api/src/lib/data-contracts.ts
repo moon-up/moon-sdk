@@ -166,13 +166,8 @@ export interface BroadCastRawTransactionResponse {
 }
 
 export interface BitcoinTransactionOutput {
-  txid: string;
-  source_address: string;
-  destination_address: string;
-  /** @format double */
-  amount: number;
-  unsignedtx: string;
-  signedtx: string;
+  signedTx?: string;
+  transaction_hash?: string;
 }
 
 export interface Erc721Response {
@@ -280,11 +275,11 @@ export interface BitcoinInput {
 }
 
 export interface BitcoinTransactionInput {
-  destination_address: string;
+  to?: string;
   /** @format double */
-  amount: number;
-  transaction_hash: string;
+  value?: number;
   network?: string;
+  compress?: boolean;
 }
 
 export interface BitcoinCashInput {
@@ -293,11 +288,11 @@ export interface BitcoinCashInput {
 }
 
 export interface BitcoinCashTransactionInput {
-  destination_address: string;
+  to?: string;
   /** @format double */
-  amount: number;
-  transaction_hash: string;
+  value?: number;
   network?: string;
+  compress?: boolean;
 }
 
 export interface TransactionResponse {
@@ -376,11 +371,11 @@ export interface CosmosInput {
 }
 
 export interface CosmosTransactionInput {
-  destination_address: string;
+  to?: string;
   /** @format double */
-  amount: number;
-  transaction_hash: string;
+  value?: number;
   network?: string;
+  compress?: boolean;
 }
 
 export interface DogeCoinInput {
@@ -389,11 +384,11 @@ export interface DogeCoinInput {
 }
 
 export interface DogeCoinTransactionInput {
-  destination_address: string;
+  to?: string;
   /** @format double */
-  amount: number;
-  transaction_hash: string;
+  value?: number;
   network?: string;
+  compress?: boolean;
 }
 
 export interface EnsResolveInput {
@@ -407,11 +402,11 @@ export interface EosInput {
 }
 
 export interface EosTransactionInput {
-  destination_address: string;
+  to?: string;
   /** @format double */
-  amount: number;
-  transaction_hash: string;
+  value?: number;
   network?: string;
+  compress?: boolean;
 }
 
 export interface Erc1155Request {
@@ -456,11 +451,34 @@ export interface LitecoinInput {
 }
 
 export interface LitecoinTransactionInput {
-  destination_address: string;
+  to?: string;
+  /** @format double */
+  value?: number;
+  network?: string;
+  compress?: boolean;
+}
+
+export interface PaymentIntentResponse {
+  metadata?: Record<string, string>;
+  uri?: string;
+  qr_code?: string;
+  status?: string;
+  destination?: string;
+  /** @format double */
+  amount?: number;
+  network?: string;
+  currency?: string;
+  id?: string;
+  message?: string;
+  success: boolean;
+}
+
+export interface CreatePaymentIntentInput {
+  metadata: Record<string, string>;
+  network: string;
   /** @format double */
   amount: number;
-  transaction_hash: string;
-  network?: string;
+  currency: string;
 }
 
 export interface PingResponse {
@@ -473,11 +491,11 @@ export interface RippleInput {
 }
 
 export interface RippleTransactionInput {
-  destination_address: string;
+  to?: string;
   /** @format double */
-  amount: number;
-  transaction_hash: string;
+  value?: number;
   network?: string;
+  compress?: boolean;
 }
 
 export interface SolanaInput {
@@ -486,11 +504,11 @@ export interface SolanaInput {
 }
 
 export interface SolanaTransactionInput {
-  destination_address: string;
+  to?: string;
   /** @format double */
-  amount: number;
-  transaction_hash: string;
+  value?: number;
   network?: string;
+  compress?: boolean;
 }
 
 export interface TronInput {
@@ -499,11 +517,11 @@ export interface TronInput {
 }
 
 export interface TronTransactionInput {
-  destination_address: string;
+  to?: string;
   /** @format double */
-  amount: number;
-  transaction_hash: string;
+  value?: number;
   network?: string;
+  compress?: boolean;
 }
 
 export interface UniswapInput {

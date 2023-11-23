@@ -495,34 +495,13 @@
 			},
 			"BitcoinTransactionOutput": {
 				"properties": {
-					"txid": {
+					"signedTx": {
 						"type": "string"
 					},
-					"source_address": {
-						"type": "string"
-					},
-					"destination_address": {
-						"type": "string"
-					},
-					"amount": {
-						"type": "number",
-						"format": "double"
-					},
-					"unsignedtx": {
-						"type": "string"
-					},
-					"signedtx": {
+					"transaction_hash": {
 						"type": "string"
 					}
 				},
-				"required": [
-					"txid",
-					"source_address",
-					"destination_address",
-					"amount",
-					"unsignedtx",
-					"signedtx"
-				],
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -832,25 +811,20 @@
 			},
 			"BitcoinTransactionInput": {
 				"properties": {
-					"destination_address": {
+					"to": {
 						"type": "string"
 					},
-					"amount": {
+					"value": {
 						"type": "number",
 						"format": "double"
 					},
-					"transaction_hash": {
-						"type": "string"
-					},
 					"network": {
 						"type": "string"
+					},
+					"compress": {
+						"type": "boolean"
 					}
 				},
-				"required": [
-					"destination_address",
-					"amount",
-					"transaction_hash"
-				],
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -868,25 +842,20 @@
 			},
 			"BitcoinCashTransactionInput": {
 				"properties": {
-					"destination_address": {
+					"to": {
 						"type": "string"
 					},
-					"amount": {
+					"value": {
 						"type": "number",
 						"format": "double"
 					},
-					"transaction_hash": {
-						"type": "string"
-					},
 					"network": {
 						"type": "string"
+					},
+					"compress": {
+						"type": "boolean"
 					}
 				},
-				"required": [
-					"destination_address",
-					"amount",
-					"transaction_hash"
-				],
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -1134,25 +1103,20 @@
 			},
 			"CosmosTransactionInput": {
 				"properties": {
-					"destination_address": {
+					"to": {
 						"type": "string"
 					},
-					"amount": {
+					"value": {
 						"type": "number",
 						"format": "double"
 					},
-					"transaction_hash": {
-						"type": "string"
-					},
 					"network": {
 						"type": "string"
+					},
+					"compress": {
+						"type": "boolean"
 					}
 				},
-				"required": [
-					"destination_address",
-					"amount",
-					"transaction_hash"
-				],
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -1170,25 +1134,20 @@
 			},
 			"DogeCoinTransactionInput": {
 				"properties": {
-					"destination_address": {
+					"to": {
 						"type": "string"
 					},
-					"amount": {
+					"value": {
 						"type": "number",
 						"format": "double"
 					},
-					"transaction_hash": {
-						"type": "string"
-					},
 					"network": {
 						"type": "string"
+					},
+					"compress": {
+						"type": "boolean"
 					}
 				},
-				"required": [
-					"destination_address",
-					"amount",
-					"transaction_hash"
-				],
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -1222,25 +1181,20 @@
 			},
 			"EosTransactionInput": {
 				"properties": {
-					"destination_address": {
+					"to": {
 						"type": "string"
 					},
-					"amount": {
+					"value": {
 						"type": "number",
 						"format": "double"
 					},
-					"transaction_hash": {
-						"type": "string"
-					},
 					"network": {
 						"type": "string"
+					},
+					"compress": {
+						"type": "boolean"
 					}
 				},
-				"required": [
-					"destination_address",
-					"amount",
-					"transaction_hash"
-				],
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -1360,27 +1314,96 @@
 			},
 			"LitecoinTransactionInput": {
 				"properties": {
-					"destination_address": {
+					"to": {
+						"type": "string"
+					},
+					"value": {
+						"type": "number",
+						"format": "double"
+					},
+					"network": {
+						"type": "string"
+					},
+					"compress": {
+						"type": "boolean"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PaymentIntentResponse": {
+				"properties": {
+					"metadata": {
+						"properties": {},
+						"additionalProperties": {
+							"type": "string"
+						},
+						"type": "object"
+					},
+					"uri": {
+						"type": "string"
+					},
+					"qr_code": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string"
+					},
+					"destination": {
 						"type": "string"
 					},
 					"amount": {
 						"type": "number",
 						"format": "double"
 					},
-					"transaction_hash": {
+					"network": {
 						"type": "string"
 					},
+					"currency": {
+						"type": "string"
+					},
+					"id": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"success": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"success"
+				],
+				"type": "object"
+			},
+			"CreatePaymentIntentInput": {
+				"properties": {
+					"metadata": {
+						"properties": {},
+						"additionalProperties": {
+							"type": "string"
+						},
+						"type": "object"
+					},
 					"network": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "number",
+						"format": "double"
+					},
+					"currency": {
 						"type": "string"
 					}
 				},
 				"required": [
-					"destination_address",
+					"metadata",
+					"network",
 					"amount",
-					"transaction_hash"
+					"currency"
 				],
-				"type": "object",
-				"additionalProperties": false
+				"type": "object"
 			},
 			"PingResponse": {
 				"properties": {
@@ -1408,25 +1431,20 @@
 			},
 			"RippleTransactionInput": {
 				"properties": {
-					"destination_address": {
+					"to": {
 						"type": "string"
 					},
-					"amount": {
+					"value": {
 						"type": "number",
 						"format": "double"
 					},
-					"transaction_hash": {
-						"type": "string"
-					},
 					"network": {
 						"type": "string"
+					},
+					"compress": {
+						"type": "boolean"
 					}
 				},
-				"required": [
-					"destination_address",
-					"amount",
-					"transaction_hash"
-				],
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -1444,25 +1462,20 @@
 			},
 			"SolanaTransactionInput": {
 				"properties": {
-					"destination_address": {
+					"to": {
 						"type": "string"
 					},
-					"amount": {
+					"value": {
 						"type": "number",
 						"format": "double"
 					},
-					"transaction_hash": {
-						"type": "string"
-					},
 					"network": {
 						"type": "string"
+					},
+					"compress": {
+						"type": "boolean"
 					}
 				},
-				"required": [
-					"destination_address",
-					"amount",
-					"transaction_hash"
-				],
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -1480,25 +1493,20 @@
 			},
 			"TronTransactionInput": {
 				"properties": {
-					"destination_address": {
+					"to": {
 						"type": "string"
 					},
-					"amount": {
+					"value": {
 						"type": "number",
 						"format": "double"
 					},
-					"transaction_hash": {
-						"type": "string"
-					},
 					"network": {
 						"type": "string"
+					},
+					"compress": {
+						"type": "boolean"
 					}
 				},
-				"required": [
-					"destination_address",
-					"amount",
-					"transaction_hash"
-				],
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -2731,7 +2739,7 @@
 		},
 		"/bitcoin": {
 			"get": {
-				"operationId": "ListAccounts",
+				"operationId": "ListBitcoinAccounts",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -2770,7 +2778,7 @@
 				]
 			},
 			"post": {
-				"operationId": "CreateAccount",
+				"operationId": "CreateBitcoinAccount",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -2821,7 +2829,7 @@
 		},
 		"/bitcoin/{accountName}": {
 			"get": {
-				"operationId": "GetAccount",
+				"operationId": "GetBitcoinAccount",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -2870,7 +2878,7 @@
 		},
 		"/bitcoin/{accountName}/sign-tx": {
 			"post": {
-				"operationId": "SignTransaction",
+				"operationId": "SignBitcoinTransaction",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -2929,7 +2937,7 @@
 		},
 		"/bitcoincash": {
 			"get": {
-				"operationId": "ListAccounts",
+				"operationId": "ListBitcoinCashAccounts",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -2968,7 +2976,7 @@
 				]
 			},
 			"post": {
-				"operationId": "CreateAccount",
+				"operationId": "CreateBitcoinCashAccount",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -3019,7 +3027,7 @@
 		},
 		"/bitcoincash/{accountName}": {
 			"get": {
-				"operationId": "GetAccount",
+				"operationId": "GetBitcoinCashAccount",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -3068,7 +3076,7 @@
 		},
 		"/bitcoincash/{accountName}/sign-tx": {
 			"post": {
-				"operationId": "SignTransaction",
+				"operationId": "SignBitcoinCashTransaction",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -3186,7 +3194,7 @@
 		},
 		"/cosmos": {
 			"get": {
-				"operationId": "ListAccounts",
+				"operationId": "ListCosmosAccounts",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -3225,7 +3233,7 @@
 				]
 			},
 			"post": {
-				"operationId": "CreateAccount",
+				"operationId": "CreateCosmosAccount",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -3276,7 +3284,7 @@
 		},
 		"/cosmos/{accountName}": {
 			"get": {
-				"operationId": "GetAccount",
+				"operationId": "GetCosmosAccount",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -3325,7 +3333,7 @@
 		},
 		"/cosmos/{accountName}/sign-tx": {
 			"post": {
-				"operationId": "SignTransaction",
+				"operationId": "SignCosmosTransaction",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -3384,7 +3392,7 @@
 		},
 		"/dogecoin": {
 			"get": {
-				"operationId": "ListAccounts",
+				"operationId": "ListDogeCoinAccounts",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -3423,7 +3431,7 @@
 				]
 			},
 			"post": {
-				"operationId": "CreateAccount",
+				"operationId": "CreateDogeCoinAccount",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -3474,7 +3482,7 @@
 		},
 		"/dogecoin/{accountName}": {
 			"get": {
-				"operationId": "GetAccount",
+				"operationId": "GetDogeCoinAccount",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -3523,7 +3531,7 @@
 		},
 		"/dogecoin/{accountName}/sign-tx": {
 			"post": {
-				"operationId": "SignTransaction",
+				"operationId": "SignDogeCoinTransaction",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -3633,7 +3641,7 @@
 		},
 		"/eos": {
 			"get": {
-				"operationId": "ListAccounts",
+				"operationId": "ListEosAccounts",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -3672,7 +3680,7 @@
 				]
 			},
 			"post": {
-				"operationId": "CreateAccount",
+				"operationId": "CreateEosAccount",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -3723,7 +3731,7 @@
 		},
 		"/eos/{accountName}": {
 			"get": {
-				"operationId": "GetAccount",
+				"operationId": "GetEosAccount",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -3772,7 +3780,7 @@
 		},
 		"/eos/{accountName}/sign-tx": {
 			"post": {
-				"operationId": "SignTransaction",
+				"operationId": "SignEosTransaction",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -5542,7 +5550,7 @@
 		},
 		"/litecoin": {
 			"get": {
-				"operationId": "ListAccounts",
+				"operationId": "ListLitecoinAccounts",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -5581,7 +5589,7 @@
 				]
 			},
 			"post": {
-				"operationId": "CreateAccount",
+				"operationId": "CreateLitecoinAccount",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -5632,7 +5640,7 @@
 		},
 		"/litecoin/{accountName}": {
 			"get": {
-				"operationId": "GetAccount",
+				"operationId": "GetLitecoinAccount",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -5681,7 +5689,7 @@
 		},
 		"/litecoin/{accountName}/sign-tx": {
 			"post": {
-				"operationId": "SignTransaction",
+				"operationId": "SignLitecoinTransaction",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -5738,6 +5746,287 @@
 				}
 			}
 		},
+		"/payment/chains": {
+			"get": {
+				"operationId": "PaymentGetAvailableChains",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"type": "string"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"payment"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/payment": {
+			"post": {
+				"operationId": "PaymentCreatePaymentIntent",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PaymentIntentResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"payment"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreatePaymentIntentInput"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "PaymentGetAllPaymentIntents",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/PaymentIntentResponse"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"payment"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/payment/{id}": {
+			"delete": {
+				"operationId": "PaymentDeletePaymentIntent",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PaymentIntentResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"payment"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "PaymentUpdatePaymentIntent",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PaymentIntentResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"payment"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreatePaymentIntentInput"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "PaymentGetPaymentIntent",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PaymentIntentResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"payment"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
 		"/ping": {
 			"get": {
 				"operationId": "GetMessage",
@@ -5759,7 +6048,7 @@
 		},
 		"/ripple": {
 			"get": {
-				"operationId": "ListAccounts",
+				"operationId": "ListRippleAccounts",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -5798,7 +6087,7 @@
 				]
 			},
 			"post": {
-				"operationId": "CreateAccount",
+				"operationId": "CreateRippleAccount",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -5849,7 +6138,7 @@
 		},
 		"/ripple/{accountName}": {
 			"get": {
-				"operationId": "GetAccount",
+				"operationId": "GetRippleAccount",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -5898,7 +6187,7 @@
 		},
 		"/ripple/{accountName}/sign-tx": {
 			"post": {
-				"operationId": "SignTransaction",
+				"operationId": "SignRippleTransaction",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -5957,7 +6246,7 @@
 		},
 		"/solana": {
 			"get": {
-				"operationId": "ListAccounts",
+				"operationId": "ListSolanaAccounts",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -5996,7 +6285,7 @@
 				]
 			},
 			"post": {
-				"operationId": "CreateAccount",
+				"operationId": "CreateSolanaAccount",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -6047,7 +6336,7 @@
 		},
 		"/solana/{accountName}": {
 			"get": {
-				"operationId": "GetAccount",
+				"operationId": "GetSolanaAccount",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -6096,7 +6385,7 @@
 		},
 		"/solana/{accountName}/sign-tx": {
 			"post": {
-				"operationId": "SignTransaction",
+				"operationId": "SignSolanaTransaction",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -6155,7 +6444,7 @@
 		},
 		"/tron": {
 			"get": {
-				"operationId": "ListAccounts",
+				"operationId": "ListTronAccounts",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -6194,7 +6483,7 @@
 				]
 			},
 			"post": {
-				"operationId": "CreateAccount",
+				"operationId": "CreateTronAccount",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -6245,7 +6534,7 @@
 		},
 		"/tron/{accountName}": {
 			"get": {
-				"operationId": "GetAccount",
+				"operationId": "GetTronAccount",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -6294,7 +6583,7 @@
 		},
 		"/tron/{accountName}/sign-tx": {
 			"post": {
-				"operationId": "SignTransaction",
+				"operationId": "SignTronTransaction",
 				"responses": {
 					"200": {
 						"description": "Ok",

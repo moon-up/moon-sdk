@@ -23,11 +23,11 @@ export class Dogecoin<
    * No description
    *
    * @tags DogeCoin
-   * @name ListAccounts
+   * @name ListDogeCoinAccounts
    * @request GET:/dogecoin
    * @secure
    */
-  listAccounts = (params: RequestParams = {}) =>
+  listDogeCoinAccounts = (params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/dogecoin`,
       method: 'GET',
@@ -39,11 +39,11 @@ export class Dogecoin<
    * No description
    *
    * @tags DogeCoin
-   * @name CreateAccount
+   * @name CreateDogeCoinAccount
    * @request POST:/dogecoin
    * @secure
    */
-  createAccount = (data: DogeCoinInput, params: RequestParams = {}) =>
+  createDogeCoinAccount = (data: DogeCoinInput, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/dogecoin`,
       method: 'POST',
@@ -57,11 +57,11 @@ export class Dogecoin<
    * No description
    *
    * @tags DogeCoin
-   * @name GetAccount
+   * @name GetDogeCoinAccount
    * @request GET:/dogecoin/{accountName}
    * @secure
    */
-  getAccount = (accountName: string, params: RequestParams = {}) =>
+  getDogeCoinAccount = (accountName: string, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/dogecoin/${accountName}`,
       method: 'GET',
@@ -73,11 +73,11 @@ export class Dogecoin<
    * No description
    *
    * @tags DogeCoin
-   * @name SignTransaction
+   * @name SignDogeCoinTransaction
    * @request POST:/dogecoin/{accountName}/sign-tx
    * @secure
    */
-  signTransaction = (
+  signDogeCoinTransaction = (
     accountName: string,
     data: DogeCoinTransactionInput,
     params: RequestParams = {}

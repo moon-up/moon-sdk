@@ -23,11 +23,11 @@ export class Bitcoin<
    * No description
    *
    * @tags Bitcoin
-   * @name ListAccounts
+   * @name ListBitcoinAccounts
    * @request GET:/bitcoin
    * @secure
    */
-  listAccounts = (params: RequestParams = {}) =>
+  listBitcoinAccounts = (params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/bitcoin`,
       method: 'GET',
@@ -39,11 +39,11 @@ export class Bitcoin<
    * No description
    *
    * @tags Bitcoin
-   * @name CreateAccount
+   * @name CreateBitcoinAccount
    * @request POST:/bitcoin
    * @secure
    */
-  createAccount = (data: BitcoinInput, params: RequestParams = {}) =>
+  createBitcoinAccount = (data: BitcoinInput, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/bitcoin`,
       method: 'POST',
@@ -57,11 +57,11 @@ export class Bitcoin<
    * No description
    *
    * @tags Bitcoin
-   * @name GetAccount
+   * @name GetBitcoinAccount
    * @request GET:/bitcoin/{accountName}
    * @secure
    */
-  getAccount = (accountName: string, params: RequestParams = {}) =>
+  getBitcoinAccount = (accountName: string, params: RequestParams = {}) =>
     this.request<AccountControllerResponse, any>({
       path: `/bitcoin/${accountName}`,
       method: 'GET',
@@ -73,11 +73,11 @@ export class Bitcoin<
    * No description
    *
    * @tags Bitcoin
-   * @name SignTransaction
+   * @name SignBitcoinTransaction
    * @request POST:/bitcoin/{accountName}/sign-tx
    * @secure
    */
-  signTransaction = (
+  signBitcoinTransaction = (
     accountName: string,
     data: BitcoinTransactionInput,
     params: RequestParams = {}
