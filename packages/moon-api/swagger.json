@@ -1331,6 +1331,606 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"CryptoCurrency": {
+				"properties": {
+					"networkDisplayName": {
+						"type": "string"
+					},
+					"icon": {
+						"type": "string"
+					},
+					"chainId": {
+						"type": "number",
+						"format": "double"
+					},
+					"address": {
+						"type": "string"
+					},
+					"decimals": {
+						"type": "number",
+						"format": "double"
+					},
+					"network": {
+						"type": "string"
+					},
+					"symbol": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"code": {
+						"type": "string"
+					},
+					"id": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"networkDisplayName",
+					"icon",
+					"chainId",
+					"address",
+					"decimals",
+					"network",
+					"symbol",
+					"name",
+					"code",
+					"id"
+				],
+				"type": "object"
+			},
+			"FiatCurrency": {
+				"properties": {
+					"icon": {
+						"type": "string"
+					},
+					"symbol": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"code": {
+						"type": "string"
+					},
+					"id": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"icon",
+					"symbol",
+					"name",
+					"code",
+					"id"
+				],
+				"type": "object"
+			},
+			"Message": {
+				"properties": {
+					"fiat": {
+						"items": {
+							"$ref": "#/components/schemas/FiatCurrency"
+						},
+						"type": "array"
+					},
+					"crypto": {
+						"items": {
+							"$ref": "#/components/schemas/CryptoCurrency"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"fiat",
+					"crypto"
+				],
+				"type": "object"
+			},
+			"SupportedCurrenciesResponse": {
+				"properties": {
+					"message": {
+						"$ref": "#/components/schemas/Message"
+					}
+				},
+				"required": [
+					"message"
+				],
+				"type": "object"
+			},
+			"PaymentType": {
+				"properties": {
+					"icon": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"paymentTypeId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"icon",
+					"name",
+					"paymentTypeId"
+				],
+				"type": "object"
+			},
+			"SupportedPaymentTypesMessage": {
+				"properties": {
+					"googlepay": {
+						"$ref": "#/components/schemas/PaymentType"
+					},
+					"applepay": {
+						"$ref": "#/components/schemas/PaymentType"
+					},
+					"creditcard": {
+						"$ref": "#/components/schemas/PaymentType"
+					}
+				},
+				"required": [
+					"googlepay",
+					"applepay",
+					"creditcard"
+				],
+				"type": "object"
+			},
+			"SupportedPaymentTypesCurrencyResponse": {
+				"properties": {
+					"message": {
+						"$ref": "#/components/schemas/SupportedPaymentTypesMessage"
+					}
+				},
+				"required": [
+					"message"
+				],
+				"type": "object"
+			},
+			"SupportedDefaultResponse": {
+				"properties": {
+					"defaults": {
+						"properties": {
+							"id": {
+								"properties": {
+									"provider": {
+										"type": "string"
+									},
+									"paymentMethod": {
+										"type": "string"
+									},
+									"amount": {
+										"type": "number",
+										"format": "double"
+									},
+									"target": {
+										"type": "string"
+									},
+									"source": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"provider",
+									"paymentMethod",
+									"amount",
+									"target",
+									"source"
+								],
+								"type": "object"
+							}
+						},
+						"required": [
+							"id"
+						],
+						"type": "object"
+					},
+					"recommended": {
+						"properties": {
+							"provider": {
+								"type": "string"
+							},
+							"paymentMethod": {
+								"type": "string"
+							},
+							"amount": {
+								"type": "number",
+								"format": "double"
+							},
+							"target": {
+								"type": "string"
+							},
+							"source": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"provider",
+							"paymentMethod",
+							"amount",
+							"target",
+							"source"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"defaults",
+					"recommended"
+				],
+				"type": "object"
+			},
+			"SupportedAssetResponse": {
+				"properties": {
+					"country": {
+						"type": "string"
+					},
+					"assets": {
+						"items": {
+							"properties": {
+								"crypto": {
+									"items": {
+										"type": "string"
+									},
+									"type": "array"
+								},
+								"paymentMethods": {
+									"items": {
+										"type": "string"
+									},
+									"type": "array"
+								},
+								"fiat": {
+									"type": "string"
+								}
+							},
+							"required": [
+								"crypto",
+								"paymentMethods",
+								"fiat"
+							],
+							"type": "object"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"country",
+					"assets"
+				],
+				"type": "object"
+			},
+			"GetSupportedOnRampsResponse": {
+				"properties": {
+					"message": {
+						"items": {
+							"properties": {
+								"id": {
+									"type": "string"
+								},
+								"displayName": {
+									"type": "string"
+								},
+								"icons": {
+									"properties": {
+										"png": {
+											"properties": {
+												"160x160": {
+													"type": "string"
+												},
+												"32x32": {
+													"type": "string"
+												}
+											},
+											"required": [
+												"160x160",
+												"32x32"
+											],
+											"type": "object"
+										},
+										"svg": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"png",
+										"svg"
+									],
+									"type": "object"
+								},
+								"icon": {
+									"type": "string"
+								}
+							},
+							"required": [
+								"id",
+								"displayName",
+								"icons",
+								"icon"
+							],
+							"type": "object"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"message"
+				],
+				"type": "object"
+			},
+			"AvailablePaymentMethod": {
+				"properties": {
+					"icon": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"paymentTypeId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"icon",
+					"name",
+					"paymentTypeId"
+				],
+				"type": "object"
+			},
+			"Quote": {
+				"properties": {
+					"recommendations": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"paymentMethod": {
+						"type": "string"
+					},
+					"quoteId": {
+						"type": "string"
+					},
+					"ramp": {
+						"type": "string"
+					},
+					"availablePaymentMethods": {
+						"items": {
+							"$ref": "#/components/schemas/AvailablePaymentMethod"
+						},
+						"type": "array"
+					},
+					"payout": {
+						"type": "number",
+						"format": "double"
+					},
+					"transactionFee": {
+						"type": "number",
+						"format": "double"
+					},
+					"networkFee": {
+						"type": "number",
+						"format": "double"
+					},
+					"rate": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"recommendations",
+					"paymentMethod",
+					"quoteId",
+					"ramp",
+					"availablePaymentMethods",
+					"payout",
+					"transactionFee",
+					"networkFee",
+					"rate"
+				],
+				"type": "object"
+			},
+			"Quotes": {
+				"items": {
+					"$ref": "#/components/schemas/Quote"
+				},
+				"type": "array"
+			},
+			"SellQuote": {
+				"properties": {
+					"recommendations": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"quoteId": {
+						"type": "string"
+					},
+					"paymentMethod": {
+						"type": "string"
+					},
+					"ramp": {
+						"type": "string"
+					},
+					"payout": {
+						"type": "number",
+						"format": "double"
+					},
+					"transactionFee": {
+						"type": "number",
+						"format": "double"
+					},
+					"networkFee": {
+						"type": "number",
+						"format": "double"
+					},
+					"rate": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"recommendations",
+					"quoteId",
+					"paymentMethod",
+					"ramp",
+					"payout",
+					"transactionFee",
+					"networkFee",
+					"rate"
+				],
+				"type": "object"
+			},
+			"SellQuotes": {
+				"items": {
+					"$ref": "#/components/schemas/SellQuote"
+				},
+				"type": "array"
+			},
+			"TransactionInput": {
+				"properties": {
+					"supportedParams": {
+						"properties": {
+							"partnerData": {
+								"properties": {
+									"redirectUrl": {
+										"properties": {
+											"success": {
+												"type": "string"
+											}
+										},
+										"required": [
+											"success"
+										],
+										"type": "object"
+									}
+								},
+								"required": [
+									"redirectUrl"
+								],
+								"type": "object"
+							},
+							"theme": {
+								"properties": {
+									"borderRadius": {
+										"type": "number",
+										"format": "double",
+										"nullable": true
+									},
+									"cardColor": {
+										"type": "string"
+									},
+									"secondaryTextColor": {
+										"type": "string"
+									},
+									"primaryTextColor": {
+										"type": "string"
+									},
+									"secondaryColor": {
+										"type": "string"
+									},
+									"primaryColor": {
+										"type": "string"
+									},
+									"themeName": {
+										"type": "string"
+									},
+									"isDark": {
+										"type": "boolean"
+									}
+								},
+								"required": [
+									"borderRadius",
+									"cardColor",
+									"secondaryTextColor",
+									"primaryTextColor",
+									"secondaryColor",
+									"primaryColor",
+									"themeName",
+									"isDark"
+								],
+								"type": "object"
+							}
+						},
+						"required": [
+							"partnerData",
+							"theme"
+						],
+						"type": "object"
+					},
+					"wallet": {
+						"properties": {
+							"address": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"address"
+						],
+						"type": "object"
+					},
+					"metaData": {
+						"properties": {
+							"quoteId": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"quoteId"
+						],
+						"type": "object"
+					},
+					"originatingHost": {
+						"type": "string"
+					},
+					"partnerContext": {
+						"type": "string"
+					},
+					"uuid": {
+						"type": "string"
+					},
+					"network": {
+						"type": "string"
+					},
+					"paymentMethod": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "number",
+						"format": "double"
+					},
+					"destination": {
+						"type": "string"
+					},
+					"source": {
+						"type": "string"
+					},
+					"onramp": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"supportedParams",
+					"wallet",
+					"metaData",
+					"originatingHost",
+					"partnerContext",
+					"uuid",
+					"network",
+					"paymentMethod",
+					"type",
+					"amount",
+					"destination",
+					"source",
+					"onramp"
+				],
+				"type": "object"
+			},
 			"PaymentIntentResponse": {
 				"properties": {
 					"metadata": {
@@ -1399,11 +1999,663 @@
 				},
 				"required": [
 					"metadata",
-					"network",
-					"amount",
-					"currency"
+					"amount"
 				],
 				"type": "object"
+			},
+			"Block": {
+				"properties": {
+					"number": {
+						"type": "string"
+					},
+					"hash": {
+						"type": "string"
+					},
+					"timestamp": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"number",
+					"hash",
+					"timestamp"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TriggerOutput": {
+				"properties": {
+					"value": {},
+					"name": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"value",
+					"name"
+				],
+				"type": "object"
+			},
+			"Log": {
+				"properties": {
+					"triggers": {
+						"items": {
+							"$ref": "#/components/schemas/TriggerOutput"
+						},
+						"type": "array"
+					},
+					"logIndex": {
+						"type": "string"
+					},
+					"transactionHash": {
+						"type": "string"
+					},
+					"address": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					},
+					"topic0": {
+						"type": "string",
+						"nullable": true
+					},
+					"topic1": {
+						"type": "string",
+						"nullable": true
+					},
+					"topic2": {
+						"type": "string",
+						"nullable": true
+					},
+					"topic3": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"required": [
+					"logIndex",
+					"transactionHash",
+					"address",
+					"data",
+					"topic0",
+					"topic1",
+					"topic2",
+					"topic3"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"InternalTransaction": {
+				"properties": {
+					"from": {
+						"type": "string",
+						"nullable": true
+					},
+					"to": {
+						"type": "string",
+						"nullable": true
+					},
+					"value": {
+						"type": "string",
+						"nullable": true
+					},
+					"transactionHash": {
+						"type": "string"
+					},
+					"gas": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"required": [
+					"from",
+					"to",
+					"value",
+					"transactionHash",
+					"gas"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AbiInput": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"indexed": {
+						"type": "boolean"
+					},
+					"components": {
+						"items": {
+							"$ref": "#/components/schemas/AbiInput"
+						},
+						"type": "array"
+					},
+					"internalType": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"type"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AbiOutput": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"components": {
+						"items": {
+							"$ref": "#/components/schemas/AbiOutput"
+						},
+						"type": "array"
+					},
+					"internalType": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"type"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AbiItem": {
+				"description": "The abi to parse the log object of the contract",
+				"properties": {
+					"anonymous": {
+						"type": "boolean"
+					},
+					"constant": {
+						"type": "boolean"
+					},
+					"inputs": {
+						"items": {
+							"$ref": "#/components/schemas/AbiInput"
+						},
+						"type": "array"
+					},
+					"name": {
+						"type": "string"
+					},
+					"outputs": {
+						"items": {
+							"$ref": "#/components/schemas/AbiOutput"
+						},
+						"type": "array"
+					},
+					"payable": {
+						"type": "boolean"
+					},
+					"stateMutability": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"gas": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"type"
+				],
+				"type": "object",
+				"additionalProperties": false,
+				"example": {}
+			},
+			"IERC20Transfer": {
+				"properties": {
+					"transactionHash": {
+						"type": "string"
+					},
+					"contract": {
+						"type": "string"
+					},
+					"logIndex": {
+						"type": "string"
+					},
+					"from": {
+						"type": "string"
+					},
+					"to": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"tokenDecimals": {
+						"type": "string"
+					},
+					"tokenName": {
+						"type": "string"
+					},
+					"tokenSymbol": {
+						"type": "string"
+					},
+					"valueWithDecimals": {
+						"type": "string"
+					},
+					"triggers": {
+						"items": {
+							"$ref": "#/components/schemas/TriggerOutput"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"transactionHash",
+					"contract",
+					"logIndex",
+					"from",
+					"to",
+					"value",
+					"tokenDecimals",
+					"tokenName",
+					"tokenSymbol"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IERC20Approval": {
+				"properties": {
+					"transactionHash": {
+						"type": "string"
+					},
+					"contract": {
+						"type": "string"
+					},
+					"logIndex": {
+						"type": "string"
+					},
+					"owner": {
+						"type": "string"
+					},
+					"spender": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"tokenDecimals": {
+						"type": "string"
+					},
+					"tokenName": {
+						"type": "string"
+					},
+					"tokenSymbol": {
+						"type": "string"
+					},
+					"valueWithDecimals": {
+						"type": "string"
+					},
+					"triggers": {
+						"items": {
+							"$ref": "#/components/schemas/TriggerOutput"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"transactionHash",
+					"contract",
+					"logIndex",
+					"owner",
+					"spender",
+					"value",
+					"tokenDecimals",
+					"tokenName",
+					"tokenSymbol"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"INFTTransfer": {
+				"properties": {
+					"transactionHash": {
+						"type": "string"
+					},
+					"contract": {
+						"type": "string"
+					},
+					"logIndex": {
+						"type": "string"
+					},
+					"tokenContractType": {
+						"type": "string"
+					},
+					"tokenName": {
+						"type": "string"
+					},
+					"tokenSymbol": {
+						"type": "string"
+					},
+					"triggers": {
+						"items": {
+							"$ref": "#/components/schemas/TriggerOutput"
+						},
+						"type": "array"
+					},
+					"operator": {
+						"type": "string",
+						"nullable": true
+					},
+					"from": {
+						"type": "string"
+					},
+					"to": {
+						"type": "string"
+					},
+					"tokenId": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"transactionHash",
+					"contract",
+					"logIndex",
+					"tokenContractType",
+					"tokenName",
+					"tokenSymbol",
+					"operator",
+					"from",
+					"to",
+					"tokenId",
+					"amount"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"INativeBalance": {
+				"properties": {
+					"address": {
+						"type": "string"
+					},
+					"balance": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"address",
+					"balance"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"INFTApprovalERC721": {
+				"properties": {
+					"transactionHash": {
+						"type": "string"
+					},
+					"contract": {
+						"type": "string"
+					},
+					"logIndex": {
+						"type": "string"
+					},
+					"owner": {
+						"type": "string"
+					},
+					"approved": {
+						"type": "string"
+					},
+					"tokenId": {
+						"type": "string"
+					},
+					"tokenContractType": {
+						"type": "string"
+					},
+					"tokenName": {
+						"type": "string"
+					},
+					"tokenSymbol": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"transactionHash",
+					"contract",
+					"logIndex",
+					"owner",
+					"approved",
+					"tokenId",
+					"tokenContractType",
+					"tokenName",
+					"tokenSymbol"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"INFTApprovalERC1155": {
+				"properties": {
+					"transactionHash": {
+						"type": "string"
+					},
+					"contract": {
+						"type": "string"
+					},
+					"logIndex": {
+						"type": "string"
+					},
+					"account": {
+						"type": "string"
+					},
+					"operator": {
+						"type": "string"
+					},
+					"approved": {
+						"type": "boolean"
+					},
+					"tokenContractType": {
+						"type": "string"
+					},
+					"tokenName": {
+						"type": "string"
+					},
+					"tokenSymbol": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"transactionHash",
+					"contract",
+					"logIndex",
+					"account",
+					"operator",
+					"approved",
+					"tokenContractType",
+					"tokenName",
+					"tokenSymbol"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IOldNFTApproval": {
+				"properties": {
+					"ERC721": {
+						"items": {
+							"$ref": "#/components/schemas/INFTApprovalERC721"
+						},
+						"type": "array"
+					},
+					"ERC1155": {
+						"items": {
+							"$ref": "#/components/schemas/INFTApprovalERC1155"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"ERC721",
+					"ERC1155"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"INFTApproval": {
+				"properties": {
+					"transactionHash": {
+						"type": "string"
+					},
+					"contract": {
+						"type": "string"
+					},
+					"logIndex": {
+						"type": "string"
+					},
+					"tokenContractType": {
+						"type": "string"
+					},
+					"tokenName": {
+						"type": "string"
+					},
+					"tokenSymbol": {
+						"type": "string"
+					},
+					"account": {
+						"type": "string"
+					},
+					"operator": {
+						"type": "string"
+					},
+					"approvedAll": {
+						"type": "boolean"
+					},
+					"tokenId": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"required": [
+					"transactionHash",
+					"contract",
+					"logIndex",
+					"tokenContractType",
+					"tokenName",
+					"tokenSymbol",
+					"account",
+					"operator",
+					"approvedAll",
+					"tokenId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IWebhook": {
+				"properties": {
+					"block": {
+						"$ref": "#/components/schemas/Block"
+					},
+					"chainId": {
+						"type": "string"
+					},
+					"logs": {
+						"items": {
+							"$ref": "#/components/schemas/Log"
+						},
+						"type": "array"
+					},
+					"txs": {
+						"items": {
+							"$ref": "#/components/schemas/Transaction"
+						},
+						"type": "array"
+					},
+					"txsInternal": {
+						"items": {
+							"$ref": "#/components/schemas/InternalTransaction"
+						},
+						"type": "array"
+					},
+					"abi": {
+						"items": {
+							"$ref": "#/components/schemas/AbiItem"
+						},
+						"type": "array"
+					},
+					"retries": {
+						"type": "number",
+						"format": "double"
+					},
+					"confirmed": {
+						"type": "boolean"
+					},
+					"tag": {
+						"type": "string"
+					},
+					"streamId": {
+						"type": "string"
+					},
+					"erc20Transfers": {
+						"items": {
+							"$ref": "#/components/schemas/IERC20Transfer"
+						},
+						"type": "array"
+					},
+					"erc20Approvals": {
+						"items": {
+							"$ref": "#/components/schemas/IERC20Approval"
+						},
+						"type": "array"
+					},
+					"nftTransfers": {
+						"items": {
+							"$ref": "#/components/schemas/INFTTransfer"
+						},
+						"type": "array"
+					},
+					"nativeBalances": {
+						"items": {
+							"$ref": "#/components/schemas/INativeBalance"
+						},
+						"type": "array"
+					},
+					"nftApprovals": {
+						"$ref": "#/components/schemas/IOldNFTApproval",
+						"deprecated": true
+					},
+					"nftTokenApprovals": {
+						"items": {
+							"$ref": "#/components/schemas/INFTApproval"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"block",
+					"chainId",
+					"logs",
+					"txs",
+					"txsInternal",
+					"abi",
+					"retries",
+					"confirmed",
+					"tag",
+					"streamId",
+					"erc20Transfers",
+					"erc20Approvals",
+					"nftTransfers",
+					"nativeBalances",
+					"nftApprovals",
+					"nftTokenApprovals"
+				],
+				"type": "object",
+				"additionalProperties": false
 			},
 			"PingResponse": {
 				"properties": {
@@ -5746,6 +6998,593 @@
 				}
 			}
 		},
+		"/onramper/currencies": {
+			"get": {
+				"operationId": "OnRamperGetSupportedCurrencies",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SupportedCurrenciesResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"onramper"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "type",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/onramper/payment-types": {
+			"get": {
+				"operationId": "OnRamperGetSupportedPaymentTypes",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SupportedPaymentTypesCurrencyResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"onramper"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "fiat",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "country",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "type",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/onramper/payment-types/fiat": {
+			"get": {
+				"operationId": "OnRamperGetSupportedPaymentTypesFiat",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SupportedPaymentTypesCurrencyResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"onramper"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "fiat",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "country",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/onramper/defaults": {
+			"get": {
+				"operationId": "OnRamperGetSupportedDefaultsAll",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SupportedDefaultResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"onramper"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "country",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "type",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/onramper/assets": {
+			"get": {
+				"operationId": "OnRamperGetSupportedAssets",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SupportedAssetResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"onramper"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "source",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "country",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/onramper/onramps": {
+			"get": {
+				"operationId": "OnRamperGetSupportedOnRampsAll",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/GetSupportedOnRampsResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"onramper"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/onramper/quotes/buy": {
+			"get": {
+				"operationId": "OnRamperGetQuotesBuy",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Quotes"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"onramper"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "fiat",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "crypto",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "amount",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "paymentMethod",
+						"required": false,
+						"schema": {
+							"default": "creditcard",
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "uuid",
+						"required": false,
+						"schema": {
+							"default": "",
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "clientName",
+						"required": false,
+						"schema": {
+							"default": "",
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "country",
+						"required": false,
+						"schema": {
+							"default": "",
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/onramper/quotes/sell": {
+			"get": {
+				"operationId": "OnRamperGetQuotesSell",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SellQuotes"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"onramper"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "fiat",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "crypto",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "amount",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "paymentMethod",
+						"required": false,
+						"schema": {
+							"default": "creditcard",
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "uuid",
+						"required": false,
+						"schema": {
+							"default": "",
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "clientName",
+						"required": false,
+						"schema": {
+							"default": "",
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "country",
+						"required": false,
+						"schema": {
+							"default": "",
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/onramper/fund/${accountName}": {
+			"post": {
+				"operationId": "OnRamperCheckout",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"onramper"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/TransactionInput"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/payment/chains": {
 			"get": {
 				"operationId": "PaymentGetAvailableChains",
@@ -6025,6 +7864,102 @@
 						}
 					}
 				]
+			}
+		},
+		"/payment/webhook/{id}": {
+			"post": {
+				"operationId": "MoralisWebhook",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"payment"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IWebhook"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/payment/tatum/webhook/{id}": {
+			"post": {
+				"operationId": "TatumWebhook",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"payment"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {}
+						}
+					}
+				}
 			}
 		},
 		"/ping": {

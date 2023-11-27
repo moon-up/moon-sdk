@@ -11,6 +11,7 @@
 
 import {
   CreatePaymentIntentInput,
+  IWebhook,
   PaymentIntentResponse,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
@@ -122,6 +123,42 @@ export class Payment<
       path: `/payment/${id}`,
       method: 'GET',
       secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags payment
+   * @name MoralisWebhook
+   * @request POST:/payment/webhook/{id}
+   * @secure
+   */
+  moralisWebhook = (id: string, data: IWebhook, params: RequestParams = {}) =>
+    this.request<any, any>({
+      path: `/payment/webhook/${id}`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags payment
+   * @name TatumWebhook
+   * @request POST:/payment/tatum/webhook/{id}
+   * @secure
+   */
+  tatumWebhook = (id: string, data: any, params: RequestParams = {}) =>
+    this.request<any, any>({
+      path: `/payment/tatum/webhook/${id}`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
       format: 'json',
       ...params,
     });
