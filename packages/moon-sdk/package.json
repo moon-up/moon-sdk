@@ -49,7 +49,7 @@
     "@ethersproject/bytes": "^5.7.0",
     "@ethersproject/hash": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",
-    "@moonup/moon-api": "^0.0.16",
+    "@moonup/moon-api": "^0.0.19",
     "@moonup/moon-types": "^0.0.16",
     "events": "^3.3.0",
     "typedots": "^0.0.2"

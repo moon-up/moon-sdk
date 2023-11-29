@@ -112,146 +112,8 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"Tx": {
-				"properties": {
-					"type": {
-						"type": "number",
-						"format": "double"
-					},
-					"chain_id": {
-						"type": "number",
-						"format": "double"
-					},
-					"data": {
-						"type": "string"
-					},
-					"gas": {
-						"type": "string"
-					},
-					"gas_price": {
-						"type": "string"
-					},
-					"gas_tip_cap": {
-						"type": "string",
-						"nullable": true
-					},
-					"gas_fee_cap": {
-						"type": "string",
-						"nullable": true
-					},
-					"value": {
-						"type": "string"
-					},
-					"nonce": {
-						"type": "number",
-						"format": "double"
-					},
-					"from": {
-						"type": "string"
-					},
-					"to": {
-						"type": "string",
-						"nullable": true
-					},
-					"blob_gas": {
-						"type": "string",
-						"nullable": true
-					},
-					"blob_gas_fee_cap": {
-						"type": "string",
-						"nullable": true
-					},
-					"blob_hashes": {
-						"items": {
-							"type": "string"
-						},
-						"type": "array",
-						"nullable": true
-					},
-					"v": {
-						"type": "string"
-					},
-					"r": {
-						"type": "string"
-					},
-					"s": {
-						"type": "string"
-					}
-				},
-				"type": "object",
-				"additionalProperties": false
-			},
-			"TxMap": {
-				"properties": {},
-				"type": "object",
-				"additionalProperties": {
-					"$ref": "#/components/schemas/Tx"
-				}
-			},
-			"TransactionRequest": {
-				"properties": {
-					"nonce": {
-						"type": "string"
-					},
-					"data": {
-						"type": "string"
-					},
-					"value": {
-						"type": "string"
-					},
-					"to": {
-						"type": "string"
-					},
-					"from": {
-						"type": "string"
-					},
-					"maxFeePerGas": {
-						"type": "string"
-					},
-					"maxPriorityFeePerGas": {
-						"type": "string"
-					}
-				},
-				"type": "object",
-				"additionalProperties": false
-			},
 			"Transaction": {
-				"properties": {
-					"moon_scan_url": {
-						"type": "string"
-					},
-					"transaction_hash": {
-						"type": "string"
-					},
-					"signed_transaction": {
-						"type": "string"
-					},
-					"signed_message": {
-						"type": "string"
-					},
-					"raw_transaction": {
-						"type": "string"
-					},
-					"signature": {
-						"type": "string"
-					},
-					"transaction": {
-						"$ref": "#/components/schemas/TxMap"
-					},
-					"userOps": {
-						"items": {
-							"$ref": "#/components/schemas/TransactionRequest"
-						},
-						"type": "array"
-					},
-					"userop_transaction": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"transaction_hash",
-					"signed_transaction"
-				],
+				"properties": {},
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -368,34 +230,67 @@
 			},
 			"Erc20Response": {
 				"properties": {
-					"moon_scan_url": {
+					"type": {
+						"type": "number",
+						"format": "double"
+					},
+					"chain_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"data": {
 						"type": "string"
 					},
-					"transaction_hash": {
+					"gas": {
 						"type": "string"
 					},
-					"signed_transaction": {
+					"gas_price": {
 						"type": "string"
 					},
-					"signed_message": {
+					"gas_tip_cap": {
+						"type": "string",
+						"nullable": true
+					},
+					"gas_fee_cap": {
+						"type": "string",
+						"nullable": true
+					},
+					"value": {
 						"type": "string"
 					},
-					"raw_transaction": {
+					"nonce": {
+						"type": "number",
+						"format": "double"
+					},
+					"from": {
 						"type": "string"
 					},
-					"signature": {
-						"type": "string"
+					"to": {
+						"type": "string",
+						"nullable": true
 					},
-					"transaction": {
-						"$ref": "#/components/schemas/TxMap"
+					"blob_gas": {
+						"type": "string",
+						"nullable": true
 					},
-					"userOps": {
+					"blob_gas_fee_cap": {
+						"type": "string",
+						"nullable": true
+					},
+					"blob_hashes": {
 						"items": {
-							"$ref": "#/components/schemas/TransactionRequest"
+							"type": "string"
 						},
-						"type": "array"
+						"type": "array",
+						"nullable": true
 					},
-					"userop_transaction": {
+					"v": {
+						"type": "string"
+					},
+					"r": {
+						"type": "string"
+					},
+					"s": {
 						"type": "string"
 					},
 					"name": {
@@ -420,43 +315,72 @@
 						"type": "string"
 					}
 				},
-				"required": [
-					"transaction_hash",
-					"signed_transaction"
-				],
 				"type": "object",
 				"additionalProperties": false
 			},
 			"Erc1155Response": {
 				"properties": {
-					"moon_scan_url": {
+					"type": {
+						"type": "number",
+						"format": "double"
+					},
+					"chain_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"data": {
 						"type": "string"
 					},
-					"transaction_hash": {
+					"gas": {
 						"type": "string"
 					},
-					"signed_transaction": {
+					"gas_price": {
 						"type": "string"
 					},
-					"signed_message": {
+					"gas_tip_cap": {
+						"type": "string",
+						"nullable": true
+					},
+					"gas_fee_cap": {
+						"type": "string",
+						"nullable": true
+					},
+					"value": {
 						"type": "string"
 					},
-					"raw_transaction": {
+					"nonce": {
+						"type": "number",
+						"format": "double"
+					},
+					"from": {
 						"type": "string"
 					},
-					"signature": {
-						"type": "string"
+					"to": {
+						"type": "string",
+						"nullable": true
 					},
-					"transaction": {
-						"$ref": "#/components/schemas/TxMap"
+					"blob_gas": {
+						"type": "string",
+						"nullable": true
 					},
-					"userOps": {
+					"blob_gas_fee_cap": {
+						"type": "string",
+						"nullable": true
+					},
+					"blob_hashes": {
 						"items": {
-							"$ref": "#/components/schemas/TransactionRequest"
+							"type": "string"
 						},
-						"type": "array"
+						"type": "array",
+						"nullable": true
 					},
-					"userop_transaction": {
+					"v": {
+						"type": "string"
+					},
+					"r": {
+						"type": "string"
+					},
+					"s": {
 						"type": "string"
 					},
 					"balance_of": {
@@ -466,10 +390,6 @@
 						"type": "string"
 					}
 				},
-				"required": [
-					"transaction_hash",
-					"signed_transaction"
-				],
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -507,34 +427,67 @@
 			},
 			"Erc721Response": {
 				"properties": {
-					"moon_scan_url": {
+					"type": {
+						"type": "number",
+						"format": "double"
+					},
+					"chain_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"data": {
 						"type": "string"
 					},
-					"transaction_hash": {
+					"gas": {
 						"type": "string"
 					},
-					"signed_transaction": {
+					"gas_price": {
 						"type": "string"
 					},
-					"signed_message": {
+					"gas_tip_cap": {
+						"type": "string",
+						"nullable": true
+					},
+					"gas_fee_cap": {
+						"type": "string",
+						"nullable": true
+					},
+					"value": {
 						"type": "string"
 					},
-					"raw_transaction": {
+					"nonce": {
+						"type": "number",
+						"format": "double"
+					},
+					"from": {
 						"type": "string"
 					},
-					"signature": {
-						"type": "string"
+					"to": {
+						"type": "string",
+						"nullable": true
 					},
-					"transaction": {
-						"$ref": "#/components/schemas/TxMap"
+					"blob_gas": {
+						"type": "string",
+						"nullable": true
 					},
-					"userOps": {
+					"blob_gas_fee_cap": {
+						"type": "string",
+						"nullable": true
+					},
+					"blob_hashes": {
 						"items": {
-							"$ref": "#/components/schemas/TransactionRequest"
+							"type": "string"
 						},
-						"type": "array"
+						"type": "array",
+						"nullable": true
 					},
-					"userop_transaction": {
+					"v": {
+						"type": "string"
+					},
+					"r": {
+						"type": "string"
+					},
+					"s": {
 						"type": "string"
 					},
 					"name": {
@@ -559,10 +512,6 @@
 						"type": "string"
 					}
 				},
-				"required": [
-					"transaction_hash",
-					"signed_transaction"
-				],
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -942,6 +891,142 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"Tx": {
+				"properties": {
+					"type": {
+						"type": "number",
+						"format": "double"
+					},
+					"chain_id": {
+						"type": "number",
+						"format": "double"
+					},
+					"data": {
+						"type": "string"
+					},
+					"gas": {
+						"type": "string"
+					},
+					"gas_price": {
+						"type": "string"
+					},
+					"gas_tip_cap": {
+						"type": "string",
+						"nullable": true
+					},
+					"gas_fee_cap": {
+						"type": "string",
+						"nullable": true
+					},
+					"value": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "number",
+						"format": "double"
+					},
+					"from": {
+						"type": "string"
+					},
+					"to": {
+						"type": "string",
+						"nullable": true
+					},
+					"blob_gas": {
+						"type": "string",
+						"nullable": true
+					},
+					"blob_gas_fee_cap": {
+						"type": "string",
+						"nullable": true
+					},
+					"blob_hashes": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array",
+						"nullable": true
+					},
+					"v": {
+						"type": "string"
+					},
+					"r": {
+						"type": "string"
+					},
+					"s": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TransactionRequest": {
+				"properties": {
+					"nonce": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"to": {
+						"type": "string"
+					},
+					"from": {
+						"type": "string"
+					},
+					"maxFeePerGas": {
+						"type": "string"
+					},
+					"maxPriorityFeePerGas": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TransactionData": {
+				"properties": {
+					"moon_scan_url": {
+						"type": "string"
+					},
+					"transaction_hash": {
+						"type": "string"
+					},
+					"signed_transaction": {
+						"type": "string"
+					},
+					"signed_message": {
+						"type": "string"
+					},
+					"raw_transaction": {
+						"type": "string"
+					},
+					"signature": {
+						"type": "string"
+					},
+					"transaction": {
+						"$ref": "#/components/schemas/Tx"
+					},
+					"userOps": {
+						"items": {
+							"$ref": "#/components/schemas/TransactionRequest"
+						},
+						"type": "array"
+					},
+					"userop_transaction": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"transaction_hash",
+					"signed_transaction"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"ConveyorFinanceControllerResponse": {
 				"properties": {
 					"input": {
@@ -951,7 +1036,7 @@
 						"$ref": "#/components/schemas/TransactionResponse"
 					},
 					"data": {
-						"$ref": "#/components/schemas/Transaction"
+						"$ref": "#/components/schemas/TransactionData"
 					},
 					"tx": {
 						"properties": {

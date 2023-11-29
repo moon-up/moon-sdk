@@ -491,6 +491,7 @@ export class MoonSDK {
       this.MoonAccount.getWallet(),
       this.transactionRequestToInputBody(transaction)
     );
+    response.data;
     return response.data as Transaction;
   }
 
@@ -557,6 +558,11 @@ export class MoonSDK {
   public updateAccount(account: MoonAccount) {
     this.MoonAccount = account;
     this.MoonSDKConfig.Storage.setItem(account);
+  }
+
+  public updateWallet(wallet: string) {
+    this.MoonAccount.setWallet(wallet);
+    this.MoonSDKConfig.Storage.setItem(this.MoonAccount);
   }
 
   public async connect(): Promise<MoonAccount> {

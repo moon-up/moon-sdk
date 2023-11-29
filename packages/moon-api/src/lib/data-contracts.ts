@@ -45,52 +45,7 @@ export interface BalanceResponse {
   balance: string;
 }
 
-export interface Tx {
-  /** @format double */
-  type?: number;
-  /** @format double */
-  chain_id?: number;
-  data?: string;
-  gas?: string;
-  gas_price?: string;
-  gas_tip_cap?: string | null;
-  gas_fee_cap?: string | null;
-  value?: string;
-  /** @format double */
-  nonce?: number;
-  from?: string;
-  to?: string | null;
-  blob_gas?: string | null;
-  blob_gas_fee_cap?: string | null;
-  blob_hashes?: string[] | null;
-  v?: string;
-  r?: string;
-  s?: string;
-}
-
-export type TxMap = Record<string, Tx>;
-
-export interface TransactionRequest {
-  nonce?: string;
-  data?: string;
-  value?: string;
-  to?: string;
-  from?: string;
-  maxFeePerGas?: string;
-  maxPriorityFeePerGas?: string;
-}
-
-export interface Transaction {
-  moon_scan_url?: string;
-  transaction_hash: string;
-  signed_transaction: string;
-  signed_message?: string;
-  raw_transaction?: string;
-  signature?: string;
-  transaction?: TxMap;
-  userOps?: TransactionRequest[];
-  userop_transaction?: string;
-}
+export type Transaction = object;
 
 export interface AccountResponse {
   keys?: string[];
@@ -127,15 +82,26 @@ export interface AaveReservesData {
 }
 
 export interface Erc20Response {
-  moon_scan_url?: string;
-  transaction_hash: string;
-  signed_transaction: string;
-  signed_message?: string;
-  raw_transaction?: string;
-  signature?: string;
-  transaction?: TxMap;
-  userOps?: TransactionRequest[];
-  userop_transaction?: string;
+  /** @format double */
+  type?: number;
+  /** @format double */
+  chain_id?: number;
+  data?: string;
+  gas?: string;
+  gas_price?: string;
+  gas_tip_cap?: string | null;
+  gas_fee_cap?: string | null;
+  value?: string;
+  /** @format double */
+  nonce?: number;
+  from?: string;
+  to?: string | null;
+  blob_gas?: string | null;
+  blob_gas_fee_cap?: string | null;
+  blob_hashes?: string[] | null;
+  v?: string;
+  r?: string;
+  s?: string;
   name?: string;
   symbol?: string;
   decimals?: string;
@@ -146,15 +112,26 @@ export interface Erc20Response {
 }
 
 export interface Erc1155Response {
-  moon_scan_url?: string;
-  transaction_hash: string;
-  signed_transaction: string;
-  signed_message?: string;
-  raw_transaction?: string;
-  signature?: string;
-  transaction?: TxMap;
-  userOps?: TransactionRequest[];
-  userop_transaction?: string;
+  /** @format double */
+  type?: number;
+  /** @format double */
+  chain_id?: number;
+  data?: string;
+  gas?: string;
+  gas_price?: string;
+  gas_tip_cap?: string | null;
+  gas_fee_cap?: string | null;
+  value?: string;
+  /** @format double */
+  nonce?: number;
+  from?: string;
+  to?: string | null;
+  blob_gas?: string | null;
+  blob_gas_fee_cap?: string | null;
+  blob_hashes?: string[] | null;
+  v?: string;
+  r?: string;
+  s?: string;
   balance_of?: string;
   balance_of_batch?: string;
 }
@@ -171,15 +148,26 @@ export interface BitcoinTransactionOutput {
 }
 
 export interface Erc721Response {
-  moon_scan_url?: string;
-  transaction_hash: string;
-  signed_transaction: string;
-  signed_message?: string;
-  raw_transaction?: string;
-  signature?: string;
-  transaction?: TxMap;
-  userOps?: TransactionRequest[];
-  userop_transaction?: string;
+  /** @format double */
+  type?: number;
+  /** @format double */
+  chain_id?: number;
+  data?: string;
+  gas?: string;
+  gas_price?: string;
+  gas_tip_cap?: string | null;
+  gas_fee_cap?: string | null;
+  value?: string;
+  /** @format double */
+  nonce?: number;
+  from?: string;
+  to?: string | null;
+  blob_gas?: string | null;
+  blob_gas_fee_cap?: string | null;
+  blob_hashes?: string[] | null;
+  v?: string;
+  r?: string;
+  s?: string;
   name?: string;
   symbol?: string;
   balance_of?: string;
@@ -319,10 +307,55 @@ export interface TransactionResponse {
   currentBlockNumber: number;
 }
 
+export interface Tx {
+  /** @format double */
+  type?: number;
+  /** @format double */
+  chain_id?: number;
+  data?: string;
+  gas?: string;
+  gas_price?: string;
+  gas_tip_cap?: string | null;
+  gas_fee_cap?: string | null;
+  value?: string;
+  /** @format double */
+  nonce?: number;
+  from?: string;
+  to?: string | null;
+  blob_gas?: string | null;
+  blob_gas_fee_cap?: string | null;
+  blob_hashes?: string[] | null;
+  v?: string;
+  r?: string;
+  s?: string;
+}
+
+export interface TransactionRequest {
+  nonce?: string;
+  data?: string;
+  value?: string;
+  to?: string;
+  from?: string;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+}
+
+export interface TransactionData {
+  moon_scan_url?: string;
+  transaction_hash: string;
+  signed_transaction: string;
+  signed_message?: string;
+  raw_transaction?: string;
+  signature?: string;
+  transaction?: Tx;
+  userOps?: TransactionRequest[];
+  userop_transaction?: string;
+}
+
 export interface ConveyorFinanceControllerResponse {
   input?: InputBody;
   convey?: TransactionResponse;
-  data?: Transaction;
+  data?: TransactionData;
   tx?: {
     data: string;
     value: string;
