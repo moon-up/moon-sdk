@@ -45,7 +45,63 @@ export interface BalanceResponse {
   balance: string;
 }
 
-export type Transaction = object;
+export interface Tx {
+  /** @format double */
+  type?: number;
+  /** @format double */
+  chain_id?: number;
+  data?: string;
+  gas?: string;
+  gas_price?: string;
+  gas_tip_cap?: string | null;
+  gas_fee_cap?: string | null;
+  value?: string;
+  /** @format double */
+  nonce?: number;
+  from?: string;
+  to?: string | null;
+  blob_gas?: string | null;
+  blob_gas_fee_cap?: string | null;
+  blob_hashes?: string[] | null;
+  v?: string;
+  r?: string;
+  s?: string;
+}
+
+export interface TransactionRequest {
+  nonce?: string;
+  data?: string;
+  value?: string;
+  to?: string;
+  from?: string;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+}
+
+export interface TransactionData {
+  moon_scan_url?: string;
+  transaction_hash: string;
+  signed_transaction: string;
+  signed_message?: string;
+  raw_transaction?: string;
+  signature?: string;
+  transaction?: Tx;
+  userOps?: TransactionRequest[];
+  userop_transaction?: string;
+}
+
+export interface Transaction {
+  userop_transaction?: string;
+  userOps?: TransactionRequest[];
+  transaction?: Tx;
+  signature?: string;
+  moon_scan_url?: string;
+  transactions?: TransactionData[];
+  data?: string | null;
+  raw_transaction?: string;
+  signed_transaction?: string;
+  transaction_hash?: string;
+}
 
 export interface AccountResponse {
   keys?: string[];
@@ -305,51 +361,6 @@ export interface TransactionResponse {
   chainId: number;
   /** @format double */
   currentBlockNumber: number;
-}
-
-export interface Tx {
-  /** @format double */
-  type?: number;
-  /** @format double */
-  chain_id?: number;
-  data?: string;
-  gas?: string;
-  gas_price?: string;
-  gas_tip_cap?: string | null;
-  gas_fee_cap?: string | null;
-  value?: string;
-  /** @format double */
-  nonce?: number;
-  from?: string;
-  to?: string | null;
-  blob_gas?: string | null;
-  blob_gas_fee_cap?: string | null;
-  blob_hashes?: string[] | null;
-  v?: string;
-  r?: string;
-  s?: string;
-}
-
-export interface TransactionRequest {
-  nonce?: string;
-  data?: string;
-  value?: string;
-  to?: string;
-  from?: string;
-  maxFeePerGas?: string;
-  maxPriorityFeePerGas?: string;
-}
-
-export interface TransactionData {
-  moon_scan_url?: string;
-  transaction_hash: string;
-  signed_transaction: string;
-  signed_message?: string;
-  raw_transaction?: string;
-  signature?: string;
-  transaction?: Tx;
-  userOps?: TransactionRequest[];
-  userop_transaction?: string;
 }
 
 export interface ConveyorFinanceControllerResponse {
