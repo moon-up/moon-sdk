@@ -34,11 +34,8 @@ export function useMoonSDK(): MoonSDKHook {
 			},
 		});
 		console.log(moonInstance);
-		moonInstance.updateToken(auth.token);
-		const accounts = await moonInstance.listAccounts();
-		console.log(accounts);
-
 		setMoon(moonInstance);
+		moonInstance.login();
 	};
 
 	const disconnect = async () => {

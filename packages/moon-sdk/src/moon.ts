@@ -460,11 +460,14 @@ export class MoonSDK {
     });
   }
 
-  public async refreshAccount(token: string): Promise<RefreshTokenResponse> {
+  public async refreshAccount(): Promise<RefreshTokenResponse> {
+    const token = this.MoonAccount.getRefreshToken();
     const response = await this.getAuthSDK().refreshToken({
       refreshToken: token,
     });
-    return response.data;
+    this.updateToken(response.data.accessToken);
+    // return response.data;
+    return response.data as RefreshTokenResponse;
   }
 
   public async listAccounts(): Promise<AccountResponse> {
@@ -572,7 +575,7 @@ export class MoonSDK {
       // check if account is expired
       if (account.getExpiry() < Date.now()) {
         // refresh account
-        const refresh = await this.refreshAccount(account.getRefreshToken());
+        const refresh = await this.refreshAccount();
         this.updateToken(refresh.accessToken);
       }
     }
