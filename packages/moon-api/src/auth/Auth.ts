@@ -84,7 +84,7 @@ export class Auth<SecurityDataType = unknown> extends HttpClient<
     params: RequestParams = {}
   ) =>
     this.request<ProfileResponse, any>({
-      path: `/auth/oauth/openai/oauth'`,
+      path: `/auth/oauth/openai/oauth`,
       method: 'GET',
       query: query,
       ...params,

@@ -42,6 +42,24 @@ export class MoonAccount {
     this.network = MOON_SUPPORTED_NETWORKS[0];
     this.login();
   }
+
+  // get storage
+  getStorage() {
+    return this.storage;
+  }
+
+  setStorage(storage: MoonStorage) {
+    this.storage = storage;
+  }
+
+  getIsAuth() {
+    return this.isAuth;
+  }
+
+  setIsAuth(isAuth: boolean) {
+    this.isAuth = isAuth;
+  }
+
   emit(type: string, data: any) {
     this.Events.emit(type, data);
   }

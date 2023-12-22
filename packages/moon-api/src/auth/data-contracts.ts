@@ -1,12 +1,12 @@
 import type {
-	VerifiedAuthenticationResponse,
-	VerifiedRegistrationResponse,
+    VerifiedAuthenticationResponse,
+    VerifiedRegistrationResponse,
 } from '@simplewebauthn/server';
 import type {
-	AuthenticationResponseJSON,
-	PublicKeyCredentialCreationOptionsJSON,
-	PublicKeyCredentialRequestOptionsJSON,
-	RegistrationResponseJSON,
+    AuthenticationResponseJSON,
+    PublicKeyCredentialCreationOptionsJSON,
+    PublicKeyCredentialRequestOptionsJSON,
+    RegistrationResponseJSON,
 } from '@simplewebauthn/typescript-types';
 export interface RefreshTokenInput {
 	refreshToken: string;
@@ -175,6 +175,8 @@ export interface EmailLoginInput {
 
 export interface EmailLoginResponse {
 	token: string;
+    refreshToken: string;
+    expiry: number;
 }
 
 export interface ResetPasswordInput {
