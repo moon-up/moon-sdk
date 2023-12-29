@@ -95,6 +95,21 @@ function SIWE() {
 		}
 	}, [moon]);
 
+	const createAccount = async () => {
+		const account = await moon?.getAccountsSDK().createAccount({}, {});
+		console.log(account);
+	};
+	const createBitcoinAccount = async () => {
+		const account = await moon?.getBitcoinSDK().createBitcoinAccount({}, {});
+		console.log(account);
+	};
+	const signMessage = async () => {
+		const message = await moon?.getAccountsSDK().signMessage(accounts[0], {
+			data: 'Hello World',
+		});
+		console.log(message);
+	};
+
 	const getAccounts = async () => {
 		const accounts = await moon?.getAccountsSDK().listAccounts();
 		const newAccounts = (accounts?.data.data as AccountResponse).keys || [];
