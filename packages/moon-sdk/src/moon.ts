@@ -80,6 +80,7 @@ export class MoonSDK {
     this.MoonSDKConfig = this.initialiseConfig(config);
 
     this.MoonAccount = new MoonAccount(this.MoonSDKConfig.Storage);
+
     this.MoonMessageHandler = new MoonMessageHandler();
     this.AccountsSDK = new Accounts({
       baseUrl: 'https://vault-api.usemoon.ai',

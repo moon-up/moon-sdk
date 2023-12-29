@@ -2,9 +2,9 @@ import { AccountResponse } from '@moonup/moon-api';
 import { ethers } from 'ethers';
 import { useEffect, useState } from 'react';
 import { SiweMessage } from 'siwe';
-import { useMoonSDK } from './hooks/moon';
+import { useMoonSDK } from '../hooks/moon';
 
-function App() {
+function SIWE() {
 	const [accounts, setAccounts] = useState<string[]>([]);
 	const [loggedIn, setLoggedIn] = useState<boolean>(false);
 	const { updateToken, listAccounts, moon } = useMoonSDK();
@@ -136,4 +136,4 @@ function App() {
 	);
 }
 
-export default App;
+export default SIWE;
