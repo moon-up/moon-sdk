@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@moonup/ethers": "^0.0.6",
     "@moonup/moon-api": "^0.0.22",
     "@moonup/moon-sdk": "^0.0.32",
     "@moonup/moon-types": "^0.0.17",
