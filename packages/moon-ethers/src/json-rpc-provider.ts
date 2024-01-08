@@ -55,10 +55,8 @@ export class JsonRpcProvider {
       case 'personal_sign':
         if (Array.isArray(request.params) && request.params.length > 0) {
           const message = getMessage(request?.params as string[]);
-          const signedMessage = (await this.moonWallet.SignMessage(
-            message
-          )) as Transaction;
-          return signedMessage.signed_message || '';
+          const signedMessage = await this.moonWallet.SignMessage(message);
+          return signedMessage;
         } else {
           throw new Error('request.params is undefined or not an array');
         }
@@ -72,7 +70,7 @@ export class JsonRpcProvider {
             typedData.types,
             typedData.value
           )) as Transaction;
-          return signedTypedData.signed_message || '';
+          return signedTypedData || '';
         } else {
           throw new Error('request.params is undefined or not an array');
         }

@@ -1,0 +1,65 @@
+{
+  "name": "@moonup/moon-sdk",
+  "version": "0.0.34",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "author": "moonup",
+  "module": "dist/moon-sdk.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/moon-sdk.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/moon-sdk.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "dependencies": {
+    "@ethersproject/abstract-provider": "^5.7.0",
+    "@ethersproject/abstract-signer": "^5.7.0",
+    "@ethersproject/bignumber": "^5.7.0",
+    "@ethersproject/bytes": "^5.7.0",
+    "@ethersproject/hash": "^5.7.0",
+    "@ethersproject/providers": "^5.7.2",
+    "@moonup/moon-api": "^0.0.22",
+    "@moonup/moon-types": "^0.0.17",
+    "events": "^3.3.0",
+    "typedots": "^0.0.2"
+  },
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^8.1.0",
+    "husky": "^8.0.1",
+    "size-limit": "^8.1.0",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.4.0",
+    "typescript": "^4.8.3"
+  }
+}

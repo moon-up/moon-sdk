@@ -8,7 +8,6 @@ import { hashMessage } from '@ethersproject/hash';
 import { JsonRpcProvider, TransactionResponse } from '@ethersproject/providers';
 import {
   Aave,
-  AccountControllerResponse,
   AccountResponse,
   Accounts,
   Auth,
@@ -31,7 +30,7 @@ import {
   RefreshTokenResponse,
   Ripple,
   Solana,
-  Transaction,
+  TransactionData,
   Tron,
   Uniswap,
   Yearn,
@@ -490,44 +489,47 @@ export class MoonSDK {
 
   public async SignTransaction(
     transaction: TransactionResponse
-  ): Promise<Transaction> {
-    const response = await this.getAccountsSDK().signTransaction(
-      this.MoonAccount.getWallet(),
-      this.transactionRequestToInputBody(transaction)
-    );
-    response.data;
-    return response.data as Transaction;
+  ): Promise<string> {
+    const response = await this.getAccountsSDK()
+      .signTransaction(
+        this.MoonAccount.getWallet(),
+        this.transactionRequestToInputBody(transaction)
+      )
+      .then(res => {
+        return res.data as TransactionData;
+      });
+    return response.raw_transaction || '';
   }
 
-  public async SignMessage(
-    message: BytesLike
-  ): Promise<AccountControllerResponse> {
+  public async SignMessage(message: BytesLike): Promise<string> {
     const hash = new Uint8Array(arrayify(hashMessage(message)));
-    const response = await this.getAccountsSDK().signMessage(
-      this.MoonAccount.getWallet(),
-      {
+    const response = await this.getAccountsSDK()
+      .signMessage(this.MoonAccount.getWallet(), {
         data: hash.toString(),
-      }
-    );
-    return response.data;
+      })
+      .then(res => {
+        return res.data as TransactionData;
+      });
+    return response.signed_message || '';
   }
 
   public async SignTypedData(
     domain: TypedDataDomain,
     types: Record<string, Array<TypedDataField>>,
     value: Record<string, any>
-  ): Promise<AccountControllerResponse> {
-    const response = await this.getAccountsSDK().signTypedData(
-      this.MoonAccount.getWallet(),
-      {
+  ): Promise<string> {
+    const response = await this.getAccountsSDK()
+      .signTypedData(this.MoonAccount.getWallet(), {
         data: JSON.stringify({
           domain,
           types,
           value,
         }),
-      }
-    );
-    return response.data;
+      })
+      .then(res => {
+        return res.data as TransactionData;
+      });
+    return response.signed_message || '';
   }
 
   public async SendTransaction(

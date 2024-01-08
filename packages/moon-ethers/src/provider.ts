@@ -7,7 +7,7 @@ import {
 import { EventEmitter } from 'events';
 import { JsonRpcProvider } from './json-rpc-provider';
 import { MoonProviderOptions } from './types';
-export class MoonProvider implements IEthereumProvider {
+export class MoonProvider extends JsonRpcProvider implements IEthereumProvider {
   private account?: MoonAccount = undefined;
 
   public events: EventEmitter = new EventEmitter();
@@ -15,6 +15,7 @@ export class MoonProvider implements IEthereumProvider {
   public readonly signer: JsonRpcProvider;
 
   constructor(options: MoonProviderOptions) {
+    super(options.chainId);
     this.chainId = options.chainId;
     this.signer = new JsonRpcProvider(this.chainId);
   }

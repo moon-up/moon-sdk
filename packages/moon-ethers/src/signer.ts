@@ -11,8 +11,7 @@ import {
     TransactionResponse,
 } from '@ethersproject/providers';
 import type {
-    BroadCastRawTransactionResponse,
-    Transaction
+    BroadCastRawTransactionResponse
 } from '@moonup/moon-api';
 import { MoonSDK } from '@moonup/moon-sdk';
 import { MoonConfig } from '@moonup/moon-types';
@@ -48,8 +47,8 @@ export class MoonSigner extends Signer {
     types: Record<string, TypedDataField[]>,
     value: Record<string, any>
   ): Promise<string> {
-    const response = await this.MoonSDK.SignTypedData(domain, types, value) as Transaction;
-    return response.signed_message || '';
+    const response = await this.MoonSDK.SignTypedData(domain, types, value);
+    return response || '';
   }
 
   /**
@@ -60,8 +59,8 @@ export class MoonSigner extends Signer {
     throw new Error('Method not implemented.');
   }
   async signMessage(message: BytesLike): Promise<string> {
-    const response = await this.MoonSDK.SignMessage(message) as Transaction;
-    return response.signed_message || '';
+    const response = await this.MoonSDK.SignMessage(message);
+    return response || '';
   }
   async broadcastTransaction(
     signedTransaction: string
@@ -93,8 +92,8 @@ export class MoonSigner extends Signer {
       const tx = (await this.populateTransaction(
         transaction
       )) as TransactionResponse;
-      const signedTx: Transaction = await this.MoonSDK.SignTransaction(tx);
-      return signedTx.signed_transaction;
+      const signedTx = await this.MoonSDK.SignTransaction(tx);
+      return signedTx;
     } catch (e) {
       console.log(e);
       throw e;
