@@ -44,7 +44,7 @@ import {
   MoonStorage,
 } from '@moonup/moon-types';
 
-import { useAuth } from './auth';
+import { moonAuthConfig } from './auth';
 import { MoonMessageHandler } from './messages';
 import { IframeController } from './viewController';
 
@@ -517,7 +517,7 @@ export class MoonSDK {
   public async SignTypedData(
     domain: TypedDataDomain,
     types: Record<string, Array<TypedDataField>>,
-    value: Record<string, any>
+    value: Record<string, string>
   ): Promise<string> {
     const response = await this.getAccountsSDK()
       .signTypedData(this.MoonAccount.getWallet(), {
@@ -547,7 +547,7 @@ export class MoonSDK {
   }
   private initialiseConfig(config: MoonConfig): MoonSDKConfig {
     const sdkConfig = {
-      Auth: useAuth(config.Auth),
+      Auth: moonAuthConfig(config.Auth),
       Storage: new MoonStorage(config.Storage.type, config.Storage.key),
       Networks: config.Networks || MOON_SUPPORTED_NETWORKS,
     };

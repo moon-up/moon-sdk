@@ -9,7 +9,7 @@ import { utils } from 'ethers';
 export interface TypedData {
   domain: TypedDataDomain;
   types: Record<string, Array<TypedDataField>>;
-  value: Record<string, any>;
+  value: Record<string, string>;
 }
 
 export const getMessage = (params: string[]) => {

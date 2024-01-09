@@ -15,6 +15,7 @@ export interface RefreshTokenResponse {
   accessToken: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ProfileInput {}
 export interface ProfileResponse {
   id: number;
@@ -102,6 +103,7 @@ export interface GoogleAltCallbackResponse {
   token: string;
   refreshToken: string;
 }
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DiscordCallbackInput {}
 
 export interface DiscordCallbackResponse {
@@ -109,6 +111,7 @@ export interface DiscordCallbackResponse {
   refreshToken: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface GithubCallbackInput {}
 
 export interface GithubCallbackResponse {

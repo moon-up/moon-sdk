@@ -1,10 +1,10 @@
 import { MoonProviderOptions } from '@moonup/ethers';
 import { MoonConnector } from '@moonup/wagmi-connector';
 import { Wallet } from '@rainbow-me/rainbowkit';
-import { Connector } from 'wagmi';
+import { Chain, Connector } from 'wagmi';
 
 export interface MyWalletOptions {
-  chains: any;
+  chains: Chain[];
   options: MoonProviderOptions;
 }
 const name = 'Moon';

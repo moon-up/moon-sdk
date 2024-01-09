@@ -2,6 +2,9 @@ import { AUTH } from './auth';
 import { Chain } from './chain';
 import { MoonStorage, Storage } from './storage';
 
+export interface Headers {
+  Authorization: string;
+}
 export interface MoonAuthConfig {
   AuthType: AUTH;
   CLIENT_SECRET?: string;
@@ -21,7 +24,7 @@ export interface MoonConfig {
 
 export interface MoonToken {
   type: AUTH;
-  securityWorker?: (securityData: any) => Promise<any> | any;
+  securityWorker?: (securityData: string) => Promise<Headers>;
   CLIENT_ID?: string;
   CLIENT_SECRET?: string;
   REDIRECT_URI?: string;

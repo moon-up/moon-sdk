@@ -6,16 +6,12 @@ interface MoonSDKHook {
   moon: MoonSDK | null;
   initialize: () => Promise<void>;
   disconnect: () => Promise<void>;
-  // signTransaction: (transaction: TransactionResponse) => Promise<Transaction>;
-  // Add other methods as needed
 }
 
 export function useMoonSDK(): MoonSDKHook {
   const [moon, setMoon] = useState<MoonSDK | null>(null);
 
   const initialize = async () => {
-    const auth = JSON.parse(window.localStorage.getItem(MOON_SESSION_KEY) || '{}');
-
     console.log(MOON_SUPPORTED_NETWORKS);
     const moonInstance = new MoonSDK({
       Storage: {
@@ -49,9 +45,6 @@ export function useMoonSDK(): MoonSDKHook {
 
   useEffect(() => {
     initialize();
-    return () => {
-      disconnect();
-    };
   }, []);
 
   return {

@@ -22,7 +22,7 @@ export class IframeController {
     }
   }
 
-  public sendMessage(message: any): void {
+  public sendMessage(message: string): void {
     if (this.iframe && this.iframe.contentWindow) {
       this.iframe.contentWindow.postMessage(message, this.url);
     }

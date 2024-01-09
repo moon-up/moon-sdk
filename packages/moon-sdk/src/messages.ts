@@ -1,12 +1,12 @@
 import { EventEmitter } from 'events';
 export interface MoonMessage {
   type: string;
-  data: any;
+  data: string;
 }
 
 export interface MoonMessageResponse {
   type: string;
-  data: any;
+  data: string;
 }
 export enum MoonMessageType {
   login = 'MOON_LOGIN',
@@ -27,7 +27,7 @@ export class MoonMessageHandler {
     // );
   }
 
-  emit(type: string, data: any) {
+  emit(type: string, data: string) {
     this.EventEmitter.emit(type, data);
   }
 

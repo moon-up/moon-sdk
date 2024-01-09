@@ -7,7 +7,7 @@ import {
   createWalletClient,
   custom,
 } from 'viem';
-import { Address, Chain, Connector, ConnectorData } from 'wagmi';
+import { Address, Chain, Connector, ConnectorData, WalletClient } from 'wagmi';
 
 export interface MoonConnectorOptions {
   chains?: Chain[];
@@ -36,9 +36,8 @@ export class MoonConnector extends Connector<
   }
 
   async connect(): Promise<Required<ConnectorData>> {
-    let _account: any;
+    let _account: MoonAccount;
     try {
-      // @ts-ignore-next-line
       this?.emit('message', { type: 'connecting' });
       _account = await this.provider.connect();
     } catch (error) {
@@ -49,7 +48,7 @@ export class MoonConnector extends Connector<
     }
 
     const chianId = this.provider.getChainId();
-    const address = _account.address as Address;
+    const address = _account.getWallet() as Address;
 
     return {
       account: address,
@@ -64,7 +63,9 @@ export class MoonConnector extends Connector<
     await this.provider.disconnect();
   }
 
-  async getWalletClient({ chainId }: { chainId?: number } = {}): Promise<any> {
+  async getWalletClient({
+    chainId,
+  }: { chainId?: number } = {}): Promise<WalletClient> {
     const [provider, account] = await Promise.all([
       this.getProvider(),
       this.getAccount(),
@@ -83,7 +84,7 @@ export class MoonConnector extends Connector<
     });
   }
 
-  async getAccount(): Promise<any> {
+  async getAccount(): Promise<string> {
     return Promise.resolve(this.MoonAccount?.wallet || '');
   }
 
@@ -108,7 +109,6 @@ export class MoonConnector extends Connector<
       method: 'wallet_switchEthereumChain',
       params: [{ chainId: `0x${chainId.toString(16)}` }],
     });
-    // @ts-ignore-next-line
     this?.emit('change', { chain: { id: chainId, unsupported: false } });
     return { id: chainId } as Chain;
   }
@@ -123,12 +123,10 @@ export class MoonConnector extends Connector<
 
   protected onChainChanged(chain: number): void {
     this.provider?.events?.emit('chainChanged', chain);
-    // @ts-ignore-next-line
     this?.emit('change', { chain: { id: chain, unsupported: true } });
   }
 
   protected onDisconnect() {
-    // @ts-ignore-next-line
     this?.emit('disconnect');
   }
 

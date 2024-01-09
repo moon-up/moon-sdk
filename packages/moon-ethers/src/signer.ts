@@ -13,6 +13,11 @@ import {
 import type { BroadCastRawTransactionResponse } from '@moonup/moon-api';
 import { MoonSDK } from '@moonup/moon-sdk';
 import { MoonConfig } from '@moonup/moon-types';
+export interface Typed {
+  domain: TypedDataDomain;
+  types: Record<string, Array<TypedDataField>>;
+  message: Record<string, string>;
+}
 
 export class MoonSigner extends Signer {
   declare readonly provider: Provider;
@@ -43,7 +48,7 @@ export class MoonSigner extends Signer {
   async signTypedData(
     domain: TypedDataDomain,
     types: Record<string, TypedDataField[]>,
-    value: Record<string, any>
+    value: Record<string, string>
   ): Promise<string> {
     const response = await this.MoonSDK.SignTypedData(domain, types, value);
     return response || '';
@@ -54,7 +59,7 @@ export class MoonSigner extends Signer {
    * @returns {string} successful operation
    */
   async getAddress(): Promise<string> {
-    throw new Error('Method not implemented.');
+    return this.MoonSDK.getMoonAccount().getWallet();
   }
   async signMessage(message: BytesLike): Promise<string> {
     const response = await this.MoonSDK.SignMessage(message);
@@ -114,8 +119,8 @@ export class MoonSigner extends Signer {
   async getTypedData(
     domain: TypedDataDomain,
     types: Record<string, Array<TypedDataField>>,
-    message: Record<string, any>
-  ): Promise<any> {
+    message: Record<string, string>
+  ): Promise<Typed> {
     return {
       domain,
       types,

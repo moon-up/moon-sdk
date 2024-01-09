@@ -46,9 +46,11 @@ export class JsonRpcProvider {
     await this.moonWallet.logout();
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public async request(request: RequestArguments): Promise<any> {
     switch (request.method) {
       case 'eth_requestAccounts':
+        // eslint-disable-next-line no-case-declarations
         const keys = (await this.moonWallet.listAccounts()) as AccountResponse;
         return keys.keys || [];
       case 'personal_sign':
@@ -75,6 +77,7 @@ export class JsonRpcProvider {
         }
 
       case 'eth_sendTransaction':
+        // eslint-disable-next-line no-case-declarations
         const _params =
           request?.params &&
           Array.isArray(request?.params) &&
@@ -88,6 +91,7 @@ export class JsonRpcProvider {
       default:
         return await this.http.send(
           request.method,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (request.params || []) as Array<any>
         );
     }

@@ -37,9 +37,11 @@ export class MoonProvider extends Provider implements IEthereumProvider {
     this.signer = new JsonRpcProvider(this.chainId);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public async request(args: RequestArguments): Promise<any> {
     switch (args.method) {
       case 'eth_requestAccounts':
+        // eslint-disable-next-line no-case-declarations
         const account = await this.connect();
         this.account = account;
         return (await this.signer.moonWallet.listAccounts()) || [];
@@ -48,10 +50,13 @@ export class MoonProvider extends Provider implements IEthereumProvider {
       case 'eth_chainId':
         return this.chainId;
       case 'wallet_switchEthereumChain':
+        // eslint-disable-next-line no-case-declarations
         const _params =
           args?.params && Array.isArray(args?.params) && args?.params[0]
-            ? args?.params[0]
+            ? // eslint-disable-next-line no-case-declarations
+              args?.params[0]
             : undefined;
+        // eslint-disable-next-line no-case-declarations
         const chainId =
           typeof _params?.chainId === 'string' &&
           _params?.chainId?.startsWith('0x')
@@ -84,6 +89,7 @@ export class MoonProvider extends Provider implements IEthereumProvider {
 
   public sendAsync(
     args: RequestArguments,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     callback: (error: Error | null, response: any) => void
   ): void {
     this.request(args)
@@ -183,6 +189,7 @@ export class MoonProvider extends Provider implements IEthereumProvider {
   lookupAddress(address: string | Promise<string>): Promise<string | null> {
     return this.signer.http.lookupAddress(address);
   }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   emit(eventName: EventType, ...args: any[]): boolean {
     return this.signer.http.emit(eventName, ...args);
   }

@@ -14,7 +14,7 @@ export class MoonStorage {
   }
 
   setItem(account: MoonAccountInterface): void {
-    let _storage: any;
+    let _storage: globalThis.Storage;
     switch (this.type) {
       case Storage.LOCAL:
         _storage = window.localStorage;
@@ -30,7 +30,7 @@ export class MoonStorage {
   }
 
   getItem(): MoonAccountInterface | null {
-    let _storage: any;
+    let _storage: globalThis.Storage;
     switch (this.type) {
       case Storage.LOCAL:
         _storage = window.localStorage;
@@ -43,11 +43,11 @@ export class MoonStorage {
         break;
     }
     const key = _storage.getItem(this.key);
-    return JSON.parse(key) as MoonAccountInterface;
+    return JSON.parse(key || '') as MoonAccountInterface;
   }
 
   removeItem(): void {
-    let _storage: any;
+    let _storage: globalThis.Storage;
     switch (this.type) {
       case Storage.LOCAL:
         _storage = window.localStorage;

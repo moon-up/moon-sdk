@@ -50,6 +50,7 @@ export class Auth<
    * @request POST:/accounts/{accountName}/transfer-eth
    */
   refreshToken = (data: RefreshTokenInput, params: RequestParams = {}) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.request<RefreshTokenResponse, any>({
       path: `/auth/refresh-token`,
       method: 'POST',
@@ -60,6 +61,7 @@ export class Auth<
     });
 
   profile = (params: RequestParams = {}) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.request<ProfileResponse, any>({
       path: `/auth/profile`,
       method: 'GET',
@@ -70,6 +72,7 @@ export class Auth<
     data: CreateOauth2ClientInput,
     params: RequestParams = {}
   ) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return this.request<CreateOauth2ClientResponse, any>({
       path: `/auth/oauth/openai/create`,
       method: 'POST',
@@ -83,6 +86,7 @@ export class Auth<
     query: MoonOauth2QueryParamsInput,
     params: RequestParams = {}
   ) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.request<ProfileResponse, any>({
       path: `/auth/oauth/openai/oauth`,
       method: 'GET',
@@ -93,6 +97,7 @@ export class Auth<
     data: MoonOauth2AuthorizeInput,
     params: RequestParams = {}
   ) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return this.request<MoonOauth2AuthorizeResponse, any>({
       path: `/auth/oauth/openai/authorize`,
       method: 'POST',
@@ -106,6 +111,7 @@ export class Auth<
     data: MoonOauth2ExchangeInput,
     params: RequestParams = {}
   ) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return this.request<MoonOauth2ExchangeResponse, any>({
       path: `/auth/oauth/openai/exchange`,
       method: 'POST',
@@ -120,6 +126,7 @@ export class Auth<
     query: MoonOauth2QueryParamsInput,
     params: RequestParams = {}
   ) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.request<ProfileResponse, any>({
       path: `/auth/oauth/google`,
       method: 'GET',
@@ -131,6 +138,7 @@ export class Auth<
     data: GoogleCallbackInput,
     params: RequestParams = {}
   ) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.request<GoogleCallbackResponse, any>({
       path: `/auth/oauth/google/callback`,
       method: 'POST',
@@ -144,6 +152,7 @@ export class Auth<
     query: MoonOauth2QueryParamsInput,
     params: RequestParams = {}
   ) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.request<ProfileResponse, any>({
       path: `/auth/oauth/google-alt`,
       method: 'GET',
@@ -155,6 +164,7 @@ export class Auth<
     data: GoogleAltCallbackInput,
     params: RequestParams = {}
   ) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.request<GoogleCallbackResponse, any>({
       path: `/auth/oauth/google-alt/callback`,
       query: data,
@@ -163,6 +173,7 @@ export class Auth<
     });
   // /email/signup'
   emailSignup = (data: EmailSignupInput, params: RequestParams = {}) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.request<EmailSignupResponse, any>({
       path: `/auth/email/signup`,
       method: 'POST',
@@ -173,6 +184,7 @@ export class Auth<
     });
   // /email/login'
   emailLogin = (data: EmailLoginInput, params: RequestParams = {}) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.request<EmailLoginResponse, any>({
       path: `/auth/email/login`,
       method: 'POST',
@@ -186,6 +198,7 @@ export class Auth<
     query: MoonOauth2QueryParamsInput,
     params: RequestParams = {}
   ) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.request<ProfileResponse, any>({
       path: `/auth/oauth/github`,
       method: 'GET',
@@ -197,6 +210,7 @@ export class Auth<
     query: GithubCallbackInput,
     params: RequestParams = {}
   ) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.request<GithubCallbackResponse, any>({
       path: `/auth/oauth/github/callback`,
       method: 'GET',
@@ -208,6 +222,7 @@ export class Auth<
     query: MoonOauth2QueryParamsInput,
     params: RequestParams = {}
   ) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.request<ProfileResponse, any>({
       path: `/auth/oauth/discord`,
       method: 'GET',
@@ -219,6 +234,7 @@ export class Auth<
     query: DiscordCallbackInput,
     params: RequestParams = {}
   ) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.request<DiscordCallbackResponse, any>({
       path: `/auth/oauth/discord/callback`,
       method: 'GET',
@@ -227,6 +243,7 @@ export class Auth<
     });
   // ('/webauthn
   webauthn = (data: RefreshTokenInput, params: RequestParams = {}) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.request<RefreshTokenResponse, any>({
       path: `/auth/webauthn`,
       method: 'POST',
@@ -240,6 +257,7 @@ export class Auth<
     data: WebAuthnRegisterInput,
     params: RequestParams = {}
   ) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.request<WebAuthnRegisterResponse, any>({
       path: `/auth/webauthn/register`,
       method: 'POST',
@@ -253,6 +271,7 @@ export class Auth<
     data: WebAuthNRegisterVerifyInput,
     params: RequestParams = {}
   ) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.request<WebAuthNRegisterVerifyResponse, any>({
       path: `/auth/webauthn/register/verify`,
       method: 'POST',
@@ -263,6 +282,7 @@ export class Auth<
     });
   // /webauthn/login',
   webAuthnLogin = (data: WebAuthnLoginInput, params: RequestParams = {}) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.request<WebAuthnLoginResponse, any>({
       path: `/auth/webauthn/login`,
       method: 'POST',
@@ -277,6 +297,7 @@ export class Auth<
     data: WebAuthnLoginVerifyInput,
     params: RequestParams = {}
   ) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.request<WebAuthnLoginVerifyResponse, any>({
       path: `/auth/webauthn/login/verify`,
       method: 'POST',
@@ -287,6 +308,7 @@ export class Auth<
     });
   // '/forgot-password',
   resetPassword = (data: ResetPasswordInput, params: RequestParams = {}) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.request<ResetPasswordResponse, any>({
       path: `/auth/reset-password`,
       method: 'POST',
@@ -300,6 +322,7 @@ export class Auth<
     data: ResetPasswordConfirmInput,
     params: RequestParams = {}
   ) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.request<ResetPasswordConfirmResponse, any>({
       path: `/auth/reset-password/verify`,
       method: 'POST',
@@ -310,6 +333,7 @@ export class Auth<
     });
   // '/enable-2fa';
   enable2fa = (data: Enable2faInput, params: RequestParams = {}) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.request<Enable2faInput, any>({
       path: `/auth/enable-2fa`,
       method: 'POST',
@@ -320,6 +344,7 @@ export class Auth<
     });
   // /verify-2fa
   verify2fa = (data: Verify2faInput, params: RequestParams = {}) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.request<Verify2faResponse, any>({
       path: `/auth/verify-2fa`,
       method: 'POST',
@@ -331,6 +356,7 @@ export class Auth<
 
   // '/disable-2fa',
   disable2fa = (data: Disable2faInput, params: RequestParams = {}) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.request<Disable2faInput, any>({
       path: `/auth/disable-2fa`,
       method: 'POST',

@@ -1,6 +1,10 @@
 import { AUTH, MoonAuthConfig, MoonToken } from '@moonup/moon-types';
 
-const jwtSecurityWorker = (securityData: any) => {
+export interface SecurityData {
+  token: string;
+}
+
+const jwtSecurityWorker = (securityData: SecurityData) => {
   return {
     headers: {
       Authorization: `Bearer ${securityData.token}`,
@@ -8,7 +12,7 @@ const jwtSecurityWorker = (securityData: any) => {
   };
 };
 
-const xApiKeySecurityWorker = (securityData: any) => {
+const xApiKeySecurityWorker = (securityData: SecurityData) => {
   return {
     headers: {
       'x-api-key': `${securityData.token}`,
@@ -16,14 +20,14 @@ const xApiKeySecurityWorker = (securityData: any) => {
   };
 };
 
-const oauth2SecurityWorker = (securityData: any) => {
+const oauth2SecurityWorker = (securityData: SecurityData) => {
   return {
     headers: {
       Authorization: `Bearer ${securityData.token}`,
     },
   };
 };
-export const useAuth = (config: MoonAuthConfig): MoonToken => {
+export const moonAuthConfig = (config: MoonAuthConfig): MoonToken => {
   switch (config.AuthType) {
     case AUTH.OAUTH2:
       return {

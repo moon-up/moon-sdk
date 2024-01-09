@@ -61,7 +61,7 @@ export class MoonAccount {
     this.isAuth = isAuth;
   }
 
-  emit(type: string, data: any) {
+  emit(type: string, data: string) {
     this.Events.emit(type, data);
   }
   login() {
