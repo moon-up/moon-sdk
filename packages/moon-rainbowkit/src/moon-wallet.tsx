@@ -26,6 +26,27 @@ export const rainbowkitUseMoonConnector = ({
 
       return {
         connector,
+        mobile: {
+          getUri: async () => {
+            try {
+              await connector.connect();
+              return window.location.href;
+            } catch (e) {
+              console.error('Failed to connect');
+            }
+            return '';
+          },
+        },
+        desktop: {
+          getUri: async () => {
+            try {
+              await connector.connect();
+            } catch (e) {
+              console.error('Failed to connect');
+            }
+            return '';
+          },
+        },
       };
     },
   };
