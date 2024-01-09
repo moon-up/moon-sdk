@@ -57,9 +57,15 @@
   "devDependencies": {
     "@size-limit/preset-small-lib": "^11.0.1",
     "@tsconfig/recommended": "^1.0.3",
-    "dts-cli": "^2.0.3",
+    "@tsconfig/vite-react": "^3.0.0",
+    "@types/react": "^18.2.47",
+    "@types/react-dom": "^18.2.18",
+    "@vitest/coverage-v8": "^0.34.2",
     "husky": "^8.0.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "size-limit": "^11.0.1",
+    "happy-dom": "^6.0.4",
     "tslib": "^2.6.2",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3"

@@ -25,17 +25,26 @@
     "node": ">=10"
   },
   "scripts": {
-    "start": "tsup --watch",
-    "build": "tsup",
-    "test": "dts test",
-    "lint": "dts lint",
+    "analyze": "size-limit --why",
     "prepare": "tsup",
     "size": "size-limit",
-    "analyze": "size-limit --why"
+    "start": "tsup --watch",
+    "prettier": "prettier --check src/",
+    "prettier:fix": "prettier --write src/",
+    "lint": "eslint src/ --ext .ts,.tsx",
+    "lint:fix": "yarn lint --fix",
+    "verify": "run-p prettier lint",
+    "verify:fix": "yarn prettier:fix && yarn lint:fix",
+    "build": "tsup src -- --dts-resolve",
+    "build:fast": "tsup src",
+    "dev": "tsup src --watch",
+    "test": "vitest",
+    "test:watch": "vitest watch",
+    "coverage": "vitest run --coverage"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "tsdx lint"
+      "pre-commit": "npm run lint"
     }
   },
   "prettier": {
