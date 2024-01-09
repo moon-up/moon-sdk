@@ -1,26 +1,23 @@
 import { AUTH, MoonAuthConfig, MoonToken } from '@moonup/moon-types';
 
-export interface SecurityData {
-  token: string;
-}
-
-const jwtSecurityWorker = (securityData: SecurityData) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const jwtSecurityWorker = (securityData: any) => {
   return {
     headers: {
       Authorization: `Bearer ${securityData.token}`,
     },
   };
 };
-
-const xApiKeySecurityWorker = (securityData: SecurityData) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const xApiKeySecurityWorker = (securityData: any) => {
   return {
     headers: {
       'x-api-key': `${securityData.token}`,
     },
   };
 };
-
-const oauth2SecurityWorker = (securityData: SecurityData) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const oauth2SecurityWorker = (securityData: any) => {
   return {
     headers: {
       Authorization: `Bearer ${securityData.token}`,
@@ -32,7 +29,13 @@ export const moonAuthConfig = (config: MoonAuthConfig): MoonToken => {
     case AUTH.OAUTH2:
       return {
         type: AUTH.OAUTH2,
-        securityWorker: oauth2SecurityWorker,
+        securityWorker: async (securityData: any) => {
+          return {
+            headers: {
+              Authorization: `Bearer ${securityData.token}`,
+            },
+          };
+        },
         CLIENT_ID: config.CLIENT_ID,
         CLIENT_SECRET: config.CLIENT_SECRET,
         REDIRECT_URI: config.REDIRECT_URI,
@@ -40,18 +43,35 @@ export const moonAuthConfig = (config: MoonAuthConfig): MoonToken => {
     case AUTH.JWT:
       return {
         type: AUTH.JWT,
-        securityWorker: jwtSecurityWorker,
+        securityWorker: async (securityData: any) => {
+          return Promise.resolve({
+            headers: {
+              Authorization: `Bearer ${securityData.token}`,
+            },
+          });
+        },
       };
     case AUTH.X_API_KEY:
       return {
         type: AUTH.X_API_KEY,
-
-        securityWorker: xApiKeySecurityWorker,
+        securityWorker: async (securityData: any) => {
+          return {
+            headers: {
+              'x-api-key': `${securityData.token}`,
+            },
+          };
+        },
       };
     default:
       return {
         type: AUTH.JWT,
-        securityWorker: jwtSecurityWorker,
+        securityWorker: async (securityData: any) => {
+          return {
+            headers: {
+              Authorization: `Bearer ${securityData.token}`,
+            },
+          };
+        },
       };
   }
 };

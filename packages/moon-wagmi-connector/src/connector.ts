@@ -7,7 +7,7 @@ import {
   createWalletClient,
   custom,
 } from 'viem';
-import { Address, Chain, Connector, ConnectorData, WalletClient } from 'wagmi';
+import { Address, Chain, Connector, ConnectorData } from 'wagmi';
 
 export interface MoonConnectorOptions {
   chains?: Chain[];
@@ -65,7 +65,8 @@ export class MoonConnector extends Connector<
 
   async getWalletClient({
     chainId,
-  }: { chainId?: number } = {}): Promise<WalletClient> {
+  }: // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  { chainId?: number } = {}): Promise<any> {
     const [provider, account] = await Promise.all([
       this.getProvider(),
       this.getAccount(),
@@ -84,7 +85,8 @@ export class MoonConnector extends Connector<
     });
   }
 
-  async getAccount(): Promise<string> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async getAccount(): Promise<any> {
     return Promise.resolve(this.MoonAccount?.wallet || '');
   }
 

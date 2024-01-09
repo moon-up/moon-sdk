@@ -165,7 +165,7 @@ importers:
         version: link:../moon-sdk
       '@moonup/moon-types':
         specifier: ^0.0.18
-        version: link:../moon-types
+        version: 0.0.18
       eip1193-provider:
         specifier: ^1.0.1
         version: 1.0.1
@@ -226,7 +226,7 @@ importers:
         version: link:../moon-ethers
       '@moonup/moon-types':
         specifier: ^0.0.18
-        version: link:../moon-types
+        version: 0.0.18
       '@moonup/wagmi-connector':
         specifier: ^0.0.20
         version: link:../moon-wagmi-connector
@@ -320,7 +320,7 @@ importers:
         version: link:../moon-api
       '@moonup/moon-types':
         specifier: ^0.0.18
-        version: link:../moon-types
+        version: 0.0.18
       events:
         specifier: ^3.3.0
         version: 3.3.0
@@ -420,7 +420,7 @@ importers:
         version: link:../moon-sdk
       '@moonup/moon-types':
         specifier: ^0.0.18
-        version: link:../moon-types
+        version: 0.0.18
       '@moonup/wagmi-connector':
         specifier: ^0.0.13
         version: 0.0.13(@types/react@18.2.47)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
@@ -3147,6 +3147,11 @@ packages:
 
   /@moonup/moon-types@0.0.16:
     resolution: {integrity: sha512-AcWIwvHoRXKgXehDNQNK8Tf/NVzDupfH+WJmAwkb4I+wTJzht+pbP3By+QM7hDyqlBr/BYmX3cgocD/hINvdag==}
+    engines: {node: '>=10'}
+    dev: false
+
+  /@moonup/moon-types@0.0.18:
+    resolution: {integrity: sha512-WI5hAhyhIEm2mrrTzYbucBe3vsDCdz+ic8gBeq6tRCn/lPvQ8ZmiM0uQNHgk1AfKGR6kmKih5lbX91iOEYz8cw==}
     engines: {node: '>=10'}
     dev: false
 

@@ -1,6 +1,6 @@
 {
   "name": "@moonup/moon-rainbowkit",
-  "version": "0.0.24",
+  "version": "0.0.26",
   "license": "MIT",
   "author": "0xEwhal <ewhal@bytemasons.com>",
   "type": "commonjs",
@@ -71,9 +71,9 @@
     }
   ],
   "dependencies": {
-    "@moonup/ethers": "^0.0.10",
-    "@moonup/moon-types": "^0.0.18",
-    "@moonup/wagmi-connector": "^0.0.20",
+    "@moonup/ethers": "^0.0.11",
+    "@moonup/moon-types": "^0.0.22",
+    "@moonup/wagmi-connector": "^0.0.21",
     "@rainbow-me/rainbowkit": "^1.3.3",
     "@rainbow-me/rainbowkit-siwe-next-auth": "^0.3.4",
     "@randombits/use-siwe": "^2.0.2",

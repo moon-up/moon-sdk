@@ -1,6 +1,6 @@
 {
   "name": "@moonup/ethers",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "author": "0xEwhal <ewhal@bytemasons.com>",
   "type": "commonjs",
   "main": "./dist/index.js",
@@ -72,8 +72,8 @@
     "@ethersproject/properties": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",
     "@moonup/moon-api": "^0.0.23",
-    "@moonup/moon-sdk": "^0.0.36",
-    "@moonup/moon-types": "^0.0.18",
+    "@moonup/moon-sdk": "^0.0.37",
+    "@moonup/moon-types": "^0.0.22",
     "eip1193-provider": "^1.0.1",
     "ethers": "^5.7.2",
     "events": "^3.3.0"

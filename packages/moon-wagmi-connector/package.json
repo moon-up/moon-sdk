@@ -1,6 +1,6 @@
 {
   "name": "@moonup/wagmi-connector",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "license": "MIT",
   "author": "0xEwhal <ewhal@bytemasons.com>",
   "type": "commonjs",
@@ -68,9 +68,9 @@
     }
   ],
   "dependencies": {
-    "@moonup/ethers": "^0.0.10",
-    "@moonup/moon-sdk": "^0.0.36",
-    "@moonup/moon-types": "^0.0.18",
+    "@moonup/ethers": "^0.0.11",
+    "@moonup/moon-sdk": "^0.0.37",
+    "@moonup/moon-types": "^0.0.22",
     "@moonup/wagmi-connector": "^0.0.13",
     "@rainbow-me/rainbowkit": "^1.2.0",
     "ethers": "^5.7.2",
