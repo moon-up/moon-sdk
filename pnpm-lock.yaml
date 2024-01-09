@@ -145,6 +145,9 @@ importers:
       '@ethersproject/bytes':
         specifier: ^5.7.0
         version: 5.7.0
+      '@ethersproject/hash':
+        specifier: ^5.7.0
+        version: 5.7.0
       '@ethersproject/properties':
         specifier: ^5.7.0
         version: 5.7.0
