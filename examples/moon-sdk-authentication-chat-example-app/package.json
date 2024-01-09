@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@moonup/ethers": "^0.0.7",
+    "@moonup/ethers": "^0.0.9",
     "@moonup/moon-api": "^0.0.22",
-    "@moonup/moon-sdk": "^0.0.32",
+    "@moonup/moon-sdk": "^0.0.34",
     "@moonup/moon-types": "^0.0.17",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",

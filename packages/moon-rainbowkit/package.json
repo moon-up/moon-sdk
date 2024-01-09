@@ -1,27 +1,39 @@
 {
   "name": "@moonup/moon-rainbowkit",
-  "version": "0.0.3",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "version": "0.0.24",
+  "license": "MIT",
+  "author": "0xEwhal <ewhal@bytemasons.com>",
+  "type": "commonjs",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "typings": "./dist/index.d.ts",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "import": {
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
+    },
+    "require": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
   "files": [
     "dist",
     "src"
   ],
-  "engines": {
-    "node": ">=10"
-  },
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test",
-    "lint": "tsdx lint",
-    "prepare": "tsdx build",
+    "analyze": "size-limit --why",
+    "build": "tsup",
+    "lint": "dts lint",
+    "prepare": "tsup",
     "size": "size-limit",
-    "analyze": "size-limit --why"
+    "start": "dts watch",
+    "test": "dts test --passWithNoTests"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "tsdx lint"
+      "pre-commit": "dts lint"
     }
   },
   "prettier": {
@@ -30,8 +42,15 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "author": "moonup",
-  "module": "dist/moon-rainbowkit.esm.js",
+  "jest": {
+    "testEnvironment": "jsdom"
+  },
+  "peerDependencies": {
+    "react": ">=16"
+  },
+  "engines": {
+    "node": ">=12"
+  },
   "size-limit": [
     {
       "path": "dist/moon-rainbowkit.cjs.production.min.js",
@@ -43,20 +62,30 @@
     }
   ],
   "dependencies": {
-    "@moonup/ethers": "^0.0.6",
-    "@moonup/moon-types": "^0.0.16",
-    "@moonup/wagmi-connector": "^0.0.4",
-    "@rainbow-me/rainbowkit": "^1.2.0",
+    "@moonup/ethers": "^0.0.10",
+    "@moonup/moon-types": "^0.0.18",
+    "@moonup/wagmi-connector": "^0.0.20",
+    "@rainbow-me/rainbowkit": "^1.3.3",
+    "@rainbow-me/rainbowkit-siwe-next-auth": "^0.3.4",
+    "@randombits/use-siwe": "^2.0.2",
     "ethers": "^5.7.2",
+    "siwe": "^2.1.4",
     "viem": "^1.19.0",
     "wagmi": "^1.4.6"
   },
   "devDependencies": {
-    "@size-limit/preset-small-lib": "^8.1.0",
-    "husky": "^8.0.1",
-    "size-limit": "^8.1.0",
-    "tsdx": "^0.14.1",
-    "tslib": "^2.4.0",
-    "typescript": "^5.2.2"
+    "@size-limit/preset-small-lib": "^11.0.1",
+    "@tsconfig/recommended": "^1.0.3",
+    "@tsconfig/vite-react": "^3.0.0",
+    "@types/react": "^18.2.47",
+    "@types/react-dom": "^18.2.18",
+    "dts-cli": "^2.0.3",
+    "husky": "^8.0.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "size-limit": "^11.0.1",
+    "tslib": "^2.6.2",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3"
   }
 }

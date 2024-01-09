@@ -1,8 +1,22 @@
 {
   "name": "@moonup/ethers",
-  "version": "0.0.8",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "version": "0.0.10",
+  "author": "0xEwhal <ewhal@bytemasons.com>",
+  "type": "commonjs",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "typings": "./dist/index.d.ts",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "import": {
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
+    },
+    "require": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
   "files": [
     "dist",
     "src"
@@ -11,11 +25,11 @@
     "node": ">=10"
   },
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test",
-    "lint": "tsdx lint",
-    "prepare": "tsdx build",
+    "start": "tsup --watch",
+    "build": "tsup",
+    "test": "dts test",
+    "lint": "dts lint",
+    "prepare": "tsup",
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
@@ -30,15 +44,13 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "author": "moonup",
-  "module": "dist/ethers.esm.js",
   "size-limit": [
     {
-      "path": "dist/ethers.cjs.production.min.js",
+      "path": "dist/moon-sdk.cjs.production.min.js",
       "limit": "10 KB"
     },
     {
-      "path": "dist/ethers.esm.js",
+      "path": "dist/moon-sdk.esm.js",
       "limit": "10 KB"
     }
   ],
@@ -49,19 +61,21 @@
     "@ethersproject/bytes": "^5.7.0",
     "@ethersproject/properties": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",
-    "@moonup/moon-api": "^0.0.22",
-    "@moonup/moon-sdk": "^0.0.34",
-    "@moonup/moon-types": "^0.0.17",
+    "@moonup/moon-api": "^0.0.23",
+    "@moonup/moon-sdk": "^0.0.36",
+    "@moonup/moon-types": "^0.0.18",
     "eip1193-provider": "^1.0.1",
     "ethers": "^5.7.2",
     "events": "^3.3.0"
   },
   "devDependencies": {
-    "@size-limit/preset-small-lib": "^8.1.0",
-    "husky": "^8.0.1",
-    "size-limit": "^8.1.0",
-    "tsdx": "^0.14.1",
-    "tslib": "^2.4.0",
-    "typescript": "^4.8.3"
+    "@size-limit/preset-small-lib": "^11.0.1",
+    "@tsconfig/recommended": "^1.0.3",
+    "dts-cli": "^2.0.3",
+    "husky": "^8.0.3",
+    "size-limit": "^11.0.1",
+    "tslib": "^2.6.2",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3"
   }
 }

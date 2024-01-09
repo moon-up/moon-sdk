@@ -1,13 +1,29 @@
+import {
+  Block,
+  BlockTag,
+  BlockWithTransactions,
+  EventType,
+  Filter,
+  Listener,
+  Log,
+  Provider,
+  TransactionReceipt,
+  TransactionRequest,
+  TransactionResponse,
+} from '@ethersproject/abstract-provider';
+import { Deferrable } from '@ethersproject/properties';
+import { Network } from '@ethersproject/providers';
 import { MoonAccount } from '@moonup/moon-types';
 import {
   IEthereumProvider,
   ProviderAccounts,
   RequestArguments,
 } from 'eip1193-provider';
+import { BigNumber, BigNumberish } from 'ethers';
 import { EventEmitter } from 'events';
 import { JsonRpcProvider } from './json-rpc-provider';
 import { MoonProviderOptions } from './types';
-export class MoonProvider extends JsonRpcProvider implements IEthereumProvider {
+export class MoonProvider extends Provider implements IEthereumProvider {
   private account?: MoonAccount = undefined;
 
   public events: EventEmitter = new EventEmitter();
@@ -15,7 +31,7 @@ export class MoonProvider extends JsonRpcProvider implements IEthereumProvider {
   public readonly signer: JsonRpcProvider;
 
   constructor(options: MoonProviderOptions) {
-    super(options.chainId);
+    super();
     this.chainId = options.chainId;
     this.signer = new JsonRpcProvider(this.chainId);
   }
@@ -95,19 +111,107 @@ export class MoonProvider extends JsonRpcProvider implements IEthereumProvider {
     return this.signer;
   }
 
-  on(event: string, listener: any): void {
-    this.events.on(event, listener);
+  getNetwork(): Promise<Network> {
+    return this.signer.http.getNetwork();
   }
-
-  once(event: string, listener: any): void {
-    this.events.once(event, listener);
+  getBlockNumber(): Promise<number> {
+    return this.signer.http.getBlockNumber();
   }
-
-  removeListener(event: string, listener: any): void {
-    this.events.removeListener(event, listener);
+  getGasPrice(): Promise<BigNumber> {
+    return this.signer.http.getGasPrice();
   }
-
-  off(event: string, listener: any): void {
-    this.events.off(event, listener);
+  getBalance(
+    addressOrName: string | Promise<string>,
+    blockTag?: BlockTag | Promise<BlockTag> | undefined
+  ): Promise<BigNumber> {
+    return this.signer.http.getBalance(addressOrName, blockTag);
+  }
+  getTransactionCount(
+    addressOrName: string | Promise<string>,
+    blockTag?: BlockTag | Promise<BlockTag> | undefined
+  ): Promise<number> {
+    return this.signer.http.getTransactionCount(addressOrName, blockTag);
+  }
+  getCode(
+    addressOrName: string | Promise<string>,
+    blockTag?: BlockTag | Promise<BlockTag> | undefined
+  ): Promise<string> {
+    return this.signer.http.getCode(addressOrName, blockTag);
+  }
+  getStorageAt(
+    addressOrName: string | Promise<string>,
+    position: BigNumberish | Promise<BigNumberish>,
+    blockTag?: BlockTag | Promise<BlockTag> | undefined
+  ): Promise<string> {
+    return this.signer.http.getStorageAt(addressOrName, position, blockTag);
+  }
+  sendTransaction(
+    signedTransaction: string | Promise<string>
+  ): Promise<TransactionResponse> {
+    return this.signer.http.sendTransaction(signedTransaction);
+  }
+  call(
+    transaction: Deferrable<TransactionRequest>,
+    blockTag?: BlockTag | Promise<BlockTag> | undefined
+  ): Promise<string> {
+    return this.signer.http.call(transaction, blockTag);
+  }
+  estimateGas(transaction: Deferrable<TransactionRequest>): Promise<BigNumber> {
+    return this.signer.http.estimateGas(transaction);
+  }
+  getBlock(blockHashOrBlockTag: BlockTag | Promise<BlockTag>): Promise<Block> {
+    return this.signer.http.getBlock(blockHashOrBlockTag);
+  }
+  getBlockWithTransactions(
+    blockHashOrBlockTag: BlockTag | Promise<BlockTag>
+  ): Promise<BlockWithTransactions> {
+    return this.signer.http.getBlockWithTransactions(blockHashOrBlockTag);
+  }
+  getTransaction(transactionHash: string): Promise<TransactionResponse> {
+    return this.signer.http.getTransaction(transactionHash);
+  }
+  getTransactionReceipt(transactionHash: string): Promise<TransactionReceipt> {
+    return this.signer.http.getTransactionReceipt(transactionHash);
+  }
+  getLogs(filter: Filter): Promise<Log[]> {
+    return this.signer.http.getLogs(filter);
+  }
+  resolveName(name: string | Promise<string>): Promise<string | null> {
+    return this.signer.http.resolveName(name);
+  }
+  lookupAddress(address: string | Promise<string>): Promise<string | null> {
+    return this.signer.http.lookupAddress(address);
+  }
+  emit(eventName: EventType, ...args: any[]): boolean {
+    return this.signer.http.emit(eventName, ...args);
+  }
+  listenerCount(eventName?: EventType | undefined): number {
+    return this.signer.http.listenerCount(eventName);
+  }
+  listeners(eventName?: EventType | undefined): Listener[] {
+    return this.signer.http.listeners(eventName);
+  }
+  removeAllListeners(eventName?: EventType | undefined): Provider {
+    return this.signer.http.removeAllListeners(eventName);
+  }
+  waitForTransaction(
+    transactionHash: string,
+    confirmations?: number | undefined,
+    timeout?: number | undefined
+  ): Promise<TransactionReceipt> {
+    return this.signer.http.waitForTransaction(
+      transactionHash,
+      confirmations,
+      timeout
+    );
+  }
+  on(eventName: EventType, listener: Listener): Provider {
+    return this.signer.http.on(eventName, listener);
+  }
+  once(eventName: EventType, listener: Listener): Provider {
+    return this.signer.http.once(eventName, listener);
+  }
+  off(eventName: EventType, listener?: Listener | undefined): Provider {
+    return this.signer.http.off(eventName, listener);
   }
 }
