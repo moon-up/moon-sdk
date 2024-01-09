@@ -1,10 +1,10 @@
 {
   "name": "moon-sdk-root",
   "scripts": {
-    "build": "nx affected:build",
-    "build:fast": "pnpm -F packages build:fast",
-    "dev": "pnpm -F lib dev",
-    "test": "nx test affected --all --maxParallel=4",
+    "build": "nx run-many --target=build --all",
+    "build:fast": "pnpm build:fast",
+    "dev": "pnpm -F packages dev",
+    "test": "nx run-many --target=test --all",
     "test:watch": "pnpm -F packages test:watch",
     "coverage": "pnpm -F packages coverage",
     "size": "size-limit",
