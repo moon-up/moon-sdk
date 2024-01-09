@@ -1,34 +1,11 @@
 import { AUTH, MoonAuthConfig, MoonToken } from '@moonup/moon-types';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const jwtSecurityWorker = (securityData: any) => {
-  return {
-    headers: {
-      Authorization: `Bearer ${securityData.token}`,
-    },
-  };
-};
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const xApiKeySecurityWorker = (securityData: any) => {
-  return {
-    headers: {
-      'x-api-key': `${securityData.token}`,
-    },
-  };
-};
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const oauth2SecurityWorker = (securityData: any) => {
-  return {
-    headers: {
-      Authorization: `Bearer ${securityData.token}`,
-    },
-  };
-};
 export const moonAuthConfig = (config: MoonAuthConfig): MoonToken => {
   switch (config.AuthType) {
     case AUTH.OAUTH2:
       return {
         type: AUTH.OAUTH2,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         securityWorker: async (securityData: any) => {
           return {
             headers: {
@@ -43,6 +20,7 @@ export const moonAuthConfig = (config: MoonAuthConfig): MoonToken => {
     case AUTH.JWT:
       return {
         type: AUTH.JWT,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         securityWorker: async (securityData: any) => {
           return Promise.resolve({
             headers: {
@@ -54,6 +32,7 @@ export const moonAuthConfig = (config: MoonAuthConfig): MoonToken => {
     case AUTH.X_API_KEY:
       return {
         type: AUTH.X_API_KEY,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         securityWorker: async (securityData: any) => {
           return {
             headers: {
@@ -65,6 +44,7 @@ export const moonAuthConfig = (config: MoonAuthConfig): MoonToken => {
     default:
       return {
         type: AUTH.JWT,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         securityWorker: async (securityData: any) => {
           return {
             headers: {

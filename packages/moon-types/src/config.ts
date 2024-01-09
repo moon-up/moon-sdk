@@ -21,6 +21,7 @@ export interface MoonConfig {
 
 export interface MoonToken {
   type: AUTH;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   securityWorker?: (securityData: any) => Promise<any>;
   CLIENT_ID?: string;
   CLIENT_SECRET?: string;

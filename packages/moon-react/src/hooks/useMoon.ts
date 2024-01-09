@@ -1,5 +1,10 @@
 import { MoonSDK } from '@moonup/moon-sdk';
-import { AUTH, MOON_SESSION_KEY, MOON_SUPPORTED_NETWORKS, Storage } from '@moonup/moon-types';
+import {
+  AUTH,
+  MOON_SESSION_KEY,
+  MOON_SUPPORTED_NETWORKS,
+  Storage,
+} from '@moonup/moon-types';
 import { useEffect, useState } from 'react';
 
 interface MoonSDKHook {
