@@ -1,4 +1,5 @@
 import { EventEmitter } from 'events';
+
 import { Chain, MOON_SUPPORTED_NETWORKS } from './chain';
 import { MoonStorage } from './storage';
 export interface MoonAccountInterface {
@@ -17,7 +18,7 @@ export class MoonAccount {
   wallet: string;
   network: Chain;
   storage: MoonStorage;
-  isAuth: boolean = false;
+  isAuth = false;
   Events: EventEmitter;
 
   constructor(storage: MoonStorage) {

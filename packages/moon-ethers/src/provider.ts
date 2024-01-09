@@ -21,6 +21,7 @@ import {
 } from 'eip1193-provider';
 import { BigNumber, BigNumberish } from 'ethers';
 import { EventEmitter } from 'events';
+
 import { JsonRpcProvider } from './json-rpc-provider';
 import { MoonProviderOptions } from './types';
 export class MoonProvider extends Provider implements IEthereumProvider {
@@ -86,8 +87,8 @@ export class MoonProvider extends Provider implements IEthereumProvider {
     callback: (error: Error | null, response: any) => void
   ): void {
     this.request(args)
-      .then(response => callback(null, response))
-      .catch(error => callback(error, undefined));
+      .then((response) => callback(null, response))
+      .catch((error) => callback(error, undefined));
   }
 
   public async enable(): Promise<ProviderAccounts> {

@@ -1,18 +1,16 @@
 import { Provider } from '@ethersproject/abstract-provider';
 import {
-    Signer,
-    TypedDataDomain,
-    TypedDataField,
+  Signer,
+  TypedDataDomain,
+  TypedDataField,
 } from '@ethersproject/abstract-signer';
 import { BytesLike } from '@ethersproject/bytes';
 import { defineReadOnly } from '@ethersproject/properties';
 import {
-    TransactionRequest,
-    TransactionResponse,
+  TransactionRequest,
+  TransactionResponse,
 } from '@ethersproject/providers';
-import type {
-    BroadCastRawTransactionResponse
-} from '@moonup/moon-api';
+import type { BroadCastRawTransactionResponse } from '@moonup/moon-api';
 import { MoonSDK } from '@moonup/moon-sdk';
 import { MoonConfig } from '@moonup/moon-types';
 

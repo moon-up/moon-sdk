@@ -11,7 +11,7 @@
     "prepare": "husky install",
     "prettier": "prettier",
     "lint": "eslint ./packages",
-    "lint:fix": "eslint ./packages ./example --fix",
+    "lint:fix": "eslint ./packages --fix",
     "type-check": "tsc --noEmit",
     "project-graph": "nx graph",
     "ci:version": "changeset version",

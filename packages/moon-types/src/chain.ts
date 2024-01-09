@@ -171,7 +171,7 @@ export const getRpcUrls = (chainId: string | number): string[] => {
     chainId = chainId.toString(16);
   }
   const network = MOON_SUPPORTED_NETWORKS.find(
-    network => network.chainId === chainId
+    (network) => network.chainId === chainId
   );
   return network ? network.rpcUrls : [];
 };
@@ -184,5 +184,5 @@ export const getChain = (chainId: string | number): Chain | undefined => {
   if (typeof chainId === 'number') {
     chainId = chainId.toString(16);
   }
-  return MOON_SUPPORTED_NETWORKS.find(network => network.chainId === chainId);
+  return MOON_SUPPORTED_NETWORKS.find((network) => network.chainId === chainId);
 };

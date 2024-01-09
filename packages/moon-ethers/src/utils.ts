@@ -13,13 +13,13 @@ export interface TypedData {
 }
 
 export const getMessage = (params: string[]) => {
-  const message = params.filter(p => !utils.isAddress(p))[0];
+  const message = params.filter((p) => !utils.isAddress(p))[0];
   const hash = new Uint8Array(arrayify(hashMessage(message)));
   return hash;
 };
 
 export const getSignTypedDataParamsData = (params: string[]) => {
-  const data = params.filter(p => !utils.isAddress(p))[0];
+  const data = params.filter((p) => !utils.isAddress(p))[0];
 
   if (typeof data === 'string') {
     return JSON.parse(data) as TypedData;

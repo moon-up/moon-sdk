@@ -25,13 +25,22 @@
     "node": ">=10"
   },
   "scripts": {
-    "start": "tsup --watch",
-    "build": "tsup",
-    "test": "dts test",
-    "lint": "dts lint",
+    "analyze": "size-limit --why",
     "prepare": "tsup",
     "size": "size-limit",
-    "analyze": "size-limit --why"
+    "start": "tsup --watch",
+    "prettier": "prettier --check src/",
+    "prettier:fix": "prettier --write src/",
+    "lint": "eslint src/ --ext .ts,.tsx",
+    "lint:fix": "npm run lint --fix",
+    "verify": "run-p prettier lint",
+    "verify:fix": "npm run prettier:fix && npm run lint:fix",
+    "build": "tsup src -- --dts-resolve",
+    "build:fast": "tsup src",
+    "dev": "tsup src --watch",
+    "test": "vitest",
+    "test:watch": "vitest watch",
+    "coverage": "vitest run --coverage"
   },
   "husky": {
     "hooks": {
@@ -61,11 +70,9 @@
     "@types/react": "^18.2.47",
     "@types/react-dom": "^18.2.18",
     "@vitest/coverage-v8": "^0.34.2",
-    "husky": "^8.0.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "size-limit": "^11.0.1",
     "happy-dom": "^6.0.4",
+    "husky": "^8.0.3",
+    "size-limit": "^11.0.1",
     "tslib": "^2.6.2",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3"

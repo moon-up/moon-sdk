@@ -43,6 +43,7 @@ import {
   MoonSDKConfig,
   MoonStorage,
 } from '@moonup/moon-types';
+
 import { useAuth } from './auth';
 import { MoonMessageHandler } from './messages';
 import { IframeController } from './viewController';
@@ -495,7 +496,7 @@ export class MoonSDK {
         this.MoonAccount.getWallet(),
         this.transactionRequestToInputBody(transaction)
       )
-      .then(res => {
+      .then((res) => {
         return res.data as TransactionData;
       });
     return response.raw_transaction || '';
@@ -507,7 +508,7 @@ export class MoonSDK {
       .signMessage(this.MoonAccount.getWallet(), {
         data: hash.toString(),
       })
-      .then(res => {
+      .then((res) => {
         return res.data as TransactionData;
       });
     return response.signed_message || '';
@@ -526,7 +527,7 @@ export class MoonSDK {
           value,
         }),
       })
-      .then(res => {
+      .then((res) => {
         return res.data as TransactionData;
       });
     return response.signed_message || '';

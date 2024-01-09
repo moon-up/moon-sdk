@@ -39,9 +39,9 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Auth<SecurityDataType = unknown> extends HttpClient<
-  SecurityDataType
-> {
+export class Auth<
+  SecurityDataType = unknown
+> extends HttpClient<SecurityDataType> {
   /**
    * No description
    *

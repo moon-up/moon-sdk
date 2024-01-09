@@ -1,9 +1,5 @@
-import { RequestArguments } from 'eip1193-provider';
-import { providers } from 'ethers';
-
-import { MoonSDK } from '@moonup/moon-sdk';
-
 import { AccountResponse, Transaction } from '@moonup/moon-api';
+import { MoonSDK } from '@moonup/moon-sdk';
 import {
   AUTH,
   MOON_SESSION_KEY,
@@ -12,6 +8,9 @@ import {
   getChain,
   getRpcUrls,
 } from '@moonup/moon-types';
+import { RequestArguments } from 'eip1193-provider';
+import { providers } from 'ethers';
+
 import { getMessage, getSignTypedDataParamsData } from './utils';
 
 export class JsonRpcProvider {
