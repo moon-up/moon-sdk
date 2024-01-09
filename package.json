@@ -1,11 +1,10 @@
 {
-  "name": "pnpm-root",
-  "private": true,
+  "name": "moon-sdk-root",
   "scripts": {
-    "build": "nx build packages",
+    "build": "nx affected:build",
     "build:fast": "pnpm -F packages build:fast",
     "dev": "pnpm -F lib dev",
-    "test": "nx test lib",
+    "test": "nx test affected --all --maxParallel=4",
     "test:watch": "pnpm -F packages test:watch",
     "coverage": "pnpm -F packages coverage",
     "size": "size-limit",
@@ -18,7 +17,7 @@
     "ci:version": "changeset version",
     "ci:publish": "changeset publish"
   },
-  "description": "PNPM monorepo template",
+  "description": "moon sdk monorepo",
   "license": "MIT",
   "devDependencies": {
     "@commitlint/config-conventional": "^17.7.0",
@@ -36,25 +35,19 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.3.0",
-    "nx": "16.3.2",
     "prettier": "^2.8.8",
     "size-limit": "^8.2.6",
     "tsup": "^7.2.0",
     "typescript": "^5.3.3",
     "vite": "^4.4.9",
-    "vitest": "^0.32.4"
+    "vitest": "^0.32.4",
+    "@nx/js": "17.2.8",
+    "nx": "17.2.8"
   },
-  "packageManager": "pnpm@8.6.0",
-  "size-limit": [
-    {
-      "path": "./lib/dist/index.js",
-      "limit": "15 kb"
-    },
-    {
-      "path": "./lib/dist/index.mjs",
-      "limit": "15 kb"
-    }
+  "workspaces": [
+    "packages/moon-api"
   ],
+  "packageManager": "pnpm@8.6.0",
   "dependencies": {
     "@changesets/cli": "^2.26.2"
   }
