@@ -10,6 +10,7 @@ import Login from './pages/login';
 import OAuth2 from './pages/oauth2';
 import Signup from './pages/signup';
 import Siwe from './pages/siwe';
+import Whisper from './pages/whisper';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
@@ -24,6 +25,7 @@ root.render(
         <Route path="/oauth2" Component={OAuth2} />
         <Route path="/signup" Component={Signup} />
         <Route path="/siwe" Component={Siwe} />
+        <Route path="/whisper" Component={Whisper} />
         <Route path="/" Component={App} />
       </Routes>
     </Router>
