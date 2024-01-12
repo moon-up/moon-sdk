@@ -6,7 +6,6 @@ const SWAGGER_URLS = [
   'https://vault-api.usemoon.ai/.well-known/swagger.json',
   'https://vault-api.usemoon.ai/.well-known/Accounts.json',
   'https://vault-api.usemoon.ai/.well-known/Aave.json',
-  'https://vault-api.usemoon.ai/.well-known/ai-plugin.json',
   'https://vault-api.usemoon.ai/.well-known/bitcoincash.json',
   'https://vault-api.usemoon.ai/.well-known/Bitcoin.json',
   'https://vault-api.usemoon.ai/.well-known/ConveyorFinance.json',
@@ -25,7 +24,6 @@ const SWAGGER_URLS = [
   'https://vault-api.usemoon.ai/.well-known/payment.json',
   'https://vault-api.usemoon.ai/.well-known/ripple.json',
   'https://vault-api.usemoon.ai/.well-known/Solana.json',
-  'https://vault-api.usemoon.ai/.well-known/swagger.json',
   'https://vault-api.usemoon.ai/.well-known/Tron.json',
   'https://vault-api.usemoon.ai/.well-known/UniSwap.json',
   'https://vault-api.usemoon.ai/.well-known/yearn.json',
@@ -37,13 +35,23 @@ function ChatInterface() {
   const { moon } = useMoonSDK();
   const [results, setResults] = useState<any[]>([]);
   const [swagger, setSwagger] = useState('https://vault-api.usemoon.ai/.well-known/swagger.json');
+  const [openAIApiKey, setOpenAIApiKey] = useState('temp');
+  const [showKeyInput, setShowKeyInput] = useState(true);
+
+  const handleKeyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setOpenAIApiKey(event.target.value);
+  };
+
+  const handleOkClick = () => {
+    setShowKeyInput(false);
+  };
 
   useEffect(() => {
     const initializeChat = async () => {
       const chatModel = new ChatOpenAI({
         modelName: 'gpt-4-1106-preview',
         temperature: 0,
-        openAIApiKey: process.env.REACT_APP_OPENAI_API_KEY,
+        openAIApiKey: process.env.REACT_APP_OPENAI_API_KEY || openAIApiKey || '',
       });
       const chain = await createOpenAPIChain(swagger, {
         llm: chatModel,
@@ -55,7 +63,7 @@ function ChatInterface() {
     };
 
     initializeChat();
-  }, [swagger]);
+  }, [swagger, moon, openAIApiKey]);
 
   const sendMessage = async () => {
     if (chain) {
@@ -70,6 +78,15 @@ function ChatInterface() {
 
   return (
     <div>
+      <div>
+        {showKeyInput && (
+          <div>
+            <p>OPENAPI KEY</p>
+            <input type="text" value={openAIApiKey} onChange={handleKeyChange} />
+            <button onClick={handleOkClick}>OK</button>
+          </div>
+        )}
+      </div>
       <div>
         <select value={swagger} onChange={handleSelect}>
           {SWAGGER_URLS.map((url, index) => (
