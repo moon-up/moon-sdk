@@ -32,11 +32,12 @@ const SWAGGER_URLS = [
 function ChatInterface() {
   const [message, setMessage] = useState('');
   const [chain, setChain] = useState<any>(null);
+  const [openAIApiKey, setOpenAIApiKey] = useState('temp');
+  const [showKeyInput, setShowKeyInput] = useState(true);
+
   const { moon } = useMoonSDK();
   const [results, setResults] = useState<any[]>([]);
   const [swagger, setSwagger] = useState('https://vault-api.usemoon.ai/.well-known/swagger.json');
-  const [openAIApiKey, setOpenAIApiKey] = useState('temp');
-  const [showKeyInput, setShowKeyInput] = useState(true);
 
   const handleKeyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setOpenAIApiKey(event.target.value);

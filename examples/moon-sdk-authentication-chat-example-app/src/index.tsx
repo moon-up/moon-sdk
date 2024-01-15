@@ -5,6 +5,7 @@ import App from './App';
 import './index.css';
 import Callback from './pages/callback';
 import ChatGPT from './pages/chatgpt';
+import { CodeEditorPage } from './pages/contract';
 import Ethers from './pages/ethers';
 import Login from './pages/login';
 import OAuth2 from './pages/oauth2';
@@ -27,6 +28,7 @@ root.render(
         <Route path="/siwe" Component={Siwe} />
         <Route path="/whisper" Component={Whisper} />
         <Route path="/" Component={App} />
+        <Route path="/contract" Component={CodeEditorPage} />
       </Routes>
     </Router>
   </React.StrictMode>

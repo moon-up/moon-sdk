@@ -31,6 +31,9 @@ const App = () => {
         <Link to="/">
           <button>Home</button>
         </Link>
+        <Link to="/contract">
+          <button>Contract</button>
+        </Link>
       </div>
     </div>
   );
