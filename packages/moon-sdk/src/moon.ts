@@ -99,7 +99,6 @@ export class MoonSDK {
         type: ContentType.Json,
         format: 'json',
       },
-      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
     });
 
     this.AaveSDK = new Aave({
@@ -392,9 +391,6 @@ export class MoonSDK {
 
   public updateToken(token: string) {
     this.MoonAccount.setToken(token);
-    this.AuthSDK.setSecurityData({
-      token: this.MoonAccount.getToken(),
-    });
     this.BitcoinSDK.setSecurityData({
       token: this.MoonAccount.getToken(),
     });

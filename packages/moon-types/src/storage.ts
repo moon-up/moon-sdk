@@ -43,7 +43,15 @@ export class MoonStorage {
         break;
     }
     const key = _storage.getItem(this.key);
-    return JSON.parse(key || '') as MoonAccountInterface;
+    try {
+      if (!key) {
+        return null;
+      }
+      return JSON.parse(key || '{}') as MoonAccountInterface;
+    } catch (error) {
+      console.error('Error parsing JSON from storage:', error);
+      return null;
+    }
   }
 
   removeItem(): void {
