@@ -162,10 +162,10 @@ importers:
         version: link:../moon-api
       '@moonup/moon-sdk':
         specifier: ^0.0.37
-        version: link:../moon-sdk
+        version: 0.0.37
       '@moonup/moon-types':
         specifier: ^0.0.22
-        version: link:../moon-types
+        version: 0.0.22
       eip1193-provider:
         specifier: ^1.0.1
         version: 1.0.1
@@ -226,7 +226,7 @@ importers:
         version: link:../moon-ethers
       '@moonup/moon-types':
         specifier: ^0.0.22
-        version: link:../moon-types
+        version: 0.0.22
       '@moonup/wagmi-connector':
         specifier: ^0.0.21
         version: link:../moon-wagmi-connector
@@ -302,10 +302,10 @@ importers:
         version: link:../moon-ethers
       '@moonup/moon-sdk':
         specifier: ^0.0.37
-        version: link:../moon-sdk
+        version: 0.0.37
       '@moonup/moon-types':
         specifier: ^0.0.22
-        version: link:../moon-types
+        version: 0.0.22
       '@moonup/wagmi-connector':
         specifier: ^0.0.21
         version: link:../moon-wagmi-connector
@@ -398,7 +398,7 @@ importers:
         specifier: ^0.0.23
         version: link:../moon-api
       '@moonup/moon-types':
-        specifier: ^0.0.22
+        specifier: ^0.0.25
         version: link:../moon-types
       events:
         specifier: ^3.3.0
@@ -490,10 +490,10 @@ importers:
         version: link:../moon-ethers
       '@moonup/moon-sdk':
         specifier: ^0.0.37
-        version: link:../moon-sdk
+        version: 0.0.37
       '@moonup/moon-types':
         specifier: ^0.0.22
-        version: link:../moon-types
+        version: 0.0.22
       '@moonup/wagmi-connector':
         specifier: ^0.0.13
         version: 0.0.13(@types/react@18.2.47)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
@@ -3198,6 +3198,15 @@ packages:
       - encoding
     dev: false
 
+  /@moonup/moon-api@0.0.23:
+    resolution: {integrity: sha512-cACpGHFcy+ziXfuIwhYiplTo4K+96mR1l5wzWm0fABbf5Of8uOrcM3NC8Dq8nAKCBHg1gNp2ZxYg4nNOwvYtUg==}
+    engines: {node: '>=10'}
+    dependencies:
+      '@simplewebauthn/server': 8.3.6
+    transitivePeerDependencies:
+      - encoding
+    dev: false
+
   /@moonup/moon-sdk@0.0.27:
     resolution: {integrity: sha512-Dlre3MT2W9at+C6XeklqRGBpp3C68DJyvvVgJzw+yniVls44iCcrNgUdY0Qa4+u7SMn+xOrzWA4UFO5YK6v5pA==}
     engines: {node: '>=10'}
@@ -3218,8 +3227,33 @@ packages:
       - utf-8-validate
     dev: false
 
+  /@moonup/moon-sdk@0.0.37:
+    resolution: {integrity: sha512-y6fIBNEYMvhv4xW9oFAZobQLK/Y0/1/1tnInq/fFhGb0fSmfBBcpwCQzDBxfCWlz8K0NW6N7OMOJaTkyJef8jw==}
+    engines: {node: '>=10'}
+    dependencies:
+      '@ethersproject/abstract-provider': 5.7.0
+      '@ethersproject/abstract-signer': 5.7.0
+      '@ethersproject/bignumber': 5.7.0
+      '@ethersproject/bytes': 5.7.0
+      '@ethersproject/hash': 5.7.0
+      '@ethersproject/providers': 5.7.2
+      '@moonup/moon-api': 0.0.23
+      '@moonup/moon-types': 0.0.22
+      events: 3.3.0
+      typedots: 0.0.2
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - utf-8-validate
+    dev: false
+
   /@moonup/moon-types@0.0.16:
     resolution: {integrity: sha512-AcWIwvHoRXKgXehDNQNK8Tf/NVzDupfH+WJmAwkb4I+wTJzht+pbP3By+QM7hDyqlBr/BYmX3cgocD/hINvdag==}
+    engines: {node: '>=10'}
+    dev: false
+
+  /@moonup/moon-types@0.0.22:
+    resolution: {integrity: sha512-Ygxk9BVHVSGO1w193ysnxG47YEQXRLCx/hhr/J/hQTH/dgxEy7z7WmLe9BjoCgn4uoF4lwKshlb/wu/e/pbRIQ==}
     engines: {node: '>=10'}
     dev: false
 
