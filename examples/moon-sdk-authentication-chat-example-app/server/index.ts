@@ -7,9 +7,6 @@ import * as solc from 'solc';
 // Create a new express application instance
 const app: express.Application = express();
 
-// The port the express app will listen on
-const port: number = process.env.PORT ? parseInt(process.env.PORT) : 3000;
-
 // Use body-parser middleware to parse JSON bodies
 app.use(express.json());
 app.use(cors());
@@ -60,9 +57,6 @@ app.post('/compile', async (req: Request, res: Response) => {
         } else if (path.extname(file) === '.sol') {
           const content = fs.readFileSync(filePath, 'utf8');
           const relativePath = path.relative(__dirname, filePath);
-          console.log(filePath);
-          console.log(content);
-          console.log(relativePath);
           input.sources[
             relativePath.replace(/^.*\/node_modules\//, '') as keyof typeof input.sources
           ] = {
@@ -96,8 +90,8 @@ app.post('/compile', async (req: Request, res: Response) => {
   }
 });
 
-const PORT = process.env.PORT ? parseInt(process.env.PORT) : 4000;
+const PORT = process.env.PORT ? parseInt(process.env.NODE_PORT || '') : 4000;
 // Serve the application at the given port
 app.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${port}`);
+  console.log(`Server is running at http://localhost:${PORT}`);
 });
