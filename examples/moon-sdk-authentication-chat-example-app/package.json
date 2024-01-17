@@ -10,6 +10,8 @@
     "@moonup/moon-sdk": "^0.0.36",
     "@moonup/moon-types": "^0.0.18",
     "@openzeppelin/contracts": "^5.0.1",
+    "@preact/signals-react": "^2.0.0",
+    "@skaleproject/pow-ethers": "^0.3.3",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
