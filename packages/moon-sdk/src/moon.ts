@@ -26,6 +26,7 @@ import {
   Erc721,
   InputBody,
   Litecoin,
+  Transaction as MoonTransaction,
   Oneinch,
   RefreshTokenResponse,
   Ripple,
@@ -486,6 +487,11 @@ export class MoonSDK {
       encoding: 'utf-8',
     };
   }
+  moonTransactionResponseToTransactions(
+    tx: MoonTransaction
+  ): TransactionData[] {
+    return tx.transactions || [];
+  }
 
   public async SignTransaction(
     transaction: TransactionResponse
@@ -499,9 +505,13 @@ export class MoonSDK {
         if (!res.ok) {
           throw new Error(res.statusText);
         }
-        return res.data.data as TransactionData;
+        const transactions = this.moonTransactionResponseToTransactions(
+          res.data.data as MoonTransaction
+        );
+        const rawTransaction = transactions?.at(0)?.raw_transaction;
+        return rawTransaction as string;
       });
-    return response.raw_transaction || '';
+    return response || '';
   }
 
   public async SignMessage(message: BytesLike): Promise<string> {

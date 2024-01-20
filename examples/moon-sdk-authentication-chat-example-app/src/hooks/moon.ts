@@ -1,4 +1,4 @@
-import { AccountResponse, Transaction as MoonAPITransaction } from '@moonup/moon-api';
+import { AccountResponse, Transaction } from '@moonup/moon-api';
 import { MoonSDK } from '@moonup/moon-sdk';
 import { AUTH, MOON_SESSION_KEY, Storage } from '@moonup/moon-types';
 import { useEffect, useState } from 'react';
@@ -9,7 +9,7 @@ interface MoonSDKHook {
   disconnect: () => Promise<void>;
   listAccounts: () => Promise<AccountResponse | undefined>;
   updateToken: (token: string) => Promise<void>;
-  // signTransaction: (transaction: TransactionResponse) => Promise<Transaction>;
+  signTransaction: () => Promise<string>;
   // Add other methods as needed
 }
 
@@ -47,30 +47,33 @@ export function useMoonSDK(): MoonSDKHook {
     }
   };
 
-  const signTransaction = async (wallet: string, transaction: any) => {
+  const signTransaction = async () => {
     if (!moon) {
       throw new Error('Moon SDK is not initialized');
     }
     const raw_tx = await moon
       .getAccountsSDK()
-      .signTransaction(wallet, {
-        to: '0x9D81122ED0283e80A655265ae2651aB4DF0F455',
+      .signTransaction('0x1c728ca6aec4ac69199c8724b752f72e775b90b6', {
+        to: '0x96bd4d63fba9fdc97a226c30e88d13680bd91527',
         data: '',
         gasPrice: '1000000000',
         gas: '200000',
         nonce: '0',
         chain_id: '1891',
-        encoding: 'hex',
-        EOA: true,
-        broadcast: true,
-      })
-      .then((res) => {
-        return (res.data.data as MoonAPITransaction).raw_transaction;
+        encoding: 'utf-8',
+        value: '1',
       });
-    const tx = await moon.getAccountsSDK().broadcastTx(wallet, {
-      chainId: '1891',
-      rawTransaction: raw_tx || '',
-    });
+    const kek = (raw_tx.data.data as Transaction)?.transactions?.at(0)?.raw_transaction;
+    console.log(kek);
+    const tx = await moon
+      .getAccountsSDK()
+      .broadcastTx('0x1c728ca6aec4ac69199c8724b752f72e775b90b6', {
+        chainId: '1891',
+        rawTransaction: '',
+      });
+
+    console.log(tx);
+    return '';
   };
 
   // Add other methods as needed
@@ -84,6 +87,7 @@ export function useMoonSDK(): MoonSDKHook {
     initialize,
     disconnect,
     listAccounts,
+    signTransaction,
     updateToken,
     // Add other methods as needed
   };
