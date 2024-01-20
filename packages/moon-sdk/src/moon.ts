@@ -480,7 +480,7 @@ export class MoonSDK {
       gas: BigNumber.from(tx.gasLimit).toString(),
       nonce: BigNumber.from(tx.nonce).toString(),
       value: tx.value && BigNumber.from(tx.value).toString(),
-      encoding: 'other',
+      encoding: 'utf-8',
     };
   }
 
@@ -503,6 +503,7 @@ export class MoonSDK {
     const response = await this.getAccountsSDK()
       .signMessage(this.MoonAccount.getWallet(), {
         data: hash.toString(),
+        encoding: 'utf-8',
       })
       .then((res) => {
         return res.data as TransactionData;
