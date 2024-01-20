@@ -469,6 +469,9 @@ export class MoonSDK {
 
   public async listAccounts(): Promise<AccountResponse> {
     const response = await this.getAccountsSDK().listAccounts();
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
     return response.data as AccountResponse;
   }
   transactionRequestToInputBody(tx: TransactionResponse): InputBody {
@@ -493,7 +496,10 @@ export class MoonSDK {
         this.transactionRequestToInputBody(transaction)
       )
       .then((res) => {
-        return res.data as TransactionData;
+        if (!res.ok) {
+          throw new Error(res.statusText);
+        }
+        return res.data.data as TransactionData;
       });
     return response.raw_transaction || '';
   }
@@ -506,7 +512,10 @@ export class MoonSDK {
         encoding: 'utf-8',
       })
       .then((res) => {
-        return res.data as TransactionData;
+        if (!res.ok) {
+          throw new Error(res.statusText);
+        }
+        return res.data.data as TransactionData;
       });
     return response.signed_message || '';
   }
@@ -525,7 +534,10 @@ export class MoonSDK {
         }),
       })
       .then((res) => {
-        return res.data as TransactionData;
+        if (!res.ok) {
+          throw new Error(res.statusText);
+        }
+        return res.data.data as TransactionData;
       });
     return response.signed_message || '';
   }
@@ -540,7 +552,10 @@ export class MoonSDK {
         chainId: this.MoonAccount.getNetwork().chainId,
       }
     );
-    return response.data as BroadCastRawTransactionResponse;
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    return response.data.data as BroadCastRawTransactionResponse;
   }
   private initialiseConfig(config: MoonConfig): MoonSDKConfig {
     const sdkConfig = {
