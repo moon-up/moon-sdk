@@ -20,7 +20,6 @@ const SWAGGER_URLS = [
   'https://vault-api.usemoon.ai/.well-known/Litecoin.json',
   'https://vault-api.usemoon.ai/.well-known/oneinch.json',
   'https://vault-api.usemoon.ai/.well-known/onramper.json',
-  'https://vault-api.usemoon.ai/.well-known/openapi.json',
   'https://vault-api.usemoon.ai/.well-known/payment.json',
   'https://vault-api.usemoon.ai/.well-known/ripple.json',
   'https://vault-api.usemoon.ai/.well-known/Solana.json',

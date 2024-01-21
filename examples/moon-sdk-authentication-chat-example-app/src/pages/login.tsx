@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useMoonSDK } from '../hooks/moon';
 
 // Signup Component
-function SignupPage() {
+function LoginPage() {
   const { moon, initialize, disconnect } = useMoonSDK();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -60,4 +60,4 @@ function SignupPage() {
   );
 }
 
-export default SignupPage;
+export default LoginPage;
