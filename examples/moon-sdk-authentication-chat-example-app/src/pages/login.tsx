@@ -8,7 +8,7 @@ function LoginPage() {
   const [password, setPassword] = useState('');
   const [walletAddress, setWalletAddress] = useState('');
 
-  const handleSignup = async () => {
+  const handleLogin = async () => {
     try {
       // Check if Moon SDK is properly initialized and user is authenticated
       if (!moon) {
@@ -41,7 +41,7 @@ function LoginPage() {
 
   return (
     <div>
-      <h2>Create Moon Account</h2>
+      <h2>Login Moon Account</h2>
       <form>
         <label>
           Email:
@@ -52,7 +52,7 @@ function LoginPage() {
           Password:
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </label>
-        <button type="button" onClick={handleSignup}>
+        <button type="button" onClick={handleLogin}>
           Login
         </button>
       </form>
