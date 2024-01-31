@@ -3,38 +3,51 @@ import {
   Signer,
   TypedDataDomain,
   TypedDataField,
+  TypedDataSigner,
 } from '@ethersproject/abstract-signer';
-import { BytesLike } from '@ethersproject/bytes';
+import { BytesLike, arrayify } from '@ethersproject/bytes';
+import { hashMessage } from '@ethersproject/hash';
 import { defineReadOnly } from '@ethersproject/properties';
-import {
-  TransactionRequest,
-  TransactionResponse,
-} from '@ethersproject/providers';
 import type { BroadCastRawTransactionResponse } from '@moonup/moon-api';
 import { MoonSDK } from '@moonup/moon-sdk';
-import { MoonConfig } from '@moonup/moon-types';
+
+import { TransactionData } from '../../moon-api/src/lib/data-contracts';
 export interface Typed {
   domain: TypedDataDomain;
   types: Record<string, Array<TypedDataField>>;
   message: Record<string, string>;
 }
 
-export class MoonSigner extends Signer {
-  declare readonly provider: Provider;
-  declare readonly _isSigner: boolean;
-  MoonSDK: MoonSDK;
-  Config: MoonConfig;
+export interface MoonSignerConfig {
+  SDK: MoonSDK;
+  address: string;
+  chainId: string;
+}
 
-  constructor(provider: Provider, MoonSDKConfig: MoonConfig) {
+export class MoonSigner extends Signer implements TypedDataSigner {
+  MoonSignerConfig: MoonSignerConfig;
+  SDK: MoonSDK;
+
+  constructor(config: MoonSignerConfig, provider?: Provider) {
     super();
     defineReadOnly(this, '_isSigner', true);
-    this.Config = MoonSDKConfig;
-    this.provider = provider;
-    this.MoonSDK = new MoonSDK(MoonSDKConfig);
+    defineReadOnly(this, 'provider', provider);
+    this.MoonSignerConfig = config;
+    this.SDK = config.SDK;
+  }
+  _signTypedData(
+    domain: TypedDataDomain,
+    types: Record<string, TypedDataField[]>,
+    value: Record<string, any>
+  ): Promise<string> {
+    throw new Error('Method not implemented.');
+  }
+  updateConfig(config: MoonSignerConfig) {
+    this.SDK = config.SDK;
+    this.MoonSignerConfig = config;
   }
   connect(provider: Provider): Signer {
-    console.log('Moon::connect', provider);
-    return new MoonSigner(provider, this.Config);
+    return new MoonSigner(this.MoonSignerConfig, provider);
   }
 
   /**
@@ -50,8 +63,21 @@ export class MoonSigner extends Signer {
     types: Record<string, TypedDataField[]>,
     value: Record<string, string>
   ): Promise<string> {
-    const response = await this.MoonSDK.SignTypedData(domain, types, value);
-    return response || '';
+    const response = await this.SDK.getAccountsSDK()
+      .signTypedData(this.MoonSignerConfig.address, {
+        data: JSON.stringify({
+          domain,
+          types,
+          value,
+        }),
+      })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(res.statusText);
+        }
+        return res.data.data as TransactionData;
+      });
+    return response.signed_message || '';
   }
 
   /**
@@ -59,48 +85,76 @@ export class MoonSigner extends Signer {
    * @returns {string} successful operation
    */
   async getAddress(): Promise<string> {
-    return this.MoonSDK.getMoonAccount().getWallet();
+    return this.MoonSignerConfig.address;
   }
   async signMessage(message: BytesLike): Promise<string> {
-    const response = await this.MoonSDK.SignMessage(message);
-    return response || '';
+    const hash = new Uint8Array(arrayify(hashMessage(message)));
+    const response = await this.SDK.getAccountsSDK()
+      .signMessage(this.MoonSignerConfig.address, {
+        data: hash.toString(),
+        encoding: 'utf-8',
+      })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(res.statusText);
+        }
+        return res.data.data as TransactionData;
+      });
+    return response.signed_message || '';
   }
   async broadcastTransaction(
     signedTransaction: string
   ): Promise<BroadCastRawTransactionResponse> {
-    const response = await this.MoonSDK.SendTransaction(signedTransaction);
-    return response;
+    const response = await this.SDK.getAccountsSDK().broadcastTx(
+      this.MoonSignerConfig.address,
+      {
+        rawTransaction: signedTransaction,
+        chainId: this.MoonSignerConfig.chainId,
+      }
+    );
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    return response.data.data as BroadCastRawTransactionResponse;
   }
 
   async sendTransaction(
     transaction: TransactionRequest
   ): Promise<TransactionResponse> {
-    const tx = await this.populateTransaction(transaction);
-    console.log('Moon::sendTransaction: populateTransaction', tx);
-    const signedRes = await this.signTransaction(tx);
-    console.log('Moon::sendTransaction: signedRawTx', signedRes);
+    // const tx = await this.populateTransaction(transaction);
+    // console.log('Moon::sendTransaction: populateTransaction', tx);
+    // const signedRes = await this.signTransaction(tx);
+    // console.log('Moon::sendTransaction: signedRawTx', signedRes);
 
-    const response = await this.broadcastTransaction(signedRes || '');
-    console.log('Moon::sendTransaction: broadcastTx res', response);
-    const txResponse =
-      (await this.provider.getTransaction(response.data || '')) ||
-      (tx as TransactionResponse);
-    console.log('Moon::sendTransaction: txResponse', txResponse);
+    // const response = await this.broadcastTransaction(signedRes || '');
+    // console.log('Moon::sendTransaction: broadcastTx res', response);
+    // const txResponse =
+    //   (await this.provider.getTransaction(response.data || '')) ||
+    //   (tx as TransactionResponse);
+    // console.log('Moon::sendTransaction: txResponse', txResponse);
 
-    return txResponse;
+    // return txResponse;
+
+    throw new Error('Method not implemented.');
   }
 
   async signTransaction(transaction: TransactionRequest): Promise<string> {
-    try {
-      const tx = (await this.populateTransaction(
-        transaction
-      )) as TransactionResponse;
-      const signedTx = await this.MoonSDK.SignTransaction(tx);
-      return signedTx;
-    } catch (e) {
-      console.log(e);
-      throw e;
-    }
+    // const response = await this.SDK.getAccountsSDK()
+    //   .signTransaction(
+    //     this.MoonSignerConfig.address,
+    //     this.SDK.transactionRequestToInputBody(transaction)
+    //   )
+    //   .then((res) => {
+    //     if (!res.ok) {
+    //       throw new Error(res.statusText);
+    //     }
+    //     const transactions = this.moonTransactionResponseToTransactions(
+    //       res.data.data as MoonTransaction
+    //     );
+    //     const rawTransaction = transactions?.at(0)?.raw_transaction;
+    //     return rawTransaction as string;
+    //   });
+    // return response || '';
   }
   async getTypedDataDomain(
     name: string,

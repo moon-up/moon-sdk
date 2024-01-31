@@ -1,13 +1,6 @@
-import { AccountResponse, Transaction } from '@moonup/moon-api';
+import { AccountResponse } from '@moonup/moon-api';
 import { MoonSDK } from '@moonup/moon-sdk';
-import {
-  AUTH,
-  MOON_SESSION_KEY,
-  MoonAccount,
-  Storage,
-  getChain,
-  getRpcUrls,
-} from '@moonup/moon-types';
+import { getRpcUrls } from '@moonup/moon-types';
 import { RequestArguments } from 'eip1193-provider';
 import { providers } from 'ethers';
 
@@ -23,28 +16,14 @@ export class JsonRpcProvider {
 
     const nodeRPC = getRpcUrls(chainId).pop() || '';
 
-    this.moonWallet = new MoonSDK({
-      Storage: {
-        key: MOON_SESSION_KEY,
-        type: Storage.SESSION,
-      },
-      Auth: {
-        AuthType: AUTH.JWT,
-      },
-    });
+    this.moonWallet = new MoonSDK();
 
     this.http = new providers.JsonRpcProvider(nodeRPC);
   }
 
-  public async connect(): Promise<MoonAccount> {
-    const account = this.moonWallet.getMoonAccount();
-    if (account) return account;
-    return await this.moonWallet.connect();
-  }
-
-  public async disconnect() {
-    await this.moonWallet.logout();
-  }
+  // public async disconnect() {
+  //   await this.moonWallet.logout();
+  // }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public async request(request: RequestArguments): Promise<any> {
@@ -56,8 +35,9 @@ export class JsonRpcProvider {
       case 'personal_sign':
         if (Array.isArray(request.params) && request.params.length > 0) {
           const message = getMessage(request?.params as string[]);
-          const signedMessage = await this.moonWallet.SignMessage(message);
-          return signedMessage;
+          // const signedMessage = await this.moonWallet.SignMessage(message);
+          throw new Error('Method not implemented.');
+          // return signedMessage;
         } else {
           throw new Error('request.params is undefined or not an array');
         }
@@ -66,12 +46,14 @@ export class JsonRpcProvider {
           const typedData = getSignTypedDataParamsData(
             request?.params as string[]
           );
-          const signedTypedData = (await this.moonWallet.SignTypedData(
-            typedData.domain,
-            typedData.types,
-            typedData.value
-          )) as Transaction;
-          return signedTypedData || '';
+
+          throw new Error('Method not implemented.');
+          // const signedTypedData = (await this.moonWallet.SignTypedData(
+          //   typedData.domain,
+          //   typedData.types,
+          //   typedData.value
+          // )) as Transaction;
+          // return signedTypedData || '';
         } else {
           throw new Error('request.params is undefined or not an array');
         }
@@ -85,7 +67,8 @@ export class JsonRpcProvider {
             ? request?.params[0]
             : undefined;
         if (_params) {
-          return await this.moonWallet.SendTransaction(_params);
+          // return await this.moonWallet.SendTransaction(_params);
+          throw new Error('Method not implemented.');
         }
         throw new Error('eth_sendTransaction error');
       default:
@@ -97,14 +80,14 @@ export class JsonRpcProvider {
     }
   }
 
-  public updateMoonWalletConfig = (chainId: number) => {
-    this.chainId = chainId;
-    const chain = getChain(chainId);
-    if (chain) {
-      this.moonWallet.updateNetwork(chain);
-      this.http = new providers.JsonRpcProvider(chain.rpcUrls.pop() || '');
-    } else {
-      throw new Error('Chain is undefined');
-    }
-  };
+  // public updateMoonWalletConfig = (chainId: number) => {
+  //   this.chainId = chainId;
+  //   const chain = getChain(chainId);
+  //   if (chain) {
+  //     this.moonWallet.updateNetwork(chain);
+  //     this.http = new providers.JsonRpcProvider(chain.rpcUrls.pop() || '');
+  //   } else {
+  //     throw new Error('Chain is undefined');
+  //   }
+  // };
 }

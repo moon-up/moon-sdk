@@ -1,5 +1,5 @@
+import { MoonConnector } from '@moonup//moon-wagmi';
 import { MoonProviderOptions } from '@moonup/ethers';
-import { MoonConnector } from '@moonup/wagmi-connector';
 import { Wallet } from '@rainbow-me/rainbowkit';
 import { Chain, Connector } from 'wagmi';
 

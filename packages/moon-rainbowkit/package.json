@@ -72,7 +72,8 @@
   ],
   "dependencies": {
     "@moonup/ethers": "^0.0.11",
-    "@moonup/moon-types": "^0.0.22",
+    "@moonup/moon-sdk": "^0.0.44",
+    "@moonup/moon-types": "^0.0.25",
     "@moonup/wagmi-connector": "^0.0.21",
     "@rainbow-me/rainbowkit": "^1.3.3",
     "@rainbow-me/rainbowkit-siwe-next-auth": "^0.3.4",

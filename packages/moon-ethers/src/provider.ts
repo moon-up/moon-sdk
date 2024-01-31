@@ -42,8 +42,8 @@ export class MoonProvider extends Provider implements IEthereumProvider {
     switch (args.method) {
       case 'eth_requestAccounts':
         // eslint-disable-next-line no-case-declarations
-        const account = await this.connect();
-        this.account = account;
+        // const account = await this.connect();
+        // this.account = account;
         return (await this.signer.moonWallet.listAccounts()) || [];
       case 'eth_accounts':
         return this.signer.moonWallet.listAccounts() || [];
@@ -63,7 +63,7 @@ export class MoonProvider extends Provider implements IEthereumProvider {
             ? parseInt(_params?.chainId, 16)
             : _params?.chainId;
 
-        this.signer.updateMoonWalletConfig(chainId);
+        // this.signer.updateMoonWalletConfig(chainId);
         this.chainId = chainId;
 
         this.events.emit('chainChanged', _params?.chainId);
@@ -75,16 +75,16 @@ export class MoonProvider extends Provider implements IEthereumProvider {
   }
 
   public async connect() {
-    const account = await this.signer.connect();
-    this.account = account;
-    this.events.emit('connect', account);
-    return account;
+    // const account = await this.signer.connect();
+    // this.account = account;
+    this.events.emit('connect');
+    // return account;
   }
 
   public async disconnect(): Promise<void> {
-    await this.signer.disconnect();
+    // await this.signer.disconnect();
     this.events.emit('disconnect');
-    this.account = undefined;
+    // this.account = undefined;
   }
 
   public sendAsync(
