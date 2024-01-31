@@ -1,4 +1,5 @@
 import { MoonProvider, MoonProviderOptions } from '@moonup/ethers';
+import { MoonSDK } from '@moonup/moon-sdk';
 import { MoonAccount } from '@moonup/moon-types';
 import { providers } from 'ethers';
 import {
@@ -12,6 +13,7 @@ import { Address, Chain, Connector, ConnectorData } from 'wagmi';
 export interface MoonConnectorOptions {
   chains?: Chain[];
   options: MoonProviderOptions;
+  client: MoonSDK;
 }
 
 export class MoonConnector extends Connector<
@@ -28,13 +30,7 @@ export class MoonConnector extends Connector<
   constructor({ chains, options }: MoonConnectorOptions) {
     super({ chains, options });
     this.options = options;
-    this.provider = new MoonProvider(options);
   }
-
-  public get MoonAccount() {
-    return this.getMoonAccount();
-  }
-
   async connect(): Promise<Required<ConnectorData>> {
     let _account: MoonAccount;
     try {
