@@ -158,14 +158,14 @@ importers:
         specifier: ^5.7.2
         version: 5.7.2
       '@moonup/moon-api':
-        specifier: ^0.0.23
+        specifier: workspace:*
         version: link:../moon-api
       '@moonup/moon-sdk':
-        specifier: ^0.0.37
-        version: 0.0.37
+        specifier: ^0.0.44
+        version: link:../moon-sdk
       '@moonup/moon-types':
-        specifier: ^0.0.22
-        version: 0.0.22
+        specifier: workspace:*
+        version: link:../moon-types
       eip1193-provider:
         specifier: ^1.0.1
         version: 1.0.1
@@ -224,12 +224,15 @@ importers:
       '@moonup/ethers':
         specifier: ^0.0.11
         version: link:../moon-ethers
+      '@moonup/moon-sdk':
+        specifier: ^0.0.44
+        version: link:../moon-sdk
       '@moonup/moon-types':
-        specifier: ^0.0.22
-        version: 0.0.22
+        specifier: ^0.0.25
+        version: link:../moon-types
       '@moonup/wagmi-connector':
         specifier: ^0.0.21
-        version: link:../moon-wagmi-connector
+        version: link:../moon-wagmi
       '@rainbow-me/rainbowkit':
         specifier: ^1.3.3
         version: 1.3.3(@types/react@18.2.47)(react-dom@18.2.0)(react@18.2.0)(viem@1.21.4)(wagmi@1.4.13)
@@ -298,20 +301,20 @@ importers:
   packages/moon-react:
     dependencies:
       '@moonup/ethers':
-        specifier: ^0.0.11
+        specifier: workspace:*
         version: link:../moon-ethers
       '@moonup/moon-api':
-        specifier: ^0.0.23
+        specifier: workspace:*
         version: link:../moon-api
       '@moonup/moon-sdk':
-        specifier: ^0.0.37
-        version: 0.0.37
+        specifier: workspace:*
+        version: link:../moon-sdk
       '@moonup/moon-types':
-        specifier: ^0.0.25
+        specifier: workspace:*
         version: link:../moon-types
       '@moonup/wagmi-connector':
-        specifier: ^0.0.21
-        version: link:../moon-wagmi-connector
+        specifier: workspace:*
+        version: link:../moon-wagmi
       '@rainbow-me/rainbowkit':
         specifier: ^1.3.3
         version: 1.3.3(@types/react@18.2.47)(react-dom@18.2.0)(react@18.2.0)(viem@1.21.4)(wagmi@1.4.13)
@@ -321,6 +324,12 @@ importers:
       '@randombits/use-siwe':
         specifier: ^2.0.2
         version: 2.0.2(ethers@5.7.2)(next@14.0.4)(react-dom@18.2.0)(react@18.2.0)(wagmi@1.4.13)
+      '@supabase/auth-helpers-react':
+        specifier: ^0.4.2
+        version: 0.4.2(@supabase/supabase-js@2.39.3)
+      '@supabase/supabase-js':
+        specifier: ^2.39.3
+        version: 2.39.3
       bn.js:
         specifier: ^5.2.1
         version: 5.2.1
@@ -415,6 +424,9 @@ importers:
       '@moonup/moon-types':
         specifier: ^0.0.25
         version: link:../moon-types
+      '@supabase/supabase-js':
+        specifier: ^2.39.3
+        version: 2.39.3
       events:
         specifier: ^3.3.0
         version: 3.3.0
@@ -498,20 +510,20 @@ importers:
         specifier: ^5.3.3
         version: 5.3.3
 
-  packages/moon-wagmi-connector:
+  packages/moon-wagmi:
     dependencies:
       '@moonup/ethers':
-        specifier: ^0.0.11
+        specifier: workspace:*
         version: link:../moon-ethers
       '@moonup/moon-sdk':
-        specifier: ^0.0.37
-        version: 0.0.37
+        specifier: workspace:*
+        version: link:../moon-sdk
       '@moonup/moon-types':
-        specifier: ^0.0.22
-        version: 0.0.22
+        specifier: workspace:*
+        version: link:../moon-types
       '@moonup/wagmi-connector':
-        specifier: ^0.0.13
-        version: 0.0.13(@types/react@18.2.47)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
+        specifier: workspace:*
+        version: 'link:'
       '@rainbow-me/rainbowkit':
         specifier: ^1.2.0
         version: 1.3.3(@types/react@18.2.47)(react-dom@18.2.0)(react@18.2.0)(viem@1.21.4)(wagmi@1.4.13)
@@ -540,6 +552,46 @@ importers:
       '@types/react-dom':
         specifier: ^18.2.18
         version: 18.2.18
+      '@vitest/coverage-v8':
+        specifier: ^0.34.2
+        version: 0.34.6(vitest@0.32.4)
+      happy-dom:
+        specifier: ^6.0.4
+        version: 6.0.4
+      husky:
+        specifier: ^8.0.3
+        version: 8.0.3
+      size-limit:
+        specifier: ^11.0.1
+        version: 11.0.1
+      tslib:
+        specifier: ^2.6.2
+        version: 2.6.2
+      tsup:
+        specifier: ^8.0.1
+        version: 8.0.1(ts-node@10.9.1)(typescript@5.3.3)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.3.3
+
+  packages/viem:
+    dependencies:
+      '@moonup/moon-sdk':
+        specifier: ^0.0.44
+        version: link:../moon-sdk
+      viem:
+        specifier: ^2.6.1
+        version: 2.6.1(typescript@5.3.3)
+    devDependencies:
+      '@size-limit/preset-small-lib':
+        specifier: ^11.0.1
+        version: 11.0.1(size-limit@11.0.1)
+      '@tsconfig/recommended':
+        specifier: ^1.0.3
+        version: 1.0.3
+      '@tsconfig/vite-react':
+        specifier: ^3.0.0
+        version: 3.0.0
       '@vitest/coverage-v8':
         specifier: ^0.34.2
         version: 0.34.6(vitest@0.32.4)
@@ -3187,132 +3239,6 @@ packages:
       - supports-color
     dev: false
 
-  /@moonup/ethers@0.0.6:
-    resolution: {integrity: sha512-4EV/27Qoj72BVlD3W+qn+AkTv0SSRVjfLIvRo4Ff3qoK+C2q0R/TdbQqraXdATgOx8vBGL5jbmcoM3cDubGzxA==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@ethersproject/abstract-provider': 5.7.0
-      '@ethersproject/abstract-signer': 5.7.0
-      '@ethersproject/bignumber': 5.7.0
-      '@ethersproject/bytes': 5.7.0
-      '@ethersproject/properties': 5.7.0
-      '@ethersproject/providers': 5.7.2
-      '@moonup/moon-api': 0.0.16
-      '@moonup/moon-sdk': 0.0.27
-      '@moonup/moon-types': 0.0.16
-      eip1193-provider: 1.0.1
-      ethers: 5.7.2
-      events: 3.3.0
-    transitivePeerDependencies:
-      - bufferutil
-      - debug
-      - encoding
-      - utf-8-validate
-    dev: false
-
-  /@moonup/moon-api@0.0.16:
-    resolution: {integrity: sha512-5LVvgTsfio+6gDbNUhCm5dXAfG8uHLLozRgFkltI5Bl9n7MpvOgDLSX2fq/DdGVNzdRsFfBBqtlbadvgTKqmqw==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@simplewebauthn/server': 8.3.6
-    transitivePeerDependencies:
-      - encoding
-    dev: false
-
-  /@moonup/moon-api@0.0.23:
-    resolution: {integrity: sha512-cACpGHFcy+ziXfuIwhYiplTo4K+96mR1l5wzWm0fABbf5Of8uOrcM3NC8Dq8nAKCBHg1gNp2ZxYg4nNOwvYtUg==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@simplewebauthn/server': 8.3.6
-    transitivePeerDependencies:
-      - encoding
-    dev: false
-
-  /@moonup/moon-sdk@0.0.27:
-    resolution: {integrity: sha512-Dlre3MT2W9at+C6XeklqRGBpp3C68DJyvvVgJzw+yniVls44iCcrNgUdY0Qa4+u7SMn+xOrzWA4UFO5YK6v5pA==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@ethersproject/abstract-provider': 5.7.0
-      '@ethersproject/abstract-signer': 5.7.0
-      '@ethersproject/bignumber': 5.7.0
-      '@ethersproject/bytes': 5.7.0
-      '@ethersproject/hash': 5.7.0
-      '@ethersproject/providers': 5.7.2
-      '@moonup/moon-api': 0.0.16
-      '@moonup/moon-types': 0.0.16
-      events: 3.3.0
-      typedots: 0.0.2
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - utf-8-validate
-    dev: false
-
-  /@moonup/moon-sdk@0.0.37:
-    resolution: {integrity: sha512-y6fIBNEYMvhv4xW9oFAZobQLK/Y0/1/1tnInq/fFhGb0fSmfBBcpwCQzDBxfCWlz8K0NW6N7OMOJaTkyJef8jw==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@ethersproject/abstract-provider': 5.7.0
-      '@ethersproject/abstract-signer': 5.7.0
-      '@ethersproject/bignumber': 5.7.0
-      '@ethersproject/bytes': 5.7.0
-      '@ethersproject/hash': 5.7.0
-      '@ethersproject/providers': 5.7.2
-      '@moonup/moon-api': 0.0.23
-      '@moonup/moon-types': 0.0.22
-      events: 3.3.0
-      typedots: 0.0.2
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - utf-8-validate
-    dev: false
-
-  /@moonup/moon-types@0.0.16:
-    resolution: {integrity: sha512-AcWIwvHoRXKgXehDNQNK8Tf/NVzDupfH+WJmAwkb4I+wTJzht+pbP3By+QM7hDyqlBr/BYmX3cgocD/hINvdag==}
-    engines: {node: '>=10'}
-    dev: false
-
-  /@moonup/moon-types@0.0.22:
-    resolution: {integrity: sha512-Ygxk9BVHVSGO1w193ysnxG47YEQXRLCx/hhr/J/hQTH/dgxEy7z7WmLe9BjoCgn4uoF4lwKshlb/wu/e/pbRIQ==}
-    engines: {node: '>=10'}
-    dev: false
-
-  /@moonup/wagmi-connector@0.0.13(@types/react@18.2.47)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3):
-    resolution: {integrity: sha512-Va9fN/SIqi339sSsxDj6kVn162C4TZ6KmZ7gPsrt4s6casMt74HEpUOX+PuTMJJSTL3+ggObORODP97AvybEKA==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@moonup/ethers': 0.0.6
-      '@moonup/moon-types': 0.0.16
-      viem: 1.21.4(typescript@5.3.3)(zod@3.22.4)
-      wagmi: 1.4.13(@types/react@18.2.47)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(viem@1.21.4)(zod@3.22.4)
-    transitivePeerDependencies:
-      - '@azure/app-configuration'
-      - '@azure/cosmos'
-      - '@azure/data-tables'
-      - '@azure/identity'
-      - '@azure/keyvault-secrets'
-      - '@azure/storage-blob'
-      - '@capacitor/preferences'
-      - '@netlify/blobs'
-      - '@planetscale/database'
-      - '@react-native-async-storage/async-storage'
-      - '@types/react'
-      - '@upstash/redis'
-      - '@vercel/kv'
-      - bufferutil
-      - debug
-      - encoding
-      - immer
-      - react
-      - react-dom
-      - react-native
-      - supports-color
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: false
-
   /@motionone/animation@10.16.3:
     resolution: {integrity: sha512-QUGWpLbMFLhyqKlngjZhjtxM8IqiJQjLK0DF+XOF6od9nhSvlaeEpOY/UMCRVcZn/9Tr2rZO22EkuCIjYdI74g==}
     dependencies:
@@ -4152,14 +4078,14 @@ packages:
     resolution: {integrity: sha512-N1ZhksgwD3OBlwTv3R6KFEcPojl/W4ElJOeCZdi+vuI5QmTFwLq3OFf2zd2ROpKvxFdgZ6hUpb0dx9bVNEwYCA==}
     dependencies:
       '@noble/curves': 1.2.0
-      '@noble/hashes': 1.3.2
+      '@noble/hashes': 1.3.3
       '@scure/base': 1.1.5
     dev: false
 
   /@scure/bip39@1.2.1:
     resolution: {integrity: sha512-Z3/Fsz1yr904dduJD0NpiyRHhRYHdcnyh73FZWiV+/qhWi83wNJ3NWolYqCEN+ZWsUz2TWwajJggcRE9r1zUYg==}
     dependencies:
-      '@noble/hashes': 1.3.2
+      '@noble/hashes': 1.3.3
       '@scure/base': 1.1.5
     dev: false
 
@@ -4409,6 +4335,71 @@ packages:
       '@stablelib/wipe': 1.0.1
     dev: false
 
+  /@supabase/auth-helpers-react@0.4.2(@supabase/supabase-js@2.39.3):
+    resolution: {integrity: sha512-zRj1leYMKJVYQeHFvZiUzlmHM+ATWFR/V7Q9F0yXSWEnMcNHL0CKnIBqhkjtSQ2trE+YaoCvFEHjxISppxIZXQ==}
+    peerDependencies:
+      '@supabase/supabase-js': ^2.19.0
+    dependencies:
+      '@supabase/supabase-js': 2.39.3
+    dev: false
+
+  /@supabase/functions-js@2.1.5:
+    resolution: {integrity: sha512-BNzC5XhCzzCaggJ8s53DP+WeHHGT/NfTsx2wUSSGKR2/ikLFQTBCDzMvGz/PxYMqRko/LwncQtKXGOYp1PkPaw==}
+    dependencies:
+      '@supabase/node-fetch': 2.6.15
+    dev: false
+
+  /@supabase/gotrue-js@2.62.2:
+    resolution: {integrity: sha512-AP6e6W9rQXFTEJ7sTTNYQrNf0LCcnt1hUW+RIgUK+Uh3jbWvcIST7wAlYyNZiMlS9+PYyymWQ+Ykz/rOYSO0+A==}
+    dependencies:
+      '@supabase/node-fetch': 2.6.15
+    dev: false
+
+  /@supabase/node-fetch@2.6.15:
+    resolution: {integrity: sha512-1ibVeYUacxWYi9i0cf5efil6adJ9WRyZBLivgjs+AUpewx1F3xPi7gLgaASI2SmIQxPoCEjAsLAzKPgMJVgOUQ==}
+    engines: {node: 4.x || >=6.0.0}
+    dependencies:
+      whatwg-url: 5.0.0
+    dev: false
+
+  /@supabase/postgrest-js@1.9.2:
+    resolution: {integrity: sha512-I6yHo8CC9cxhOo6DouDMy9uOfW7hjdsnCxZiaJuIVZm1dBGTFiQPgfMa9zXCamEWzNyWRjZvupAUuX+tqcl5Sw==}
+    dependencies:
+      '@supabase/node-fetch': 2.6.15
+    dev: false
+
+  /@supabase/realtime-js@2.9.3:
+    resolution: {integrity: sha512-lAp50s2n3FhGJFq+wTSXLNIDPw5Y0Wxrgt44eM5nLSA3jZNUUP3Oq2Ccd1CbZdVntPCWLZvJaU//pAd2NE+QnQ==}
+    dependencies:
+      '@supabase/node-fetch': 2.6.15
+      '@types/phoenix': 1.6.4
+      '@types/ws': 8.5.10
+      ws: 8.16.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+    dev: false
+
+  /@supabase/storage-js@2.5.5:
+    resolution: {integrity: sha512-OpLoDRjFwClwc2cjTJZG8XviTiQH4Ik8sCiMK5v7et0MDu2QlXjCAW3ljxJB5+z/KazdMOTnySi+hysxWUPu3w==}
+    dependencies:
+      '@supabase/node-fetch': 2.6.15
+    dev: false
+
+  /@supabase/supabase-js@2.39.3:
+    resolution: {integrity: sha512-NoltJSaJNKDJNutO5sJPAAi5RIWrn1z2XH+ig1+cHDojT6BTN7TvZPNa3Kq3gFQWfO5H1N9El/bCTZJ3iFW2kQ==}
+    dependencies:
+      '@supabase/functions-js': 2.1.5
+      '@supabase/gotrue-js': 2.62.2
+      '@supabase/node-fetch': 2.6.15
+      '@supabase/postgrest-js': 1.9.2
+      '@supabase/realtime-js': 2.9.3
+      '@supabase/storage-js': 2.5.5
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+    dev: false
+
   /@swc/helpers@0.5.2:
     resolution: {integrity: sha512-E4KcWTpoLHqwPHLxidpOqQbcrZVgi0rsmmZXUle1jXmJfuIf/UWpczUJ7MZZ5tlxytgJXyp0w4PGkkeLiuIdZw==}
     dependencies:
@@ -4577,6 +4568,10 @@ packages:
     resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==}
     dev: true
 
+  /@types/phoenix@1.6.4:
+    resolution: {integrity: sha512-B34A7uot1Cv0XtaHRYDATltAdKx0BvVKNgYNqE4WjtPUa4VQJM7kxeXcVKaH+KS+kCmZ+6w+QaUdcljiheiBJA==}
+    dev: false
+
   /@types/prop-types@15.7.11:
     resolution: {integrity: sha512-ga8y9v9uyeiLdpKddhxYQkxNDrfvuPrlFb0N1qnZZByvcElJaXthF1UhvCh9TLWJBEHeNtdnbysW7Y6Uq8CVng==}
 
@@ -4609,6 +4604,12 @@ packages:
 
   /@types/ws@7.4.7:
     resolution: {integrity: sha512-JQbbmxZTZehdc2iszGKs5oC3NFnjeay7mtAWrdt7qNtAVK0g19muApzAy4bm9byz79xa2ZnO/BOBC2R8RC5Lww==}
+    dependencies:
+      '@types/node': 18.17.9
+    dev: false
+
+  /@types/ws@8.5.10:
+    resolution: {integrity: sha512-vmQSUcfalpIq0R9q7uTo2lXs6eGIpt9wtnLdMv9LVpIjCA/+ufZRozlVoVelIYixx1ugCBKDhn89vnsEGOCx9A==}
     dependencies:
       '@types/node': 18.17.9
     dev: false
@@ -5439,6 +5440,20 @@ packages:
     dependencies:
       typescript: 5.3.3
       zod: 3.22.4
+    dev: false
+
+  /abitype@1.0.0(typescript@5.3.3):
+    resolution: {integrity: sha512-NMeMah//6bJ56H5XRj8QCV4AwuW6hB6zqz2LnhhLdcWVQOsXki6/Pn3APeqxCma62nXIcmZWdu1DlHWS74umVQ==}
+    peerDependencies:
+      typescript: '>=5.0.4'
+      zod: ^3 >=3.22.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+      zod:
+        optional: true
+    dependencies:
+      typescript: 5.3.3
     dev: false
 
   /acorn-jsx@5.3.2(acorn@8.10.0):
@@ -11474,6 +11489,29 @@ packages:
       '@scure/bip32': 1.3.2
       '@scure/bip39': 1.2.1
       abitype: 0.9.8(typescript@5.3.3)(zod@3.22.4)
+      isows: 1.0.3(ws@8.13.0)
+      typescript: 5.3.3
+      ws: 8.13.0
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+      - zod
+    dev: false
+
+  /viem@2.6.1(typescript@5.3.3):
+    resolution: {integrity: sha512-565cKS2fQ8XU9sfQo5NGAZXdKwPFjof4nO3NUyElVHKqKw9l5/y2iDDMEubvxm09rBlzibJ+Sw/mI4jnnkQE4g==}
+    peerDependencies:
+      typescript: '>=5.0.4'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@adraffy/ens-normalize': 1.10.0
+      '@noble/curves': 1.2.0
+      '@noble/hashes': 1.3.2
+      '@scure/bip32': 1.3.2
+      '@scure/bip39': 1.2.1
+      abitype: 1.0.0(typescript@5.3.3)
       isows: 1.0.3(ws@8.13.0)
       typescript: 5.3.3
       ws: 8.13.0
