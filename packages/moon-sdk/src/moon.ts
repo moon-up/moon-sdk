@@ -309,18 +309,7 @@ export class MoonSDK {
     }
     return response.data as AccountResponse;
   }
-  public transactionRequestToInputBody(tx: TransactionResponse): InputBody {
-    return {
-      chain_id: BigNumber.from(tx.chainId).toString(),
-      data: tx.data,
-      to: tx.to,
-      gasPrice: BigNumber.from(tx.gasPrice).toString(),
-      gas: BigNumber.from(tx.gasLimit).toString(),
-      nonce: BigNumber.from(tx.nonce).toString(),
-      value: tx.value && BigNumber.from(tx.value).toString(),
-      encoding: 'utf-8',
-    };
-  }
+
   moonTransactionResponseToTransactions(
     tx: MoonTransaction
   ): TransactionData[] {
