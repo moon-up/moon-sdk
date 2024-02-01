@@ -107,7 +107,7 @@ const sdk = new MoonSDK()
 const config: MoonProviderOptions = {
     chainId: 80001 
     SDK: sdk;
-    address: ';;
+    address: '';
 }
 const provider = new MoonProvider(config)
 provider.updateConfig({
