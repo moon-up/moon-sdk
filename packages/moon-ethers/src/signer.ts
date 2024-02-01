@@ -1,4 +1,4 @@
-import { Provider } from '@ethersproject/abstract-provider';
+import { Provider, TransactionRequest } from '@ethersproject/abstract-provider';
 import {
   Signer,
   TypedDataDomain,
@@ -8,8 +8,11 @@ import {
 import { BytesLike, arrayify } from '@ethersproject/bytes';
 import { hashMessage } from '@ethersproject/hash';
 import { defineReadOnly } from '@ethersproject/properties';
-import type { BroadCastRawTransactionResponse } from '@moonup/moon-api';
+import { TransactionResponse } from '@ethersproject/providers';
+import type { Transaction as MoonTransaction } from '@moonup/moon-api';
+import { InputBody, Transaction as MoonAPITransaction } from '@moonup/moon-api';
 import { MoonSDK } from '@moonup/moon-sdk';
+import { BigNumber } from 'ethers';
 
 import { TransactionData } from '../../moon-api/src/lib/data-contracts';
 export interface Typed {
@@ -102,9 +105,7 @@ export class MoonSigner extends Signer implements TypedDataSigner {
       });
     return response.signed_message || '';
   }
-  async broadcastTransaction(
-    signedTransaction: string
-  ): Promise<BroadCastRawTransactionResponse> {
+  async broadcastTransaction(signedTransaction: string): Promise<string> {
     const response = await this.SDK.getAccountsSDK().broadcastTx(
       this.MoonSignerConfig.address,
       {
@@ -115,46 +116,62 @@ export class MoonSigner extends Signer implements TypedDataSigner {
     if (!response.ok) {
       throw new Error(response.statusText);
     }
-    return response.data.data as BroadCastRawTransactionResponse;
+    return (response.data.data as MoonAPITransaction).transaction_hash || '';
   }
 
   async sendTransaction(
     transaction: TransactionRequest
   ): Promise<TransactionResponse> {
-    // const tx = await this.populateTransaction(transaction);
-    // console.log('Moon::sendTransaction: populateTransaction', tx);
-    // const signedRes = await this.signTransaction(tx);
-    // console.log('Moon::sendTransaction: signedRawTx', signedRes);
+    const tx = await this.populateTransaction(transaction);
+    console.log('Moon::sendTransaction: populateTransaction', tx);
+    const signedRes = await this.signTransaction(tx);
+    console.log('Moon::sendTransaction: signedRawTx', signedRes);
 
-    // const response = await this.broadcastTransaction(signedRes || '');
-    // console.log('Moon::sendTransaction: broadcastTx res', response);
-    // const txResponse =
-    //   (await this.provider.getTransaction(response.data || '')) ||
-    //   (tx as TransactionResponse);
-    // console.log('Moon::sendTransaction: txResponse', txResponse);
+    const response = await this.broadcastTransaction(signedRes || '');
+    console.log('Moon::sendTransaction: broadcastTx res', response);
+    const txResponse = await this.provider?.getTransaction(response || '');
+    console.log('Moon::sendTransaction: txResponse', txResponse);
 
-    // return txResponse;
-
-    throw new Error('Method not implemented.');
+    return txResponse || ({} as TransactionResponse);
+  }
+  public transactionRequestToInputBody(tx: TransactionRequest): InputBody {
+    return {
+      chain_id: BigNumber.from(tx.chainId).toString(),
+      data: (tx.data && tx.data?.toString()) || '',
+      to: tx.to,
+      gasPrice: BigNumber.from(tx.gasPrice).toString(),
+      gas: BigNumber.from(tx.gasLimit).toString(),
+      nonce: BigNumber.from(tx.nonce).toString(),
+      value:
+        tx.value !== undefined
+          ? BigNumber.from(tx.value).toString()
+          : undefined,
+      encoding: 'utf-8',
+    };
+  }
+  moonTransactionResponseToTransactions(
+    tx: MoonTransaction
+  ): TransactionData[] {
+    return tx.transactions || [];
   }
 
   async signTransaction(transaction: TransactionRequest): Promise<string> {
-    // const response = await this.SDK.getAccountsSDK()
-    //   .signTransaction(
-    //     this.MoonSignerConfig.address,
-    //     this.SDK.transactionRequestToInputBody(transaction)
-    //   )
-    //   .then((res) => {
-    //     if (!res.ok) {
-    //       throw new Error(res.statusText);
-    //     }
-    //     const transactions = this.moonTransactionResponseToTransactions(
-    //       res.data.data as MoonTransaction
-    //     );
-    //     const rawTransaction = transactions?.at(0)?.raw_transaction;
-    //     return rawTransaction as string;
-    //   });
-    // return response || '';
+    const response = await this.SDK.getAccountsSDK()
+      .signTransaction(
+        this.MoonSignerConfig.address,
+        this.transactionRequestToInputBody(transaction)
+      )
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(res.statusText);
+        }
+        const transactions = this.moonTransactionResponseToTransactions(
+          res.data.data as MoonTransaction
+        );
+        const rawTransaction = transactions?.at(0)?.raw_transaction;
+        return rawTransaction as string;
+      });
+    return response || '';
   }
   async getTypedDataDomain(
     name: string,

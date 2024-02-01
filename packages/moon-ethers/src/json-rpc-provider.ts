@@ -1,43 +1,46 @@
-import { AccountResponse } from '@moonup/moon-api';
 import { MoonSDK } from '@moonup/moon-sdk';
 import { getRpcUrls } from '@moonup/moon-types';
 import { RequestArguments } from 'eip1193-provider';
 import { providers } from 'ethers';
 
+import { MoonSigner } from './signer';
+import { MoonProviderOptions } from './types';
 import { getMessage, getSignTypedDataParamsData } from './utils';
 
 export class JsonRpcProvider {
   public chainId: number;
   public http: providers.JsonRpcProvider;
-  public readonly moonWallet: MoonSDK;
+  public sdk: MoonSDK;
+  public signer: MoonSigner;
+  public config: MoonProviderOptions;
 
-  constructor(chainId: number) {
-    this.chainId = chainId;
+  constructor(options: MoonProviderOptions) {
+    this.config = options;
+    this.chainId = options.chainId;
 
-    const nodeRPC = getRpcUrls(chainId).pop() || '';
-
-    this.moonWallet = new MoonSDK();
-
+    const nodeRPC = getRpcUrls(this.chainId).pop() || '';
+    this.sdk = options.SDK;
     this.http = new providers.JsonRpcProvider(nodeRPC);
-  }
 
-  // public async disconnect() {
-  //   await this.moonWallet.logout();
-  // }
+    this.signer = new MoonSigner({
+      SDK: this.sdk,
+      address: options.address,
+      chainId: this.chainId.toString(),
+    });
+  }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public async request(request: RequestArguments): Promise<any> {
     switch (request.method) {
       case 'eth_requestAccounts':
         // eslint-disable-next-line no-case-declarations
-        const keys = (await this.moonWallet.listAccounts()) as AccountResponse;
+        const keys = await this.sdk.listAccounts();
         return keys.keys || [];
       case 'personal_sign':
         if (Array.isArray(request.params) && request.params.length > 0) {
           const message = getMessage(request?.params as string[]);
-          // const signedMessage = await this.moonWallet.SignMessage(message);
-          throw new Error('Method not implemented.');
-          // return signedMessage;
+          const signedMessage = await this.signer.signMessage(message);
+          return signedMessage;
         } else {
           throw new Error('request.params is undefined or not an array');
         }
@@ -47,13 +50,12 @@ export class JsonRpcProvider {
             request?.params as string[]
           );
 
-          throw new Error('Method not implemented.');
-          // const signedTypedData = (await this.moonWallet.SignTypedData(
-          //   typedData.domain,
-          //   typedData.types,
-          //   typedData.value
-          // )) as Transaction;
-          // return signedTypedData || '';
+          const signedTypedData = await this.signer.signTypedData(
+            typedData.domain,
+            typedData.types,
+            typedData.value
+          );
+          return signedTypedData || '';
         } else {
           throw new Error('request.params is undefined or not an array');
         }
@@ -67,8 +69,7 @@ export class JsonRpcProvider {
             ? request?.params[0]
             : undefined;
         if (_params) {
-          // return await this.moonWallet.SendTransaction(_params);
-          throw new Error('Method not implemented.');
+          return await this.signer.sendTransaction(_params);
         }
         throw new Error('eth_sendTransaction error');
       default:
@@ -80,14 +81,16 @@ export class JsonRpcProvider {
     }
   }
 
-  // public updateMoonWalletConfig = (chainId: number) => {
-  //   this.chainId = chainId;
-  //   const chain = getChain(chainId);
-  //   if (chain) {
-  //     this.moonWallet.updateNetwork(chain);
-  //     this.http = new providers.JsonRpcProvider(chain.rpcUrls.pop() || '');
-  //   } else {
-  //     throw new Error('Chain is undefined');
-  //   }
-  // };
+  public updateConfig(options: MoonProviderOptions) {
+    this.chainId = options.chainId;
+    this.sdk = options.SDK;
+    this.http = new providers.JsonRpcProvider(
+      getRpcUrls(this.chainId).pop() || ''
+    );
+    this.signer.updateConfig({
+      SDK: this.sdk,
+      address: '',
+      chainId: this.chainId.toString(),
+    });
+  }
 }
