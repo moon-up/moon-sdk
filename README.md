@@ -65,7 +65,7 @@ npm install @moonup/moon-api
 
 import the client
 ```typescript
-import { Accounts, ContentType } from '@moonup/moon-api
+import { Accounts, ContentType } from '@moonup/moon-api'
 const baseApiParams: ApiConfig = {
     baseUrl:
     'https://moon-vault-api-git-ew-supabase-migration-moonup.vercel.app',
@@ -102,7 +102,7 @@ npm install @moonup/ethers
 import the provider
 ```typescript
 import {MoonSDK} from '@moonup/moon-sdk'
-import { MoonProvider } from '@moonup/ethers
+import { MoonProvider } from '@moonup/ethers'
 const sdk = new MoonSDK()
 const config: MoonProviderOptions = {
     chainId: 80001 
