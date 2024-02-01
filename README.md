@@ -143,7 +143,7 @@ npm install @moonup/viem
 import the provider
 ```typescript
 import { MoonSDK } from '@moonup/moon-sdk'
-import { createAccount } from '@moonup/viem
+import { createAccount } from '@moonup/viem'
 const sdk = new MoonSDK()
 const config = {
     SDK: sdk,
