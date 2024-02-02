@@ -2,10 +2,8 @@ import {
   TypedDataDomain,
   TypedDataField,
 } from '@ethersproject/abstract-signer';
-import { BigNumber } from '@ethersproject/bignumber';
 import { BytesLike, arrayify } from '@ethersproject/bytes';
 import { hashMessage } from '@ethersproject/hash';
-import { TransactionResponse } from '@ethersproject/providers';
 import {
   Aave,
   AccountResponse,
