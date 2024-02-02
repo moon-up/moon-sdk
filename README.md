@@ -179,10 +179,6 @@ Packages are published to npm under the @moonup scope. To install a package, run
 ```bash
 npm install @moonup/<package-name>
 ```
-For example, to install the Moon API client, run:
-```bash
-npm install @moonup/moon-api
-```
 Refer to the documentation for each package for usage instructions.
 (https://docs.usemoon.ai)[https://docs.usemoon.ai]
 
