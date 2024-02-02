@@ -271,17 +271,32 @@ npm install @moonup/ethers
 import the provider
 ```typescript
 import {MoonSDK} from '@moonup/moon-sdk'
-import { MoonProvider } from '@moonup/ethers'
+import { MoonProvider, MoonSigner } from '@moonup/ethers'
 const sdk = new MoonSDK()
 const config: MoonProviderOptions = {
     chainId: 80001 
     SDK: sdk;
     address: '';
 }
+// ethers.js jsonrpcprovider
 const provider = new MoonProvider(config)
 provider.updateConfig({
     chainId: 80001,
     address: '0x000',
+})
+// can also override window.ethereum with the provider so no interactions with metamask
+window.ethereum = provider;
+
+// ethers.js signer
+const signer = new MoonSigner(config)
+const tx = await signer.signTransaction({
+    to: '0x000',
+    value: '0x000',
+    data: '0x000',
+    gasLimit: '0x000',
+    gasPrice: '0x000',
+    nonce: '0x000',
+    chainId: 80001,
 })
 ```
 
@@ -293,6 +308,18 @@ Install the package
 ```bash
 npm install @moonup/wagmi-connector
 ```
+import the provider
+```typescript
+import {MoonConnector } from '@moonup/wagmi-connector'
+import {MoonSDK } from '@moonup/moon-sdk'
+const sdk = new MoonSDK()
+
+const connector = new MoonConnector({
+    chainId: 80001,
+    sdk: sdk,
+    address: '0x000',
+})
+```
 
 ## @moonup/moon-rainbowkit
 Rainbow kit library
@@ -301,6 +328,38 @@ Install the package
 ```bash
 npm install @moonup/moon-rainbowkit
 ```
+
+import the provider
+```typescript
+import {RainbowKitUseMoonProvider} from '@moonup/moon-rainbowkit';
+import {
+  RainbowKitProvider,
+} from '@rainbow-me/rainbowkit';
+import { AppProps } from 'next/app';
+import { WagmiConfig } from 'wagmi';
+
+export default function App({ Component, pageProps }: AppProps) {
+  // You'll need to resolve AUTHENTICATION_STATUS here
+  // using your application's authentication system.
+  // It needs to be either 'loading' (during initial load),
+  // 'unauthenticated' or 'authenticated'.
+
+  return (
+    <WagmiConfig {...etc}>
+      <RainbowKitUseMoonProvider
+       onSignIn={onSignIn} onSignOut={onSignOut}
+      >
+        <RainbowKitProvider {...etc}>
+          <Component {...pageProps} />
+        </RainbowKitProvider>
+      </RainbowKitAuthenticationProvider>
+    </WagmiConfig>
+  );
+}
+
+
+```
+
 
 ## @moonup/viem
 Viem library

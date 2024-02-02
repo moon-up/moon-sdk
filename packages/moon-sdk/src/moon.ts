@@ -59,6 +59,7 @@ export class MoonSDK {
   private BitcoincashSDK: Bitcoincash;
   private DogecoinSDK: Dogecoin;
   private MoonAPIClient: SupabaseClient;
+  isAuthenticated = false;
 
   constructor() {
     const baseApiParams: ApiConfig = {
@@ -119,18 +120,48 @@ export class MoonSDK {
 
     this.TronSDK = new Tron(baseApiParams);
     this.MoonAPIClient = createClient('https://api.usemoon.ai', '', {});
+    this.connect();
+  }
+  public async connect() {
     this.MoonAPIClient.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_IN') {
-        this.updateToken(session?.access_token || '');
+        this.setAccessToken(
+          session?.access_token || '',
+          session?.refresh_token || ''
+        );
+        this.isAuthenticated = true;
       }
       if (event === 'TOKEN_REFRESHED') {
-        this.updateToken(session?.access_token || '');
+        this.setAccessToken(
+          session?.access_token || '',
+          session?.refresh_token || ''
+        );
+        this.isAuthenticated = true;
       }
       if (event === 'SIGNED_OUT') {
         this.updateToken('');
+        this.isAuthenticated = false;
       }
     });
+
+    const { data, error } = await this.MoonAPIClient.auth.getSession();
+    if (data) {
+      this.setAccessToken(
+        data.session?.access_token || '',
+        data.session?.refresh_token || ''
+      );
+      this.isAuthenticated = true;
+    }
+    if (error) {
+      this.isAuthenticated = false;
+    }
   }
+  public async disconnect() {
+    this.MoonAPIClient.auth.signOut();
+    this.updateToken('');
+    this.isAuthenticated = false;
+  }
+
   public async getUserSession() {
     return await this.MoonAPIClient.auth.getSession();
   }

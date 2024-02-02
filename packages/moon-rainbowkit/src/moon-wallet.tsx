@@ -1,5 +1,5 @@
-import { MoonConnector } from '@moonup//moon-wagmi';
 import { MoonProviderOptions } from '@moonup/ethers';
+import { MoonConnector } from '@moonup/wagmi-connector';
 import { Wallet } from '@rainbow-me/rainbowkit';
 import { Chain, Connector } from 'wagmi';
 
@@ -23,7 +23,9 @@ export const rainbowkitUseMoonConnector = ({
     createConnector: () => {
       const connector = new MoonConnector({
         chains,
-        options,
+        chainId: options.chainId,
+        SDK: options.SDK,
+        address: options.address,
       }) as Connector;
 
       return {

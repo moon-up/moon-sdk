@@ -1,7 +1,6 @@
-import { MoonProvider, MoonProviderOptions } from '@moonup/ethers';
+import { MoonProvider, MoonProviderOptions, MoonSigner } from '@moonup/ethers';
 import { MoonSDK } from '@moonup/moon-sdk';
-import { MoonAccount } from '@moonup/moon-types';
-import { providers } from 'ethers';
+import { Signer } from 'ethers';
 import {
   ProviderRpcError,
   UserRejectedRequestError,
@@ -12,8 +11,9 @@ import { Address, Chain, Connector, ConnectorData } from 'wagmi';
 
 export interface MoonConnectorOptions {
   chains?: Chain[];
-  options: MoonProviderOptions;
-  client: MoonSDK;
+  SDK: MoonSDK;
+  address: string;
+  chainId: number;
 }
 
 export class MoonConnector extends Connector<
@@ -24,18 +24,19 @@ export class MoonConnector extends Connector<
   name = 'Moon';
   ready = true;
 
-  override options: MoonProviderOptions;
+  config: MoonProviderOptions;
   provider: MoonProvider;
 
-  constructor({ chains, options }: MoonConnectorOptions) {
-    super({ chains, options });
-    this.options = options;
+  constructor({ chains, SDK, address, chainId }: MoonConnectorOptions) {
+    super({ chains, options: { chainId, SDK, address } });
+    this.config = { SDK, address, chainId };
+    this.provider = new MoonProvider(this.config);
   }
   async connect(): Promise<Required<ConnectorData>> {
-    let _account: MoonAccount;
+    let _account: string;
     try {
       this?.emit('message', { type: 'connecting' });
-      _account = await this.provider.connect();
+      _account = await this.provider.address;
     } catch (error) {
       if (/user rejected/i.test((error as ProviderRpcError)?.message)) {
         throw new UserRejectedRequestError(error as Error);
@@ -44,7 +45,7 @@ export class MoonConnector extends Connector<
     }
 
     const chianId = this.provider.getChainId();
-    const address = _account.getWallet() as Address;
+    const address = _account as Address;
 
     return {
       account: address,
@@ -83,7 +84,7 @@ export class MoonConnector extends Connector<
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async getAccount(): Promise<any> {
-    return Promise.resolve(this.MoonAccount?.wallet || '');
+    return Promise.resolve(this.config.address);
   }
 
   async getChainId(): Promise<number> {
@@ -95,10 +96,14 @@ export class MoonConnector extends Connector<
   }
 
   async getSigner() {
-    const chainId = await this.getChainId();
+    const chainId = (await this.getChainId()).toString(16);
     const account = await this.getAccount();
     return Promise.resolve(
-      new providers.Web3Provider(this.provider, chainId).getSigner(account)
+      new MoonSigner({
+        chainId,
+        SDK: this.config.SDK,
+        address: account,
+      }).connect(this.provider) as Signer
     );
   }
 
@@ -112,7 +117,7 @@ export class MoonConnector extends Connector<
   }
 
   async isAuthorized(): Promise<boolean> {
-    return Promise.resolve(!!sessionStorage.getItem('UP-A'));
+    return Promise.resolve(!!this.options.SDK.isAuthenticated);
   }
 
   protected onAccountsChanged(accounts: string[]) {
@@ -128,15 +133,8 @@ export class MoonConnector extends Connector<
     this?.emit('disconnect');
   }
 
-  private getMoonAccount(): MoonAccount | undefined {
-    try {
-      const sessionAccount = sessionStorage.getItem('UP-A');
-      const localAccount = localStorage.getItem('UP-A');
-      if (sessionAccount) return JSON.parse(sessionAccount);
-      if (localAccount) return JSON.parse(localAccount);
-    } catch {
-      return;
-    }
-    return;
+  public updateconfig(options: MoonProviderOptions) {
+    this.config = options;
+    this.provider?.updateConfig(options);
   }
 }

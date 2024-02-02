@@ -76,7 +76,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@moonup/moon-sdk": "^0.0.44",
+    "@moonup/moon-sdk": "^1.0.0",
     "viem": "^2.6.1"
   }
 }

@@ -1,7 +1,6 @@
 import { MoonProvider, MoonProviderOptions } from '@moonup/ethers';
 import { Transaction as MoonAPITransaction } from '@moonup/moon-api';
 import { MoonSDK } from '@moonup/moon-sdk';
-import { AUTH, MOON_SESSION_KEY, Storage } from '@moonup/moon-types';
 import BN from 'bn.js';
 import crypto from 'crypto';
 import { ethers } from 'ethers';
@@ -73,42 +72,28 @@ export interface MoonSkaleEthersHook {
   moon: MoonSDK | null;
   initialize: () => Promise<void>;
   disconnect: () => Promise<void>;
-  mineForGas: (contractAddress: string) => Promise<string>;
+  mineForGas: (contractAddress: string, address: string) => Promise<string>;
 }
 
 export function useMoonSkaleEthers(): MoonSkaleEthersHook {
   const [moonProvider, setMoonProvider] = useState<MoonProvider | null>(null);
   const [moon, setMoon] = useState<MoonSDK | null>(null);
   const initializeMoonSDK = async () => {
-    const moonInstance = new MoonSDK({
-      Storage: {
-        key: MOON_SESSION_KEY,
-        type: Storage.SESSION,
-      },
-      Auth: {
-        AuthType: AUTH.JWT,
-      },
-    });
+    const moonInstance = new MoonSDK();
     setMoon(moonInstance);
-    moonInstance.connect();
   };
 
   const initialize = async () => {
+    const moonInstance = new MoonSDK();
+    setMoon(moonInstance);
+    moonInstance.connect();
     const options: MoonProviderOptions = {
       chainId: 1,
-      MoonSDKConfig: {
-        Storage: {
-          key: MOON_SESSION_KEY,
-          type: Storage.SESSION,
-        },
-        Auth: {
-          AuthType: AUTH.JWT,
-        },
-      },
+      address: '0x',
+      SDK: moonInstance,
     };
-
-    const moonInstance = new MoonProvider(options);
-    setMoonProvider(moonInstance);
+    const moonProviderInstance = new MoonProvider(options);
+    setMoonProvider(moonProviderInstance);
   };
 
   const disconnect = async () => {
@@ -122,7 +107,10 @@ export function useMoonSkaleEthers(): MoonSkaleEthersHook {
     }
   };
 
-  const mineForGas = async (contractAddress: string): Promise<string> => {
+  const mineForGas = async (
+    contractAddress: string,
+    address: string
+  ): Promise<string> => {
     if (!moonProvider) {
       throw new Error('Moon Provider is not initialized');
     }
@@ -130,7 +118,7 @@ export function useMoonSkaleEthers(): MoonSkaleEthersHook {
       throw new Error('Moon SDK is not initialized');
     }
 
-    const wallet = moon?.getMoonAccount().getWallet() || '';
+    const wallet = address;
     const nonce = await moonProvider.getTransactionCount(wallet);
     const tx = {
       from: wallet,
