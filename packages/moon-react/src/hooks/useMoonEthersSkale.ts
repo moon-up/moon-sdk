@@ -1,8 +1,7 @@
 import { MoonProvider, MoonProviderOptions } from '@moonup/ethers';
-import { Transaction as MoonAPITransaction } from '@moonup/moon-api';
 import { MoonSDK } from '@moonup/moon-sdk';
 import BN from 'bn.js';
-import crypto from 'crypto';
+import * as crypto from 'crypto';
 import { ethers } from 'ethers';
 import { useEffect, useState } from 'react';
 
@@ -133,20 +132,11 @@ export function useMoonSkaleEthers(): MoonSkaleEthersHook {
     await mineGasForTransaction(moonProvider, tx);
 
     // Sign and send the transaction with the session key
-    const signedTx: string =
-      (await moon
-        .getAccountsSDK()
-        .signTransaction(wallet, tx)
-        .then((signedTx) => {
-          return (signedTx.data.data as MoonAPITransaction).raw_transaction;
-        })) || '';
+    const signedTx: string = await moon.SignTransaction(wallet, tx);
 
     // Send the signed transaction
-    const hash =
-      (await moonProvider.sendTransaction(signedTx).then((tx) => {
-        return tx.hash;
-      })) || '';
-    return hash;
+    const hash = await moonProvider.sendTransaction(signedTx);
+    return hash.hash;
   };
 
   useEffect(() => {
