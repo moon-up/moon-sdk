@@ -9,7 +9,7 @@
  * ---------------------------------------------------------------
  */
 
-import { PingResponse } from './data-contracts';
+import { GetMessageData } from './data-contracts';
 import { HttpClient, RequestParams } from './http-client';
 
 export class Ping<
@@ -22,10 +22,9 @@ export class Ping<
    * @request GET:/ping
    */
   getMessage = (params: RequestParams = {}) =>
-    this.request<PingResponse, any>({
+    this.request<GetMessageData, any>({
       path: `/ping`,
       method: 'GET',
-      format: 'json',
       ...params,
     });
 }

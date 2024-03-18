@@ -10,9 +10,12 @@
  */
 
 import {
-  AccountControllerResponse,
   CosmosInput,
   CosmosTransactionInput,
+  CreateCosmosAccountData,
+  GetCosmosAccountData,
+  ListCosmosAccountsData,
+  SignCosmosTransactionData,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
@@ -23,34 +26,17 @@ export class Cosmos<
    * No description
    *
    * @tags Cosmos
-   * @name ListCosmosAccounts
-   * @request GET:/cosmos
-   * @secure
-   */
-  listCosmosAccounts = (params: RequestParams = {}) =>
-    this.request<AccountControllerResponse, any>({
-      path: `/cosmos`,
-      method: 'GET',
-      secure: true,
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags Cosmos
    * @name CreateCosmosAccount
    * @request POST:/cosmos
    * @secure
    */
   createCosmosAccount = (data: CosmosInput, params: RequestParams = {}) =>
-    this.request<AccountControllerResponse, any>({
+    this.request<CreateCosmosAccountData, any>({
       path: `/cosmos`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
       ...params,
     });
   /**
@@ -62,11 +48,25 @@ export class Cosmos<
    * @secure
    */
   getCosmosAccount = (accountName: string, params: RequestParams = {}) =>
-    this.request<AccountControllerResponse, any>({
+    this.request<GetCosmosAccountData, any>({
       path: `/cosmos/${accountName}`,
       method: 'GET',
       secure: true,
-      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Cosmos
+   * @name ListCosmosAccounts
+   * @request GET:/cosmos
+   * @secure
+   */
+  listCosmosAccounts = (params: RequestParams = {}) =>
+    this.request<ListCosmosAccountsData, any>({
+      path: `/cosmos`,
+      method: 'GET',
+      secure: true,
       ...params,
     });
   /**
@@ -82,13 +82,12 @@ export class Cosmos<
     data: CosmosTransactionInput,
     params: RequestParams = {}
   ) =>
-    this.request<AccountControllerResponse, any>({
+    this.request<SignCosmosTransactionData, any>({
       path: `/cosmos/${accountName}/sign-tx`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
       ...params,
     });
 }

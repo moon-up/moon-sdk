@@ -9,7 +9,7 @@
  * ---------------------------------------------------------------
  */
 
-import { AccountControllerResponse, EnsResolveInput } from './data-contracts';
+import { EnsResolveInput, ResolveData } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
 export class Ens<
@@ -24,13 +24,12 @@ export class Ens<
    * @secure
    */
   resolve = (data: EnsResolveInput, params: RequestParams = {}) =>
-    this.request<AccountControllerResponse, any>({
+    this.request<ResolveData, any>({
       path: `/ens/resolve`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
       ...params,
     });
 }

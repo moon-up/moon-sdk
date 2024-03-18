@@ -10,7 +10,10 @@
  */
 
 import {
-  AccountControllerResponse,
+  CreateTronAccountData,
+  GetTronAccountData,
+  ListTronAccountsData,
+  SignTronTransactionData,
   TronInput,
   TronTransactionInput,
 } from './data-contracts';
@@ -23,34 +26,17 @@ export class Tron<
    * No description
    *
    * @tags Tron
-   * @name ListTronAccounts
-   * @request GET:/tron
-   * @secure
-   */
-  listTronAccounts = (params: RequestParams = {}) =>
-    this.request<AccountControllerResponse, any>({
-      path: `/tron`,
-      method: 'GET',
-      secure: true,
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags Tron
    * @name CreateTronAccount
    * @request POST:/tron
    * @secure
    */
   createTronAccount = (data: TronInput, params: RequestParams = {}) =>
-    this.request<AccountControllerResponse, any>({
+    this.request<CreateTronAccountData, any>({
       path: `/tron`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
       ...params,
     });
   /**
@@ -62,11 +48,25 @@ export class Tron<
    * @secure
    */
   getTronAccount = (accountName: string, params: RequestParams = {}) =>
-    this.request<AccountControllerResponse, any>({
+    this.request<GetTronAccountData, any>({
       path: `/tron/${accountName}`,
       method: 'GET',
       secure: true,
-      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Tron
+   * @name ListTronAccounts
+   * @request GET:/tron
+   * @secure
+   */
+  listTronAccounts = (params: RequestParams = {}) =>
+    this.request<ListTronAccountsData, any>({
+      path: `/tron`,
+      method: 'GET',
+      secure: true,
       ...params,
     });
   /**
@@ -82,13 +82,12 @@ export class Tron<
     data: TronTransactionInput,
     params: RequestParams = {}
   ) =>
-    this.request<AccountControllerResponse, any>({
+    this.request<SignTronTransactionData, any>({
       path: `/tron/${accountName}/sign-tx`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
       ...params,
     });
 }

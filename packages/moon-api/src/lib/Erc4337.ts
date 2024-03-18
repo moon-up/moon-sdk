@@ -9,7 +9,11 @@
  * ---------------------------------------------------------------
  */
 
-import { AccountControllerResponse, InputBody } from './data-contracts';
+import {
+  GetAddressData,
+  InputBody,
+  SignBroadcastUserOpTxData,
+} from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
 export class Erc4337<
@@ -28,13 +32,12 @@ export class Erc4337<
     data: InputBody,
     params: RequestParams = {}
   ) =>
-    this.request<AccountControllerResponse, any>({
+    this.request<GetAddressData, any>({
       path: `/erc4337/${accountName}/address`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
       ...params,
     });
   /**
@@ -50,13 +53,12 @@ export class Erc4337<
     data: InputBody,
     params: RequestParams = {}
   ) =>
-    this.request<AccountControllerResponse, any>({
+    this.request<SignBroadcastUserOpTxData, any>({
       path: `/erc4337/${accountName}/sign-broadcast-userop-tx`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
       ...params,
     });
 }

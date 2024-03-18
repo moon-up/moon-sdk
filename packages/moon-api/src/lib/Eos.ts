@@ -10,9 +10,12 @@
  */
 
 import {
-  AccountControllerResponse,
+  CreateEosAccountData,
   EosInput,
   EosTransactionInput,
+  GetEosAccountData,
+  ListEosAccountsData,
+  SignEosTransactionData,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
@@ -23,34 +26,17 @@ export class Eos<
    * No description
    *
    * @tags eos
-   * @name ListEosAccounts
-   * @request GET:/eos
-   * @secure
-   */
-  listEosAccounts = (params: RequestParams = {}) =>
-    this.request<AccountControllerResponse, any>({
-      path: `/eos`,
-      method: 'GET',
-      secure: true,
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags eos
    * @name CreateEosAccount
    * @request POST:/eos
    * @secure
    */
   createEosAccount = (data: EosInput, params: RequestParams = {}) =>
-    this.request<AccountControllerResponse, any>({
+    this.request<CreateEosAccountData, any>({
       path: `/eos`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
       ...params,
     });
   /**
@@ -62,11 +48,25 @@ export class Eos<
    * @secure
    */
   getEosAccount = (accountName: string, params: RequestParams = {}) =>
-    this.request<AccountControllerResponse, any>({
+    this.request<GetEosAccountData, any>({
       path: `/eos/${accountName}`,
       method: 'GET',
       secure: true,
-      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags eos
+   * @name ListEosAccounts
+   * @request GET:/eos
+   * @secure
+   */
+  listEosAccounts = (params: RequestParams = {}) =>
+    this.request<ListEosAccountsData, any>({
+      path: `/eos`,
+      method: 'GET',
+      secure: true,
       ...params,
     });
   /**
@@ -82,13 +82,12 @@ export class Eos<
     data: EosTransactionInput,
     params: RequestParams = {}
   ) =>
-    this.request<AccountControllerResponse, any>({
+    this.request<SignEosTransactionData, any>({
       path: `/eos/${accountName}/sign-tx`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
       ...params,
     });
 }

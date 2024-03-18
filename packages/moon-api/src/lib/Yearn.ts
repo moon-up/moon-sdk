@@ -9,7 +9,13 @@
  * ---------------------------------------------------------------
  */
 
-import { AccountControllerResponse, InputBody } from './data-contracts';
+import {
+  AddLiquidityResult,
+  AddLiquidityWethData,
+  InputBody,
+  RemoveLiquidityResult,
+  RemoveLiquidityWethData,
+} from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
 export class Yearn<
@@ -24,35 +30,12 @@ export class Yearn<
    * @secure
    */
   addLiquidity = (name: string, data: InputBody, params: RequestParams = {}) =>
-    this.request<AccountControllerResponse, any>({
+    this.request<AddLiquidityResult, any>({
       path: `/yearn/${name}/add-liquidity`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags yearn
-   * @name RemoveLiquidity
-   * @request POST:/yearn/{name}/remove-liquidity
-   * @secure
-   */
-  removeLiquidity = (
-    name: string,
-    data: InputBody,
-    params: RequestParams = {}
-  ) =>
-    this.request<AccountControllerResponse, any>({
-      path: `/yearn/${name}/remove-liquidity`,
-      method: 'POST',
-      body: data,
-      secure: true,
-      type: ContentType.Json,
-      format: 'json',
       ...params,
     });
   /**
@@ -68,13 +51,33 @@ export class Yearn<
     data: InputBody,
     params: RequestParams = {}
   ) =>
-    this.request<AccountControllerResponse, any>({
+    this.request<AddLiquidityWethData, any>({
       path: `/yearn/${name}/add-liquidity-weth`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags yearn
+   * @name RemoveLiquidity
+   * @request POST:/yearn/{name}/remove-liquidity
+   * @secure
+   */
+  removeLiquidity = (
+    name: string,
+    data: InputBody,
+    params: RequestParams = {}
+  ) =>
+    this.request<RemoveLiquidityResult, any>({
+      path: `/yearn/${name}/remove-liquidity`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
       ...params,
     });
   /**
@@ -90,13 +93,12 @@ export class Yearn<
     data: InputBody,
     params: RequestParams = {}
   ) =>
-    this.request<AccountControllerResponse, any>({
+    this.request<RemoveLiquidityWethData, any>({
       path: `/yearn/${name}/remove-liquidity-weth`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
       ...params,
     });
 }

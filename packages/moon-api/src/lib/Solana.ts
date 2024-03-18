@@ -10,7 +10,10 @@
  */
 
 import {
-  AccountControllerResponse,
+  CreateSolanaAccountData,
+  GetSolanaAccountData,
+  ListSolanaAccountsData,
+  SignSolanaTransactionData,
   SolanaInput,
   SolanaTransactionInput,
 } from './data-contracts';
@@ -23,34 +26,17 @@ export class Solana<
    * No description
    *
    * @tags Solana
-   * @name ListSolanaAccounts
-   * @request GET:/solana
-   * @secure
-   */
-  listSolanaAccounts = (params: RequestParams = {}) =>
-    this.request<AccountControllerResponse, any>({
-      path: `/solana`,
-      method: 'GET',
-      secure: true,
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags Solana
    * @name CreateSolanaAccount
    * @request POST:/solana
    * @secure
    */
   createSolanaAccount = (data: SolanaInput, params: RequestParams = {}) =>
-    this.request<AccountControllerResponse, any>({
+    this.request<CreateSolanaAccountData, any>({
       path: `/solana`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
       ...params,
     });
   /**
@@ -62,11 +48,25 @@ export class Solana<
    * @secure
    */
   getSolanaAccount = (accountName: string, params: RequestParams = {}) =>
-    this.request<AccountControllerResponse, any>({
+    this.request<GetSolanaAccountData, any>({
       path: `/solana/${accountName}`,
       method: 'GET',
       secure: true,
-      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Solana
+   * @name ListSolanaAccounts
+   * @request GET:/solana
+   * @secure
+   */
+  listSolanaAccounts = (params: RequestParams = {}) =>
+    this.request<ListSolanaAccountsData, any>({
+      path: `/solana`,
+      method: 'GET',
+      secure: true,
       ...params,
     });
   /**
@@ -82,13 +82,12 @@ export class Solana<
     data: SolanaTransactionInput,
     params: RequestParams = {}
   ) =>
-    this.request<AccountControllerResponse, any>({
+    this.request<SignSolanaTransactionData, any>({
       path: `/solana/${accountName}/sign-tx`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
       ...params,
     });
 }
