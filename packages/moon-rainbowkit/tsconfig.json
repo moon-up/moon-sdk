@@ -5,5 +5,8 @@
   "types": ["vitest/globals"],
   "compilerOptions": {
     "jsx": "react",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "preserveSymlinks": true
   }
 }

@@ -83,7 +83,12 @@ export const RainbowKitUseMoonProvider = ({
       ).then((res) => res.json());
 
       if (response.ok) {
-        // The verification was successful
+        // check if the response returned a valid access token and refresh token
+        if (!response.data.access_token || !response.data.refresh_token) {
+          console.error('No access token or refresh token');
+          return false;
+        }
+
         moon?.setAccessToken(
           response.data.access_token,
           response.data.refresh_token
