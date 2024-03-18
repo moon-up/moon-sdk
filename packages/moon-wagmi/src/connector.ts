@@ -100,7 +100,7 @@ export class MoonConnector extends Connector<
     const account = await this.getAccount();
     return Promise.resolve(
       new MoonSigner({
-        chainId,
+        chainId: Number(chainId),
         SDK: this.config.SDK,
         address: account,
       }).connect(this.provider) as Signer

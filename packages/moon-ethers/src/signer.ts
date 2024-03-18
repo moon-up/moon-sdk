@@ -23,7 +23,7 @@ export interface Typed {
 export interface MoonSignerConfig {
   SDK: MoonSDK;
   address: string;
-  chainId: string;
+  chainId: number;
 }
 
 export class MoonSigner extends Signer implements TypedDataSigner {
@@ -93,7 +93,7 @@ export class MoonSigner extends Signer implements TypedDataSigner {
     const response = await this.SDK.SendTransaction(
       this.MoonSignerConfig.address,
       signedTransaction,
-      this.MoonSignerConfig.chainId
+      this.MoonSignerConfig.chainId.toString()
     );
     return response;
   }

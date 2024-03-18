@@ -7,11 +7,11 @@ import { MoonProviderOptions } from './types';
 import { getMessage, getSignTypedDataParamsData } from './utils';
 
 export class JsonRpcProvider {
-  public chainId: number;
-  public http: providers.JsonRpcProvider;
-  public sdk: MoonSDK;
-  public signer: MoonSigner;
-  public config: MoonProviderOptions;
+  private chainId: number;
+  private http: providers.JsonRpcProvider;
+  private sdk: MoonSDK;
+  private signer: MoonSigner;
+  private config: MoonProviderOptions;
 
   constructor(options: MoonProviderOptions) {
     this.config = options;
@@ -23,7 +23,7 @@ export class JsonRpcProvider {
     this.signer = new MoonSigner({
       SDK: this.sdk,
       address: options.address,
-      chainId: this.chainId.toString(),
+      chainId: this.chainId,
     });
   }
   private async setup() {
@@ -32,18 +32,59 @@ export class JsonRpcProvider {
     this.http = new providers.JsonRpcProvider(rpcUrls[0]);
   }
 
+  public getChainId(): number {
+    return this.chainId;
+  }
+
+  public setChainId(chainId: number): void {
+    this.chainId = chainId;
+  }
+
+  public getProvider(): providers.JsonRpcProvider {
+    return this.http;
+  }
+  public setProvider(provider: providers.JsonRpcProvider): void {
+    this.http = provider;
+  }
+
+  public getSigner(): MoonSigner {
+    return this.signer;
+  }
+
+  public setSigner(signer: MoonSigner): void {
+    this.signer = signer;
+  }
+
+  public getSDK(): MoonSDK {
+    return this.sdk;
+  }
+
+  public setSDK(sdk: MoonSDK): void {
+    this.sdk = sdk;
+  }
+
+  public getConfig(): MoonProviderOptions {
+    return this.config;
+  }
+
+  public setConfig(config: MoonProviderOptions): void {
+    this.config = config;
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public async request(request: RequestArguments): Promise<any> {
+  public async request<ResponseType>(
+    request: RequestArguments
+  ): Promise<ResponseType> {
     switch (request.method) {
       case 'eth_requestAccounts':
         // eslint-disable-next-line no-case-declarations
         const keys = await this.sdk.listAccounts();
-        return keys || [];
+        return keys as ResponseType;
       case 'personal_sign':
         if (Array.isArray(request.params) && request.params.length > 0) {
           const message = getMessage(request?.params as string[]);
           const signedMessage = await this.signer.signMessage(message);
-          return signedMessage;
+          return signedMessage as ResponseType;
         } else {
           throw new Error('request.params is undefined or not an array');
         }
@@ -58,7 +99,7 @@ export class JsonRpcProvider {
             typedData.types,
             typedData.value
           );
-          return signedTypedData || '';
+          return signedTypedData as ResponseType;
         } else {
           throw new Error('request.params is undefined or not an array');
         }
@@ -72,7 +113,7 @@ export class JsonRpcProvider {
             ? request?.params[0]
             : undefined;
         if (_params) {
-          return await this.signer.sendTransaction(_params);
+          return (await this.signer.sendTransaction(_params)) as ResponseType;
         }
         throw new Error('eth_sendTransaction error');
       default:
@@ -93,7 +134,7 @@ export class JsonRpcProvider {
     this.signer.updateConfig({
       SDK: this.sdk,
       address: '',
-      chainId: this.chainId.toString(),
+      chainId: this.chainId,
     });
   }
 }
