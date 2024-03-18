@@ -18,9 +18,13 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Aave<
-  SecurityDataType = unknown,
-> extends HttpClient<SecurityDataType> {
+export class Aave<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
@@ -30,7 +34,7 @@ export class Aave<
    * @secure
    */
   borrow = (name: string, data: AaveInput, params: RequestParams = {}) =>
-    this.request<BorrowData, any>({
+    this.http.request<BorrowData, any>({
       path: `/aave/${name}/borrow`,
       method: 'POST',
       body: data,
@@ -47,7 +51,7 @@ export class Aave<
    * @secure
    */
   lend = (name: string, data: AaveInput, params: RequestParams = {}) =>
-    this.request<LendData, any>({
+    this.http.request<LendData, any>({
       path: `/aave/${name}/lend`,
       method: 'POST',
       body: data,
@@ -64,7 +68,7 @@ export class Aave<
    * @secure
    */
   repay = (name: string, data: AaveInput, params: RequestParams = {}) =>
-    this.request<RepayData, any>({
+    this.http.request<RepayData, any>({
       path: `/aave/${name}/repay`,
       method: 'POST',
       body: data,
@@ -85,7 +89,7 @@ export class Aave<
     data: AaveInput,
     params: RequestParams = {}
   ) =>
-    this.request<UserReserveDataData, any>({
+    this.http.request<UserReserveDataData, any>({
       path: `/aave/${name}/user-reserve-data`,
       method: 'POST',
       body: data,

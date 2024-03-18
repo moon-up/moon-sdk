@@ -30,9 +30,13 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Onramper<
-  SecurityDataType = unknown,
-> extends HttpClient<SecurityDataType> {
+export class Onramper<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
@@ -46,7 +50,7 @@ export class Onramper<
     data: TransactionInput,
     params: RequestParams = {}
   ) =>
-    this.request<OnRamperCheckoutData, any>({
+    this.http.request<OnRamperCheckoutData, any>({
       path: `/onramper/fund/$${accountName}`,
       method: 'POST',
       body: data,
@@ -66,7 +70,7 @@ export class Onramper<
     query: OnRamperGetQuotesBuyParams,
     params: RequestParams = {}
   ) =>
-    this.request<OnRamperGetQuotesBuyData, any>({
+    this.http.request<OnRamperGetQuotesBuyData, any>({
       path: `/onramper/quotes/buy`,
       method: 'GET',
       query: query,
@@ -85,7 +89,7 @@ export class Onramper<
     query: OnRamperGetQuotesSellParams,
     params: RequestParams = {}
   ) =>
-    this.request<OnRamperGetQuotesSellData, any>({
+    this.http.request<OnRamperGetQuotesSellData, any>({
       path: `/onramper/quotes/sell`,
       method: 'GET',
       query: query,
@@ -104,7 +108,7 @@ export class Onramper<
     query: OnRamperGetSupportedAssetsParams,
     params: RequestParams = {}
   ) =>
-    this.request<OnRamperGetSupportedAssetsData, any>({
+    this.http.request<OnRamperGetSupportedAssetsData, any>({
       path: `/onramper/assets`,
       method: 'GET',
       query: query,
@@ -123,7 +127,7 @@ export class Onramper<
     query: OnRamperGetSupportedCurrenciesParams,
     params: RequestParams = {}
   ) =>
-    this.request<OnRamperGetSupportedCurrenciesData, any>({
+    this.http.request<OnRamperGetSupportedCurrenciesData, any>({
       path: `/onramper/currencies`,
       method: 'GET',
       query: query,
@@ -142,7 +146,7 @@ export class Onramper<
     query: OnRamperGetSupportedDefaultsAllParams,
     params: RequestParams = {}
   ) =>
-    this.request<OnRamperGetSupportedDefaultsAllData, any>({
+    this.http.request<OnRamperGetSupportedDefaultsAllData, any>({
       path: `/onramper/defaults`,
       method: 'GET',
       query: query,
@@ -158,7 +162,7 @@ export class Onramper<
    * @secure
    */
   onRamperGetSupportedOnRampsAll = (params: RequestParams = {}) =>
-    this.request<OnRamperGetSupportedOnRampsAllData, any>({
+    this.http.request<OnRamperGetSupportedOnRampsAllData, any>({
       path: `/onramper/onramps`,
       method: 'GET',
       secure: true,
@@ -176,7 +180,7 @@ export class Onramper<
     query: OnRamperGetSupportedPaymentTypesParams,
     params: RequestParams = {}
   ) =>
-    this.request<OnRamperGetSupportedPaymentTypesData, any>({
+    this.http.request<OnRamperGetSupportedPaymentTypesData, any>({
       path: `/onramper/payment-types`,
       method: 'GET',
       query: query,
@@ -195,7 +199,7 @@ export class Onramper<
     query: OnRamperGetSupportedPaymentTypesFiatParams,
     params: RequestParams = {}
   ) =>
-    this.request<OnRamperGetSupportedPaymentTypesFiatData, any>({
+    this.http.request<OnRamperGetSupportedPaymentTypesFiatData, any>({
       path: `/onramper/payment-types/fiat`,
       method: 'GET',
       query: query,

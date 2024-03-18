@@ -13,7 +13,6 @@ export * from './Erc4337';
 export * from './Erc721';
 export * from './Litecoin';
 export * from './Oneinch';
-export * from './Payment';
 export * from './Ripple';
 export * from './Solana';
 export * from './Tron';

@@ -19,9 +19,13 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Ripple<
-  SecurityDataType = unknown,
-> extends HttpClient<SecurityDataType> {
+export class Ripple<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
@@ -31,7 +35,7 @@ export class Ripple<
    * @secure
    */
   createRippleAccount = (data: RippleInput, params: RequestParams = {}) =>
-    this.request<CreateRippleAccountData, any>({
+    this.http.request<CreateRippleAccountData, any>({
       path: `/ripple`,
       method: 'POST',
       body: data,
@@ -48,7 +52,7 @@ export class Ripple<
    * @secure
    */
   getRippleAccount = (accountName: string, params: RequestParams = {}) =>
-    this.request<GetRippleAccountData, any>({
+    this.http.request<GetRippleAccountData, any>({
       path: `/ripple/${accountName}`,
       method: 'GET',
       secure: true,
@@ -63,7 +67,7 @@ export class Ripple<
    * @secure
    */
   listRippleAccounts = (params: RequestParams = {}) =>
-    this.request<ListRippleAccountsData, any>({
+    this.http.request<ListRippleAccountsData, any>({
       path: `/ripple`,
       method: 'GET',
       secure: true,
@@ -82,7 +86,7 @@ export class Ripple<
     data: RippleTransactionInput,
     params: RequestParams = {}
   ) =>
-    this.request<SignRippleTransactionData, any>({
+    this.http.request<SignRippleTransactionData, any>({
       path: `/ripple/${accountName}/sign-tx`,
       method: 'POST',
       body: data,

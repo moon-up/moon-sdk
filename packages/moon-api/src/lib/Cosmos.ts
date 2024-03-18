@@ -19,9 +19,13 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Cosmos<
-  SecurityDataType = unknown,
-> extends HttpClient<SecurityDataType> {
+export class Cosmos<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
@@ -31,7 +35,7 @@ export class Cosmos<
    * @secure
    */
   createCosmosAccount = (data: CosmosInput, params: RequestParams = {}) =>
-    this.request<CreateCosmosAccountData, any>({
+    this.http.request<CreateCosmosAccountData, any>({
       path: `/cosmos`,
       method: 'POST',
       body: data,
@@ -48,7 +52,7 @@ export class Cosmos<
    * @secure
    */
   getCosmosAccount = (accountName: string, params: RequestParams = {}) =>
-    this.request<GetCosmosAccountData, any>({
+    this.http.request<GetCosmosAccountData, any>({
       path: `/cosmos/${accountName}`,
       method: 'GET',
       secure: true,
@@ -63,7 +67,7 @@ export class Cosmos<
    * @secure
    */
   listCosmosAccounts = (params: RequestParams = {}) =>
-    this.request<ListCosmosAccountsData, any>({
+    this.http.request<ListCosmosAccountsData, any>({
       path: `/cosmos`,
       method: 'GET',
       secure: true,
@@ -82,7 +86,7 @@ export class Cosmos<
     data: CosmosTransactionInput,
     params: RequestParams = {}
   ) =>
-    this.request<SignCosmosTransactionData, any>({
+    this.http.request<SignCosmosTransactionData, any>({
       path: `/cosmos/${accountName}/sign-tx`,
       method: 'POST',
       body: data,

@@ -26,9 +26,13 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Erc721<
-  SecurityDataType = unknown,
-> extends HttpClient<SecurityDataType> {
+export class Erc721<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
@@ -38,7 +42,7 @@ export class Erc721<
    * @secure
    */
   approve = (name: string, data: Erc721Request, params: RequestParams = {}) =>
-    this.request<ApproveData, any>({
+    this.http.request<ApproveData, any>({
       path: `/erc721/${name}/approve`,
       method: 'POST',
       body: data,
@@ -55,7 +59,7 @@ export class Erc721<
    * @secure
    */
   balanceOf = (name: string, data: Erc721Request, params: RequestParams = {}) =>
-    this.request<BalanceOfResult, any>({
+    this.http.request<BalanceOfResult, any>({
       path: `/erc721/${name}/balance-of`,
       method: 'POST',
       body: data,
@@ -76,7 +80,7 @@ export class Erc721<
     data: Erc721Request,
     params: RequestParams = {}
   ) =>
-    this.request<GetApprovedData, any>({
+    this.http.request<GetApprovedData, any>({
       path: `/erc721/${name}/get-approved`,
       method: 'POST',
       body: data,
@@ -97,7 +101,7 @@ export class Erc721<
     data: Erc721Request,
     params: RequestParams = {}
   ) =>
-    this.request<IsApprovedForAllResult, any>({
+    this.http.request<IsApprovedForAllResult, any>({
       path: `/erc721/${name}/is-approved-for-all`,
       method: 'POST',
       body: data,
@@ -114,7 +118,7 @@ export class Erc721<
    * @secure
    */
   name = (name: string, data: Erc721Request, params: RequestParams = {}) =>
-    this.request<NameData, any>({
+    this.http.request<NameData, any>({
       path: `/erc721/${name}/name`,
       method: 'POST',
       body: data,
@@ -131,7 +135,7 @@ export class Erc721<
    * @secure
    */
   ownerOf = (name: string, data: Erc721Request, params: RequestParams = {}) =>
-    this.request<OwnerOfData, any>({
+    this.http.request<OwnerOfData, any>({
       path: `/erc721/${name}/owner-of`,
       method: 'POST',
       body: data,
@@ -152,7 +156,7 @@ export class Erc721<
     data: Erc721Request,
     params: RequestParams = {}
   ) =>
-    this.request<SafeTransferFromResult, any>({
+    this.http.request<SafeTransferFromResult, any>({
       path: `/erc721/${name}/safe-transfer-from`,
       method: 'POST',
       body: data,
@@ -173,7 +177,7 @@ export class Erc721<
     data: Erc721Request,
     params: RequestParams = {}
   ) =>
-    this.request<SetApprovalForAllResult, any>({
+    this.http.request<SetApprovalForAllResult, any>({
       path: `/erc721/${name}/set-approval-for-all`,
       method: 'POST',
       body: data,
@@ -190,7 +194,7 @@ export class Erc721<
    * @secure
    */
   symbol = (name: string, data: Erc721Request, params: RequestParams = {}) =>
-    this.request<SymbolData, any>({
+    this.http.request<SymbolData, any>({
       path: `/erc721/${name}/symbol`,
       method: 'POST',
       body: data,
@@ -207,7 +211,7 @@ export class Erc721<
    * @secure
    */
   tokenUri = (name: string, data: Erc721Request, params: RequestParams = {}) =>
-    this.request<TokenUriData, any>({
+    this.http.request<TokenUriData, any>({
       path: `/erc721/${name}/token-uri`,
       method: 'POST',
       body: data,
@@ -224,7 +228,7 @@ export class Erc721<
    * @secure
    */
   transfer = (name: string, data: Erc721Request, params: RequestParams = {}) =>
-    this.request<TransferData, any>({
+    this.http.request<TransferData, any>({
       path: `/erc721/${name}/transfer`,
       method: 'POST',
       body: data,
@@ -245,7 +249,7 @@ export class Erc721<
     data: Erc721Request,
     params: RequestParams = {}
   ) =>
-    this.request<TransferFromData, any>({
+    this.http.request<TransferFromData, any>({
       path: `/erc721/${name}/transfer-from`,
       method: 'POST',
       body: data,

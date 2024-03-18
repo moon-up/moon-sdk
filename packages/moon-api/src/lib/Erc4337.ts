@@ -16,9 +16,13 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Erc4337<
-  SecurityDataType = unknown,
-> extends HttpClient<SecurityDataType> {
+export class Erc4337<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
@@ -32,7 +36,7 @@ export class Erc4337<
     data: InputBody,
     params: RequestParams = {}
   ) =>
-    this.request<GetAddressData, any>({
+    this.http.request<GetAddressData, any>({
       path: `/erc4337/${accountName}/address`,
       method: 'POST',
       body: data,
@@ -53,7 +57,7 @@ export class Erc4337<
     data: InputBody,
     params: RequestParams = {}
   ) =>
-    this.request<SignBroadcastUserOpTxData, any>({
+    this.http.request<SignBroadcastUserOpTxData, any>({
       path: `/erc4337/${accountName}/sign-broadcast-userop-tx`,
       method: 'POST',
       body: data,

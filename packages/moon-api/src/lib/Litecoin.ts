@@ -19,9 +19,13 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Litecoin<
-  SecurityDataType = unknown,
-> extends HttpClient<SecurityDataType> {
+export class Litecoin<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
@@ -31,7 +35,7 @@ export class Litecoin<
    * @secure
    */
   createLitecoinAccount = (data: LitecoinInput, params: RequestParams = {}) =>
-    this.request<CreateLitecoinAccountData, any>({
+    this.http.request<CreateLitecoinAccountData, any>({
       path: `/litecoin`,
       method: 'POST',
       body: data,
@@ -48,7 +52,7 @@ export class Litecoin<
    * @secure
    */
   getLitecoinAccount = (accountName: string, params: RequestParams = {}) =>
-    this.request<GetLitecoinAccountData, any>({
+    this.http.request<GetLitecoinAccountData, any>({
       path: `/litecoin/${accountName}`,
       method: 'GET',
       secure: true,
@@ -63,7 +67,7 @@ export class Litecoin<
    * @secure
    */
   listLitecoinAccounts = (params: RequestParams = {}) =>
-    this.request<ListLitecoinAccountsData, any>({
+    this.http.request<ListLitecoinAccountsData, any>({
       path: `/litecoin`,
       method: 'GET',
       secure: true,
@@ -82,7 +86,7 @@ export class Litecoin<
     data: LitecoinTransactionInput,
     params: RequestParams = {}
   ) =>
-    this.request<SignLitecoinTransactionData, any>({
+    this.http.request<SignLitecoinTransactionData, any>({
       path: `/litecoin/${accountName}/sign-tx`,
       method: 'POST',
       body: data,

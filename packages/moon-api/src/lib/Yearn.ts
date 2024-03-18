@@ -18,9 +18,13 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Yearn<
-  SecurityDataType = unknown,
-> extends HttpClient<SecurityDataType> {
+export class Yearn<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
@@ -30,7 +34,7 @@ export class Yearn<
    * @secure
    */
   addLiquidity = (name: string, data: InputBody, params: RequestParams = {}) =>
-    this.request<AddLiquidityResult, any>({
+    this.http.request<AddLiquidityResult, any>({
       path: `/yearn/${name}/add-liquidity`,
       method: 'POST',
       body: data,
@@ -51,7 +55,7 @@ export class Yearn<
     data: InputBody,
     params: RequestParams = {}
   ) =>
-    this.request<AddLiquidityWethData, any>({
+    this.http.request<AddLiquidityWethData, any>({
       path: `/yearn/${name}/add-liquidity-weth`,
       method: 'POST',
       body: data,
@@ -72,7 +76,7 @@ export class Yearn<
     data: InputBody,
     params: RequestParams = {}
   ) =>
-    this.request<RemoveLiquidityResult, any>({
+    this.http.request<RemoveLiquidityResult, any>({
       path: `/yearn/${name}/remove-liquidity`,
       method: 'POST',
       body: data,
@@ -93,7 +97,7 @@ export class Yearn<
     data: InputBody,
     params: RequestParams = {}
   ) =>
-    this.request<RemoveLiquidityWethData, any>({
+    this.http.request<RemoveLiquidityWethData, any>({
       path: `/yearn/${name}/remove-liquidity-weth`,
       method: 'POST',
       body: data,

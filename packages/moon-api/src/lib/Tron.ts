@@ -19,9 +19,13 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Tron<
-  SecurityDataType = unknown,
-> extends HttpClient<SecurityDataType> {
+export class Tron<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
@@ -31,7 +35,7 @@ export class Tron<
    * @secure
    */
   createTronAccount = (data: TronInput, params: RequestParams = {}) =>
-    this.request<CreateTronAccountData, any>({
+    this.http.request<CreateTronAccountData, any>({
       path: `/tron`,
       method: 'POST',
       body: data,
@@ -48,7 +52,7 @@ export class Tron<
    * @secure
    */
   getTronAccount = (accountName: string, params: RequestParams = {}) =>
-    this.request<GetTronAccountData, any>({
+    this.http.request<GetTronAccountData, any>({
       path: `/tron/${accountName}`,
       method: 'GET',
       secure: true,
@@ -63,7 +67,7 @@ export class Tron<
    * @secure
    */
   listTronAccounts = (params: RequestParams = {}) =>
-    this.request<ListTronAccountsData, any>({
+    this.http.request<ListTronAccountsData, any>({
       path: `/tron`,
       method: 'GET',
       secure: true,
@@ -82,7 +86,7 @@ export class Tron<
     data: TronTransactionInput,
     params: RequestParams = {}
   ) =>
-    this.request<SignTronTransactionData, any>({
+    this.http.request<SignTronTransactionData, any>({
       path: `/tron/${accountName}/sign-tx`,
       method: 'POST',
       body: data,

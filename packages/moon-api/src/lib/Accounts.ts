@@ -32,9 +32,13 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Accounts<
-  SecurityDataType = unknown,
-> extends HttpClient<SecurityDataType> {
+export class Accounts<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
@@ -48,7 +52,7 @@ export class Accounts<
     data: BroadcastInput,
     params: RequestParams = {}
   ) =>
-    this.request<BroadcastTxData, any>({
+    this.http.request<BroadcastTxData, any>({
       path: `/accounts/${accountName}/broadcast-tx`,
       method: 'POST',
       body: data,
@@ -65,7 +69,7 @@ export class Accounts<
    * @secure
    */
   createAccount = (data: CreateAccountInput, params: RequestParams = {}) =>
-    this.request<CreateAccountData, any>({
+    this.http.request<CreateAccountData, any>({
       path: `/accounts`,
       method: 'POST',
       body: data,
@@ -82,7 +86,7 @@ export class Accounts<
    * @secure
    */
   deleteAccount = (accountName: string, params: RequestParams = {}) =>
-    this.request<DeleteAccountData, any>({
+    this.http.request<DeleteAccountData, any>({
       path: `/accounts/${accountName}`,
       method: 'DELETE',
       secure: true,
@@ -101,7 +105,7 @@ export class Accounts<
     data: DeployInput,
     params: RequestParams = {}
   ) =>
-    this.request<DeployContractData, any>({
+    this.http.request<DeployContractData, any>({
       path: `/accounts/${accountName}/deploy`,
       method: 'POST',
       body: data,
@@ -118,7 +122,7 @@ export class Accounts<
    * @secure
    */
   getAccount = (accountName: string, params: RequestParams = {}) =>
-    this.request<GetAccountData, any>({
+    this.http.request<GetAccountData, any>({
       path: `/accounts/${accountName}`,
       method: 'GET',
       secure: true,
@@ -136,7 +140,7 @@ export class Accounts<
     { accountName, ...query }: GetBalanceParams,
     params: RequestParams = {}
   ) =>
-    this.request<GetBalanceData, any>({
+    this.http.request<GetBalanceData, any>({
       path: `/accounts/${accountName}/balance`,
       method: 'GET',
       query: query,
@@ -152,7 +156,7 @@ export class Accounts<
    * @secure
    */
   getNonce = (accountName: string, params: RequestParams = {}) =>
-    this.request<GetNonceData, any>({
+    this.http.request<GetNonceData, any>({
       path: `/accounts/${accountName}/nonce`,
       method: 'GET',
       secure: true,
@@ -167,7 +171,7 @@ export class Accounts<
    * @secure
    */
   listAccounts = (params: RequestParams = {}) =>
-    this.request<ListAccountsData, any>({
+    this.http.request<ListAccountsData, any>({
       path: `/accounts`,
       method: 'GET',
       secure: true,
@@ -186,7 +190,7 @@ export class Accounts<
     data: SignMessage,
     params: RequestParams = {}
   ) =>
-    this.request<SignMessageData, any>({
+    this.http.request<SignMessageData, any>({
       path: `/accounts/${accountName}/sign-message`,
       method: 'POST',
       body: data,
@@ -207,7 +211,7 @@ export class Accounts<
     data: InputBody,
     params: RequestParams = {}
   ) =>
-    this.request<SignTransactionData, any>({
+    this.http.request<SignTransactionData, any>({
       path: `/accounts/${accountName}/sign-transaction`,
       method: 'POST',
       body: data,
@@ -228,7 +232,7 @@ export class Accounts<
     data: SignTypedData,
     params: RequestParams = {}
   ) =>
-    this.request<SignTypedDataData, any>({
+    this.http.request<SignTypedDataData, any>({
       path: `/accounts/${accountName}/sign-typed-data`,
       method: 'POST',
       body: data,
@@ -249,7 +253,7 @@ export class Accounts<
     data: InputBody,
     params: RequestParams = {}
   ) =>
-    this.request<TransferEthData, any>({
+    this.http.request<TransferEthData, any>({
       path: `/accounts/${accountName}/transfer-eth`,
       method: 'POST',
       body: data,

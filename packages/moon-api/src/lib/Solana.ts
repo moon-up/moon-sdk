@@ -19,9 +19,13 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Solana<
-  SecurityDataType = unknown,
-> extends HttpClient<SecurityDataType> {
+export class Solana<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
@@ -31,7 +35,7 @@ export class Solana<
    * @secure
    */
   createSolanaAccount = (data: SolanaInput, params: RequestParams = {}) =>
-    this.request<CreateSolanaAccountData, any>({
+    this.http.request<CreateSolanaAccountData, any>({
       path: `/solana`,
       method: 'POST',
       body: data,
@@ -48,7 +52,7 @@ export class Solana<
    * @secure
    */
   getSolanaAccount = (accountName: string, params: RequestParams = {}) =>
-    this.request<GetSolanaAccountData, any>({
+    this.http.request<GetSolanaAccountData, any>({
       path: `/solana/${accountName}`,
       method: 'GET',
       secure: true,
@@ -63,7 +67,7 @@ export class Solana<
    * @secure
    */
   listSolanaAccounts = (params: RequestParams = {}) =>
-    this.request<ListSolanaAccountsData, any>({
+    this.http.request<ListSolanaAccountsData, any>({
       path: `/solana`,
       method: 'GET',
       secure: true,
@@ -82,7 +86,7 @@ export class Solana<
     data: SolanaTransactionInput,
     params: RequestParams = {}
   ) =>
-    this.request<SignSolanaTransactionData, any>({
+    this.http.request<SignSolanaTransactionData, any>({
       path: `/solana/${accountName}/sign-tx`,
       method: 'POST',
       body: data,

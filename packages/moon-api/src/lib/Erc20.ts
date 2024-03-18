@@ -23,9 +23,13 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Erc20<
-  SecurityDataType = unknown,
-> extends HttpClient<SecurityDataType> {
+export class Erc20<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
@@ -39,7 +43,7 @@ export class Erc20<
     data: InputBody,
     params: RequestParams = {}
   ) =>
-    this.request<AllowanceErc20Data, any>({
+    this.http.request<AllowanceErc20Data, any>({
       path: `/erc20/${name}/allowance`,
       method: 'POST',
       body: data,
@@ -56,7 +60,7 @@ export class Erc20<
    * @secure
    */
   approveErc20 = (name: string, data: InputBody, params: RequestParams = {}) =>
-    this.request<ApproveErc20Data, any>({
+    this.http.request<ApproveErc20Data, any>({
       path: `/erc20/${name}/approve`,
       method: 'POST',
       body: data,
@@ -77,7 +81,7 @@ export class Erc20<
     data: InputBody,
     params: RequestParams = {}
   ) =>
-    this.request<BalanceOfErc20Data, any>({
+    this.http.request<BalanceOfErc20Data, any>({
       path: `/erc20/${name}/balance-of`,
       method: 'POST',
       body: data,
@@ -94,7 +98,7 @@ export class Erc20<
    * @secure
    */
   decimalsErc20 = (name: string, data: InputBody, params: RequestParams = {}) =>
-    this.request<DecimalsErc20Data, any>({
+    this.http.request<DecimalsErc20Data, any>({
       path: `/erc20/${name}/decimals`,
       method: 'POST',
       body: data,
@@ -111,7 +115,7 @@ export class Erc20<
    * @secure
    */
   nameErc20 = (name: string, data: InputBody, params: RequestParams = {}) =>
-    this.request<NameErc20Data, any>({
+    this.http.request<NameErc20Data, any>({
       path: `/erc20/${name}/name`,
       method: 'POST',
       body: data,
@@ -128,7 +132,7 @@ export class Erc20<
    * @secure
    */
   symbolErc20 = (name: string, data: InputBody, params: RequestParams = {}) =>
-    this.request<SymbolErc20Data, any>({
+    this.http.request<SymbolErc20Data, any>({
       path: `/erc20/${name}/symbol`,
       method: 'POST',
       body: data,
@@ -149,7 +153,7 @@ export class Erc20<
     data: InputBody,
     params: RequestParams = {}
   ) =>
-    this.request<TotalSupplyErc20Data, any>({
+    this.http.request<TotalSupplyErc20Data, any>({
       path: `/erc20/${name}/total-supply`,
       method: 'POST',
       body: data,
@@ -166,7 +170,7 @@ export class Erc20<
    * @secure
    */
   transferErc20 = (name: string, data: InputBody, params: RequestParams = {}) =>
-    this.request<TransferErc20Data, any>({
+    this.http.request<TransferErc20Data, any>({
       path: `/erc20/${name}/transfer`,
       method: 'POST',
       body: data,
@@ -187,7 +191,7 @@ export class Erc20<
     data: InputBody,
     params: RequestParams = {}
   ) =>
-    this.request<TransferFromErc20Data, any>({
+    this.http.request<TransferFromErc20Data, any>({
       path: `/erc20/${name}/transfer-from`,
       method: 'POST',
       body: data,

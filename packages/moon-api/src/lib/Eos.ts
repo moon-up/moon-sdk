@@ -19,9 +19,13 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Eos<
-  SecurityDataType = unknown,
-> extends HttpClient<SecurityDataType> {
+export class Eos<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
@@ -31,7 +35,7 @@ export class Eos<
    * @secure
    */
   createEosAccount = (data: EosInput, params: RequestParams = {}) =>
-    this.request<CreateEosAccountData, any>({
+    this.http.request<CreateEosAccountData, any>({
       path: `/eos`,
       method: 'POST',
       body: data,
@@ -48,7 +52,7 @@ export class Eos<
    * @secure
    */
   getEosAccount = (accountName: string, params: RequestParams = {}) =>
-    this.request<GetEosAccountData, any>({
+    this.http.request<GetEosAccountData, any>({
       path: `/eos/${accountName}`,
       method: 'GET',
       secure: true,
@@ -63,7 +67,7 @@ export class Eos<
    * @secure
    */
   listEosAccounts = (params: RequestParams = {}) =>
-    this.request<ListEosAccountsData, any>({
+    this.http.request<ListEosAccountsData, any>({
       path: `/eos`,
       method: 'GET',
       secure: true,
@@ -82,7 +86,7 @@ export class Eos<
     data: EosTransactionInput,
     params: RequestParams = {}
   ) =>
-    this.request<SignEosTransactionData, any>({
+    this.http.request<SignEosTransactionData, any>({
       path: `/eos/${accountName}/sign-tx`,
       method: 'POST',
       body: data,

@@ -25,9 +25,13 @@ import {
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Oneinch<
-  SecurityDataType = unknown,
-> extends HttpClient<SecurityDataType> {
+export class Oneinch<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
@@ -40,7 +44,7 @@ export class Oneinch<
     data: ApproveCallDataPayload,
     params: RequestParams = {}
   ) =>
-    this.request<ApproveCallDataData, any>({
+    this.http.request<ApproveCallDataData, any>({
       path: `/oneinch/approve-call-data`,
       method: 'POST',
       body: data,
@@ -57,7 +61,7 @@ export class Oneinch<
    * @secure
    */
   approveSpender = (data: ApproveSpenderPayload, params: RequestParams = {}) =>
-    this.request<ApproveSpenderData, any>({
+    this.http.request<ApproveSpenderData, any>({
       path: `/oneinch/approve-spender`,
       method: 'POST',
       body: data,
@@ -74,7 +78,7 @@ export class Oneinch<
    * @secure
    */
   protocols = (data: ProtocolsPayload, params: RequestParams = {}) =>
-    this.request<ProtocolsData, any>({
+    this.http.request<ProtocolsData, any>({
       path: `/oneinch/protocols`,
       method: 'POST',
       body: data,
@@ -91,7 +95,7 @@ export class Oneinch<
    * @secure
    */
   quote = (data: QuotePayload, params: RequestParams = {}) =>
-    this.request<QuoteData, any>({
+    this.http.request<QuoteData, any>({
       path: `/oneinch/quote`,
       method: 'POST',
       body: data,
@@ -108,7 +112,7 @@ export class Oneinch<
    * @secure
    */
   swap = (accountName: string, data: GetSwapDto, params: RequestParams = {}) =>
-    this.request<SwapData, any>({
+    this.http.request<SwapData, any>({
       path: `/oneinch/${accountName}/swap`,
       method: 'POST',
       body: data,
@@ -125,7 +129,7 @@ export class Oneinch<
    * @secure
    */
   tokens = (data: TokensPayload, params: RequestParams = {}) =>
-    this.request<TokensData, any>({
+    this.http.request<TokensData, any>({
       path: `/oneinch/tokens`,
       method: 'POST',
       body: data,
