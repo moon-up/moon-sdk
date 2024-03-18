@@ -4,6 +4,6 @@
   "include": ["src", "types"],
   "types": ["vitest/globals"],
   "compilerOptions": {
-    "jsx": "react"
+    "jsx": "react",
   }
 }

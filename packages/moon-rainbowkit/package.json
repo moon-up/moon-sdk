@@ -1,6 +1,6 @@
 {
   "name": "@moonup/moon-rainbowkit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "author": "0xEwhal <ewhal@bytemasons.com>",
   "type": "commonjs",
@@ -74,7 +74,6 @@
     "@moonup/ethers": "workspace:*",
     "@moonup/moon-react": "workspace:*",
     "@moonup/moon-sdk": "workspace:*",
-    "@moonup/moon-types": "workspace:*",
     "@moonup/wagmi-connector": "^1.0.0",
     "@rainbow-me/rainbowkit": "^1.3.3",
     "@rainbow-me/rainbowkit-siwe-next-auth": "^0.3.4",
