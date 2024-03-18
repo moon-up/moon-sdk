@@ -1,5 +1,4 @@
 import { MoonSDK } from '@moonup/moon-sdk';
-import { getRpcUrls } from '@moonup/moon-types';
 import { RequestArguments } from 'eip1193-provider';
 import { providers } from 'ethers';
 
@@ -18,15 +17,19 @@ export class JsonRpcProvider {
     this.config = options;
     this.chainId = options.chainId;
 
-    const nodeRPC = getRpcUrls(this.chainId).pop() || '';
     this.sdk = options.SDK;
-    this.http = new providers.JsonRpcProvider(nodeRPC);
-
+    this.http = new providers.JsonRpcProvider();
+    this.setup();
     this.signer = new MoonSigner({
       SDK: this.sdk,
       address: options.address,
       chainId: this.chainId.toString(),
     });
+  }
+  private async setup() {
+    const chain = await this.sdk.getChainById(this.chainId.toString());
+    const rpcUrls = chain.rpc_urls as string[];
+    this.http = new providers.JsonRpcProvider(rpcUrls[0]);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -35,7 +38,7 @@ export class JsonRpcProvider {
       case 'eth_requestAccounts':
         // eslint-disable-next-line no-case-declarations
         const keys = await this.sdk.listAccounts();
-        return keys.keys || [];
+        return keys || [];
       case 'personal_sign':
         if (Array.isArray(request.params) && request.params.length > 0) {
           const message = getMessage(request?.params as string[]);
@@ -81,12 +84,12 @@ export class JsonRpcProvider {
     }
   }
 
-  public updateConfig(options: MoonProviderOptions) {
+  public async updateConfig(options: MoonProviderOptions) {
     this.chainId = options.chainId;
     this.sdk = options.SDK;
-    this.http = new providers.JsonRpcProvider(
-      getRpcUrls(this.chainId).pop() || ''
-    );
+    const chain = await this.sdk.getChainById(this.chainId.toString());
+    const rpcUrls = chain.rpc_urls as string[];
+    this.http = new providers.JsonRpcProvider(rpcUrls.at(0));
     this.signer.updateConfig({
       SDK: this.sdk,
       address: '',

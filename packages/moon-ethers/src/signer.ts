@@ -10,11 +10,10 @@ import { hashMessage } from '@ethersproject/hash';
 import { defineReadOnly } from '@ethersproject/properties';
 import { TransactionResponse } from '@ethersproject/providers';
 import type { Transaction as MoonTransaction } from '@moonup/moon-api';
-import { InputBody, Transaction as MoonAPITransaction } from '@moonup/moon-api';
+import { InputBody, TransactionData } from '@moonup/moon-api';
 import { MoonSDK } from '@moonup/moon-sdk';
 import { BigNumber } from 'ethers';
 
-import { TransactionData } from '../../moon-api/src/lib/data-contracts';
 export interface Typed {
   domain: TypedDataDomain;
   types: Record<string, Array<TypedDataField>>;
@@ -66,21 +65,13 @@ export class MoonSigner extends Signer implements TypedDataSigner {
     types: Record<string, TypedDataField[]>,
     value: Record<string, string>
   ): Promise<string> {
-    const response = await this.SDK.getAccountsSDK()
-      .signTypedData(this.MoonSignerConfig.address, {
-        data: JSON.stringify({
-          domain,
-          types,
-          value,
-        }),
-      })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(res.statusText);
-        }
-        return res.data.data as TransactionData;
-      });
-    return response.signed_message || '';
+    const response = await this.SDK.SignTypedData(
+      this.MoonSignerConfig.address,
+      domain,
+      types,
+      value
+    );
+    return response || '';
   }
 
   /**
@@ -92,31 +83,19 @@ export class MoonSigner extends Signer implements TypedDataSigner {
   }
   async signMessage(message: BytesLike): Promise<string> {
     const hash = new Uint8Array(arrayify(hashMessage(message)));
-    const response = await this.SDK.getAccountsSDK()
-      .signMessage(this.MoonSignerConfig.address, {
-        data: hash.toString(),
-        encoding: 'utf-8',
-      })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(res.statusText);
-        }
-        return res.data.data as TransactionData;
-      });
-    return response.signed_message || '';
+    const response = await this.SDK.SignMessage(
+      this.MoonSignerConfig.address,
+      hash.toString()
+    );
+    return response || '';
   }
   async broadcastTransaction(signedTransaction: string): Promise<string> {
-    const response = await this.SDK.getAccountsSDK().broadcastTx(
+    const response = await this.SDK.SendTransaction(
       this.MoonSignerConfig.address,
-      {
-        rawTransaction: signedTransaction,
-        chainId: this.MoonSignerConfig.chainId,
-      }
+      signedTransaction,
+      this.MoonSignerConfig.chainId
     );
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
-    return (response.data.data as MoonAPITransaction).transaction_hash || '';
+    return response;
   }
 
   async sendTransaction(
@@ -156,21 +135,10 @@ export class MoonSigner extends Signer implements TypedDataSigner {
   }
 
   async signTransaction(transaction: TransactionRequest): Promise<string> {
-    const response = await this.SDK.getAccountsSDK()
-      .signTransaction(
-        this.MoonSignerConfig.address,
-        this.transactionRequestToInputBody(transaction)
-      )
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(res.statusText);
-        }
-        const transactions = this.moonTransactionResponseToTransactions(
-          res.data.data as MoonTransaction
-        );
-        const rawTransaction = transactions?.at(0)?.raw_transaction;
-        return rawTransaction as string;
-      });
+    const response = await this.SDK.SignTransaction(
+      this.MoonSignerConfig.address,
+      this.transactionRequestToInputBody(transaction)
+    );
     return response || '';
   }
   async getTypedDataDomain(
