@@ -1,6 +1,6 @@
 {
   "name": "@moonup/viem",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "0xEwhal <ewhal@bytemasons.com>",
   "type": "commonjs",
   "main": "./dist/index.js",
@@ -76,7 +76,8 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@moonup/moon-sdk": "^1.0.0",
+    "@ethersproject/abstract-signer": "^5.7.0",
+    "@moonup/moon-sdk": "workspace: *",
     "viem": "^2.6.1"
   }
 }
