@@ -117,7 +117,9 @@ export function createMoonConnector(
     },
 
     onAccountsChanged: (accounts: string[]): void => {
-      config.emitter.emit('change', { accounts });
+      config.emitter.emit('change', {
+        accounts: accounts as readonly Address[],
+      });
     },
     onChainChanged: (chainId: string): void => {
       config.emitter.emit('change', { chainId: parseInt(chainId, 16) });
