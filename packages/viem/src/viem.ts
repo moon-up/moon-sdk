@@ -44,6 +44,7 @@ export async function createMoonAccount(input: {
 
       return sdk.SignTransaction(
         ethereumAddress,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         serializer(transaction) as any
       ) as Promise<`0x${string}`>;
     },
