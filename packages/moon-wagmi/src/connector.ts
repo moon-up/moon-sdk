@@ -1,13 +1,16 @@
-import { MoonProvider, MoonProviderOptions, MoonSigner } from '@moonup/ethers';
+import { MoonProvider } from '@moonup/ethers';
 import { MoonSDK } from '@moonup/moon-sdk';
-import { Signer } from 'ethers';
+import { createMoonAccount } from '@moonup/viem';
+import { createConnector, type CreateConnectorFn } from '@wagmi/core';
 import {
-  ProviderRpcError,
-  UserRejectedRequestError,
-  createWalletClient,
+  Chain,
+  Client,
+  createClient,
   custom,
+  isAddress,
+  type ProviderConnectInfo,
 } from 'viem';
-import { Address, Chain, Connector, ConnectorData } from 'wagmi';
+import { Address } from 'viem/accounts';
 
 export interface MoonConnectorOptions {
   chains?: Chain[];
@@ -16,125 +19,125 @@ export interface MoonConnectorOptions {
   chainId: number;
 }
 
-export class MoonConnector extends Connector<
-  MoonProvider,
-  MoonProviderOptions
-> {
-  id = 'moon';
-  name = 'Moon';
-  ready = true;
-
-  config: MoonProviderOptions;
-  provider: MoonProvider;
-
-  constructor({ chains, SDK, address, chainId }: MoonConnectorOptions) {
-    super({ chains, options: { chainId, SDK, address } });
-    this.config = { SDK, address, chainId };
-    this.provider = new MoonProvider(this.config);
-  }
-  async connect(): Promise<Required<ConnectorData>> {
-    let _account: string;
-    try {
-      this?.emit('message', { type: 'connecting' });
-      _account = await this.provider.address;
-    } catch (error) {
-      if (/user rejected/i.test((error as ProviderRpcError)?.message)) {
-        throw new UserRejectedRequestError(error as Error);
-      }
-      throw error;
-    }
-
-    const chianId = this.provider.getChainId();
-    const address = _account as Address;
-
-    return {
-      account: address,
-      chain: {
-        id: chianId,
-        unsupported: false,
-      },
-    };
+export function createMoonConnector(
+  options: MoonConnectorOptions
+): CreateConnectorFn {
+  const { SDK, address, chainId } = options;
+  // validate sdk and address and chainId
+  // check if sdk is instance of MoonSDK
+  if (!(SDK instanceof MoonSDK)) {
+    throw new Error('SDK must be an instance of MoonSDK');
   }
 
-  async disconnect(): Promise<void> {
-    await this.provider.disconnect();
+  // check if address is a string
+  if (typeof address !== 'string') {
+    throw new Error('address must be a string');
   }
 
-  async getWalletClient({
-    chainId,
-  }: // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  { chainId?: number } = {}): Promise<any> {
-    const [provider, account] = await Promise.all([
-      this.getProvider(),
-      this.getAccount(),
-    ]);
-    const chain = this.chains.find((x) => x.id === chainId);
-    if (!provider || !account || !chain)
-      throw new Error('provider, account and chain are required.');
-
-    return createWalletClient({
-      account: {
-        address: account,
-        type: 'json-rpc',
-      },
-      chain,
-      transport: custom(provider),
-    });
+  // check if address is empty
+  if (address === '') {
+    throw new Error('address cannot be empty');
   }
+
+  // check if address is a valid ethereum address
+  if (!isAddress(address)) {
+    throw new Error('address is not a valid ethereum address');
+  }
+
+  // check if chainId is a number
+  if (typeof chainId !== 'number') {
+    throw new Error('chainId must be a number');
+  }
+  const provider = new MoonProvider({ SDK, address, chainId });
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async getAccount(): Promise<any> {
-    return Promise.resolve(this.config.address);
-  }
+  return createConnector((config) => ({
+    id: 'moon',
+    name: 'Moon',
+    type: 'wallet',
+    connect: async (param: {
+      chainId?: number;
+      isReconnecting?: boolean;
+    }): Promise<{
+      accounts: readonly Address[];
+      chainId: number;
+    }> => {
+      const chainId = param?.chainId || options.chainId;
+      const accounts = (await SDK.listAccounts()) as readonly `0x${string}}`[];
+      return { accounts, chainId };
+    },
+    disconnect: async (): Promise<void> => {
+      await SDK.disconnect();
+    },
+    getAccounts: async (): Promise<readonly Address[]> => {
+      return (await SDK.listAccounts()) as readonly Address[];
+    },
+    getChainId: async () => options.chainId,
+    getProvider: async () => {
+      return new MoonProvider({ SDK, address, chainId });
+    },
+    getClient: async (parameters: { chainId?: number }): Promise<Client> => {
+      // create moon client
+      const account = await createMoonAccount({
+        sdk: SDK,
+        ethereumAddress: address,
+      });
 
-  async getChainId(): Promise<number> {
-    return Promise.resolve(this.provider.getChainId());
-  }
+      await provider.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: `0x${chainId.toString(16)}` }],
+      });
 
-  async getProvider() {
-    return Promise.resolve(this.provider);
-  }
+      return createClient({
+        account: account,
+        chain: options.chains?.find((x) => x.id === parameters.chainId),
+        transport: custom(provider),
+      });
+    },
+    isAuthorized: async () => {
+      return SDK.isAuthenticated;
+    },
+    setup: async (): Promise<void> => {
+      await SDK.connect();
+    },
+    switchChain: async (parameters: { chainId: number }): Promise<Chain> => {
+      const chain = options.chains?.find((x) => x.id === parameters.chainId);
+      if (!chain) {
+        throw new Error('chain not found');
+      }
+      const provider = new MoonProvider({ SDK, address, chainId });
+      await provider?.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: `0x${chainId.toString(16)}` }],
+      });
+      config.emitter.emit('change', {
+        chainId: parameters.chainId,
+      });
+      return { id: chainId } as Chain;
+    },
 
-  async getSigner() {
-    const chainId = (await this.getChainId()).toString(16);
-    const account = await this.getAccount();
-    return Promise.resolve(
-      new MoonSigner({
-        chainId: Number(chainId),
-        SDK: this.config.SDK,
-        address: account,
-      }).connect(this.provider) as Signer
-    );
-  }
+    onAccountsChanged: (accounts: string[]): void => {
+      config.emitter.emit('change', { accounts });
+    },
+    onChainChanged: (chainId: string): void => {
+      config.emitter.emit('change', { chainId: parseInt(chainId, 16) });
+    },
 
-  override async switchChain(chainId: number): Promise<Chain> {
-    await this.provider?.request({
-      method: 'wallet_switchEthereumChain',
-      params: [{ chainId: `0x${chainId.toString(16)}` }],
-    });
-    this?.emit('change', { chain: { id: chainId, unsupported: false } });
-    return { id: chainId } as Chain;
-  }
+    onConnect: async (connectInfo: ProviderConnectInfo): Promise<void> => {
+      // fetch accounts
+      const accounts = (await SDK.listAccounts()) as readonly Address[];
+      config.emitter.emit('connect', {
+        accounts: accounts,
+        chainId: Number(connectInfo.chainId),
+      });
+    },
 
-  async isAuthorized(): Promise<boolean> {
-    return Promise.resolve(!!this.options.SDK.isAuthenticated);
-  }
-
-  protected onAccountsChanged(accounts: string[]) {
-    return { account: accounts[0] };
-  }
-
-  protected onChainChanged(chain: number): void {
-    this.provider?.events?.emit('chainChanged', chain);
-    this?.emit('change', { chain: { id: chain, unsupported: true } });
-  }
-
-  protected onDisconnect() {
-    this?.emit('disconnect');
-  }
-
-  public updateconfig(options: MoonProviderOptions) {
-    this.config = options;
-    this.provider?.updateConfig(options);
-  }
+    onDisconnect: (error?: Error): void => {
+      config.emitter.emit('disconnect');
+      console.error(error);
+    },
+    onMessage: (message: { type: string; data?: unknown }): void => {
+      config.emitter.emit('message', message);
+    },
+  }));
 }
