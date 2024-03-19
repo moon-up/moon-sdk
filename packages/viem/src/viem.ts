@@ -12,7 +12,7 @@ import type {
 import { serializeTransaction } from 'viem';
 import { toAccount } from 'viem/accounts';
 
-export async function createAccount(input: {
+export async function createMoonAccount(input: {
   sdk: MoonSDK;
   ethereumAddress: string;
 }): Promise<LocalAccount> {
