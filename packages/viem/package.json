@@ -1,6 +1,6 @@
 {
   "name": "@moonup/viem",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "0xEwhal <ewhal@bytemasons.com>",
   "type": "commonjs",
   "main": "./dist/index.js",
@@ -63,6 +63,9 @@
       "limit": "10 KB"
     }
   ],
+  "peerDependencies": {
+    "viem": "^1.16.6 || ^2.1.1"
+  },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^11.0.1",
     "@tsconfig/recommended": "^1.0.3",
@@ -78,6 +81,6 @@
   "dependencies": {
     "@ethersproject/abstract-signer": "^5.7.0",
     "@moonup/moon-sdk": "workspace: *",
-    "viem": "^2.6.1"
+    "viem": "^2.1.1"
   }
 }

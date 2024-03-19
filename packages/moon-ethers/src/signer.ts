@@ -38,8 +38,11 @@ export class MoonSigner extends Signer implements TypedDataSigner {
     this.SDK = config.SDK;
   }
   _signTypedData(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     domain: TypedDataDomain,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     types: Record<string, TypedDataField[]>,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
     value: Record<string, any>
   ): Promise<string> {
     throw new Error('Method not implemented.');
