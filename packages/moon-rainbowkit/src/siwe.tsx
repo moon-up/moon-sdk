@@ -1,30 +1,22 @@
-import { useMoonSDK } from '@moonup/moon-react';
-import {
-  RainbowKitAuthenticationProvider,
-  createAuthenticationAdapter,
-} from '@rainbow-me/rainbowkit';
-import React, { ReactNode, useState } from 'react';
+import { MoonSDK } from '@moonup/moon-sdk';
+import { createAuthenticationAdapter } from '@rainbow-me/rainbowkit';
 import { SiweMessage } from 'siwe';
-import { useAccount } from 'wagmi';
 
-type RainbowKitUseSiweProviderProps = {
-  children?: ReactNode;
+export type CreateMoonRainbowkitAdapterProps = {
+  address: string;
+  moon: MoonSDK;
   onSignIn?: () => void;
   onSignOut?: () => void;
 };
 
-export const RainbowKitUseMoonProvider = ({
-  children,
+export const createMoonRainbowKitAdapter = ({
+  address,
+  moon,
   onSignIn,
   onSignOut,
-}: RainbowKitUseSiweProviderProps) => {
-  const { moon } = useMoonSDK();
-  const [nonce, setNonce] = useState('');
-  const { address } = useAccount();
-  const [isLoading, setIsLoading] = useState(false);
-  const [authenticated, setAuthenticated] = useState(false);
-
-  const adapter = createAuthenticationAdapter({
+}: CreateMoonRainbowkitAdapterProps) => {
+  let nonce = '';
+  return createAuthenticationAdapter({
     getNonce: async (): Promise<string> => {
       // 1. Get a nonce from the server
       const nonceResponse = await fetch(
@@ -43,7 +35,7 @@ export const RainbowKitUseMoonProvider = ({
       const {
         user: [user],
       } = await nonceResponse.json();
-      setNonce(user.auth.genNonce as string);
+      nonce = user.auth.genNonce as string;
       return user.auth.genNonce as string;
     },
 
@@ -64,7 +56,6 @@ export const RainbowKitUseMoonProvider = ({
     },
 
     verify: async ({ message, signature }) => {
-      setIsLoading(true);
       // // 3. Send the signed message to our API
       const response = await fetch(
         `https://moon-wallet-supabase-next-app.vercel.app/api/ethereum/login`,
@@ -93,7 +84,6 @@ export const RainbowKitUseMoonProvider = ({
           response.data.access_token,
           response.data.refresh_token
         );
-        setAuthenticated(true);
         console.log('Verification successful!');
       } else {
         // The verification failed
@@ -109,18 +99,4 @@ export const RainbowKitUseMoonProvider = ({
       onSignOut && onSignOut();
     },
   });
-
-  const status = isLoading
-    ? 'loading'
-    : authenticated
-    ? 'authenticated'
-    : 'unauthenticated';
-
-  return (
-    <RainbowKitAuthenticationProvider adapter={adapter} status={status}>
-      {children}
-    </RainbowKitAuthenticationProvider>
-  );
 };
-
-export default RainbowKitUseMoonProvider;
