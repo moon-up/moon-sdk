@@ -2,7 +2,6 @@ import { useMoonSDK } from '@moonup/moon-react';
 import {
   createAuthenticationAdapter,
   RainbowKitAuthenticationProvider,
-  RainbowKitProvider,
 } from '@rainbow-me/rainbowkit';
 import React, { useState } from 'react';
 import { SiweMessage } from 'siwe';
@@ -113,7 +112,7 @@ export function RainbowMoonProvider({
 
   return (
     <RainbowKitAuthenticationProvider adapter={adapter} status={status}>
-      <RainbowKitProvider>{children}</RainbowKitProvider>
+      {children}
     </RainbowKitAuthenticationProvider>
   );
 }
