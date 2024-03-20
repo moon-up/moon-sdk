@@ -1,7 +1,6 @@
 import { MoonProvider } from '@moonup/ethers';
 import { MoonSDK } from '@moonup/moon-sdk';
 import { createMoonAccount } from '@moonup/viem';
-import { createConnector, type CreateConnectorFn } from '@wagmi/core';
 import {
   Chain,
   Client,
@@ -11,6 +10,7 @@ import {
   type ProviderConnectInfo,
 } from 'viem';
 import { Address } from 'viem/accounts';
+import { createConnector, type CreateConnectorFn } from 'wagmi';
 
 export interface MoonConnectorOptions {
   chains?: Chain[];
@@ -50,7 +50,6 @@ export function createMoonConnector(
   }
   const provider = new MoonProvider({ SDK, address, chainId });
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return createConnector((config) => ({
     id: 'moon',
     name: 'Moon',
