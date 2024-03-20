@@ -1,60 +1,23 @@
-import { RainbowKitUseMoonProvider } from '@moonup/moon-rainbowkit';
-import {
-  RainbowKitProvider,
-  connectorsForWallets,
-  getDefaultWallets,
-} from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
-import type { AppProps } from 'next/app';
-import { useEffect, useState } from 'react';
-import { WagmiConfig, configureChains, createConfig } from 'wagmi';
-import { arbitrum, base, goerli, mainnet, optimism, polygon, zora } from 'wagmi/chains';
-import { publicProvider } from 'wagmi/providers/public';
 import '../styles/globals.css';
 
+import { RainbowKitUseMoonProvider } from '@moonup/moon-rainbowkit';
+import { getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import type { AppProps } from 'next/app';
+import { WagmiProvider } from 'wagmi';
+import { arbitrum, base, mainnet, optimism, polygon, zora } from 'wagmi/chains';
+
 function MyApp({ Component, pageProps }: AppProps) {
-  const [isMounted, setIsMounted] = useState(false);
-  const [wagmiConfig, setWagmiConfig] = useState<any | null>(null);
-  const [chains, setChains] = useState<any | null>(null);
+  const config = getDefaultConfig({
+    appName: 'My RainbowKit App',
+    projectId: 'YOUR_PROJECT_ID',
+    chains: [mainnet, polygon, optimism, arbitrum, base, zora],
+    ssr: true, // If your dApp uses server side rendering (SSR)
+  });
 
-  useEffect(() => {
-    setIsMounted(true);
-    const { chains, publicClient, webSocketPublicClient } = configureChains(
-      [
-        mainnet,
-        polygon,
-        optimism,
-        arbitrum,
-        base,
-        zora,
-        ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [goerli] : []),
-      ],
-      [publicProvider()]
-    );
-    setChains(chains);
+  const queryClient = new QueryClient();
 
-    const { wallets } = getDefaultWallets({
-      appName: 'RainbowKit App',
-      projectId: 'YOUR_PROJECT_ID',
-      chains,
-    });
-
-    const connectors = connectorsForWallets(wallets);
-
-    setWagmiConfig(
-      createConfig({
-        autoConnect: true,
-        connectors,
-        publicClient,
-        webSocketPublicClient,
-      })
-    );
-    // setWagmiConfig(wagmiConfig);
-  }, []);
-
-  if (!isMounted) {
-    return null; // or return a placeholder if you want to show something during loading
-  }
   const onSignIn = () => {
     console.log('onSignIn');
   };
@@ -64,13 +27,15 @@ function MyApp({ Component, pageProps }: AppProps) {
   };
 
   return (
-    <WagmiConfig config={wagmiConfig}>
-      <RainbowKitUseMoonProvider onSignIn={onSignIn} onSignOut={onSignOut}>
-        <RainbowKitProvider chains={chains}>
-          <Component {...pageProps} />
-        </RainbowKitProvider>
-      </RainbowKitUseMoonProvider>
-    </WagmiConfig>
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        <RainbowKitUseMoonProvider onSignIn={onSignIn} onSignOut={onSignOut}>
+          <RainbowKitProvider>
+            <Component {...pageProps} />
+          </RainbowKitProvider>
+        </RainbowKitUseMoonProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
   );
 }
 

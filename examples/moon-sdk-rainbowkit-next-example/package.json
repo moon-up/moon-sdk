@@ -9,13 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@moonup/moon-rainbowkit": "^0.0.25",
-    "@moonup/moon-sdk": "^1.0.4",
+    "@moonup/moon-rainbowkit": "^1.0.4",
+    "@rainbow-me/rainbowkit": "^2.0.2",
+    "@tanstack/react-query": "^5.28.4",
+    "@wagmi/connectors": "^4.1.18",
     "next": "^14.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "viem": "~1.21.4",
-    "wagmi": "~1.4.13"
+    "viem": "^2.8.14",
+    "wagmi": "^2.5.11"
   },
   "devDependencies": {
     "@types/node": "^18.19.3",
