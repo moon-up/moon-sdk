@@ -1,5 +1,4 @@
-import { rainbowkitUseMoonConnector } from '@moonup/moon-rainbowkit';
-import { AUTH, MOON_SESSION_KEY, Storage } from '@moonup/moon-types';
+import { RainbowKitUseMoonProvider } from '@moonup/moon-rainbowkit';
 import {
   RainbowKitProvider,
   connectorsForWallets,
@@ -12,7 +11,6 @@ import { WagmiConfig, configureChains, createConfig } from 'wagmi';
 import { arbitrum, base, goerli, mainnet, optimism, polygon, zora } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 import '../styles/globals.css';
-import { writeContract } from 'viem/_types/actions/wallet/writeContract';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isMounted, setIsMounted] = useState(false);
@@ -41,29 +39,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       chains,
     });
 
-    const connectors = connectorsForWallets([
-      ...wallets,
-      {
-        groupName: 'Other',
-        wallets: [
-          rainbowkitUseMoonConnector({
-            chains: chains,
-            options: {
-              chainId: 1,
-              MoonSDKConfig: {
-                Storage: {
-                  key: MOON_SESSION_KEY,
-                  type: Storage.SESSION,
-                },
-                Auth: {
-                  AuthType: AUTH.JWT,
-                },
-              },
-            },
-          }),
-        ],
-      },
-    ]);
+    const connectors = connectorsForWallets(wallets);
 
     setWagmiConfig(
       createConfig({
@@ -79,12 +55,21 @@ function MyApp({ Component, pageProps }: AppProps) {
   if (!isMounted) {
     return null; // or return a placeholder if you want to show something during loading
   }
+  const onSignIn = () => {
+    console.log('onSignIn');
+  };
+
+  const onSignOut = () => {
+    console.log('onSignOut');
+  };
 
   return (
     <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider chains={chains}>
-        <Component {...pageProps} />
-      </RainbowKitProvider>
+      <RainbowKitUseMoonProvider onSignIn={onSignIn} onSignOut={onSignOut}>
+        <RainbowKitProvider chains={chains}>
+          <Component {...pageProps} />
+        </RainbowKitProvider>
+      </RainbowKitUseMoonProvider>
     </WagmiConfig>
   );
 }
