@@ -77,10 +77,11 @@
     "@moonup/wagmi-connector": "^1.0.0",
     "@rainbow-me/rainbowkit": "^1.3.3",
     "@rainbow-me/rainbowkit-siwe-next-auth": "^0.3.4",
+    "@wagmi/core": "^2.6.9",
     "ethers": "^5.7.2",
     "siwe": "^2.1.4",
     "viem": "^1.19.0",
-    "wagmi": "^1.4.6"
+    "wagmi": "^2.5.11"
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^11.0.1",
