@@ -81,7 +81,7 @@ export function RainbowMoonProvider({
         setAuthenticated(false);
         return false;
       }
-      const authResp = await moon?.setAccessToken(
+      await moon?.setAccessToken(
         response.data.access_token,
         response.data.refresh_token
       );
