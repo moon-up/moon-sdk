@@ -5,15 +5,9 @@ import * as crypto from 'crypto';
 import { ethers } from 'ethers';
 import { useEffect, useState } from 'react';
 
+import { MoonSkaleEthersHook, Transaction } from './types';
+
 const DIFFICULTY = new BN(1);
-
-interface Transaction {
-  from?: string;
-  nonce?: ethers.BigNumberish;
-  gasLimit?: ethers.BigNumberish;
-  gasPrice?: ethers.BigNumberish;
-}
-
 async function mineGasForTransaction(
   provider: ethers.providers.Provider,
   tx: Transaction
@@ -64,14 +58,6 @@ function mineFreeGas(
     }
   }
   return candidate.toString();
-}
-
-export interface MoonSkaleEthersHook {
-  moonProvider: MoonProvider | null;
-  moon: MoonSDK | null;
-  initialize: () => Promise<void>;
-  disconnect: () => Promise<void>;
-  mineForGas: (contractAddress: string, address: string) => Promise<string>;
 }
 
 export function useMoonSkaleEthers(): MoonSkaleEthersHook {

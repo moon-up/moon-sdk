@@ -2,12 +2,7 @@ import { MoonProvider, MoonProviderOptions } from '@moonup/ethers';
 import { MoonSDK } from '@moonup/moon-sdk';
 import { useEffect, useState } from 'react';
 
-export interface MoonEthersHook {
-  moonProvider: MoonProvider | null;
-  moon: MoonSDK | null;
-  initialize: () => Promise<void>;
-  disconnect: () => Promise<void>;
-}
+import { MoonEthersHook } from './types';
 
 export function useMoonEthers(): MoonEthersHook {
   const [moonProvider, setMoonProvider] = useState<MoonProvider | null>(null);

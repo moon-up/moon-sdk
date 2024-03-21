@@ -1,11 +1,7 @@
 import { MoonSDK } from '@moonup/moon-sdk';
 import { useEffect, useState } from 'react';
 
-export interface MoonSDKHook {
-  moon: MoonSDK | null;
-  initialize: () => Promise<void>;
-  disconnect: () => Promise<void>;
-}
+import { MoonSDKHook } from './types';
 
 export function useMoonSDK(): MoonSDKHook {
   const [moon, setMoon] = useState<MoonSDK | null>(null);
