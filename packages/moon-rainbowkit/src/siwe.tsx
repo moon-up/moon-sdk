@@ -6,7 +6,6 @@ import {
 import React, { useState } from 'react';
 import { SiweMessage } from 'siwe';
 import { useAccount } from 'wagmi';
-
 export function RainbowMoonProvider({
   children,
 }: {
@@ -75,35 +74,29 @@ export function RainbowMoonProvider({
           }),
         }
       ).then((res) => res.json());
-
-      if (response.ok) {
+      console.log(response);
+      if (!response.token.access_token || !response.token.refresh_token) {
         // check if the response returned a valid access token and refresh token
-        if (!response.data.access_token || !response.data.refresh_token) {
-          console.error('No access token or refresh token');
-          return false;
-        }
-
-        moon?.setAccessToken(
-          response.data.access_token,
-          response.data.refresh_token
-        );
-        setAuthenticated(true);
-        setIsLoading(false);
-      } else {
-        // The verification failed
-        console.error('Verification failed!');
+        console.error('Invalid response');
+        setAuthenticated(false);
+        return false;
       }
+      const authResp = await moon?.setAccessToken(
+        response.data.access_token,
+        response.data.refresh_token
+      );
 
+      setIsLoading(false);
+      setAuthenticated(true);
       return true;
     },
 
     signOut: async () => {
       moon?.disconnect();
-      setAuthenticated(false);
       setIsLoading(false);
+      setAuthenticated(false);
     },
   });
-
   const status = isLoading
     ? 'loading'
     : authenticated
