@@ -43,7 +43,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "PORT=4000 npx tsx server/index.ts"
+    "server": "PORT=4001 npx tsx server/index.ts"
   },
   "eslintConfig": {
     "extends": [

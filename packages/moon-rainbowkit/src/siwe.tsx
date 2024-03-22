@@ -1,22 +1,31 @@
-import { MoonSDK } from '@moonup/moon-sdk';
+import { useMoonSDK } from '@moonup/moon-react';
 import {
   createAuthenticationAdapter,
   RainbowKitAuthenticationProvider,
 } from '@rainbow-me/rainbowkit';
 import React, { useMemo, useState } from 'react';
 import { SiweMessage } from 'siwe';
+import { useAccount } from 'wagmi';
 export function RainbowMoonProvider({
   children,
-  address,
-  moon,
 }: {
   children: React.ReactNode;
-  address: string;
-  moon: MoonSDK;
 }) {
-  const [nonce, setNonce] = useState('');
+  const { moon } = useMoonSDK();
   const [isLoading, setIsLoading] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
+  const status = useMemo(
+    () =>
+      isLoading
+        ? 'loading'
+        : authenticated
+        ? 'authenticated'
+        : 'unauthenticated',
+    [isLoading, authenticated]
+  );
+  const { address, status: wagmiStatus } = useAccount();
+  const [nonce, setNonce] = useState('');
+
   const adapter = useMemo(
     () =>
       createAuthenticationAdapter({
@@ -83,13 +92,13 @@ export function RainbowMoonProvider({
             setAuthenticated(false);
             return false;
           }
+          setIsLoading(false);
+          setAuthenticated(true);
           await moon?.setAccessToken(
             response.data.access_token,
             response.data.refresh_token
           );
 
-          setIsLoading(false);
-          setAuthenticated(true);
           return true;
         },
 
@@ -99,20 +108,15 @@ export function RainbowMoonProvider({
           setAuthenticated(false);
         },
       }),
-    []
-  );
-  const status = useMemo(
-    () =>
-      isLoading
-        ? 'loading'
-        : authenticated
-        ? 'authenticated'
-        : 'unauthenticated',
-    [isLoading, authenticated]
+    [wagmiStatus, address, moon, nonce]
   );
 
   return (
-    <RainbowKitAuthenticationProvider adapter={adapter} status={status}>
+    <RainbowKitAuthenticationProvider
+      adapter={adapter}
+      status={status}
+      enabled={true}
+    >
       {children}
     </RainbowKitAuthenticationProvider>
   );
