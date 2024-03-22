@@ -97,7 +97,9 @@ export function RainbowMoonProvider({
 
           // set cookie
           // cookie('sb-api-auth-token', response.data);
-          document.cookie = `sb-api-auth-token=${response.token}`;
+          document.cookie = `sb-api-auth-token=${JSON.stringify(
+            response.token
+          )}`;
 
           await moon?.setAccessToken(
             response.data.access_token,
