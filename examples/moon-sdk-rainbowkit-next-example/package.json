@@ -9,16 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@moonup/moon-rainbowkit": "^1.0.9",
+    "@moonup/moon-rainbowkit": "^1.0.10",
     "@moonup/moon-react": "^1.0.5",
-    "@rainbow-me/rainbowkit": "^2.0.2",
     "@tanstack/react-query": "^5.28.4",
     "@wagmi/connectors": "^4.1.18",
     "next": "^14.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "viem": "^2.8.14",
-    "wagmi": "^2.5.11"
+    "ethers": "^5.7.2",
+    "siwe": "^2.1.4",
+    "@rainbow-me/rainbowkit": "2.0.0",
+    "viem": "^2.7.3",
+    "wagmi": "^2.5.5"
   },
   "devDependencies": {
     "@types/node": "^18.19.3",

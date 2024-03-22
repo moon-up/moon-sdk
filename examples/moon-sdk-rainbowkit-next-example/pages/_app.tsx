@@ -2,19 +2,11 @@
 import '@rainbow-me/rainbowkit/styles.css';
 import '../styles/globals.css';
 
-// import { RainbowMoonProvider } from '@moonup/moon-rainbowkit';
-import { useMoonSDK } from '@moonup/moon-react';
-import {
-  createAuthenticationAdapter,
-  getDefaultConfig,
-  RainbowKitAuthenticationProvider,
-  RainbowKitProvider,
-} from '@rainbow-me/rainbowkit';
+import { RainbowMoonProvider } from '@moonup/moon-rainbowkit';
+import { getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { AppProps } from 'next/app';
-import React, { useEffect, useMemo, useState } from 'react';
-import { SiweMessage } from 'siwe';
-import { useAccount, WagmiProvider } from 'wagmi';
+import { WagmiProvider } from 'wagmi';
 import { arbitrum, base, mainnet, optimism, polygon } from 'wagmi/chains';
 
 const config = getDefaultConfig({
