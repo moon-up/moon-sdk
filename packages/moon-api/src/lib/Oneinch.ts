@@ -9,28 +9,64 @@
  * ---------------------------------------------------------------
  */
 
-import { GetSwapDto } from './data-contracts';
+import {
+  ApproveCallDataData,
+  ApproveCallDataPayload,
+  ApproveSpenderData,
+  ApproveSpenderPayload,
+  GetSwapDto,
+  ProtocolsData,
+  ProtocolsPayload,
+  QuoteData,
+  QuotePayload,
+  SwapData,
+  TokensData,
+  TokensPayload,
+} from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Oneinch<
-  SecurityDataType = unknown,
-> extends HttpClient<SecurityDataType> {
+export class Oneinch<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
    * @tags oneinch
-   * @name Tokens
-   * @request POST:/oneinch/tokens
+   * @name ApproveCallData
+   * @request POST:/oneinch/approve-call-data
    * @secure
    */
-  tokens = (data: any, params: RequestParams = {}) =>
-    this.request<any, any>({
-      path: `/oneinch/tokens`,
+  approveCallData = (
+    data: ApproveCallDataPayload,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<ApproveCallDataData, any>({
+      path: `/oneinch/approve-call-data`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags oneinch
+   * @name ApproveSpender
+   * @request POST:/oneinch/approve-spender
+   * @secure
+   */
+  approveSpender = (data: ApproveSpenderPayload, params: RequestParams = {}) =>
+    this.http.request<ApproveSpenderData, any>({
+      path: `/oneinch/approve-spender`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
       ...params,
     });
   /**
@@ -41,14 +77,13 @@ export class Oneinch<
    * @request POST:/oneinch/protocols
    * @secure
    */
-  protocols = (data: any, params: RequestParams = {}) =>
-    this.request<any, any>({
+  protocols = (data: ProtocolsPayload, params: RequestParams = {}) =>
+    this.http.request<ProtocolsData, any>({
       path: `/oneinch/protocols`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
       ...params,
     });
   /**
@@ -59,14 +94,13 @@ export class Oneinch<
    * @request POST:/oneinch/quote
    * @secure
    */
-  quote = (data: any, params: RequestParams = {}) =>
-    this.request<any, any>({
+  quote = (data: QuotePayload, params: RequestParams = {}) =>
+    this.http.request<QuoteData, any>({
       path: `/oneinch/quote`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
       ...params,
     });
   /**
@@ -78,49 +112,29 @@ export class Oneinch<
    * @secure
    */
   swap = (accountName: string, data: GetSwapDto, params: RequestParams = {}) =>
-    this.request<any, any>({
+    this.http.request<SwapData, any>({
       path: `/oneinch/${accountName}/swap`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
       ...params,
     });
   /**
    * No description
    *
    * @tags oneinch
-   * @name ApproveSpender
-   * @request POST:/oneinch/approve-spender
+   * @name Tokens
+   * @request POST:/oneinch/tokens
    * @secure
    */
-  approveSpender = (data: any, params: RequestParams = {}) =>
-    this.request<any, any>({
-      path: `/oneinch/approve-spender`,
+  tokens = (data: TokensPayload, params: RequestParams = {}) =>
+    this.http.request<TokensData, any>({
+      path: `/oneinch/tokens`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags oneinch
-   * @name ApproveCallData
-   * @request POST:/oneinch/approve-call-data
-   * @secure
-   */
-  approveCallData = (data: any, params: RequestParams = {}) =>
-    this.request<any, any>({
-      path: `/oneinch/approve-call-data`,
-      method: 'POST',
-      body: data,
-      secure: true,
-      type: ContentType.Json,
-      format: 'json',
       ...params,
     });
 }

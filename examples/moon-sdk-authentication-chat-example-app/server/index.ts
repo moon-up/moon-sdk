@@ -1,8 +1,12 @@
+import axios from 'axios';
 import cors from 'cors';
+import * as dotenv from 'dotenv';
 import express, { Request, Response } from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as solc from 'solc';
+dotenv.config();
+console.log(process.env);
 
 // Create a new express application instance
 const app: express.Application = express();
@@ -90,7 +94,38 @@ app.post('/compile', async (req: Request, res: Response) => {
   }
 });
 
-const PORT = process.env.PORT ? parseInt(process.env.NODE_PORT || '') : 4000;
+app.get('/callback', async (req: Request, res: Response) => {
+  try {
+    const { code, state } = req.query;
+    console.log(process.env.REACT_APP_CLIENT_GRANT_TYPE);
+    const response = await axios.post(
+      'https://moon-wallet-supabase-next-app.vercel.app/api/oauth2/exchange',
+      {
+        grant_type: process.env.REACT_APP_GRANT_TYPE,
+        code: code,
+        client_id: process.env.REACT_APP_CLIENT_ID,
+        client_secret: process.env.REACT_APP_CLIENT_SECRET,
+        redirect_uri: process.env.REACT_APP_REDIRECT_URI,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }
+    );
+    res.cookie('sb-api-auth-token', response.data);
+
+    res.json(response.data);
+  } catch (e: any) {
+    console.log(e);
+    return res.status(500).json({
+      error: 'Server error. Try again with a different prompt.',
+      success: false,
+    });
+  }
+});
+
+const PORT = process.env.PORT || 4000;
 // Serve the application at the given port
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);

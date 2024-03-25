@@ -2,18 +2,14 @@ import {
   TypedDataDomain,
   TypedDataField,
 } from '@ethersproject/abstract-signer';
-import { BigNumber } from '@ethersproject/bignumber';
 import { BytesLike, arrayify } from '@ethersproject/bytes';
 import { hashMessage } from '@ethersproject/hash';
-import { JsonRpcProvider, TransactionResponse } from '@ethersproject/providers';
 import {
   Aave,
-  AccountResponse,
   Accounts,
-  Auth,
+  ApiConfig,
   Bitcoin,
   Bitcoincash,
-  BroadCastRawTransactionResponse,
   ContentType,
   Conveyorfinance,
   Cosmos,
@@ -24,11 +20,11 @@ import {
   Erc20,
   Erc4337,
   Erc721,
+  HttpClient,
   InputBody,
   Litecoin,
   Transaction as MoonTransaction,
   Oneinch,
-  RefreshTokenResponse,
   Ripple,
   Solana,
   TransactionData,
@@ -36,18 +32,9 @@ import {
   Uniswap,
   Yearn,
 } from '@moonup/moon-api';
-import {
-  Chain,
-  MOON_SUPPORTED_NETWORKS,
-  MoonAccount,
-  MoonConfig,
-  MoonSDKConfig,
-  MoonStorage,
-} from '@moonup/moon-types';
+import { SupabaseClient, createClient } from '@supabase/supabase-js';
 
-import { moonAuthConfig } from './auth';
-import { MoonMessageHandler } from './messages';
-import { IframeController } from './viewController';
+import { Chains } from './types';
 
 export class MoonSDK {
   private AccountsSDK: Accounts;
@@ -61,7 +48,6 @@ export class MoonSDK {
   private OneinchSDK: Oneinch;
   private UniswapSDK: Uniswap;
   private YearnSDK: Yearn;
-  private AuthSDK: Auth;
   private BitcoinSDK: Bitcoin;
   private SolanaSDK: Solana;
   private CosmosSDK: Cosmos;
@@ -71,229 +57,130 @@ export class MoonSDK {
   private TronSDK: Tron;
   private BitcoincashSDK: Bitcoincash;
   private DogecoinSDK: Dogecoin;
-  MoonProvider: JsonRpcProvider | undefined;
-  MoonSDKConfig: MoonSDKConfig;
-  MoonAccount: MoonAccount;
-  MoonMessageHandler: MoonMessageHandler;
-  MoonIframe: IframeController | undefined;
+  private MoonAPIClient: SupabaseClient;
+  private http: HttpClient;
+  isAuthenticated = false;
 
-  constructor(config: MoonConfig) {
-    this.MoonSDKConfig = this.initialiseConfig(config);
-
-    this.MoonAccount = new MoonAccount(this.MoonSDKConfig.Storage);
-
-    this.MoonMessageHandler = new MoonMessageHandler();
-    this.AccountsSDK = new Accounts({
-      baseUrl: 'https://vault-api.usemoon.ai',
+  constructor() {
+    const baseApiParams: ApiConfig = {
+      baseUrl:
+        'https://moon-vault-api-git-ew-supabase-migration-moonup.vercel.app',
       baseApiParams: {
         secure: true,
         type: ContentType.Json,
         format: 'json',
       },
-      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      securityWorker: async (securityData: any) => {
+        return Promise.resolve({
+          headers: {
+            Authorization: `Bearer ${securityData.token}`,
+          },
+        });
+      },
+    };
+    this.http = new HttpClient(baseApiParams);
+    this.AccountsSDK = new Accounts(this.http);
+
+    this.AaveSDK = new Aave(this.http);
+
+    this.ENSSDK = new Ens(this.http);
+
+    this.Erc20SDK = new Erc20(this.http);
+
+    this.Erc1155SDK = new Erc1155(this.http);
+
+    this.Erc721SDK = new Erc721(this.http);
+
+    this.Erc4337SDK = new Erc4337(this.http);
+
+    this.OneinchSDK = new Oneinch(this.http);
+
+    this.UniswapSDK = new Uniswap(this.http);
+
+    this.YearnSDK = new Yearn(this.http);
+
+    this.ConveyorfinanceSDK = new Conveyorfinance(this.http);
+
+    this.BitcoinSDK = new Bitcoin(this.http);
+
+    this.BitcoincashSDK = new Bitcoincash(this.http);
+
+    this.DogecoinSDK = new Dogecoin(this.http);
+
+    this.SolanaSDK = new Solana(this.http);
+    this.CosmosSDK = new Cosmos(this.http);
+
+    this.EosSDK = new Eos(this.http);
+
+    this.LitecoinSDK = new Litecoin(this.http);
+
+    this.RippleSDK = new Ripple(this.http);
+
+    this.TronSDK = new Tron(this.http);
+    this.MoonAPIClient = createClient(
+      'https://api.usemoon.ai',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzEwNzIwMDAwLAogICJleHAiOiAxODY4NDg2NDAwCn0.am_Q1cqJ025FU-yEDXk5VDqv30DbOxw2hHb51YwRuaQ',
+      {}
+    );
+    this.connect();
+  }
+  public async connect() {
+    this.MoonAPIClient.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_IN') {
+        this.setAccessToken(
+          session?.access_token || '',
+          session?.refresh_token || ''
+        );
+        this.isAuthenticated = true;
+      }
+      if (event === 'TOKEN_REFRESHED') {
+        this.setAccessToken(
+          session?.access_token || '',
+          session?.refresh_token || ''
+        );
+        this.isAuthenticated = true;
+      }
+      if (event === 'SIGNED_OUT') {
+        this.http.setSecurityData({
+          token: '',
+        });
+        this.isAuthenticated = false;
+      }
     });
 
-    this.AuthSDK = new Auth({
-      baseUrl: 'https://vault-api.usemoon.ai',
-      baseApiParams: {
-        secure: true,
-        type: ContentType.Json,
-        format: 'json',
-      },
-    });
+    const { data, error } = await this.MoonAPIClient.auth.getSession();
+    if (data) {
+      this.setAccessToken(
+        data.session?.access_token || '',
+        data.session?.refresh_token || ''
+      );
+      this.isAuthenticated = true;
+    }
+    if (error) {
+      this.isAuthenticated = false;
+    }
+  }
+  public async disconnect() {
+    this.MoonAPIClient.auth.signOut();
+    this.isAuthenticated = false;
 
-    this.AaveSDK = new Aave({
-      baseUrl: 'https://vault-api.usemoon.ai',
-      baseApiParams: {
-        secure: true,
-        type: ContentType.Json,
-        format: 'json',
-      },
-      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
-    });
-
-    this.ENSSDK = new Ens({
-      baseUrl: 'https://vault-api.usemoon.ai',
-      baseApiParams: {
-        secure: true,
-        type: ContentType.Json,
-        format: 'json',
-      },
-      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
-    });
-
-    this.Erc20SDK = new Erc20({
-      baseUrl: 'https://vault-api.usemoon.ai',
-      baseApiParams: {
-        secure: true,
-        type: ContentType.Json,
-        format: 'json',
-      },
-      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
-    });
-
-    this.Erc1155SDK = new Erc1155({
-      baseUrl: 'https://vault-api.usemoon.ai',
-      baseApiParams: {
-        secure: true,
-        type: ContentType.Json,
-        format: 'json',
-      },
-      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
-    });
-
-    this.Erc721SDK = new Erc721({
-      baseUrl: 'https://vault-api.usemoon.ai',
-      baseApiParams: {
-        secure: true,
-        type: ContentType.Json,
-        format: 'json',
-      },
-      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
-    });
-
-    this.Erc4337SDK = new Erc4337({
-      baseUrl: 'https://vault-api.usemoon.ai',
-      baseApiParams: {
-        secure: true,
-        type: ContentType.Json,
-        format: 'json',
-      },
-      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
-    });
-
-    this.OneinchSDK = new Oneinch({
-      baseUrl: 'https://vault-api.usemoon.ai',
-      baseApiParams: {
-        secure: true,
-        type: ContentType.Json,
-        format: 'json',
-      },
-      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
-    });
-
-    this.UniswapSDK = new Uniswap({
-      baseUrl: 'https://vault-api.usemoon.ai',
-      baseApiParams: {
-        secure: true,
-        type: ContentType.Json,
-        format: 'json',
-      },
-      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
-    });
-
-    this.YearnSDK = new Yearn({
-      baseUrl: 'https://vault-api.usemoon.ai',
-      baseApiParams: {
-        secure: true,
-        type: ContentType.Json,
-        format: 'json',
-      },
-      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
-    });
-
-    this.ConveyorfinanceSDK = new Conveyorfinance({
-      baseUrl: 'https://vault-api.usemoon.ai',
-      baseApiParams: {
-        secure: true,
-        type: ContentType.Json,
-        format: 'json',
-      },
-      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
-    });
-
-    this.BitcoinSDK = new Bitcoin({
-      baseUrl: 'https://vault-api.usemoon.ai',
-      baseApiParams: {
-        secure: true,
-        type: ContentType.Json,
-        format: 'json',
-      },
-      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
-    });
-
-    this.BitcoincashSDK = new Bitcoincash({
-      baseUrl: 'https://vault-api.usemoon.ai',
-      baseApiParams: {
-        secure: true,
-        type: ContentType.Json,
-        format: 'json',
-      },
-      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
-    });
-
-    this.DogecoinSDK = new Dogecoin({
-      baseUrl: 'https://vault-api.usemoon.ai',
-      baseApiParams: {
-        secure: true,
-        type: ContentType.Json,
-        format: 'json',
-      },
-      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
-    });
-
-    this.SolanaSDK = new Solana({
-      baseUrl: 'https://vault-api.usemoon.ai',
-      baseApiParams: {
-        secure: true,
-        type: ContentType.Json,
-        format: 'json',
-      },
-      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
-    });
-    this.CosmosSDK = new Cosmos({
-      baseUrl: 'https://vault-api.usemoon.ai',
-      baseApiParams: {
-        secure: true,
-        type: ContentType.Json,
-        format: 'json',
-      },
-      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
-    });
-
-    this.EosSDK = new Eos({
-      baseUrl: 'https://vault-api.usemoon.ai',
-      baseApiParams: {
-        secure: true,
-        type: ContentType.Json,
-        format: 'json',
-      },
-      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
-    });
-
-    this.LitecoinSDK = new Litecoin({
-      baseUrl: 'https://vault-api.usemoon.ai',
-      baseApiParams: {
-        secure: true,
-        type: ContentType.Json,
-        format: 'json',
-      },
-      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
-    });
-
-    this.RippleSDK = new Ripple({
-      baseUrl: 'https://vault-api.usemoon.ai',
-      baseApiParams: {
-        secure: true,
-        type: ContentType.Json,
-        format: 'json',
-      },
-      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
-    });
-
-    this.TronSDK = new Tron({
-      baseUrl: 'https://vault-api.usemoon.ai',
-      baseApiParams: {
-        secure: true,
-        type: ContentType.Json,
-        format: 'json',
-      },
-      securityWorker: this.MoonSDKConfig.Auth.securityWorker,
+    this.http.setSecurityData({
+      token: '',
     });
   }
-  public login(): void {
-    this.getMoonAccount().login();
-    this.updateToken(this.getMoonAccount().getToken());
+
+  public async getUserSession() {
+    return await this.MoonAPIClient.auth.getSession();
+  }
+  public async setAccessToken(token: string, refreshToken: string) {
+    this.http.setSecurityData({
+      token: token,
+    });
+    return await this.MoonAPIClient.auth.setSession({
+      access_token: token,
+      refresh_token: refreshToken,
+    });
   }
 
   public getSolanaSDK(): Solana {
@@ -330,10 +217,6 @@ export class MoonSDK {
 
   public getDogecoinSDK(): Dogecoin {
     return this.DogecoinSDK;
-  }
-
-  public getAuthSDK(): Auth {
-    return this.AuthSDK;
   }
 
   public getAccountsSDK(): Accounts {
@@ -377,116 +260,18 @@ export class MoonSDK {
   }
 
   public getYearnSDK(): Yearn {
-    this.YearnSDK.setSecurityData({
-      token: this.MoonAccount.getToken(),
-    });
     return this.YearnSDK;
   }
-  public getMoonAccount(): MoonAccount {
-    return this.MoonAccount;
-  }
 
-  public updateRefreshToken(refreshToken: string) {
-    this.MoonAccount.setRefreshToken(refreshToken);
-  }
-
-  public updateToken(token: string) {
-    this.MoonAccount.setToken(token);
-    this.BitcoinSDK.setSecurityData({
-      token: this.MoonAccount.getToken(),
-    });
-    this.AccountsSDK.setSecurityData({
-      token: this.MoonAccount.getToken(),
-    });
-    this.AaveSDK.setSecurityData({
-      token: this.MoonAccount.getToken(),
-    });
-    this.ConveyorfinanceSDK.setSecurityData({
-      token: this.MoonAccount.getToken(),
-    });
-    this.ENSSDK.setSecurityData({
-      token: this.MoonAccount.getToken(),
-    });
-    this.Erc20SDK.setSecurityData({
-      token: this.MoonAccount.getToken(),
-    });
-    this.Erc1155SDK.setSecurityData({
-      token: this.MoonAccount.getToken(),
-    });
-    this.Erc721SDK.setSecurityData({
-      token: this.MoonAccount.getToken(),
-    });
-    this.Erc4337SDK.setSecurityData({
-      token: this.MoonAccount.getToken(),
-    });
-    this.OneinchSDK.setSecurityData({
-      token: this.MoonAccount.getToken(),
-    });
-    this.UniswapSDK.setSecurityData({
-      token: this.MoonAccount.getToken(),
-    });
-    this.SolanaSDK.setSecurityData({
-      token: this.MoonAccount.getToken(),
-    });
-
-    this.CosmosSDK.setSecurityData({
-      token: this.MoonAccount.getToken(),
-    });
-
-    this.EosSDK.setSecurityData({
-      token: this.MoonAccount.getToken(),
-    });
-
-    this.LitecoinSDK.setSecurityData({
-      token: this.MoonAccount.getToken(),
-    });
-
-    this.RippleSDK.setSecurityData({
-      token: this.MoonAccount.getToken(),
-    });
-
-    this.TronSDK.setSecurityData({
-      token: this.MoonAccount.getToken(),
-    });
-
-    this.BitcoincashSDK.setSecurityData({
-      token: this.MoonAccount.getToken(),
-    });
-
-    this.DogecoinSDK.setSecurityData({
-      token: this.MoonAccount.getToken(),
-    });
-  }
-
-  public async refreshAccount(): Promise<RefreshTokenResponse> {
-    const token = this.MoonAccount.getRefreshToken();
-    const response = await this.getAuthSDK().refreshToken({
-      refreshToken: token,
-    });
-    this.updateToken(response.data.accessToken);
-    // return response.data;
-    return response.data as RefreshTokenResponse;
-  }
-
-  public async listAccounts(): Promise<AccountResponse> {
+  public async listAccounts(): Promise<string[]> {
     const response = await this.getAccountsSDK().listAccounts();
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
-    return response.data as AccountResponse;
+    return response.data?.data.keys || [];
   }
-  transactionRequestToInputBody(tx: TransactionResponse): InputBody {
-    return {
-      chain_id: BigNumber.from(tx.chainId).toString(),
-      data: tx.data,
-      to: tx.to,
-      gasPrice: BigNumber.from(tx.gasPrice).toString(),
-      gas: BigNumber.from(tx.gasLimit).toString(),
-      nonce: BigNumber.from(tx.nonce).toString(),
-      value: tx.value && BigNumber.from(tx.value).toString(),
-      encoding: 'utf-8',
-    };
+  public async createAccount(): Promise<string> {
+    const response = await this.getAccountsSDK().createAccount({});
+    return response.data?.data.address || '';
   }
+
   moonTransactionResponseToTransactions(
     tx: MoonTransaction
   ): TransactionData[] {
@@ -494,143 +279,71 @@ export class MoonSDK {
   }
 
   public async SignTransaction(
-    transaction: TransactionResponse
+    wallet: string,
+    transaction: InputBody
   ): Promise<string> {
-    const response = await this.getAccountsSDK()
-      .signTransaction(
-        this.MoonAccount.getWallet(),
-        this.transactionRequestToInputBody(transaction)
-      )
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(res.statusText);
-        }
-        const transactions = this.moonTransactionResponseToTransactions(
-          res.data.data as MoonTransaction
-        );
-        const rawTransaction = transactions?.at(0)?.raw_transaction;
-        return rawTransaction as string;
-      });
-    return response || '';
+    const response = await this.getAccountsSDK().signTransaction(
+      wallet,
+      transaction
+    );
+    return response?.data?.transactions?.at(0)?.raw_transaction || '';
   }
 
-  public async SignMessage(message: BytesLike): Promise<string> {
+  public async SignMessage(
+    wallet: string,
+    message: BytesLike
+  ): Promise<string> {
     const hash = new Uint8Array(arrayify(hashMessage(message)));
-    const response = await this.getAccountsSDK()
-      .signMessage(this.MoonAccount.getWallet(), {
-        data: hash.toString(),
-        encoding: 'utf-8',
-      })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(res.statusText);
-        }
-        return res.data.data as TransactionData;
-      });
-    return response.signed_message || '';
+    const response = await this.getAccountsSDK().signMessage(wallet, {
+      data: hash.toString(),
+      encoding: 'utf-8',
+    });
+    return response?.data?.signed_message || '';
   }
 
   public async SignTypedData(
+    wallet: string,
     domain: TypedDataDomain,
     types: Record<string, Array<TypedDataField>>,
     value: Record<string, string>
   ): Promise<string> {
-    const response = await this.getAccountsSDK()
-      .signTypedData(this.MoonAccount.getWallet(), {
-        data: JSON.stringify({
-          domain,
-          types,
-          value,
-        }),
-      })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(res.statusText);
-        }
-        return res.data.data as TransactionData;
-      });
-    return response.signed_message || '';
+    const response = await this.getAccountsSDK().signTypedData(wallet, {
+      data: JSON.stringify({
+        domain,
+        types,
+        value,
+      }),
+    });
+    return response?.data?.signed_message || '';
   }
 
   public async SendTransaction(
-    rawTransaction: string
-  ): Promise<BroadCastRawTransactionResponse> {
-    const response = await this.getAccountsSDK().broadcastTx(
-      this.MoonAccount.getWallet(),
-      {
-        rawTransaction: rawTransaction,
-        chainId: this.MoonAccount.getNetwork().chainId,
-      }
-    );
-    if (!response.ok) {
-      throw new Error(response.statusText);
+    wallet: string,
+    rawTransaction: string,
+    chain_id: string
+  ): Promise<string> {
+    const response = await this.getAccountsSDK().broadcastTx(wallet, {
+      rawTransaction: rawTransaction,
+      chainId: chain_id,
+    });
+    return response.data?.data || '';
+  }
+
+  public async getChains(): Promise<Chains[]> {
+    const { data, error } = await this.MoonAPIClient.from('chains').select('*');
+    if (error) {
+      throw new Error(error.message);
     }
-    return response.data.data as BroadCastRawTransactionResponse;
+    return data as Chains[];
   }
-  private initialiseConfig(config: MoonConfig): MoonSDKConfig {
-    const sdkConfig = {
-      Auth: moonAuthConfig(config.Auth),
-      Storage: new MoonStorage(config.Storage.type, config.Storage.key),
-      Networks: config.Networks || MOON_SUPPORTED_NETWORKS,
-    };
+  public async getChainById(id: string): Promise<Chains> {
+    const { data, error } = await this.MoonAPIClient.from('chains')
+      .select('*')
+      .eq('chain_id', id);
 
-    return sdkConfig;
-  }
-  public updateConfig(config: MoonConfig) {
-    this.MoonSDKConfig = this.initialiseConfig(config);
-  }
-
-  public getNetworks(): Chain[] {
-    return this.MoonSDKConfig.Networks;
-  }
-
-  public updateAccount(account: MoonAccount) {
-    this.MoonAccount = account;
-    this.MoonSDKConfig.Storage.setItem(account);
-  }
-
-  public updateWallet(wallet: string) {
-    this.MoonAccount.setWallet(wallet);
-    this.MoonSDKConfig.Storage.setItem(this.MoonAccount);
-  }
-
-  public async connect(): Promise<MoonAccount> {
-    const account = new MoonAccount(this.MoonSDKConfig.Storage);
-    this.getMoonAccount().login();
-    if (account.getToken() != '' && account.getRefreshToken() != '') {
-      // check if account is expired
-      if (account.getExpiry() < Date.now()) {
-        // refresh account
-        const refresh = await this.refreshAccount();
-        this.updateToken(refresh.accessToken);
-      }
+    if (error) {
+      throw new Error(error.message);
     }
-
-    return new MoonAccount(this.MoonSDKConfig.Storage);
-  }
-
-  public updateNetwork(network: Chain) {
-    this.MoonAccount.setNetwork(network);
-  }
-
-  public async disconnect() {
-    // this.MoonSDKConfig.Storage.removeItem();
-    // this.MoonAccount = {
-    //   token: '',
-    //   email: '',
-    //   expiry: 0,
-    //   refreshToken: '',
-    //   wallet: '',
-    //   network: MOON_SUPPORTED_NETWORKS[0],
-    // };
-    // await this.MoonMessageHandler.handle({
-    //   type: MoonMessageType.logout,
-    //   data: this.MoonAccount,
-    // });
-    // return this.MoonAccount;
-  }
-
-  async logout(): Promise<void> {
-    this.MoonAccount.logout();
+    return data[0] as Chains;
   }
 }

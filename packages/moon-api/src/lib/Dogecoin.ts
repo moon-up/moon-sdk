@@ -10,31 +10,22 @@
  */
 
 import {
-  AccountControllerResponse,
+  CreateDogeCoinAccountData,
   DogeCoinInput,
   DogeCoinTransactionInput,
+  GetDogeCoinAccountData,
+  ListDogeCoinAccountsData,
+  SignDogeCoinTransactionData,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Dogecoin<
-  SecurityDataType = unknown,
-> extends HttpClient<SecurityDataType> {
-  /**
-   * No description
-   *
-   * @tags DogeCoin
-   * @name ListDogeCoinAccounts
-   * @request GET:/dogecoin
-   * @secure
-   */
-  listDogeCoinAccounts = (params: RequestParams = {}) =>
-    this.request<AccountControllerResponse, any>({
-      path: `/dogecoin`,
-      method: 'GET',
-      secure: true,
-      format: 'json',
-      ...params,
-    });
+export class Dogecoin<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
@@ -44,13 +35,12 @@ export class Dogecoin<
    * @secure
    */
   createDogeCoinAccount = (data: DogeCoinInput, params: RequestParams = {}) =>
-    this.request<AccountControllerResponse, any>({
+    this.http.request<CreateDogeCoinAccountData, any>({
       path: `/dogecoin`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
       ...params,
     });
   /**
@@ -62,11 +52,25 @@ export class Dogecoin<
    * @secure
    */
   getDogeCoinAccount = (accountName: string, params: RequestParams = {}) =>
-    this.request<AccountControllerResponse, any>({
+    this.http.request<GetDogeCoinAccountData, any>({
       path: `/dogecoin/${accountName}`,
       method: 'GET',
       secure: true,
-      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags DogeCoin
+   * @name ListDogeCoinAccounts
+   * @request GET:/dogecoin
+   * @secure
+   */
+  listDogeCoinAccounts = (params: RequestParams = {}) =>
+    this.http.request<ListDogeCoinAccountsData, any>({
+      path: `/dogecoin`,
+      method: 'GET',
+      secure: true,
       ...params,
     });
   /**
@@ -82,13 +86,12 @@ export class Dogecoin<
     data: DogeCoinTransactionInput,
     params: RequestParams = {}
   ) =>
-    this.request<AccountControllerResponse, any>({
+    this.http.request<SignDogeCoinTransactionData, any>({
       path: `/dogecoin/${accountName}/sign-tx`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
       ...params,
     });
 }

@@ -10,31 +10,22 @@
  */
 
 import {
-  AccountControllerResponse,
+  CreateRippleAccountData,
+  GetRippleAccountData,
+  ListRippleAccountsData,
   RippleInput,
   RippleTransactionInput,
+  SignRippleTransactionData,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Ripple<
-  SecurityDataType = unknown,
-> extends HttpClient<SecurityDataType> {
-  /**
-   * No description
-   *
-   * @tags ripple
-   * @name ListRippleAccounts
-   * @request GET:/ripple
-   * @secure
-   */
-  listRippleAccounts = (params: RequestParams = {}) =>
-    this.request<AccountControllerResponse, any>({
-      path: `/ripple`,
-      method: 'GET',
-      secure: true,
-      format: 'json',
-      ...params,
-    });
+export class Ripple<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
@@ -44,13 +35,12 @@ export class Ripple<
    * @secure
    */
   createRippleAccount = (data: RippleInput, params: RequestParams = {}) =>
-    this.request<AccountControllerResponse, any>({
+    this.http.request<CreateRippleAccountData, any>({
       path: `/ripple`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
       ...params,
     });
   /**
@@ -62,11 +52,25 @@ export class Ripple<
    * @secure
    */
   getRippleAccount = (accountName: string, params: RequestParams = {}) =>
-    this.request<AccountControllerResponse, any>({
+    this.http.request<GetRippleAccountData, any>({
       path: `/ripple/${accountName}`,
       method: 'GET',
       secure: true,
-      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags ripple
+   * @name ListRippleAccounts
+   * @request GET:/ripple
+   * @secure
+   */
+  listRippleAccounts = (params: RequestParams = {}) =>
+    this.http.request<ListRippleAccountsData, any>({
+      path: `/ripple`,
+      method: 'GET',
+      secure: true,
       ...params,
     });
   /**
@@ -82,13 +86,12 @@ export class Ripple<
     data: RippleTransactionInput,
     params: RequestParams = {}
   ) =>
-    this.request<AccountControllerResponse, any>({
+    this.http.request<SignRippleTransactionData, any>({
       path: `/ripple/${accountName}/sign-tx`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
       ...params,
     });
 }

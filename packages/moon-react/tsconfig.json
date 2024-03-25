@@ -4,6 +4,10 @@
   "include": ["src", "types"],
   "types": ["vitest/globals"],
   "compilerOptions": {
-    "jsx": "react"
+    "jsx": "react",
+    "moduleResolution": "Bundler",
+    "module": "ESNext",
+    "preserveSymlinks": true,
+    "allowSyntheticDefaultImports": true
   }
 }

@@ -10,160 +10,54 @@
  */
 
 import {
-  AccountControllerResponse,
   BroadcastInput,
+  BroadcastTxData,
+  CreateAccountData,
   CreateAccountInput,
+  DeleteAccountData,
+  DeployContractData,
   DeployInput,
+  GetAccountData,
+  GetBalanceData,
+  GetBalanceParams,
+  GetNonceData,
   InputBody,
+  ListAccountsData,
   SignMessage,
+  SignMessageData,
+  SignTransactionData,
   SignTypedData,
+  SignTypedDataData,
+  TransferEthData,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Accounts<
-  SecurityDataType = unknown,
-> extends HttpClient<SecurityDataType> {
+export class Accounts<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
    * @tags Accounts
-   * @name GetNonce
-   * @request GET:/accounts/{accountName}/nonce
+   * @name BroadcastTx
+   * @request POST:/accounts/{accountName}/broadcast-tx
    * @secure
    */
-  getNonce = (accountName: string, params: RequestParams = {}) =>
-    this.request<AccountControllerResponse, any>({
-      path: `/accounts/${accountName}/nonce`,
-      method: 'GET',
-      secure: true,
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags Accounts
-   * @name GetBalance
-   * @request GET:/accounts/{accountName}/balance
-   * @secure
-   */
-  getBalance = (
+  broadcastTx = (
     accountName: string,
-    query: {
-      chainId: string;
-    },
+    data: BroadcastInput,
     params: RequestParams = {}
   ) =>
-    this.request<AccountControllerResponse, any>({
-      path: `/accounts/${accountName}/balance`,
-      method: 'GET',
-      query: query,
-      secure: true,
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags Accounts
-   * @name TransferEth
-   * @request POST:/accounts/{accountName}/transfer-eth
-   * @secure
-   */
-  transferEth = (
-    accountName: string,
-    data: InputBody,
-    params: RequestParams = {}
-  ) =>
-    this.request<AccountControllerResponse, any>({
-      path: `/accounts/${accountName}/transfer-eth`,
+    this.http.request<BroadcastTxData, any>({
+      path: `/accounts/${accountName}/broadcast-tx`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags Accounts
-   * @name SignMessage
-   * @request POST:/accounts/{accountName}/sign-message
-   * @secure
-   */
-  signMessage = (
-    accountName: string,
-    data: SignMessage,
-    params: RequestParams = {}
-  ) =>
-    this.request<AccountControllerResponse, any>({
-      path: `/accounts/${accountName}/sign-message`,
-      method: 'POST',
-      body: data,
-      secure: true,
-      type: ContentType.Json,
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags Accounts
-   * @name SignTransaction
-   * @request POST:/accounts/{accountName}/sign-transaction
-   * @secure
-   */
-  signTransaction = (
-    accountName: string,
-    data: InputBody,
-    params: RequestParams = {}
-  ) =>
-    this.request<AccountControllerResponse, any>({
-      path: `/accounts/${accountName}/sign-transaction`,
-      method: 'POST',
-      body: data,
-      secure: true,
-      type: ContentType.Json,
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags Accounts
-   * @name SignTypedData
-   * @request POST:/accounts/{accountName}/sign-typed-data
-   * @secure
-   */
-  signTypedData = (
-    accountName: string,
-    data: SignTypedData,
-    params: RequestParams = {}
-  ) =>
-    this.request<AccountControllerResponse, any>({
-      path: `/accounts/${accountName}/sign-typed-data`,
-      method: 'POST',
-      body: data,
-      secure: true,
-      type: ContentType.Json,
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags Accounts
-   * @name ListAccounts
-   * @request GET:/accounts
-   * @secure
-   */
-  listAccounts = (params: RequestParams = {}) =>
-    this.request<AccountControllerResponse, any>({
-      path: `/accounts`,
-      method: 'GET',
-      secure: true,
-      format: 'json',
       ...params,
     });
   /**
@@ -175,29 +69,12 @@ export class Accounts<
    * @secure
    */
   createAccount = (data: CreateAccountInput, params: RequestParams = {}) =>
-    this.request<AccountControllerResponse, any>({
+    this.http.request<CreateAccountData, any>({
       path: `/accounts`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags Accounts
-   * @name GetAccount
-   * @request GET:/accounts/{accountName}
-   * @secure
-   */
-  getAccount = (accountName: string, params: RequestParams = {}) =>
-    this.request<AccountControllerResponse, any>({
-      path: `/accounts/${accountName}`,
-      method: 'GET',
-      secure: true,
-      format: 'json',
       ...params,
     });
   /**
@@ -209,11 +86,10 @@ export class Accounts<
    * @secure
    */
   deleteAccount = (accountName: string, params: RequestParams = {}) =>
-    this.request<AccountControllerResponse, any>({
+    this.http.request<DeleteAccountData, any>({
       path: `/accounts/${accountName}`,
       method: 'DELETE',
       secure: true,
-      format: 'json',
       ...params,
     });
   /**
@@ -229,35 +105,160 @@ export class Accounts<
     data: DeployInput,
     params: RequestParams = {}
   ) =>
-    this.request<AccountControllerResponse, any>({
+    this.http.request<DeployContractData, any>({
       path: `/accounts/${accountName}/deploy`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
       ...params,
     });
   /**
    * No description
    *
    * @tags Accounts
-   * @name BroadcastTx
-   * @request POST:/accounts/{accountName}/broadcast-tx
+   * @name GetAccount
+   * @request GET:/accounts/{accountName}
    * @secure
    */
-  broadcastTx = (
-    accountName: string,
-    data: BroadcastInput,
+  getAccount = (accountName: string, params: RequestParams = {}) =>
+    this.http.request<GetAccountData, any>({
+      path: `/accounts/${accountName}`,
+      method: 'GET',
+      secure: true,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Accounts
+   * @name GetBalance
+   * @request GET:/accounts/{accountName}/balance
+   * @secure
+   */
+  getBalance = (
+    { accountName, ...query }: GetBalanceParams,
     params: RequestParams = {}
   ) =>
-    this.request<AccountControllerResponse, any>({
-      path: `/accounts/${accountName}/broadcast-tx`,
+    this.http.request<GetBalanceData, any>({
+      path: `/accounts/${accountName}/balance`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Accounts
+   * @name GetNonce
+   * @request GET:/accounts/{accountName}/nonce
+   * @secure
+   */
+  getNonce = (accountName: string, params: RequestParams = {}) =>
+    this.http.request<GetNonceData, any>({
+      path: `/accounts/${accountName}/nonce`,
+      method: 'GET',
+      secure: true,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Accounts
+   * @name ListAccounts
+   * @request GET:/accounts
+   * @secure
+   */
+  listAccounts = (params: RequestParams = {}) =>
+    this.http.request<ListAccountsData, any>({
+      path: `/accounts`,
+      method: 'GET',
+      secure: true,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Accounts
+   * @name SignMessage
+   * @request POST:/accounts/{accountName}/sign-message
+   * @secure
+   */
+  signMessage = (
+    accountName: string,
+    data: SignMessage,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<SignMessageData, any>({
+      path: `/accounts/${accountName}/sign-message`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Accounts
+   * @name SignTransaction
+   * @request POST:/accounts/{accountName}/sign-transaction
+   * @secure
+   */
+  signTransaction = (
+    accountName: string,
+    data: InputBody,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<SignTransactionData, any>({
+      path: `/accounts/${accountName}/sign-transaction`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Accounts
+   * @name SignTypedData
+   * @request POST:/accounts/{accountName}/sign-typed-data
+   * @secure
+   */
+  signTypedData = (
+    accountName: string,
+    data: SignTypedData,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<SignTypedDataData, any>({
+      path: `/accounts/${accountName}/sign-typed-data`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Accounts
+   * @name TransferEth
+   * @request POST:/accounts/{accountName}/transfer-eth
+   * @secure
+   */
+  transferEth = (
+    accountName: string,
+    data: InputBody,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<TransferEthData, any>({
+      path: `/accounts/${accountName}/transfer-eth`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
       ...params,
     });
 }

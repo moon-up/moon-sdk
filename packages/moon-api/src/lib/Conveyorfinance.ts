@@ -9,15 +9,16 @@
  * ---------------------------------------------------------------
  */
 
-import {
-  ConveyorFinanceControllerResponse,
-  TokenSwapParams,
-} from './data-contracts';
+import { SwapResult, TokenSwapParams } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Conveyorfinance<
-  SecurityDataType = unknown,
-> extends HttpClient<SecurityDataType> {
+export class Conveyorfinance<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
@@ -27,13 +28,12 @@ export class Conveyorfinance<
    * @secure
    */
   swap = (name: string, data: TokenSwapParams, params: RequestParams = {}) =>
-    this.request<ConveyorFinanceControllerResponse, any>({
+    this.http.request<SwapResult, any>({
       path: `/conveyorfinance/${name}/swap`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
       ...params,
     });
 }

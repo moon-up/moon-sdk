@@ -10,31 +10,22 @@
  */
 
 import {
-  AccountControllerResponse,
   BitcoinCashInput,
   BitcoinCashTransactionInput,
+  CreateBitcoinCashAccountData,
+  GetBitcoinCashAccountData,
+  ListBitcoinCashAccountsData,
+  SignBitcoinCashTransactionData,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
-export class Bitcoincash<
-  SecurityDataType = unknown,
-> extends HttpClient<SecurityDataType> {
-  /**
-   * No description
-   *
-   * @tags bitcoincash
-   * @name ListBitcoinCashAccounts
-   * @request GET:/bitcoincash
-   * @secure
-   */
-  listBitcoinCashAccounts = (params: RequestParams = {}) =>
-    this.request<AccountControllerResponse, any>({
-      path: `/bitcoincash`,
-      method: 'GET',
-      secure: true,
-      format: 'json',
-      ...params,
-    });
+export class Bitcoincash<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
@@ -47,13 +38,12 @@ export class Bitcoincash<
     data: BitcoinCashInput,
     params: RequestParams = {}
   ) =>
-    this.request<AccountControllerResponse, any>({
+    this.http.request<CreateBitcoinCashAccountData, any>({
       path: `/bitcoincash`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
       ...params,
     });
   /**
@@ -65,11 +55,25 @@ export class Bitcoincash<
    * @secure
    */
   getBitcoinCashAccount = (accountName: string, params: RequestParams = {}) =>
-    this.request<AccountControllerResponse, any>({
+    this.http.request<GetBitcoinCashAccountData, any>({
       path: `/bitcoincash/${accountName}`,
       method: 'GET',
       secure: true,
-      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags bitcoincash
+   * @name ListBitcoinCashAccounts
+   * @request GET:/bitcoincash
+   * @secure
+   */
+  listBitcoinCashAccounts = (params: RequestParams = {}) =>
+    this.http.request<ListBitcoinCashAccountsData, any>({
+      path: `/bitcoincash`,
+      method: 'GET',
+      secure: true,
       ...params,
     });
   /**
@@ -85,13 +89,12 @@ export class Bitcoincash<
     data: BitcoinCashTransactionInput,
     params: RequestParams = {}
   ) =>
-    this.request<AccountControllerResponse, any>({
+    this.http.request<SignBitcoinCashTransactionData, any>({
       path: `/bitcoincash/${accountName}/sign-tx`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
-      format: 'json',
       ...params,
     });
 }
