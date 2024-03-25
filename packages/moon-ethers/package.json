@@ -1,6 +1,6 @@
 {
   "name": "@moonup/ethers",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": "0xEwhal <ewhal@bytemasons.com>",
   "type": "commonjs",
   "main": "./dist/index.js",

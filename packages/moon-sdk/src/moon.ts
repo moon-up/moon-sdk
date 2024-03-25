@@ -123,7 +123,7 @@ export class MoonSDK {
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzEwNzIwMDAwLAogICJleHAiOiAxODY4NDg2NDAwCn0.am_Q1cqJ025FU-yEDXk5VDqv30DbOxw2hHb51YwRuaQ',
       {}
     );
-    this.MoonAPIClient.auth;
+    this.connect();
   }
   public async connect() {
     this.MoonAPIClient.auth.onAuthStateChange((event, session) => {
