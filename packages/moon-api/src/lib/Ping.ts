@@ -9,12 +9,16 @@
  * ---------------------------------------------------------------
  */
 
-import { PingResponse } from './data-contracts';
+import { GetMessageData } from './data-contracts';
 import { HttpClient, RequestParams } from './http-client';
 
-export class Ping<
-  SecurityDataType = unknown,
-> extends HttpClient<SecurityDataType> {
+export class Ping<SecurityDataType = unknown> {
+  http: HttpClient<SecurityDataType>;
+
+  constructor(http: HttpClient<SecurityDataType>) {
+    this.http = http;
+  }
+
   /**
    * No description
    *
@@ -22,10 +26,9 @@ export class Ping<
    * @request GET:/ping
    */
   getMessage = (params: RequestParams = {}) =>
-    this.request<PingResponse, any>({
+    this.http.request<GetMessageData, any>({
       path: `/ping`,
       method: 'GET',
-      format: 'json',
       ...params,
     });
 }

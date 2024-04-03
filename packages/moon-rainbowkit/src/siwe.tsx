@@ -1,123 +1,130 @@
-// import {
-//   MOON_SUPPORTED_NETWORKS,
-//   MoonStorage,
-//   Storage,
-// } from '@moonup/moon-types';
-// import {
-//   RainbowKitAuthenticationProvider,
-//   createAuthenticationAdapter,
-// } from '@rainbow-me/rainbowkit';
-// import { useOptions, useSession } from '@randombits/use-siwe';
-// import React, { ReactNode } from 'react';
-// import { SiweMessage } from 'siwe';
+import { useMoonSDK } from '@moonup/moon-react';
+import {
+  createAuthenticationAdapter,
+  RainbowKitAuthenticationProvider,
+} from '@rainbow-me/rainbowkit';
+import React, { useMemo, useState } from 'react';
+import { SiweMessage } from 'siwe';
+import { useAccount } from 'wagmi';
+export function RainbowMoonProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const { moon } = useMoonSDK();
+  const [isLoading, setIsLoading] = useState(false);
+  const [authenticated, setAuthenticated] = useState(false);
+  const status = useMemo(
+    () =>
+      isLoading
+        ? 'loading'
+        : authenticated
+        ? 'authenticated'
+        : 'unauthenticated',
+    [isLoading, authenticated]
+  );
+  const { address, status: wagmiStatus } = useAccount();
+  const [nonce, setNonce] = useState('');
 
-// type RainbowKitUseSiweProviderProps = {
-//   children?: ReactNode;
-//   onSignIn?: () => void;
-//   onSignOut?: () => void;
-// };
+  const adapter = useMemo(
+    () =>
+      createAuthenticationAdapter({
+        getNonce: async (): Promise<string> => {
+          // 1. Get a nonce from the server
+          const nonceResponse = await fetch(
+            `https://moon-wallet-supabase-next-app.vercel.app/api/ethereum/nonce`,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                address: address,
+              }),
+            }
+          );
 
-// export const RainbowKitUseSiweProvider = ({
-//   children,
-//   onSignIn,
-//   onSignOut,
-// }: RainbowKitUseSiweProviderProps) => {
-//   const { authenticated, isLoading, address } = useSession();
-//   const options = useOptions();
+          const {
+            user: [user],
+          } = await nonceResponse.json();
+          setNonce(user.auth.genNonce as string);
+          return user.auth.genNonce as string;
+        },
 
-//   const adapter = createAuthenticationAdapter({
-//     getNonce: async (): Promise<string> => {
-//       const response = await fetch(
-//         'https://vault-api.usemoon.ai/auth/ethereum/challenge',
-//         {
-//           method: 'POST',
-//           headers: {
-//             'Content-Type': 'application/json',
-//             Accept: 'application/json',
-//           },
-//           body: JSON.stringify({
-//             address: address,
-//           }),
-//         }
-//       ).then(function (response) {
-//         return response.json();
-//       });
-//       return response.nonce;
-//     },
+        createMessage: ({ nonce, address, chainId }) => {
+          return new SiweMessage({
+            domain: window.location.host,
+            address,
+            statement: 'Sign in with Ethereum to the app.',
+            uri: window.location.origin,
+            version: '1',
+            chainId,
+            nonce,
+          });
+        },
 
-//     createMessage: ({ nonce, address, chainId }) => {
-//       return new SiweMessage({
-//         domain: window.location.host,
-//         address,
-//         statement: 'Sign in with Ethereum to the app.',
-//         uri: window.location.origin,
-//         version: '1',
-//         chainId,
-//         nonce,
-//       });
-//     },
+        getMessageBody: ({ message }): string => {
+          return message.prepareMessage();
+        },
 
-//     getMessageBody: ({ message }): string => {
-//       return message.prepareMessage();
-//     },
+        verify: async ({ message, signature }) => {
+          setIsLoading(true);
+          // // 3. Send the signed message to our API
+          const response = await fetch(
+            `https://moon-wallet-supabase-next-app.vercel.app/api/ethereum/login`,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                address: address,
+                signedMessage: signature,
+                nonce: nonce,
+                message: message.prepareMessage(),
+              }),
+            }
+          ).then((res) => res.json());
+          console.log(response);
+          if (!response.token.access_token || !response.token.refresh_token) {
+            // check if the response returned a valid access token and refresh token
+            console.error('Invalid response');
+            setAuthenticated(false);
+            return false;
+          }
+          setIsLoading(false);
+          setAuthenticated(true);
 
-//     verify: async ({ message, signature }) => {
-//       const verifyRes = await fetch(
-//         'https://vault-api.usemoon.ai/auth/ethereum',
-//         {
-//           method: 'POST',
-//           headers: {
-//             'Content-Type': 'application/json',
-//             Accept: 'application/json',
-//           },
-//           body: JSON.stringify({
-//             message: message,
-//             signature: signature,
-//             address,
-//           }),
-//         }
-//       ).then(function (response) {
-//         return response.json();
-//       });
+          // set cookie
+          // cookie('sb-api-auth-token', response.data);
+          document.cookie = `sb-api-auth-token=${JSON.stringify(
+            response.token
+          )}`;
 
-//       const storage = new MoonStorage(Storage.SESSION, 'MOON_SESSION_KEY');
-//       storage.setItem({
-//         email: address || '',
-//         token: verifyRes.accessToken || '',
-//         refreshToken: verifyRes.refreshToken || '',
-//         expiry: verifyRes.expiry || new Date().toString(),
-//         wallet: '',
-//         network: MOON_SUPPORTED_NETWORKS[0],
-//       });
-//       onSignIn && onSignIn();
-//       return true;
-//     },
+          await moon?.setAccessToken(
+            response.data.access_token,
+            response.data.refresh_token
+          );
 
-//     signOut: async () => {
-//       const storage = new MoonStorage(Storage.SESSION, 'MOON_SESSION_KEY');
-//       storage.setItem({
-//         token: '',
-//         refreshToken: '',
-//         email: '',
-//         expiry: 0,
-//         wallet: '',
-//         network: MOON_SUPPORTED_NETWORKS[0],
-//       });
-//       onSignOut && onSignOut();
-//     },
-//   });
+          return true;
+        },
 
-//   const status = isLoading
-//     ? 'loading'
-//     : authenticated
-//     ? 'authenticated'
-//     : 'unauthenticated';
+        signOut: async () => {
+          moon?.disconnect();
+          setIsLoading(false);
+          setAuthenticated(false);
+        },
+      }),
+    [wagmiStatus, address, moon, nonce]
+  );
 
-//   return (
-//     <RainbowKitAuthenticationProvider adapter={adapter} status={status}>
-//       {children}
-//     </RainbowKitAuthenticationProvider>
-//   );
-// };
-
-// export default RainbowKitUseSiweProvider;
+  return (
+    <RainbowKitAuthenticationProvider
+      adapter={adapter}
+      status={status}
+      enabled={true}
+    >
+      {children}
+    </RainbowKitAuthenticationProvider>
+  );
+}

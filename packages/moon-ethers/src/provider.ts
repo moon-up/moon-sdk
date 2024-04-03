@@ -13,7 +13,7 @@ import {
 } from '@ethersproject/abstract-provider';
 import { Deferrable } from '@ethersproject/properties';
 import { Network } from '@ethersproject/providers';
-import { MoonAccount } from '@moonup/moon-types';
+import { MoonSDK } from '@moonup/moon-sdk';
 import {
   IEthereumProvider,
   ProviderAccounts,
@@ -24,29 +24,29 @@ import { EventEmitter } from 'events';
 
 import { JsonRpcProvider } from './json-rpc-provider';
 import { MoonProviderOptions } from './types';
-export class MoonProvider extends Provider implements IEthereumProvider {
-  private account?: MoonAccount = undefined;
 
+export class MoonProvider extends Provider implements IEthereumProvider {
   public events: EventEmitter = new EventEmitter();
   public chainId: number;
-  public readonly signer: JsonRpcProvider;
+  public rpc: JsonRpcProvider;
+  public sdk: MoonSDK;
+  public address = '';
 
   constructor(options: MoonProviderOptions) {
     super();
     this.chainId = options.chainId;
-    this.signer = new JsonRpcProvider(this.chainId);
+    this.sdk = options.SDK;
+    this.address = options.address;
+    this.rpc = new JsonRpcProvider(options);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public async request(args: RequestArguments): Promise<any> {
     switch (args.method) {
       case 'eth_requestAccounts':
-        // eslint-disable-next-line no-case-declarations
-        const account = await this.connect();
-        this.account = account;
-        return (await this.signer.moonWallet.listAccounts()) || [];
+        return await this.sdk.listAccounts();
       case 'eth_accounts':
-        return this.signer.moonWallet.listAccounts() || [];
+        return this.rpc.getSigner().getAddress();
       case 'eth_chainId':
         return this.chainId;
       case 'wallet_switchEthereumChain':
@@ -62,29 +62,53 @@ export class MoonProvider extends Provider implements IEthereumProvider {
           _params?.chainId?.startsWith('0x')
             ? parseInt(_params?.chainId, 16)
             : _params?.chainId;
-
-        this.signer.updateMoonWalletConfig(chainId);
+        this.updateConfig({
+          chainId,
+          SDK: this.sdk,
+          address: this.address,
+        });
         this.chainId = chainId;
 
         this.events.emit('chainChanged', _params?.chainId);
         return;
+      // address change
+      case 'accountsChanged':
+        // eslint-disable-next-line no-case-declarations
+        const accounts =
+          args?.params && Array.isArray(args?.params) && args?.params[0]
+            ? // eslint-disable-next-line no-case-declarations
+              args?.params[0]
+            : undefined;
+        this.address = accounts[0];
+        this.updateConfig({
+          chainId: this.chainId,
+          SDK: this.sdk,
+          address: accounts[0],
+        });
+        this.events.emit('accountsChanged', accounts);
+        return;
       default:
         break;
     }
-    return await this.signer.request(args);
+    return await this.rpc.request(args);
+  }
+  public updateConfig(options: MoonProviderOptions) {
+    this.chainId = options.chainId;
+    this.sdk = options.SDK;
+    this.rpc.updateConfig(options);
   }
 
   public async connect() {
-    const account = await this.signer.connect();
-    this.account = account;
-    this.events.emit('connect', account);
-    return account;
+    // const account = await this.signer.connect();
+    // this.account = account;
+    this.events.emit('connect');
+    // return account;
   }
 
   public async disconnect(): Promise<void> {
-    await this.signer.disconnect();
+    // await this.signer.disconnect();
     this.events.emit('disconnect');
-    this.account = undefined;
+    // this.account = undefined;
   }
 
   public sendAsync(
@@ -106,120 +130,116 @@ export class MoonProvider extends Provider implements IEthereumProvider {
     return true;
   }
 
-  public isConnected(): boolean {
-    return !!this.account;
-  }
-
   public getChainId(): number {
     return this.chainId;
   }
 
   public getSigner() {
-    return this.signer;
+    return this.rpc.getSigner();
   }
 
   getNetwork(): Promise<Network> {
-    return this.signer.http.getNetwork();
+    return this.rpc.getProvider().getNetwork();
   }
   getBlockNumber(): Promise<number> {
-    return this.signer.http.getBlockNumber();
+    return this.rpc.getProvider().getBlockNumber();
   }
   getGasPrice(): Promise<BigNumber> {
-    return this.signer.http.getGasPrice();
+    return this.rpc.getProvider().getGasPrice();
   }
   getBalance(
     addressOrName: string | Promise<string>,
     blockTag?: BlockTag | Promise<BlockTag> | undefined
   ): Promise<BigNumber> {
-    return this.signer.http.getBalance(addressOrName, blockTag);
+    return this.rpc.getProvider().getBalance(addressOrName, blockTag);
   }
   getTransactionCount(
     addressOrName: string | Promise<string>,
     blockTag?: BlockTag | Promise<BlockTag> | undefined
   ): Promise<number> {
-    return this.signer.http.getTransactionCount(addressOrName, blockTag);
+    return this.rpc.getProvider().getTransactionCount(addressOrName, blockTag);
   }
   getCode(
     addressOrName: string | Promise<string>,
     blockTag?: BlockTag | Promise<BlockTag> | undefined
   ): Promise<string> {
-    return this.signer.http.getCode(addressOrName, blockTag);
+    return this.rpc.getProvider().getCode(addressOrName, blockTag);
   }
   getStorageAt(
     addressOrName: string | Promise<string>,
     position: BigNumberish | Promise<BigNumberish>,
     blockTag?: BlockTag | Promise<BlockTag> | undefined
   ): Promise<string> {
-    return this.signer.http.getStorageAt(addressOrName, position, blockTag);
+    return this.rpc
+      .getProvider()
+      .getStorageAt(addressOrName, position, blockTag);
   }
   sendTransaction(
     signedTransaction: string | Promise<string>
   ): Promise<TransactionResponse> {
-    return this.signer.http.sendTransaction(signedTransaction);
+    return this.rpc.getProvider().sendTransaction(signedTransaction);
   }
   call(
     transaction: Deferrable<TransactionRequest>,
     blockTag?: BlockTag | Promise<BlockTag> | undefined
   ): Promise<string> {
-    return this.signer.http.call(transaction, blockTag);
+    return this.rpc.getProvider().call(transaction, blockTag);
   }
   estimateGas(transaction: Deferrable<TransactionRequest>): Promise<BigNumber> {
-    return this.signer.http.estimateGas(transaction);
+    return this.rpc.getProvider().estimateGas(transaction);
   }
   getBlock(blockHashOrBlockTag: BlockTag | Promise<BlockTag>): Promise<Block> {
-    return this.signer.http.getBlock(blockHashOrBlockTag);
+    return this.rpc.getProvider().getBlock(blockHashOrBlockTag);
   }
   getBlockWithTransactions(
     blockHashOrBlockTag: BlockTag | Promise<BlockTag>
   ): Promise<BlockWithTransactions> {
-    return this.signer.http.getBlockWithTransactions(blockHashOrBlockTag);
+    return this.rpc.getProvider().getBlockWithTransactions(blockHashOrBlockTag);
   }
   getTransaction(transactionHash: string): Promise<TransactionResponse> {
-    return this.signer.http.getTransaction(transactionHash);
+    return this.rpc.getProvider().getTransaction(transactionHash);
   }
   getTransactionReceipt(transactionHash: string): Promise<TransactionReceipt> {
-    return this.signer.http.getTransactionReceipt(transactionHash);
+    return this.rpc.getProvider().getTransactionReceipt(transactionHash);
   }
   getLogs(filter: Filter): Promise<Log[]> {
-    return this.signer.http.getLogs(filter);
+    return this.rpc.getProvider().getLogs(filter);
   }
   resolveName(name: string | Promise<string>): Promise<string | null> {
-    return this.signer.http.resolveName(name);
+    return this.rpc.getProvider().resolveName(name);
   }
   lookupAddress(address: string | Promise<string>): Promise<string | null> {
-    return this.signer.http.lookupAddress(address);
+    return this.rpc.getProvider().lookupAddress(address);
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   emit(eventName: EventType, ...args: any[]): boolean {
-    return this.signer.http.emit(eventName, ...args);
+    return this.rpc.getProvider().emit(eventName, ...args);
   }
   listenerCount(eventName?: EventType | undefined): number {
-    return this.signer.http.listenerCount(eventName);
+    return this.rpc.getProvider().listenerCount(eventName);
   }
   listeners(eventName?: EventType | undefined): Listener[] {
-    return this.signer.http.listeners(eventName);
+    return this.rpc.getProvider().listeners(eventName);
   }
   removeAllListeners(eventName?: EventType | undefined): Provider {
-    return this.signer.http.removeAllListeners(eventName);
+    return this.rpc.getProvider().removeAllListeners(eventName);
   }
   waitForTransaction(
     transactionHash: string,
     confirmations?: number | undefined,
     timeout?: number | undefined
   ): Promise<TransactionReceipt> {
-    return this.signer.http.waitForTransaction(
-      transactionHash,
-      confirmations,
-      timeout
-    );
+    return this.rpc
+      .getProvider()
+      .waitForTransaction(transactionHash, confirmations, timeout);
   }
   on(eventName: EventType, listener: Listener): Provider {
-    return this.signer.http.on(eventName, listener);
+    return this.rpc.getProvider().on(eventName, listener);
   }
   once(eventName: EventType, listener: Listener): Provider {
-    return this.signer.http.once(eventName, listener);
+    return this.rpc.getProvider().once(eventName, listener);
   }
   off(eventName: EventType, listener?: Listener | undefined): Provider {
-    return this.signer.http.off(eventName, listener);
+    return this.rpc.getProvider().off(eventName, listener);
   }
 }

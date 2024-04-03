@@ -1,7 +1,8 @@
-import { MoonConfig } from '@moonup/moon-types';
+import { MoonSDK } from '@moonup/moon-sdk';
 export interface MoonProviderOptions {
   chainId: number;
-  MoonSDKConfig: MoonConfig;
+  SDK: MoonSDK;
+  address: string;
 }
 
 export interface ProviderRpcError extends Error {

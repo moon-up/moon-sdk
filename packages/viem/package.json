@@ -1,7 +1,6 @@
 {
-  "name": "@moonup/wagmi-connector",
-  "version": "0.0.21",
-  "license": "MIT",
+  "name": "@moonup/viem",
+  "version": "0.0.7",
   "author": "0xEwhal <ewhal@bytemasons.com>",
   "type": "commonjs",
   "main": "./dist/index.js",
@@ -22,6 +21,9 @@
     "dist",
     "src"
   ],
+  "engines": {
+    "node": ">=10"
+  },
   "scripts": {
     "analyze": "size-limit --why",
     "prepare": "tsup",
@@ -42,7 +44,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint"
+      "pre-commit": "tsdx lint"
     }
   },
   "prettier": {
@@ -51,38 +53,20 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "jest": {
-    "testEnvironment": "node"
-  },
-  "engines": {
-    "node": ">=12"
-  },
   "size-limit": [
     {
-      "path": "dist/moon-wagmi.cjs.production.min.js",
+      "path": "dist/moon-viem.cjs.production.min.js",
       "limit": "10 KB"
     },
     {
-      "path": "dist/moon-wagmi.esm.js",
+      "path": "dist/moon-viem.esm.js",
       "limit": "10 KB"
     }
   ],
-  "dependencies": {
-    "@moonup/ethers": "^0.0.11",
-    "@moonup/moon-sdk": "^0.0.37",
-    "@moonup/moon-types": "^0.0.22",
-    "@moonup/wagmi-connector": "^0.0.13",
-    "@rainbow-me/rainbowkit": "^1.2.0",
-    "ethers": "^5.7.2",
-    "viem": "^1.19.0",
-    "wagmi": "^1.4.6"
-  },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^11.0.1",
     "@tsconfig/recommended": "^1.0.3",
     "@tsconfig/vite-react": "^3.0.0",
-    "@types/react": "^18.2.47",
-    "@types/react-dom": "^18.2.18",
     "@vitest/coverage-v8": "^0.34.2",
     "happy-dom": "^6.0.4",
     "husky": "^8.0.3",
@@ -90,5 +74,10 @@
     "tslib": "^2.6.2",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@ethersproject/abstract-signer": "^5.7.0",
+    "@moonup/moon-sdk": "workspace: *",
+    "viem": "^2.7.3"
   }
 }

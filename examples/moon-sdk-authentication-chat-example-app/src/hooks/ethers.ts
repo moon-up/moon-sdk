@@ -1,49 +1,55 @@
-import { MoonProvider, MoonProviderOptions } from '@moonup/ethers';
+import { MoonProvider, MoonProviderOptions, MoonSigner } from '@moonup/ethers';
 import { AUTH, MOON_SESSION_KEY, Storage } from '@moonup/moon-types';
 import { useEffect, useState } from 'react';
 
 interface MoonSDKHook {
-	moonProvider: MoonProvider | null;
-	initialize: () => Promise<void>;
-	disconnect: () => Promise<void>;
+  moonProvider: MoonProvider | null;
+  signer: MoonSigner | null;
+  initialize: () => Promise<void>;
+  disconnect: () => Promise<void>;
 }
 
 export function useMoonEthers(): MoonSDKHook {
-	const [moonProvider, setMoonProvider] = useState<MoonProvider | null>(null);
+  const [moonProvider, setMoonProvider] = useState<MoonProvider | null>(null);
+  const [signer, setSigner] = useState<MoonSigner | null>(null);
 
-	const initialize = async () => {
-		const options: MoonProviderOptions = {
-			chainId: 1,
-			MoonSDKConfig: {
-				Storage: {
-					key: MOON_SESSION_KEY,
-					type: Storage.SESSION,
-				},
-				Auth: {
-					AuthType: AUTH.JWT,
-				},
-			},
-		};
+  const initialize = async () => {
+    const options: MoonProviderOptions = {
+      chainId: 1,
+      MoonSDKConfig: {
+        Storage: {
+          key: MOON_SESSION_KEY,
 
-		const moonInstance = new MoonProvider(options);
-		setMoonProvider(moonInstance);
-	};
+          type: Storage.SESSION,
+        },
+        Auth: {
+          AuthType: AUTH.JWT,
+        },
+      },
+    };
 
-	const disconnect = async () => {
-		if (moonProvider) {
-			await moonProvider.disconnect();
-			setMoonProvider(null);
-		}
-	};
+    const moonInstance = new MoonProvider(options);
+    setMoonProvider(moonInstance);
+    const signer = new MoonSigner(moonInstance, options.MoonSDKConfig);
+    setSigner(signer);
+  };
 
-	useEffect(() => {
-		initialize();
-	}, []);
+  const disconnect = async () => {
+    if (moonProvider) {
+      await moonProvider.disconnect();
+      setMoonProvider(null);
+    }
+  };
 
-	return {
-		moonProvider,
-		initialize,
-		disconnect,
-		// Add other methods as needed
-	};
+  useEffect(() => {
+    initialize();
+  }, []);
+
+  return {
+    moonProvider,
+    signer,
+    initialize,
+    disconnect,
+    // Add other methods as needed
+  };
 }

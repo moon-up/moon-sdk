@@ -1,6 +1,6 @@
 {
   "name": "@moonup/moon-sdk",
-  "version": "0.0.43",
+  "version": "1.0.5",
   "author": "0xEwhal <ewhal@bytemasons.com>",
   "type": "commonjs",
   "main": "./dist/index.js",
@@ -70,8 +70,8 @@
     "@ethersproject/bytes": "^5.7.0",
     "@ethersproject/hash": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",
-    "@moonup/moon-api": "^0.0.23",
-    "@moonup/moon-types": "^0.0.25",
+    "@moonup/moon-api": "workspace:*",
+    "@supabase/supabase-js": "^2.39.3",
     "events": "^3.3.0",
     "typedots": "^0.0.2"
   },

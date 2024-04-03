@@ -1,6 +1,7 @@
 {
-  "name": "@moonup/moon-types",
-  "version": "0.0.25",
+  "name": "@moonup/wagmi-connector",
+  "version": "1.0.6",
+  "license": "MIT",
   "author": "0xEwhal <ewhal@bytemasons.com>",
   "type": "commonjs",
   "main": "./dist/index.js",
@@ -21,9 +22,6 @@
     "dist",
     "src"
   ],
-  "engines": {
-    "node": ">=10"
-  },
   "scripts": {
     "analyze": "size-limit --why",
     "prepare": "tsup",
@@ -44,7 +42,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "tsdx lint"
+      "pre-commit": "npm run lint"
     }
   },
   "prettier": {
@@ -53,20 +51,38 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "engines": {
+    "node": ">=12"
+  },
   "size-limit": [
     {
-      "path": "dist/moon-types.cjs.production.min.js",
+      "path": "dist/moon-wagmi.cjs.production.min.js",
       "limit": "10 KB"
     },
     {
-      "path": "dist/moon-types.esm.js",
+      "path": "dist/moon-wagmi.esm.js",
       "limit": "10 KB"
     }
   ],
+  "dependencies": {
+    "@moonup/ethers": "workspace:*",
+    "@moonup/moon-sdk": "workspace:*",
+    "@moonup/viem": "workspace:*",
+    "@tanstack/react-query": "^5.28.4",
+    "@wagmi/core": "^2.6.9",
+    "ethers": "^5.7.2",
+    "viem": "^2.7.3",
+    "wagmi": "^2.5.5"
+  },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^11.0.1",
     "@tsconfig/recommended": "^1.0.3",
     "@tsconfig/vite-react": "^3.0.0",
+    "@types/react": "^18.2.47",
+    "@types/react-dom": "^18.2.18",
     "@vitest/coverage-v8": "^0.34.2",
     "happy-dom": "^6.0.4",
     "husky": "^8.0.3",

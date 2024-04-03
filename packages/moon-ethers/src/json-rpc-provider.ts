@@ -1,63 +1,90 @@
-import { AccountResponse, Transaction } from '@moonup/moon-api';
 import { MoonSDK } from '@moonup/moon-sdk';
-import {
-  AUTH,
-  MOON_SESSION_KEY,
-  MoonAccount,
-  Storage,
-  getChain,
-  getRpcUrls,
-} from '@moonup/moon-types';
 import { RequestArguments } from 'eip1193-provider';
 import { providers } from 'ethers';
 
+import { MoonSigner } from './signer';
+import { MoonProviderOptions } from './types';
 import { getMessage, getSignTypedDataParamsData } from './utils';
 
 export class JsonRpcProvider {
-  public chainId: number;
-  public http: providers.JsonRpcProvider;
-  public readonly moonWallet: MoonSDK;
+  private chainId: number;
+  private http: providers.JsonRpcProvider;
+  private sdk: MoonSDK;
+  private signer: MoonSigner;
+  private config: MoonProviderOptions;
 
-  constructor(chainId: number) {
-    this.chainId = chainId;
+  constructor(options: MoonProviderOptions) {
+    this.config = options;
+    this.chainId = options.chainId;
 
-    const nodeRPC = getRpcUrls(chainId).pop() || '';
-
-    this.moonWallet = new MoonSDK({
-      Storage: {
-        key: MOON_SESSION_KEY,
-        type: Storage.SESSION,
-      },
-      Auth: {
-        AuthType: AUTH.JWT,
-      },
+    this.sdk = options.SDK;
+    this.http = new providers.JsonRpcProvider();
+    this.setup();
+    this.signer = new MoonSigner({
+      SDK: this.sdk,
+      address: options.address,
+      chainId: this.chainId,
     });
-
-    this.http = new providers.JsonRpcProvider(nodeRPC);
+  }
+  private async setup() {
+    const chain = await this.sdk.getChainById(this.chainId.toString());
+    const rpcUrls = chain.rpc_urls as string[];
+    this.http = new providers.JsonRpcProvider(rpcUrls[0]);
   }
 
-  public async connect(): Promise<MoonAccount> {
-    const account = this.moonWallet.getMoonAccount();
-    if (account) return account;
-    return await this.moonWallet.connect();
+  public getChainId(): number {
+    return this.chainId;
   }
 
-  public async disconnect() {
-    await this.moonWallet.logout();
+  public setChainId(chainId: number): void {
+    this.chainId = chainId;
+  }
+
+  public getProvider(): providers.JsonRpcProvider {
+    return this.http;
+  }
+  public setProvider(provider: providers.JsonRpcProvider): void {
+    this.http = provider;
+  }
+
+  public getSigner(): MoonSigner {
+    return this.signer;
+  }
+
+  public setSigner(signer: MoonSigner): void {
+    this.signer = signer;
+  }
+
+  public getSDK(): MoonSDK {
+    return this.sdk;
+  }
+
+  public setSDK(sdk: MoonSDK): void {
+    this.sdk = sdk;
+  }
+
+  public getConfig(): MoonProviderOptions {
+    return this.config;
+  }
+
+  public setConfig(config: MoonProviderOptions): void {
+    this.config = config;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public async request(request: RequestArguments): Promise<any> {
+  public async request<ResponseType>(
+    request: RequestArguments
+  ): Promise<ResponseType> {
     switch (request.method) {
       case 'eth_requestAccounts':
         // eslint-disable-next-line no-case-declarations
-        const keys = (await this.moonWallet.listAccounts()) as AccountResponse;
-        return keys.keys || [];
+        const keys = await this.sdk.listAccounts();
+        return keys as ResponseType;
       case 'personal_sign':
         if (Array.isArray(request.params) && request.params.length > 0) {
           const message = getMessage(request?.params as string[]);
-          const signedMessage = await this.moonWallet.SignMessage(message);
-          return signedMessage;
+          const signedMessage = await this.signer.signMessage(message);
+          return signedMessage as ResponseType;
         } else {
           throw new Error('request.params is undefined or not an array');
         }
@@ -66,12 +93,13 @@ export class JsonRpcProvider {
           const typedData = getSignTypedDataParamsData(
             request?.params as string[]
           );
-          const signedTypedData = (await this.moonWallet.SignTypedData(
+
+          const signedTypedData = await this.signer.signTypedData(
             typedData.domain,
             typedData.types,
             typedData.value
-          )) as Transaction;
-          return signedTypedData || '';
+          );
+          return signedTypedData as ResponseType;
         } else {
           throw new Error('request.params is undefined or not an array');
         }
@@ -85,7 +113,7 @@ export class JsonRpcProvider {
             ? request?.params[0]
             : undefined;
         if (_params) {
-          return await this.moonWallet.SendTransaction(_params);
+          return (await this.signer.sendTransaction(_params)) as ResponseType;
         }
         throw new Error('eth_sendTransaction error');
       default:
@@ -97,14 +125,16 @@ export class JsonRpcProvider {
     }
   }
 
-  public updateMoonWalletConfig = (chainId: number) => {
-    this.chainId = chainId;
-    const chain = getChain(chainId);
-    if (chain) {
-      this.moonWallet.updateNetwork(chain);
-      this.http = new providers.JsonRpcProvider(chain.rpcUrls.pop() || '');
-    } else {
-      throw new Error('Chain is undefined');
-    }
-  };
+  public async updateConfig(options: MoonProviderOptions) {
+    this.chainId = options.chainId;
+    this.sdk = options.SDK;
+    const chain = await this.sdk.getChainById(this.chainId.toString());
+    const rpcUrls = chain.rpc_urls as string[];
+    this.http = new providers.JsonRpcProvider(rpcUrls.at(0));
+    this.signer.updateConfig({
+      SDK: this.sdk,
+      address: '',
+      chainId: this.chainId,
+    });
+  }
 }
