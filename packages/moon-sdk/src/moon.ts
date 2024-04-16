@@ -61,8 +61,7 @@ export class MoonSDK {
 
   constructor() {
     const baseApiParams: ApiConfig = {
-      baseUrl:
-        'https://moon-vault-api-git-ew-supabase-migration-moonup.vercel.app',
+      baseUrl: 'https://beta.usemoon.ai',
       baseApiParams: {
         secure: true,
         type: ContentType.Json,
