@@ -33,6 +33,8 @@ export interface AaveInput {
 }
 
 export interface AaveReservesAPIResponse {
+  address?: string;
+  body?: InputBody;
   data?: AaveReservesData;
   message: string;
   success: boolean;
@@ -52,6 +54,8 @@ export interface AaveReservesData {
 }
 
 export interface AccountAPIResponse {
+  address?: string;
+  body?: InputBody;
   data?: AccountResponse;
   message: string;
   success: boolean;
@@ -93,6 +97,8 @@ export interface AvailablePaymentMethod {
 }
 
 export interface BalanceAPIResponse {
+  address?: string;
+  body?: InputBody;
   data?: BalanceResponse;
   message: string;
   success: boolean;
@@ -111,12 +117,16 @@ export interface BalanceResponse {
 }
 
 export interface BitcoinAPIResponse {
+  address?: string;
+  body?: InputBody;
   data?: BitcoinTransactionOutput;
   message: string;
   success: boolean;
 }
 
 export interface BitcoinCashAPIResponse {
+  address?: string;
+  body?: InputBody;
   data?: BitcoinCashTransactionOutput;
   message: string;
   success: boolean;
@@ -161,6 +171,8 @@ export interface BitcoinTransactionOutput {
 export type BorrowData = TransactionAPIResponse;
 
 export interface BroadCastRawTransactionAPIResponse {
+  address?: string;
+  body?: InputBody;
   data?: BroadCastRawTransactionResponse;
   message: string;
   success: boolean;
@@ -198,6 +210,8 @@ export interface ConveyorFinanceControllerResponse {
 }
 
 export interface CosmosAPIResponse {
+  address?: string;
+  body?: InputBody;
   data?: CosmosTransactionOutput;
   message: string;
   success: boolean;
@@ -274,6 +288,8 @@ export interface DeployInput {
 }
 
 export interface DogeCoinAPIResponse {
+  address?: string;
+  body?: InputBody;
   data?: DogeCoinTransactionOutput;
   message: string;
   success: boolean;
@@ -298,6 +314,8 @@ export interface DogeCoinTransactionOutput {
 }
 
 export interface EnsResolveAPIResponse {
+  address?: string;
+  body?: InputBody;
   data?: EnsResolveResponse;
   message: string;
   success: boolean;
@@ -313,6 +331,8 @@ export interface EnsResolveResponse {
 }
 
 export interface EosAPIResponse {
+  address?: string;
+  body?: InputBody;
   data?: EosTransactionOutput;
   message: string;
   success: boolean;
@@ -381,8 +401,6 @@ export interface FiatCurrency {
 }
 
 export type GetAccountData = AccountAPIResponse;
-
-export type GetAddressData = AccountAPIResponse;
 
 export type GetApprovedData = TransactionAPIResponse;
 
@@ -502,6 +520,8 @@ export type ListSolanaAccountsData = AccountAPIResponse;
 export type ListTronAccountsData = AccountAPIResponse;
 
 export interface LitecoinAPIResponse {
+  address?: string;
+  body?: InputBody;
   data?: LitecoinTransactionOutput;
   message: string;
   success: boolean;
@@ -535,6 +555,8 @@ export type NameData = TransactionAPIResponse;
 export type NameErc20Data = TransactionAPIResponse;
 
 export interface NonceAPIResponse {
+  address?: string;
+  body?: InputBody;
   data?: NonceResponse;
   message: string;
   success: boolean;
@@ -669,6 +691,8 @@ export type RepayData = TransactionAPIResponse;
 export type ResolveData = EnsResolveAPIResponse;
 
 export interface RippleAPIResponse {
+  address?: string;
+  body?: InputBody;
   data?: RippleTransactionOutput;
   message: string;
   success: boolean;
@@ -723,8 +747,6 @@ export type SignBitcoinCashTransactionData = BitcoinCashAPIResponse;
 
 export type SignBitcoinTransactionData = BitcoinAPIResponse;
 
-export type SignBroadcastUserOpTxData = TransactionAPIResponse;
-
 export type SignCosmosTransactionData = CosmosAPIResponse;
 
 export type SignDogeCoinTransactionData = DogeCoinAPIResponse;
@@ -742,6 +764,8 @@ export interface SignMessage {
 }
 
 export interface SignMessageAPIResponse {
+  address?: string;
+  body?: InputBody;
   data?: TransactionData;
   message: string;
   success: boolean;
@@ -764,6 +788,8 @@ export interface SignTypedData {
 export type SignTypedDataData = SignMessageAPIResponse;
 
 export interface SolanaAPIResponse {
+  address?: string;
+  body?: InputBody;
   data?: SolanaTransactionOutput;
   message: string;
   success: boolean;
@@ -893,9 +919,13 @@ export interface Transaction {
 }
 
 export interface TransactionAPIResponse {
+  address?: string;
+  body?: InputBody;
   data?: Transaction;
   message: string;
+  signedTx?: any;
   success: boolean;
+  transaction_hash?: any;
 }
 
 export interface TransactionData {
@@ -993,6 +1023,8 @@ export type TransferFromData = TransactionAPIResponse;
 export type TransferFromErc20Data = TransactionAPIResponse;
 
 export interface TronAPIResponse {
+  address?: string;
+  body?: InputBody;
   data?: TronTransactionOutput;
   message: string;
   success: boolean;

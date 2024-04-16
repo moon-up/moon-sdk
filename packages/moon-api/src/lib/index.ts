@@ -9,7 +9,6 @@ export * from './Ens';
 export * from './Eos';
 export * from './Erc1155';
 export * from './Erc20';
-export * from './Erc4337';
 export * from './Erc721';
 export * from './Litecoin';
 export * from './Oneinch';

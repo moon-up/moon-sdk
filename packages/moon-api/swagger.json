@@ -100,12 +100,69 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"InputBody": {
+				"properties": {
+					"to": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					},
+					"input": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "string"
+					},
+					"gas": {
+						"type": "string"
+					},
+					"gasPrice": {
+						"type": "string"
+					},
+					"chain_id": {
+						"type": "string"
+					},
+					"encoding": {
+						"type": "string"
+					},
+					"EOA": {
+						"type": "boolean"
+					},
+					"contract_address": {
+						"type": "string"
+					},
+					"token_id": {
+						"type": "string"
+					},
+					"token_ids": {
+						"type": "string"
+					},
+					"approved": {
+						"type": "boolean"
+					},
+					"broadcast": {
+						"type": "boolean"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
 			"NonceAPIResponse": {
 				"properties": {
 					"success": {
 						"type": "boolean"
 					},
 					"message": {
+						"type": "string"
+					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody"
+					},
+					"address": {
 						"type": "string"
 					},
 					"data": {
@@ -137,6 +194,12 @@
 						"type": "boolean"
 					},
 					"message": {
+						"type": "string"
+					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody"
+					},
+					"address": {
 						"type": "string"
 					},
 					"data": {
@@ -337,6 +400,14 @@
 					"message": {
 						"type": "string"
 					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody"
+					},
+					"address": {
+						"type": "string"
+					},
+					"transaction_hash": {},
+					"signedTx": {},
 					"data": {
 						"$ref": "#/components/schemas/Transaction"
 					}
@@ -348,63 +419,18 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"InputBody": {
-				"properties": {
-					"to": {
-						"type": "string"
-					},
-					"data": {
-						"type": "string"
-					},
-					"input": {
-						"type": "string"
-					},
-					"value": {
-						"type": "string"
-					},
-					"nonce": {
-						"type": "string"
-					},
-					"gas": {
-						"type": "string"
-					},
-					"gasPrice": {
-						"type": "string"
-					},
-					"chain_id": {
-						"type": "string"
-					},
-					"encoding": {
-						"type": "string"
-					},
-					"EOA": {
-						"type": "boolean"
-					},
-					"contract_address": {
-						"type": "string"
-					},
-					"token_id": {
-						"type": "string"
-					},
-					"token_ids": {
-						"type": "string"
-					},
-					"approved": {
-						"type": "boolean"
-					},
-					"broadcast": {
-						"type": "boolean"
-					}
-				},
-				"type": "object",
-				"additionalProperties": false
-			},
 			"SignMessageAPIResponse": {
 				"properties": {
 					"success": {
 						"type": "boolean"
 					},
 					"message": {
+						"type": "string"
+					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody"
+					},
+					"address": {
 						"type": "string"
 					},
 					"data": {
@@ -489,6 +515,12 @@
 					"message": {
 						"type": "string"
 					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody"
+					},
+					"address": {
+						"type": "string"
+					},
 					"data": {
 						"$ref": "#/components/schemas/AccountResponse"
 					}
@@ -557,6 +589,12 @@
 						"type": "boolean"
 					},
 					"message": {
+						"type": "string"
+					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody"
+					},
+					"address": {
 						"type": "string"
 					},
 					"data": {
@@ -708,6 +746,12 @@
 					"message": {
 						"type": "string"
 					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody"
+					},
+					"address": {
+						"type": "string"
+					},
 					"data": {
 						"$ref": "#/components/schemas/AaveReservesData"
 					}
@@ -749,6 +793,12 @@
 						"type": "boolean"
 					},
 					"message": {
+						"type": "string"
+					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody"
+					},
+					"address": {
 						"type": "string"
 					},
 					"data": {
@@ -811,6 +861,12 @@
 						"type": "boolean"
 					},
 					"message": {
+						"type": "string"
+					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody"
+					},
+					"address": {
 						"type": "string"
 					},
 					"data": {
@@ -1105,6 +1161,12 @@
 					"message": {
 						"type": "string"
 					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody"
+					},
+					"address": {
+						"type": "string"
+					},
 					"data": {
 						"$ref": "#/components/schemas/CosmosTransactionOutput"
 					}
@@ -1167,6 +1229,12 @@
 					"message": {
 						"type": "string"
 					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody"
+					},
+					"address": {
+						"type": "string"
+					},
 					"data": {
 						"$ref": "#/components/schemas/DogeCoinTransactionOutput"
 					}
@@ -1215,6 +1283,12 @@
 						"type": "boolean"
 					},
 					"message": {
+						"type": "string"
+					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody"
+					},
+					"address": {
 						"type": "string"
 					},
 					"data": {
@@ -1274,6 +1348,12 @@
 						"type": "boolean"
 					},
 					"message": {
+						"type": "string"
+					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody"
+					},
+					"address": {
 						"type": "string"
 					},
 					"data": {
@@ -1438,6 +1518,12 @@
 						"type": "boolean"
 					},
 					"message": {
+						"type": "string"
+					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody"
+					},
+					"address": {
 						"type": "string"
 					},
 					"data": {
@@ -2114,6 +2200,12 @@
 					"message": {
 						"type": "string"
 					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody"
+					},
+					"address": {
+						"type": "string"
+					},
 					"data": {
 						"$ref": "#/components/schemas/RippleTransactionOutput"
 					}
@@ -2176,6 +2268,12 @@
 					"message": {
 						"type": "string"
 					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody"
+					},
+					"address": {
+						"type": "string"
+					},
 					"data": {
 						"$ref": "#/components/schemas/SolanaTransactionOutput"
 					}
@@ -2236,6 +2334,12 @@
 						"type": "boolean"
 					},
 					"message": {
+						"type": "string"
+					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody"
+					},
+					"address": {
 						"type": "string"
 					},
 					"data": {
@@ -5480,124 +5584,6 @@
 				}
 			}
 		},
-		"/erc4337/{accountName}/address": {
-			"post": {
-				"operationId": "GetAddress",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/AccountAPIResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Erc4337"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "accountName",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/InputBody"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/erc4337/{accountName}/sign-broadcast-userop-tx": {
-			"post": {
-				"operationId": "SignBroadcastUserOpTx",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Erc4337"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "accountName",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/InputBody"
-							}
-						}
-					}
-				}
-			}
-		},
 		"/erc721/{name}/token-uri": {
 			"post": {
 				"operationId": "TokenUri",
@@ -8179,7 +8165,7 @@
 	},
 	"servers": [
 		{
-			"url": "https://moon-vault-api-git-ew-supabase-migration-moonup.vercel.app"
+			"url": "https://beta.usemoon.ai"
 		}
 	]
 }

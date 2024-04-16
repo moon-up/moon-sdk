@@ -18,7 +18,6 @@ import {
   Eos,
   Erc1155,
   Erc20,
-  Erc4337,
   Erc721,
   HttpClient,
   InputBody,
@@ -44,7 +43,6 @@ export class MoonSDK {
   private Erc20SDK: Erc20;
   private Erc1155SDK: Erc1155;
   private Erc721SDK: Erc721;
-  private Erc4337SDK: Erc4337;
   private OneinchSDK: Oneinch;
   private UniswapSDK: Uniswap;
   private YearnSDK: Yearn;
@@ -91,8 +89,6 @@ export class MoonSDK {
     this.Erc1155SDK = new Erc1155(this.http);
 
     this.Erc721SDK = new Erc721(this.http);
-
-    this.Erc4337SDK = new Erc4337(this.http);
 
     this.OneinchSDK = new Oneinch(this.http);
 
@@ -245,10 +241,6 @@ export class MoonSDK {
 
   public getErc721SDK(): Erc721 {
     return this.Erc721SDK;
-  }
-
-  public getErc4337SDK(): Erc4337 {
-    return this.Erc4337SDK;
   }
 
   public getOneinchSDK(): Oneinch {
