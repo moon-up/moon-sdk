@@ -21,7 +21,7 @@ function SIWE() {
         return accounts[0];
       });
     console.log(address);
-    return fetch('https://vault-api.usemoon.ai/auth/ethereum/challenge', {
+    return fetch('http://dash.usemoon.ai/api/ethereum/nonce', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -35,11 +35,13 @@ function SIWE() {
         return response.json();
       })
       .then(function (json) {
+        console.log(json);
         return ethereum.request({ method: 'eth_requestAccounts' }).then(function (accounts: any[]) {
-          return [accounts[0], json.nonce];
+          return [accounts[0], json.user[0].auth.genNonce];
         });
       })
       .then(function (args) {
+        console.log(args);
         const account = args[0];
         const address = ethers.utils.getAddress(account);
         const message = new SiweMessage({
@@ -63,7 +65,8 @@ function SIWE() {
           });
       })
       .then(function (args) {
-        return fetch('https://vault-api.usemoon.ai/auth/ethereum', {
+        console.log(args);
+        return fetch('http://dash.usemoon.ai/api/ethereum/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -71,7 +74,7 @@ function SIWE() {
           },
           body: JSON.stringify({
             message: args[0],
-            signature: args[1],
+            signedMessage: args[1],
             address,
           }),
         });

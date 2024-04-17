@@ -172,10 +172,6 @@ export class MoonSDK {
     this.http.setSecurityData({
       token: token,
     });
-    return await this.MoonAPIClient.auth.setSession({
-      access_token: token,
-      refresh_token: refreshToken,
-    });
   }
 
   public getSolanaSDK(): Solana {

@@ -32,7 +32,7 @@ export function RainbowMoonProvider({
         getNonce: async (): Promise<string> => {
           // 1. Get a nonce from the server
           const nonceResponse = await fetch(
-            `https://moon-wallet-supabase-next-app.vercel.app/api/ethereum/nonce`,
+            `https://dash.usemoon.ai/api/ethereum/nonce`,
             {
               method: 'POST',
               headers: {
@@ -71,7 +71,7 @@ export function RainbowMoonProvider({
           setIsLoading(true);
           // // 3. Send the signed message to our API
           const response = await fetch(
-            `https://moon-wallet-supabase-next-app.vercel.app/api/ethereum/login`,
+            `https://dash.usemoon.ai/api/ethereum/login`,
             {
               method: 'POST',
               headers: {

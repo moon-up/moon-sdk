@@ -6,7 +6,7 @@ function LoginButton() {
     const scope = process.env.REACT_APP_SCOPE;
     const state = process.env.REACT_APP_STATE;
 
-    const redirectUrl = `https://moon-wallet-supabase-next-app.vercel.app/authorize?response_type=${response_type}&client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scope}&state=${state}`;
+    const redirectUrl = `https://dash.usemoon.ai/authorize?response_type=${response_type}&client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scope}&state=${state}`;
 
     window.location.href = redirectUrl;
   };

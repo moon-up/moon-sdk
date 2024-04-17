@@ -15,7 +15,7 @@ function LoginButton() {
     const scope = process.env.REACT_APP_SCOPE;
     const state = process.env.REACT_APP_STATE;
 
-    const redirectUrl = `https://moon-wallet-supabase-next-app.vercel.app/authorize?response_type=${response_type}&client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scope}&state=${state}`;
+    const redirectUrl = `https://dash.usemoon.ai/authorize?response_type=${response_type}&client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scope}&state=${state}`;
 
     window.location.href = redirectUrl;
   };
@@ -75,7 +75,7 @@ app.get('/callback', async (req: Request, res: Response) => {
     const { code, state } = req.query;
     console.log(process.env.REACT_APP_CLIENT_GRANT_TYPE);
     const response = await axios.post(
-      'https://moon-wallet-supabase-next-app.vercel.app/api/oauth2/exchange',
+      'https://dash.usemoon.ai/api/oauth2/exchange',
       {
         grant_type: process.env.REACT_APP_GRANT_TYPE,
         code: code,
@@ -113,7 +113,7 @@ const MoonSIWE = async (addres) => {
 
     try {
         // 1. Get a nonce from the server
-        const nonceResponse = await fetch(`https://moon-wallet-supabase-next-app.vercel.app/api/ethereum/nonce`, {
+        const nonceResponse = await fetch(`https://dash.usemoon.ai/api/ethereum/nonce`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -142,7 +142,7 @@ const MoonSIWE = async (addres) => {
         });
 
         // // 3. Send the signed message to our API
-        const response = await fetch(`https://moon-wallet-supabase-next-app.vercel.app/api/ethereum/login`, {
+        const response = await fetch(`https://dash.usemoon.ai/api/ethereum/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

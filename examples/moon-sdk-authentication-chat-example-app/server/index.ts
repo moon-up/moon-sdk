@@ -99,7 +99,7 @@ app.get('/callback', async (req: Request, res: Response) => {
     const { code, state } = req.query;
     console.log(process.env.REACT_APP_CLIENT_GRANT_TYPE);
     const response = await axios.post(
-      'https://moon-wallet-supabase-next-app.vercel.app/api/oauth2/exchange',
+      'https://dash.usemoon.ai/api/oauth2/exchange',
       {
         grant_type: process.env.REACT_APP_GRANT_TYPE,
         code: code,
