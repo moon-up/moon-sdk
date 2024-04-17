@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@moonup/moon-rainbowkit": "1.0.12",
+    "@moonup/moon-rainbowkit": "^1.0.15",
     "@moonup/moon-react": "^1.0.5",
     "@rainbow-me/rainbowkit": "2.0.0",
     "@tanstack/react-query": "^5.28.4",

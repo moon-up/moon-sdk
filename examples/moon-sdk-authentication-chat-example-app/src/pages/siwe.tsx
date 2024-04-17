@@ -1,13 +1,12 @@
-import { AccountResponse } from '@moonup/moon-api';
 import { ethers } from 'ethers';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { SiweMessage } from 'siwe';
 import { useMoonSDK } from '../hooks/moon';
 
 function SIWE() {
   const [accounts, setAccounts] = useState<string[]>([]);
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
-  const { updateToken, listAccounts, moon, signTransaction } = useMoonSDK();
+  const { moon } = useMoonSDK();
   const { ethereum } = window as any;
   const SIWE = async () => {
     if (typeof ethereum === 'undefined') {
@@ -21,7 +20,7 @@ function SIWE() {
         return accounts[0];
       });
     console.log(address);
-    return fetch('http://dash.usemoon.ai/api/ethereum/nonce', {
+    return fetch('https://beta.usemoon.ai/auth/ethereum/nonce', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -66,7 +65,7 @@ function SIWE() {
       })
       .then(function (args) {
         console.log(args);
-        return fetch('http://dash.usemoon.ai/api/ethereum/login', {
+        return fetch('https://beta.usemoon.ai/auth/ethereum/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -84,38 +83,38 @@ function SIWE() {
       })
       .then(function (json) {
         console.log(json);
-        updateToken(json.accessToken);
+        moon?.setAccessToken(json.token.accessToken, json.token.refreshToken);
         // window.location.href = json.location;
       });
   };
 
-  useEffect(() => {
-    if (moon?.MoonAccount.isAuth) {
-      setLoggedIn(true);
-      getAccounts();
-    }
-  }, [moon]);
+  // useEffect(() => {
+  //   if (moon?.isAuthenticated) {
+  //     setLoggedIn(true);
+  //     getAccounts();
+  //   }
+  // }, [moon]);
 
-  const createAccount = async () => {
-    const account = await moon?.getAccountsSDK().createAccount({}, {});
-    console.log(account);
-  };
-  const createBitcoinAccount = async () => {
-    const account = await moon?.getBitcoinSDK().createBitcoinAccount({}, {});
-    console.log(account);
-  };
-  const signMessage = async () => {
-    const message = await moon?.getAccountsSDK().signMessage(accounts[0], {
-      data: 'Hello World',
-    });
-    console.log(message);
-  };
+  // const createAccount = async () => {
+  //   const account = await moon?.getAccountsSDK().createAccount({}, {});
+  //   console.log(account);
+  // };
+  // const createBitcoinAccount = async () => {
+  //   const account = await moon?.getBitcoinSDK().createBitcoinAccount({}, {});
+  //   console.log(account);
+  // };
+  // const signMessage = async () => {
+  //   const message = await moon?.getAccountsSDK().signMessage(accounts[0], {
+  //     data: 'Hello World',
+  //   });
+  //   console.log(message);
+  // };
 
-  const getAccounts = async () => {
-    const accounts = await moon?.getAccountsSDK().listAccounts();
-    const newAccounts = (accounts?.data.data as AccountResponse).keys || [];
-    setAccounts(newAccounts);
-  };
+  // const getAccounts = async () => {
+  //   const accounts = await moon?.getAccountsSDK().listAccounts();
+  //   const newAccounts = (accounts?.data.data as AccountResponse).keys || [];
+  //   setAccounts(newAccounts);
+  // };
 
   return (
     <div>
@@ -136,7 +135,6 @@ function SIWE() {
       ) : (
         <p>No accounts available.</p>
       )}
-      <button onClick={signTransaction}></button>
     </div>
   );
 }

@@ -20,8 +20,7 @@ function OAuth2Callback() {
           });
           const data = await response.json();
           console.log(data);
-          moon?.updateToken(data.access_token);
-          moon?.updateRefreshToken(data.refresh_token);
+          moon?.setAccessToken(data.access_token, data.refresh_token);
         } catch (error) {
           // Handle the error here
           console.error(error);
