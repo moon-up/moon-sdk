@@ -115,7 +115,7 @@ export class MoonSDK {
     this.TronSDK = new Tron(this.http);
     this.MoonAPIClient = createClient(
       'https://api.usemoon.ai',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzEwNzIwMDAwLAogICJleHAiOiAxODY4NDg2NDAwCn0.am_Q1cqJ025FU-yEDXk5VDqv30DbOxw2hHb51YwRuaQ',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzAzMTE2ODAwLAogICJleHAiOiAxODYwOTY5NjAwCn0.nA4p2oP7XNlo93VqnyOlwz_wy7pDXW3lUki1t_udpbA',
       {}
     );
     this.connect();

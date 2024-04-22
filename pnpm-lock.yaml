@@ -401,8 +401,26 @@ importers:
         specifier: ^5.7.2
         version: 5.7.2
       '@moonup/moon-api':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../moon-api
+      '@supabase/auth-js':
+        specifier: ^2.62.2
+        version: 2.62.2
+      '@supabase/functions-js':
+        specifier: ^2.3.1
+        version: 2.3.1
+      '@supabase/gotrue-js':
+        specifier: ^2.62.2
+        version: 2.62.2
+      '@supabase/node-fetch':
+        specifier: ^2.6.13
+        version: 2.6.13
+      '@supabase/realtime-js':
+        specifier: ^2.9.4
+        version: 2.9.4
+      '@supabase/storage-js':
+        specifier: ^2.5.5
+        version: 2.5.5
       '@supabase/supabase-js':
         specifier: ^2.39.3
         version: 2.39.3
@@ -5015,8 +5033,14 @@ packages:
       '@supabase/supabase-js': 2.39.3
     dev: false
 
-  /@supabase/functions-js@2.1.5:
-    resolution: {integrity: sha512-BNzC5XhCzzCaggJ8s53DP+WeHHGT/NfTsx2wUSSGKR2/ikLFQTBCDzMvGz/PxYMqRko/LwncQtKXGOYp1PkPaw==}
+  /@supabase/auth-js@2.62.2:
+    resolution: {integrity: sha512-sFjDwzbTGiJK2gaP2HUgVkNmruvtLPBLR+m79cjaihqvq9gl6wBSYce7Ld0AqteQsXiWp/LK7iyrWSuhE4mPUw==}
+    dependencies:
+      '@supabase/node-fetch': 2.6.15
+    dev: false
+
+  /@supabase/functions-js@2.3.1:
+    resolution: {integrity: sha512-QyzNle/rVzlOi4BbVqxLSH828VdGY1RElqGFAj+XeVypj6+PVtMlD21G8SDnsPQDtlqqTtoGRgdMlQZih5hTuw==}
     dependencies:
       '@supabase/node-fetch': 2.6.15
     dev: false
@@ -5025,6 +5049,13 @@ packages:
     resolution: {integrity: sha512-AP6e6W9rQXFTEJ7sTTNYQrNf0LCcnt1hUW+RIgUK+Uh3jbWvcIST7wAlYyNZiMlS9+PYyymWQ+Ykz/rOYSO0+A==}
     dependencies:
       '@supabase/node-fetch': 2.6.15
+    dev: false
+
+  /@supabase/node-fetch@2.6.13:
+    resolution: {integrity: sha512-rEHQaDVzxLZMCK3p+JW2nzEsK4AJpOQhetppaqAzrFum0Ub8wcnoM/8f1dWRZSulY5fRDP6rJaWT/8X3VleCzg==}
+    engines: {node: 4.x || >=6.0.0}
+    dependencies:
+      whatwg-url: 5.0.0
     dev: false
 
   /@supabase/node-fetch@2.6.15:
@@ -5040,8 +5071,8 @@ packages:
       '@supabase/node-fetch': 2.6.15
     dev: false
 
-  /@supabase/realtime-js@2.9.3:
-    resolution: {integrity: sha512-lAp50s2n3FhGJFq+wTSXLNIDPw5Y0Wxrgt44eM5nLSA3jZNUUP3Oq2Ccd1CbZdVntPCWLZvJaU//pAd2NE+QnQ==}
+  /@supabase/realtime-js@2.9.4:
+    resolution: {integrity: sha512-wdq+2hZpgw0r2ldRs87d3U08Y8BrsO1bZxPNqbImpYshAEkusDz4vufR8KaqujKxqewmXS6YnUhuRVdvSEIKCA==}
     dependencies:
       '@supabase/node-fetch': 2.6.15
       '@types/phoenix': 1.6.4
@@ -5061,11 +5092,11 @@ packages:
   /@supabase/supabase-js@2.39.3:
     resolution: {integrity: sha512-NoltJSaJNKDJNutO5sJPAAi5RIWrn1z2XH+ig1+cHDojT6BTN7TvZPNa3Kq3gFQWfO5H1N9El/bCTZJ3iFW2kQ==}
     dependencies:
-      '@supabase/functions-js': 2.1.5
+      '@supabase/functions-js': 2.3.1
       '@supabase/gotrue-js': 2.62.2
       '@supabase/node-fetch': 2.6.15
       '@supabase/postgrest-js': 1.9.2
-      '@supabase/realtime-js': 2.9.3
+      '@supabase/realtime-js': 2.9.4
       '@supabase/storage-js': 2.5.5
     transitivePeerDependencies:
       - bufferutil
