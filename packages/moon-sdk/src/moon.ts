@@ -118,42 +118,45 @@ export class MoonSDK {
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzAzMTE2ODAwLAogICJleHAiOiAxODYwOTY5NjAwCn0.nA4p2oP7XNlo93VqnyOlwz_wy7pDXW3lUki1t_udpbA',
       {}
     );
-    this.connect();
-  }
-  public async connect() {
     this.MoonAPIClient.auth.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_IN') {
-        this.setAccessToken(
-          session?.access_token || '',
-          session?.refresh_token || ''
-        );
-        this.isAuthenticated = true;
-      }
-      if (event === 'TOKEN_REFRESHED') {
-        this.setAccessToken(
-          session?.access_token || '',
-          session?.refresh_token || ''
-        );
-        this.isAuthenticated = true;
-      }
-      if (event === 'SIGNED_OUT') {
-        this.http.setSecurityData({
-          token: '',
-        });
-        this.isAuthenticated = false;
+      switch (event) {
+        case 'INITIAL_SESSION':
+        case 'SIGNED_IN':
+        case 'TOKEN_REFRESHED':
+          this.http.setSecurityData({
+            token: session?.access_token,
+          });
+          this.isAuthenticated = true;
+          break;
+        case 'SIGNED_OUT':
+          this.isAuthenticated = false;
+          this.http.setSecurityData({
+            token: '',
+          });
+          break;
       }
     });
-
-    const { data, error } = await this.MoonAPIClient.auth.getSession();
-    if (data) {
-      this.setAccessToken(
-        data.session?.access_token || '',
-        data.session?.refresh_token || ''
-      );
+    this.connect();
+  }
+  public async connect(accessToken?: string, refreshToken?: string) {
+    if (accessToken && refreshToken) {
+      this.MoonAPIClient.auth.setSession({
+        access_token: accessToken,
+        refresh_token: refreshToken,
+      });
       this.isAuthenticated = true;
-    }
-    if (error) {
-      this.isAuthenticated = false;
+    } else {
+      const { data, error } = await this.MoonAPIClient.auth.getSession();
+      if (data) {
+        this.http.setSecurityData({
+          token: data.session?.access_token,
+        });
+        this.isAuthenticated = true;
+      }
+      if (error) {
+        this.isAuthenticated = false;
+        throw new Error(error.message);
+      }
     }
   }
   public async disconnect() {
@@ -165,13 +168,11 @@ export class MoonSDK {
     });
   }
 
+  public getMoonAuth() {
+    return this.MoonAPIClient;
+  }
   public async getUserSession() {
     return await this.MoonAPIClient.auth.getSession();
-  }
-  public async setAccessToken(token: string, refreshToken: string) {
-    this.http.setSecurityData({
-      token: token,
-    });
   }
 
   public getSolanaSDK(): Solana {
