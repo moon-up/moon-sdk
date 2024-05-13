@@ -29,11 +29,15 @@ export interface MoonSignerConfig {
 export class MoonSigner extends Signer implements TypedDataSigner {
   MoonSignerConfig: MoonSignerConfig;
   SDK: MoonSDK;
+  address: string;
+  chainId: number;
 
   constructor(config: MoonSignerConfig, provider?: Provider) {
     super();
     defineReadOnly(this, '_isSigner', true);
     defineReadOnly(this, 'provider', provider);
+    this.address = config.address;
+    this.chainId = config.chainId;
     this.MoonSignerConfig = config;
     this.SDK = config.SDK;
   }
@@ -49,6 +53,8 @@ export class MoonSigner extends Signer implements TypedDataSigner {
   }
   updateConfig(config: MoonSignerConfig) {
     this.SDK = config.SDK;
+    this.chainId = config.chainId;
+    this.address = config.address;
     this.MoonSignerConfig = config;
   }
   connect(provider: Provider): Signer {
@@ -69,7 +75,7 @@ export class MoonSigner extends Signer implements TypedDataSigner {
     value: Record<string, string>
   ): Promise<string> {
     const response = await this.SDK.SignTypedData(
-      this.MoonSignerConfig.address,
+      this.address,
       domain,
       types,
       value
@@ -82,21 +88,18 @@ export class MoonSigner extends Signer implements TypedDataSigner {
    * @returns {string} successful operation
    */
   async getAddress(): Promise<string> {
-    return this.MoonSignerConfig.address;
+    return this.address;
   }
   async signMessage(message: BytesLike): Promise<string> {
     const hash = new Uint8Array(arrayify(hashMessage(message)));
-    const response = await this.SDK.SignMessage(
-      this.MoonSignerConfig.address,
-      hash.toString()
-    );
+    const response = await this.SDK.SignMessage(this.address, hash.toString());
     return response || '';
   }
   async broadcastTransaction(signedTransaction: string): Promise<string> {
     const response = await this.SDK.SendTransaction(
-      this.MoonSignerConfig.address,
+      this.address,
       signedTransaction,
-      this.MoonSignerConfig.chainId.toString()
+      this.chainId.toString()
     );
     return response;
   }
@@ -139,7 +142,7 @@ export class MoonSigner extends Signer implements TypedDataSigner {
 
   async signTransaction(transaction: TransactionRequest): Promise<string> {
     const response = await this.SDK.SignTransaction(
-      this.MoonSignerConfig.address,
+      this.address,
       this.transactionRequestToInputBody(transaction)
     );
     return response || '';

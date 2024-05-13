@@ -1,3 +1,5 @@
+import { arrayify } from '@ethersproject/bytes';
+import { hashMessage } from '@ethersproject/hash';
 import { MoonSDK } from '@moonup/moon-sdk';
 import { RequestArguments } from 'eip1193-provider';
 import { providers } from 'ethers';
@@ -12,17 +14,19 @@ export class JsonRpcProvider {
   private sdk: MoonSDK;
   private signer: MoonSigner;
   private config: MoonProviderOptions;
+  private address: string;
 
   constructor(options: MoonProviderOptions) {
     this.config = options;
     this.chainId = options.chainId;
+    this.address = options.address ?? '';
 
     this.sdk = options.SDK;
     this.http = new providers.JsonRpcProvider();
     this.setup();
     this.signer = new MoonSigner({
       SDK: this.sdk,
-      address: options.address,
+      address: options.address ?? '', // Provide a default value for the address property
       chainId: this.chainId,
     });
   }
@@ -83,8 +87,12 @@ export class JsonRpcProvider {
       case 'personal_sign':
         if (Array.isArray(request.params) && request.params.length > 0) {
           const message = getMessage(request?.params as string[]);
-          const signedMessage = await this.signer.signMessage(message);
-          return signedMessage as ResponseType;
+          const hash = new Uint8Array(arrayify(hashMessage(message)));
+          const response = await this.sdk.SignMessage(
+            this.address,
+            hash.toString()
+          );
+          return response as ResponseType;
         } else {
           throw new Error('request.params is undefined or not an array');
         }
@@ -127,14 +135,21 @@ export class JsonRpcProvider {
 
   public async updateConfig(options: MoonProviderOptions) {
     this.chainId = options.chainId;
-    this.sdk = options.SDK;
     const chain = await this.sdk.getChainById(this.chainId.toString());
     const rpcUrls = chain.rpc_urls as string[];
     this.http = new providers.JsonRpcProvider(rpcUrls.at(0));
-    this.signer.updateConfig({
+    this.address = options.address ?? '';
+
+    this.config = options;
+    // check if address has changed
+    this.signer = new MoonSigner({
       SDK: this.sdk,
-      address: '',
+      address: options.address ?? '', // Provide a default value for the address property
       chainId: this.chainId,
     });
+    //   SDK: this.sdk,
+    //   address: options.address ?? '',
+    //   chainId: this.chainId,
+    // });
   }
 }

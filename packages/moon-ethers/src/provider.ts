@@ -36,7 +36,7 @@ export class MoonProvider extends Provider implements IEthereumProvider {
     super();
     this.chainId = options.chainId;
     this.sdk = options.SDK;
-    this.address = options.address;
+    this.address = options.address || '';
     this.rpc = new JsonRpcProvider(options);
   }
 
@@ -44,9 +44,13 @@ export class MoonProvider extends Provider implements IEthereumProvider {
   public async request(args: RequestArguments): Promise<any> {
     switch (args.method) {
       case 'eth_requestAccounts':
-        return await this.sdk.listAccounts();
+        // return configured address
+        return [this.address];
+      // return await this.sdk.listAccounts();
       case 'eth_accounts':
-        return this.rpc.getSigner().getAddress();
+        // return configured address
+        return [this.address];
+      // return this.rpc.getSigner().getAddress();
       case 'eth_chainId':
         return this.chainId;
       case 'wallet_switchEthereumChain':
@@ -72,7 +76,7 @@ export class MoonProvider extends Provider implements IEthereumProvider {
         this.events.emit('chainChanged', _params?.chainId);
         return;
       // address change
-      case 'accountsChanged':
+      case 'wallet_changeAccount':
         // eslint-disable-next-line no-case-declarations
         const accounts =
           args?.params && Array.isArray(args?.params) && args?.params[0]
@@ -94,7 +98,7 @@ export class MoonProvider extends Provider implements IEthereumProvider {
   }
   public updateConfig(options: MoonProviderOptions) {
     this.chainId = options.chainId;
-    this.sdk = options.SDK;
+    this.address = options.address || '';
     this.rpc.updateConfig(options);
   }
 

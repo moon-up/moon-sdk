@@ -34,6 +34,12 @@ import {
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
 
 import { Chains } from './types';
+export interface MoonSDKConfig {
+  apiKey?: string;
+  authInstance?: SupabaseClient;
+  httpParams?: ApiConfig;
+  httpInstance?: HttpClient;
+}
 
 export class MoonSDK {
   private AccountsSDK: Accounts;
@@ -59,24 +65,66 @@ export class MoonSDK {
   private http: HttpClient;
   isAuthenticated = false;
 
-  constructor() {
-    const baseApiParams: ApiConfig = {
-      baseUrl: 'https://beta.usemoon.ai',
-      baseApiParams: {
-        secure: true,
-        type: ContentType.Json,
-        format: 'json',
-      },
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      securityWorker: async (securityData: any) => {
-        return Promise.resolve({
-          headers: {
-            Authorization: `Bearer ${securityData.token}`,
-          },
-        });
-      },
-    };
-    this.http = new HttpClient(baseApiParams);
+  constructor(config?: MoonSDKConfig) {
+    if (config && config.authInstance) {
+      this.MoonAPIClient = config.authInstance;
+    }
+    if (config && config.apiKey) {
+      this.MoonAPIClient = createClient(
+        'https://api.usemoon.ai',
+        config.apiKey,
+        {}
+      );
+    } else {
+      this.MoonAPIClient = createClient(
+        'https://api.usemoon.ai',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzAzMTE2ODAwLAogICJleHAiOiAxODYwOTY5NjAwCn0.nA4p2oP7XNlo93VqnyOlwz_wy7pDXW3lUki1t_udpbA',
+        {}
+      );
+    }
+    this.MoonAPIClient.auth.onAuthStateChange((event, session) => {
+      switch (event) {
+        case 'INITIAL_SESSION':
+        case 'SIGNED_IN':
+        case 'TOKEN_REFRESHED':
+          this.http.setSecurityData({
+            token: session?.access_token,
+          });
+          this.isAuthenticated = true;
+          break;
+        case 'SIGNED_OUT':
+          this.isAuthenticated = false;
+          this.http.setSecurityData({
+            token: '',
+          });
+          break;
+      }
+    });
+    if (config && config.httpInstance) {
+      this.http = config.httpInstance;
+    }
+
+    if (config && config.httpParams) {
+      this.http = new HttpClient(config.httpParams);
+    } else {
+      const baseApiParams: ApiConfig = {
+        baseUrl: 'https://beta.usemoon.ai',
+        baseApiParams: {
+          secure: true,
+          type: ContentType.Json,
+          format: 'json',
+        },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        securityWorker: async (securityData: any) => {
+          return Promise.resolve({
+            headers: {
+              Authorization: `Bearer ${securityData.token}`,
+            },
+          });
+        },
+      };
+      this.http = new HttpClient(baseApiParams);
+    }
     this.AccountsSDK = new Accounts(this.http);
 
     this.AaveSDK = new Aave(this.http);
@@ -113,30 +161,12 @@ export class MoonSDK {
     this.RippleSDK = new Ripple(this.http);
 
     this.TronSDK = new Tron(this.http);
-    this.MoonAPIClient = createClient(
-      'https://api.usemoon.ai',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzAzMTE2ODAwLAogICJleHAiOiAxODYwOTY5NjAwCn0.nA4p2oP7XNlo93VqnyOlwz_wy7pDXW3lUki1t_udpbA',
-      {}
-    );
-    this.MoonAPIClient.auth.onAuthStateChange((event, session) => {
-      switch (event) {
-        case 'INITIAL_SESSION':
-        case 'SIGNED_IN':
-        case 'TOKEN_REFRESHED':
-          this.http.setSecurityData({
-            token: session?.access_token,
-          });
-          this.isAuthenticated = true;
-          break;
-        case 'SIGNED_OUT':
-          this.isAuthenticated = false;
-          this.http.setSecurityData({
-            token: '',
-          });
-          break;
-      }
-    });
+
     this.connect();
+  }
+
+  public getHttpClient() {
+    return this.http;
   }
   public async connect(accessToken?: string, refreshToken?: string) {
     if (accessToken && refreshToken) {
