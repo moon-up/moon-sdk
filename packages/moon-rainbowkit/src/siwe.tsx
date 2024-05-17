@@ -101,7 +101,7 @@ export function RainbowMoonProvider({
             response.token
           )}`;
 
-          await moon?.setAccessToken(
+          await moon?.connect(
             response.data.access_token,
             response.data.refresh_token
           );
