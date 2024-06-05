@@ -1,20 +1,20 @@
+import { MoonProvider } from '@moonup/ethers';
 import { MoonSDK } from '@moonup/moon-sdk';
 import { Session, User } from '@supabase/supabase-js';
+import { RequestArguments } from 'eip1193-provider';
 import { makeRedirectUri } from 'expo-auth-session';
 import * as QueryParams from 'expo-auth-session/build/QueryParams';
-import { SplashScreen, useRouter, useSegments } from 'expo-router';
 import * as WebBrowser from 'expo-web-browser';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 import { supabase } from '../lib/supabase';
-
-SplashScreen.preventAutoHideAsync();
 
 type MoonContextProps = {
   user: User | null;
   session: Session | null;
   initialized?: boolean;
   moon: MoonSDK | null;
+  ethers: MoonProvider | null;
   signUp: (email: string, password: string) => Promise<void>;
   signInWithPassword: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
@@ -23,6 +23,15 @@ type MoonContextProps = {
   signInWithGithub: () => Promise<void>;
   signInWithTwitter: () => Promise<void>;
   signInWithGoogle: () => Promise<void>;
+  connect: (accessToken?: string, refreshToken?: string) => Promise<void>;
+  disconnect: () => Promise<void>;
+  getUserSession: () => Promise<{
+    data: { session: Session | null };
+    error: any;
+  }>;
+  connectEthers: () => Promise<void>;
+  disconnectEthers: () => Promise<void>;
+  request: (args: RequestArguments) => Promise<any>;
 };
 
 type MoonProviderProps = {
@@ -34,6 +43,7 @@ export const MoonContext = createContext<MoonContextProps>({
   session: null,
   initialized: false,
   moon: null,
+  ethers: null,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   signUp: async () => {},
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -50,6 +60,18 @@ export const MoonContext = createContext<MoonContextProps>({
   signInWithTwitter: async () => {},
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   signInWithGoogle: async () => {},
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  connect: async () => {},
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  disconnect: async () => {},
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  getUserSession: async () => ({ data: { session: null }, error: null }),
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  connectEthers: async () => {},
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  disconnectEthers: async () => {},
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  request: async () => {},
 });
 WebBrowser.maybeCompleteAuthSession(); // required for web only
 const redirectTo = makeRedirectUri();
@@ -57,12 +79,51 @@ const redirectTo = makeRedirectUri();
 export const useMoon = () => useContext(MoonContext);
 
 export const MoonContextProvider = ({ children }: MoonProviderProps) => {
-  const router = useRouter();
-  const segments = useSegments();
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [initialized, setInitialized] = useState<boolean>(false);
   const moon = new MoonSDK({ authInstance: supabase });
+  const ethers = new MoonProvider({
+    SDK: moon,
+    chainId: 1,
+  });
+  const connect = async (accessToken?: string, refreshToken?: string) => {
+    if (moon) {
+      await moon.connect(accessToken, refreshToken);
+    }
+  };
+
+  const disconnect = async () => {
+    if (moon) {
+      await moon.disconnect();
+    }
+  };
+
+  const getUserSession = async () => {
+    if (moon) {
+      return await moon.getUserSession();
+    }
+    return { data: { session: null }, error: null };
+  };
+
+  const connectEthers = async () => {
+    if (ethers) {
+      await ethers.connect();
+    }
+  };
+
+  const disconnectEthers = async () => {
+    if (ethers) {
+      await ethers.disconnect();
+    }
+  };
+
+  const request = async (args: RequestArguments) => {
+    if (ethers) {
+      return await ethers.request(args);
+    }
+    return null;
+  };
   const createSessionFromUrl = async (url: string) => {
     const { params, errorCode } = QueryParams.getQueryParams(url);
 
@@ -202,7 +263,6 @@ export const MoonContextProvider = ({ children }: MoonProviderProps) => {
 
   useEffect(() => {
     const { data } = supabase.auth.onAuthStateChange(async (event, session) => {
-      console.log('event', event);
       setSession(session);
       setUser(session ? session.user : null);
       setInitialized(true);
@@ -212,27 +272,6 @@ export const MoonContextProvider = ({ children }: MoonProviderProps) => {
     };
   }, []);
 
-  useEffect(() => {
-    if (!initialized) return;
-
-    const inProtectedGroup = segments[0] === '(protected)';
-
-    if (session && !inProtectedGroup) {
-      router.replace('/(protected)/home');
-    } else if (!session) {
-      router.replace('/(public)/welcome');
-    }
-
-    /* HACK: Something must be rendered when determining the initial auth state... 
-		instead of creating a loading screen, we use the SplashScreen and hide it after
-		a small delay (500 ms)
-		*/
-
-    setTimeout(() => {
-      SplashScreen.hideAsync();
-    }, 500);
-  }, [initialized, session]);
-
   return (
     <MoonContext.Provider
       value={{
@@ -240,6 +279,13 @@ export const MoonContextProvider = ({ children }: MoonProviderProps) => {
         session,
         initialized,
         moon,
+        ethers,
+        connect,
+        disconnect,
+        getUserSession,
+        connectEthers,
+        disconnectEthers,
+        request,
         signUp,
         signInWithPassword,
         signOut,
