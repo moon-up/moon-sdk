@@ -1,6 +1,7 @@
 import { MoonProvider, MoonProviderOptions } from '@moonup/ethers';
 import { MoonSDK } from '@moonup/moon-sdk';
 import { useEffect, useState } from 'react';
+
 import { MoonEthersHook } from './types';
 
 export function useMoonEthers(): MoonEthersHook {

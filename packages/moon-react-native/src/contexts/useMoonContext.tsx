@@ -1,3 +1,8 @@
+import 'react-native-get-random-values';
+
+// Import the the ethers shims (**BEFORE** ethers)
+import '@ethersproject/shims';
+
 import { MoonProvider } from '@moonup/ethers';
 import { MoonSDK } from '@moonup/moon-sdk';
 import { Session, User } from '@supabase/supabase-js';

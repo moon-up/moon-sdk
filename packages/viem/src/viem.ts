@@ -58,5 +58,5 @@ export async function createMoonAccount(input: {
         typedData.message as Record<string, string> // Type assertion
       ) as Promise<`0x${string}`>;
     },
-  });
+  }) as LocalAccount;
 }

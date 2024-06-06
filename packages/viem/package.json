@@ -1,6 +1,6 @@
 {
   "name": "@moonup/viem",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "author": "0xEwhal <ewhal@bytemasons.com>",
   "type": "commonjs",
   "main": "./dist/index.js",
