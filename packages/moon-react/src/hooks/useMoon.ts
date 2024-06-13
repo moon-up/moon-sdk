@@ -1,7 +1,7 @@
 import { MoonSDK } from '@moonup/moon-sdk';
 import { useEffect, useState } from 'react';
 
-export const useMoonSDK = () => {
+export const useMoon = () => {
   const [moon, setMoon] = useState<MoonSDK | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 

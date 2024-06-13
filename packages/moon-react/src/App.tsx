@@ -280,16 +280,7 @@ type AuthModalProps = {
   };
 };
 
-const AuthModal: React.FC<AuthModalProps> = ({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  wallets,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  socialLogins,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  modalTitle,
-  appearance,
-  theming,
-}) => {
+const AuthModal: React.FC<AuthModalProps> = ({ appearance, theming }) => {
   const [showModal, setShowModal] = useState(false);
   const { session, supabase } = useMoonSDK();
   const { isConnected, address } = useAccount();
