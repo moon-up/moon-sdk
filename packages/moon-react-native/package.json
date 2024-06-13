@@ -1,6 +1,6 @@
 {
   "name": "@moonup/moon-react-native",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "author": "0xEwhal <ewhal@bytemasons.com>",
   "type": "commonjs",
@@ -73,9 +73,13 @@
     }
   ],
   "dependencies": {
+    "@ethersproject/abstract-provider": "^5.7.0",
+    "@ethersproject/bytes": "^5.7.0",
+    "@ethersproject/hash": "^5.7.0",
     "@ethersproject/shims": "^5.7.0",
-    "@moonup/moon-sdk": "workspace:*",
-    "@moonup/ethers": "workspace:*",
+    "@moonup/ethers": "^1.0.14",
+    "@moonup/moon-api": "^0.0.27",
+    "@moonup/moon-sdk": "^1.0.13",
     "@react-navigation/native": "^6.1.17",
     "@supabase/supabase-js": "^2.43.4",
     "eip1193-provider": "^1.0.1",

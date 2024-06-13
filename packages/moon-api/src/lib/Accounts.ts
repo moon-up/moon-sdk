@@ -10,6 +10,7 @@
  */
 
 import {
+  AbiEncodeInput,
   BroadcastInput,
   BroadcastTxData,
   CreateAccountData,
@@ -17,6 +18,8 @@ import {
   DeleteAccountData,
   DeployContractData,
   DeployInput,
+  EncodeDataData,
+  EstimateGasData,
   GetAccountData,
   GetBalanceData,
   GetBalanceParams,
@@ -28,6 +31,8 @@ import {
   SignTransactionData,
   SignTypedData,
   SignTypedDataData,
+  SuggestGasPriceData,
+  SuggestGasPriceParams,
   TransferEthData,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
@@ -107,6 +112,44 @@ export class Accounts<SecurityDataType = unknown> {
   ) =>
     this.http.request<DeployContractData, any>({
       path: `/accounts/${accountName}/deploy`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Accounts
+   * @name EncodeData
+   * @request POST:/accounts/encode-data
+   * @secure
+   */
+  encodeData = (data: AbiEncodeInput, params: RequestParams = {}) =>
+    this.http.request<EncodeDataData, any>({
+      path: `/accounts/encode-data`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Accounts
+   * @name EstimateGas
+   * @request POST:/accounts/{accountName}/estimate
+   * @secure
+   */
+  estimateGas = (
+    accountName: string,
+    data: InputBody,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<EstimateGasData, any>({
+      path: `/accounts/${accountName}/estimate`,
       method: 'POST',
       body: data,
       secure: true,
@@ -238,6 +281,25 @@ export class Accounts<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Accounts
+   * @name SuggestGasPrice
+   * @request GET:/accounts/{accountName}/suggest-gas
+   * @secure
+   */
+  suggestGasPrice = (
+    { accountName, ...query }: SuggestGasPriceParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<SuggestGasPriceData, any>({
+      path: `/accounts/${accountName}/suggest-gas`,
+      method: 'GET',
+      query: query,
+      secure: true,
       ...params,
     });
   /**

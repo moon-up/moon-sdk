@@ -6,87 +6,6 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
-			"GetSwapDto": {
-				"properties": {
-					"src": {
-						"type": "string"
-					},
-					"dst": {
-						"type": "string"
-					},
-					"amount": {
-						"type": "string"
-					},
-					"from": {
-						"type": "string"
-					},
-					"slippage": {
-						"type": "number",
-						"format": "double"
-					},
-					"protocols": {
-						"type": "string"
-					},
-					"fee": {
-						"type": "string"
-					},
-					"disableEstimate": {
-						"type": "boolean"
-					},
-					"permit": {
-						"type": "string"
-					},
-					"includeTokensInfo": {
-						"type": "boolean"
-					},
-					"includeProtocols": {
-						"type": "boolean"
-					},
-					"compatibility": {
-						"type": "boolean"
-					},
-					"allowPartialFill": {
-						"type": "boolean"
-					},
-					"parts": {
-						"type": "string"
-					},
-					"mainRouteParts": {
-						"type": "string"
-					},
-					"connectorTokens": {
-						"type": "string"
-					},
-					"complexityLevel": {
-						"type": "string"
-					},
-					"gasLimit": {
-						"type": "string"
-					},
-					"gasPrice": {
-						"type": "string"
-					},
-					"referrer": {
-						"type": "string"
-					},
-					"receiver": {
-						"type": "string"
-					},
-					"chainId": {
-						"type": "number",
-						"format": "double"
-					}
-				},
-				"required": [
-					"src",
-					"dst",
-					"amount",
-					"from",
-					"slippage"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
 			"NonceResponse": {
 				"properties": {
 					"nonce": {
@@ -145,6 +64,9 @@
 						"type": "boolean"
 					},
 					"broadcast": {
+						"type": "boolean"
+					},
+					"alwaysIncrementNonce": {
 						"type": "boolean"
 					}
 				},
@@ -624,6 +546,58 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"AbiEncodeOutput": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody"
+					},
+					"address": {
+						"type": "string"
+					},
+					"data": {
+						"properties": {
+							"encoded": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"encoded"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AbiEncodeInput": {
+				"properties": {
+					"abi": {},
+					"functionName": {
+						"type": "string"
+					},
+					"params": {
+						"items": {},
+						"type": "array"
+					}
+				},
+				"required": [
+					"abi",
+					"functionName",
+					"params"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"AaveInput": {
 				"properties": {
 					"to": {
@@ -669,6 +643,9 @@
 						"type": "boolean"
 					},
 					"broadcast": {
+						"type": "boolean"
+					},
+					"alwaysIncrementNonce": {
 						"type": "boolean"
 					},
 					"lending_pool": {
@@ -759,6 +736,87 @@
 				"required": [
 					"success",
 					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"GetSwapDto": {
+				"properties": {
+					"src": {
+						"type": "string"
+					},
+					"dst": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "string"
+					},
+					"from": {
+						"type": "string"
+					},
+					"slippage": {
+						"type": "number",
+						"format": "double"
+					},
+					"protocols": {
+						"type": "string"
+					},
+					"fee": {
+						"type": "string"
+					},
+					"disableEstimate": {
+						"type": "boolean"
+					},
+					"permit": {
+						"type": "string"
+					},
+					"includeTokensInfo": {
+						"type": "boolean"
+					},
+					"includeProtocols": {
+						"type": "boolean"
+					},
+					"compatibility": {
+						"type": "boolean"
+					},
+					"allowPartialFill": {
+						"type": "boolean"
+					},
+					"parts": {
+						"type": "string"
+					},
+					"mainRouteParts": {
+						"type": "string"
+					},
+					"connectorTokens": {
+						"type": "string"
+					},
+					"complexityLevel": {
+						"type": "string"
+					},
+					"gasLimit": {
+						"type": "string"
+					},
+					"gasPrice": {
+						"type": "string"
+					},
+					"referrer": {
+						"type": "string"
+					},
+					"receiver": {
+						"type": "string"
+					},
+					"chainId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"src",
+					"dst",
+					"amount",
+					"from",
+					"slippage"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -1087,6 +1145,9 @@
 						"type": "boolean"
 					},
 					"broadcast": {
+						"type": "boolean"
+					},
+					"alwaysIncrementNonce": {
 						"type": "boolean"
 					},
 					"tokenIn": {
@@ -1432,6 +1493,9 @@
 					},
 					"broadcast": {
 						"type": "boolean"
+					},
+					"alwaysIncrementNonce": {
+						"type": "boolean"
 					}
 				},
 				"type": "object",
@@ -1482,6 +1546,9 @@
 						"type": "boolean"
 					},
 					"broadcast": {
+						"type": "boolean"
+					},
+					"alwaysIncrementNonce": {
 						"type": "boolean"
 					}
 				},
@@ -2285,6 +2352,21 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"SolanaSignTransactionInput": {
+				"properties": {
+					"unsigned_tx": {
+						"type": "string"
+					},
+					"network": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"unsigned_tx"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"SolanaTransactionInput": {
 				"properties": {
 					"to": {
@@ -2419,6 +2501,9 @@
 					"broadcast": {
 						"type": "boolean"
 					},
+					"alwaysIncrementNonce": {
+						"type": "boolean"
+					},
 					"token_a": {
 						"type": "string"
 					},
@@ -2470,253 +2555,6 @@
 	},
 	"openapi": "3.0.0",
 	"paths": {
-		"/oneinch/tokens": {
-			"post": {
-				"operationId": "Tokens",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {}
-							}
-						}
-					}
-				},
-				"tags": [
-					"oneinch"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {}
-						}
-					}
-				}
-			}
-		},
-		"/oneinch/protocols": {
-			"post": {
-				"operationId": "Protocols",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {}
-							}
-						}
-					}
-				},
-				"tags": [
-					"oneinch"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {}
-						}
-					}
-				}
-			}
-		},
-		"/oneinch/quote": {
-			"post": {
-				"operationId": "Quote",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {}
-							}
-						}
-					}
-				},
-				"tags": [
-					"oneinch"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {}
-						}
-					}
-				}
-			}
-		},
-		"/oneinch/{accountName}/swap": {
-			"post": {
-				"operationId": "Swap",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {}
-							}
-						}
-					}
-				},
-				"tags": [
-					"oneinch"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "accountName",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/GetSwapDto"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/oneinch/approve-spender": {
-			"post": {
-				"operationId": "ApproveSpender",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {}
-							}
-						}
-					}
-				},
-				"tags": [
-					"oneinch"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {}
-						}
-					}
-				}
-			}
-		},
-		"/oneinch/approve-call-data": {
-			"post": {
-				"operationId": "ApproveCallData",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {}
-							}
-						}
-					}
-				},
-				"tags": [
-					"oneinch"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {}
-						}
-					}
-				}
-			}
-		},
 		"/accounts/{accountName}/nonce": {
 			"get": {
 				"operationId": "GetNonce",
@@ -2821,6 +2659,122 @@
 						}
 					}
 				]
+			}
+		},
+		"/accounts/{accountName}/suggest-gas": {
+			"get": {
+				"operationId": "SuggestGasPrice",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/TransactionAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Accounts"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/accounts/{accountName}/estimate": {
+			"post": {
+				"operationId": "EstimateGas",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/TransactionAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Accounts"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputBody"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/accounts/{accountName}/transfer-eth": {
@@ -3363,6 +3317,57 @@
 				}
 			}
 		},
+		"/accounts/encode-data": {
+			"post": {
+				"operationId": "EncodeData",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AbiEncodeOutput"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Accounts"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AbiEncodeInput"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/aave/{name}/lend": {
 			"post": {
 				"operationId": "Lend",
@@ -3594,6 +3599,253 @@
 							"schema": {
 								"$ref": "#/components/schemas/AaveInput"
 							}
+						}
+					}
+				}
+			}
+		},
+		"/oneinch/tokens": {
+			"post": {
+				"operationId": "Tokens",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"oneinch"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {}
+						}
+					}
+				}
+			}
+		},
+		"/oneinch/protocols": {
+			"post": {
+				"operationId": "Protocols",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"oneinch"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {}
+						}
+					}
+				}
+			}
+		},
+		"/oneinch/quote": {
+			"post": {
+				"operationId": "Quote",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"oneinch"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {}
+						}
+					}
+				}
+			}
+		},
+		"/oneinch/{accountName}/swap": {
+			"post": {
+				"operationId": "Swap",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"oneinch"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/GetSwapDto"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/oneinch/approve-spender": {
+			"post": {
+				"operationId": "ApproveSpender",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"oneinch"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {}
+						}
+					}
+				}
+			}
+		},
+		"/oneinch/approve-call-data": {
+			"post": {
+				"operationId": "ApproveCallData",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"oneinch"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {}
 						}
 					}
 				}
@@ -7436,6 +7688,183 @@
 		"/solana/{accountName}/sign-tx": {
 			"post": {
 				"operationId": "SignSolanaTransaction",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SolanaAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Solana"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SolanaSignTransactionInput"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/solana/{accountName}/multi-sign-tx": {
+			"post": {
+				"operationId": "MultiSignSolanaTransaction",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SolanaAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Solana"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SolanaSignTransactionInput"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/solana/{accountName}/transfer": {
+			"post": {
+				"operationId": "TransferSolanaTransaction",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SolanaAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Solana"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/SolanaTransactionInput"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/solana/{accountName}/transfer-tokens": {
+			"post": {
+				"operationId": "TransferTokensSignSolanaTransaction",
 				"responses": {
 					"200": {
 						"description": "Ok",

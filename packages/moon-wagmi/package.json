@@ -1,6 +1,6 @@
 {
   "name": "@moonup/wagmi-connector",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "license": "MIT",
   "author": "0xEwhal <ewhal@bytemasons.com>",
   "type": "commonjs",

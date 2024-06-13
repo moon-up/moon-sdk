@@ -13,9 +13,13 @@ import {
   CreateSolanaAccountData,
   GetSolanaAccountData,
   ListSolanaAccountsData,
+  MultiSignSolanaTransactionData,
   SignSolanaTransactionData,
   SolanaInput,
+  SolanaSignTransactionInput,
   SolanaTransactionInput,
+  TransferSolanaTransactionData,
+  TransferTokensSignSolanaTransactionData,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
@@ -77,17 +81,80 @@ export class Solana<SecurityDataType = unknown> {
    * No description
    *
    * @tags Solana
+   * @name MultiSignSolanaTransaction
+   * @request POST:/solana/{accountName}/multi-sign-tx
+   * @secure
+   */
+  multiSignSolanaTransaction = (
+    accountName: string,
+    data: SolanaSignTransactionInput,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<MultiSignSolanaTransactionData, any>({
+      path: `/solana/${accountName}/multi-sign-tx`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Solana
    * @name SignSolanaTransaction
    * @request POST:/solana/{accountName}/sign-tx
    * @secure
    */
   signSolanaTransaction = (
     accountName: string,
-    data: SolanaTransactionInput,
+    data: SolanaSignTransactionInput,
     params: RequestParams = {}
   ) =>
     this.http.request<SignSolanaTransactionData, any>({
       path: `/solana/${accountName}/sign-tx`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Solana
+   * @name TransferSolanaTransaction
+   * @request POST:/solana/{accountName}/transfer
+   * @secure
+   */
+  transferSolanaTransaction = (
+    accountName: string,
+    data: SolanaTransactionInput,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<TransferSolanaTransactionData, any>({
+      path: `/solana/${accountName}/transfer`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Solana
+   * @name TransferTokensSignSolanaTransaction
+   * @request POST:/solana/{accountName}/transfer-tokens
+   * @secure
+   */
+  transferTokensSignSolanaTransaction = (
+    accountName: string,
+    data: SolanaTransactionInput,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<TransferTokensSignSolanaTransactionData, any>({
+      path: `/solana/${accountName}/transfer-tokens`,
       method: 'POST',
       body: data,
       secure: true,
