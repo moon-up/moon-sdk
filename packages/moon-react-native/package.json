@@ -84,6 +84,7 @@
     "@supabase/supabase-js": "^2.43.4",
     "eip1193-provider": "^1.0.1",
     "ethers": "^5.7.2",
+    "expo": "~51.0.8",
     "expo-auth-session": "^5.5.2",
     "expo-router": "^3.5.14",
     "expo-secure-store": "^13.0.1",
