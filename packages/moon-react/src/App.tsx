@@ -5,7 +5,7 @@ import {
 import { useEffect, useState } from 'react';
 import { SiweMessage } from 'siwe';
 import { useAccount, useConnect, useSignMessage, useSwitchChain } from 'wagmi';
-import { useMoonSDK } from './context/Context';
+import { useMoonSDK } from './context';
 
 import React from 'react';
 import './index.css';

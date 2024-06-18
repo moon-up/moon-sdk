@@ -1,5 +1,5 @@
 import { MoonSDK } from '@moonup/moon-sdk';
-import { useMoonSDK } from '../context/Context';
+import { useMoonSDK } from '../context';
 
 // import { useMoon } from '../contexts';
 
