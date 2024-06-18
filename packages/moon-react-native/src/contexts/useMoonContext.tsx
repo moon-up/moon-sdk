@@ -32,10 +32,12 @@ type MoonContextProps = {
   disconnect: () => Promise<void>;
   getUserSession: () => Promise<{
     data: { session: Session | null };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     error: any;
   }>;
   connectEthers: () => Promise<void>;
   disconnectEthers: () => Promise<void>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   request: (args: RequestArguments) => Promise<any>;
 };
 

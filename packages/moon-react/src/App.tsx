@@ -1,4 +1,7 @@
-import { startAuthentication, startRegistration } from '@simplewebauthn/browser';
+import {
+  startAuthentication,
+  startRegistration,
+} from '@simplewebauthn/browser';
 import { useEffect, useState } from 'react';
 import { SiweMessage } from 'siwe';
 import { useAccount, useConnect, useSignMessage, useSwitchChain } from 'wagmi';
@@ -12,23 +15,29 @@ function WebAuthnComponent() {
   const { supabase } = useMoonSDK();
 
   const handleLogin = async () => {
-    const publicKey = await fetch('https://dash.usemoon.ai/api/webauthn/login', {
-      method: 'POST',
-      body: JSON.stringify({ email }),
-      headers: { 'Content-Type': 'application/json' },
-    }).then((res) => res.json());
+    const publicKey = await fetch(
+      'https://dash.usemoon.ai/api/webauthn/login',
+      {
+        method: 'POST',
+        body: JSON.stringify({ email }),
+        headers: { 'Content-Type': 'application/json' },
+      }
+    ).then((res) => res.json());
     console.log(publicKey);
 
     const credential = await startAuthentication(publicKey.optionsAuth);
 
-    const auth = await fetch('https://dash.usemoon.ai/api/webauthn/login/verify', {
-      method: 'POST',
-      body: JSON.stringify({
-        ...credential,
-        username: email,
-      }),
-      headers: { 'Content-Type': 'application/json' },
-    }).then((res) => res.json());
+    const auth = await fetch(
+      'https://dash.usemoon.ai/api/webauthn/login/verify',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          ...credential,
+          username: email,
+        }),
+        headers: { 'Content-Type': 'application/json' },
+      }
+    ).then((res) => res.json());
 
     // moon?.connect(auth.token.access_token, auth.token.refresh_token);
     // set the session
@@ -39,11 +48,14 @@ function WebAuthnComponent() {
   };
 
   const handleRegister = async () => {
-    const publicKey = await fetch('https://dash.usemoon.ai/api/webauthn/register', {
-      method: 'POST',
-      body: JSON.stringify({ email }),
-      headers: { 'Content-Type': 'application/json' },
-    }).then((res) => res.json());
+    const publicKey = await fetch(
+      'https://dash.usemoon.ai/api/webauthn/register',
+      {
+        method: 'POST',
+        body: JSON.stringify({ email }),
+        headers: { 'Content-Type': 'application/json' },
+      }
+    ).then((res) => res.json());
     console.log(publicKey);
 
     const credential = await startRegistration(publicKey.options);
@@ -63,7 +75,9 @@ function WebAuthnComponent() {
 
   return (
     <div className="p-8 bg-white rounded shadow-md w-80">
-      <h2 className="mb-4 text-xl font-semibold text-gray-700">Login with WebAuthn</h2>
+      <h2 className="mb-4 text-xl font-semibold text-gray-700">
+        Login with WebAuthn
+      </h2>
       <input
         type="email"
         onChange={(e) => setEmail(e.target.value)}
@@ -129,7 +143,7 @@ function Account() {
   } = useMoonSDK();
   useEffect(() => {
     listWallets();
-  }, []);
+  }, [listWallets]);
 
   if (!moon) {
     return <div>Loading...</div>;
@@ -167,7 +181,9 @@ function Account() {
         <div>
           {wallets && wallets.length > 0 ? (
             <div>
-              <div className="text-center text-xl font-semibold text-gray-700">Wallets</div>
+              <div className="text-center text-xl font-semibold text-gray-700">
+                Wallets
+              </div>
 
               {wallets.map((wallet) => (
                 <div
@@ -197,12 +213,17 @@ function Account() {
         {address && <div>{ensName ? `${ensName} (${address})` : address}</div>}
         <button onClick={() => disconnect()}>Disconnect</button> */}
         <div>
-          <div className="text-center text-xl font-semibold text-gray-700">Providers</div>
+          <div className="text-center text-xl font-semibold text-gray-700">
+            Providers
+          </div>
 
           <ul>
             <li>
               {connectors.map((connector) => (
-                <button key={connector.uid} onClick={() => connect({ connector })}>
+                <button
+                  key={connector.uid}
+                  onClick={() => connect({ connector })}
+                >
                   {connector.name}
                 </button>
               ))}
@@ -210,11 +231,16 @@ function Account() {
           </ul>
         </div>
         <div>
-          <div className="text-center text-xl font-semibold text-gray-700">chains</div>
+          <div className="text-center text-xl font-semibold text-gray-700">
+            chains
+          </div>
           <ul>
             <li>
               {chains.map((chain) => (
-                <button key={chain.id} onClick={() => switchChain({ chainId: chain.id })}>
+                <button
+                  key={chain.id}
+                  onClick={() => switchChain({ chainId: chain.id })}
+                >
                   {chain.name}
                 </button>
               ))}
@@ -293,13 +319,16 @@ const AuthModal: React.FC<AuthModalProps> = ({ appearance, theming }) => {
       if (!address) return;
 
       try {
-        const nonceResponse = await fetch('https://beta.usemoon.ai/auth/ethereum/nonce', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ address }),
-        });
+        const nonceResponse = await fetch(
+          'https://beta.usemoon.ai/auth/ethereum/nonce',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ address }),
+          }
+        );
 
         const { user } = await nonceResponse.json();
         console.log(user.at(0).auth.genNonce);
@@ -316,18 +345,21 @@ const AuthModal: React.FC<AuthModalProps> = ({ appearance, theming }) => {
           message: message.prepareMessage(),
         });
 
-        const response = await fetch('https://beta.usemoon.ai/auth/ethereum/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            address,
-            signedMessage,
-            nonce: user.at(0).auth.genNonce,
-            message: message.prepareMessage(),
-          }),
-        }).then((res) => res.json());
+        const response = await fetch(
+          'https://beta.usemoon.ai/auth/ethereum/login',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              address,
+              signedMessage,
+              nonce: user.at(0).auth.genNonce,
+              message: message.prepareMessage(),
+            }),
+          }
+        ).then((res) => res.json());
 
         await supabase?.auth.setSession({
           access_token: response.token.access_token,

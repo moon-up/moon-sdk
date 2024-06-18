@@ -3,6 +3,7 @@ import { MoonProvider } from '@moonup/ethers';
 import { useMoon } from '../contexts';
 
 const createMoonProviderHook = <T extends keyof MoonProvider>(method: T) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (...args: any[]) => {
     const { ethers } = useMoon();
     // null check
@@ -11,6 +12,7 @@ const createMoonProviderHook = <T extends keyof MoonProvider>(method: T) => {
     }
     if (typeof ethers[method] === 'function') {
       // Use type assertion to specify the type of moonProvider[method]
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return (ethers[method] as (...args: any[]) => any)(...args);
     }
     return null;

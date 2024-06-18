@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useContext, useEffect, useReducer } from 'react';
+import React, { createContext, ReactNode, useEffect, useReducer } from 'react';
 
 import { MoonProvider } from '@moonup/ethers';
 import { MoonSDK } from '@moonup/moon-sdk';
@@ -53,7 +53,11 @@ export type State = {
   connect: (accessToken?: string, refreshToken?: string) => Promise<void>;
   disconnect: () => Promise<void>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  getUserSession: () => Promise<{ data: { session: Session | null }; error: any }>;
+  getUserSession: () => Promise<{
+    data: { session: Session | null };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    error: any;
+  }>;
   connectEthers: () => Promise<void>;
   disconnectEthers: () => Promise<void>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -108,7 +112,7 @@ const provider = new MoonProvider({
 window.moon = provider;
 
 // Define the context
-const MoonSDKContext = createContext<State | undefined>(undefined);
+export const MoonSDKContext = createContext<State | undefined>(undefined);
 const queryClient = new QueryClient();
 // ...
 const config = createConfig({
@@ -130,7 +134,9 @@ declare global {
 
 import { createStore } from 'mipd';
 const store = createStore();
-export const MoonSDKProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const MoonSDKProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [state, dispatch] = useReducer(reducer, {
     moon: moon,
     loading: true, // Add a loading state
@@ -251,16 +257,10 @@ export const MoonSDKProvider: React.FC<{ children: ReactNode }> = ({ children })
   return (
     <MoonSDKContext.Provider value={state}>
       <WagmiProvider config={config}>
-        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+        <QueryClientProvider client={queryClient}>
+          {children}
+        </QueryClientProvider>
       </WagmiProvider>
     </MoonSDKContext.Provider>
   );
-};
-
-export const useMoonSDK = (): State => {
-  const context = useContext(MoonSDKContext);
-  if (context === undefined) {
-    throw new Error('useMoonSDK must be used within a MoonSDKProvider');
-  }
-  return context;
 };

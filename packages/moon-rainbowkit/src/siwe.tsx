@@ -23,7 +23,7 @@ export function RainbowMoonProvider({
         : 'unauthenticated',
     [isLoading, authenticated]
   );
-  const { address, status: wagmiStatus } = useAccount();
+  const { address } = useAccount();
   const [nonce, setNonce] = useState('');
 
   const adapter = useMemo(
@@ -115,7 +115,7 @@ export function RainbowMoonProvider({
           setAuthenticated(false);
         },
       }),
-    [wagmiStatus, address, moon, nonce]
+    [address, moon, nonce]
   );
 
   return (
