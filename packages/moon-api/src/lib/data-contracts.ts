@@ -11,6 +11,7 @@
 
 export interface AaveInput {
   EOA?: boolean;
+  alwaysIncrementNonce?: boolean;
   amount?: string;
   approved?: boolean;
   atoken_to_redeeem?: string;
@@ -51,6 +52,22 @@ export interface AaveReservesData {
   principal_borrow_balance: string;
   usage_as_collateral_enabled: string;
   variable_borrow_index: string;
+}
+
+export interface AbiEncodeInput {
+  abi: any;
+  functionName: string;
+  params: any[];
+}
+
+export interface AbiEncodeOutput {
+  address?: string;
+  body?: InputBody;
+  data?: {
+    encoded: string;
+  };
+  message: string;
+  success: boolean;
 }
 
 export interface AccountAPIResponse {
@@ -313,6 +330,8 @@ export interface DogeCoinTransactionOutput {
   transaction_hash?: string;
 }
 
+export type EncodeDataData = AbiEncodeOutput;
+
 export interface EnsResolveAPIResponse {
   address?: string;
   body?: InputBody;
@@ -358,6 +377,7 @@ export interface EosTransactionOutput {
 
 export interface Erc1155Request {
   EOA?: boolean;
+  alwaysIncrementNonce?: boolean;
   approved?: boolean;
   broadcast?: boolean;
   chain_id?: string;
@@ -376,6 +396,7 @@ export interface Erc1155Request {
 
 export interface Erc721Request {
   EOA?: boolean;
+  alwaysIncrementNonce?: boolean;
   approved?: boolean;
   broadcast?: boolean;
   chain_id?: string;
@@ -391,6 +412,8 @@ export interface Erc721Request {
   token_ids?: string;
   value?: string;
 }
+
+export type EstimateGasData = TransactionAPIResponse;
 
 export interface FiatCurrency {
   code: string;
@@ -477,6 +500,7 @@ export type GetTronAccountData = AccountAPIResponse;
 
 export interface InputBody {
   EOA?: boolean;
+  alwaysIncrementNonce?: boolean;
   approved?: boolean;
   broadcast?: boolean;
   chain_id?: string;
@@ -549,6 +573,8 @@ export interface Message {
   crypto: CryptoCurrency[];
   fiat: FiatCurrency[];
 }
+
+export type MultiSignSolanaTransactionData = SolanaAPIResponse;
 
 export type NameData = TransactionAPIResponse;
 
@@ -800,6 +826,11 @@ export interface SolanaInput {
   private_key?: string;
 }
 
+export interface SolanaSignTransactionInput {
+  network?: string;
+  unsigned_tx: string;
+}
+
 export interface SolanaTransactionInput {
   compress?: boolean;
   network?: string;
@@ -811,6 +842,13 @@ export interface SolanaTransactionInput {
 export interface SolanaTransactionOutput {
   signedTx?: string;
   transaction_hash?: string;
+}
+
+export type SuggestGasPriceData = TransactionAPIResponse;
+
+export interface SuggestGasPriceParams {
+  accountName: string;
+  chainId: string;
 }
 
 export interface SupportedAssetResponse {
@@ -871,6 +909,7 @@ export type SymbolErc20Data = TransactionAPIResponse;
 
 export interface TokenSwapParams {
   EOA?: boolean;
+  alwaysIncrementNonce?: boolean;
   amountIn: string;
   approved?: boolean;
   broadcast?: boolean;
@@ -1022,6 +1061,10 @@ export type TransferFromData = TransactionAPIResponse;
 
 export type TransferFromErc20Data = TransactionAPIResponse;
 
+export type TransferSolanaTransactionData = SolanaAPIResponse;
+
+export type TransferTokensSignSolanaTransactionData = SolanaAPIResponse;
+
 export interface TronAPIResponse {
   address?: string;
   body?: InputBody;
@@ -1073,6 +1116,7 @@ export interface Tx {
 
 export interface UniswapInput {
   EOA?: boolean;
+  alwaysIncrementNonce?: boolean;
   amount_a?: string;
   amount_b?: string;
   approved?: boolean;

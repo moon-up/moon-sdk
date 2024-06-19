@@ -123,7 +123,7 @@ const provider = new MoonProvider({
 window.moon = provider;
 
 // Define the context
-const MoonSDKContext = createContext<State | undefined>(undefined);
+export const MoonSDKContext = createContext<State | undefined>(undefined);
 const queryClient = new QueryClient();
 // ...
 const config = createConfig({

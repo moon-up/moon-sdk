@@ -3,6 +3,7 @@ import { MoonSDK } from '@moonup/moon-sdk';
 import { useMoon } from '../contexts';
 
 const createMoonHook = <T extends keyof MoonSDK>(method: T) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (...args: any[]) => {
     const { moon } = useMoon();
     // null check
@@ -11,6 +12,7 @@ const createMoonHook = <T extends keyof MoonSDK>(method: T) => {
     }
     if (typeof moon[method] === 'function') {
       // Use type assertion to specify the type of moon[method]
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return (moon[method] as (...args: any[]) => any)(...args);
     }
     return null;

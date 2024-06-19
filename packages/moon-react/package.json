@@ -1,6 +1,6 @@
 {
   "name": "@moonup/moon-react",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "license": "MIT",
   "author": "0xEwhal <ewhal@bytemasons.com>",
   "type": "commonjs",
@@ -43,7 +43,6 @@
       "limit": "10 KB"
     }
   ],
-
   "scripts": {
     "dev": "vite",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
@@ -65,7 +64,7 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@moonup/ethers": "workspace:* ",
+    "@moonup/ethers": "workspace:*",
     "@moonup/moon-sdk": "workspace:*",
     "@moonup/viem": "workspace:*",
     "@moonup/wagmi-connector": "workspace:*",
@@ -75,10 +74,10 @@
     "@supabase/auth-ui-shared": "^0.1.8",
     "@supabase/supabase-js": "^2.42.5",
     "@tanstack/react-query": "^5.36.2",
+    "ethers": "^5.7.2",
     "mipd": "^0.0.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "ethers": "^5.7.2",
     "react-modal": "^3.16.1",
     "react-query": "^3.39.3",
     "react-tabs": "^6.0.2",
@@ -88,6 +87,7 @@
   },
   "devDependencies": {
     "@simplewebauthn/typescript-types": "^8.3.4",
+    "@tsconfig/vite-react": "^3.0.0",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@types/react-modal": "^3.16.3",

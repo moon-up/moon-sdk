@@ -101,6 +101,7 @@ export class MoonProvider extends Provider implements IEthereumProvider {
         type: ContentType.Json,
         format: 'json',
       },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       securityWorker: async (securityData: any) => {
         return Promise.resolve({
           headers: {
