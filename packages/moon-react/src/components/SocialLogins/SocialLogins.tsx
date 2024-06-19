@@ -7,6 +7,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useMoonSDK } from "../../context";
 import { SocialLogins as SocialLoginsType } from "../../types";
 import getEnvVariables from "../../utils/getEnvVariables";
+import React from "react";
 
 interface SocialLoginsProps {
   socialLogins: SocialLoginsType;

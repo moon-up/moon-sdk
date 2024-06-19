@@ -1,3 +1,4 @@
+import React from "react";
 import { useMoonSDK } from "../..";
 import { AuthModalConfig } from "../../types";
 

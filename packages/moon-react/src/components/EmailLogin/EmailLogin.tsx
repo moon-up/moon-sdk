@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useMoonSDK } from "../../context";
 import { AuthModalConfig } from "../../types";
 import Button from "../Button/Button";
+import React from "react";
 
 interface EmailLoginProps {
   config: AuthModalConfig;
