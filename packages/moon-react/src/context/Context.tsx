@@ -11,7 +11,7 @@ import {
   walletConnectWallet,
 } from '@rainbow-me/rainbowkit/wallets';
 import { createClient, Session, SupabaseClient } from '@supabase/supabase-js';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClientProvider, useQueryClient } from '@tanstack/react-query';
 import { announceProvider, EIP1193Provider, Store } from 'mipd';
 import { createConfig, custom, WagmiProvider } from 'wagmi';
 import { mainnet, mode, optimism, polygon, sepolia } from 'wagmi/chains';
@@ -113,7 +113,6 @@ window.moon = provider;
 
 // Define the context
 export const MoonSDKContext = createContext<State | undefined>(undefined);
-const queryClient = new QueryClient();
 // ...
 const config = createConfig({
   chains: [mainnet, optimism, polygon, mode, sepolia],
@@ -253,6 +252,7 @@ export const MoonSDKProvider: React.FC<{ children: ReactNode }> = ({
       subscription.unsubscribe();
     };
   }, []);
+  const queryClient = useQueryClient();
 
   return (
     <MoonSDKContext.Provider value={state}>
