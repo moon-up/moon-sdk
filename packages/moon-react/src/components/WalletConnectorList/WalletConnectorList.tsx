@@ -1,11 +1,11 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { FaArrowLeft } from "react-icons/fa";
-import coinbase from "../../assets/coinbase.svg";
-import metamask from "../../assets/metamask.svg";
-import rabby from "../../assets/rabby.png";
-import trustwallet from "../../assets/trustwallet.png";
-import moonLogoLight from "../../assets/moon-logo-light.png";
-import walletconnect from "../../assets/walletconnect.svg";
+// import coinbase from "../../assets/coinbase.svg";
+// import metamask from "../../assets/metamask.svg";
+// import rabby from "../../assets/rabby.png";
+// import trustwallet from "../../assets/trustwallet.png";
+// import moonLogoLight from "../../assets/moon-logo-light.png";
+// import walletconnect from "../../assets/walletconnect.svg";
 import { FaWallet } from "react-icons/fa";
 import { useAccount, useConnect, useSignMessage } from "wagmi";
 import { useConnectToMoon } from "../../hooks/useConnectToMoon";
@@ -16,7 +16,7 @@ interface WalletConnectorsListProps {
 
 const WalletConnectorsList = ({ onBack }: WalletConnectorsListProps) => {
   const { connectors, connect } = useConnect();
-  const { isConnected, address } = useAccount();
+  const { address } = useAccount();
   const { signMessageAsync } = useSignMessage();
   const walletAddress = address ? address : "";
   const { connectToMoonSiwe } = useConnectToMoon({
@@ -24,18 +24,18 @@ const WalletConnectorsList = ({ onBack }: WalletConnectorsListProps) => {
     signMessageAsync,
   });
 
-  const walletIcons: any = useMemo(
-    () => ({
-      MetaMask: <img src={metamask} />,
-      "Coinbase Wallet": <img src={coinbase} width={60} />,
-      "Rabby Wallet": <img src={rabby} width={60} />,
-      Safe: <img src={trustwallet} width={60} />,
-      Moon: <img src={moonLogoLight} width={60} />,
-      WalletConnect: <img src={walletconnect} width={60} />,
-      "Browser Wallet": <FaWallet />,
-    }),
-    []
-  );
+  // const walletIcons: any = useMemo(
+  //   () => ({
+  //     MetaMask: <img src={metamask} />,
+  //     "Coinbase Wallet": <img src={coinbase} width={60} />,
+  //     "Rabby Wallet": <img src={rabby} width={60} />,
+  //     Safe: <img src={trustwallet} width={60} />,
+  //     Moon: <img src={moonLogoLight} width={60} />,
+  //     WalletConnect: <img src={walletconnect} width={60} />,
+  //     "Browser Wallet": <FaWallet />,
+  //   }),
+  //   []
+  // );
 
   const handleConnect = async (connector: any) => {
     connect({ connector });

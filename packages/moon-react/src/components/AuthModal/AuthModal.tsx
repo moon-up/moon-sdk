@@ -2,12 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { AuthModalConfig } from "../../types";
 import { useMoonSDK } from "../../context";
-import { useAccount, useConnect, useSignMessage } from "wagmi";
-import { useConnectToMoon } from "../../hooks/useConnectToMoon";
-import { useWalletConnectors } from "../../hooks/useWalletConnectors";
 import WalletConnectorsList from "../WalletConnectorList/WalletConnectorList";
-
-import moonLogoLight from "../../assets/moon-logo-light.png";
 import { ModalContent, ModalOverlay } from "../Modal/Modal";
 import AuthOptions from "../AuthOptions/AuthOptions";
 
@@ -17,18 +12,9 @@ type AuthModalProps = {
 };
 
 const AuthModal: React.FC<AuthModalProps> = ({ config, children }) => {
-  const {
-    enabled,
-    socialLogins,
-    walletConnectEnabled,
-    anonymousLoginEnabled,
-    appearance,
-    theming,
-  } = config;
+  const { enabled, appearance } = config;
   const [connectWallet, setConnectWallet] = useState(false);
-  const [showModal, setShowModal] = useState(false);
   const { session } = useMoonSDK();
-  const [selectedTab, setSelectedTab] = useState(0);
 
   if (!enabled) return <>{children}</>;
   if (session) return <>{children}</>;
@@ -40,7 +26,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ config, children }) => {
 
   return (
     <>
-      <ModalOverlay onClick={() => setShowModal(false)} config={config} />
+      <ModalOverlay onClick={() => {}} config={config} />
       <ModalContent config={config}>
         {config.appearance.logo?.enabled && (
           <img

@@ -1,6 +1,5 @@
 import React from "react";
 import { useMoonSDK } from "../..";
-import { AuthModalConfig } from "../../types";
 
 interface ButtonProps {
   className?: string;
@@ -23,9 +22,13 @@ function Button({
   return (
     <button
       onClick={handleClick}
-      className={`w-full relative rounded-${authConfig.appearance.button.borderRadius} flex gap-10 p-2 text-lg bg-[${
-        authConfig.theming[color]
-      }] justify-center items-center border-2 border-[${authConfig.theming[color]}] hover:opacity-90 ${className}`}
+      style={{
+        backgroundColor: authConfig.theming[color],
+        color: authConfig.theming.textColor,
+        borderColor: authConfig.theming[color],
+        borderRadius: authConfig.appearance.button.borderRadius,
+      }}
+      className={`w-full relative flex gap-10 p-2 text-lg justify-center items-center border-2 hover:opacity-90 ${className}`}
     >
 
       {children}

@@ -5,6 +5,7 @@ import {
 import { useState } from "react";
 import { useMoonSDK } from "../../context";
 import "../../index.css";
+import React from "react";
 
 function WebAuthnComponent() {
   const [email, setEmail] = useState("");

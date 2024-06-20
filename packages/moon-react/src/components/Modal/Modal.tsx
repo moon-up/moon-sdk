@@ -26,22 +26,36 @@ export const ModalContent = ({ children, config }: ModalProps) => {
         !textInside && "mb-4"
       } `}
     >
-      <div className={`text-2xl font-bold text-text-primary`}>
+      <div
+        style={{ color: config.theming.textColor }}
+        className={`text-2xl font-bold`}
+      >
         {config.appearance.welcomeMessage?.title}
       </div>
-      <div className={`text-lg text-text-secondary`}>
+      <div
+        style={{ color: config.theming.textColorSecondary }}
+        className={`text-lg`}
+      >
         {config.appearance.welcomeMessage?.subtitle}
       </div>
     </div>
   );
 
   return (
-    <div className={`bg-[${config.theming.backgroundColor}] justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none`}>
+    <div
+      style={{ backgroundColor: config.theming.backgroundColor }}
+      className={`justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none`}
+    >
       <div className="relative w-auto my-6 mx-auto flex flex-col justify-center items-center">
         {!textInside && title}
         <div className="text-white w-full flex items-center justify-center">
           <div
-            className={`relative bg-[${config.theming.backgroundColorSecondary}] rounded-${config.appearance.modal.borderRadius} justify-center items-center w-${config.appearance.modal.width}`}
+            style={{
+              backgroundColor: config.theming.backgroundColorSecondary,
+              width: config.appearance.modal.width,
+              borderRadius: config.appearance.modal.borderRadius,
+            }}
+            className={`relative justify-center items-center`}
           >
             {textInside && title}
             {children}

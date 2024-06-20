@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useMoonSDK } from "../../context";
 import { useAccount, useConnect, useSwitchChain } from "wagmi";
+import React from "react";
 
 function Account() {
   const { address, status } = useAccount();
@@ -38,7 +39,7 @@ function Account() {
   const getBalance = async (wallet: string) => {
     // moon connector
     console.log(connectors);
-    const conn = connectors.find((connector) => connector.name === "Moon");
+    const conn = connectors.find((connector: any) => connector.name === "Moon");
     console.log(conn);
     setWallet(wallet);
     console.log("wallet", wallet);
@@ -99,7 +100,7 @@ function Account() {
 
           <ul>
             <li>
-              {connectors.map((connector) => (
+              {connectors.map((connector: any) => (
                 <button
                   key={connector.uid}
                   onClick={() => connect({ connector })}
@@ -116,7 +117,7 @@ function Account() {
           </div>
           <ul>
             <li>
-              {chains.map((chain) => (
+              {chains.map((chain: any) => (
                 <button
                   key={chain.id}
                   onClick={() => switchChain({ chainId: chain.id })}

@@ -1,3 +1,4 @@
+import React from "react";
 import getEnvVariables from "../../utils/getEnvVariables";
 
 function Oauth2Button() {

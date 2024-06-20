@@ -4,7 +4,7 @@ import {
   FaGithub,
 } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { useMoonSDK } from "../../context";
+// import { useMoonSDK } from "../../context";
 import { SocialLogins as SocialLoginsType } from "../../types";
 import getEnvVariables from "../../utils/getEnvVariables";
 import React from "react";
@@ -14,48 +14,48 @@ interface SocialLoginsProps {
 }
 
 function SocialLogins({ socialLogins }: SocialLoginsProps) {
-  const { supabase } = useMoonSDK();
+  // const { supabase } = useMoonSDK();
 
-  const monitorPopup = (authWindow: Window) => {
-    return new Promise<any>((resolve, reject) => {
-      if (!authWindow) {
-        reject(new Error("Failed to open authentication window."));
-      }
-      const handleGoogleAuthEvent = (event: MessageEvent) => {
-        console.log("event", event?.origin, event?.data);
-        if (
-          event.origin !== "https://vault-api.usemoon.ai" &&
-          event.origin !== "http://localhost:3000" &&
-          event.origin !== "https://dev580.d3b5lq7bvakykm.amplifyapp.com"
-        ) {
-          authWindow.close();
-          reject(
-            new Error(
-              "Failed to authenticate with Google. WRONG ORIGIN" + event.origin
-            )
-          );
-          return;
-        }
-        // check if event.data is string and contains code
-        if (typeof event?.data !== "string" || !event?.data.includes("code=")) {
-          return;
-        }
+  // const monitorPopup = (authWindow: Window) => {
+  //   return new Promise<any>((resolve, reject) => {
+  //     if (!authWindow) {
+  //       reject(new Error("Failed to open authentication window."));
+  //     }
+  //     const handleGoogleAuthEvent = (event: MessageEvent) => {
+  //       console.log("event", event?.origin, event?.data);
+  //       if (
+  //         event.origin !== "https://vault-api.usemoon.ai" &&
+  //         event.origin !== "http://localhost:3000" &&
+  //         event.origin !== "https://dev580.d3b5lq7bvakykm.amplifyapp.com"
+  //       ) {
+  //         authWindow.close();
+  //         reject(
+  //           new Error(
+  //             "Failed to authenticate with Google. WRONG ORIGIN" + event.origin
+  //           )
+  //         );
+  //         return;
+  //       }
+  //       // check if event.data is string and contains code
+  //       if (typeof event?.data !== "string" || !event?.data.includes("code=")) {
+  //         return;
+  //       }
 
-        const url = `https://vault-api.usemoon.ai/auth/oauth/google/callback${event.data}}`;
-        window.removeEventListener("message", handleGoogleAuthEvent);
-        fetch(url)
-          .then((response) => response.json())
-          .then((data) => {
-            resolve(data);
-          })
-          .catch((error) => {
-            console.error(error);
-            reject(new Error("Failed to authenticate with Google."));
-          });
-      };
-      window.addEventListener("message", handleGoogleAuthEvent);
-    });
-  };
+  //       const url = `https://vault-api.usemoon.ai/auth/oauth/google/callback${event.data}}`;
+  //       window.removeEventListener("message", handleGoogleAuthEvent);
+  //       fetch(url)
+  //         .then((response) => response.json())
+  //         .then((data) => {
+  //           resolve(data);
+  //         })
+  //         .catch((error) => {
+  //           console.error(error);
+  //           reject(new Error("Failed to authenticate with Google."));
+  //         });
+  //     };
+  //     window.addEventListener("message", handleGoogleAuthEvent);
+  //   });
+  // };
 
   const signInOAuth = async () => {
     const env = getEnvVariables();

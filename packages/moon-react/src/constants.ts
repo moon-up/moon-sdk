@@ -24,20 +24,20 @@ export const DEFAULT_AUTH_CONFIG: AuthModalConfig = {
     },
     modal: {
       //done
-      borderRadius: "sm",
+      borderRadius: "3px",
       padding: "8",
-      width: "[400px]",
+      width: "450px",
     },
     input: {
       //done
-      borderRadius: "sm",
+      borderRadius: "3px",
       placeholders: {
         email: "eg. ILoveMoon@gmail.com",
         password: "******",
       },
     },
     button: {
-      borderRadius: "sm",
+      borderRadius: "3px",
       padding: "2",
     },
     // splashImage: {

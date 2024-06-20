@@ -8,10 +8,11 @@ import moonLogoLight from "../assets/moon-logo-light.png";
 import walletconnect from "../assets/walletconnect.svg";
 import { useAccount, useConnect, useSignMessage } from "wagmi";
 import { useConnectToMoon } from "./useConnectToMoon";
+import React from "react";
 
 export const useWalletConnectors = () => {
   const { connectors, connect } = useConnect();
-  const { isConnected, address } = useAccount();
+  const { address } = useAccount();
   const { signMessageAsync } = useSignMessage();
   const walletAddress = address ? address : "";
   const { connectToMoonSiwe } = useConnectToMoon({

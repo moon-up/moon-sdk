@@ -3,7 +3,7 @@ import { FaChevronRight, FaUser } from "react-icons/fa";
 import Button from "../Button/Button";
 import React from "react";
 function SignInAnonymously() {
-  const { supabase, authConfig } = useMoonSDK();
+  const { supabase } = useMoonSDK();
 
   const signInAnonymously = async () => {
     const auth = await supabase?.auth.signInAnonymously();

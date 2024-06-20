@@ -3,6 +3,7 @@ import { useMoonSDK } from "../../context";
 import { AuthModalConfig } from "../../types";
 import Button from "../Button/Button";
 import React from "react";
+import Input from "../Input/Input";
 
 interface EmailLoginProps {
   config: AuthModalConfig;
@@ -42,55 +43,46 @@ const EmailLogin = ({ config }: EmailLoginProps) => {
       setIsLoggingIn(false);
     }
   };
+  if (isLoggingIn)
+    return (
+      <div className="flex flex-col gap-4 items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-text-primary"></div>
+        Logging in...
+      </div>
+    );
 
   return (
     <>
-      <div className="w-full">
-        <label
-          htmlFor="email"
-          className="block text-sm font-medium leading-6 text-text-secondary"
-        >
-          Email
-        </label>
-        <div className="relative mt-1 rounded-md shadow-sm">
-          <input
-            type="text"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            id="email"
-            className={`block w-full rounded-${authConfig.appearance.input.borderRadius} border-0 py-1.5 pl-2 pr-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6`}
-            placeholder={
-              config?.appearance?.input?.placeholders?.email ||
-              "eg. ILoveMoon@gmail.com"
-            }
-          />
-        </div>
-      </div>
-      <div className="w-full">
-        <label
-          htmlFor="password"
-          className="block text-sm font-medium leading-6 text-text-secondary"
-        >
-          Password
-        </label>
-        <div className="relative mt-1 rounded-md shadow-sm">
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            id="password"
-            className={`block w-full rounded-${authConfig.appearance.input.borderRadius} border-0 py-1.5 pl-2 pr-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6`}
-            placeholder={
-              config?.appearance?.input?.placeholders?.password || "******"
-            }
-          />
-        </div>
-      </div>
+      <Input
+        label="Email"
+        id="email"
+        type="text"
+        name="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        style={{
+          borderRadius: authConfig.appearance.input.borderRadius || "3px",
+        }}
+        placeholder={
+          config?.appearance?.input?.placeholders?.email ||
+          "eg. ILoveMoon@gmail.com"
+        }
+      />
+      <Input
+        label="Password"
+        id="password"
+        type="password"
+        name="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder={
+          config?.appearance?.input?.placeholders?.password || "******"
+        }
+      />
       <Button onClick={handleLoginEmail} color="successColor">
         Login
       </Button>
+      {error && <div className="text-red-500">{error}</div>}
     </>
   );
 };

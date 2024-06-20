@@ -1,6 +1,4 @@
-import { useEffect } from "react";
 import { SiweMessage } from "siwe";
-import { useAccount, useSignMessage } from "wagmi";
 import { useMoonSDK } from "../context";
 
 interface ConnectToMoonProps {
@@ -54,6 +52,8 @@ export const useConnectToMoon = ({
           }),
         }
       ).then((res) => res.json());
+      
+        console.log("response", response);
 
       await supabase?.auth.setSession({
         access_token: response.token.access_token,

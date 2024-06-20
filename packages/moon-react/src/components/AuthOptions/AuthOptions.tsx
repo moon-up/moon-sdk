@@ -1,29 +1,21 @@
 import React from "react";
-import {
-  FaDiscord,
-  FaTwitter,
-  FaGithub,
-  FaWallet,
-  FaChevronRight,
-} from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
+import { FaWallet, FaChevronRight } from "react-icons/fa";
 import Button from "../Button/Button";
 import SignInAnonymously from "../SignInAnonymously/SignInAnonymously";
 import EmailLogin from "../EmailLogin/EmailLogin";
 import SocialLogins from "../SocialLogins/SocialLogins";
-import { AuthModalConfig, SocialLogins as SocialLoginsType } from "../../types";
+import { AuthModalConfig } from "../../types";
 
 interface AuthOptionsProps {
   config: AuthModalConfig;
   onConnectWallet: any;
 }
 
-const AuthOptions = ({
-  config,
-  onConnectWallet,
-}: AuthOptionsProps) => (
-  <div className={`p-${config.appearance.modal.padding} justify-center items-center flex flex-col gap-5`}>
-    <EmailLogin config={config}/>
+const AuthOptions = ({ config, onConnectWallet }: AuthOptionsProps) => (
+  <div
+    className={`p-${config.appearance.modal.padding} justify-center items-center flex flex-col gap-5`}
+  >
+    <EmailLogin config={config} />
     <div className="w-full border-b-[1px] border-text-secondary" />
     {config.socialLogins && config.socialLogins.length > 0 && (
       <div className="w-full overflow-x-scroll h-20 flex gap-4 justify-center scrollbar-hide">

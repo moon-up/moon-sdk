@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useReducer,
-} from "react";
+import React, { createContext, ReactNode, useEffect, useReducer } from "react";
 
 import { MoonProvider } from "@moonup/ethers";
 import { MoonSDK } from "@moonup/moon-sdk";
@@ -15,19 +9,20 @@ import {
   rainbowWallet,
   safeWallet,
   walletConnectWallet,
-} from '@rainbow-me/rainbowkit/wallets';
-import { createClient, Session, SupabaseClient } from '@supabase/supabase-js';
-import { QueryClientProvider, useQueryClient } from '@tanstack/react-query';
-import { announceProvider, EIP1193Provider, Store } from 'mipd';
-import { createConfig, custom, WagmiProvider } from 'wagmi';
-import { mainnet, mode, optimism, polygon, sepolia } from 'wagmi/chains';
-import '../index.css';
+} from "@rainbow-me/rainbowkit/wallets";
+import { createClient, Session, SupabaseClient } from "@supabase/supabase-js";
+import { QueryClientProvider, useQueryClient } from "@tanstack/react-query";
+import { QueryClient } from "@tanstack/query-core";
+import { announceProvider, EIP1193Provider, Store } from "mipd";
+import { createConfig, custom, WagmiProvider } from "wagmi";
+import { mainnet, mode, optimism, polygon, sepolia } from "wagmi/chains";
+import "../index.css";
 
 import { createStore } from "mipd";
 import AuthModal from "../components/AuthModal/AuthModal";
 import { AuthModalConfig } from "../types";
 import { DEFAULT_AUTH_CONFIG } from "../constants";
-
+import { Chains } from "@moonup/moon-sdk";
 const walletsRainbowkit = [
   injectedWallet,
   coinbaseWallet,
@@ -54,6 +49,7 @@ export type State = {
   session: Session | null;
   supabase: SupabaseClient | null;
   wallets: string[];
+  chains: Chains[];
   ethers?: MoonProvider | null;
   loading: boolean;
   wallet?: string;
@@ -73,6 +69,7 @@ export type State = {
   disconnectEthers: () => Promise<void>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   request: (args: any) => Promise<any>;
+  getChains: () => Promise<void>;
 };
 
 type Action =
@@ -83,6 +80,7 @@ type Action =
   | { type: "SET_ETHERS"; ethers: MoonProvider | null }
   | { type: "SET_LOADING"; loading: boolean }
   | { type: "SET_WALLET"; wallet: string }
+  | { type: "SET_CHAINS"; chains: Chains[] }
   | { type: "SET_STORE"; store: Store };
 
 // Define the reducer
@@ -104,6 +102,8 @@ function reducer(state: State, action: Action): State {
       return { ...state, wallet: action.wallet };
     case "SET_STORE":
       return { ...state, store: action.store };
+    case "SET_CHAINS":
+      return { ...state, chains: action.chains };
     default:
       return state;
   }
@@ -160,6 +160,7 @@ export const MoonSDKProvider: React.FC<MoonSDKProviderProps> = ({
     session: null,
     supabase: supabase,
     wallets: [],
+    chains: [],
     wallet: "",
     ethers: provider,
     store: store,
@@ -173,7 +174,7 @@ export const MoonSDKProvider: React.FC<MoonSDKProviderProps> = ({
         await state.moon.disconnect();
       }
     },
-    getUserSession: async () => {
+    getUserSession: async (): Promise<any> => {
       if (state.supabase) {
         const { data, error } = await state.supabase.auth.getSession();
         return { data, error };
@@ -236,6 +237,15 @@ export const MoonSDKProvider: React.FC<MoonSDKProviderProps> = ({
       });
       dispatch({ type: "SET_WALLET", wallet });
     },
+    getChains: async () => {
+      console.log("getChains");
+      const chains = await state.moon?.getChains();
+      console.log("chains", chains);
+      dispatch({
+        type: "SET_CHAINS",
+        chains: [...state.chains, ...(chains || [])],
+      });
+    },
   });
 
   useEffect(() => {
@@ -271,7 +281,7 @@ export const MoonSDKProvider: React.FC<MoonSDKProviderProps> = ({
       subscription.unsubscribe();
     };
   }, []);
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient(new QueryClient());
 
   return (
     <MoonSDKContext.Provider value={state}>
@@ -282,12 +292,4 @@ export const MoonSDKProvider: React.FC<MoonSDKProviderProps> = ({
       </WagmiProvider>
     </MoonSDKContext.Provider>
   );
-};
-
-export const useMoonSDK = (): State => {
-  const context = useContext(MoonSDKContext);
-  if (context === undefined) {
-    throw new Error("useMoonSDK must be used within a MoonSDKProvider");
-  }
-  return context;
 };
