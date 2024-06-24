@@ -666,6 +666,15 @@ export class MoonSDK extends EventEmitter {
       throw error;
     }
   }
+  public async singInWithPhone(phone: string, password: string) {
+    const { error } = await this.getMoonAuth().auth.signInWithPassword({
+      phone,
+      password,
+    });
+    if (error) {
+      throw error;
+    }
+  }
 
   public async handlePassKeyLogin(email: string) {
     const publicKey = await fetch(
@@ -761,6 +770,31 @@ export class MoonSDK extends EventEmitter {
 
     this.connect(response.accessToken, response.refreshToken);
 
+    return response;
+  }
+
+  public async embeddedAccount(email: string, uuid: string, domain: string) {
+    const token = await this.getUserSession();
+    const response = await fetch(
+      `https://beta.usemoon.ai/auth/embedded/account`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token?.access_token}`,
+        },
+        body: JSON.stringify({
+          name: email,
+          metadata: {
+            from: domain,
+            user: uuid,
+          },
+        }),
+      }
+    ).then((res) => res.json());
+    if (response.error) {
+      throw new Error(response.error);
+    }
     return response;
   }
 }
