@@ -45,7 +45,7 @@
     "nx": "17.2.8"
   },
   "workspaces": [
-    "packages/moon-api"
+    "packages/**"
   ],
   "packageManager": "pnpm@9.1.4",
   "dependencies": {

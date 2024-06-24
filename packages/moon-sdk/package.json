@@ -1,6 +1,6 @@
 {
   "name": "@moonup/moon-sdk",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "author": "0xEwhal <ewhal@bytemasons.com>",
   "type": "commonjs",
   "main": "./dist/index.js",
@@ -70,6 +70,7 @@
     "@ethersproject/bytes": "^5.7.0",
     "@ethersproject/hash": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",
+    "@simplewebauthn/browser": "^10.0.0",
     "@moonup/moon-api": "workspace:*",
     "@supabase/auth-js": "^2.62.2",
     "@supabase/functions-js": "^2.3.1",
@@ -77,12 +78,13 @@
     "@supabase/node-fetch": "^2.6.13",
     "@supabase/realtime-js": "^2.9.4",
     "@supabase/storage-js": "^2.5.5",
-    "@supabase/supabase-js": "^2.42.5",
-
+    "@supabase/supabase-js": "^2.43.5",
     "events": "^3.3.0",
+    "siwe": "^2.3.2",
     "typedots": "^0.0.2"
   },
   "devDependencies": {
+    "@simplewebauthn/typescript-types": "^8.3.4",
     "@size-limit/preset-small-lib": "^11.0.1",
     "@tsconfig/recommended": "^1.0.3",
     "@tsconfig/vite-react": "^3.0.0",
