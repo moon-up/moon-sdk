@@ -1,5 +1,5 @@
-import React from "react";
-import { AuthModalConfig } from "../../types";
+import React from 'react';
+import { AuthModalConfig } from '../../types';
 
 interface ModalProps {
   children: React.ReactNode;
@@ -19,11 +19,11 @@ export const ModalOverlay = ({ onClick, config }: ModalOverlayProps) => (
 );
 
 export const ModalContent = ({ children, config }: ModalProps) => {
-  const textInside = config.appearance.welcomeMessage?.position == "inside";
+  const textInside = config.appearance.welcomeMessage?.position == 'inside';
   const title = (
     <div
       className={`relative w-auto mt-4 mx-auto flex flex-col justify-center items-center ${
-        !textInside && "mb-4"
+        !textInside && 'mb-4'
       } `}
     >
       <div

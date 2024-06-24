@@ -353,8 +353,15 @@ export class MoonSDK extends EventEmitter {
    * Returns a list of Ethereum accounts managed by the Moon API.
    */
   public async listAccounts(): Promise<string[]> {
-    const response = await this.getAccountsSDK().listAccounts();
-    return response.data?.data.keys || [];
+    try {
+      const response = await this.getAccountsSDK().listAccounts();
+      const accounts = response.data?.data.keys || [];
+      this.emit('accountsListed', accounts);
+      return accounts;
+    } catch (error) {
+      this.emit('error', error);
+      throw error;
+    }
   }
 
   /**
