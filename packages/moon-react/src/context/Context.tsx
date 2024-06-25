@@ -19,10 +19,11 @@ import { mainnet, mode, optimism, polygon, sepolia } from "wagmi/chains";
 import "../index.css";
 
 import { createStore } from "mipd";
-import AuthModal from "../components/AuthModal/AuthModal";
-import { AuthModalConfig } from "../types";
+import { AuthModal } from "@public-components/index";
+import { AuthModalConfig } from "../types/types";
 import { DEFAULT_AUTH_CONFIG } from "../constants";
 import { Chains } from "@moonup/moon-sdk";
+
 const walletsRainbowkit = [
   injectedWallet,
   coinbaseWallet,
@@ -50,9 +51,11 @@ export type State = {
   supabase: SupabaseClient | null;
   wallets: string[];
   chains: Chains[];
+  chain: Chains | null;
   ethers?: MoonProvider | null;
   loading: boolean;
   wallet?: string;
+  chatOpen: boolean;
   signOut: () => Promise<void>;
   createWallet: () => Promise<void>;
   listWallets: () => Promise<void>;
@@ -69,7 +72,9 @@ export type State = {
   disconnectEthers: () => Promise<void>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   request: (args: any) => Promise<any>;
-  getChains: () => Promise<void>;
+  listChains: () => Promise<void>;
+  setChain: (chain: Chains) => Promise<void>;
+  setChatOpen: (isOpen: boolean) => Promise<void>;
 };
 
 type Action =
@@ -81,6 +86,8 @@ type Action =
   | { type: "SET_LOADING"; loading: boolean }
   | { type: "SET_WALLET"; wallet: string }
   | { type: "SET_CHAINS"; chains: Chains[] }
+  | { type: "SET_CHAIN"; chain: Chains }
+  | { type: "SET_CHAT_OPEN"; chatOpen: boolean }
   | { type: "SET_STORE"; store: Store };
 
 // Define the reducer
@@ -104,6 +111,10 @@ function reducer(state: State, action: Action): State {
       return { ...state, store: action.store };
     case "SET_CHAINS":
       return { ...state, chains: action.chains };
+    case "SET_CHAIN":
+      return { ...state, chain: action.chain };
+    case "SET_CHAT_OPEN":
+      return { ...state, chatOpen: action.chatOpen };
     default:
       return state;
   }
@@ -159,8 +170,10 @@ export const MoonSDKProvider: React.FC<MoonSDKProviderProps> = ({
     loading: true, // Add a loading state
     session: null,
     supabase: supabase,
+    chatOpen: false,
     wallets: [],
     chains: [],
+    chain: null,
     wallet: "",
     ethers: provider,
     store: store,
@@ -224,20 +237,22 @@ export const MoonSDKProvider: React.FC<MoonSDKProviderProps> = ({
         wallets: [...state.wallets, ...(accounts || [])],
       });
     },
+    setChatOpen: async (isOpen: boolean) => {
+      dispatch({ type: "SET_CHAT_OPEN", chatOpen: isOpen });
+    },
     setWallet: async (wallet: string) => {
       console.log("state", state);
       if (!state.moon) {
         return;
       }
-
       state.ethers?.updateConfig({
         SDK: state.moon,
-        chainId: 1,
+        chainId: state.chain?.chain_id || 1,
         address: wallet,
       });
       dispatch({ type: "SET_WALLET", wallet });
     },
-    getChains: async () => {
+    listChains: async () => {
       console.log("getChains");
       const chains = await state.moon?.getChains();
       console.log("chains", chains);
@@ -245,6 +260,17 @@ export const MoonSDKProvider: React.FC<MoonSDKProviderProps> = ({
         type: "SET_CHAINS",
         chains: [...state.chains, ...(chains || [])],
       });
+    },
+    setChain: async (chain: Chains) => {
+      if (!state.moon || !chain?.chain_id) {
+        return;
+      }
+      state.ethers?.updateConfig({
+        SDK: state.moon,
+        chainId: chain.chain_id,
+        address: state.wallet,
+      });
+      dispatch({ type: "SET_CHAIN", chain });
     },
   });
 
