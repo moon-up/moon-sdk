@@ -1,17 +1,17 @@
 import React from "react";
-import { FaWallet, FaChevronRight } from "react-icons/fa";
 import Button from "../Button/Button";
 import SignInAnonymously from "../SignInAnonymously/SignInAnonymously";
 import EmailLogin from "../EmailLogin/EmailLogin";
 import SocialLogins from "../SocialLogins/SocialLogins";
-import { AuthModalConfig } from "../../types";
+import { AuthModalConfig } from "../../types/types";
+import { IconChevronRight, IconWallet } from "@/assets/icons";
 
 interface AuthOptionsProps {
   config: AuthModalConfig;
   onConnectWallet: any;
 }
 
-const AuthOptions = ({ config, onConnectWallet }: AuthOptionsProps) => (
+export const AuthOptions = ({ config, onConnectWallet }: AuthOptionsProps) => (
   <div
     className={`p-${config.appearance.modal.padding} justify-center items-center flex flex-col gap-5`}
   >
@@ -24,13 +24,11 @@ const AuthOptions = ({ config, onConnectWallet }: AuthOptionsProps) => (
     )}
     {config.walletConnectEnabled && (
       <Button onClick={onConnectWallet} color="successColor">
-        <FaWallet className="absolute left-5" />
+        <IconWallet className="absolute left-5 w-[30px]" />
         Connect Wallet
-        <FaChevronRight className="absolute right-2" />
+        <IconChevronRight className="absolute right-2 w-[30px]" />
       </Button>
     )}
     {config.anonymousLoginEnabled && <SignInAnonymously />}
   </div>
 );
-
-export default AuthOptions;

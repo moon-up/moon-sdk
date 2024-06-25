@@ -1,7 +1,15 @@
 import { useEffect } from "react";
-import { useMoonSDK } from "../../context";
+import { useMoonSDK } from "@hooks/index";
 import { useAccount, useConnect, useSwitchChain } from "wagmi";
 import React from "react";
+import Button from "../Button/Button";
+import ChainSelector from "../public/ChainSelectors/ChainSelector";
+import ChainSelectorModal from "../public/ChainSelectors/ChainSelectorModal";
+import WalletSelector from "../public/WalletSelectors/WalletSelector";
+import WalletSelectorModal from "../public/WalletSelectors/WalletSelectorModal";
+// load api
+import ChatBot from "../public/ChatBot/ChatBot";
+import { LocalStorageAdapter, UserTokenManager } from "../public/TokenManager";
 
 function Account() {
   const { address, status } = useAccount();
@@ -13,6 +21,8 @@ function Account() {
   // const { data: ensAvatar } = useEnsAvatar({ name: ensName! });
   const {
     moon,
+    chains: chainsListMoon,
+    chain,
     session,
     supabase,
     wallets,
@@ -20,10 +30,16 @@ function Account() {
     signOut,
     createWallet,
     setWallet,
+    setChain,
     listWallets,
+    setChatOpen,
+    chatOpen,
+    listChains: getChains,
   } = useMoonSDK();
+
   useEffect(() => {
     listWallets();
+    getChains();
   }, []);
 
   if (!moon) {
@@ -50,91 +66,130 @@ function Account() {
   };
 
   return (
-    <div>
-      <div className="flex flex-col items-center">
-        <div className="mb-4">
-          <div className="text-center text-xl font-semibold text-gray-700">
-            <p>Welcome, {session?.user?.email}</p>
-            {address && <p>Address: {address}</p>}
-            {status && <p>Status: {status}</p>}
-          </div>
+    <div className="flex flex-col items-center gap-4 p-4 bg-background-primary h-[100vh] overflow-scroll">
+      <div className="bg-background-secondary w-full rounded-xl flex flex-col items-center justify-center text-text-primary p-4">
+        <div className="text-center text-xl font-semibold">
+          <p>Welcome, {session?.user?.email}</p>
+          {address && <p>Address: {address}</p>}
+          {status && <p>Status: {status}</p>}
+          {chain && <p>Chain: {chain.name}</p>}
         </div>
-        <div>
-          {wallets && wallets.length > 0 ? (
-            <div>
-              <div className="text-center text-xl font-semibold text-gray-700">
-                Wallets
-              </div>
+      </div>
+      <div className="bg-background-secondary w-full rounded-xl flex flex-col items-center justify-center text-text-primary p-4">
+        {wallets && wallets.length > 0 ? (
+          <div>
+            <div className="text-center text-xl font-semibold">Wallets</div>
 
-              {wallets.map((wallet) => (
-                <div
-                  key={wallet}
-                  className="text-center text-xl font-semibold text-gray-700"
-                  onClick={() => getBalance(wallet)}
-                >
-                  {wallet}
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div>
-              <div className="text-center text-xl font-semibold text-gray-700">
-                No wallets connected
-              </div>
-              <button
-                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full mb-2"
-                onClick={createWallet}
+            <p>Dropdown</p>
+            <WalletSelector
+              selectProps={{
+                className:
+                  "max-h-[300px] bg-accent-color rounded-xl p-3 m-1 text-text-primary",
+              }}
+            />
+            <p>Modal</p>
+            <WalletSelectorModal
+              title="Wallet Selector"
+              inputProps={{
+                label: "Select Wallet",
+              }}
+            />
+
+            {wallets.map((wallet) => (
+              <div
+                key={wallet}
+                className="text-center text-xl"
+                onClick={() => getBalance(wallet)}
               >
-                create wallet
-              </button>
+                {wallet}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div>
+            <div className="text-center text-xl font-semibold">
+              No wallets connected
             </div>
-          )}
-        </div>
-        {/* {ensAvatar && <img alt="ENS Avatar" src={ensAvatar} />}
+            <button
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full mb-2"
+              onClick={createWallet}
+            >
+              create wallet
+            </button>
+          </div>
+        )}
+      </div>
+
+      <div className="bg-background-secondary w-full rounded-xl flex flex-col items-center justify-center text-text-primary p-4">
+        <div className="text-center text-xl font-semibold">Moon Chains</div>
+        <p>Dropdown</p>
+        <ChainSelector
+          selectProps={{
+            className:
+              "max-h-[300px] bg-accent-color rounded-xl p-3 m-1 text-text-primary",
+          }}
+        />
+        <p>Modal</p>
+        <ChainSelectorModal
+          title="Chain Selector"
+          inputProps={{
+            label: "Select Chain",
+          }}
+        />
+      </div>
+
+      {/* {ensAvatar && <img alt="ENS Avatar" src={ensAvatar} />}
         {address && <div>{ensName ? `${ensName} (${address})` : address}</div>}
         <button onClick={() => disconnect()}>Disconnect</button> */}
-        <div>
-          <div className="text-center text-xl font-semibold text-gray-700">
-            Providers
-          </div>
+      <div className="bg-background-secondary w-full rounded-xl flex flex-col items-center justify-center text-text-primary p-4">
+        <div className="text-center text-xl font-semibold">Providers</div>
 
-          <ul>
-            <li>
-              {connectors.map((connector: any) => (
-                <button
-                  key={connector.uid}
-                  onClick={() => connect({ connector })}
-                >
-                  {connector.name}
-                </button>
-              ))}
-            </li>
-          </ul>
-        </div>
-        <div>
-          <div className="text-center text-xl font-semibold text-gray-700">
-            chains
-          </div>
-          <ul>
-            <li>
-              {chains.map((chain: any) => (
-                <button
-                  key={chain.id}
-                  onClick={() => switchChain({ chainId: chain.id })}
-                >
-                  {chain.name}
-                </button>
-              ))}
-            </li>
-          </ul>
-        </div>
-        <button
-          className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full mb-2"
-          onClick={signOut}
-        >
-          sign out
-        </button>
+        <ul>
+          <li>
+            {connectors.map((connector: any) => (
+              <button
+                key={connector.uid}
+                onClick={() => connect({ connector })}
+              >
+                {connector.name}
+              </button>
+            ))}
+          </li>
+        </ul>
       </div>
+      <div className="bg-background-secondary w-full rounded-xl flex flex-col items-center justify-center text-text-primary p-4">
+        <div className="text-center text-xl font-semibold">Wagmi chains</div>
+        <ul>
+          <li>
+            {chains.map((chain: any) => (
+              <button
+                key={chain.id}
+                onClick={() => switchChain({ chainId: chain.id })}
+              >
+                {chain.name}
+              </button>
+            ))}
+          </li>
+        </ul>
+      </div>
+
+      <div className="bg-background-secondary w-full rounded-xl flex flex-col items-center justify-center text-text-primary p-4">
+        <div className="text-center text-xl font-semibold">Token Manager</div>
+        <UserTokenManager dbAdapter={new LocalStorageAdapter()} />
+      </div>
+
+      <ChatBot />
+      <Button
+        color="infoColor"
+        onClick={() => {
+          setChatOpen(!chatOpen);
+        }}
+      >
+        Open Chat
+      </Button>
+      <Button color="errorColor" onClick={signOut}>
+        sign out
+      </Button>
     </div>
   );
 }
