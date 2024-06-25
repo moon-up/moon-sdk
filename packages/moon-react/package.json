@@ -20,7 +20,8 @@
   },
   "files": [
     "dist",
-    "src"
+    "src",
+    "dist/index.css"
   ],
   "husky": {
     "hooks": {
@@ -57,6 +58,7 @@
     "verify": "run-p prettier lint",
     "verify:fix": "npm run prettier:fix && npm run lint:fix",
     "build": "tsup src -- --dts-resolve",
+    "build:test": "tsup src --dts --format cjs,esm --legacy-output && postcss src/index.css -o dist/index.css",
     "build:fast": "tsup src",
     "tsup-dev": "tsup src --watch",
     "test": "vitest",
@@ -74,6 +76,7 @@
     "@supabase/auth-ui-shared": "^0.1.8",
     "@supabase/supabase-js": "^2.42.5",
     "@tanstack/react-query": "^5.36.2",
+    "@tanstack/query-core": "^5.45.0",
     "ethers": "^5.7.2",
     "mipd": "^0.0.7",
     "react": "^18.2.0",
