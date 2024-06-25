@@ -32,9 +32,10 @@ import {
   Yearn,
 } from '@moonup/moon-api';
 import {
-  startAuthentication,
-  startRegistration,
-} from '@simplewebauthn/browser';
+  PublicKeyCredentialCreationOptionsJSON,
+  PublicKeyCredentialRequestOptionsJSON,
+  RegistrationResponseJSON,
+} from '@simplewebauthn/typescript-types';
 import { Session, SupabaseClient, createClient } from '@supabase/supabase-js';
 import { EventEmitter } from 'events';
 import { SiweMessage } from 'siwe';
@@ -66,6 +67,20 @@ export interface MoonSDKConfig {
   httpInstance?: HttpClient;
 
   clientId?: string;
+}
+interface User {
+  address: string | null;
+  auth: Auth | null;
+  created_at: string;
+  email: string | null;
+  id: number;
+  users: string | null;
+}
+
+interface Auth {
+  genNonce: string; // Assuming genNonce should be a string. If it's meant to hold a different type, adjust accordingly.
+  lastAuth: string; // ISO string format date
+  lastAuthStatus: 'success' | 'failed'; // Assuming only 'success' or 'failed' are valid statuses. Adjust as necessary.
 }
 
 /**
@@ -398,11 +413,6 @@ export class MoonSDK extends EventEmitter {
     wallet: string,
     transaction: InputBody
   ): Promise<string> {
-    // const response = await this.getAccountsSDK().signTransaction(
-    //   wallet,
-    //   transaction
-    // );
-    // return response?.data?.transactions?.at(0)?.raw_transaction || '';
     try {
       const response = await this.getAccountsSDK().signTransaction(
         wallet,
@@ -533,13 +543,9 @@ export class MoonSDK extends EventEmitter {
     }
   }
   public async performDiscordOAuth() {
-    if (!this.config) {
-      throw new Error('needs config');
+    if (!this.config || !this.config.clientId) {
+      throw new Error('Configuration is missing or clientId is not specified');
     }
-    if (!this.config.clientId) {
-      throw new Error('needs clientId');
-    }
-
     const provider = 'discord';
     const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}`;
     window.location.href = uri;
@@ -547,97 +553,124 @@ export class MoonSDK extends EventEmitter {
 
   public async performDiscordOauthCodeExchange(code: string) {
     const provider = 'discord';
-    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}/token?code=${code}`;
+    // Ensure clientId is accessed correctly from this.config
+    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}/token`;
+
     const response = await fetch(uri, {
-      method: 'GET',
+      method: 'POST', // Change method to POST for code exchange
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify({ code }), // Send code in the request body
     });
 
-    const { token } = await response.json();
+    if (!response.ok) {
+      throw new Error(
+        `Server responded with ${response.status}: ${response.statusText}`
+      );
+    }
+
+    const token = await response.json();
     await this.connect(token.access_token, token.refresh_token);
     return token;
   }
   public async performGithubOAuth() {
-    if (!this.config) {
-      throw new Error('needs config');
-    }
-    if (!this.config.clientId) {
-      throw new Error('needs clientId');
+    if (!this.config || !this.config.clientId) {
+      throw new Error('Configuration is missing or clientId is not specified');
     }
 
     const provider = 'github';
-    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}`;
+    // Correctly construct the URI with clientId as a query parameter
+    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}?clientId=${this.config.clientId}`;
     window.location.href = uri;
   }
 
   public async performGithubOauthCodeExchange(code: string) {
     const provider = 'github';
-    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}/token?code=${code}`;
+    // Correctly use POST method and include code in the body, not in the URL
+    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}/token`;
     const response = await fetch(uri, {
-      method: 'GET',
+      method: 'POST', // Change method to POST
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify({ code }), // Include code in the body
     });
 
-    const { token } = await response.json();
+    if (!response.ok) {
+      throw new Error(
+        `Server responded with ${response.status}: ${response.statusText}`
+      );
+    }
+
+    const token = await response.json();
     await this.connect(token.access_token, token.refresh_token);
     return token;
   }
   public async performGoogleOAuth() {
-    if (!this.config) {
-      throw new Error('needs config');
-    }
-    if (!this.config.clientId) {
-      throw new Error('needs clientId');
+    if (!this.config || !this.config.clientId) {
+      throw new Error('Configuration is missing or clientId is not specified');
     }
 
     const provider = 'google';
-    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}`;
+    // Correctly construct the URI with clientId as a query parameter, not as part of the path
+    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}?clientId=${this.config.clientId}`;
     window.location.href = uri;
   }
 
   public async performGoogleOauthCodeExchange(code: string) {
     const provider = 'google';
-    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}/token?code=${code}`;
+    // Correctly use POST method and include code in the body, not in the URL
+    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}/token`;
     const response = await fetch(uri, {
-      method: 'GET',
+      method: 'POST', // Change method to POST
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify({ code }), // Include code in the body
     });
 
-    const { token } = await response.json();
+    if (!response.ok) {
+      throw new Error(
+        `Server responded with ${response.status}: ${response.statusText}`
+      );
+    }
+
+    const token = await response.json();
     await this.connect(token.access_token, token.refresh_token);
     return token;
   }
 
   public async performTwitterOauth() {
-    if (!this.config) {
-      throw new Error('needs config');
-    }
-    if (!this.config.clientId) {
-      throw new Error('needs clientId');
+    if (!this.config || !this.config.clientId) {
+      throw new Error('Configuration is missing or clientId is not specified');
     }
 
     const provider = 'twitter';
-    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}`;
+    // Correctly construct the URI with clientId as a query parameter, not as part of the path
+    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}?clientId=${this.config.clientId}`;
     window.location.href = uri;
   }
 
   public async performTwitterOauthCodeExchange(code: string) {
     const provider = 'twitter';
-    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}/token?code=${code}`;
+    // Use POST method and include code in the body instead of the URL
+    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}/token`;
     const response = await fetch(uri, {
-      method: 'GET',
+      method: 'POST', // Correct method to POST
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify({ code }), // Include code in the body
     });
 
-    const { token } = await response.json();
+    if (!response.ok) {
+      throw new Error(
+        `Server responded with ${response.status}: ${response.statusText}`
+      );
+    }
+
+    const token = await response.json();
     await this.connect(token.access_token, token.refresh_token);
     return token;
   }
@@ -673,7 +706,7 @@ export class MoonSDK extends EventEmitter {
       throw error;
     }
   }
-  public async singInWithPhone(phone: string, password: string) {
+  public async signInWithPhone(phone: string, password: string) {
     const { error } = await this.getMoonAuth().auth.signInWithPassword({
       phone,
       password,
@@ -683,54 +716,115 @@ export class MoonSDK extends EventEmitter {
     }
   }
 
-  public async handlePassKeyLogin(email: string) {
-    const publicKey = await fetch(
-      'https://dash.usemoon.ai/api/webauthn/login',
-      {
+  public async handlePassKeyLogin(
+    email: string
+  ): Promise<PublicKeyCredentialRequestOptionsJSON> {
+    try {
+      const res = await fetch('https://dash.usemoon.ai/api/webauthn/login', {
         method: 'POST',
         body: JSON.stringify({ email }),
         headers: { 'Content-Type': 'application/json' },
+      });
+      if (!res.ok) {
+        throw new Error(
+          `Server responded with ${res.status}: ${res.statusText}`
+        );
       }
-    ).then((res) => res.json());
-
-    const credential = await startAuthentication(publicKey.optionsAuth);
-
-    await fetch('https://dash.usemoon.ai/api/webauthn/login/verify', {
-      method: 'POST',
-      body: JSON.stringify({
-        ...credential,
-        username: email,
-      }),
-      headers: { 'Content-Type': 'application/json' },
-    });
+      const data = await res.json();
+      if (!data.optionsAuth) {
+        throw new Error('optionsAuth is missing in the response');
+      }
+      return data.optionsAuth;
+    } catch (error) {
+      console.error('Failed to handle passkey login:', error);
+      throw error; // Rethrow the error after logging it
+    }
   }
 
-  handleRegister = async (email: string) => {
-    const publicKey = await fetch(
+  public async handlePasskeyLoginVerify(
+    email: string,
+    credential: PublicKeyCredentialRequestOptionsJSON
+  ) {
+    try {
+      const res = await fetch(
+        'https://dash.usemoon.ai/api/webauthn/login/verify',
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            credential, // Wrap the credential object correctly
+            email, // Use email directly
+          }),
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+      if (!res.ok) {
+        throw new Error(
+          `Server responded with ${res.status}: ${res.statusText}`
+        );
+      }
+      const response = await res.json();
+      return response;
+    } catch (error) {
+      console.error('Error during passkey login verification:', error);
+      throw error; // Proper error handling with try-catch
+    }
+  }
+
+  public async handleRegister(
+    email: string
+  ): Promise<PublicKeyCredentialCreationOptionsJSON> {
+    const response = await fetch(
       'https://dash.usemoon.ai/api/webauthn/register',
       {
         method: 'POST',
         body: JSON.stringify({ email }),
         headers: { 'Content-Type': 'application/json' },
       }
-    ).then((res) => res.json());
+    );
 
-    const credential = await startRegistration(publicKey.options);
+    if (!response.ok) {
+      // Check if the fetch request was successful
+      throw new Error(
+        `Server responded with ${response.status}: ${response.statusText}`
+      );
+    }
 
-    await fetch('https://dash.usemoon.ai/api/webauthn/register/verify', {
-      method: 'POST',
-      body: JSON.stringify({
-        ...credential,
-        email: email,
-        user: {
-          ...publicKey.options.user,
-        },
-      }),
-      headers: { 'Content-Type': 'application/json' },
-    });
-  };
+    const data = await response.json(); // Parse the JSON response
+    if (!data.options) {
+      // Ensure the expected data is present
+      throw new Error('options is missing in the response');
+    }
 
-  public async getSIWENonce(address: string) {
+    return data.options;
+  }
+
+  public async handleRegisterVerify(
+    email: string,
+    credential: RegistrationResponseJSON,
+    options: PublicKeyCredentialCreationOptionsJSON
+  ) {
+    const res = await fetch(
+      'https://dash.usemoon.ai/api/webauthn/register/verify',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          ...credential,
+          email: email,
+          user: {
+            ...options.user,
+          },
+        }),
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+    if (!res.ok) {
+      throw new Error(`Server responded with ${res.status}: ${res.statusText}`);
+    }
+    const response = await res.json();
+    return response;
+  }
+
+  public async getSIWENonce(address: string): Promise<string> {
     const nonceResponse = await fetch(
       `https://beta.usemoon.ai/auth/ethereum/nonce`,
       {
@@ -744,16 +838,21 @@ export class MoonSDK extends EventEmitter {
       }
     );
 
-    const {
-      user: [user],
-    } = await nonceResponse.json();
-    return user;
-  }
+    const data = await nonceResponse.json();
+    if (!data.user || data.user.length === 0) {
+      throw new Error('User data is missing or empty');
+    }
 
+    if (!data.user[0].auth) {
+      throw new Error('Auth data is missing');
+    }
+
+    return data.user[0].auth.genNonce;
+  }
   public async verifySIWESignature(
     address: string,
     signedMessage: string,
-    user: any,
+    nonce: string,
     message: SiweMessage
   ) {
     const response = await fetch(
@@ -766,42 +865,62 @@ export class MoonSDK extends EventEmitter {
         body: JSON.stringify({
           address: address,
           signedMessage: signedMessage,
-          nonce: user.auth.genNonce,
-          message: message.prepareMessage(),
+          nonce: nonce,
+          message: message.prepareMessage(), // Call the method on the message object
         }),
       }
-    ).then((res) => res.json());
-    if (response.error) {
-      throw new Error(response.error);
+    );
+
+    const responseData = await response.json(); // Correctly parse JSON response
+
+    if (!response.ok) {
+      throw new Error(responseData.error || 'Unknown error occurred'); // Use responseData to access error
+    }
+    // responseData.token is Session
+    if (!responseData.token) {
+      throw new Error('Token data is missing');
     }
 
-    this.connect(response.accessToken, response.refreshToken);
+    // Use responseData to access accessToken and refreshToken
+    this.connect(
+      responseData.token.accessToken,
+      responseData.token.refreshToken
+    );
 
-    return response;
+    return responseData; // Return the parsed response data
   }
 
-  public async embeddedAccount(email: string, uuid: string, domain: string) {
+  public async embeddedAccount(
+    email: string,
+    uuid: string,
+    domain: string
+  ): Promise<Session> {
     const token = await this.getUserSession();
-    const response = await fetch(
-      `https://beta.usemoon.ai/auth/embedded/account`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token?.access_token}`,
-        },
-        body: JSON.stringify({
-          name: email,
-          metadata: {
-            from: domain,
-            user: uuid,
-          },
-        }),
-      }
-    ).then((res) => res.json());
-    if (response.error) {
-      throw new Error(response.error);
+    if (!token || !token.access_token) {
+      throw new Error('User session token is missing or invalid');
     }
-    return response;
+    const response = await fetch(`https://beta.usemoon.ai/client`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token.access_token}`,
+      },
+      body: JSON.stringify({
+        name: email,
+        metadata: {
+          from: domain,
+          user: uuid,
+        },
+      }),
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.error || `Server responded with ${response.status}`);
+    }
+    if (!data.token) {
+      throw new Error('Token data is missing');
+    }
+    return data.token as Session;
   }
 }
