@@ -3,7 +3,7 @@ import {
   startRegistration,
 } from "@simplewebauthn/browser";
 import { useState } from "react";
-import { useMoonSDK } from "../../context";
+import { useMoonSDK } from "@hooks/index";
 import "../../index.css";
 import React from "react";
 

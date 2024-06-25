@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import { FaWallet } from "react-icons/fa";
 import coinbase from "../assets/coinbase.svg";
 import metamask from "../assets/metamask.svg";
 import rabby from "../assets/rabby.png";
@@ -9,6 +8,7 @@ import walletconnect from "../assets/walletconnect.svg";
 import { useAccount, useConnect, useSignMessage } from "wagmi";
 import { useConnectToMoon } from "./useConnectToMoon";
 import React from "react";
+import { IconWallet } from "@/assets/icons";
 
 export const useWalletConnectors = () => {
   const { connectors, connect } = useConnect();
@@ -28,7 +28,7 @@ export const useWalletConnectors = () => {
       Safe: <img src={trustwallet} width={60} />,
       Moon: <img src={moonLogoLight} width={60} />,
       WalletConnect: <img src={walletconnect} width={60} />,
-      "Browser Wallet": <FaWallet size={60} />,
+      "Browser Wallet": <IconWallet className="w-[60px]" />,
     }),
     []
   );

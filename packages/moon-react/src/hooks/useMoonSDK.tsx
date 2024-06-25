@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { MoonSDKContext, State } from './Context';
+import { MoonSDKContext, State } from '../context/Context';
 
 export const useMoonSDK = (): State => {
   const context = useContext(MoonSDKContext);

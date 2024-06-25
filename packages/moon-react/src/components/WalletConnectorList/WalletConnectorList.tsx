@@ -1,20 +1,19 @@
 import React from "react";
-import { FaArrowLeft } from "react-icons/fa";
 // import coinbase from "../../assets/coinbase.svg";
 // import metamask from "../../assets/metamask.svg";
 // import rabby from "../../assets/rabby.png";
 // import trustwallet from "../../assets/trustwallet.png";
 // import moonLogoLight from "../../assets/moon-logo-light.png";
 // import walletconnect from "../../assets/walletconnect.svg";
-import { FaWallet } from "react-icons/fa";
 import { useAccount, useConnect, useSignMessage } from "wagmi";
 import { useConnectToMoon } from "../../hooks/useConnectToMoon";
+import { IconArrowLeft, IconWallet } from "@/assets/icons";
 
 interface WalletConnectorsListProps {
   onBack: any;
 }
 
-const WalletConnectorsList = ({ onBack }: WalletConnectorsListProps) => {
+export const WalletConnectorsList = ({ onBack }: WalletConnectorsListProps) => {
   const { connectors, connect } = useConnect();
   const { address } = useAccount();
   const { signMessageAsync } = useSignMessage();
@@ -53,11 +52,11 @@ const WalletConnectorsList = ({ onBack }: WalletConnectorsListProps) => {
         className="pl-5 pt-5 justify-center items-center flex gap-5 absolute top-0 left-0 opacity-70 hover:opacity-100 cursor-pointer hover"
         onClick={onBack}
       >
-        <FaArrowLeft />
+        <IconArrowLeft />
         Back
       </div>
       <div className="flex flex-col justify-center gap-5 items-center overflow-y-auto">
-      <FaWallet size={40} className="text-accent"/>
+      <IconWallet className="text-accent w-[40px]"/>
       <p className="text-text-secondary">Connect to a wallet</p>
         {uniqueConnectors &&
           uniqueConnectors.map((connector: any) => (
@@ -79,5 +78,3 @@ const WalletConnectorsList = ({ onBack }: WalletConnectorsListProps) => {
     </div>
   );
 };
-
-export default WalletConnectorsList;

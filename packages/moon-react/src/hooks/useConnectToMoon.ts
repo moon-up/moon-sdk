@@ -1,5 +1,5 @@
 import { SiweMessage } from "siwe";
-import { useMoonSDK } from "../context";
+import { useMoonSDK } from "@hooks/index";
 
 interface ConnectToMoonProps {
   address: string;

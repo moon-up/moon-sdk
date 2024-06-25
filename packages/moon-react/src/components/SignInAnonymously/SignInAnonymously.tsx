@@ -1,7 +1,7 @@
-import { useMoonSDK } from "../../context";
-import { FaChevronRight, FaUser } from "react-icons/fa";
+import { useMoonSDK } from "@hooks/index";
 import Button from "../Button/Button";
 import React from "react";
+import { IconChevronRight, IconUser } from "@/assets/icons";
 function SignInAnonymously() {
   const { supabase } = useMoonSDK();
 
@@ -15,13 +15,10 @@ function SignInAnonymously() {
   };
 
   return (
-    <Button
-      onClick={signInAnonymously}
-      color="accentColor"
-    >
-      <FaUser className="absolute left-5" />
+    <Button onClick={signInAnonymously} color="accentColor">
+      <IconUser className="absolute left-5 w-[30px]" />
       Anonymous Login
-      <FaChevronRight className="absolute right-2" />
+      <IconChevronRight className="absolute right-2 w-[30px]" />
     </Button>
   );
 }

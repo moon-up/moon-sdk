@@ -1,5 +1,5 @@
 import { MoonProvider } from '@moonup/ethers';
-import { useMoonSDK } from '../context';
+import { useMoonSDK } from './useMoonSDK';
 
 const createMoonProviderHook = <T extends keyof MoonProvider>(method: T) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

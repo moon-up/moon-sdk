@@ -1,4 +1,4 @@
-import { AuthModalConfig } from "./types";
+import { AuthModalConfig } from "./types/types";
 import moonLogoLight from "./assets/moon-logo-light.png";
 
 export const DEFAULT_AUTH_CONFIG: AuthModalConfig = {

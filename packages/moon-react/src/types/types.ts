@@ -67,3 +67,4 @@ export type AuthModalConfig = {
     buttonColorSecondary: string;
   };
 };
+

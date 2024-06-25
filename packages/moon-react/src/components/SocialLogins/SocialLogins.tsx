@@ -1,13 +1,12 @@
-import {
-  FaDiscord,
-  FaTwitter,
-  FaGithub,
-} from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
-// import { useMoonSDK } from "../../context";
-import { SocialLogins as SocialLoginsType } from "../../types";
+import { SocialLogins as SocialLoginsType } from "../../types/types";
 import getEnvVariables from "../../utils/getEnvVariables";
 import React from "react";
+import {
+  IconDiscord,
+  IconGithub,
+  IconGoogle,
+  IconTwitter,
+} from "@/assets/icons";
 
 interface SocialLoginsProps {
   socialLogins: SocialLoginsType;
@@ -104,7 +103,7 @@ function SocialLogins({ socialLogins }: SocialLoginsProps) {
           className="p-2 bg-accent-color w-min h-min rounded-xl border-2 border-transparent hover:border-white cursor-pointer"
           onClick={signInOAuth}
         >
-          <FaDiscord size={30} />
+          <IconDiscord className="w-[30px] h-[30px]" />
         </div>
       )}
 
@@ -113,7 +112,7 @@ function SocialLogins({ socialLogins }: SocialLoginsProps) {
           className="p-2 bg-gray-900 w-min h-min rounded-xl border-2 border-transparent hover:border-white cursor-pointer"
           onClick={signInOAuth}
         >
-          <FaGithub size={30} />
+          <IconGithub className="w-[30px] h-[30px]" />
         </div>
       )}
       {socialLogins.includes("twitter") && (
@@ -121,7 +120,7 @@ function SocialLogins({ socialLogins }: SocialLoginsProps) {
           className="p-2 bg-sky-500 w-min h-min rounded-xl border-2 border-transparent hover:border-white cursor-pointer"
           onClick={signInOAuth}
         >
-          <FaTwitter size={30} />
+          <IconTwitter className="w-[30px] h-[30px]" />
         </div>
       )}
       {socialLogins.includes("google") && (
@@ -129,7 +128,7 @@ function SocialLogins({ socialLogins }: SocialLoginsProps) {
           className="p-2 bg-zinc-50 w-min h-min rounded-xl border-2 border-transparent hover:border-accent-color cursor-pointer"
           onClick={signInOAuth}
         >
-          <FcGoogle size={30} />
+          <IconGoogle className="w-[30px] h-[30px] text-[#000000]" />
         </div>
       )}
     </>

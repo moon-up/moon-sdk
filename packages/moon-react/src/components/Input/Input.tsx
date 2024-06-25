@@ -1,20 +1,22 @@
 import React from "react";
 import { useMoonSDK } from "../..";
 
-type InputProps = {
-  label: string;
+export type InputProps = {
+  label?: string;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
 function Input({ label, ...rest }: InputProps) {
   const { authConfig } = useMoonSDK();
   return (
     <div className="w-full">
-      <label
-        htmlFor={label}
-        className="block text-sm font-medium leading-6 text-text-secondary"
-      >
-        {label}
-      </label>
+      {label && (
+        <label
+          htmlFor={label}
+          className="block text-sm font-medium leading-6 text-text-secondary"
+        >
+          {label}
+        </label>
+      )}
       <input
         id={label}
         name={label}
