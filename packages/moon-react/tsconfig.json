@@ -7,6 +7,17 @@
     "jsx": "react",
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "preserveSymlinks": true
+    "preserveSymlinks": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@assets/*": ["src/asset/*"],
+      "@components/*": ["src/components/*"],
+      "@public-components/*": ["src/components/public/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@moon-react-types/*": ["src/types/*"],
+      "@utils/*": ["src/utils/*"],
+      "@context/*": ["src/context/*"],
+    }
   }
 }
