@@ -1,0 +1,186 @@
+.chatContainer {
+  position: absolute;
+  top: 120%;
+  right: 0;
+
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  max-width: 600px;
+  /* blur out the backgroud */
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  gap: 10px;
+  transition: all 0.5s ease-in;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.open{
+  top: 0;
+  right: 0;
+}
+
+.chatMessages {
+  display: flex;
+  flex-direction: column-reverse;
+  overflow-y: auto;
+  color: var(--primary-text);
+  border-radius: 10px;
+  height: 90%;
+  width: 95%;
+  padding: 0px;
+  margin: 0px;
+}
+
+.inputContainer {
+  width: 95%;
+  height: 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 90%;
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.sendButton {
+  position: absolute;
+  bottom: 50%;
+  right: 25px;
+  transform: translate(50%, 50%);
+  padding: 10px;
+  border-radius: 4px;
+  background-color: var(--primary);
+  color: var(--primary-text);
+  font-weight: bold;
+  cursor: pointer;
+  border: 1px solid var(--secondary);
+  height: calc(100%-10px);
+  aspect-ratio: 1/1;
+  min-height: 30px;
+}
+.clearHistoryText{
+  color: var(--primary-text);
+  font-size: 10px;
+  cursor: pointer;
+  height: 10px;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
+
+.clearHistoryText:hover{
+  color: var(--secondary);
+}
+
+/* style the scroll bar */
+.chatMessages::-webkit-scrollbar {
+  width: 0px;
+}
+.chatMessage {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: var(--dark-navy);
+  color: var(--white);
+  margin: 5px;
+}
+
+.userMessage{
+  background-color: var(--user-message);
+  color: rgba(0, 0, 0, 0.75);
+}
+.transactionMessage{
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.transactionRow{
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--light-gray);
+  padding-bottom: 10px;
+  width: 100%;
+}
+
+/* For last transaction row dont show a border */
+.transactionRow:last-child{
+  border-bottom: none;
+}
+
+.txItemRow{
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}
+.txLabel{
+  font-weight: bold;
+  color: var(--orange);
+}
+
+.messageHeader {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+  color: var(--primary-text);
+  border-radius: 10px 10px 0 0;
+  font-size: large;
+  font-weight: bold;
+  color: black;
+}
+.messageContent {
+  padding: 5px;
+  border-radius: 0 0 10px 10px;
+  display: inline-block;
+  color: var(--white);
+  text-align: left;
+
+  color: inherit;
+
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 21px */
+  letter-spacing: 0.014px;
+  width: 100%;
+}
+
+.dot {
+  height: 12px;
+  width: 12px;
+  background-color: var(--primary);
+  border-radius: 50%;
+  display: inline-block;
+}
+.userDot {
+  background-color: var(--secondary);
+}
+
+.sendButton:hover {
+  opacity: 0.8;
+}
+
+/* for mobile screens */
+@media (max-width: 1390px) {
+}
+
+.typingIndicator {
+  animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
