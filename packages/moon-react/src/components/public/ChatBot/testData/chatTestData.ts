@@ -1,0 +1,131 @@
+import { ChatMessage } from "@/types";
+
+export const testMessages: ChatMessage[] = [
+  {
+    id: "1",
+    type: "protocolInfo",
+    sender: "system",
+    timestamp: new Date(),
+    name: "Uniswap",
+    description: "Decentralized trading protocol for ERC20 tokens",
+    tvl: 1000000000,
+    apy: 5.2,
+  },
+  {
+    id: "2",
+    type: "poolInfo",
+    sender: "system",
+    timestamp: new Date(),
+    name: "ETH/USDC",
+    tokens: ["ETH", "USDC"],
+    totalLiquidity: 500000000,
+    apy: 10.5,
+  },
+  {
+    id: "3",
+    type: "chainInfo",
+    sender: "system",
+    timestamp: new Date(),
+    name: "Ethereum",
+    nativeCurrency: "ETH",
+    blockTime: 15,
+    gasPrice: 20,
+  },
+  {
+    id: "4",
+    type: "tokenInfo",
+    sender: "system",
+    timestamp: new Date(),
+    name: "Ethereum",
+    symbol: "ETH",
+    price: 3500,
+    marketCap: 400000000000,
+  },
+  {
+    id: "5",
+    type: "walletInfo",
+    sender: "system",
+    timestamp: new Date(),
+    address: "0x1234...5678",
+    balance: 10.5,
+    tokens: [
+      { symbol: "ETH", balance: 10.5 },
+      { symbol: "USDC", balance: 1000 },
+    ],
+  },
+  {
+    id: "6",
+    type: "transactionResult",
+    sender: "system",
+    timestamp: new Date(),
+    status: "success",
+    hash: "0xabcd...1234",
+    from: "0x1234...5678",
+    to: "0x5678...1234",
+    amount: 1.5,
+    currency: "ETH",
+  },
+  {
+    id: "7",
+    type: "portfolioChange",
+    sender: "system",
+    timestamp: new Date(),
+    changePercentage: 5.3,
+    newTotal: 105300,
+  },
+  {
+    id: "8",
+    type: "historicalTransaction",
+    sender: "system",
+    timestamp: new Date(),
+    transactions: [
+      { date: new Date("2023-05-01"), type: "buy", amount: 1, currency: "ETH" },
+      {
+        date: new Date("2023-05-02"),
+        type: "sell",
+        amount: 0.5,
+        currency: "ETH",
+      },
+    ],
+  },
+  {
+    id: "9",
+    type: "historicalPerformance",
+    sender: "system",
+    timestamp: new Date(),
+    token: "ETH",
+    data: [
+      { date: new Date("2023-05-01"), price: 3000 },
+      { date: new Date("2023-05-02"), price: 3100 },
+      { date: new Date("2023-05-03"), price: 3200 },
+    ],
+  },
+  {
+    id: "10",
+    type: "multiStepTransaction",
+    sender: "system",
+    timestamp: new Date(),
+    steps: [
+      {
+        title: "Approve USDC",
+        description: "Approve USDC spending for the swap",
+        successCondition: "USDC allowance increased",
+        transaction: {
+          to: "0xUSDC_CONTRACT_ADDRESS",
+          data: "0x095ea7b3...", // Approve function ABI-encoded
+          value: "0",
+        },
+      },
+      {
+        title: "Swap USDC for ETH",
+        description: "Swap 1000 USDC for ETH on Uniswap",
+        successCondition: "ETH balance increased",
+        transaction: {
+          to: "0xUNISWAP_ROUTER_ADDRESS",
+          data: "0x7ff36ab5...", // swapExactTokensForETH function ABI-encoded
+          value: "0",
+        },
+      },
+    ],
+  },
+];
