@@ -1,6 +1,24 @@
 export type SocialOption = "discord" | "github" | "twitter" | "google";
 export type SocialLogins = SocialOption[];
 
+export interface InputBody {
+  EOA?: boolean;
+  approved?: boolean;
+  broadcast?: boolean;
+  chain_id?: string;
+  contract_address?: string;
+  data?: string;
+  encoding?: string;
+  gas?: string;
+  gasPrice?: string;
+  input?: string;
+  nonce?: string;
+  to?: string;
+  token_id?: string;
+  token_ids?: string;
+  value?: string;
+}
+
 export type AuthModalConfig = {
   enabled: boolean;
   socialLogins: SocialLogins;
@@ -67,4 +85,3 @@ export type AuthModalConfig = {
     buttonColorSecondary: string;
   };
 };
-
