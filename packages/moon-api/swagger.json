@@ -971,8 +971,7 @@
 								"type": "string"
 							},
 							"nonce": {
-								"type": "number",
-								"format": "double"
+								"type": "string"
 							},
 							"gas": {
 								"type": "string"
@@ -1060,8 +1059,7 @@
 								"type": "string"
 							},
 							"nonce": {
-								"type": "number",
-								"format": "double"
+								"type": "string"
 							},
 							"gas": {
 								"type": "string"
@@ -1555,6 +1553,916 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"TokenDetails": {
+				"properties": {
+					"address": {
+						"type": "string"
+					},
+					"chainId": {
+						"type": "number",
+						"format": "double"
+					},
+					"symbol": {
+						"type": "string"
+					},
+					"decimals": {
+						"type": "number",
+						"format": "double"
+					},
+					"name": {
+						"type": "string"
+					},
+					"coinKey": {
+						"type": "string"
+					},
+					"logoURI": {
+						"type": "string"
+					},
+					"priceUSD": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"address",
+					"chainId",
+					"symbol",
+					"decimals",
+					"name",
+					"coinKey",
+					"logoURI",
+					"priceUSD"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Action": {
+				"properties": {
+					"fromChainId": {
+						"type": "number",
+						"format": "double"
+					},
+					"fromAmount": {
+						"type": "string"
+					},
+					"fromToken": {
+						"$ref": "#/components/schemas/TokenDetails"
+					},
+					"fromAddress": {
+						"type": "string"
+					},
+					"toChainId": {
+						"type": "number",
+						"format": "double"
+					},
+					"toToken": {
+						"$ref": "#/components/schemas/TokenDetails"
+					},
+					"toAddress": {
+						"type": "string"
+					},
+					"slippage": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"fromChainId",
+					"fromAmount",
+					"fromToken",
+					"fromAddress",
+					"toChainId",
+					"toToken",
+					"toAddress",
+					"slippage"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TokenInfo": {
+				"properties": {
+					"address": {
+						"type": "string"
+					},
+					"symbol": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"decimals": {
+						"type": "number",
+						"format": "double"
+					},
+					"logoURI": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"address",
+					"symbol",
+					"name",
+					"decimals"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"GasCost": {
+				"properties": {
+					"type": {
+						"type": "string"
+					},
+					"price": {
+						"type": "string"
+					},
+					"estimate": {
+						"type": "string"
+					},
+					"limit": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "string"
+					},
+					"amountUSD": {
+						"type": "string"
+					},
+					"token": {
+						"$ref": "#/components/schemas/TokenInfo"
+					}
+				},
+				"required": [
+					"type",
+					"price",
+					"estimate",
+					"limit",
+					"amount",
+					"amountUSD",
+					"token"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Token": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"address": {
+						"type": "string"
+					},
+					"symbol": {
+						"type": "string"
+					},
+					"decimals": {
+						"type": "number",
+						"format": "double"
+					},
+					"logoURI": {
+						"type": "string"
+					},
+					"chainId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"name",
+					"address",
+					"symbol",
+					"decimals",
+					"logoURI",
+					"chainId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"FeeCost": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"percentage": {
+						"type": "number",
+						"format": "double"
+					},
+					"token": {
+						"$ref": "#/components/schemas/Token"
+					},
+					"amount": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"name",
+					"percentage",
+					"token",
+					"amount"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Estimate": {
+				"properties": {
+					"fromAmount": {
+						"type": "string"
+					},
+					"toAmount": {
+						"type": "string"
+					},
+					"toAmountMin": {
+						"type": "string"
+					},
+					"approvalAddress": {
+						"type": "string"
+					},
+					"gasCosts": {
+						"items": {
+							"$ref": "#/components/schemas/GasCost"
+						},
+						"type": "array"
+					},
+					"executionDuration": {
+						"type": "number",
+						"format": "double"
+					},
+					"feeCosts": {
+						"items": {
+							"$ref": "#/components/schemas/FeeCost"
+						},
+						"type": "array"
+					},
+					"fromAmountUSD": {
+						"type": "string"
+					},
+					"toAmountUSD": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"fromAmount",
+					"toAmount",
+					"toAmountMin",
+					"approvalAddress",
+					"gasCosts",
+					"executionDuration",
+					"fromAmountUSD",
+					"toAmountUSD"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Step": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"tool": {
+						"type": "string"
+					},
+					"action": {
+						"$ref": "#/components/schemas/Action"
+					},
+					"estimate": {
+						"$ref": "#/components/schemas/Estimate"
+					}
+				},
+				"required": [
+					"id",
+					"type",
+					"tool",
+					"action",
+					"estimate"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Quote": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"tool": {
+						"type": "string"
+					},
+					"action": {
+						"$ref": "#/components/schemas/Action"
+					},
+					"estimate": {
+						"$ref": "#/components/schemas/Estimate"
+					},
+					"includedSteps": {
+						"items": {
+							"$ref": "#/components/schemas/Step"
+						},
+						"type": "array"
+					},
+					"transactionRequest": {
+						"$ref": "#/components/schemas/TransactionRequest"
+					}
+				},
+				"required": [
+					"id",
+					"type",
+					"tool",
+					"action",
+					"estimate",
+					"includedSteps",
+					"transactionRequest"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_Quote_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/Quote"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PostQuote": {
+				"properties": {
+					"quote": {
+						"$ref": "#/components/schemas/Quote"
+					},
+					"input": {
+						"$ref": "#/components/schemas/InputBody"
+					},
+					"signed": {},
+					"broadcast": {}
+				},
+				"required": [
+					"quote",
+					"input",
+					"signed",
+					"broadcast"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_PostQuote_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/PostQuote"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TransactionStatus": {
+				"properties": {
+					"chainId": {
+						"type": "number",
+						"format": "double"
+					},
+					"txHash": {
+						"type": "string"
+					},
+					"txLink": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "string"
+					},
+					"token": {
+						"$ref": "#/components/schemas/TokenInfo"
+					},
+					"gasPrice": {
+						"type": "string"
+					},
+					"gasUsed": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"chainId",
+					"txHash",
+					"txLink",
+					"amount",
+					"token",
+					"gasPrice",
+					"gasUsed"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"StatusResponse": {
+				"properties": {
+					"sending": {
+						"$ref": "#/components/schemas/TransactionStatus"
+					},
+					"receiving": {
+						"$ref": "#/components/schemas/TransactionStatus"
+					},
+					"tool": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string"
+					},
+					"substatus": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"sending",
+					"receiving",
+					"tool",
+					"status",
+					"substatus"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_StatusResponse_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/StatusResponse"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Chain": {
+				"properties": {
+					"key": {
+						"type": "string"
+					},
+					"chainType": {
+						"type": "string",
+						"enum": [
+							"EVM",
+							"SOL"
+						]
+					},
+					"name": {
+						"type": "string"
+					},
+					"coin": {
+						"type": "string"
+					},
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"mainnet": {
+						"type": "boolean"
+					},
+					"logoURI": {
+						"type": "string"
+					},
+					"tokenlistUrl": {
+						"type": "string"
+					},
+					"multicallAddress": {
+						"type": "string"
+					},
+					"metamask": {
+						"properties": {
+							"rpcUrls": {
+								"items": {
+									"type": "string"
+								},
+								"type": "array"
+							},
+							"nativeCurrency": {
+								"properties": {
+									"decimals": {
+										"type": "number",
+										"format": "double"
+									},
+									"symbol": {
+										"type": "string"
+									},
+									"name": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"decimals",
+									"symbol",
+									"name"
+								],
+								"type": "object"
+							},
+							"chainName": {
+								"type": "string"
+							},
+							"blockExplorerUrls": {
+								"items": {
+									"type": "string"
+								},
+								"type": "array"
+							},
+							"chainId": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"rpcUrls",
+							"nativeCurrency",
+							"chainName",
+							"blockExplorerUrls",
+							"chainId"
+						],
+						"type": "object"
+					},
+					"nativeToken": {
+						"properties": {
+							"priceUSD": {
+								"type": "string"
+							},
+							"logoURI": {
+								"type": "string"
+							},
+							"coinKey": {
+								"type": "string"
+							},
+							"name": {
+								"type": "string"
+							},
+							"decimals": {
+								"type": "number",
+								"format": "double"
+							},
+							"symbol": {
+								"type": "string"
+							},
+							"chainId": {
+								"type": "number",
+								"format": "double"
+							},
+							"address": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"priceUSD",
+							"logoURI",
+							"coinKey",
+							"name",
+							"decimals",
+							"symbol",
+							"chainId",
+							"address"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"key",
+					"chainType",
+					"name",
+					"coin",
+					"id",
+					"mainnet",
+					"logoURI",
+					"tokenlistUrl",
+					"multicallAddress",
+					"metamask",
+					"nativeToken"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ChainsResponse": {
+				"properties": {
+					"chains": {
+						"items": {
+							"$ref": "#/components/schemas/Chain"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"chains"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_ChainsResponse_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/ChainsResponse"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BridgeSupportedChain": {
+				"properties": {
+					"fromChainId": {
+						"type": "number",
+						"format": "double"
+					},
+					"toChainId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"fromChainId",
+					"toChainId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Bridge": {
+				"properties": {
+					"key": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"logoURI": {
+						"type": "string"
+					},
+					"supportedChains": {
+						"items": {
+							"$ref": "#/components/schemas/BridgeSupportedChain"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"key",
+					"name",
+					"logoURI",
+					"supportedChains"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Exchange": {
+				"properties": {
+					"key": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"logoURI": {
+						"type": "string"
+					},
+					"supportedChains": {
+						"items": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"key",
+					"name",
+					"logoURI",
+					"supportedChains"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ToolsResponse": {
+				"properties": {
+					"bridges": {
+						"items": {
+							"$ref": "#/components/schemas/Bridge"
+						},
+						"type": "array"
+					},
+					"exchanges": {
+						"items": {
+							"$ref": "#/components/schemas/Exchange"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"bridges",
+					"exchanges"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_ToolsResponse_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/ToolsResponse"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TokensResponse": {
+				"properties": {
+					"tokens": {
+						"properties": {},
+						"additionalProperties": {
+							"items": {
+								"$ref": "#/components/schemas/Token"
+							},
+							"type": "array"
+						},
+						"type": "object"
+					}
+				},
+				"required": [
+					"tokens"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_TokensResponse_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/TokensResponse"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_TokenDetails_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/TokenDetails"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Connection": {
+				"properties": {
+					"fromChainId": {
+						"type": "number",
+						"format": "double"
+					},
+					"toChainId": {
+						"type": "number",
+						"format": "double"
+					},
+					"fromTokens": {
+						"items": {
+							"$ref": "#/components/schemas/Token"
+						},
+						"type": "array"
+					},
+					"toTokens": {
+						"items": {
+							"$ref": "#/components/schemas/Token"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"fromChainId",
+					"toChainId",
+					"fromTokens",
+					"toTokens"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ConnectionsResponse": {
+				"properties": {
+					"connections": {
+						"items": {
+							"$ref": "#/components/schemas/Connection"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"connections"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_ConnectionsResponse_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/ConnectionsResponse"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TokenInfoByChainId": {
+				"properties": {},
+				"type": "object",
+				"additionalProperties": {
+					"items": {
+						"$ref": "#/components/schemas/TokenInfo"
+					},
+					"type": "array"
+				}
+			},
+			"ApiResponse_TokenInfoByChainId_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/TokenInfoByChainId"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"LitecoinInput": {
 				"properties": {
 					"network": {
@@ -1948,78 +2856,6 @@
 				},
 				"required": [
 					"message"
-				],
-				"type": "object"
-			},
-			"AvailablePaymentMethod": {
-				"properties": {
-					"icon": {
-						"type": "string"
-					},
-					"name": {
-						"type": "string"
-					},
-					"paymentTypeId": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"icon",
-					"name",
-					"paymentTypeId"
-				],
-				"type": "object"
-			},
-			"Quote": {
-				"properties": {
-					"recommendations": {
-						"items": {
-							"type": "string"
-						},
-						"type": "array"
-					},
-					"paymentMethod": {
-						"type": "string"
-					},
-					"quoteId": {
-						"type": "string"
-					},
-					"ramp": {
-						"type": "string"
-					},
-					"availablePaymentMethods": {
-						"items": {
-							"$ref": "#/components/schemas/AvailablePaymentMethod"
-						},
-						"type": "array"
-					},
-					"payout": {
-						"type": "number",
-						"format": "double"
-					},
-					"transactionFee": {
-						"type": "number",
-						"format": "double"
-					},
-					"networkFee": {
-						"type": "number",
-						"format": "double"
-					},
-					"rate": {
-						"type": "number",
-						"format": "double"
-					}
-				},
-				"required": [
-					"recommendations",
-					"paymentMethod",
-					"quoteId",
-					"ramp",
-					"availablePaymentMethods",
-					"payout",
-					"transactionFee",
-					"networkFee",
-					"rate"
 				],
 				"type": "object"
 			},
@@ -6542,6 +7378,639 @@
 						}
 					}
 				}
+			}
+		},
+		"/lifi/quote": {
+			"get": {
+				"operationId": "GetQuote",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_Quote_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "fromChain",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "toChain",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "fromToken",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "toToken",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "fromAmount",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "fromAddress",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "toAddress",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "order",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"enum": [
+								"BEST_VALUE",
+								"BEST_FEE",
+								"BEST_FEE_GAS"
+							]
+						}
+					},
+					{
+						"in": "query",
+						"name": "slippage",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "integrator",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "fee",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "referrer",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "allowBridges",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "allowExchanges",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "denyBridges",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "denyExchanges",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "preferBridges",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "preferExchanges",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					}
+				]
+			}
+		},
+		"/lifi/{accountName}/quote": {
+			"post": {
+				"operationId": "PostQuote",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_PostQuote_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "fromChain",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "toChain",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "fromToken",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "toToken",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "fromAmount",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "fromAddress",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "toAddress",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "order",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"enum": [
+								"BEST_VALUE",
+								"BEST_FEE",
+								"BEST_FEE_GAS"
+							]
+						}
+					},
+					{
+						"in": "query",
+						"name": "slippage",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "integrator",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "fee",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "referrer",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "allowBridges",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "allowExchanges",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "denyBridges",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "denyExchanges",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "preferBridges",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "preferExchanges",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					}
+				]
+			}
+		},
+		"/lifi/status": {
+			"get": {
+				"operationId": "Getstatus",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_StatusResponse_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "txHash",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/lifi/chains": {
+			"get": {
+				"operationId": "GetChains",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_ChainsResponse_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "optionalChainTypes",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"enum": [
+								"EVM",
+								"SOL"
+							]
+						}
+					}
+				]
+			}
+		},
+		"/lifi/tools": {
+			"get": {
+				"operationId": "GetTools",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_ToolsResponse_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "chains",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/lifi/tokens": {
+			"get": {
+				"operationId": "FetchTokens",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_TokensResponse_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/lifi/token": {
+			"get": {
+				"operationId": "FetchTokenDetails",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_TokenDetails_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "chain",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "token",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/lifi/connections": {
+			"get": {
+				"operationId": "GetConnections",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_ConnectionsResponse_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "fromChain",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "toChain",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "fromToken",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "toToken",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainTypes",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/lifi/allPossibleConnections": {
+			"get": {
+				"operationId": "GetAllPossibleConnections",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_TokenInfoByChainId_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "toChain",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "toToken",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		},
 		"/litecoin": {
