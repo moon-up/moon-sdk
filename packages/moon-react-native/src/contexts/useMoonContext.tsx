@@ -30,11 +30,7 @@ type MoonContextProps = {
   signInWithGoogle: () => Promise<void>;
   connect: (accessToken?: string, refreshToken?: string) => Promise<void>;
   disconnect: () => Promise<void>;
-  getUserSession: () => Promise<{
-    data: { session: Session | null };
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    error: any;
-  }>;
+  getUserSession: () => Promise<any>;
   connectEthers: () => Promise<void>;
   disconnectEthers: () => Promise<void>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
