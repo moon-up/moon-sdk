@@ -42,22 +42,22 @@ const TokenModal: React.FC<TokenModalProps> = ({
   <Modal isOpen={isOpen} toggleModal={toggleModal}>
     <h2 className="text-xl font-semibold mb-4">Add New Token</h2>
     <div className="mb-4 flex flex-col gap-2">
-      {tokenInfo?.name && (
+      {tokenInfo?.name && tokenInfo?.market_data?.current_price?.usd && (
         <div className="bg-background-primary rounded-sm flex flex-col p-3 gap-3">
           <div className="flex justify-left items-center ">
             <img
-              src={tokenInfo?.image.small}
+              src={tokenInfo?.image?.small}
               alt="Token Icon"
               className="w-10 h-10 mr-3"
             />
             <span className="text-text-primary">{tokenInfo?.name}</span>
             <span className="ml-3 text-text-secondary">
-              ${tokenInfo?.market_data.current_price.usd}
+              ${tokenInfo?.market_data?.current_price?.usd}
             </span>
           </div>
           <div className="max-h-[60px] overflow-y-scroll">
             <span className="text-text-secondary">
-              {tokenInfo.description.en}
+              {tokenInfo?.description?.en}
             </span>
           </div>
         </div>

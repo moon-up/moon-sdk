@@ -5,8 +5,11 @@ export type UserToken = {
   decimals: number;
   address: string;
   chainId: number;
+  balance?: string;
+  icon?: string;
   platforms?: {
     [key: string]: string;
   };
-  icon?: string;
+  price?: number;
+  isGasToken?: boolean;
 };

@@ -20,4 +20,16 @@ export class LocalStorageAdapter implements UserTokenDBAdapter {
     tokens = tokens.filter((token) => token.address !== address);
     localStorage.setItem(this.storageKey, JSON.stringify(tokens));
   }
+
+  async getTokenPrice(tokenId: string): Promise<number> {
+    const prices = localStorage.getItem("tokenPrices");
+    return prices ? JSON.parse(prices)[tokenId] : 0;
+  }
+
+  async saveTokenPrice(tokenId: string, price: number): Promise<void> {
+    const prices = localStorage.getItem("tokenPrices");
+    const newPrices = prices ? JSON.parse(prices) : {};
+    newPrices[tokenId] = price;
+    localStorage.setItem("tokenPrices", JSON.stringify(newPrices));
+  }
 }
