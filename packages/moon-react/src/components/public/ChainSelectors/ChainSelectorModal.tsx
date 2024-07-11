@@ -3,8 +3,10 @@ import { useMoonSDK } from "../../..";
 import { Chains } from "@moonup/moon-sdk";
 import Input, { InputProps } from "../../Input/Input";
 import { Modal } from "@/components";
+import { useMoonChain } from "@/hooks/useMoonChain";
 
 type ChainSelectorProps = {
+  chainIdFilterList?: number[];
   title?: string;
   headerProps?: React.HTMLAttributes<HTMLDivElement>;
   buttonProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
@@ -14,6 +16,7 @@ type ChainSelectorProps = {
 };
 
 const ChainSelectorModal: React.FC<ChainSelectorProps> = ({
+  chainIdFilterList,
   title,
   headerProps,
   buttonProps,
@@ -21,10 +24,9 @@ const ChainSelectorModal: React.FC<ChainSelectorProps> = ({
   listProps,
   listItemProps,
 }) => {
-  const { chains, setChain, chain } = useMoonSDK();
+  const { chains, setChain, currentChain: chain } = useMoonChain();
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-
   useEffect(() => {
     const mainnet = chains.find((chain: Chains) => chain.chain_id === 1);
     if (!chain && mainnet) setChain(mainnet);
@@ -40,7 +42,10 @@ const ChainSelectorModal: React.FC<ChainSelectorProps> = ({
   const filteredChains = useMemo(() => {
     return sortedChains.filter((chain: Chains) => {
       if (!chain.name) return 0;
-      return chain.name.toLowerCase().includes(searchTerm.toLowerCase());
+      return (
+        chain.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+        (!chainIdFilterList || chainIdFilterList.includes(chain.chain_id || -1))
+      );
     });
   }, [sortedChains, searchTerm]);
 
@@ -64,7 +69,11 @@ const ChainSelectorModal: React.FC<ChainSelectorProps> = ({
         {chain?.name || "Select Chain"}
       </button>
       <Modal isOpen={isOpen} toggleModal={toggleModal}>
-        {title && <h2 className="text-xl font-semibold mb-4" {...headerProps}>{title}</h2>}
+        {title && (
+          <h2 className="text-xl font-semibold mb-4" {...headerProps}>
+            {title}
+          </h2>
+        )}
         <Input
           label="Search Chains"
           type="text"

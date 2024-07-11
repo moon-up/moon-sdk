@@ -10,7 +10,7 @@ import {
   safeWallet,
   walletConnectWallet,
 } from "@rainbow-me/rainbowkit/wallets";
-import { createClient, Session, SupabaseClient } from "@supabase/supabase-js";
+import { Session, SupabaseClient } from "@supabase/supabase-js";
 import { QueryClientProvider, useQueryClient } from "@tanstack/react-query";
 import { QueryClient } from "@tanstack/query-core";
 import { announceProvider, EIP1193Provider, Store } from "mipd";
@@ -20,9 +20,14 @@ import "../index.css";
 
 import { createStore } from "mipd";
 import { AuthModal } from "@public-components/index";
-import { AuthModalConfig } from "../types/types";
+import { AuthModalConfig, TransactionResult } from "../types/types";
 import { DEFAULT_AUTH_CONFIG } from "../constants";
 import { Chains } from "@moonup/moon-sdk";
+import { supabase } from "@/supabase";
+import {
+  SupabaseAdapter,
+  UserTokenDBAdapter,
+} from "@/components/public/TokenManager";
 
 const walletsRainbowkit = [
   injectedWallet,
@@ -46,6 +51,7 @@ const connectors = connectorsForWallets(
 );
 export type State = {
   moon: MoonSDK | null;
+  dbAdapter: UserTokenDBAdapter;
   authConfig: AuthModalConfig;
   session: Session | null;
   supabase: SupabaseClient | null;
@@ -56,6 +62,7 @@ export type State = {
   loading: boolean;
   wallet?: string;
   chatOpen: boolean;
+  transactionHistory: TransactionResult[];
   signOut: () => Promise<void>;
   createWallet: () => Promise<void>;
   listWallets: () => Promise<void>;
@@ -75,6 +82,7 @@ export type State = {
   listChains: () => Promise<void>;
   setChain: (chain: Chains) => Promise<void>;
   setChatOpen: (isOpen: boolean) => Promise<void>;
+  addTransactionResult: (result: TransactionResult) => void;
 };
 
 type Action =
@@ -88,7 +96,14 @@ type Action =
   | { type: "SET_CHAINS"; chains: Chains[] }
   | { type: "SET_CHAIN"; chain: Chains }
   | { type: "SET_CHAT_OPEN"; chatOpen: boolean }
-  | { type: "SET_STORE"; store: Store };
+  | { type: "SET_STORE"; store: Store }
+  | { type: "ADD_TRANSACTION_RESULT"; result: TransactionResult }
+  | { type: "CLEAR_TRANSACTION_HISTORY" }
+  | {
+      type: "LOAD_FROM_STORAGE";
+      wallet: string | undefined;
+      chain: Chains | null;
+    };
 
 // Define the reducer
 function reducer(state: State, action: Action): State {
@@ -115,14 +130,25 @@ function reducer(state: State, action: Action): State {
       return { ...state, chain: action.chain };
     case "SET_CHAT_OPEN":
       return { ...state, chatOpen: action.chatOpen };
+    case "ADD_TRANSACTION_RESULT":
+      return {
+        ...state,
+        transactionHistory: [...state.transactionHistory, action.result],
+      };
+    case "CLEAR_TRANSACTION_HISTORY":
+      return { ...state, transactionHistory: [] };
+    case "LOAD_FROM_STORAGE":
+      console.log("localStorage::LOAD_FROM_STORAGE", action);
+      return {
+        ...state,
+        wallet: action.wallet || state.wallet,
+        chain: action.chain || state.chain,
+      };
     default:
       return state;
   }
 }
-const supabase = createClient(
-  "https://api.usemoon.ai",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzAzMTE2ODAwLAogICJleHAiOiAxODYwOTY5NjAwCn0.nA4p2oP7XNlo93VqnyOlwz_wy7pDXW3lUki1t_udpbA"
-);
+
 const moon = new MoonSDK({
   authInstance: supabase,
 });
@@ -166,6 +192,7 @@ export const MoonSDKProvider: React.FC<MoonSDKProviderProps> = ({
 }) => {
   const [state, dispatch] = useReducer(reducer, {
     moon: moon,
+    dbAdapter: new SupabaseAdapter(supabase),
     authConfig: authConfig,
     loading: true, // Add a loading state
     session: null,
@@ -177,6 +204,7 @@ export const MoonSDKProvider: React.FC<MoonSDKProviderProps> = ({
     wallet: "",
     ethers: provider,
     store: store,
+    transactionHistory: [],
     connect: async (accessToken?: string, refreshToken?: string) => {
       if (state.moon) {
         await state.moon.connect(accessToken, refreshToken);
@@ -251,6 +279,12 @@ export const MoonSDKProvider: React.FC<MoonSDKProviderProps> = ({
         address: wallet,
       });
       dispatch({ type: "SET_WALLET", wallet });
+      const session = (await state.getUserSession()).data.session;
+      console.log("localStorage::state.session?.user", state, session);
+      if (session?.user?.id) {
+        console.log("localStorage::setWallet", wallet);
+        localStorage.setItem(`moon_wallet_${session?.user?.id}`, wallet);
+      }
     },
     listChains: async () => {
       console.log("getChains");
@@ -271,6 +305,16 @@ export const MoonSDKProvider: React.FC<MoonSDKProviderProps> = ({
         address: state.wallet,
       });
       dispatch({ type: "SET_CHAIN", chain });
+      const session = (await state.getUserSession()).data.session;
+      if (session?.user.id) {
+        localStorage.setItem(
+          `moon_chain_${session.user.id}`,
+          JSON.stringify(chain)
+        );
+      }
+    },
+    addTransactionResult: (result: TransactionResult) => {
+      dispatch({ type: "ADD_TRANSACTION_RESULT", result });
     },
   });
 
@@ -282,14 +326,35 @@ export const MoonSDKProvider: React.FC<MoonSDKProviderProps> = ({
         case "INITIAL_SESSION":
         case "SIGNED_IN":
         case "TOKEN_REFRESHED":
-          console.log("SIGNED_IN");
+          console.log("localStorage::SIGNED_IN", session);
           dispatch({ type: "SET_SESSION", session });
+          if (session?.user.id) {
+            const storedWallet = localStorage.getItem(
+              `moon_wallet_${session.user.id}`
+            );
+            const storedChain = localStorage.getItem(
+              `moon_chain_${session.user.id}`
+            );
+            console.log("localStorage::storedWallet", storedWallet);
+            console.log("localStorage::storedChain", storedChain);
+            dispatch({
+              type: "LOAD_FROM_STORAGE",
+              wallet: storedWallet || undefined,
+              chain: storedChain ? JSON.parse(storedChain) : undefined,
+            });
+          }
           break;
 
         case "SIGNED_OUT":
           console.log("SIGNED_OUT");
           dispatch({ type: "SET_SESSION", session: null });
           dispatch({ type: "SET_WALLETS", wallets: [] });
+          if (state.session?.user.id) {
+            console.log("localStorage::clear wallet/chain");
+
+            localStorage.removeItem(`moon_wallet_${state.session.user.id}`);
+            localStorage.removeItem(`moon_chain_${state.session.user.id}`);
+          }
           break;
       }
     });

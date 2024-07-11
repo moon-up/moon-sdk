@@ -1,5 +1,6 @@
 // import type { UseQueryOptions, UseQueryResult } from "react-query";
 
+import { UserTokenDBAdapter } from "@/components/public/TokenManager";
 import { fetchNullable } from "./fetchNullable";
 import {
   UseQueryOptions,
@@ -70,8 +71,42 @@ export type TokenListItem = {
   name: string;
 };
 
+const tryGetAllPricesFromCache = async (
+  tokens: readonly string[],
+  cache: UserTokenDBAdapter
+): Promise<CoinGeckoPrices<string> | null> => {
+  const prices = await Promise.all(
+    tokens.map(async (token) => {
+      try {
+        const price = await cache.getTokenPrice(token);
+        //parse the updated at time and check if it is within the last hour
+        let updateTime = new Date(price.updated_at).getTime();
+        let currentTime = new Date().getTime();
+        if (currentTime - updateTime > 1000 * 60 * 60) {
+          return { token, price: null };
+        }
+        return { token, price: price.price };
+      } catch (e) {
+        console.log("tryGetAllPricesFromCache error", e);
+        return { token, price: null };
+      }
+    })
+  );
+  console.log("tryGetAllPricesFromCache prices ", prices);
+  if (!prices.some((p) => p.price === null)) {
+    const ret = {} as CoinGeckoPrices<string>;
+    prices.forEach((p) => {
+      ret[p.token] = p.price;
+    });
+    return ret;
+  }
+  console.log("tryGetAllPricesFromCache returning null as some are empty ");
+  return null;
+};
+
 export const makeCoinGeckoPricesQuery = <T extends string>(
-  tokens: readonly T[]
+  tokens: readonly T[],
+  cache?: UserTokenDBAdapter
 ): UseQueryOptions<
   CoinGeckoPrices<T>,
   unknown,
@@ -79,12 +114,24 @@ export const makeCoinGeckoPricesQuery = <T extends string>(
   string[]
 > => {
   return {
-    staleTime: 1000 * 60 * 30,
+    staleTime: 1000 * 60 * 20,
     queryKey: ["coinGeckoPrices", ...tokens],
     queryFn: async ({ signal }) => {
       if (tokens.length === 0) {
         return createEmptyResult(tokens);
       }
+      console.log("coinGeckoPrices cache", cache);
+      if (cache) {
+        let cachedTokenPrices = await tryGetAllPricesFromCache(tokens, cache);
+        console.log(
+          "makeCoinGeckoPricesQuery cachedTokenPrices",
+          cachedTokenPrices
+        );
+        if (cachedTokenPrices) {
+          return cachedTokenPrices;
+        }
+      }
+
       const coingeckoPricesURL = buildCoinGeckoPricesURL(tokens);
       const rawData = await fetchNullable<
         {
@@ -101,10 +148,13 @@ export const makeCoinGeckoPricesQuery = <T extends string>(
       }
 
       const ret = {} as CoinGeckoPrices<T>;
-      tokens.forEach((token) => {
+      tokens.forEach(async (token) => {
         const priceInfo = rawData[token];
         ret[token] = priceInfo ? priceInfo.usd : null;
+        if (cache) await cache.saveTokenPrice(token, ret[token] || 0);
       });
+      console.log("makeCoinGeckoPricesQuery cg ret", ret);
+
       return ret;
     },
   };
@@ -155,9 +205,10 @@ export const useCoinGeckoPrices = <T extends string>(
   options: Omit<
     UseQueryOptions<CoinGeckoPrices<T>, unknown, CoinGeckoPrices<T>, string[]>,
     "queryKey" | "queryFn"
-  > = {}
+  > = {},
+  cache?: UserTokenDBAdapter
 ): UseQueryResult<CoinGeckoPrices<T>, unknown> => {
-  return useQuery({ ...options, ...makeCoinGeckoPricesQuery(tokens) });
+  return useQuery({ ...options, ...makeCoinGeckoPricesQuery(tokens, cache) });
 };
 
 /**

@@ -85,3 +85,12 @@ export type AuthModalConfig = {
     buttonColorSecondary: string;
   };
 };
+
+export type TransactionResult = {
+  id: string;
+  type: string;
+  status: "success" | "error";
+  data?: any;
+  error?: string;
+  timestamp: number;
+};

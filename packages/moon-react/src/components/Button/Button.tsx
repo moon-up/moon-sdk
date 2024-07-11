@@ -1,22 +1,21 @@
 import React from "react";
 import { useMoonSDK } from "../..";
 
-interface ButtonProps {
-  className?: string;
-  onClick: () => void;
+type ButtonProps = {
   color?:
     | "accentColor"
     | "successColor"
     | "errorColor"
     | "infoColor"
     | "warningColor";
-  children: React.ReactNode;
-}
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
+
 function Button({
   onClick: handleClick,
   color = "accentColor",
   children,
   className,
+  ...rest
 }: ButtonProps) {
   const { authConfig } = useMoonSDK();
   return (
@@ -28,9 +27,9 @@ function Button({
         borderColor: authConfig.theming[color],
         borderRadius: authConfig.appearance.button.borderRadius,
       }}
-      className={`w-full relative flex gap-10 p-2 text-lg justify-center items-center border-2 hover:opacity-90 ${className}`}
+      className={`w-full relative flex gap-10 p-2 text-lg justify-center items-center border-2 disabled:cursor-not-allowed hover:opacity-90 ${className}`}
+      {...rest}
     >
-
       {children}
     </button>
   );

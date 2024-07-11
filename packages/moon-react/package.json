@@ -68,6 +68,7 @@
   "dependencies": {
     "@moonup/ethers": "workspace:*",
     "@moonup/moon-sdk": "workspace:*",
+    "@moonup/moon-api": "workspace:*",
     "@moonup/viem": "workspace:*",
     "@moonup/wagmi-connector": "workspace:*",
     "@rainbow-me/rainbowkit": "^2.0.7",
@@ -86,7 +87,8 @@
     "react-tabs": "^6.0.2",
     "siwe": "^2.1.4",
     "viem": "^2.9.25",
-    "wagmi": "^2.5.20"
+    "wagmi": "^2.5.20",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@simplewebauthn/typescript-types": "^8.3.4",

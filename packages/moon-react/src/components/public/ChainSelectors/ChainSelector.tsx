@@ -1,8 +1,8 @@
 // create a react functional component that is a ChainSelector
 
 import React, { useEffect, useMemo } from "react";
-import { useMoonSDK } from "../../..";
 import { Chains } from "@moonup/moon-sdk";
+import { useMoonChain } from "@/hooks/useMoonChain";
 
 type ChainSelectorProps = {
   selectProps?: React.SelectHTMLAttributes<HTMLSelectElement>;
@@ -10,7 +10,7 @@ type ChainSelectorProps = {
 };
 
 const ChainSelector = ({ selectProps, optionProps }: ChainSelectorProps) => {
-  const { chains, setChain, chain } = useMoonSDK();
+  const { chains, setChain, currentChain: chain } = useMoonChain();
 
   useEffect(() => {
     const mainnet = chains.find((chain: Chains) => chain.chain_id === 1);

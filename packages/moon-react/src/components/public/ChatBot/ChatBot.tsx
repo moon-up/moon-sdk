@@ -144,8 +144,6 @@ const ChatBot: React.FC<ChatBotProps> = ({
     messageBoxRef.current?.scrollTo(0, messageBoxRef.current?.scrollHeight);
   };
 
-  console.log("chatmessages", messages);
-
   return (
     <div
       ref={containerRef}

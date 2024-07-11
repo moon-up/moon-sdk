@@ -4,6 +4,8 @@ export * from './types';
 export * from './useMoon';
 export * from './useMoonEthers';
 export * from './useMoonSDK';
+export * from './useTokenBalances';
+export * from './useWalletGasBalances';
 // export * from './useMoonEthersSkale';
 import * as hooks from './';
 export default hooks;

@@ -9,7 +9,12 @@ import WalletSelector from "../public/WalletSelectors/WalletSelector";
 import WalletSelectorModal from "../public/WalletSelectors/WalletSelectorModal";
 // load api
 import ChatBot from "../public/ChatBot/ChatBot";
-import { LocalStorageAdapter, UserTokenManager } from "../public/TokenManager";
+import {
+  LocalStorageAdapter,
+  SupabaseAdapter,
+  UserTokenManager,
+} from "../public/TokenManager";
+import SwapInterface from "../public/SwapInterface/SwapInterface";
 
 function Account() {
   const { address, status } = useAccount();
@@ -175,7 +180,12 @@ function Account() {
 
       <div className="bg-background-secondary w-full rounded-xl flex flex-col items-center justify-center text-text-primary p-4">
         <div className="text-center text-xl font-semibold">Token Manager</div>
-        <UserTokenManager dbAdapter={new LocalStorageAdapter()} />
+        <UserTokenManager />
+      </div>
+
+      <div className="bg-background-secondary w-full rounded-xl flex flex-col items-center justify-center text-text-primary p-4">
+        <div className="text-center text-xl font-semibold">Swap Interface</div>
+        <SwapInterface />
       </div>
 
       <ChatBot />
