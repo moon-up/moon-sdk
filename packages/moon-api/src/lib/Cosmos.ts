@@ -10,12 +10,17 @@
  */
 
 import {
-  CosmosInput,
-  CosmosTransactionInput,
-  CreateCosmosAccountData,
-  GetCosmosAccountData,
-  ListCosmosAccountsData,
-  SignCosmosTransactionData,
+  CreateAccountBody,
+  CreateAccountResult,
+  DeleteAccountResult,
+  IBCTransferTransactionInput,
+  ListAccountsResult,
+  MessageInput,
+  ReadAccountData,
+  SignIbcTransferTransactionData,
+  SignMessageResult,
+  SignTransferTransactionData,
+  TransferTransactionInput,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
@@ -30,13 +35,13 @@ export class Cosmos<SecurityDataType = unknown> {
    * No description
    *
    * @tags Cosmos
-   * @name CreateCosmosAccount
-   * @request POST:/cosmos
+   * @name CreateAccount
+   * @request POST:/cosmos/accounts
    * @secure
    */
-  createCosmosAccount = (data: CosmosInput, params: RequestParams = {}) =>
-    this.http.request<CreateCosmosAccountData, any>({
-      path: `/cosmos`,
+  createAccount = (data: CreateAccountBody, params: RequestParams = {}) =>
+    this.http.request<CreateAccountResult, any>({
+      path: `/cosmos/accounts`,
       method: 'POST',
       body: data,
       secure: true,
@@ -47,13 +52,28 @@ export class Cosmos<SecurityDataType = unknown> {
    * No description
    *
    * @tags Cosmos
-   * @name GetCosmosAccount
-   * @request GET:/cosmos/{accountName}
+   * @name DeleteAccount
+   * @request DELETE:/cosmos/accounts/{accountName}
    * @secure
    */
-  getCosmosAccount = (accountName: string, params: RequestParams = {}) =>
-    this.http.request<GetCosmosAccountData, any>({
-      path: `/cosmos/${accountName}`,
+  deleteAccount = (accountName: string, params: RequestParams = {}) =>
+    this.http.request<DeleteAccountResult, any>({
+      path: `/cosmos/accounts/${accountName}`,
+      method: 'DELETE',
+      secure: true,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Cosmos
+   * @name ListAccounts
+   * @request GET:/cosmos/accounts
+   * @secure
+   */
+  listAccounts = (params: RequestParams = {}) =>
+    this.http.request<ListAccountsResult, any>({
+      path: `/cosmos/accounts`,
       method: 'GET',
       secure: true,
       ...params,
@@ -62,13 +82,13 @@ export class Cosmos<SecurityDataType = unknown> {
    * No description
    *
    * @tags Cosmos
-   * @name ListCosmosAccounts
-   * @request GET:/cosmos
+   * @name ReadAccount
+   * @request GET:/cosmos/accounts/{accountName}
    * @secure
    */
-  listCosmosAccounts = (params: RequestParams = {}) =>
-    this.http.request<ListCosmosAccountsData, any>({
-      path: `/cosmos`,
+  readAccount = (accountName: string, params: RequestParams = {}) =>
+    this.http.request<ReadAccountData, any>({
+      path: `/cosmos/accounts/${accountName}`,
       method: 'GET',
       secure: true,
       ...params,
@@ -77,17 +97,59 @@ export class Cosmos<SecurityDataType = unknown> {
    * No description
    *
    * @tags Cosmos
-   * @name SignCosmosTransaction
-   * @request POST:/cosmos/{accountName}/sign-tx
+   * @name SignIbcTransferTransaction
+   * @request POST:/cosmos/accounts/{accountName}/sign-ibc-transfer
    * @secure
    */
-  signCosmosTransaction = (
+  signIbcTransferTransaction = (
     accountName: string,
-    data: CosmosTransactionInput,
+    data: IBCTransferTransactionInput,
     params: RequestParams = {}
   ) =>
-    this.http.request<SignCosmosTransactionData, any>({
-      path: `/cosmos/${accountName}/sign-tx`,
+    this.http.request<SignIbcTransferTransactionData, any>({
+      path: `/cosmos/accounts/${accountName}/sign-ibc-transfer`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Cosmos
+   * @name SignMessage
+   * @request POST:/cosmos/accounts/{accountName}/sign-message
+   * @secure
+   */
+  signMessage = (
+    accountName: string,
+    data: MessageInput,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<SignMessageResult, any>({
+      path: `/cosmos/accounts/${accountName}/sign-message`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Cosmos
+   * @name SignTransferTransaction
+   * @request POST:/cosmos/accounts/{accountName}/sign-transfer
+   * @secure
+   */
+  signTransferTransaction = (
+    accountName: string,
+    data: TransferTransactionInput,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<SignTransferTransactionData, any>({
+      path: `/cosmos/accounts/${accountName}/sign-transfer`,
       method: 'POST',
       body: data,
       secure: true,
