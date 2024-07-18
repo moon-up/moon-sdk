@@ -44,6 +44,31 @@ import { Chains } from './types';
 
 /**
  * Configuration options for the MoonSDK class.
+ * MoonSDK - A comprehensive SDK for blockchain interactions and authentication.
+ *
+ * This SDK provides a wide range of functionalities for interacting with various blockchain networks,
+ * including Ethereum, Bitcoin, Solana, and others. It also includes authentication methods,
+ * transaction signing, and integration with services like Aave, Uniswap, and Yearn.
+ *
+ * Key features:
+ * - Multiple blockchain support (Ethereum, Bitcoin, Solana, Cosmos, EOS, etc.)
+ * - Authentication methods (OAuth, magic link, email/password, passkeys)
+ * - Transaction signing and sending
+ * - Integration with DeFi protocols (Aave, Uniswap, Yearn)
+ * - ENS support
+ * - ERC20, ERC721, and ERC1155 token interactions
+ * - Sign-in with Ethereum (SIWE) support
+ *
+ * The SDK is built on top of various APIs and uses Supabase for authentication management.
+ * It extends EventEmitter to allow for event-based programming patterns.
+ *
+ * Usage:
+ * const sdk = new MoonSDK(config);
+ * await sdk.connect();
+ * const accounts = await sdk.listAccounts();
+ *
+ * @class
+ * @extends EventEmitter
  */
 export interface MoonSDKConfig {
   /**
@@ -383,8 +408,6 @@ export class MoonSDK extends EventEmitter {
    * Creates a new Ethereum account and returns its address.
    */
   public async createAccount(): Promise<string> {
-    // const response = await this.getAccountsSDK().createAccount({});
-    // return response.data?.data.address || '';
     try {
       const response = await this.getAccountsSDK().createAccount({});
       const account = response.data?.data.address || '';
@@ -395,15 +418,17 @@ export class MoonSDK extends EventEmitter {
       throw error;
     }
   }
+
   /**
    * Converts a MoonTransaction object to an array of TransactionData objects.
    * @param tx The MoonTransaction object to convert.
    */
-  moonTransactionResponseToTransactions(
+  public moonTransactionResponseToTransactions(
     tx: MoonTransaction
   ): TransactionData[] {
     return tx.transactions || [];
   }
+
   /**
    * Signs a transaction using the private key of the specified Ethereum account.
    * @param wallet The address of the Ethereum account to use for signing the transaction.
@@ -547,7 +572,7 @@ export class MoonSDK extends EventEmitter {
       throw new Error('Configuration is missing or clientId is not specified');
     }
     const provider = 'discord';
-    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}`;
+    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}?clientId=${this.config.clientId}`;
     window.location.href = uri;
   }
 
@@ -854,73 +879,105 @@ export class MoonSDK extends EventEmitter {
     signedMessage: string,
     nonce: string,
     message: SiweMessage
-  ) {
-    const response = await fetch(
-      `https://beta.usemoon.ai/auth/ethereum/login`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          address: address,
-          signedMessage: signedMessage,
-          nonce: nonce,
-          message: message.prepareMessage(), // Call the method on the message object
-        }),
+  ): Promise<{ token: Session }> {
+    try {
+      const response = await fetch(
+        `https://beta.usemoon.ai/auth/ethereum/login`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            address,
+            signedMessage,
+            nonce,
+            message: message.prepareMessage(),
+          }),
+        }
+      );
+
+      const responseData = await response.json();
+
+      if (!response.ok) {
+        throw new Error(responseData.error || 'Unknown error occurred');
       }
-    );
 
-    const responseData = await response.json(); // Correctly parse JSON response
+      if (
+        !responseData.token ||
+        !responseData.token.accessToken ||
+        !responseData.token.refreshToken
+      ) {
+        throw new Error('Invalid token data received');
+      }
 
-    if (!response.ok) {
-      throw new Error(responseData.error || 'Unknown error occurred'); // Use responseData to access error
+      await this.connect(
+        responseData.token.accessToken,
+        responseData.token.refreshToken
+      );
+
+      return responseData;
+    } catch (error) {
+      console.error('Error in verifySIWESignature:', error);
+      throw error;
     }
-    // responseData.token is Session
-    if (!responseData.token) {
-      throw new Error('Token data is missing');
-    }
-
-    // Use responseData to access accessToken and refreshToken
-    this.connect(
-      responseData.token.accessToken,
-      responseData.token.refreshToken
-    );
-
-    return responseData; // Return the parsed response data
   }
 
+  /**
+   * Creates an embedded account for a user.
+   * @param email The email address of the user.
+   * @param uuid A unique identifier for the user.
+   * @param domain The domain associated with the embedded account.
+   * @returns A Promise that resolves to a Session object.
+   */
   public async embeddedAccount(
     email: string,
     uuid: string,
     domain: string
   ): Promise<Session> {
+    // Get the current user session
     const token = await this.getUserSession();
-    if (!token || !token.access_token) {
+    if (!token?.access_token) {
       throw new Error('User session token is missing or invalid');
     }
-    const response = await fetch(`https://beta.usemoon.ai/client`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token.access_token}`,
-      },
-      body: JSON.stringify({
-        name: email,
-        metadata: {
-          from: domain,
-          user: uuid,
-        },
-      }),
-    });
 
-    const data = await response.json();
-    if (!response.ok) {
-      throw new Error(data.error || `Server responded with ${response.status}`);
+    try {
+      // Make a POST request to create the embedded account
+      const response = await fetch('https://beta.usemoon.ai/client', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token.access_token}`,
+        },
+        body: JSON.stringify({
+          name: email,
+          metadata: {
+            from: domain,
+            user: uuid,
+          },
+        }),
+      });
+
+      // Check if the response is successful
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          errorData.error || `Server responded with ${response.status}`
+        );
+      }
+
+      // Parse the response data
+      const data = await response.json();
+      if (!data.token) {
+        throw new Error('Token data is missing in the response');
+      }
+
+      // Return the token as a Session object
+      return data.token as Session;
+    } catch (error) {
+      // Log and rethrow any errors that occur
+      console.error('Error in embeddedAccount:', error);
+      throw error;
     }
-    if (!data.token) {
-      throw new Error('Token data is missing');
-    }
-    return data.token as Session;
   }
 }
