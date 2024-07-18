@@ -1,9 +1,9 @@
 import React from "react";
-import { TransactionResult } from "@/types";
+import { TransactionResultChat } from "@/types";
 import { IconCheck } from "@/assets/icons";
 
 interface Props {
-  message: TransactionResult;
+  message: TransactionResultChat;
 }
 
 const TransactionResultBubble: React.FC<Props> = ({ message }) => (

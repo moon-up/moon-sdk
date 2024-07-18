@@ -26,6 +26,7 @@ const ChatBot: React.FC<ChatBotProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const messageBoxRef = useRef<HTMLDivElement>(null);
   const [showMessages, setShowMessages] = useState(false);
+  console.log("showMessages", showMessages);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: "initial",
@@ -56,7 +57,7 @@ const ChatBot: React.FC<ChatBotProps> = ({
   }, [containerRef]);
 
   useEffect(() => {
-    // loadMessagesFromLocalStorage();
+    loadMessagesFromLocalStorage();
     if (messageBoxRef.current) {
       messageBoxRef.current.scrollTo(0, messageBoxRef.current.scrollHeight);
     }

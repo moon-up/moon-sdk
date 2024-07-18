@@ -1,7 +1,7 @@
 // src/components/chat/bubbles/MultiStepTransactionBubble.tsx
 
 import React, { useState } from "react";
-import { ethers } from "ethers";
+// import { ethers } from "ethers";
 import { MultiStepTransactionMessage, TransactionStep } from "@/types";
 
 type MultiStepTransactionBubbleProps = {
@@ -27,8 +27,8 @@ const MultiStepTransactionBubble: React.FC<MultiStepTransactionBubbleProps> = ({
 
       //   const tx = await signer.sendTransaction(step.transaction);
       //   await tx.wait();
-
-      //   setExecutedSteps([...executedSteps, index]);
+      console.log(step);
+      setExecutedSteps([...executedSteps, index]);
       console.log(`Step ${index + 1} executed successfully`);
     } catch (error) {
       console.error(`Error executing step ${index + 1}:`, error);
@@ -38,9 +38,7 @@ const MultiStepTransactionBubble: React.FC<MultiStepTransactionBubbleProps> = ({
   return (
     <div
       {...containerProps}
-      className={`text-black my-2  ${
-        containerProps?.className || ""
-      }`}
+      className={`text-black my-2  ${containerProps?.className || ""}`}
     >
       <h3 className="text-lg font-bold mb-2">Multi-Step Transaction</h3>
       {message.steps.map((step, index) => (
