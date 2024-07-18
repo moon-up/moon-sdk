@@ -1,5 +1,5 @@
 export * from './Account';
-export * from './AuthModal';
+export * from './Modal/AuthModal';
 export * from './AuthOptions';
 export * from './Button';
 export * from './EmailLogin';
