@@ -9,16 +9,15 @@ import { UserToken } from "../TokenManager/types";
 import { useDebounceCallback } from "usehooks-ts";
 import {
   safelyParseUnits,
-  weiBigNumAsFloat,
   weiStringAsFloat,
 } from "@/utils/parse";
 import { useQueryClient } from "@tanstack/react-query";
 
-interface Token {
-  address: string;
-  symbol: string;
-  decimals: number;
-}
+// interface Token {
+//   address: string;
+//   symbol: string;
+//   decimals: number;
+// }
 
 type EstimateResult = {
   message?: string;

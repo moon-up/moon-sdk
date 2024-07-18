@@ -27,7 +27,6 @@ const TokenModal: React.FC<TokenModalProps> = ({
   toggleModal,
   tokenInfo,
   cgToken,
-  setCgToken,
   autocompleteOptions,
   showAutocomplete,
   handleAutocompleteChange,

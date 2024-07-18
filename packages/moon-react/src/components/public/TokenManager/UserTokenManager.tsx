@@ -22,7 +22,6 @@ export const UserTokenManager: React.FC = () => {
     tokenInfoModalCGID,
     setTokenInfoModalCGID,
     cgToken,
-    setCgToken,
     newToken,
     setNewToken,
     isModalOpen,

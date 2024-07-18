@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useMoonSDK } from "../../..";
 import { Chains } from "@moonup/moon-sdk";
 import Input, { InputProps } from "../../Input/Input";
 import { Modal } from "@/components";

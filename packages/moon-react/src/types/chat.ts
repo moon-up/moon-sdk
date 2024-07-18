@@ -86,7 +86,7 @@ export interface WalletInfo extends BaseChatMessage {
   tokens: { symbol: string; balance: number }[];
 }
 
-export interface TransactionResult extends BaseChatMessage {
+export interface TransactionResultChat extends BaseChatMessage {
   type: "transactionResult";
   status: "success" | "failure";
   hash: string;
@@ -124,7 +124,7 @@ export type ChatMessage =
   | ChainInfo
   | TokenInfo
   | WalletInfo
-  | TransactionResult
+  | TransactionResultChat
   | PortfolioChange
   | HistoricalTransaction
   | HistoricalPerformance
