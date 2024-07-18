@@ -52,11 +52,11 @@ export const WalletConnectorsList = ({ onBack }: WalletConnectorsListProps) => {
         className="pl-5 pt-5 justify-center items-center flex gap-5 absolute top-0 left-0 opacity-70 hover:opacity-100 cursor-pointer hover"
         onClick={onBack}
       >
-        <IconArrowLeft />
+        <IconArrowLeft className="w-6 h-6"/>
         Back
       </div>
       <div className="flex flex-col justify-center gap-5 items-center overflow-y-auto">
-      <IconWallet className="text-accent w-[40px]"/>
+      <IconWallet className="text-accent w-[40px] h-[40px]"/>
       <p className="text-text-secondary">Connect to a wallet</p>
         {uniqueConnectors &&
           uniqueConnectors.map((connector: any) => (
