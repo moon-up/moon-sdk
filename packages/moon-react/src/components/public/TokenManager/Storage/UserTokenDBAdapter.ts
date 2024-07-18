@@ -1,6 +1,6 @@
 import { UserToken } from "../types";
 
-type DbTokenPrice = {
+export type DbTokenPrice = {
   id: string;
   created_at: string;
   price: number;

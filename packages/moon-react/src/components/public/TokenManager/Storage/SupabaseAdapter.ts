@@ -1,4 +1,4 @@
-import { createClient, SupabaseClient } from "@supabase/supabase-js";
+import { SupabaseClient } from "@supabase/supabase-js";
 import { UserTokenDBAdapter } from ".";
 import { UserToken } from "../types";
 import { v4 as uuidv4 } from "uuid";
@@ -22,7 +22,6 @@ type DbTokenPrice = {
 };
 export class SupabaseAdapter implements UserTokenDBAdapter {
   private supabase: SupabaseClient;
-  private tokens: UserToken[] = [];
 
   constructor(supabase: SupabaseClient) {
     this.supabase = supabase;
@@ -97,7 +96,7 @@ export class SupabaseAdapter implements UserTokenDBAdapter {
     console.log("getTokenPrice", data, error);
 
     if (error) throw new Error(error.message);
-    this.tokens = data;
+    // this.tokens = data;
     return data;
   }
 

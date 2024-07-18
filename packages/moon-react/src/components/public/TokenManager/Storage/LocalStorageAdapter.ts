@@ -1,5 +1,5 @@
 import { UserToken } from "../types";
-import { UserTokenDBAdapter } from "./UserTokenDBAdapter";
+import { DbTokenPrice, UserTokenDBAdapter } from "./UserTokenDBAdapter";
 
 export class LocalStorageAdapter implements UserTokenDBAdapter {
   private storageKey = "userTokens";
@@ -21,7 +21,7 @@ export class LocalStorageAdapter implements UserTokenDBAdapter {
     localStorage.setItem(this.storageKey, JSON.stringify(tokens));
   }
 
-  async getTokenPrice(tokenId: string): Promise<number> {
+  async getTokenPrice(tokenId: string): Promise<DbTokenPrice> {
     const prices = localStorage.getItem("tokenPrices");
     return prices ? JSON.parse(prices)[tokenId] : 0;
   }
