@@ -70,6 +70,38 @@ export interface AbiEncodeOutput {
   success: boolean;
 }
 
+export interface AbiInput {
+  components?: AbiInput[];
+  indexed?: boolean;
+  internalType?: string;
+  name: string;
+  type: string;
+}
+
+/**
+ * The abi to parse the log object of the contract
+ * @example {}
+ */
+export interface AbiItem {
+  anonymous?: boolean;
+  constant?: boolean;
+  /** @format double */
+  gas?: number;
+  inputs?: AbiInput[];
+  name?: string;
+  outputs?: AbiOutput[];
+  payable?: boolean;
+  stateMutability?: string;
+  type: string;
+}
+
+export interface AbiOutput {
+  components?: AbiOutput[];
+  internalType?: string;
+  name: string;
+  type: string;
+}
+
 export interface AccountAPIResponse {
   address?: string;
   body?: InputBody;
@@ -109,6 +141,12 @@ export type AddLiquidityWethData = TransactionAPIResponse;
 
 export type AllowanceErc20Data = TransactionAPIResponse;
 
+export interface ApiResponseChainMap {
+  data?: ChainMap;
+  message: string;
+  success: boolean;
+}
+
 export interface ApiResponseChainsResponse {
   data?: ChainsResponse;
   message: string;
@@ -117,6 +155,12 @@ export interface ApiResponseChainsResponse {
 
 export interface ApiResponseConnectionsResponse {
   data?: ConnectionsResponse;
+  message: string;
+  success: boolean;
+}
+
+export interface ApiResponseGasPrice {
+  data?: GasPrice;
   message: string;
   success: boolean;
 }
@@ -135,6 +179,12 @@ export interface ApiResponseQuote {
 
 export interface ApiResponseStatusResponse {
   data?: StatusResponse;
+  message: string;
+  success: boolean;
+}
+
+export interface ApiResponseStringArray {
+  data?: string[];
   message: string;
   success: boolean;
 }
@@ -247,6 +297,12 @@ export interface BitcoinTransactionOutput {
   transaction_hash?: string;
 }
 
+export interface Block {
+  hash: string;
+  number: string;
+  timestamp: string;
+}
+
 export type BorrowData = TransactionAPIResponse;
 
 export interface Bridge {
@@ -326,6 +382,10 @@ export enum ChainChainTypeEnum {
   SOL = 'SOL',
 }
 
+export type ChainId = string | number;
+
+export type ChainMap = Record<string, ChainId>;
+
 export interface ChainsResponse {
   chains: Chain[];
 }
@@ -361,29 +421,14 @@ export interface ConveyorFinanceControllerResponse {
 }
 
 export interface CosmosAPIResponse {
-  address?: string;
-  body?: InputBody;
-  data?: CosmosTransactionOutput;
+  data?: any;
   message: string;
   success: boolean;
 }
 
-export interface CosmosInput {
+export interface CreateAccountBody {
   network?: string;
   private_key?: string;
-}
-
-export interface CosmosTransactionInput {
-  compress?: boolean;
-  network?: string;
-  to?: string;
-  /** @format double */
-  value?: number;
-}
-
-export interface CosmosTransactionOutput {
-  signedTx?: string;
-  transaction_hash?: string;
 }
 
 export type CreateAccountData = AccountAPIResponse;
@@ -392,17 +437,30 @@ export interface CreateAccountInput {
   private_key?: string;
 }
 
+export type CreateAccountResult = CosmosAPIResponse;
+
 export type CreateBitcoinAccountData = AccountAPIResponse;
 
 export type CreateBitcoinCashAccountData = AccountAPIResponse;
-
-export type CreateCosmosAccountData = AccountAPIResponse;
 
 export type CreateDogeCoinAccountData = AccountAPIResponse;
 
 export type CreateEosAccountData = AccountAPIResponse;
 
 export type CreateLitecoinAccountData = AccountAPIResponse;
+
+export type CreatePaymentIntentConfigData = any;
+
+export type CreatePaymentIntentConfigPayload = any;
+
+export interface CreatePaymentIntentInput {
+  /** @format double */
+  amount: number;
+  config?: string;
+  currency?: string;
+  metadata: Record<string, string>;
+  network?: string;
+}
 
 export type CreateRippleAccountData = AccountAPIResponse;
 
@@ -428,6 +486,10 @@ export interface CryptoCurrency {
 export type DecimalsErc20Data = TransactionAPIResponse;
 
 export type DeleteAccountData = AccountAPIResponse;
+
+export type DeleteAccountResult = CosmosAPIResponse;
+
+export type DeletePaymentIntentConfigData = PaymentIntentResponse;
 
 export type DeployContractData = TransactionAPIResponse;
 
@@ -605,7 +667,26 @@ export interface GasCost {
   type: string;
 }
 
+export interface GasPrice {
+  /** @format double */
+  average24h: number;
+  /** @format double */
+  average7d: number;
+  chainId: string;
+  history: {
+    /** @format double */
+    timestamp: number;
+    /** @format double */
+    value: number;
+  }[];
+  /** @format double */
+  lastTimestamp: number;
+  unitName: string;
+}
+
 export type GetAccountData = AccountAPIResponse;
+
+export type GetAllPaymentIntentConfigsData = PaymentIntentResponse[];
 
 export type GetAllPossibleConnectionsData = ApiResponseTokenInfoByChainId;
 
@@ -648,17 +729,23 @@ export interface GetConnectionsParams {
   toToken: string;
 }
 
-export type GetCosmosAccountData = AccountAPIResponse;
-
 export type GetDogeCoinAccountData = AccountAPIResponse;
 
 export type GetEosAccountData = AccountAPIResponse;
+
+export type GetGasPriceData = ApiResponseGasPrice;
+
+export interface GetGasPriceParams {
+  chainId: string;
+}
 
 export type GetLitecoinAccountData = AccountAPIResponse;
 
 export type GetMessageData = PingResponse;
 
 export type GetNonceData = NonceAPIResponse;
+
+export type GetOnePaymentIntentConfigsData = PaymentIntentResponse;
 
 export type GetQuoteData = ApiResponseQuote;
 
@@ -691,9 +778,32 @@ export enum GetQuoteParams1OrderEnum {
   BEST_FEE_GAS = 'BEST_FEE_GAS',
 }
 
+export interface GetQuoteParams2 {
+  affiliateAddress?: string;
+  /** @format double */
+  affiliateBasisPoints?: number;
+  allowSmartContractRecipient?: boolean;
+  buyAsset: string;
+  /** @format double */
+  limit?: number;
+  preferredProvider?: string;
+  providers?: string[];
+  recipientAddress: string;
+  /** @format double */
+  sellAmount: number;
+  sellAsset: string;
+  senderAddress: string;
+  /** @format double */
+  slippage?: number;
+}
+
+export type GetQuoteResult = ApiResponseQuote;
+
 export type GetRippleAccountData = AccountAPIResponse;
 
 export type GetSolanaAccountData = AccountAPIResponse;
+
+export type GetSupportedChainsData = ApiResponseChainMap;
 
 export interface GetSupportedOnRampsResponse {
   message: {
@@ -709,6 +819,8 @@ export interface GetSupportedOnRampsResponse {
     id: string;
   }[];
 }
+
+export type GetSupportedProvidersData = ApiResponseStringArray;
 
 export interface GetSwapDto {
   allowPartialFill?: boolean;
@@ -751,6 +863,138 @@ export interface GetstatusParams {
   txHash: string;
 }
 
+export interface IBCTransferTransactionInput {
+  /** @format double */
+  account_number: number;
+  amount: string;
+  chain_id: string;
+  demon: string;
+  fee_amount: string;
+  fee_demon: string;
+  from_address: string;
+  /** @format double */
+  gas_limit: number;
+  memo: string;
+  /** @format double */
+  sequence: number;
+  source_channel: string;
+  source_port: string;
+  /** @format double */
+  timeout_height: number;
+  to_address: string;
+}
+
+export interface IERC20Approval {
+  contract: string;
+  logIndex: string;
+  owner: string;
+  spender: string;
+  tokenDecimals: string;
+  tokenName: string;
+  tokenSymbol: string;
+  transactionHash: string;
+  triggers?: TriggerOutput[];
+  value: string;
+  valueWithDecimals?: string;
+}
+
+export interface IERC20Transfer {
+  contract: string;
+  from: string;
+  logIndex: string;
+  to: string;
+  tokenDecimals: string;
+  tokenName: string;
+  tokenSymbol: string;
+  transactionHash: string;
+  triggers?: TriggerOutput[];
+  value: string;
+  valueWithDecimals?: string;
+}
+
+export interface INFTApproval {
+  account: string;
+  approvedAll: boolean;
+  contract: string;
+  logIndex: string;
+  operator: string;
+  tokenContractType: string;
+  tokenId: string | null;
+  tokenName: string;
+  tokenSymbol: string;
+  transactionHash: string;
+}
+
+export interface INFTApprovalERC1155 {
+  account: string;
+  approved: boolean;
+  contract: string;
+  logIndex: string;
+  operator: string;
+  tokenContractType: string;
+  tokenName: string;
+  tokenSymbol: string;
+  transactionHash: string;
+}
+
+export interface INFTApprovalERC721 {
+  approved: string;
+  contract: string;
+  logIndex: string;
+  owner: string;
+  tokenContractType: string;
+  tokenId: string;
+  tokenName: string;
+  tokenSymbol: string;
+  transactionHash: string;
+}
+
+export interface INFTTransfer {
+  amount: string;
+  contract: string;
+  from: string;
+  logIndex: string;
+  operator: string | null;
+  to: string;
+  tokenContractType: string;
+  tokenId: string;
+  tokenName: string;
+  tokenSymbol: string;
+  transactionHash: string;
+  triggers?: TriggerOutput[];
+}
+
+export interface INativeBalance {
+  address: string;
+  balance: string;
+}
+
+export interface IOldNFTApproval {
+  ERC1155: INFTApprovalERC1155[];
+  ERC721: INFTApprovalERC721[];
+}
+
+export interface IWebhook {
+  erc20Approvals: IERC20Approval[];
+  erc20Transfers: IERC20Transfer[];
+  abi: AbiItem[];
+  block: Block;
+  chainId: string;
+  confirmed: boolean;
+  logs: Log[];
+  nativeBalances: INativeBalance[];
+  /** @deprecated */
+  nftApprovals: IOldNFTApproval;
+  nftTokenApprovals: INFTApproval[];
+  nftTransfers: INFTTransfer[];
+  /** @format double */
+  retries: number;
+  streamId: string;
+  tag: string;
+  txs: Transaction[];
+  txsInternal: InternalTransaction[];
+}
+
 export interface InputBody {
   EOA?: boolean;
   alwaysIncrementNonce?: boolean;
@@ -770,6 +1014,14 @@ export interface InputBody {
   value?: string;
 }
 
+export interface InternalTransaction {
+  from: string | null;
+  gas: string | null;
+  to: string | null;
+  transactionHash: string;
+  value: string | null;
+}
+
 export type IsApprovedForAllData = TransactionAPIResponse;
 
 export type IsApprovedForAllResult = TransactionAPIResponse;
@@ -778,11 +1030,11 @@ export type LendData = TransactionAPIResponse;
 
 export type ListAccountsData = AccountAPIResponse;
 
+export type ListAccountsResult = CosmosAPIResponse;
+
 export type ListBitcoinAccountsData = AccountAPIResponse;
 
 export type ListBitcoinCashAccountsData = AccountAPIResponse;
-
-export type ListCosmosAccountsData = AccountAPIResponse;
 
 export type ListDogeCoinAccountsData = AccountAPIResponse;
 
@@ -822,10 +1074,28 @@ export interface LitecoinTransactionOutput {
   transaction_hash?: string;
 }
 
+export interface Log {
+  topic0: string | null;
+  topic1: string | null;
+  topic2: string | null;
+  topic3: string | null;
+  address: string;
+  data: string;
+  logIndex: string;
+  transactionHash: string;
+  triggers?: TriggerOutput[];
+}
+
 export interface Message {
   crypto: CryptoCurrency[];
   fiat: FiatCurrency[];
 }
+
+export interface MessageInput {
+  message: string;
+}
+
+export type MoralisWebhookData = any;
 
 export type MultiSignSolanaTransactionData = SolanaAPIResponse;
 
@@ -940,11 +1210,38 @@ export enum OrderEnum1 {
 
 export type OwnerOfData = TransactionAPIResponse;
 
+export type PaymentCreatePaymentIntentData = PaymentIntentResponse;
+
+export type PaymentDeletePaymentIntentData = PaymentIntentResponse;
+
+export type PaymentGetAllPaymentIntentsData = PaymentIntentResponse[];
+
+export type PaymentGetAvailableChainsData = string[];
+
+export type PaymentGetPaymentIntentData = PaymentIntentResponse;
+
+export interface PaymentIntentResponse {
+  /** @format double */
+  amount?: number;
+  currency?: string;
+  destination?: string;
+  id?: string;
+  message?: string;
+  metadata?: Record<string, string>;
+  network?: string;
+  qr_code?: string;
+  status?: string;
+  success: boolean;
+  uri?: string;
+}
+
 export interface PaymentType {
   icon: string;
   name: string;
   paymentTypeId: string;
 }
+
+export type PaymentUpdatePaymentIntentData = PaymentIntentResponse;
 
 export interface PingResponse {
   message: string;
@@ -989,6 +1286,28 @@ export enum PostQuoteParams1OrderEnum {
   BEST_FEE_GAS = 'BEST_FEE_GAS',
 }
 
+export interface PostQuoteParams2 {
+  accountName: string;
+  affiliateAddress?: string;
+  /** @format double */
+  affiliateBasisPoints?: number;
+  allowSmartContractRecipient?: boolean;
+  buyAsset: string;
+  /** @format double */
+  limit?: number;
+  preferredProvider?: string;
+  providers?: string[];
+  recipientAddress: string;
+  /** @format double */
+  sellAmount: number;
+  sellAsset: string;
+  senderAddress: string;
+  /** @format double */
+  slippage?: number;
+}
+
+export type PostQuoteResult = ApiResponseQuote;
+
 export type ProtocolsData = any;
 
 export type ProtocolsPayload = any;
@@ -1008,6 +1327,8 @@ export type QuoteData = any;
 export type QuotePayload = any;
 
 export type Quotes = Quote[];
+
+export type ReadAccountData = CosmosAPIResponse;
 
 export type RemoveLiquidityData = TransactionAPIResponse;
 
@@ -1076,11 +1397,11 @@ export type SignBitcoinCashTransactionData = BitcoinCashAPIResponse;
 
 export type SignBitcoinTransactionData = BitcoinAPIResponse;
 
-export type SignCosmosTransactionData = CosmosAPIResponse;
-
 export type SignDogeCoinTransactionData = DogeCoinAPIResponse;
 
 export type SignEosTransactionData = EosAPIResponse;
+
+export type SignIbcTransferTransactionData = CosmosAPIResponse;
 
 export type SignLitecoinTransactionData = LitecoinAPIResponse;
 
@@ -1102,11 +1423,15 @@ export interface SignMessageAPIResponse {
 
 export type SignMessageData = SignMessageAPIResponse;
 
+export type SignMessageResult = CosmosAPIResponse;
+
 export type SignRippleTransactionData = RippleAPIResponse;
 
 export type SignSolanaTransactionData = SolanaAPIResponse;
 
 export type SignTransactionData = TransactionAPIResponse;
+
+export type SignTransferTransactionData = CosmosAPIResponse;
 
 export type SignTronTransactionData = TronAPIResponse;
 
@@ -1225,6 +1550,22 @@ export type SwapResult = ConveyorFinanceControllerResponse;
 export type SymbolData = TransactionAPIResponse;
 
 export type SymbolErc20Data = TransactionAPIResponse;
+
+export interface TatumTransactionEvent {
+  address: string;
+  amount: string;
+  /** @format double */
+  blockNumber: number;
+  chain: string;
+  counterAddress: string;
+  currency: string;
+  mempool: boolean;
+  subscriptionType: string;
+  test: boolean;
+  txId: string;
+}
+
+export type TatumWebhookData = any;
 
 export interface Token {
   address: string;
@@ -1438,6 +1779,30 @@ export type TransferSolanaTransactionData = SolanaAPIResponse;
 
 export type TransferTokensSignSolanaTransactionData = SolanaAPIResponse;
 
+export interface TransferTransactionInput {
+  /** @format double */
+  account_number: number;
+  amount: string;
+  chain_id: string;
+  demon: string;
+  fee_amount: string;
+  fee_demon: string;
+  from_address: string;
+  /** @format double */
+  gas_limit: number;
+  memo: string;
+  /** @format double */
+  sequence: number;
+  /** @format double */
+  timeout_height: number;
+  to_address: string;
+}
+
+export interface TriggerOutput {
+  name: string;
+  value: any;
+}
+
 export interface TronAPIResponse {
   address?: string;
   body?: InputBody;
@@ -1509,5 +1874,9 @@ export interface UniswapInput {
   token_ids?: string;
   value?: string;
 }
+
+export type UpdatePaymentIntentConfigData = PaymentIntentResponse;
+
+export type UpdatePaymentIntentConfigPayload = any;
 
 export type UserReserveDataData = AaveReservesAPIResponse;

@@ -6,135 +6,6 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
-			"NonceResponse": {
-				"properties": {
-					"nonce": {
-						"type": "number",
-						"format": "double"
-					}
-				},
-				"required": [
-					"nonce"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"InputBody": {
-				"properties": {
-					"to": {
-						"type": "string"
-					},
-					"data": {
-						"type": "string"
-					},
-					"input": {
-						"type": "string"
-					},
-					"value": {
-						"type": "string"
-					},
-					"nonce": {
-						"type": "string"
-					},
-					"gas": {
-						"type": "string"
-					},
-					"gasPrice": {
-						"type": "string"
-					},
-					"chain_id": {
-						"type": "string"
-					},
-					"encoding": {
-						"type": "string"
-					},
-					"EOA": {
-						"type": "boolean"
-					},
-					"contract_address": {
-						"type": "string"
-					},
-					"token_id": {
-						"type": "string"
-					},
-					"token_ids": {
-						"type": "string"
-					},
-					"approved": {
-						"type": "boolean"
-					},
-					"broadcast": {
-						"type": "boolean"
-					},
-					"alwaysIncrementNonce": {
-						"type": "boolean"
-					}
-				},
-				"type": "object",
-				"additionalProperties": false
-			},
-			"NonceAPIResponse": {
-				"properties": {
-					"success": {
-						"type": "boolean"
-					},
-					"message": {
-						"type": "string"
-					},
-					"body": {
-						"$ref": "#/components/schemas/InputBody"
-					},
-					"address": {
-						"type": "string"
-					},
-					"data": {
-						"$ref": "#/components/schemas/NonceResponse"
-					}
-				},
-				"required": [
-					"success",
-					"message"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"BalanceResponse": {
-				"properties": {
-					"balance": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"balance"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"BalanceAPIResponse": {
-				"properties": {
-					"success": {
-						"type": "boolean"
-					},
-					"message": {
-						"type": "string"
-					},
-					"body": {
-						"$ref": "#/components/schemas/InputBody"
-					},
-					"address": {
-						"type": "string"
-					},
-					"data": {
-						"$ref": "#/components/schemas/BalanceResponse"
-					}
-				},
-				"required": [
-					"success",
-					"message"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
 			"Tx": {
 				"properties": {
 					"type": {
@@ -314,6 +185,60 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"InputBody": {
+				"properties": {
+					"to": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					},
+					"input": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "string"
+					},
+					"gas": {
+						"type": "string"
+					},
+					"gasPrice": {
+						"type": "string"
+					},
+					"chain_id": {
+						"type": "string"
+					},
+					"encoding": {
+						"type": "string"
+					},
+					"EOA": {
+						"type": "boolean"
+					},
+					"contract_address": {
+						"type": "string"
+					},
+					"token_id": {
+						"type": "string"
+					},
+					"token_ids": {
+						"type": "string"
+					},
+					"approved": {
+						"type": "boolean"
+					},
+					"broadcast": {
+						"type": "boolean"
+					},
+					"alwaysIncrementNonce": {
+						"type": "boolean"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
 			"TransactionAPIResponse": {
 				"properties": {
 					"success": {
@@ -332,6 +257,223 @@
 					"signedTx": {},
 					"data": {
 						"$ref": "#/components/schemas/Transaction"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AaveInput": {
+				"properties": {
+					"to": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					},
+					"input": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "string"
+					},
+					"gas": {
+						"type": "string"
+					},
+					"gasPrice": {
+						"type": "string"
+					},
+					"chain_id": {
+						"type": "string"
+					},
+					"encoding": {
+						"type": "string"
+					},
+					"EOA": {
+						"type": "boolean"
+					},
+					"contract_address": {
+						"type": "string"
+					},
+					"token_id": {
+						"type": "string"
+					},
+					"token_ids": {
+						"type": "string"
+					},
+					"approved": {
+						"type": "boolean"
+					},
+					"broadcast": {
+						"type": "boolean"
+					},
+					"alwaysIncrementNonce": {
+						"type": "boolean"
+					},
+					"lending_pool": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "string"
+					},
+					"atoken_to_redeeem": {
+						"type": "string"
+					},
+					"ref_code": {
+						"type": "string"
+					},
+					"interest_rate_mode": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AaveReservesData": {
+				"properties": {
+					"current_atoken_balance": {
+						"type": "string"
+					},
+					"current_borrow_balance": {
+						"type": "string"
+					},
+					"principal_borrow_balance": {
+						"type": "string"
+					},
+					"borrow_rate_mode": {
+						"type": "string"
+					},
+					"borrow_rate": {
+						"type": "string"
+					},
+					"liquidity_rate": {
+						"type": "string"
+					},
+					"origination_fee": {
+						"type": "string"
+					},
+					"variable_borrow_index": {
+						"type": "string"
+					},
+					"last_update_timestamp": {
+						"type": "string"
+					},
+					"usage_as_collateral_enabled": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"current_atoken_balance",
+					"current_borrow_balance",
+					"principal_borrow_balance",
+					"borrow_rate_mode",
+					"borrow_rate",
+					"liquidity_rate",
+					"origination_fee",
+					"variable_borrow_index",
+					"last_update_timestamp",
+					"usage_as_collateral_enabled"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AaveReservesAPIResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody"
+					},
+					"address": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/AaveReservesData"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"NonceResponse": {
+				"properties": {
+					"nonce": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"nonce"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"NonceAPIResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody"
+					},
+					"address": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/NonceResponse"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BalanceResponse": {
+				"properties": {
+					"balance": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"balance"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BalanceAPIResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody"
+					},
+					"address": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/BalanceResponse"
 					}
 				},
 				"required": [
@@ -594,148 +736,6 @@
 					"abi",
 					"functionName",
 					"params"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"AaveInput": {
-				"properties": {
-					"to": {
-						"type": "string"
-					},
-					"data": {
-						"type": "string"
-					},
-					"input": {
-						"type": "string"
-					},
-					"value": {
-						"type": "string"
-					},
-					"nonce": {
-						"type": "string"
-					},
-					"gas": {
-						"type": "string"
-					},
-					"gasPrice": {
-						"type": "string"
-					},
-					"chain_id": {
-						"type": "string"
-					},
-					"encoding": {
-						"type": "string"
-					},
-					"EOA": {
-						"type": "boolean"
-					},
-					"contract_address": {
-						"type": "string"
-					},
-					"token_id": {
-						"type": "string"
-					},
-					"token_ids": {
-						"type": "string"
-					},
-					"approved": {
-						"type": "boolean"
-					},
-					"broadcast": {
-						"type": "boolean"
-					},
-					"alwaysIncrementNonce": {
-						"type": "boolean"
-					},
-					"lending_pool": {
-						"type": "string"
-					},
-					"amount": {
-						"type": "string"
-					},
-					"atoken_to_redeeem": {
-						"type": "string"
-					},
-					"ref_code": {
-						"type": "string"
-					},
-					"interest_rate_mode": {
-						"type": "string"
-					}
-				},
-				"type": "object",
-				"additionalProperties": false
-			},
-			"AaveReservesData": {
-				"properties": {
-					"current_atoken_balance": {
-						"type": "string"
-					},
-					"current_borrow_balance": {
-						"type": "string"
-					},
-					"principal_borrow_balance": {
-						"type": "string"
-					},
-					"borrow_rate_mode": {
-						"type": "string"
-					},
-					"borrow_rate": {
-						"type": "string"
-					},
-					"liquidity_rate": {
-						"type": "string"
-					},
-					"origination_fee": {
-						"type": "string"
-					},
-					"variable_borrow_index": {
-						"type": "string"
-					},
-					"last_update_timestamp": {
-						"type": "string"
-					},
-					"usage_as_collateral_enabled": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"current_atoken_balance",
-					"current_borrow_balance",
-					"principal_borrow_balance",
-					"borrow_rate_mode",
-					"borrow_rate",
-					"liquidity_rate",
-					"origination_fee",
-					"variable_borrow_index",
-					"last_update_timestamp",
-					"usage_as_collateral_enabled"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"AaveReservesAPIResponse": {
-				"properties": {
-					"success": {
-						"type": "boolean"
-					},
-					"message": {
-						"type": "string"
-					},
-					"body": {
-						"$ref": "#/components/schemas/InputBody"
-					},
-					"address": {
-						"type": "string"
-					},
-					"data": {
-						"$ref": "#/components/schemas/AaveReservesData"
-					}
-				},
-				"required": [
-					"success",
-					"message"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -1188,30 +1188,6 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"CosmosInput": {
-				"properties": {
-					"network": {
-						"type": "string"
-					},
-					"private_key": {
-						"type": "string"
-					}
-				},
-				"type": "object",
-				"additionalProperties": false
-			},
-			"CosmosTransactionOutput": {
-				"properties": {
-					"signedTx": {
-						"type": "string"
-					},
-					"transaction_hash": {
-						"type": "string"
-					}
-				},
-				"type": "object",
-				"additionalProperties": false
-			},
 			"CosmosAPIResponse": {
 				"properties": {
 					"success": {
@@ -1220,15 +1196,7 @@
 					"message": {
 						"type": "string"
 					},
-					"body": {
-						"$ref": "#/components/schemas/InputBody"
-					},
-					"address": {
-						"type": "string"
-					},
-					"data": {
-						"$ref": "#/components/schemas/CosmosTransactionOutput"
-					}
+					"data": {}
 				},
 				"required": [
 					"success",
@@ -1237,22 +1205,143 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"CosmosTransactionInput": {
+			"TransferTransactionInput": {
 				"properties": {
-					"to": {
+					"from_address": {
 						"type": "string"
 					},
-					"value": {
+					"to_address": {
+						"type": "string"
+					},
+					"demon": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "string"
+					},
+					"chain_id": {
+						"type": "string"
+					},
+					"sequence": {
 						"type": "number",
 						"format": "double"
 					},
-					"network": {
+					"account_number": {
+						"type": "number",
+						"format": "double"
+					},
+					"fee_demon": {
 						"type": "string"
 					},
-					"compress": {
-						"type": "boolean"
+					"fee_amount": {
+						"type": "string"
+					},
+					"gas_limit": {
+						"type": "number",
+						"format": "double"
+					},
+					"memo": {
+						"type": "string"
+					},
+					"timeout_height": {
+						"type": "number",
+						"format": "double"
 					}
 				},
+				"required": [
+					"from_address",
+					"to_address",
+					"demon",
+					"amount",
+					"chain_id",
+					"sequence",
+					"account_number",
+					"fee_demon",
+					"fee_amount",
+					"gas_limit",
+					"memo",
+					"timeout_height"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"MessageInput": {
+				"properties": {
+					"message": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IBCTransferTransactionInput": {
+				"properties": {
+					"from_address": {
+						"type": "string"
+					},
+					"to_address": {
+						"type": "string"
+					},
+					"demon": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "string"
+					},
+					"chain_id": {
+						"type": "string"
+					},
+					"sequence": {
+						"type": "number",
+						"format": "double"
+					},
+					"account_number": {
+						"type": "number",
+						"format": "double"
+					},
+					"fee_demon": {
+						"type": "string"
+					},
+					"fee_amount": {
+						"type": "string"
+					},
+					"gas_limit": {
+						"type": "number",
+						"format": "double"
+					},
+					"memo": {
+						"type": "string"
+					},
+					"timeout_height": {
+						"type": "number",
+						"format": "double"
+					},
+					"source_port": {
+						"type": "string"
+					},
+					"source_channel": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"from_address",
+					"to_address",
+					"demon",
+					"amount",
+					"chain_id",
+					"sequence",
+					"account_number",
+					"fee_demon",
+					"fee_amount",
+					"gas_limit",
+					"memo",
+					"timeout_height",
+					"source_port",
+					"source_channel"
+				],
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -3059,6 +3148,783 @@
 				],
 				"type": "object"
 			},
+			"PaymentIntentResponse": {
+				"properties": {
+					"metadata": {
+						"properties": {},
+						"additionalProperties": {
+							"type": "string"
+						},
+						"type": "object"
+					},
+					"uri": {
+						"type": "string"
+					},
+					"qr_code": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string"
+					},
+					"destination": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "number",
+						"format": "double"
+					},
+					"network": {
+						"type": "string"
+					},
+					"currency": {
+						"type": "string"
+					},
+					"id": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"success": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"success"
+				],
+				"type": "object"
+			},
+			"CreatePaymentIntentInput": {
+				"properties": {
+					"config": {
+						"type": "string"
+					},
+					"metadata": {
+						"properties": {},
+						"additionalProperties": {
+							"type": "string"
+						},
+						"type": "object"
+					},
+					"network": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "number",
+						"format": "double"
+					},
+					"currency": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"metadata",
+					"amount"
+				],
+				"type": "object"
+			},
+			"Block": {
+				"properties": {
+					"number": {
+						"type": "string"
+					},
+					"hash": {
+						"type": "string"
+					},
+					"timestamp": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"number",
+					"hash",
+					"timestamp"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TriggerOutput": {
+				"properties": {
+					"value": {},
+					"name": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"value",
+					"name"
+				],
+				"type": "object"
+			},
+			"Log": {
+				"properties": {
+					"triggers": {
+						"items": {
+							"$ref": "#/components/schemas/TriggerOutput"
+						},
+						"type": "array"
+					},
+					"logIndex": {
+						"type": "string"
+					},
+					"transactionHash": {
+						"type": "string"
+					},
+					"address": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					},
+					"topic0": {
+						"type": "string",
+						"nullable": true
+					},
+					"topic1": {
+						"type": "string",
+						"nullable": true
+					},
+					"topic2": {
+						"type": "string",
+						"nullable": true
+					},
+					"topic3": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"required": [
+					"logIndex",
+					"transactionHash",
+					"address",
+					"data",
+					"topic0",
+					"topic1",
+					"topic2",
+					"topic3"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"InternalTransaction": {
+				"properties": {
+					"from": {
+						"type": "string",
+						"nullable": true
+					},
+					"to": {
+						"type": "string",
+						"nullable": true
+					},
+					"value": {
+						"type": "string",
+						"nullable": true
+					},
+					"transactionHash": {
+						"type": "string"
+					},
+					"gas": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"required": [
+					"from",
+					"to",
+					"value",
+					"transactionHash",
+					"gas"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AbiInput": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"indexed": {
+						"type": "boolean"
+					},
+					"components": {
+						"items": {
+							"$ref": "#/components/schemas/AbiInput"
+						},
+						"type": "array"
+					},
+					"internalType": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"type"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AbiOutput": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"components": {
+						"items": {
+							"$ref": "#/components/schemas/AbiOutput"
+						},
+						"type": "array"
+					},
+					"internalType": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"type"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AbiItem": {
+				"description": "The abi to parse the log object of the contract",
+				"properties": {
+					"anonymous": {
+						"type": "boolean"
+					},
+					"constant": {
+						"type": "boolean"
+					},
+					"inputs": {
+						"items": {
+							"$ref": "#/components/schemas/AbiInput"
+						},
+						"type": "array"
+					},
+					"name": {
+						"type": "string"
+					},
+					"outputs": {
+						"items": {
+							"$ref": "#/components/schemas/AbiOutput"
+						},
+						"type": "array"
+					},
+					"payable": {
+						"type": "boolean"
+					},
+					"stateMutability": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"gas": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"type"
+				],
+				"type": "object",
+				"additionalProperties": false,
+				"example": {}
+			},
+			"IERC20Transfer": {
+				"properties": {
+					"transactionHash": {
+						"type": "string"
+					},
+					"contract": {
+						"type": "string"
+					},
+					"logIndex": {
+						"type": "string"
+					},
+					"from": {
+						"type": "string"
+					},
+					"to": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"tokenDecimals": {
+						"type": "string"
+					},
+					"tokenName": {
+						"type": "string"
+					},
+					"tokenSymbol": {
+						"type": "string"
+					},
+					"valueWithDecimals": {
+						"type": "string"
+					},
+					"triggers": {
+						"items": {
+							"$ref": "#/components/schemas/TriggerOutput"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"transactionHash",
+					"contract",
+					"logIndex",
+					"from",
+					"to",
+					"value",
+					"tokenDecimals",
+					"tokenName",
+					"tokenSymbol"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IERC20Approval": {
+				"properties": {
+					"transactionHash": {
+						"type": "string"
+					},
+					"contract": {
+						"type": "string"
+					},
+					"logIndex": {
+						"type": "string"
+					},
+					"owner": {
+						"type": "string"
+					},
+					"spender": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"tokenDecimals": {
+						"type": "string"
+					},
+					"tokenName": {
+						"type": "string"
+					},
+					"tokenSymbol": {
+						"type": "string"
+					},
+					"valueWithDecimals": {
+						"type": "string"
+					},
+					"triggers": {
+						"items": {
+							"$ref": "#/components/schemas/TriggerOutput"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"transactionHash",
+					"contract",
+					"logIndex",
+					"owner",
+					"spender",
+					"value",
+					"tokenDecimals",
+					"tokenName",
+					"tokenSymbol"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"INFTTransfer": {
+				"properties": {
+					"transactionHash": {
+						"type": "string"
+					},
+					"contract": {
+						"type": "string"
+					},
+					"logIndex": {
+						"type": "string"
+					},
+					"tokenContractType": {
+						"type": "string"
+					},
+					"tokenName": {
+						"type": "string"
+					},
+					"tokenSymbol": {
+						"type": "string"
+					},
+					"triggers": {
+						"items": {
+							"$ref": "#/components/schemas/TriggerOutput"
+						},
+						"type": "array"
+					},
+					"operator": {
+						"type": "string",
+						"nullable": true
+					},
+					"from": {
+						"type": "string"
+					},
+					"to": {
+						"type": "string"
+					},
+					"tokenId": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"transactionHash",
+					"contract",
+					"logIndex",
+					"tokenContractType",
+					"tokenName",
+					"tokenSymbol",
+					"operator",
+					"from",
+					"to",
+					"tokenId",
+					"amount"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"INativeBalance": {
+				"properties": {
+					"address": {
+						"type": "string"
+					},
+					"balance": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"address",
+					"balance"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"INFTApprovalERC721": {
+				"properties": {
+					"transactionHash": {
+						"type": "string"
+					},
+					"contract": {
+						"type": "string"
+					},
+					"logIndex": {
+						"type": "string"
+					},
+					"owner": {
+						"type": "string"
+					},
+					"approved": {
+						"type": "string"
+					},
+					"tokenId": {
+						"type": "string"
+					},
+					"tokenContractType": {
+						"type": "string"
+					},
+					"tokenName": {
+						"type": "string"
+					},
+					"tokenSymbol": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"transactionHash",
+					"contract",
+					"logIndex",
+					"owner",
+					"approved",
+					"tokenId",
+					"tokenContractType",
+					"tokenName",
+					"tokenSymbol"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"INFTApprovalERC1155": {
+				"properties": {
+					"transactionHash": {
+						"type": "string"
+					},
+					"contract": {
+						"type": "string"
+					},
+					"logIndex": {
+						"type": "string"
+					},
+					"account": {
+						"type": "string"
+					},
+					"operator": {
+						"type": "string"
+					},
+					"approved": {
+						"type": "boolean"
+					},
+					"tokenContractType": {
+						"type": "string"
+					},
+					"tokenName": {
+						"type": "string"
+					},
+					"tokenSymbol": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"transactionHash",
+					"contract",
+					"logIndex",
+					"account",
+					"operator",
+					"approved",
+					"tokenContractType",
+					"tokenName",
+					"tokenSymbol"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IOldNFTApproval": {
+				"properties": {
+					"ERC721": {
+						"items": {
+							"$ref": "#/components/schemas/INFTApprovalERC721"
+						},
+						"type": "array"
+					},
+					"ERC1155": {
+						"items": {
+							"$ref": "#/components/schemas/INFTApprovalERC1155"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"ERC721",
+					"ERC1155"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"INFTApproval": {
+				"properties": {
+					"transactionHash": {
+						"type": "string"
+					},
+					"contract": {
+						"type": "string"
+					},
+					"logIndex": {
+						"type": "string"
+					},
+					"tokenContractType": {
+						"type": "string"
+					},
+					"tokenName": {
+						"type": "string"
+					},
+					"tokenSymbol": {
+						"type": "string"
+					},
+					"account": {
+						"type": "string"
+					},
+					"operator": {
+						"type": "string"
+					},
+					"approvedAll": {
+						"type": "boolean"
+					},
+					"tokenId": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"required": [
+					"transactionHash",
+					"contract",
+					"logIndex",
+					"tokenContractType",
+					"tokenName",
+					"tokenSymbol",
+					"account",
+					"operator",
+					"approvedAll",
+					"tokenId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IWebhook": {
+				"properties": {
+					"block": {
+						"$ref": "#/components/schemas/Block"
+					},
+					"chainId": {
+						"type": "string"
+					},
+					"logs": {
+						"items": {
+							"$ref": "#/components/schemas/Log"
+						},
+						"type": "array"
+					},
+					"txs": {
+						"items": {
+							"$ref": "#/components/schemas/Transaction"
+						},
+						"type": "array"
+					},
+					"txsInternal": {
+						"items": {
+							"$ref": "#/components/schemas/InternalTransaction"
+						},
+						"type": "array"
+					},
+					"abi": {
+						"items": {
+							"$ref": "#/components/schemas/AbiItem"
+						},
+						"type": "array"
+					},
+					"retries": {
+						"type": "number",
+						"format": "double"
+					},
+					"confirmed": {
+						"type": "boolean"
+					},
+					"tag": {
+						"type": "string"
+					},
+					"streamId": {
+						"type": "string"
+					},
+					"erc20Transfers": {
+						"items": {
+							"$ref": "#/components/schemas/IERC20Transfer"
+						},
+						"type": "array"
+					},
+					"erc20Approvals": {
+						"items": {
+							"$ref": "#/components/schemas/IERC20Approval"
+						},
+						"type": "array"
+					},
+					"nftTransfers": {
+						"items": {
+							"$ref": "#/components/schemas/INFTTransfer"
+						},
+						"type": "array"
+					},
+					"nativeBalances": {
+						"items": {
+							"$ref": "#/components/schemas/INativeBalance"
+						},
+						"type": "array"
+					},
+					"nftApprovals": {
+						"$ref": "#/components/schemas/IOldNFTApproval",
+						"deprecated": true
+					},
+					"nftTokenApprovals": {
+						"items": {
+							"$ref": "#/components/schemas/INFTApproval"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"block",
+					"chainId",
+					"logs",
+					"txs",
+					"txsInternal",
+					"abi",
+					"retries",
+					"confirmed",
+					"tag",
+					"streamId",
+					"erc20Transfers",
+					"erc20Approvals",
+					"nftTransfers",
+					"nativeBalances",
+					"nftApprovals",
+					"nftTokenApprovals"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TatumTransactionEvent": {
+				"properties": {
+					"amount": {
+						"type": "string"
+					},
+					"test": {
+						"type": "boolean"
+					},
+					"counterAddress": {
+						"type": "string"
+					},
+					"address": {
+						"type": "string"
+					},
+					"mempool": {
+						"type": "boolean"
+					},
+					"subscriptionType": {
+						"type": "string"
+					},
+					"blockNumber": {
+						"type": "number",
+						"format": "double"
+					},
+					"txId": {
+						"type": "string"
+					},
+					"chain": {
+						"type": "string"
+					},
+					"currency": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"amount",
+					"test",
+					"counterAddress",
+					"address",
+					"mempool",
+					"subscriptionType",
+					"blockNumber",
+					"txId",
+					"chain",
+					"currency"
+				],
+				"type": "object"
+			},
 			"PingResponse": {
 				"properties": {
 					"message": {
@@ -3219,6 +4085,136 @@
 						"type": "boolean"
 					}
 				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ChainId": {
+				"anyOf": [
+					{
+						"type": "string"
+					},
+					{
+						"type": "number",
+						"format": "double"
+					}
+				]
+			},
+			"ChainMap": {
+				"properties": {},
+				"type": "object",
+				"additionalProperties": {
+					"$ref": "#/components/schemas/ChainId"
+				}
+			},
+			"ApiResponse_ChainMap_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/ChainMap"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_string-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"GasPrice": {
+				"properties": {
+					"lastTimestamp": {
+						"type": "number",
+						"format": "double"
+					},
+					"chainId": {
+						"type": "string"
+					},
+					"unitName": {
+						"type": "string"
+					},
+					"history": {
+						"items": {
+							"properties": {
+								"timestamp": {
+									"type": "number",
+									"format": "double"
+								},
+								"value": {
+									"type": "number",
+									"format": "double"
+								}
+							},
+							"required": [
+								"timestamp",
+								"value"
+							],
+							"type": "object"
+						},
+						"type": "array"
+					},
+					"average24h": {
+						"type": "number",
+						"format": "double"
+					},
+					"average7d": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"lastTimestamp",
+					"chainId",
+					"unitName",
+					"history",
+					"average24h",
+					"average7d"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_GasPrice_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/GasPrice"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -3391,6 +4387,242 @@
 	},
 	"openapi": "3.0.0",
 	"paths": {
+		"/aave/{name}/lend": {
+			"post": {
+				"operationId": "Lend",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/TransactionAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Aave"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AaveInput"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/aave/{name}/borrow": {
+			"post": {
+				"operationId": "Borrow",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/TransactionAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Aave"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AaveInput"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/aave/{name}/user-reserve-data": {
+			"post": {
+				"operationId": "UserReserveData",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AaveReservesAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Aave"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AaveInput"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/aave/{name}/repay": {
+			"post": {
+				"operationId": "Repay",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/TransactionAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Aave"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AaveInput"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/accounts/{accountName}/nonce": {
 			"get": {
 				"operationId": "GetNonce",
@@ -4204,242 +5436,6 @@
 				}
 			}
 		},
-		"/aave/{name}/lend": {
-			"post": {
-				"operationId": "Lend",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Aave"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "name",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/AaveInput"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/aave/{name}/borrow": {
-			"post": {
-				"operationId": "Borrow",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Aave"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "name",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/AaveInput"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/aave/{name}/user-reserve-data": {
-			"post": {
-				"operationId": "UserReserveData",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/AaveReservesAPIResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Aave"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "name",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/AaveInput"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/aave/{name}/repay": {
-			"post": {
-				"operationId": "Repay",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Aave"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "name",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/AaveInput"
-							}
-						}
-					}
-				}
-			}
-		},
 		"/oneinch/tokens": {
 			"post": {
 				"operationId": "Tokens",
@@ -5142,16 +6138,16 @@
 				}
 			}
 		},
-		"/cosmos": {
+		"/cosmos/accounts": {
 			"get": {
-				"operationId": "ListCosmosAccounts",
+				"operationId": "ListAccounts",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/AccountAPIResponse"
+									"$ref": "#/components/schemas/CosmosAPIResponse"
 								}
 							}
 						}
@@ -5183,14 +6179,14 @@
 				]
 			},
 			"post": {
-				"operationId": "CreateCosmosAccount",
+				"operationId": "CreateAccount",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/AccountAPIResponse"
+									"$ref": "#/components/schemas/CosmosAPIResponse"
 								}
 							}
 						}
@@ -5225,23 +6221,78 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/CosmosInput"
+								"properties": {
+									"network": {
+										"type": "string"
+									},
+									"private_key": {
+										"type": "string"
+									}
+								},
+								"type": "object"
 							}
 						}
 					}
 				}
 			}
 		},
-		"/cosmos/{accountName}": {
+		"/cosmos/accounts/{accountName}": {
 			"get": {
-				"operationId": "GetCosmosAccount",
+				"operationId": "ReadAccount",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/AccountAPIResponse"
+									"$ref": "#/components/schemas/CosmosAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Cosmos"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "DeleteAccount",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CosmosAPIResponse"
 								}
 							}
 						}
@@ -5281,9 +6332,9 @@
 				]
 			}
 		},
-		"/cosmos/{accountName}/sign-tx": {
+		"/cosmos/accounts/{accountName}/sign-transfer": {
 			"post": {
-				"operationId": "SignCosmosTransaction",
+				"operationId": "SignTransferTransaction",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -5333,7 +6384,125 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/CosmosTransactionInput"
+								"$ref": "#/components/schemas/TransferTransactionInput"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/cosmos/accounts/{accountName}/sign-message": {
+			"post": {
+				"operationId": "SignMessage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CosmosAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Cosmos"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MessageInput"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/cosmos/accounts/{accountName}/sign-ibc-transfer": {
+			"post": {
+				"operationId": "SignIBCTransferTransaction",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CosmosAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Cosmos"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IBCTransferTransactionInput"
 							}
 						}
 					}
@@ -8798,6 +9967,625 @@
 				}
 			}
 		},
+		"/payment/chains": {
+			"get": {
+				"operationId": "PaymentGetAvailableChains",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"type": "string"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"payment"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/payment": {
+			"post": {
+				"operationId": "PaymentCreatePaymentIntent",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PaymentIntentResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"payment"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreatePaymentIntentInput"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "PaymentGetAllPaymentIntents",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/PaymentIntentResponse"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"payment"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/payment/{id}": {
+			"delete": {
+				"operationId": "PaymentDeletePaymentIntent",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PaymentIntentResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"payment"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "PaymentUpdatePaymentIntent",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PaymentIntentResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"payment"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreatePaymentIntentInput"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "PaymentGetPaymentIntent",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PaymentIntentResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"payment"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/payment/webhook/{id}": {
+			"post": {
+				"operationId": "MoralisWebhook",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"payment"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IWebhook"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/payment/webhook/tatum/{id}": {
+			"post": {
+				"operationId": "TatumWebhook",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"payment"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/TatumTransactionEvent"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/payment/config": {
+			"get": {
+				"operationId": "GetAllPaymentIntentConfigs",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/PaymentIntentResponse"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"payment"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"post": {
+				"operationId": "CreatePaymentIntentConfig",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"payment"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {}
+						}
+					}
+				}
+			}
+		},
+		"/payment/config/{id}": {
+			"get": {
+				"operationId": "GetOnePaymentIntentConfigs",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PaymentIntentResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"payment"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "UpdatePaymentIntentConfig",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PaymentIntentResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"payment"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeletePaymentIntentConfig",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PaymentIntentResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"payment"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
 		"/ping": {
 			"get": {
 				"operationId": "GetMessage",
@@ -9388,6 +11176,318 @@
 						}
 					}
 				}
+			}
+		},
+		"/thorswap/chains": {
+			"get": {
+				"operationId": "GetSupportedChains",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_ChainMap_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/thorswap/providers": {
+			"get": {
+				"operationId": "GetSupportedProviders",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_string-Array_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/thorswap/quote": {
+			"get": {
+				"operationId": "GetQuote",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_Quote_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "sellAsset",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "buyAsset",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "sellAmount",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "senderAddress",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "recipientAddress",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "slippage",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "providers",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "preferredProvider",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "affiliateAddress",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "affiliateBasisPoints",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "allowSmartContractRecipient",
+						"required": false,
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				]
+			}
+		},
+		"/thorswap/{accountName}/quote": {
+			"post": {
+				"operationId": "PostQuote",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_Quote_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "sellAsset",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "buyAsset",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "sellAmount",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "senderAddress",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "recipientAddress",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "slippage",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "providers",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "preferredProvider",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "affiliateAddress",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "affiliateBasisPoints",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "allowSmartContractRecipient",
+						"required": false,
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				]
+			}
+		},
+		"/thorswap/gasPrice": {
+			"get": {
+				"operationId": "GetGasPrice",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_GasPrice_"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		},
 		"/tron": {
@@ -10063,7 +12163,7 @@
 	},
 	"servers": [
 		{
-			"url": "https://beta.usemoon.ai"
+			"url": "https://beta.usemoon.ai/"
 		}
 	]
 }
