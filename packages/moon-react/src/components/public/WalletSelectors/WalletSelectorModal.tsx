@@ -13,7 +13,7 @@ type WalletSelectorProps = {
   listItemProps?: React.HTMLAttributes<HTMLDivElement>;
 };
 
-const WalletSelectorModal = ({
+export const WalletSelectorModal = ({
   title,
   headerProps,
   buttonProps,
@@ -85,5 +85,3 @@ const WalletSelectorModal = ({
     </>
   );
 };
-
-export default WalletSelectorModal;

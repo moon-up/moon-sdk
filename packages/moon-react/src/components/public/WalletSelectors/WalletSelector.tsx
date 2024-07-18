@@ -12,7 +12,7 @@ type WalletSelectorProps = {
   optionProps?: React.OptionHTMLAttributes<HTMLOptionElement>;
 };
 
-const WalletSelector = ({ selectProps, optionProps }: WalletSelectorProps) => {
+export const WalletSelector = ({ selectProps, optionProps }: WalletSelectorProps) => {
   const { wallets, setWallet, wallet, chain } = useMoonSDK();
   const gasBalanceQueries = useFetchWalletBalances(
     wallets,
@@ -46,5 +46,3 @@ const WalletSelector = ({ selectProps, optionProps }: WalletSelectorProps) => {
     </select>
   );
 };
-
-export default WalletSelector;
