@@ -579,14 +579,12 @@ export class MoonSDK extends EventEmitter {
   public async performDiscordOauthCodeExchange(code: string) {
     const provider = 'discord';
     // Ensure clientId is accessed correctly from this.config
-    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}/token`;
+    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}/token?code=${code}`;
 
     const response = await fetch(uri, {
-      method: 'POST', // Change method to POST for code exchange
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ code }), // Send code in the request body
     });
 
     if (!response.ok) {
@@ -613,13 +611,11 @@ export class MoonSDK extends EventEmitter {
   public async performGithubOauthCodeExchange(code: string) {
     const provider = 'github';
     // Correctly use POST method and include code in the body, not in the URL
-    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}/token`;
+    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}/token?code=${code}`;
     const response = await fetch(uri, {
-      method: 'POST', // Change method to POST
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ code }), // Include code in the body
     });
 
     if (!response.ok) {
@@ -646,13 +642,11 @@ export class MoonSDK extends EventEmitter {
   public async performGoogleOauthCodeExchange(code: string) {
     const provider = 'google';
     // Correctly use POST method and include code in the body, not in the URL
-    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}/token`;
+    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}/token?code=${code}`;
     const response = await fetch(uri, {
-      method: 'POST', // Change method to POST
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ code }), // Include code in the body
     });
 
     if (!response.ok) {
@@ -680,13 +674,11 @@ export class MoonSDK extends EventEmitter {
   public async performTwitterOauthCodeExchange(code: string) {
     const provider = 'twitter';
     // Use POST method and include code in the body instead of the URL
-    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}/token`;
+    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}/token?code=${code}`;
     const response = await fetch(uri, {
-      method: 'POST', // Correct method to POST
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ code }), // Include code in the body
     });
 
     if (!response.ok) {
