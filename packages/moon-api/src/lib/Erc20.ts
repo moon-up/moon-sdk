@@ -10,16 +10,22 @@
  */
 
 import {
-  AllowanceErc20Data,
-  ApproveErc20Data,
-  BalanceOfErc20Data,
-  DecimalsErc20Data,
-  InputBody,
-  NameErc20Data,
-  SymbolErc20Data,
-  TotalSupplyErc20Data,
-  TransferErc20Data,
-  TransferFromErc20Data,
+  ApproveData,
+  ERC20InputBody,
+  GetAllowanceData,
+  GetAllowanceParams,
+  GetBalanceOfData,
+  GetBalanceOfParams,
+  GetDecimalsData,
+  GetDecimalsParams,
+  GetNameData,
+  GetNameParams,
+  GetSymbolData,
+  GetSymbolParams,
+  GetTotalSupplyData,
+  GetTotalSupplyParams,
+  TransferData,
+  TransferFromData,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
@@ -33,170 +39,187 @@ export class Erc20<SecurityDataType = unknown> {
   /**
    * No description
    *
-   * @tags Erc20
-   * @name AllowanceErc20
-   * @request POST:/erc20/{name}/allowance
+   * @tags ERC20
+   * @name Approve
+   * @request POST:/erc20/{address}/approve
    * @secure
    */
-  allowanceErc20 = (
-    name: string,
-    data: InputBody,
+  approve = (
+    address: string,
+    data: ERC20InputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<AllowanceErc20Data, any>({
-      path: `/erc20/${name}/allowance`,
+    this.http.request<ApproveData, any>({
+      path: `/erc20/${address}/approve`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     });
   /**
    * No description
    *
-   * @tags Erc20
-   * @name ApproveErc20
-   * @request POST:/erc20/{name}/approve
+   * @tags ERC20
+   * @name GetAllowance
+   * @request GET:/erc20/{account}/allowance
    * @secure
    */
-  approveErc20 = (name: string, data: InputBody, params: RequestParams = {}) =>
-    this.http.request<ApproveErc20Data, any>({
-      path: `/erc20/${name}/approve`,
-      method: 'POST',
-      body: data,
-      secure: true,
-      type: ContentType.Json,
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags Erc20
-   * @name BalanceOfErc20
-   * @request POST:/erc20/{name}/balance-of
-   * @secure
-   */
-  balanceOfErc20 = (
-    name: string,
-    data: InputBody,
+  getAllowance = (
+    { account, ...query }: GetAllowanceParams,
     params: RequestParams = {}
   ) =>
-    this.http.request<BalanceOfErc20Data, any>({
-      path: `/erc20/${name}/balance-of`,
-      method: 'POST',
-      body: data,
+    this.http.request<GetAllowanceData, any>({
+      path: `/erc20/${account}/allowance`,
+      method: 'GET',
+      query: query,
       secure: true,
-      type: ContentType.Json,
+      format: 'json',
       ...params,
     });
   /**
    * No description
    *
-   * @tags Erc20
-   * @name DecimalsErc20
-   * @request POST:/erc20/{name}/decimals
+   * @tags ERC20
+   * @name GetBalanceOf
+   * @request GET:/erc20/{account}/balanceOf
    * @secure
    */
-  decimalsErc20 = (name: string, data: InputBody, params: RequestParams = {}) =>
-    this.http.request<DecimalsErc20Data, any>({
-      path: `/erc20/${name}/decimals`,
-      method: 'POST',
-      body: data,
-      secure: true,
-      type: ContentType.Json,
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags Erc20
-   * @name NameErc20
-   * @request POST:/erc20/{name}/name
-   * @secure
-   */
-  nameErc20 = (name: string, data: InputBody, params: RequestParams = {}) =>
-    this.http.request<NameErc20Data, any>({
-      path: `/erc20/${name}/name`,
-      method: 'POST',
-      body: data,
-      secure: true,
-      type: ContentType.Json,
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags Erc20
-   * @name SymbolErc20
-   * @request POST:/erc20/{name}/symbol
-   * @secure
-   */
-  symbolErc20 = (name: string, data: InputBody, params: RequestParams = {}) =>
-    this.http.request<SymbolErc20Data, any>({
-      path: `/erc20/${name}/symbol`,
-      method: 'POST',
-      body: data,
-      secure: true,
-      type: ContentType.Json,
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags Erc20
-   * @name TotalSupplyErc20
-   * @request POST:/erc20/{name}/total-supply
-   * @secure
-   */
-  totalSupplyErc20 = (
-    name: string,
-    data: InputBody,
+  getBalanceOf = (
+    { account, ...query }: GetBalanceOfParams,
     params: RequestParams = {}
   ) =>
-    this.http.request<TotalSupplyErc20Data, any>({
-      path: `/erc20/${name}/total-supply`,
-      method: 'POST',
-      body: data,
+    this.http.request<GetBalanceOfData, any>({
+      path: `/erc20/${account}/balanceOf`,
+      method: 'GET',
+      query: query,
       secure: true,
-      type: ContentType.Json,
+      format: 'json',
       ...params,
     });
   /**
    * No description
    *
-   * @tags Erc20
-   * @name TransferErc20
-   * @request POST:/erc20/{name}/transfer
+   * @tags ERC20
+   * @name GetDecimals
+   * @request GET:/erc20/{account}/decimals
    * @secure
    */
-  transferErc20 = (name: string, data: InputBody, params: RequestParams = {}) =>
-    this.http.request<TransferErc20Data, any>({
-      path: `/erc20/${name}/transfer`,
-      method: 'POST',
-      body: data,
-      secure: true,
-      type: ContentType.Json,
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags Erc20
-   * @name TransferFromErc20
-   * @request POST:/erc20/{name}/transfer-from
-   * @secure
-   */
-  transferFromErc20 = (
-    name: string,
-    data: InputBody,
+  getDecimals = (
+    { account, ...query }: GetDecimalsParams,
     params: RequestParams = {}
   ) =>
-    this.http.request<TransferFromErc20Data, any>({
-      path: `/erc20/${name}/transfer-from`,
+    this.http.request<GetDecimalsData, any>({
+      path: `/erc20/${account}/decimals`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags ERC20
+   * @name GetName
+   * @request GET:/erc20/{account}/name
+   * @secure
+   */
+  getName = (
+    { account, ...query }: GetNameParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<GetNameData, any>({
+      path: `/erc20/${account}/name`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags ERC20
+   * @name GetSymbol
+   * @request GET:/erc20/{account}/symbol
+   * @secure
+   */
+  getSymbol = (
+    { account, ...query }: GetSymbolParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<GetSymbolData, any>({
+      path: `/erc20/${account}/symbol`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags ERC20
+   * @name GetTotalSupply
+   * @request GET:/erc20/{account}/totalSupply
+   * @secure
+   */
+  getTotalSupply = (
+    { account, ...query }: GetTotalSupplyParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<GetTotalSupplyData, any>({
+      path: `/erc20/${account}/totalSupply`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags ERC20
+   * @name Transfer
+   * @request POST:/erc20/{address}/transfer
+   * @secure
+   */
+  transfer = (
+    address: string,
+    data: ERC20InputBody,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<TransferData, any>({
+      path: `/erc20/${address}/transfer`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags ERC20
+   * @name TransferFrom
+   * @request POST:/erc20/{address}/transferFrom
+   * @secure
+   */
+  transferFrom = (
+    address: string,
+    data: ERC20InputBody,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<TransferFromData, any>({
+      path: `/erc20/${address}/transferFrom`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      format: 'json',
       ...params,
     });
 }

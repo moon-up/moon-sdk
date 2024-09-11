@@ -56,6 +56,7 @@ export class Onramper<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     });
   /**
@@ -75,6 +76,7 @@ export class Onramper<SecurityDataType = unknown> {
       method: 'GET',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     });
   /**
@@ -94,6 +96,7 @@ export class Onramper<SecurityDataType = unknown> {
       method: 'GET',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     });
   /**
@@ -113,6 +116,7 @@ export class Onramper<SecurityDataType = unknown> {
       method: 'GET',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     });
   /**
@@ -132,6 +136,7 @@ export class Onramper<SecurityDataType = unknown> {
       method: 'GET',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     });
   /**
@@ -151,6 +156,7 @@ export class Onramper<SecurityDataType = unknown> {
       method: 'GET',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     });
   /**
@@ -166,6 +172,7 @@ export class Onramper<SecurityDataType = unknown> {
       path: `/onramper/onramps`,
       method: 'GET',
       secure: true,
+      format: 'json',
       ...params,
     });
   /**
@@ -185,6 +192,7 @@ export class Onramper<SecurityDataType = unknown> {
       method: 'GET',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     });
   /**
@@ -204,6 +212,7 @@ export class Onramper<SecurityDataType = unknown> {
       method: 'GET',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     });
 }

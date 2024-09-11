@@ -6,6 +6,310 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
+			"NonceResponse": {
+				"properties": {
+					"nonce": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"nonce"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TokenAmount": {
+				"properties": {
+					"tokenAddress": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"tokenAddress",
+					"amount"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TokenProportion": {
+				"properties": {
+					"tokenAddress": {
+						"type": "string"
+					},
+					"proportion": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"tokenAddress",
+					"proportion"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"InputBody": {
+				"properties": {
+					"dryrun": {
+						"type": "boolean"
+					},
+					"to": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					},
+					"input": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "string"
+					},
+					"gas": {
+						"type": "string"
+					},
+					"gasPrice": {
+						"type": "string"
+					},
+					"chain_id": {
+						"type": "string"
+					},
+					"encoding": {
+						"type": "string"
+					},
+					"EOA": {
+						"type": "boolean"
+					},
+					"contract_address": {
+						"type": "string"
+					},
+					"token_id": {
+						"type": "string"
+					},
+					"token_ids": {
+						"type": "string"
+					},
+					"approved": {
+						"type": "boolean"
+					},
+					"broadcast": {
+						"type": "boolean"
+					},
+					"alwaysIncrementNonce": {
+						"type": "boolean"
+					},
+					"asset": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "string"
+					},
+					"interestRateMode": {
+						"type": "number",
+						"format": "double"
+					},
+					"referralCode": {
+						"type": "number",
+						"format": "double"
+					},
+					"onBehalfOf": {
+						"type": "string"
+					},
+					"receiverAddress": {
+						"type": "string"
+					},
+					"assets": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"amounts": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"modes": {
+						"items": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "array"
+					},
+					"params": {
+						"type": "string"
+					},
+					"rateMode": {
+						"type": "number",
+						"format": "double"
+					},
+					"useAsCollateral": {
+						"type": "boolean"
+					},
+					"collateralAsset": {
+						"type": "string"
+					},
+					"debtAsset": {
+						"type": "string"
+					},
+					"user": {
+						"type": "string"
+					},
+					"debtToCover": {
+						"type": "string"
+					},
+					"receiveAToken": {
+						"type": "boolean"
+					},
+					"inputTokens": {
+						"items": {
+							"$ref": "#/components/schemas/TokenAmount"
+						},
+						"type": "array"
+					},
+					"outputTokens": {
+						"items": {
+							"$ref": "#/components/schemas/TokenProportion"
+						},
+						"type": "array"
+					},
+					"slippageLimitPercent": {
+						"type": "number",
+						"format": "double"
+					},
+					"minHealthFactor": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
+					},
+					"premiums": {
+						"anyOf": [
+							{
+								"items": {
+									"type": "string"
+								},
+								"type": "array"
+							},
+							{
+								"items": {
+									"type": "number",
+									"format": "double"
+								},
+								"type": "array"
+							}
+						]
+					},
+					"initiator": {
+						"type": "string"
+					},
+					"role": {
+						"type": "string"
+					},
+					"account": {
+						"type": "string"
+					},
+					"initialDeposit": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
+					},
+					"borrowAmount": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"NonceAPIResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody"
+					},
+					"address": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/NonceResponse"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BalanceResponse": {
+				"properties": {
+					"balance": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"balance"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BalanceAPIResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody"
+					},
+					"address": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/BalanceResponse"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"Tx": {
 				"properties": {
 					"type": {
@@ -185,57 +489,23 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"InputBody": {
+			"BroadCastRawTransactionResponse": {
 				"properties": {
-					"to": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
 						"type": "string"
 					},
 					"data": {
 						"type": "string"
-					},
-					"input": {
-						"type": "string"
-					},
-					"value": {
-						"type": "string"
-					},
-					"nonce": {
-						"type": "string"
-					},
-					"gas": {
-						"type": "string"
-					},
-					"gasPrice": {
-						"type": "string"
-					},
-					"chain_id": {
-						"type": "string"
-					},
-					"encoding": {
-						"type": "string"
-					},
-					"EOA": {
-						"type": "boolean"
-					},
-					"contract_address": {
-						"type": "string"
-					},
-					"token_id": {
-						"type": "string"
-					},
-					"token_ids": {
-						"type": "string"
-					},
-					"approved": {
-						"type": "boolean"
-					},
-					"broadcast": {
-						"type": "boolean"
-					},
-					"alwaysIncrementNonce": {
-						"type": "boolean"
 					}
 				},
+				"required": [
+					"success",
+					"message",
+					"data"
+				],
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -257,223 +527,17 @@
 					"signedTx": {},
 					"data": {
 						"$ref": "#/components/schemas/Transaction"
-					}
-				},
-				"required": [
-					"success",
-					"message"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"AaveInput": {
-				"properties": {
-					"to": {
+					},
+					"broadcasted": {
+						"$ref": "#/components/schemas/BroadCastRawTransactionResponse"
+					},
+					"transaction": {},
+					"function": {
 						"type": "string"
 					},
-					"data": {
-						"type": "string"
-					},
-					"input": {
-						"type": "string"
-					},
-					"value": {
-						"type": "string"
-					},
-					"nonce": {
-						"type": "string"
-					},
-					"gas": {
-						"type": "string"
-					},
-					"gasPrice": {
-						"type": "string"
-					},
-					"chain_id": {
-						"type": "string"
-					},
-					"encoding": {
-						"type": "string"
-					},
-					"EOA": {
-						"type": "boolean"
-					},
-					"contract_address": {
-						"type": "string"
-					},
-					"token_id": {
-						"type": "string"
-					},
-					"token_ids": {
-						"type": "string"
-					},
-					"approved": {
-						"type": "boolean"
-					},
-					"broadcast": {
-						"type": "boolean"
-					},
-					"alwaysIncrementNonce": {
-						"type": "boolean"
-					},
-					"lending_pool": {
-						"type": "string"
-					},
-					"amount": {
-						"type": "string"
-					},
-					"atoken_to_redeeem": {
-						"type": "string"
-					},
-					"ref_code": {
-						"type": "string"
-					},
-					"interest_rate_mode": {
-						"type": "string"
-					}
-				},
-				"type": "object",
-				"additionalProperties": false
-			},
-			"AaveReservesData": {
-				"properties": {
-					"current_atoken_balance": {
-						"type": "string"
-					},
-					"current_borrow_balance": {
-						"type": "string"
-					},
-					"principal_borrow_balance": {
-						"type": "string"
-					},
-					"borrow_rate_mode": {
-						"type": "string"
-					},
-					"borrow_rate": {
-						"type": "string"
-					},
-					"liquidity_rate": {
-						"type": "string"
-					},
-					"origination_fee": {
-						"type": "string"
-					},
-					"variable_borrow_index": {
-						"type": "string"
-					},
-					"last_update_timestamp": {
-						"type": "string"
-					},
-					"usage_as_collateral_enabled": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"current_atoken_balance",
-					"current_borrow_balance",
-					"principal_borrow_balance",
-					"borrow_rate_mode",
-					"borrow_rate",
-					"liquidity_rate",
-					"origination_fee",
-					"variable_borrow_index",
-					"last_update_timestamp",
-					"usage_as_collateral_enabled"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"AaveReservesAPIResponse": {
-				"properties": {
-					"success": {
-						"type": "boolean"
-					},
-					"message": {
-						"type": "string"
-					},
-					"body": {
-						"$ref": "#/components/schemas/InputBody"
-					},
-					"address": {
-						"type": "string"
-					},
-					"data": {
-						"$ref": "#/components/schemas/AaveReservesData"
-					}
-				},
-				"required": [
-					"success",
-					"message"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"NonceResponse": {
-				"properties": {
-					"nonce": {
-						"type": "number",
-						"format": "double"
-					}
-				},
-				"required": [
-					"nonce"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"NonceAPIResponse": {
-				"properties": {
-					"success": {
-						"type": "boolean"
-					},
-					"message": {
-						"type": "string"
-					},
-					"body": {
-						"$ref": "#/components/schemas/InputBody"
-					},
-					"address": {
-						"type": "string"
-					},
-					"data": {
-						"$ref": "#/components/schemas/NonceResponse"
-					}
-				},
-				"required": [
-					"success",
-					"message"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"BalanceResponse": {
-				"properties": {
-					"balance": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"balance"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"BalanceAPIResponse": {
-				"properties": {
-					"success": {
-						"type": "boolean"
-					},
-					"message": {
-						"type": "string"
-					},
-					"body": {
-						"$ref": "#/components/schemas/InputBody"
-					},
-					"address": {
-						"type": "string"
-					},
-					"data": {
-						"$ref": "#/components/schemas/BalanceResponse"
+					"params": {
+						"items": {},
+						"type": "array"
 					}
 				},
 				"required": [
@@ -627,26 +691,6 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"BroadCastRawTransactionResponse": {
-				"properties": {
-					"success": {
-						"type": "boolean"
-					},
-					"message": {
-						"type": "string"
-					},
-					"data": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"success",
-					"message",
-					"data"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
 			"BroadCastRawTransactionAPIResponse": {
 				"properties": {
 					"success": {
@@ -736,87 +780,6 @@
 					"abi",
 					"functionName",
 					"params"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"GetSwapDto": {
-				"properties": {
-					"src": {
-						"type": "string"
-					},
-					"dst": {
-						"type": "string"
-					},
-					"amount": {
-						"type": "string"
-					},
-					"from": {
-						"type": "string"
-					},
-					"slippage": {
-						"type": "number",
-						"format": "double"
-					},
-					"protocols": {
-						"type": "string"
-					},
-					"fee": {
-						"type": "string"
-					},
-					"disableEstimate": {
-						"type": "boolean"
-					},
-					"permit": {
-						"type": "string"
-					},
-					"includeTokensInfo": {
-						"type": "boolean"
-					},
-					"includeProtocols": {
-						"type": "boolean"
-					},
-					"compatibility": {
-						"type": "boolean"
-					},
-					"allowPartialFill": {
-						"type": "boolean"
-					},
-					"parts": {
-						"type": "string"
-					},
-					"mainRouteParts": {
-						"type": "string"
-					},
-					"connectorTokens": {
-						"type": "string"
-					},
-					"complexityLevel": {
-						"type": "string"
-					},
-					"gasLimit": {
-						"type": "string"
-					},
-					"gasPrice": {
-						"type": "string"
-					},
-					"referrer": {
-						"type": "string"
-					},
-					"receiver": {
-						"type": "string"
-					},
-					"chainId": {
-						"type": "number",
-						"format": "double"
-					}
-				},
-				"required": [
-					"src",
-					"dst",
-					"amount",
-					"from",
-					"slippage"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -954,237 +917,6 @@
 						"type": "boolean"
 					}
 				},
-				"type": "object",
-				"additionalProperties": false
-			},
-			"TransactionResponse": {
-				"properties": {
-					"message": {
-						"type": "string"
-					},
-					"tx": {
-						"properties": {
-							"data": {
-								"type": "string"
-							},
-							"value": {
-								"type": "string"
-							},
-							"nonce": {
-								"type": "string"
-							},
-							"gas": {
-								"type": "string"
-							},
-							"to": {
-								"type": "string"
-							},
-							"from": {
-								"type": "string"
-							}
-						},
-						"required": [
-							"data",
-							"value",
-							"nonce",
-							"gas",
-							"to",
-							"from"
-						],
-						"type": "object"
-					},
-					"info": {
-						"properties": {
-							"conveyorGas": {
-								"type": "string"
-							},
-							"affiliateGas": {
-								"type": "string"
-							},
-							"affiliateAggregator": {
-								"type": "string"
-							},
-							"amountOut": {
-								"type": "string"
-							},
-							"amountOutMin": {
-								"type": "string"
-							}
-						},
-						"required": [
-							"conveyorGas",
-							"affiliateGas",
-							"affiliateAggregator",
-							"amountOut",
-							"amountOutMin"
-						],
-						"type": "object"
-					},
-					"chainId": {
-						"type": "number",
-						"format": "double"
-					},
-					"currentBlockNumber": {
-						"type": "number",
-						"format": "double"
-					}
-				},
-				"required": [
-					"message",
-					"tx",
-					"info",
-					"chainId",
-					"currentBlockNumber"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"ConveyorFinanceControllerResponse": {
-				"properties": {
-					"input": {
-						"$ref": "#/components/schemas/InputBody"
-					},
-					"convey": {
-						"$ref": "#/components/schemas/TransactionResponse"
-					},
-					"data": {
-						"$ref": "#/components/schemas/TransactionData"
-					},
-					"tx": {
-						"properties": {
-							"data": {
-								"type": "string"
-							},
-							"value": {
-								"type": "string"
-							},
-							"nonce": {
-								"type": "string"
-							},
-							"gas": {
-								"type": "string"
-							},
-							"to": {
-								"type": "string"
-							},
-							"from": {
-								"type": "string"
-							}
-						},
-						"required": [
-							"data",
-							"value",
-							"nonce",
-							"gas",
-							"to",
-							"from"
-						],
-						"type": "object"
-					},
-					"signed": {
-						"$ref": "#/components/schemas/Transaction"
-					},
-					"success": {
-						"type": "boolean"
-					},
-					"message": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"success",
-					"message"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"TokenSwapParams": {
-				"properties": {
-					"to": {
-						"type": "string"
-					},
-					"data": {
-						"type": "string"
-					},
-					"input": {
-						"type": "string"
-					},
-					"value": {
-						"type": "string"
-					},
-					"nonce": {
-						"type": "string"
-					},
-					"gas": {
-						"type": "string"
-					},
-					"gasPrice": {
-						"type": "string"
-					},
-					"chain_id": {
-						"type": "string"
-					},
-					"encoding": {
-						"type": "string"
-					},
-					"EOA": {
-						"type": "boolean"
-					},
-					"contract_address": {
-						"type": "string"
-					},
-					"token_id": {
-						"type": "string"
-					},
-					"token_ids": {
-						"type": "string"
-					},
-					"approved": {
-						"type": "boolean"
-					},
-					"broadcast": {
-						"type": "boolean"
-					},
-					"alwaysIncrementNonce": {
-						"type": "boolean"
-					},
-					"tokenIn": {
-						"type": "string"
-					},
-					"tokenOut": {
-						"type": "string"
-					},
-					"tokenInDecimals": {
-						"type": "number",
-						"format": "double"
-					},
-					"tokenOutDecimals": {
-						"type": "number",
-						"format": "double"
-					},
-					"amountIn": {
-						"type": "string"
-					},
-					"slippage": {
-						"type": "string"
-					},
-					"recipient": {
-						"type": "string"
-					},
-					"referrer": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"tokenIn",
-					"tokenOut",
-					"tokenInDecimals",
-					"tokenOutDecimals",
-					"amountIn",
-					"slippage",
-					"recipient",
-					"referrer"
-				],
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -1536,6 +1268,9 @@
 			},
 			"Erc1155Request": {
 				"properties": {
+					"dryrun": {
+						"type": "boolean"
+					},
 					"to": {
 						"type": "string"
 					},
@@ -1583,23 +1318,307 @@
 					},
 					"alwaysIncrementNonce": {
 						"type": "boolean"
+					},
+					"asset": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "string"
+					},
+					"interestRateMode": {
+						"type": "number",
+						"format": "double"
+					},
+					"referralCode": {
+						"type": "number",
+						"format": "double"
+					},
+					"onBehalfOf": {
+						"type": "string"
+					},
+					"receiverAddress": {
+						"type": "string"
+					},
+					"assets": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"amounts": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"modes": {
+						"items": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "array"
+					},
+					"params": {
+						"type": "string"
+					},
+					"rateMode": {
+						"type": "number",
+						"format": "double"
+					},
+					"useAsCollateral": {
+						"type": "boolean"
+					},
+					"collateralAsset": {
+						"type": "string"
+					},
+					"debtAsset": {
+						"type": "string"
+					},
+					"user": {
+						"type": "string"
+					},
+					"debtToCover": {
+						"type": "string"
+					},
+					"receiveAToken": {
+						"type": "boolean"
+					},
+					"inputTokens": {
+						"items": {
+							"$ref": "#/components/schemas/TokenAmount"
+						},
+						"type": "array"
+					},
+					"outputTokens": {
+						"items": {
+							"$ref": "#/components/schemas/TokenProportion"
+						},
+						"type": "array"
+					},
+					"slippageLimitPercent": {
+						"type": "number",
+						"format": "double"
+					},
+					"minHealthFactor": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
+					},
+					"premiums": {
+						"anyOf": [
+							{
+								"items": {
+									"type": "string"
+								},
+								"type": "array"
+							},
+							{
+								"items": {
+									"type": "number",
+									"format": "double"
+								},
+								"type": "array"
+							}
+						]
+					},
+					"initiator": {
+						"type": "string"
+					},
+					"role": {
+						"type": "string"
+					},
+					"account": {
+						"type": "string"
+					},
+					"initialDeposit": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
+					},
+					"borrowAmount": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
 					}
 				},
 				"type": "object",
 				"additionalProperties": false
 			},
-			"Erc721Request": {
+			"ERC20APIResponse_number_": {
 				"properties": {
-					"to": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ERC20APIResponse_string_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
 						"type": "string"
 					},
 					"data": {
 						"type": "string"
-					},
-					"input": {
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ERC20Transaction": {
+				"properties": {
+					"data": {
 						"type": "string"
 					},
 					"value": {
+						"type": "string"
+					},
+					"to": {
+						"type": "string"
+					},
+					"from": {
+						"type": "string"
+					},
+					"gasPrice": {
+						"type": "string"
+					},
+					"gasLimit": {
+						"type": "string"
+					},
+					"maxPriorityFeePerGas": {
+						"type": "string"
+					},
+					"maxFeePerGas": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "number",
+						"format": "double"
+					},
+					"type": {
+						"type": "number",
+						"format": "double"
+					},
+					"chainId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"data",
+					"value",
+					"to",
+					"from",
+					"nonce",
+					"chainId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ERC20ExecuteFunctionResult": {
+				"properties": {
+					"broadcasted": {
+						"$ref": "#/components/schemas/BroadCastRawTransactionResponse"
+					},
+					"message": {
+						"type": "string"
+					},
+					"success": {
+						"type": "boolean"
+					},
+					"user_op": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/Transaction"
+					},
+					"params": {
+						"items": {},
+						"type": "array"
+					},
+					"function": {
+						"type": "string"
+					},
+					"transaction": {
+						"$ref": "#/components/schemas/ERC20Transaction"
+					}
+				},
+				"required": [
+					"params",
+					"function",
+					"transaction"
+				],
+				"type": "object"
+			},
+			"ERC20APIResponse_ERC20ExecuteFunctionResult_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/ERC20ExecuteFunctionResult"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ERC20InputBody": {
+				"properties": {
+					"chain_id": {
+						"type": "string"
+					},
+					"to": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"data": {
 						"type": "string"
 					},
 					"nonce": {
@@ -1611,25 +1630,10 @@
 					"gasPrice": {
 						"type": "string"
 					},
-					"chain_id": {
-						"type": "string"
-					},
-					"encoding": {
-						"type": "string"
-					},
-					"EOA": {
+					"dryrun": {
 						"type": "boolean"
 					},
-					"contract_address": {
-						"type": "string"
-					},
-					"token_id": {
-						"type": "string"
-					},
-					"token_ids": {
-						"type": "string"
-					},
-					"approved": {
+					"EOA": {
 						"type": "boolean"
 					},
 					"broadcast": {
@@ -1637,6 +1641,574 @@
 					},
 					"alwaysIncrementNonce": {
 						"type": "boolean"
+					},
+					"contract_address": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ERC4626APIResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ERC721APIResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LendingPoolAPIResponse_number_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LendingPoolTransaction": {
+				"properties": {
+					"data": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"to": {
+						"type": "string"
+					},
+					"from": {
+						"type": "string"
+					},
+					"gasPrice": {
+						"type": "string"
+					},
+					"gasLimit": {
+						"type": "string"
+					},
+					"maxPriorityFeePerGas": {
+						"type": "string"
+					},
+					"maxFeePerGas": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "number",
+						"format": "double"
+					},
+					"type": {
+						"type": "number",
+						"format": "double"
+					},
+					"chainId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"data",
+					"value",
+					"to",
+					"from",
+					"nonce",
+					"chainId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LendingPoolExecuteFunctionResult": {
+				"properties": {
+					"broadcasted": {
+						"$ref": "#/components/schemas/BroadCastRawTransactionResponse"
+					},
+					"message": {
+						"type": "string"
+					},
+					"success": {
+						"type": "boolean"
+					},
+					"user_op": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/Transaction"
+					},
+					"params": {
+						"items": {},
+						"type": "array"
+					},
+					"function": {
+						"type": "string"
+					},
+					"transaction": {
+						"$ref": "#/components/schemas/LendingPoolTransaction"
+					}
+				},
+				"required": [
+					"params",
+					"function",
+					"transaction"
+				],
+				"type": "object"
+			},
+			"LendingPoolAPIResponse_LendingPoolExecuteFunctionResult_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/LendingPoolExecuteFunctionResult"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LendingPoolInputBody": {
+				"properties": {
+					"chain_id": {
+						"type": "string"
+					},
+					"asset": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "string"
+					},
+					"interestRateMode": {
+						"type": "number",
+						"format": "double"
+					},
+					"referralCode": {
+						"type": "number",
+						"format": "double"
+					},
+					"onBehalfOf": {
+						"type": "string"
+					},
+					"receiverAddress": {
+						"type": "string"
+					},
+					"assets": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"amounts": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"modes": {
+						"items": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "array"
+					},
+					"params": {
+						"type": "string"
+					},
+					"rateMode": {
+						"type": "number",
+						"format": "double"
+					},
+					"useAsCollateral": {
+						"type": "boolean"
+					},
+					"collateralAsset": {
+						"type": "string"
+					},
+					"debtAsset": {
+						"type": "string"
+					},
+					"user": {
+						"type": "string"
+					},
+					"debtToCover": {
+						"type": "string"
+					},
+					"receiveAToken": {
+						"type": "boolean"
+					},
+					"to": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "string"
+					},
+					"gas": {
+						"type": "string"
+					},
+					"gasPrice": {
+						"type": "string"
+					},
+					"dryrun": {
+						"type": "boolean"
+					},
+					"EOA": {
+						"type": "boolean"
+					},
+					"broadcast": {
+						"type": "boolean"
+					},
+					"alwaysIncrementNonce": {
+						"type": "boolean"
+					},
+					"contract_address": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LendingPoolAPIResponse_any_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LendingPoolAPIResponse_string-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LendingPoolAPIResponse_string_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LendingPoolAPIResponse_boolean_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LeveragerAPIResponse_string_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LeveragerAPIResponse_boolean_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LeveragerTransaction": {
+				"properties": {
+					"data": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"to": {
+						"type": "string"
+					},
+					"from": {
+						"type": "string"
+					},
+					"gasPrice": {
+						"type": "string"
+					},
+					"gasLimit": {
+						"type": "string"
+					},
+					"maxPriorityFeePerGas": {
+						"type": "string"
+					},
+					"maxFeePerGas": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "number",
+						"format": "double"
+					},
+					"type": {
+						"type": "number",
+						"format": "double"
+					},
+					"chainId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"data",
+					"value",
+					"to",
+					"from",
+					"nonce",
+					"chainId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LeveragerExecuteFunctionResult": {
+				"properties": {
+					"broadcasted": {
+						"$ref": "#/components/schemas/BroadCastRawTransactionResponse"
+					},
+					"message": {
+						"type": "string"
+					},
+					"success": {
+						"type": "boolean"
+					},
+					"user_op": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/Transaction"
+					},
+					"params": {
+						"items": {},
+						"type": "array"
+					},
+					"function": {
+						"type": "string"
+					},
+					"transaction": {
+						"$ref": "#/components/schemas/LeveragerTransaction"
+					}
+				},
+				"required": [
+					"params",
+					"function",
+					"transaction"
+				],
+				"type": "object"
+			},
+			"LeveragerAPIResponse_LeveragerExecuteFunctionResult_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/LeveragerExecuteFunctionResult"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LeveragerInputBody": {
+				"properties": {
+					"chain_id": {
+						"type": "string"
+					},
+					"asset": {
+						"type": "string"
+					},
+					"minHealthFactor": {
+						"type": "string"
+					},
+					"assets": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"amounts": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"premiums": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"initiator": {
+						"type": "string"
+					},
+					"params": {
+						"type": "string"
+					},
+					"role": {
+						"type": "string"
+					},
+					"account": {
+						"type": "string"
+					},
+					"initialDeposit": {
+						"type": "string"
+					},
+					"borrowAmount": {
+						"type": "string"
+					},
+					"to": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "string"
+					},
+					"gas": {
+						"type": "string"
+					},
+					"gasPrice": {
+						"type": "string"
+					},
+					"dryrun": {
+						"type": "boolean"
+					},
+					"EOA": {
+						"type": "boolean"
+					},
+					"broadcast": {
+						"type": "boolean"
+					},
+					"alwaysIncrementNonce": {
+						"type": "boolean"
+					},
+					"contract_address": {
+						"type": "string"
 					}
 				},
 				"type": "object",
@@ -2620,6 +3192,281 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"OdosTransaction": {
+				"properties": {
+					"data": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"to": {
+						"type": "string"
+					},
+					"from": {
+						"type": "string"
+					},
+					"gasPrice": {
+						"type": "string"
+					},
+					"gasLimit": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "number",
+						"format": "double"
+					},
+					"chainId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"data",
+					"value",
+					"to",
+					"from",
+					"nonce",
+					"chainId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"OdosExecuteFunctionResult": {
+				"properties": {
+					"broadcasted": {
+						"$ref": "#/components/schemas/BroadCastRawTransactionResponse"
+					},
+					"message": {
+						"type": "string"
+					},
+					"success": {
+						"type": "boolean"
+					},
+					"user_op": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/Transaction"
+					},
+					"params": {
+						"items": {},
+						"type": "array"
+					},
+					"function": {
+						"type": "string"
+					},
+					"transaction": {
+						"$ref": "#/components/schemas/OdosTransaction"
+					}
+				},
+				"required": [
+					"params",
+					"function",
+					"transaction"
+				],
+				"type": "object"
+			},
+			"OdosAPIResponse_OdosExecuteFunctionResult_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/OdosExecuteFunctionResult"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PathVizImageConfig": {
+				"properties": {
+					"linkColors": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"nodeColor": {
+						"type": "string"
+					},
+					"nodeTextColor": {
+						"type": "string"
+					},
+					"legendTextColor": {
+						"type": "string"
+					},
+					"width": {
+						"type": "number",
+						"format": "double"
+					},
+					"height": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"OdosSwapInputBody": {
+				"properties": {
+					"to": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "string"
+					},
+					"gas": {
+						"type": "string"
+					},
+					"dryrun": {
+						"type": "boolean"
+					},
+					"chain_id": {
+						"type": "string"
+					},
+					"EOA": {
+						"type": "boolean"
+					},
+					"broadcast": {
+						"type": "boolean"
+					},
+					"alwaysIncrementNonce": {
+						"type": "boolean"
+					},
+					"inputTokens": {
+						"items": {
+							"$ref": "#/components/schemas/TokenAmount"
+						},
+						"type": "array"
+					},
+					"outputTokens": {
+						"items": {
+							"$ref": "#/components/schemas/TokenProportion"
+						},
+						"type": "array"
+					},
+					"userAddr": {
+						"type": "string"
+					},
+					"slippageLimitPercent": {
+						"type": "number",
+						"format": "double"
+					},
+					"sourceBlacklist": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"sourceWhitelist": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"poolBlacklist": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"pathViz": {
+						"type": "boolean"
+					},
+					"pathVizImage": {
+						"type": "boolean"
+					},
+					"pathVizImageConfig": {
+						"$ref": "#/components/schemas/PathVizImageConfig"
+					},
+					"disableRFQs": {
+						"type": "boolean"
+					},
+					"referralCode": {
+						"type": "number",
+						"format": "double"
+					},
+					"compact": {
+						"type": "boolean"
+					},
+					"likeAsset": {
+						"type": "boolean"
+					},
+					"simple": {
+						"type": "boolean"
+					},
+					"gasPrice": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
+					}
+				},
+				"required": [
+					"inputTokens",
+					"outputTokens",
+					"chain_id"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"OdosInputBody": {
+				"properties": {
+					"chain_id": {
+						"type": "string"
+					},
+					"to": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "string"
+					},
+					"gas": {
+						"type": "string"
+					},
+					"gasPrice": {
+						"type": "string"
+					},
+					"dryrun": {
+						"type": "boolean"
+					},
+					"EOA": {
+						"type": "boolean"
+					},
+					"broadcast": {
+						"type": "boolean"
+					},
+					"alwaysIncrementNonce": {
+						"type": "boolean"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
 			"CryptoCurrency": {
 				"properties": {
 					"networkDisplayName": {
@@ -3148,783 +3995,6 @@
 				],
 				"type": "object"
 			},
-			"PaymentIntentResponse": {
-				"properties": {
-					"metadata": {
-						"properties": {},
-						"additionalProperties": {
-							"type": "string"
-						},
-						"type": "object"
-					},
-					"uri": {
-						"type": "string"
-					},
-					"qr_code": {
-						"type": "string"
-					},
-					"status": {
-						"type": "string"
-					},
-					"destination": {
-						"type": "string"
-					},
-					"amount": {
-						"type": "number",
-						"format": "double"
-					},
-					"network": {
-						"type": "string"
-					},
-					"currency": {
-						"type": "string"
-					},
-					"id": {
-						"type": "string"
-					},
-					"message": {
-						"type": "string"
-					},
-					"success": {
-						"type": "boolean"
-					}
-				},
-				"required": [
-					"success"
-				],
-				"type": "object"
-			},
-			"CreatePaymentIntentInput": {
-				"properties": {
-					"config": {
-						"type": "string"
-					},
-					"metadata": {
-						"properties": {},
-						"additionalProperties": {
-							"type": "string"
-						},
-						"type": "object"
-					},
-					"network": {
-						"type": "string"
-					},
-					"amount": {
-						"type": "number",
-						"format": "double"
-					},
-					"currency": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"metadata",
-					"amount"
-				],
-				"type": "object"
-			},
-			"Block": {
-				"properties": {
-					"number": {
-						"type": "string"
-					},
-					"hash": {
-						"type": "string"
-					},
-					"timestamp": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"number",
-					"hash",
-					"timestamp"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"TriggerOutput": {
-				"properties": {
-					"value": {},
-					"name": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"value",
-					"name"
-				],
-				"type": "object"
-			},
-			"Log": {
-				"properties": {
-					"triggers": {
-						"items": {
-							"$ref": "#/components/schemas/TriggerOutput"
-						},
-						"type": "array"
-					},
-					"logIndex": {
-						"type": "string"
-					},
-					"transactionHash": {
-						"type": "string"
-					},
-					"address": {
-						"type": "string"
-					},
-					"data": {
-						"type": "string"
-					},
-					"topic0": {
-						"type": "string",
-						"nullable": true
-					},
-					"topic1": {
-						"type": "string",
-						"nullable": true
-					},
-					"topic2": {
-						"type": "string",
-						"nullable": true
-					},
-					"topic3": {
-						"type": "string",
-						"nullable": true
-					}
-				},
-				"required": [
-					"logIndex",
-					"transactionHash",
-					"address",
-					"data",
-					"topic0",
-					"topic1",
-					"topic2",
-					"topic3"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"InternalTransaction": {
-				"properties": {
-					"from": {
-						"type": "string",
-						"nullable": true
-					},
-					"to": {
-						"type": "string",
-						"nullable": true
-					},
-					"value": {
-						"type": "string",
-						"nullable": true
-					},
-					"transactionHash": {
-						"type": "string"
-					},
-					"gas": {
-						"type": "string",
-						"nullable": true
-					}
-				},
-				"required": [
-					"from",
-					"to",
-					"value",
-					"transactionHash",
-					"gas"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"AbiInput": {
-				"properties": {
-					"name": {
-						"type": "string"
-					},
-					"type": {
-						"type": "string"
-					},
-					"indexed": {
-						"type": "boolean"
-					},
-					"components": {
-						"items": {
-							"$ref": "#/components/schemas/AbiInput"
-						},
-						"type": "array"
-					},
-					"internalType": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"name",
-					"type"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"AbiOutput": {
-				"properties": {
-					"name": {
-						"type": "string"
-					},
-					"type": {
-						"type": "string"
-					},
-					"components": {
-						"items": {
-							"$ref": "#/components/schemas/AbiOutput"
-						},
-						"type": "array"
-					},
-					"internalType": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"name",
-					"type"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"AbiItem": {
-				"description": "The abi to parse the log object of the contract",
-				"properties": {
-					"anonymous": {
-						"type": "boolean"
-					},
-					"constant": {
-						"type": "boolean"
-					},
-					"inputs": {
-						"items": {
-							"$ref": "#/components/schemas/AbiInput"
-						},
-						"type": "array"
-					},
-					"name": {
-						"type": "string"
-					},
-					"outputs": {
-						"items": {
-							"$ref": "#/components/schemas/AbiOutput"
-						},
-						"type": "array"
-					},
-					"payable": {
-						"type": "boolean"
-					},
-					"stateMutability": {
-						"type": "string"
-					},
-					"type": {
-						"type": "string"
-					},
-					"gas": {
-						"type": "number",
-						"format": "double"
-					}
-				},
-				"required": [
-					"type"
-				],
-				"type": "object",
-				"additionalProperties": false,
-				"example": {}
-			},
-			"IERC20Transfer": {
-				"properties": {
-					"transactionHash": {
-						"type": "string"
-					},
-					"contract": {
-						"type": "string"
-					},
-					"logIndex": {
-						"type": "string"
-					},
-					"from": {
-						"type": "string"
-					},
-					"to": {
-						"type": "string"
-					},
-					"value": {
-						"type": "string"
-					},
-					"tokenDecimals": {
-						"type": "string"
-					},
-					"tokenName": {
-						"type": "string"
-					},
-					"tokenSymbol": {
-						"type": "string"
-					},
-					"valueWithDecimals": {
-						"type": "string"
-					},
-					"triggers": {
-						"items": {
-							"$ref": "#/components/schemas/TriggerOutput"
-						},
-						"type": "array"
-					}
-				},
-				"required": [
-					"transactionHash",
-					"contract",
-					"logIndex",
-					"from",
-					"to",
-					"value",
-					"tokenDecimals",
-					"tokenName",
-					"tokenSymbol"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"IERC20Approval": {
-				"properties": {
-					"transactionHash": {
-						"type": "string"
-					},
-					"contract": {
-						"type": "string"
-					},
-					"logIndex": {
-						"type": "string"
-					},
-					"owner": {
-						"type": "string"
-					},
-					"spender": {
-						"type": "string"
-					},
-					"value": {
-						"type": "string"
-					},
-					"tokenDecimals": {
-						"type": "string"
-					},
-					"tokenName": {
-						"type": "string"
-					},
-					"tokenSymbol": {
-						"type": "string"
-					},
-					"valueWithDecimals": {
-						"type": "string"
-					},
-					"triggers": {
-						"items": {
-							"$ref": "#/components/schemas/TriggerOutput"
-						},
-						"type": "array"
-					}
-				},
-				"required": [
-					"transactionHash",
-					"contract",
-					"logIndex",
-					"owner",
-					"spender",
-					"value",
-					"tokenDecimals",
-					"tokenName",
-					"tokenSymbol"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"INFTTransfer": {
-				"properties": {
-					"transactionHash": {
-						"type": "string"
-					},
-					"contract": {
-						"type": "string"
-					},
-					"logIndex": {
-						"type": "string"
-					},
-					"tokenContractType": {
-						"type": "string"
-					},
-					"tokenName": {
-						"type": "string"
-					},
-					"tokenSymbol": {
-						"type": "string"
-					},
-					"triggers": {
-						"items": {
-							"$ref": "#/components/schemas/TriggerOutput"
-						},
-						"type": "array"
-					},
-					"operator": {
-						"type": "string",
-						"nullable": true
-					},
-					"from": {
-						"type": "string"
-					},
-					"to": {
-						"type": "string"
-					},
-					"tokenId": {
-						"type": "string"
-					},
-					"amount": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"transactionHash",
-					"contract",
-					"logIndex",
-					"tokenContractType",
-					"tokenName",
-					"tokenSymbol",
-					"operator",
-					"from",
-					"to",
-					"tokenId",
-					"amount"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"INativeBalance": {
-				"properties": {
-					"address": {
-						"type": "string"
-					},
-					"balance": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"address",
-					"balance"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"INFTApprovalERC721": {
-				"properties": {
-					"transactionHash": {
-						"type": "string"
-					},
-					"contract": {
-						"type": "string"
-					},
-					"logIndex": {
-						"type": "string"
-					},
-					"owner": {
-						"type": "string"
-					},
-					"approved": {
-						"type": "string"
-					},
-					"tokenId": {
-						"type": "string"
-					},
-					"tokenContractType": {
-						"type": "string"
-					},
-					"tokenName": {
-						"type": "string"
-					},
-					"tokenSymbol": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"transactionHash",
-					"contract",
-					"logIndex",
-					"owner",
-					"approved",
-					"tokenId",
-					"tokenContractType",
-					"tokenName",
-					"tokenSymbol"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"INFTApprovalERC1155": {
-				"properties": {
-					"transactionHash": {
-						"type": "string"
-					},
-					"contract": {
-						"type": "string"
-					},
-					"logIndex": {
-						"type": "string"
-					},
-					"account": {
-						"type": "string"
-					},
-					"operator": {
-						"type": "string"
-					},
-					"approved": {
-						"type": "boolean"
-					},
-					"tokenContractType": {
-						"type": "string"
-					},
-					"tokenName": {
-						"type": "string"
-					},
-					"tokenSymbol": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"transactionHash",
-					"contract",
-					"logIndex",
-					"account",
-					"operator",
-					"approved",
-					"tokenContractType",
-					"tokenName",
-					"tokenSymbol"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"IOldNFTApproval": {
-				"properties": {
-					"ERC721": {
-						"items": {
-							"$ref": "#/components/schemas/INFTApprovalERC721"
-						},
-						"type": "array"
-					},
-					"ERC1155": {
-						"items": {
-							"$ref": "#/components/schemas/INFTApprovalERC1155"
-						},
-						"type": "array"
-					}
-				},
-				"required": [
-					"ERC721",
-					"ERC1155"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"INFTApproval": {
-				"properties": {
-					"transactionHash": {
-						"type": "string"
-					},
-					"contract": {
-						"type": "string"
-					},
-					"logIndex": {
-						"type": "string"
-					},
-					"tokenContractType": {
-						"type": "string"
-					},
-					"tokenName": {
-						"type": "string"
-					},
-					"tokenSymbol": {
-						"type": "string"
-					},
-					"account": {
-						"type": "string"
-					},
-					"operator": {
-						"type": "string"
-					},
-					"approvedAll": {
-						"type": "boolean"
-					},
-					"tokenId": {
-						"type": "string",
-						"nullable": true
-					}
-				},
-				"required": [
-					"transactionHash",
-					"contract",
-					"logIndex",
-					"tokenContractType",
-					"tokenName",
-					"tokenSymbol",
-					"account",
-					"operator",
-					"approvedAll",
-					"tokenId"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"IWebhook": {
-				"properties": {
-					"block": {
-						"$ref": "#/components/schemas/Block"
-					},
-					"chainId": {
-						"type": "string"
-					},
-					"logs": {
-						"items": {
-							"$ref": "#/components/schemas/Log"
-						},
-						"type": "array"
-					},
-					"txs": {
-						"items": {
-							"$ref": "#/components/schemas/Transaction"
-						},
-						"type": "array"
-					},
-					"txsInternal": {
-						"items": {
-							"$ref": "#/components/schemas/InternalTransaction"
-						},
-						"type": "array"
-					},
-					"abi": {
-						"items": {
-							"$ref": "#/components/schemas/AbiItem"
-						},
-						"type": "array"
-					},
-					"retries": {
-						"type": "number",
-						"format": "double"
-					},
-					"confirmed": {
-						"type": "boolean"
-					},
-					"tag": {
-						"type": "string"
-					},
-					"streamId": {
-						"type": "string"
-					},
-					"erc20Transfers": {
-						"items": {
-							"$ref": "#/components/schemas/IERC20Transfer"
-						},
-						"type": "array"
-					},
-					"erc20Approvals": {
-						"items": {
-							"$ref": "#/components/schemas/IERC20Approval"
-						},
-						"type": "array"
-					},
-					"nftTransfers": {
-						"items": {
-							"$ref": "#/components/schemas/INFTTransfer"
-						},
-						"type": "array"
-					},
-					"nativeBalances": {
-						"items": {
-							"$ref": "#/components/schemas/INativeBalance"
-						},
-						"type": "array"
-					},
-					"nftApprovals": {
-						"$ref": "#/components/schemas/IOldNFTApproval",
-						"deprecated": true
-					},
-					"nftTokenApprovals": {
-						"items": {
-							"$ref": "#/components/schemas/INFTApproval"
-						},
-						"type": "array"
-					}
-				},
-				"required": [
-					"block",
-					"chainId",
-					"logs",
-					"txs",
-					"txsInternal",
-					"abi",
-					"retries",
-					"confirmed",
-					"tag",
-					"streamId",
-					"erc20Transfers",
-					"erc20Approvals",
-					"nftTransfers",
-					"nativeBalances",
-					"nftApprovals",
-					"nftTokenApprovals"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"TatumTransactionEvent": {
-				"properties": {
-					"amount": {
-						"type": "string"
-					},
-					"test": {
-						"type": "boolean"
-					},
-					"counterAddress": {
-						"type": "string"
-					},
-					"address": {
-						"type": "string"
-					},
-					"mempool": {
-						"type": "boolean"
-					},
-					"subscriptionType": {
-						"type": "string"
-					},
-					"blockNumber": {
-						"type": "number",
-						"format": "double"
-					},
-					"txId": {
-						"type": "string"
-					},
-					"chain": {
-						"type": "string"
-					},
-					"currency": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"amount",
-					"test",
-					"counterAddress",
-					"address",
-					"mempool",
-					"subscriptionType",
-					"blockNumber",
-					"txId",
-					"chain",
-					"currency"
-				],
-				"type": "object"
-			},
 			"PingResponse": {
 				"properties": {
 					"message": {
@@ -4285,72 +4355,6 @@
 				},
 				"type": "object",
 				"additionalProperties": false
-			},
-			"UniswapInput": {
-				"properties": {
-					"to": {
-						"type": "string"
-					},
-					"data": {
-						"type": "string"
-					},
-					"input": {
-						"type": "string"
-					},
-					"value": {
-						"type": "string"
-					},
-					"nonce": {
-						"type": "string"
-					},
-					"gas": {
-						"type": "string"
-					},
-					"gasPrice": {
-						"type": "string"
-					},
-					"chain_id": {
-						"type": "string"
-					},
-					"encoding": {
-						"type": "string"
-					},
-					"EOA": {
-						"type": "boolean"
-					},
-					"contract_address": {
-						"type": "string"
-					},
-					"token_id": {
-						"type": "string"
-					},
-					"token_ids": {
-						"type": "string"
-					},
-					"approved": {
-						"type": "boolean"
-					},
-					"broadcast": {
-						"type": "boolean"
-					},
-					"alwaysIncrementNonce": {
-						"type": "boolean"
-					},
-					"token_a": {
-						"type": "string"
-					},
-					"token_b": {
-						"type": "string"
-					},
-					"amount_a": {
-						"type": "string"
-					},
-					"amount_b": {
-						"type": "string"
-					}
-				},
-				"type": "object",
-				"additionalProperties": false
 			}
 		},
 		"securitySchemes": {
@@ -4387,242 +4391,6 @@
 	},
 	"openapi": "3.0.0",
 	"paths": {
-		"/aave/{name}/lend": {
-			"post": {
-				"operationId": "Lend",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Aave"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "name",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/AaveInput"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/aave/{name}/borrow": {
-			"post": {
-				"operationId": "Borrow",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Aave"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "name",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/AaveInput"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/aave/{name}/user-reserve-data": {
-			"post": {
-				"operationId": "UserReserveData",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/AaveReservesAPIResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Aave"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "name",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/AaveInput"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/aave/{name}/repay": {
-			"post": {
-				"operationId": "Repay",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Aave"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "name",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/AaveInput"
-							}
-						}
-					}
-				}
-			}
-		},
 		"/accounts/{accountName}/nonce": {
 			"get": {
 				"operationId": "GetNonce",
@@ -5436,253 +5204,6 @@
 				}
 			}
 		},
-		"/oneinch/tokens": {
-			"post": {
-				"operationId": "Tokens",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {}
-							}
-						}
-					}
-				},
-				"tags": [
-					"oneinch"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {}
-						}
-					}
-				}
-			}
-		},
-		"/oneinch/protocols": {
-			"post": {
-				"operationId": "Protocols",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {}
-							}
-						}
-					}
-				},
-				"tags": [
-					"oneinch"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {}
-						}
-					}
-				}
-			}
-		},
-		"/oneinch/quote": {
-			"post": {
-				"operationId": "Quote",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {}
-							}
-						}
-					}
-				},
-				"tags": [
-					"oneinch"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {}
-						}
-					}
-				}
-			}
-		},
-		"/oneinch/{accountName}/swap": {
-			"post": {
-				"operationId": "Swap",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {}
-							}
-						}
-					}
-				},
-				"tags": [
-					"oneinch"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "accountName",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/GetSwapDto"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/oneinch/approve-spender": {
-			"post": {
-				"operationId": "ApproveSpender",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {}
-							}
-						}
-					}
-				},
-				"tags": [
-					"oneinch"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {}
-						}
-					}
-				}
-			}
-		},
-		"/oneinch/approve-call-data": {
-			"post": {
-				"operationId": "ApproveCallData",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {}
-							}
-						}
-					}
-				},
-				"tags": [
-					"oneinch"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {}
-						}
-					}
-				}
-			}
-		},
 		"/bitcoin": {
 			"get": {
 				"operationId": "ListBitcoinAccounts",
@@ -6073,65 +5594,6 @@
 						"application/json": {
 							"schema": {
 								"$ref": "#/components/schemas/BitcoinCashTransactionInput"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/conveyorfinance/{name}/swap": {
-			"post": {
-				"operationId": "Swap",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ConveyorFinanceControllerResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"ConveyorFinance"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "name",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/TokenSwapParams"
 							}
 						}
 					}
@@ -7310,23 +6772,23 @@
 				}
 			}
 		},
-		"/erc20/{name}/name": {
-			"post": {
-				"operationId": "NameErc20",
+		"/erc20/{account}/decimals": {
+			"get": {
+				"operationId": "GetDecimals",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
+									"$ref": "#/components/schemas/ERC20APIResponse_number_"
 								}
 							}
 						}
 					}
 				},
 				"tags": [
-					"Erc20"
+					"ERC20"
 				],
 				"security": [
 					{
@@ -7341,6 +6803,14 @@
 				],
 				"parameters": [
 					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
 						"in": "header",
 						"name": "Authorization",
 						"required": true,
@@ -7349,43 +6819,41 @@
 						}
 					},
 					{
-						"in": "path",
-						"name": "name",
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
 						"required": true,
 						"schema": {
 							"type": "string"
 						}
 					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/InputBody"
-							}
-						}
-					}
-				}
+				]
 			}
 		},
-		"/erc20/{name}/symbol": {
-			"post": {
-				"operationId": "SymbolErc20",
+		"/erc20/{account}/symbol": {
+			"get": {
+				"operationId": "GetSymbol",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
+									"$ref": "#/components/schemas/ERC20APIResponse_string_"
 								}
 							}
 						}
 					}
 				},
 				"tags": [
-					"Erc20"
+					"ERC20"
 				],
 				"security": [
 					{
@@ -7400,6 +6868,14 @@
 				],
 				"parameters": [
 					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
 						"in": "header",
 						"name": "Authorization",
 						"required": true,
@@ -7408,43 +6884,41 @@
 						}
 					},
 					{
-						"in": "path",
-						"name": "name",
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
 						"required": true,
 						"schema": {
 							"type": "string"
 						}
 					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/InputBody"
-							}
-						}
-					}
-				}
+				]
 			}
 		},
-		"/erc20/{name}/decimals": {
-			"post": {
-				"operationId": "DecimalsErc20",
+		"/erc20/{account}/name": {
+			"get": {
+				"operationId": "GetName",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
+									"$ref": "#/components/schemas/ERC20APIResponse_string_"
 								}
 							}
 						}
 					}
 				},
 				"tags": [
-					"Erc20"
+					"ERC20"
 				],
 				"security": [
 					{
@@ -7459,6 +6933,14 @@
 				],
 				"parameters": [
 					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
 						"in": "header",
 						"name": "Authorization",
 						"required": true,
@@ -7467,43 +6949,41 @@
 						}
 					},
 					{
-						"in": "path",
-						"name": "name",
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
 						"required": true,
 						"schema": {
 							"type": "string"
 						}
 					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/InputBody"
-							}
-						}
-					}
-				}
+				]
 			}
 		},
-		"/erc20/{name}/total-supply": {
-			"post": {
-				"operationId": "TotalSupplyErc20",
+		"/erc20/{account}/totalSupply": {
+			"get": {
+				"operationId": "GetTotalSupply",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
+									"$ref": "#/components/schemas/ERC20APIResponse_string_"
 								}
 							}
 						}
 					}
 				},
 				"tags": [
-					"Erc20"
+					"ERC20"
 				],
 				"security": [
 					{
@@ -7518,6 +6998,14 @@
 				],
 				"parameters": [
 					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
 						"in": "header",
 						"name": "Authorization",
 						"required": true,
@@ -7526,43 +7014,41 @@
 						}
 					},
 					{
-						"in": "path",
-						"name": "name",
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
 						"required": true,
 						"schema": {
 							"type": "string"
 						}
 					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/InputBody"
-							}
-						}
-					}
-				}
+				]
 			}
 		},
-		"/erc20/{name}/balance-of": {
-			"post": {
-				"operationId": "BalanceOfErc20",
+		"/erc20/{account}/balanceOf": {
+			"get": {
+				"operationId": "GetBalanceOf",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
+									"$ref": "#/components/schemas/ERC20APIResponse_string_"
 								}
 							}
 						}
 					}
 				},
 				"tags": [
-					"Erc20"
+					"ERC20"
 				],
 				"security": [
 					{
@@ -7577,6 +7063,14 @@
 				],
 				"parameters": [
 					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
 						"in": "header",
 						"name": "Authorization",
 						"required": true,
@@ -7585,43 +7079,41 @@
 						}
 					},
 					{
-						"in": "path",
-						"name": "name",
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
 						"required": true,
 						"schema": {
 							"type": "string"
 						}
 					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/InputBody"
-							}
-						}
-					}
-				}
+				]
 			}
 		},
-		"/erc20/{name}/allowance": {
-			"post": {
-				"operationId": "AllowanceErc20",
+		"/erc20/{account}/allowance": {
+			"get": {
+				"operationId": "GetAllowance",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
+									"$ref": "#/components/schemas/ERC20APIResponse_string_"
 								}
 							}
 						}
 					}
 				},
 				"tags": [
-					"Erc20"
+					"ERC20"
 				],
 				"security": [
 					{
@@ -7636,64 +7128,13 @@
 				],
 				"parameters": [
 					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
 						"in": "path",
-						"name": "name",
+						"name": "account",
 						"required": true,
 						"schema": {
 							"type": "string"
 						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/InputBody"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/erc20/{name}/transfer": {
-			"post": {
-				"operationId": "TransferErc20",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Erc20"
-				],
-				"security": [
-					{
-						"BearerAuth": []
 					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
 					{
 						"in": "header",
 						"name": "Authorization",
@@ -7703,322 +7144,41 @@
 						}
 					},
 					{
-						"in": "path",
-						"name": "name",
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "owner",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "spender",
 						"required": true,
 						"schema": {
 							"type": "string"
 						}
 					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/InputBody"
-							}
-						}
-					}
-				}
+				]
 			}
 		},
-		"/erc20/{name}/approve": {
-			"post": {
-				"operationId": "ApproveErc20",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Erc20"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "name",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/InputBody"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/erc20/{name}/transfer-from": {
-			"post": {
-				"operationId": "TransferFromErc20",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Erc20"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "name",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/InputBody"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/erc721/{name}/token-uri": {
-			"post": {
-				"operationId": "TokenUri",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Erc721"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "name",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/Erc721Request"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/erc721/{name}/transfer": {
-			"post": {
-				"operationId": "Transfer",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Erc721"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "name",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/Erc721Request"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/erc721/{name}/transfer-from": {
-			"post": {
-				"operationId": "TransferFrom",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Erc721"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "name",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/Erc721Request"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/erc721/{name}/approve": {
+		"/erc20/{address}/approve": {
 			"post": {
 				"operationId": "Approve",
 				"responses": {
@@ -8027,14 +7187,14 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
+									"$ref": "#/components/schemas/ERC20APIResponse_ERC20ExecuteFunctionResult_"
 								}
 							}
 						}
 					}
 				},
 				"tags": [
-					"Erc721"
+					"ERC20"
 				],
 				"security": [
 					{
@@ -8049,16 +7209,16 @@
 				],
 				"parameters": [
 					{
-						"in": "header",
-						"name": "Authorization",
+						"in": "path",
+						"name": "address",
 						"required": true,
 						"schema": {
 							"type": "string"
 						}
 					},
 					{
-						"in": "path",
-						"name": "name",
+						"in": "header",
+						"name": "Authorization",
 						"required": true,
 						"schema": {
 							"type": "string"
@@ -8070,30 +7230,30 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/Erc721Request"
+								"$ref": "#/components/schemas/ERC20InputBody"
 							}
 						}
 					}
 				}
 			}
 		},
-		"/erc721/{name}/get-approved": {
+		"/erc20/{address}/transfer": {
 			"post": {
-				"operationId": "GetApproved",
+				"operationId": "Transfer",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
+									"$ref": "#/components/schemas/ERC20APIResponse_ERC20ExecuteFunctionResult_"
 								}
 							}
 						}
 					}
 				},
 				"tags": [
-					"Erc721"
+					"ERC20"
 				],
 				"security": [
 					{
@@ -8108,16 +7268,16 @@
 				],
 				"parameters": [
 					{
-						"in": "header",
-						"name": "Authorization",
+						"in": "path",
+						"name": "address",
 						"required": true,
 						"schema": {
 							"type": "string"
 						}
 					},
 					{
-						"in": "path",
-						"name": "name",
+						"in": "header",
+						"name": "Authorization",
 						"required": true,
 						"schema": {
 							"type": "string"
@@ -8129,30 +7289,30 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/Erc721Request"
+								"$ref": "#/components/schemas/ERC20InputBody"
 							}
 						}
 					}
 				}
 			}
 		},
-		"/erc721/{name}/is-approved-for-all": {
+		"/erc20/{address}/transferFrom": {
 			"post": {
-				"operationId": "IsApprovedForAll",
+				"operationId": "TransferFrom",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
+									"$ref": "#/components/schemas/ERC20APIResponse_ERC20ExecuteFunctionResult_"
 								}
 							}
 						}
 					}
 				},
 				"tags": [
-					"Erc721"
+					"ERC20"
 				],
 				"security": [
 					{
@@ -8167,16 +7327,16 @@
 				],
 				"parameters": [
 					{
-						"in": "header",
-						"name": "Authorization",
+						"in": "path",
+						"name": "address",
 						"required": true,
 						"schema": {
 							"type": "string"
 						}
 					},
 					{
-						"in": "path",
-						"name": "name",
+						"in": "header",
+						"name": "Authorization",
 						"required": true,
 						"schema": {
 							"type": "string"
@@ -8188,30 +7348,30 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/Erc721Request"
+								"$ref": "#/components/schemas/ERC20InputBody"
 							}
 						}
 					}
 				}
 			}
 		},
-		"/erc721/{name}/name": {
-			"post": {
-				"operationId": "Name",
+		"/erc4626/{account}/asset": {
+			"get": {
+				"operationId": "GetAsset",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
+									"$ref": "#/components/schemas/ERC4626APIResponse"
 								}
 							}
 						}
 					}
 				},
 				"tags": [
-					"Erc721"
+					"ERC4626"
 				],
 				"security": [
 					{
@@ -8226,6 +7386,14 @@
 				],
 				"parameters": [
 					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
 						"in": "header",
 						"name": "Authorization",
 						"required": true,
@@ -8234,8 +7402,349 @@
 						}
 					},
 					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/erc4626/{account}/totalAssets": {
+			"get": {
+				"operationId": "GetTotalAssets",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ERC4626APIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"ERC4626"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
 						"in": "path",
-						"name": "name",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/erc4626/{account}/convertToShares": {
+			"get": {
+				"operationId": "GetConvertToShares",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ERC4626APIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"ERC4626"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "assets",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/erc4626/{account}/convertToAssets": {
+			"get": {
+				"operationId": "GetConvertToAssets",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ERC4626APIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"ERC4626"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "shares",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/erc4626/{account}/maxDeposit": {
+			"get": {
+				"operationId": "GetMaxDeposit",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ERC4626APIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"ERC4626"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "receiver",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/erc4626/{address}/deposit": {
+			"post": {
+				"operationId": "Deposit",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ERC4626APIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"ERC4626"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
 						"required": true,
 						"schema": {
 							"type": "string"
@@ -8247,30 +7756,30 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/Erc721Request"
+								"$ref": "#/components/schemas/InputBody"
 							}
 						}
 					}
 				}
 			}
 		},
-		"/erc721/{name}/symbol": {
+		"/erc4626/{address}/withdraw": {
 			"post": {
-				"operationId": "Symbol",
+				"operationId": "Withdraw",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
+									"$ref": "#/components/schemas/ERC4626APIResponse"
 								}
 							}
 						}
 					}
 				},
 				"tags": [
-					"Erc721"
+					"ERC4626"
 				],
 				"security": [
 					{
@@ -8285,16 +7794,16 @@
 				],
 				"parameters": [
 					{
-						"in": "header",
-						"name": "Authorization",
+						"in": "path",
+						"name": "address",
 						"required": true,
 						"schema": {
 							"type": "string"
 						}
 					},
 					{
-						"in": "path",
-						"name": "name",
+						"in": "header",
+						"name": "Authorization",
 						"required": true,
 						"schema": {
 							"type": "string"
@@ -8306,30 +7815,160 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/Erc721Request"
+								"$ref": "#/components/schemas/InputBody"
 							}
 						}
 					}
 				}
 			}
 		},
-		"/erc721/{name}/balance-of": {
-			"post": {
-				"operationId": "BalanceOf",
+		"/erc721/{account}/balanceOf": {
+			"get": {
+				"operationId": "getERC721BalanceOf",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
+									"$ref": "#/components/schemas/ERC721APIResponse"
 								}
 							}
 						}
 					}
 				},
 				"tags": [
-					"Erc721"
+					"ERC721"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/erc721/{tokenId}/ownerOf": {
+			"get": {
+				"operationId": "getERC721OwnerOf",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ERC721APIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"ERC721"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "tokenId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/erc721/name": {
+			"get": {
+				"operationId": "getERC721Name",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ERC721APIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"ERC721"
 				],
 				"security": [
 					{
@@ -8352,8 +7991,325 @@
 						}
 					},
 					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/erc721/symbol": {
+			"get": {
+				"operationId": "getERC721Symbol",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ERC721APIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"ERC721"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/erc721/{tokenId}/tokenURI": {
+			"get": {
+				"operationId": "getERC721TokenURI",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ERC721APIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"ERC721"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
 						"in": "path",
-						"name": "name",
+						"name": "tokenId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/erc721/{tokenId}/getApproved": {
+			"get": {
+				"operationId": "getERC721Approved",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ERC721APIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"ERC721"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "tokenId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/erc721/{owner}/{operator}/isApprovedForAll": {
+			"get": {
+				"operationId": "getERC721IsApprovedForAll",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ERC721APIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"ERC721"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "owner",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "operator",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/erc721/{address}/approve": {
+			"post": {
+				"operationId": "approveERC721",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ERC721APIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"ERC721"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
 						"required": true,
 						"schema": {
 							"type": "string"
@@ -8365,30 +8321,30 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/Erc721Request"
+								"$ref": "#/components/schemas/InputBody"
 							}
 						}
 					}
 				}
 			}
 		},
-		"/erc721/{name}/owner-of": {
+		"/erc721/{address}/setApprovalForAll": {
 			"post": {
-				"operationId": "OwnerOf",
+				"operationId": "setApprovalForAllERC721",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
+									"$ref": "#/components/schemas/ERC721APIResponse"
 								}
 							}
 						}
 					}
 				},
 				"tags": [
-					"Erc721"
+					"ERC721"
 				],
 				"security": [
 					{
@@ -8403,16 +8359,16 @@
 				],
 				"parameters": [
 					{
-						"in": "header",
-						"name": "Authorization",
+						"in": "path",
+						"name": "address",
 						"required": true,
 						"schema": {
 							"type": "string"
 						}
 					},
 					{
-						"in": "path",
-						"name": "name",
+						"in": "header",
+						"name": "Authorization",
 						"required": true,
 						"schema": {
 							"type": "string"
@@ -8424,30 +8380,30 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/Erc721Request"
+								"$ref": "#/components/schemas/InputBody"
 							}
 						}
 					}
 				}
 			}
 		},
-		"/erc721/{name}/safe-transfer-from": {
+		"/erc721/{address}/transferFrom": {
 			"post": {
-				"operationId": "SafeTransferFrom",
+				"operationId": "transferFromERC721",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
+									"$ref": "#/components/schemas/ERC721APIResponse"
 								}
 							}
 						}
 					}
 				},
 				"tags": [
-					"Erc721"
+					"ERC721"
 				],
 				"security": [
 					{
@@ -8462,16 +8418,16 @@
 				],
 				"parameters": [
 					{
-						"in": "header",
-						"name": "Authorization",
+						"in": "path",
+						"name": "address",
 						"required": true,
 						"schema": {
 							"type": "string"
 						}
 					},
 					{
-						"in": "path",
-						"name": "name",
+						"in": "header",
+						"name": "Authorization",
 						"required": true,
 						"schema": {
 							"type": "string"
@@ -8483,30 +8439,148 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/Erc721Request"
+								"$ref": "#/components/schemas/InputBody"
 							}
 						}
 					}
 				}
 			}
 		},
-		"/erc721/{name}/set-approval-for-all": {
+		"/erc721/{address}/safeTransferFrom": {
 			"post": {
-				"operationId": "SetApprovalForAll",
+				"operationId": "safeTransferFromERC721",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
+									"$ref": "#/components/schemas/ERC721APIResponse"
 								}
 							}
 						}
 					}
 				},
 				"tags": [
-					"Erc721"
+					"ERC721"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/erc721/{address}/safeTransferFromWithData": {
+			"post": {
+				"operationId": "safeTransferFromWithDataERC721",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ERC721APIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"ERC721"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/InputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/lending-pool/flash-loan-premium": {
+			"get": {
+				"operationId": "getFlashLoanPremiumTotal",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LendingPoolAPIResponse_number_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"LendingPool"
 				],
 				"security": [
 					{
@@ -8529,8 +8603,236 @@
 						}
 					},
 					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/lending-pool/revision": {
+			"get": {
+				"operationId": "getLendingPoolRevision",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LendingPoolAPIResponse_number_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"LendingPool"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/lending-pool/max-reserves": {
+			"get": {
+				"operationId": "getMaxNumberReserves",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LendingPoolAPIResponse_number_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"LendingPool"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/lending-pool/max-stable-rate-borrow-size-percent": {
+			"get": {
+				"operationId": "getMaxStableRateBorrowSizePercent",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LendingPoolAPIResponse_number_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"LendingPool"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/lending-pool/{accountName}/borrow": {
+			"post": {
+				"operationId": "borrow",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LendingPoolAPIResponse_LendingPoolExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"LendingPool"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
 						"in": "path",
-						"name": "name",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
 						"required": true,
 						"schema": {
 							"type": "string"
@@ -8542,7 +8844,1797 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/Erc721Request"
+								"$ref": "#/components/schemas/LendingPoolInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/lending-pool/{accountName}/deposit": {
+			"post": {
+				"operationId": "deposit",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LendingPoolAPIResponse_LendingPoolExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"LendingPool"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LendingPoolInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/lending-pool/{accountName}/flash-loan": {
+			"post": {
+				"operationId": "flashLoan",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LendingPoolAPIResponse_LendingPoolExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"LendingPool"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LendingPoolInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/lending-pool/{accountName}/repay": {
+			"post": {
+				"operationId": "repay",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LendingPoolAPIResponse_LendingPoolExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"LendingPool"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LendingPoolInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/lending-pool/{accountName}/swap-borrow-rate-mode": {
+			"post": {
+				"operationId": "swapBorrowRateMode",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LendingPoolAPIResponse_LendingPoolExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"LendingPool"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LendingPoolInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/lending-pool/{accountName}/set-user-use-reserve-as-collateral": {
+			"post": {
+				"operationId": "setUserUseReserveAsCollateral",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LendingPoolAPIResponse_LendingPoolExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"LendingPool"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LendingPoolInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/lending-pool/{accountName}/liquidation-call": {
+			"post": {
+				"operationId": "liquidationCall",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LendingPoolAPIResponse_LendingPoolExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"LendingPool"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LendingPoolInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/lending-pool/reserve-data": {
+			"get": {
+				"operationId": "getReserveData",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LendingPoolAPIResponse_any_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"LendingPool"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "asset",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/lending-pool/user-account-data": {
+			"get": {
+				"operationId": "getUserAccountData",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LendingPoolAPIResponse_any_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"LendingPool"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "user",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/lending-pool/reserves-list": {
+			"get": {
+				"operationId": "getReservesList",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LendingPoolAPIResponse_string-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"LendingPool"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/lending-pool/addresses-provider": {
+			"get": {
+				"operationId": "getAddressesProvider",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LendingPoolAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"LendingPool"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/lending-pool/paused": {
+			"get": {
+				"operationId": "isPaused",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LendingPoolAPIResponse_boolean_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"LendingPool"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/leverager/addresses-provider": {
+			"get": {
+				"operationId": "getAddressesProvider",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LeveragerAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Leverager"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/leverager/default-admin-role": {
+			"get": {
+				"operationId": "getDefaultAdminRole",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LeveragerAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Leverager"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/leverager/lending-pool": {
+			"get": {
+				"operationId": "getLendingPool",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LeveragerAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Leverager"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/leverager/min-hf": {
+			"get": {
+				"operationId": "getMinHF",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LeveragerAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Leverager"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/leverager/paused": {
+			"get": {
+				"operationId": "isPaused",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LeveragerAPIResponse_boolean_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Leverager"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/leverager/weth": {
+			"get": {
+				"operationId": "getWETH",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LeveragerAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Leverager"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/leverager/role-admin": {
+			"get": {
+				"operationId": "getRoleAdmin",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LeveragerAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Leverager"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "role",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/leverager/has-role": {
+			"get": {
+				"operationId": "hasRole",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LeveragerAPIResponse_boolean_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Leverager"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "role",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/leverager/supports-interface": {
+			"get": {
+				"operationId": "supportsInterface",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LeveragerAPIResponse_boolean_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Leverager"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "interfaceId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/leverager/{accountName}/deleverage-erc20": {
+			"post": {
+				"operationId": "deleverageERC20",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LeveragerAPIResponse_LeveragerExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Leverager"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LeveragerInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/leverager/{accountName}/deleverage-native": {
+			"post": {
+				"operationId": "deleverageNative",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LeveragerAPIResponse_LeveragerExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Leverager"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LeveragerInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/leverager/{accountName}/execute-operation": {
+			"post": {
+				"operationId": "executeOperation",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LeveragerAPIResponse_LeveragerExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Leverager"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LeveragerInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/leverager/{accountName}/grant-role": {
+			"post": {
+				"operationId": "grantRole",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LeveragerAPIResponse_LeveragerExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Leverager"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LeveragerInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/leverager/{accountName}/leverage-erc20": {
+			"post": {
+				"operationId": "leverageERC20",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LeveragerAPIResponse_LeveragerExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Leverager"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LeveragerInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/leverager/{accountName}/leverage-native": {
+			"post": {
+				"operationId": "leverageNative",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LeveragerAPIResponse_LeveragerExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Leverager"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LeveragerInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/leverager/{accountName}/pause": {
+			"post": {
+				"operationId": "pause",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LeveragerAPIResponse_LeveragerExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Leverager"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LeveragerInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/leverager/{accountName}/renounce-role": {
+			"post": {
+				"operationId": "renounceRole",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LeveragerAPIResponse_LeveragerExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Leverager"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LeveragerInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/leverager/{accountName}/revoke-role": {
+			"post": {
+				"operationId": "revokeRole",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LeveragerAPIResponse_LeveragerExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Leverager"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LeveragerInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/leverager/{accountName}/unpause": {
+			"post": {
+				"operationId": "unpause",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/LeveragerAPIResponse_LeveragerExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Leverager"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LeveragerInputBody"
 							}
 						}
 					}
@@ -9380,6 +11472,638 @@
 				}
 			}
 		},
+		"/odos/{accountName}/swap": {
+			"post": {
+				"operationId": "Swap",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OdosAPIResponse_OdosExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Odos"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/OdosSwapInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/odos/{accountName}/get-quote": {
+			"post": {
+				"operationId": "GetQuote",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OdosAPIResponse_OdosExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Odos"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/OdosSwapInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/odos/{accountName}/assemble-transaction": {
+			"post": {
+				"operationId": "AssembleTransaction",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OdosAPIResponse_OdosExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Odos"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"allOf": [
+									{
+										"$ref": "#/components/schemas/OdosInputBody"
+									},
+									{
+										"properties": {
+											"receiver": {
+												"type": "string"
+											},
+											"simulate": {
+												"type": "boolean"
+											},
+											"pathId": {
+												"type": "string"
+											},
+											"userAddr": {
+												"type": "string"
+											}
+										},
+										"required": [
+											"pathId",
+											"userAddr"
+										],
+										"type": "object"
+									}
+								]
+							}
+						}
+					}
+				}
+			}
+		},
+		"/odos/supported-chains": {
+			"get": {
+				"operationId": "GetSupportedChains",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OdosAPIResponse_OdosExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Odos"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/odos/{accountName}/contract-info": {
+			"get": {
+				"operationId": "GetContractInfo",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OdosAPIResponse_OdosExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Odos"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "version",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"enum": [
+								"v2"
+							]
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/odos/{accountName}/router-address": {
+			"get": {
+				"operationId": "GetRouterAddress",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OdosAPIResponse_OdosExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Odos"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "version",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"enum": [
+								"v2"
+							]
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/odos/{accountName}/executor-address": {
+			"get": {
+				"operationId": "GetExecutorAddress",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OdosAPIResponse_OdosExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Odos"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "version",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"enum": [
+								"v2"
+							]
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/odos/{accountName}/liquidity-sources": {
+			"get": {
+				"operationId": "GetLiquiditySources",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OdosAPIResponse_OdosExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Odos"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/odos/{accountName}/supported-tokens": {
+			"get": {
+				"operationId": "GetSupportedTokens",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OdosAPIResponse_OdosExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Odos"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/odos/{accountName}/current-block": {
+			"get": {
+				"operationId": "GetCurrentBlock",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OdosAPIResponse_OdosExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Odos"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
 		"/onramper/currencies": {
 			"get": {
 				"operationId": "OnRamperGetSupportedCurrencies",
@@ -9965,625 +12689,6 @@
 						}
 					}
 				}
-			}
-		},
-		"/payment/chains": {
-			"get": {
-				"operationId": "PaymentGetAvailableChains",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"type": "string"
-									},
-									"type": "array"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"payment"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": []
-			}
-		},
-		"/payment": {
-			"post": {
-				"operationId": "PaymentCreatePaymentIntent",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/PaymentIntentResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"payment"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/CreatePaymentIntentInput"
-							}
-						}
-					}
-				}
-			},
-			"get": {
-				"operationId": "PaymentGetAllPaymentIntents",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/PaymentIntentResponse"
-									},
-									"type": "array"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"payment"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/payment/{id}": {
-			"delete": {
-				"operationId": "PaymentDeletePaymentIntent",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/PaymentIntentResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"payment"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			},
-			"put": {
-				"operationId": "PaymentUpdatePaymentIntent",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/PaymentIntentResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"payment"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/CreatePaymentIntentInput"
-							}
-						}
-					}
-				}
-			},
-			"get": {
-				"operationId": "PaymentGetPaymentIntent",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/PaymentIntentResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"payment"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/payment/webhook/{id}": {
-			"post": {
-				"operationId": "MoralisWebhook",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {}
-							}
-						}
-					}
-				},
-				"tags": [
-					"payment"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/IWebhook"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/payment/webhook/tatum/{id}": {
-			"post": {
-				"operationId": "TatumWebhook",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {}
-							}
-						}
-					}
-				},
-				"tags": [
-					"payment"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/TatumTransactionEvent"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/payment/config": {
-			"get": {
-				"operationId": "GetAllPaymentIntentConfigs",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/PaymentIntentResponse"
-									},
-									"type": "array"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"payment"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			},
-			"post": {
-				"operationId": "CreatePaymentIntentConfig",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {}
-							}
-						}
-					}
-				},
-				"tags": [
-					"payment"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {}
-						}
-					}
-				}
-			}
-		},
-		"/payment/config/{id}": {
-			"get": {
-				"operationId": "GetOnePaymentIntentConfigs",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/PaymentIntentResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"payment"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			},
-			"put": {
-				"operationId": "UpdatePaymentIntentConfig",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/PaymentIntentResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"payment"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {}
-						}
-					}
-				}
-			},
-			"delete": {
-				"operationId": "DeletePaymentIntentConfig",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/PaymentIntentResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"payment"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
 			}
 		},
 		"/ping": {
@@ -11357,6 +13462,14 @@
 				"security": [],
 				"parameters": [
 					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
 						"in": "query",
 						"name": "sellAsset",
 						"required": true,
@@ -11682,478 +13795,6 @@
 						"application/json": {
 							"schema": {
 								"$ref": "#/components/schemas/TronTransactionInput"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/uniswap/{name}/add-liquidity": {
-			"post": {
-				"operationId": "AddLiquidity",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"UniSwap"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "name",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/UniswapInput"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/uniswap/{name}/remove-liquidity": {
-			"post": {
-				"operationId": "RemoveLiquidity",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"UniSwap"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "name",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/UniswapInput"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/uniswap/{name}/swap-exact-tokens-for-tokens": {
-			"post": {
-				"operationId": "SwapExactTokensForTokens",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"UniSwap"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "name",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/UniswapInput"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/uniswap/{name}/swap-exact-eth-for-tokens": {
-			"post": {
-				"operationId": "SwapExactETHForTokens",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"UniSwap"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "name",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/UniswapInput"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/yearn/{name}/add-liquidity": {
-			"post": {
-				"operationId": "AddLiquidity",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"yearn"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "name",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/InputBody"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/yearn/{name}/remove-liquidity": {
-			"post": {
-				"operationId": "RemoveLiquidity",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"yearn"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "name",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/InputBody"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/yearn/{name}/add-liquidity-weth": {
-			"post": {
-				"operationId": "AddLiquidityWeth",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"yearn"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "name",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/InputBody"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/yearn/{name}/remove-liquidity-weth": {
-			"post": {
-				"operationId": "RemoveLiquidityWeth",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/TransactionAPIResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"yearn"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "name",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/InputBody"
 							}
 						}
 					}

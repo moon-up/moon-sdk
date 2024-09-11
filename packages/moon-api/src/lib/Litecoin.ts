@@ -41,6 +41,7 @@ export class Litecoin<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     });
   /**
@@ -56,6 +57,7 @@ export class Litecoin<SecurityDataType = unknown> {
       path: `/litecoin/${accountName}`,
       method: 'GET',
       secure: true,
+      format: 'json',
       ...params,
     });
   /**
@@ -71,6 +73,7 @@ export class Litecoin<SecurityDataType = unknown> {
       path: `/litecoin`,
       method: 'GET',
       secure: true,
+      format: 'json',
       ...params,
     });
   /**
@@ -92,6 +95,7 @@ export class Litecoin<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     });
 }

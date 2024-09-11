@@ -29,6 +29,7 @@ export class Ping<SecurityDataType = unknown> {
     this.http.request<GetMessageData, any>({
       path: `/ping`,
       method: 'GET',
+      format: 'json',
       ...params,
     });
 }

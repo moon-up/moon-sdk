@@ -10,70 +10,44 @@
  */
 
 import {
-  ApproveData,
-  ERC20InputBody,
-  GetAllowanceData,
-  GetBalanceOfData,
-  GetDecimalsData,
-  GetNameData,
-  GetSymbolData,
-  GetTotalSupplyData,
-  TransferData,
-  TransferFromData,
+  DepositData,
+  GetAssetData,
+  GetConvertToAssetsData,
+  GetConvertToSharesData,
+  GetMaxDepositData,
+  GetTotalAssetsData,
+  InputBody,
+  WithdrawData,
 } from './data-contracts';
 
-export namespace Erc20 {
+export namespace Erc4626 {
   /**
    * No description
-   * @tags ERC20
-   * @name Approve
-   * @request POST:/erc20/{address}/approve
+   * @tags ERC4626
+   * @name Deposit
+   * @request POST:/erc4626/{address}/deposit
    * @secure
    */
-  export namespace Approve {
+  export namespace Deposit {
     export type RequestParams = {
       address: string;
     };
     export type RequestQuery = {};
-    export type RequestBody = ERC20InputBody;
+    export type RequestBody = InputBody;
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = ApproveData;
+    export type ResponseBody = DepositData;
   }
 
   /**
    * No description
-   * @tags ERC20
-   * @name GetAllowance
-   * @request GET:/erc20/{account}/allowance
+   * @tags ERC4626
+   * @name GetAsset
+   * @request GET:/erc4626/{account}/asset
    * @secure
    */
-  export namespace GetAllowance {
-    export type RequestParams = {
-      account: string;
-    };
-    export type RequestQuery = {
-      address: string;
-      chainId: string;
-      owner: string;
-      spender: string;
-    };
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = GetAllowanceData;
-  }
-
-  /**
-   * No description
-   * @tags ERC20
-   * @name GetBalanceOf
-   * @request GET:/erc20/{account}/balanceOf
-   * @secure
-   */
-  export namespace GetBalanceOf {
+  export namespace GetAsset {
     export type RequestParams = {
       account: string;
     };
@@ -85,17 +59,86 @@ export namespace Erc20 {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetBalanceOfData;
+    export type ResponseBody = GetAssetData;
   }
 
   /**
    * No description
-   * @tags ERC20
-   * @name GetDecimals
-   * @request GET:/erc20/{account}/decimals
+   * @tags ERC4626
+   * @name GetConvertToAssets
+   * @request GET:/erc4626/{account}/convertToAssets
    * @secure
    */
-  export namespace GetDecimals {
+  export namespace GetConvertToAssets {
+    export type RequestParams = {
+      account: string;
+    };
+    export type RequestQuery = {
+      address: string;
+      chainId: string;
+      shares: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = GetConvertToAssetsData;
+  }
+
+  /**
+   * No description
+   * @tags ERC4626
+   * @name GetConvertToShares
+   * @request GET:/erc4626/{account}/convertToShares
+   * @secure
+   */
+  export namespace GetConvertToShares {
+    export type RequestParams = {
+      account: string;
+    };
+    export type RequestQuery = {
+      address: string;
+      assets: string;
+      chainId: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = GetConvertToSharesData;
+  }
+
+  /**
+   * No description
+   * @tags ERC4626
+   * @name GetMaxDeposit
+   * @request GET:/erc4626/{account}/maxDeposit
+   * @secure
+   */
+  export namespace GetMaxDeposit {
+    export type RequestParams = {
+      account: string;
+    };
+    export type RequestQuery = {
+      address: string;
+      chainId: string;
+      receiver: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = GetMaxDepositData;
+  }
+
+  /**
+   * No description
+   * @tags ERC4626
+   * @name GetTotalAssets
+   * @request GET:/erc4626/{account}/totalAssets
+   * @secure
+   */
+  export namespace GetTotalAssets {
     export type RequestParams = {
       account: string;
     };
@@ -107,110 +150,25 @@ export namespace Erc20 {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetDecimalsData;
+    export type ResponseBody = GetTotalAssetsData;
   }
 
   /**
    * No description
-   * @tags ERC20
-   * @name GetName
-   * @request GET:/erc20/{account}/name
+   * @tags ERC4626
+   * @name Withdraw
+   * @request POST:/erc4626/{address}/withdraw
    * @secure
    */
-  export namespace GetName {
-    export type RequestParams = {
-      account: string;
-    };
-    export type RequestQuery = {
-      address: string;
-      chainId: string;
-    };
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = GetNameData;
-  }
-
-  /**
-   * No description
-   * @tags ERC20
-   * @name GetSymbol
-   * @request GET:/erc20/{account}/symbol
-   * @secure
-   */
-  export namespace GetSymbol {
-    export type RequestParams = {
-      account: string;
-    };
-    export type RequestQuery = {
-      address: string;
-      chainId: string;
-    };
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = GetSymbolData;
-  }
-
-  /**
-   * No description
-   * @tags ERC20
-   * @name GetTotalSupply
-   * @request GET:/erc20/{account}/totalSupply
-   * @secure
-   */
-  export namespace GetTotalSupply {
-    export type RequestParams = {
-      account: string;
-    };
-    export type RequestQuery = {
-      address: string;
-      chainId: string;
-    };
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = GetTotalSupplyData;
-  }
-
-  /**
-   * No description
-   * @tags ERC20
-   * @name Transfer
-   * @request POST:/erc20/{address}/transfer
-   * @secure
-   */
-  export namespace Transfer {
+  export namespace Withdraw {
     export type RequestParams = {
       address: string;
     };
     export type RequestQuery = {};
-    export type RequestBody = ERC20InputBody;
+    export type RequestBody = InputBody;
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = TransferData;
-  }
-
-  /**
-   * No description
-   * @tags ERC20
-   * @name TransferFrom
-   * @request POST:/erc20/{address}/transferFrom
-   * @secure
-   */
-  export namespace TransferFrom {
-    export type RequestParams = {
-      address: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = ERC20InputBody;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = TransferFromData;
+    export type ResponseBody = WithdrawData;
   }
 }

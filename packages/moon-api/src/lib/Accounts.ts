@@ -63,6 +63,7 @@ export class Accounts<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     });
   /**
@@ -80,6 +81,7 @@ export class Accounts<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     });
   /**
@@ -95,6 +97,7 @@ export class Accounts<SecurityDataType = unknown> {
       path: `/accounts/${accountName}`,
       method: 'DELETE',
       secure: true,
+      format: 'json',
       ...params,
     });
   /**
@@ -116,6 +119,7 @@ export class Accounts<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     });
   /**
@@ -133,6 +137,7 @@ export class Accounts<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     });
   /**
@@ -154,6 +159,7 @@ export class Accounts<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     });
   /**
@@ -169,6 +175,7 @@ export class Accounts<SecurityDataType = unknown> {
       path: `/accounts/${accountName}`,
       method: 'GET',
       secure: true,
+      format: 'json',
       ...params,
     });
   /**
@@ -188,6 +195,7 @@ export class Accounts<SecurityDataType = unknown> {
       method: 'GET',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     });
   /**
@@ -203,6 +211,7 @@ export class Accounts<SecurityDataType = unknown> {
       path: `/accounts/${accountName}/nonce`,
       method: 'GET',
       secure: true,
+      format: 'json',
       ...params,
     });
   /**
@@ -218,6 +227,7 @@ export class Accounts<SecurityDataType = unknown> {
       path: `/accounts`,
       method: 'GET',
       secure: true,
+      format: 'json',
       ...params,
     });
   /**
@@ -239,6 +249,7 @@ export class Accounts<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     });
   /**
@@ -260,6 +271,7 @@ export class Accounts<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     });
   /**
@@ -281,6 +293,7 @@ export class Accounts<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     });
   /**
@@ -300,6 +313,7 @@ export class Accounts<SecurityDataType = unknown> {
       method: 'GET',
       query: query,
       secure: true,
+      format: 'json',
       ...params,
     });
   /**
@@ -321,6 +335,7 @@ export class Accounts<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     });
 }

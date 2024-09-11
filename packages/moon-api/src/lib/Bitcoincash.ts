@@ -44,6 +44,7 @@ export class Bitcoincash<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     });
   /**
@@ -59,6 +60,7 @@ export class Bitcoincash<SecurityDataType = unknown> {
       path: `/bitcoincash/${accountName}`,
       method: 'GET',
       secure: true,
+      format: 'json',
       ...params,
     });
   /**
@@ -74,6 +76,7 @@ export class Bitcoincash<SecurityDataType = unknown> {
       path: `/bitcoincash`,
       method: 'GET',
       secure: true,
+      format: 'json',
       ...params,
     });
   /**
@@ -95,6 +98,7 @@ export class Bitcoincash<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     });
 }

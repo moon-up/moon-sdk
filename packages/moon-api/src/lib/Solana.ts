@@ -45,6 +45,7 @@ export class Solana<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     });
   /**
@@ -60,6 +61,7 @@ export class Solana<SecurityDataType = unknown> {
       path: `/solana/${accountName}`,
       method: 'GET',
       secure: true,
+      format: 'json',
       ...params,
     });
   /**
@@ -75,6 +77,7 @@ export class Solana<SecurityDataType = unknown> {
       path: `/solana`,
       method: 'GET',
       secure: true,
+      format: 'json',
       ...params,
     });
   /**
@@ -96,6 +99,7 @@ export class Solana<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     });
   /**
@@ -117,6 +121,7 @@ export class Solana<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     });
   /**
@@ -138,6 +143,7 @@ export class Solana<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     });
   /**
@@ -159,6 +165,7 @@ export class Solana<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     });
 }

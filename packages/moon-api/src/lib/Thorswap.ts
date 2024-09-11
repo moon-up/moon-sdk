@@ -12,9 +12,9 @@
 import {
   GetGasPriceData,
   GetGasPriceParams,
-  GetQuoteParams2,
-  GetQuoteResult,
-  GetSupportedChainsData,
+  GetQuoteOutput,
+  GetQuoteParams3,
+  GetSupportedChainsResult,
   GetSupportedProvidersData,
   PostQuoteParams2,
   PostQuoteResult,
@@ -39,6 +39,7 @@ export class Thorswap<SecurityDataType = unknown> {
       path: `/thorswap/gasPrice`,
       method: 'GET',
       query: query,
+      format: 'json',
       ...params,
     });
   /**
@@ -47,11 +48,12 @@ export class Thorswap<SecurityDataType = unknown> {
    * @name GetQuote
    * @request GET:/thorswap/quote
    */
-  getQuote = (query: GetQuoteParams2, params: RequestParams = {}) =>
-    this.http.request<GetQuoteResult, any>({
+  getQuote = (query: GetQuoteParams3, params: RequestParams = {}) =>
+    this.http.request<GetQuoteOutput, any>({
       path: `/thorswap/quote`,
       method: 'GET',
       query: query,
+      format: 'json',
       ...params,
     });
   /**
@@ -61,9 +63,10 @@ export class Thorswap<SecurityDataType = unknown> {
    * @request GET:/thorswap/chains
    */
   getSupportedChains = (params: RequestParams = {}) =>
-    this.http.request<GetSupportedChainsData, any>({
+    this.http.request<GetSupportedChainsResult, any>({
       path: `/thorswap/chains`,
       method: 'GET',
+      format: 'json',
       ...params,
     });
   /**
@@ -76,6 +79,7 @@ export class Thorswap<SecurityDataType = unknown> {
     this.http.request<GetSupportedProvidersData, any>({
       path: `/thorswap/providers`,
       method: 'GET',
+      format: 'json',
       ...params,
     });
   /**
@@ -92,6 +96,7 @@ export class Thorswap<SecurityDataType = unknown> {
       path: `/thorswap/${accountName}/quote`,
       method: 'POST',
       query: query,
+      format: 'json',
       ...params,
     });
 }
