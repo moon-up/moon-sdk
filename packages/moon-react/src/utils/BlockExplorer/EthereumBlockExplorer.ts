@@ -1,0 +1,85 @@
+import { BlockExplorerERC20Transfer, BlockExplorerERC721Transfer, BlockExplorerInterface, BlockExplorerTransaction, ExplorerResultType } from "./BlockExplorerInterface";
+
+// Designed to work for block explorers with the same API as etherscan
+export class EthereumBlockExplorer extends BlockExplorerInterface {
+
+    constructor(blockExplorerAPIURL: string, maxCallsPerSecond: number = 1) {
+        super(blockExplorerAPIURL);
+        this.minInterval = 5100 / maxCallsPerSecond;
+    }
+
+    async getTransactionsForAddress(address: string): Promise<BlockExplorerTransaction[]> {
+        //update this endpoint to match given block explorer
+        const type = ExplorerResultType.NormalTransactions;
+        console.log("BlockExplorerInterface::getTransactionsForAddress::new request", this.blockExplorerAPIURL)
+        const accountTxListUrl = `${this.blockExplorerAPIURL}?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=desc`;
+        try {
+            return this.queue.add(async () => {
+                const response = await fetch(accountTxListUrl);
+                const data = await response.json();
+                if (data.status === "0") {
+                    return [];
+                }
+                return this.transformRawTransactionResponse(data.result) as BlockExplorerTransaction[];
+            }) as Promise<BlockExplorerTransaction[]>;
+
+        } catch (e) {
+            console.error("BlockExplorerInterface::getTransactionsForAddress::error", e)
+            throw new Error(e)
+        }
+    }
+
+    async getERC20TransfersForAddress(address: string): Promise<BlockExplorerERC20Transfer[]> {
+        //update this endpoint to match given block explorer
+        const type = ExplorerResultType.ERC20Transfers;
+        console.log("BlockExplorerInterface::getERC20TransfersForAddress::new request", this.blockExplorerAPIURL)
+        const accountTxListUrl = `${this.blockExplorerAPIURL}?module=account&action=tokentx&address=${address}&startblock=0&endblock=99999999&sort=desc`;
+        try {
+            return this.queue.add(async () => {
+                const response = await fetch(accountTxListUrl);
+                const data = await response.json();
+                console.log("BlockExplorerInterface::getERC20TransfersForAddress::data", data)
+                if (data.status === "0") {
+                    return [];
+                }
+                return data.result as BlockExplorerERC20Transfer[];
+            }) as Promise<BlockExplorerERC20Transfer[]>;
+        } catch (e) {
+            console.error("BlockExplorerInterface::getERC20TransfersForAddress::error", e)
+            throw new Error(e)
+        }
+    }
+
+    async getERC721TransfersForAddress(address: string): Promise<BlockExplorerERC721Transfer[]> {
+        //update this endpoint to match given block explorer
+        const type = ExplorerResultType.ERC721Transfers;
+        console.log("BlockExplorerInterface::getERC721TransfersForAddress::new request", this.blockExplorerAPIURL)
+        const accountTxListUrl = `${this.blockExplorerAPIURL}?module=account&action=tokennfttx&address=${address}&startblock=0&endblock=99999999&sort=desc`;
+        try {
+            return this.queue.add(async () => {
+                const response = await fetch(accountTxListUrl);
+                const data = await response.json();
+                if (data.status === "0") {
+                    throw new Error("Error::getERC721TransfersForAddress::" + data.message)
+                }
+
+                return data.result as BlockExplorerERC721Transfer[];
+            }) as Promise<BlockExplorerERC721Transfer[]>;
+        } catch (e) {
+            console.error("BlockExplorerInterface::getERC721TransfersForAddress::error", e)
+            throw new Error(e)
+        }
+    }
+
+    //update this to transform the raw response to the BlockExplorerTransaction interface
+    public transformRawTransactionResponse(rawTransactions: any[]): any[] {
+        console.log("BlockExplorerInterface::transformRawTransactionResponse::rawTransactions", rawTransactions)
+        return rawTransactions.map((tx: any) => {
+            return {
+                ...tx,
+                functionName: this.extractFunctionName(tx.functionName),
+            }
+        });
+    }
+
+}

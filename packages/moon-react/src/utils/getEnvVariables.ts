@@ -44,8 +44,7 @@ const getEnvVariables = (): EnvVariables | undefined => {
       .join(", ");
 
     const errorMessage = `Missing environment variables (VITE_APP_  or  REACT_APP_): ${missingVariables}`;
-    console.error(errorMessage);
-    alert(errorMessage);
+    console.warn(errorMessage);
     // return undefined;
   }
 

@@ -22,7 +22,7 @@ export const useMoonErc1155 = () => {
     async (payload: {
       accountName: string;
       transaction: InputBody;
-    }): Promise<Transaction> => {
+    }): Promise<{ balance: string }> => {
       return handleTransaction("balanceOfErc1155", async () => {
         const erc1155SDK = getErc1155SDK();
         const response = await erc1155SDK.balanceOf(

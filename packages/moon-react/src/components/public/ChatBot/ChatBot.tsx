@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useMoonSDK } from "../../..";
+import { useMoonSDK, useMoonTokenManager } from "../../..";
 import Input from "../../Input/Input";
 import { ChatMessage } from "@/types";
 import { testMessages } from "./testData/chatTestData";
@@ -22,10 +22,12 @@ const ChatBot: React.FC<ChatBotProps> = ({
   sendButtonProps,
   clearButtonProps,
 }) => {
-  const { chatOpen } = useMoonSDK();
   const containerRef = useRef<HTMLDivElement>(null);
   const messageBoxRef = useRef<HTMLDivElement>(null);
   const [showMessages, setShowMessages] = useState(false);
+  const { chatOpen, wallet, chain, wallets } = useMoonSDK();
+  const { tokens } = useMoonTokenManager();
+
   console.log("showMessages", showMessages);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
@@ -104,13 +106,21 @@ const ChatBot: React.FC<ChatBotProps> = ({
 
     try {
       let response = await fetch(
-        "https://api.conscience.ngrok.app/conscience/1/TestRAG/trigger",
+        "https://api.conscience.ngrok.app/conscience/1/Cod3xV2/trigger",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ text: userInput }),
+          body: JSON.stringify({
+            text: `User Available Wallets: ${JSON.stringify(
+              wallets
+            )}\nUser tokens: ${JSON.stringify(
+              tokens
+            )}\nUser Selected Wallet: ${wallet}\n Selected Chain: ${JSON.stringify(
+              chain
+            )}\nUser Query:${userInput}`,
+          }),
         }
       ).then((response) => response.json());
 

@@ -6,3 +6,10 @@ export function shortenAddress(address: string | null | undefined) {
     address.substring(address.length - 4, address.length)
   );
 }
+
+export function minAddress(address: string | null | undefined) {
+  if (!address) return null;
+  return (
+    address.substring(address.length - 4, address.length)
+  );
+}

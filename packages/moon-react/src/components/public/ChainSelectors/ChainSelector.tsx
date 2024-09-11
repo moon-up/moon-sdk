@@ -9,7 +9,7 @@ type ChainSelectorProps = {
   optionProps?: React.OptionHTMLAttributes<HTMLOptionElement>;
 };
 
-const ChainSelector = ({ selectProps, optionProps }: ChainSelectorProps) => {
+export const ChainSelector = ({ selectProps, optionProps }: ChainSelectorProps) => {
   const { chains, setChain, currentChain: chain } = useMoonChain();
 
   useEffect(() => {
@@ -50,5 +50,3 @@ const ChainSelector = ({ selectProps, optionProps }: ChainSelectorProps) => {
     </select>
   );
 };
-
-export default ChainSelector;

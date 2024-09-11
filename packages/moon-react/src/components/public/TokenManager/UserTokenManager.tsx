@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useMemo } from "react";
 import TokenListItem from "./components/TokenListItem";
 import TokenModal from "./components/TokenModal";
 import Button from "@/components/Button/Button";
@@ -6,22 +6,38 @@ import TokenInfoModal from "../TokenInfoModal/TokenInfoModal";
 import { ethers } from "ethers";
 import { useMoonTokenManager } from "@/hooks/useMoonTokenManager";
 import { useTokenManagmentUIState } from "./useTokenManagmentUIState";
+import { useMoonSDK } from "@/index";
+import { UserToken } from "./types";
+import { shortenAddress } from "@/utils/shortenAddress";
+import TokenContextMenu from "./components/TokenContextMenu";
 
 export const UserTokenManager: React.FC = () => {
-
+  const [contextMenuToken, setContextMenuToken] = useState<UserToken | null>();
+  const { wallet, wallets } = useMoonSDK();
   const {
-    tokens,
+    tokensWithGasToken: tokens,
     addToken,
     removeToken,
+    updateToken,
     tokenList,
     chain,
     gasBalanceQueries,
-  } = useMoonTokenManager();
+  } = useMoonTokenManager(wallets);
+
+  const [activeFilters, setActiveFilters] = useState<string[]>([
+    "balance>0",
+    `selectedWallet`,
+    `selectedChain`,
+    "native",
+    "erc20",
+  ]);
 
   const {
     tokenInfoModalCGID,
+    isEditingExistingToken,
     setTokenInfoModalCGID,
     cgToken,
+    setCgToken,
     newToken,
     setNewToken,
     isModalOpen,
@@ -37,9 +53,11 @@ export const UserTokenManager: React.FC = () => {
     toggleContextMenu,
   } = useTokenManagmentUIState(tokenList);
 
-  const handleAddToken = async () => {
-    await addToken(newToken);
+
+  const handleUpdateToken = async () => {
+    await updateToken(newToken);
     setNewToken({
+      type: "erc20",
       name: "",
       symbol: "",
       coinGeckoId: "",
@@ -51,57 +69,109 @@ export const UserTokenManager: React.FC = () => {
     toggleModal();
   };
 
+  const handleAddToken = async () => {
+    await addToken(newToken);
+    setNewToken({
+      type: "erc20",
+      name: "",
+      symbol: "",
+      coinGeckoId: "",
+      decimals: 0,
+      address: "",
+      chainId: 1,
+      icon: "",
+    });
+    toggleModal();
+  };
+
+  const toggleFilter = (filter: string) => {
+    setActiveFilters((prev) =>
+      prev.includes(filter)
+        ? prev.filter((f) => f !== filter)
+        : [...prev, filter]
+    );
+  };
+
+  const filteredTokens = useMemo(() => {
+    return tokens.filter((token: UserToken) => {
+      if (
+        activeFilters.includes("balance>0") &&
+        parseFloat(token.balance || "0") <= 0
+      ) {
+        return false;
+      }
+      if (
+        activeFilters.includes(`selectedChain`) &&
+        token.chainId !== chain?.chain_id
+      ) {
+        return false;
+      }
+      if (
+        activeFilters.includes(`selectedWallet`) &&
+        token.wallet?.toLocaleLowerCase() !== (wallet || "").toLocaleLowerCase()
+      ) {
+        return false;
+      }
+      let tokenType = token?.type || "erc20";
+      if (!activeFilters.includes(tokenType)) {
+        return false;
+      }
+      return true;
+    });
+  }, [tokens, activeFilters, chain?.chain_id]);
+
+  const FilterButton: React.FC<{ filter: string; label: string }> = ({
+    filter,
+    label,
+  }) => (
+    <button
+      onClick={() => toggleFilter(filter)}
+      className={`inline-flex items-center justify-center whitespace-nowrap px-3 py-1 rounded-full text-sm mr-2 mb-2 transition-colors duration-200 ${
+        activeFilters.includes(filter)
+          ? "bg-accent-color text-white"
+          : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+      }`}
+    >
+      {label}
+    </button>
+  );
+
+  filteredTokens.sort((a, b) => {
+    if (!a?.balance || !b?.balance) return 0;
+    return parseFloat(b.balance) - parseFloat(a.balance);
+  });
   return (
-    <div className="p-4">
-      {tokens.length === 0 && (
+    <div className="p-4 max-w-[400px] relative">
+      <div className="mb-4 flex flex-wrap">
+        <FilterButton filter="balance>0" label="$>0" />
+        <FilterButton
+          filter={`selectedWallet`}
+          label={shortenAddress(wallet) || "Wallet"}
+        />
+        <FilterButton
+          filter={`selectedChain`}
+          label={`Chain: ${chain?.name || chain?.chain_id}`}
+        />
+        <FilterButton filter="native" label="Native" />
+        <FilterButton filter="erc20" label="ERC20" />
+        <FilterButton filter="erc721" label="ERC721" />
+        <FilterButton filter="erc1155" label="ERC1155" />
+      </div>
+
+      {filteredTokens.length === 0 && (
         <p className="ml-auto mr-auto mb-3 text-text-secondary">
-          No tokens added yet
+          No tokens match the current filters
         </p>
       )}
-      <ul className="mb-3">
-        {chain?.native_currency && (
+      <ul className="mb-3 max-h-[400px] overflow-y-scroll">
+        {filteredTokens.map((token) => (
           <TokenListItem
-            key={(chain?.native_currency as any).address}
-            token={{
-              isGasToken: true,
-              icon: "https://etherscan.io/images/ethereum-icon.png",
-              name: (chain?.native_currency as any).name,
-              symbol: (chain?.native_currency as any).symbol,
-              coinGeckoId: (chain?.native_currency as any).coinGeckoId,
-              decimals: (chain?.native_currency as any).decimals,
-              address: "0x",
-              chainId: chain?.chain_id || 1,
-              balance: gasBalanceQueries[0]?.data
-                ? ethers?.utils.formatUnits(
-                    gasBalanceQueries[0]?.data || "0",
-                    (chain?.native_currency as any).decimals
-                  )
-                : "0",
-              price:
-                tokens.find(
-                  (t) =>
-                    t.coinGeckoId ===
-                    (chain?.native_currency as any).coinGeckoId
-                )?.price || 0,
-            }}
-            onDotsClick={() => {}}
-            contextMenuOpen={false}
-            onRemove={() => {}}
-            onSend={() => alert("Send functionality not implemented")}
-            onEdit={() => alert("Edit functionality not implemented")}
-            onInfo={() => {}}
-          />
-        )}
-        {tokens.map((token) => (
-          <TokenListItem
-            key={token.address + token.chainId}
+            key={token.address + token.chainId + token.wallet}
             token={token}
-            onDotsClick={() => toggleContextMenu(token.address + token.chainId)}
-            contextMenuOpen={contextMenuOpen === token.address + token.chainId}
-            onRemove={() => removeToken(token.address)}
-            onSend={() => alert("Send functionality not implemented")}
-            onEdit={() => alert("Edit functionality not implemented")}
-            onInfo={() => setTokenInfoModalCGID(token.coinGeckoId)}
+            onDotsClick={() => {
+              toggleContextMenu(token.address + token.chainId + token.wallet);
+              setContextMenuToken(token);
+            }}
           />
         ))}
       </ul>
@@ -112,12 +182,29 @@ export const UserTokenManager: React.FC = () => {
       >
         Add Token
       </Button>
-      <TokenInfoModal
-        isOpen={!!tokenInfoModalCGID}
-        toggleModal={() => setTokenInfoModalCGID("")}
-        cgTokenId={tokenInfoModalCGID}
-      />
+      {contextMenuOpen && contextMenuToken && (
+        <TokenContextMenu
+          onRemove={() => removeToken(contextMenuToken.address)}
+          onSend={() => alert("Send functionality not implemented")}
+          onEdit={() => {
+            setNewToken(contextMenuToken);
+            setCgToken(contextMenuToken.coinGeckoId);
+            toggleModal();
+          }}
+          onInfo={() => setTokenInfoModalCGID(contextMenuToken.coinGeckoId)}
+          onClose={() => {
+            toggleContextMenu(
+              contextMenuToken.address +
+                contextMenuToken.chainId +
+                contextMenuToken.wallet
+            );
+            setContextMenuToken(null);
+          }} // Toggle to close the context menu
+        />
+      )}
+
       <TokenModal
+        isEditing={isEditingExistingToken}
         isOpen={isModalOpen}
         toggleModal={toggleModal}
         tokenInfo={newToken}
@@ -135,6 +222,12 @@ export const UserTokenManager: React.FC = () => {
         newToken={newToken}
         setNewToken={setNewToken}
         handleAddToken={handleAddToken}
+        handleUpdateToken={handleUpdateToken}
+      />
+      <TokenInfoModal
+        isOpen={!!tokenInfoModalCGID}
+        toggleModal={() => setTokenInfoModalCGID("")}
+        cgTokenId={tokenInfoModalCGID}
       />
     </div>
   );

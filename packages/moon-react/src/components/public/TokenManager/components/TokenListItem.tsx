@@ -1,29 +1,19 @@
 import React from "react";
 import { IconDots, IconGas } from "@/assets/icons";
-import TokenContextMenu from "./TokenContextMenu";
 import { UserToken } from "../types";
+import { minAddress } from "@/utils/shortenAddress";
 
 type TokenListItemProps = {
   token: UserToken;
   onDotsClick: () => void;
-  contextMenuOpen: boolean;
-  onRemove: () => void;
-  onSend: () => void;
-  onEdit: () => void;
-  onInfo: () => void;
 };
 
 const TokenListItem: React.FC<TokenListItemProps> = ({
   token,
   onDotsClick,
-  contextMenuOpen,
-  onRemove,
-  onSend,
-  onEdit,
-  onInfo,
 }) => (
   <li
-    key={token.address + token.chainId}
+    key={token.address + token.chainId + token.wallet}
     className="relative flex mb-2 justify-start py-2 px-3 gap-4 items-center bg-background-primary rounded-sm min-w-[300px] border-2 border-transparent hover:border-2 hover:border-accent-color hover:shadow-lg cursor-pointer"
   >
     {token.isGasToken ? (
@@ -31,7 +21,10 @@ const TokenListItem: React.FC<TokenListItemProps> = ({
     ) : (
       <img src={token.icon} alt="Token Icon" className="w-10 h-10" />
     )}
-    <p className="absolute left-1 bottom-1 bg-accent-color rounded-lg py-0 px-1 text-sm">
+    <p className="absolute left-3 top-0 rounded-lg py-0 px-1 text-xs">
+      {minAddress(token.wallet)}
+    </p>
+    <p className="absolute left-1 bottom-1 bg-accent-color rounded-lg py-0 px-1 text-xs">
       {token.chainId}
     </p>
 
@@ -55,15 +48,7 @@ const TokenListItem: React.FC<TokenListItemProps> = ({
     >
       <IconDots style={{ width: "1.5rem", height: "1.5rem" }} />
     </div>
-    {contextMenuOpen && (
-      <TokenContextMenu
-        onRemove={onRemove}
-        onSend={onSend}
-        onEdit={onEdit}
-        onInfo={onInfo}
-        onClose={() => onDotsClick()} // Toggle to close the context menu
-      />
-    )}
+
   </li>
 );
 

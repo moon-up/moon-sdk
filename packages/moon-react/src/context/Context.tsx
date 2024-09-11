@@ -28,6 +28,7 @@ import {
   SupabaseAdapter,
   UserTokenDBAdapter,
 } from "@/components/public/TokenManager";
+import getEnvVariables from '@/utils/getEnvVariables';
 
 const walletsRainbowkit = [
   injectedWallet,
@@ -146,9 +147,12 @@ function reducer(state: State, action: Action): State {
   }
 }
 
+const env = getEnvVariables();
 const moon = new MoonSDK({
   authInstance: supabase,
+  clientId: env?.clientId || "",
 });
+
 const provider = new MoonProvider({
   SDK: moon,
   chainId: 1,
@@ -369,6 +373,7 @@ export const MoonSDKProvider: React.FC<MoonSDKProviderProps> = ({
       subscription.unsubscribe();
     };
   }, []);
+
   const queryClient = useQueryClient(new QueryClient());
 
   return (

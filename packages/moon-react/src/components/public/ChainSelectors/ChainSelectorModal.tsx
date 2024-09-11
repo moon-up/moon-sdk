@@ -14,7 +14,7 @@ type ChainSelectorProps = {
   listItemProps?: React.HTMLAttributes<HTMLDivElement>;
 };
 
-const ChainSelectorModal: React.FC<ChainSelectorProps> = ({
+export const ChainSelectorModal: React.FC<ChainSelectorProps> = ({
   chainIdFilterList,
   title,
   headerProps,
@@ -99,4 +99,4 @@ const ChainSelectorModal: React.FC<ChainSelectorProps> = ({
   );
 };
 
-export default ChainSelectorModal;
+

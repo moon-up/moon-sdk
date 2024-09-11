@@ -115,6 +115,8 @@ export const makeCoinGeckoPricesQuery = <T extends string>(
 > => {
   return {
     staleTime: 1000 * 60 * 20,
+    retry: true,
+    retryDelay: 30000,
     queryKey: ["coinGeckoPrices", ...tokens],
     queryFn: async ({ signal }) => {
       if (tokens.length === 0) {

@@ -6,22 +6,18 @@
   "type": "commonjs",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
-  "typings": "./dist/index.d.ts",
   "types": "./dist/index.d.ts",
   "exports": {
-    "import": {
-      "types": "./dist/index.d.mts",
-      "default": "./dist/index.mjs"
-    },
-    "require": {
+    ".": {
       "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    }
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
   },
   "files": [
     "dist",
-    "src",
-    "dist/index.css"
+    "src"
   ],
   "husky": {
     "hooks": {
@@ -45,7 +41,7 @@
     }
   ],
   "scripts": {
-    "dev": "vite",
+    "dev": "vite  --port 5360",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "analyze": "size-limit --why",
@@ -57,17 +53,18 @@
     "lint:fix": "npm run lint --fix",
     "verify": "run-p prettier lint",
     "verify:fix": "npm run prettier:fix && npm run lint:fix",
-    "build": "NODE_OPTIONS='--max-old-space-size=16384' tsup src -- --dts-resolve",
-    "build:fast": "NODE_OPTIONS='--max-old-space-size=16384' tsup src",
+    "build": "tsup src -- --dts-resolve",
+    "build:fast": "tsup src",
     "tsup-dev": "tsup src --watch",
+    "build:types": "tsc --emitDeclarationOnly --declaration --declarationMap --skipLibCheck --outDir dist",
     "test": "vitest",
     "test:watch": "vitest watch",
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@moonup/ethers": "workspace:*",
-    "@moonup/moon-sdk": "workspace:*",
     "@moonup/moon-api": "workspace:*",
+    "@moonup/moon-sdk": "workspace:*",
     "@moonup/viem": "workspace:*",
     "@moonup/wagmi-connector": "workspace:*",
     "@rainbow-me/rainbowkit": "^2.0.7",
@@ -77,9 +74,9 @@
     "@supabase/supabase-js": "^2.43.5",
     "@tanstack/query-core": "^5.45.0",
     "@tanstack/react-query": "^5.36.2",
-    "@tanstack/query-core": "^5.45.0",
     "ethers": "^5.7.2",
     "mipd": "^0.0.7",
+    "p-queue": "^8.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.2.1",
@@ -87,9 +84,11 @@
     "react-query": "^3.39.3",
     "react-tabs": "^6.0.2",
     "siwe": "^2.1.4",
+    "usehooks-ts": "^3.1.0",
+    "uuid": "^8.3.2",
     "viem": "^2.9.25",
-    "wagmi": "^2.5.20",
-    "uuid": "^8.3.2"
+    "vite-tsconfig-paths": "^4.3.2",
+    "wagmi": "^2.5.20"
   },
   "devDependencies": {
     "@simplewebauthn/typescript-types": "^8.3.4",

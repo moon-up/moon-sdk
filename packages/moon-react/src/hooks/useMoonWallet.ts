@@ -11,6 +11,7 @@ export const useMoonWallet = () => {
 
   const getBalance = useCallback(async (address: string) => {
     // Implement balance fetching logic here
+    console.log("Fetching balance for address", address);
   }, []);
 
   return {

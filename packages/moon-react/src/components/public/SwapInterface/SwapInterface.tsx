@@ -1,5 +1,5 @@
 import Button from "@/components/Button/Button";
-import ChainSelectorModal from "../ChainSelectors/ChainSelectorModal";
+import { ChainSelectorModal } from "../ChainSelectors/ChainSelectorModal";
 import React, { useEffect, useState } from "react";
 import { TokenSwapParams } from "@moonup/moon-api";
 import { useMoonConveyorFinance } from "@/hooks/useMoonConveyorFinance";
@@ -7,10 +7,7 @@ import { useMoonSDK } from "@/index";
 import { useMoonTokenManager } from "@/hooks/useMoonTokenManager";
 import { UserToken } from "../TokenManager/types";
 import { useDebounceCallback } from "usehooks-ts";
-import {
-  safelyParseUnits,
-  weiStringAsFloat,
-} from "@/utils/parse";
+import { safelyParseUnits, weiStringAsFloat } from "@/utils/parse";
 import { useQueryClient } from "@tanstack/react-query";
 
 // interface Token {
@@ -143,7 +140,7 @@ const SwapInterface: React.FC = () => {
         accountName: wallet,
         transaction: swapParams,
       });
-      queryClient.invalidateQueries({ queryKey: ['erc20TokenBalances'] })
+      queryClient.invalidateQueries({ queryKey: ["erc20TokenBalances"] });
 
       console.log("Swap executed:", result);
       setButtonStatus("Estimate");

@@ -33,7 +33,7 @@ const TokenContextMenu: React.FC<TokenContextMenuProps> = ({
   return (
     <div
       ref={menuRef}
-      className="absolute right-0 top-full mt-2 w-48 bg-white shadow-lg rounded-md z-10 overflow-hidden"
+      className="absolute right-0 top-20 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden"
     >
       <button
         className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"

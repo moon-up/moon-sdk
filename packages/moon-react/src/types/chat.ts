@@ -1,5 +1,17 @@
 // src/types/chatTypes.ts
 
+/**
+ * goal is TX Prompt -> Moon Api calls + args
+ * transcations we handle
+ * Swap
+ * Send
+ * 
+ * 1 user query/intent to steps
+ * 2 steps to moon api calls
+ * 3 moon api calls to response.
+ * 
+ **/
+
 export interface TransactionStep {
   title: string;
   description: string;

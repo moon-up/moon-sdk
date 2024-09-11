@@ -69,14 +69,17 @@ export const useMoonErc721 = () => {
     async (payload: {
       accountName: string;
       transaction: InputBody;
-    }): Promise<Transaction> => {
+    }): Promise<{ balance: string }> => {
       return handleTransaction("balanceOfErc721", async () => {
         const erc721SDK = getErc721SDK();
         const response = await erc721SDK.balanceOf(
           payload.accountName,
           payload.transaction
         );
-        return response.data;
+        if (!response.success) {
+          throw new Error(response.message);
+        }
+        return response.data as { balance: string };
       });
     },
     [moon]

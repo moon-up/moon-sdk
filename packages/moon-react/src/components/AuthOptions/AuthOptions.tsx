@@ -9,13 +9,19 @@ import { IconChevronRight, IconWallet } from "@/assets/icons";
 interface AuthOptionsProps {
   config: AuthModalConfig;
   onConnectWallet: any;
+  onSignupEmail: any;
 }
 
-export const AuthOptions = ({ config, onConnectWallet }: AuthOptionsProps) => (
+export const AuthOptions = ({
+  config,
+  onConnectWallet,
+  onSignupEmail,
+}: AuthOptionsProps) => (
   <div
     className={`p-${config.appearance.modal.padding} justify-center items-center flex flex-col gap-5`}
   >
     <EmailLogin config={config} />
+
     <div className="w-full border-b-[1px] border-text-secondary" />
     {config.socialLogins && config.socialLogins.length > 0 && (
       <div className="w-full overflow-x-scroll h-20 flex gap-4 justify-center scrollbar-hide">
@@ -30,5 +36,11 @@ export const AuthOptions = ({ config, onConnectWallet }: AuthOptionsProps) => (
       </Button>
     )}
     {config.anonymousLoginEnabled && <SignInAnonymously />}
+    <h3
+      className="text-text-secondary hover:cursor-pointer hover:underline"
+      onClick={onSignupEmail}
+    >
+      Sign Up
+    </h3>
   </div>
 );

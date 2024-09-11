@@ -40,7 +40,13 @@ export const useMoonErc20 = () => {
   const transferErc20 = useCallback(
     async (payload: {
       accountName: string;
-      transaction: InputBody;
+      transaction: {
+        from: string;
+        to: string;
+        value: string;
+        contract_address: string;
+        chain_id: string;
+      };
       params: RequestParams;
     }): Promise<Transaction> => {
       return handleTransaction("transferErc20", async () => {
@@ -59,7 +65,13 @@ export const useMoonErc20 = () => {
   const transferFromErc20 = useCallback(
     async (payload: {
       accountName: string;
-      transaction: InputBody;
+      transaction: {
+        from: string;
+        to: string;
+        value: string;
+        contract_address: string;
+        chain_id: string;
+      };
     }): Promise<Transaction> => {
       return handleTransaction("transferFromErc20", async () => {
         const erc20SDK = getErc20SDK();
@@ -76,7 +88,10 @@ export const useMoonErc20 = () => {
   const balanceOfErc20 = useCallback(
     async (payload: {
       accountName: string;
-      transaction: InputBody;
+      transaction: {
+        chain_id: string;
+        contract_address: string;
+      };
     }): Promise<{ balance: string }> => {
       return handleTransaction("balanceOfErc20", async () => {
         const erc20SDK = getErc20SDK();
@@ -84,6 +99,9 @@ export const useMoonErc20 = () => {
           payload.accountName,
           payload.transaction
         );
+        if (!response.success) {
+          throw new Error(response.message);
+        }
         return response.data as { balance: string };
       });
     },

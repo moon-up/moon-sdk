@@ -3,15 +3,14 @@ import { useMoonSDK } from "@hooks/index";
 import { useAccount, useConnect, useSwitchChain } from "wagmi";
 import React from "react";
 import Button from "../Button/Button";
-import ChainSelector from "../public/ChainSelectors/ChainSelector";
-import ChainSelectorModal from "../public/ChainSelectors/ChainSelectorModal";
+import { ChainSelector } from "../public/ChainSelectors/ChainSelector";
+import { ChainSelectorModal } from "../public/ChainSelectors/ChainSelectorModal";
 import { WalletSelector } from "../public/WalletSelectors/WalletSelector";
 import { WalletSelectorModal } from "../public/WalletSelectors/WalletSelectorModal";
 // load api
 import ChatBot from "../public/ChatBot/ChatBot";
 import { UserTokenManager } from "../public/TokenManager";
 import SwapInterface from "../public/SwapInterface/SwapInterface";
-import TransactionReceipt from "../public/TransactionReceipt/TransactionReceipt";
 
 function Account() {
   const { address, status } = useAccount();
@@ -188,7 +187,7 @@ function Account() {
 
       <div className="bg-background-secondary w-full rounded-xl flex flex-col items-center justify-center text-text-primary p-4">
         <div className="text-center text-xl font-semibold">Receipt</div>
-        <TransactionReceipt
+        {/* <TransactionReceipt
           txHash={
             conveyorTx[conveyorTx.length - 1]?.data?.tx?.signed?.transactions[0]
               ?.transaction_hash
@@ -201,7 +200,7 @@ function Account() {
           status="success"
           timestamp={1625097600}
           // txResult={conveyorTx[conveyorTx.length - 1]}
-        />
+        /> */}
       </div>
 
       <ChatBot />

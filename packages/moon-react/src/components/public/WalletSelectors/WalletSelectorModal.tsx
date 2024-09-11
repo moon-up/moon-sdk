@@ -21,7 +21,7 @@ export const WalletSelectorModal = ({
   listProps,
   listItemProps,
 }: WalletSelectorProps) => {
-  const { wallets, setWallet, wallet } = useMoonSDK();
+  const { wallets, setWallet, wallet, createWallet, listWallets } = useMoonSDK();
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -45,6 +45,11 @@ export const WalletSelectorModal = ({
     toggleModal();
   };
 
+  const createAndRefreshWallet = async () => {
+    await createWallet();
+    await listWallets();
+  }
+
   return (
     <>
       <button
@@ -58,6 +63,12 @@ export const WalletSelectorModal = ({
         {title && (
           <h2 className="text-xl font-semibold mb-4" {...headerProps}>
             {title}
+            <button
+              className="float-right text-text-primary"
+              onClick={createAndRefreshWallet}
+            >
+              + New
+            </button>
           </h2>
         )}
         <Input

@@ -29,6 +29,7 @@ export const useMoonAccounts = () => {
     }): Promise<Transaction> => {
       return handleTransaction("transferEth", async () => {
         const accountsSDK = getAccountsSDK();
+        console.log("transferEth", payload.accountName, payload.transaction)
         const response = await accountsSDK.transferEth(
           payload.accountName,
           payload.transaction

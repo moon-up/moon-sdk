@@ -4,6 +4,7 @@ import { AuthModalConfig } from "../../types/types";
 interface ModalProps {
   children: React.ReactNode;
   config: AuthModalConfig;
+  isSignup?: boolean;
 }
 
 interface ModalOverlayProps {
@@ -18,7 +19,11 @@ export const AuthModalOverlay = ({ onClick, config }: ModalOverlayProps) => (
   ></div>
 );
 
-export const AuthModalContent = ({ children, config }: ModalProps) => {
+export const AuthModalContent = ({
+  children,
+  config,
+  isSignup,
+}: ModalProps) => {
   const textInside = config.appearance.welcomeMessage?.position == "inside";
   const title = (
     <div
@@ -30,13 +35,17 @@ export const AuthModalContent = ({ children, config }: ModalProps) => {
         style={{ color: config.theming.textColor }}
         className={`text-2xl font-bold`}
       >
-        {config.appearance.welcomeMessage?.title}
+        {isSignup
+          ? config.appearance.signupMessage?.title
+          : config.appearance.welcomeMessage?.title}
       </div>
       <div
         style={{ color: config.theming.textColorSecondary }}
         className={`text-lg`}
       >
-        {config.appearance.welcomeMessage?.subtitle}
+        {isSignup
+          ? config.appearance.signupMessage?.subtitle
+          : config.appearance.welcomeMessage?.subtitle}
       </div>
     </div>
   );

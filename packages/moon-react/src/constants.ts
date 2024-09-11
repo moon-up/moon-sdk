@@ -22,6 +22,11 @@ export const DEFAULT_AUTH_CONFIG: AuthModalConfig = {
       position: "above",
       enabled: true,
     },
+    signupMessage: {
+      //done
+      title: "Sign up",
+      subtitle: "Enter your email and password to sign up",
+    },
     modal: {
       //done
       borderRadius: "3px",

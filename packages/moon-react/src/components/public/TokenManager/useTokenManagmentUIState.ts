@@ -9,8 +9,11 @@ import { UserToken } from "@/components/public/TokenManager/types";
 export const useTokenManagmentUIState = (tokenList: TokenListItemType[] | undefined) => {
   const { chains } = useMoonSDK();
   const [tokenInfoModalCGID, setTokenInfoModalCGID] = useState<string>("");
+  const [isEditingExistingToken, setIsEditingExistingToken] = useState(true);
+  
   const [cgToken, setCgToken] = useState<string>("");
   const [newToken, setNewToken] = useState<UserToken>({
+    type: "erc20",
     name: "",
     symbol: "",
     coinGeckoId: "",
@@ -103,5 +106,7 @@ export const useTokenManagmentUIState = (tokenList: TokenListItemType[] | undefi
     handleAutocompleteSelect,
     handlePlatformChange,
     toggleContextMenu,
+    setIsEditingExistingToken,
+    isEditingExistingToken
   };
 };

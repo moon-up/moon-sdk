@@ -1,4 +1,5 @@
 export type UserToken = {
+  type: "erc20" | "erc721" | "erc1155" | "native";
   name: string;
   symbol: string;
   coinGeckoId: string;
@@ -12,4 +13,5 @@ export type UserToken = {
   };
   price?: number;
   isGasToken?: boolean;
+  wallet?: string;
 };

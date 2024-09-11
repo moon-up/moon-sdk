@@ -40,6 +40,10 @@ export type AuthModalConfig = {
       className?: string;
       enabled?: boolean;
     };
+    signupMessage?: {
+      title?: string;
+      subtitle?: string;
+    };
     modal: {
       backdropColor?: string;
       backgroundColor?: string;

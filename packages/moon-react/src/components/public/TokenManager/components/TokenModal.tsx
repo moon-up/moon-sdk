@@ -5,6 +5,7 @@ import Button from "@/components/Button/Button";
 import { UserToken } from "../types";
 
 type TokenModalProps = {
+  isEditing: boolean;
   isOpen: boolean;
   toggleModal: () => void;
   tokenInfo: any;
@@ -20,9 +21,11 @@ type TokenModalProps = {
   newToken: UserToken;
   setNewToken: (token: UserToken) => void;
   handleAddToken: () => void;
+  handleUpdateToken: () => void;
 };
 
 const TokenModal: React.FC<TokenModalProps> = ({
+  isEditing,
   isOpen,
   toggleModal,
   tokenInfo,
@@ -37,9 +40,12 @@ const TokenModal: React.FC<TokenModalProps> = ({
   newToken,
   setNewToken,
   handleAddToken,
+  handleUpdateToken,
 }) => (
   <Modal isOpen={isOpen} toggleModal={toggleModal}>
-    <h2 className="text-xl font-semibold mb-4">Add New Token</h2>
+    <h2 className="text-xl font-semibold mb-4">
+      {isEditing ? "Editing " : "Add New "} Token
+    </h2>
     <div className="mb-4 flex flex-col gap-2">
       {tokenInfo?.name && tokenInfo?.market_data?.current_price?.usd && (
         <div className="bg-background-primary rounded-sm flex flex-col p-3 gap-3">
@@ -144,9 +150,15 @@ const TokenModal: React.FC<TokenModalProps> = ({
         onChange={(e) => setNewToken({ ...newToken, chainId: +e.target.value })}
         className="p-2 border rounded mb-2"
       />
-      <Button onClick={handleAddToken} className="mt-2">
-        Add Token
-      </Button>
+      {isEditing ? (
+        <Button onClick={handleUpdateToken} className="mt-2">
+          Update Token
+        </Button>
+      ) : (
+        <Button onClick={handleAddToken} className="mt-2">
+          Add Token
+        </Button>
+      )}
     </div>
   </Modal>
 );

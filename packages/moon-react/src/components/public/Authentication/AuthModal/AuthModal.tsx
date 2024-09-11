@@ -2,7 +2,13 @@ import React from "react";
 import { useState } from "react";
 import { AuthModalConfig } from "@moon-react-types/index";
 import { useMoonSDK } from "@hooks/index";
-import { AuthModalContent, AuthModalOverlay, WalletConnectorsList, AuthOptions } from "@components/index";
+import {
+  AuthModalContent,
+  AuthModalOverlay,
+  WalletConnectorsList,
+  AuthOptions,
+} from "@components/index";
+import { SignupForm } from "./components/SignupForm";
 
 type AuthModalProps = {
   children: React.ReactNode;
@@ -12,7 +18,10 @@ type AuthModalProps = {
 export const AuthModal: React.FC<AuthModalProps> = ({ config, children }) => {
   const { enabled, appearance } = config;
   const [connectWallet, setConnectWallet] = useState(false);
-  const { session } = useMoonSDK();
+  const [screen, setScreen] = useState<"login" | "walletConnect" | "signup">(
+    "login"
+  );
+  const { session, supabase } = useMoonSDK();
 
   if (!enabled) return <>{children}</>;
   if (session) return <>{children}</>;
@@ -25,7 +34,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ config, children }) => {
   return (
     <>
       <AuthModalOverlay onClick={() => {}} config={config} />
-      <AuthModalContent config={config}>
+      <AuthModalContent config={config} isSignup={screen == "signup"}>
         {config.appearance.logo?.enabled && (
           <img
             src={config.appearance.logo?.src}
@@ -35,12 +44,23 @@ export const AuthModal: React.FC<AuthModalProps> = ({ config, children }) => {
             className={`fixed top-8 ${logoPosition}`}
           />
         )}
-        {connectWallet ? (
-          <WalletConnectorsList onBack={() => setConnectWallet(false)} />
-        ) : (
+        {screen === "login" && (
           <AuthOptions
             config={config}
-            onConnectWallet={() => setConnectWallet(true)}
+            onConnectWallet={() => setScreen("walletConnect")}
+            onSignupEmail={() => setScreen("signup")}
+          />
+        )}
+        {screen === "walletConnect" && (
+          <WalletConnectorsList onBack={() => setConnectWallet(false)} />
+        )}
+        {screen === "signup" && (
+          <SignupForm
+            onCancel={() => setScreen("login")}
+            onSuccess={() => {
+              setScreen("login")
+            }}
+            config={config}
           />
         )}
       </AuthModalContent>
