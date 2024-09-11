@@ -41,6 +41,7 @@ export class Tron<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     });
   /**
@@ -56,6 +57,7 @@ export class Tron<SecurityDataType = unknown> {
       path: `/tron/${accountName}`,
       method: 'GET',
       secure: true,
+      format: 'json',
       ...params,
     });
   /**
@@ -71,6 +73,7 @@ export class Tron<SecurityDataType = unknown> {
       path: `/tron`,
       method: 'GET',
       secure: true,
+      format: 'json',
       ...params,
     });
   /**
@@ -92,6 +95,7 @@ export class Tron<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     });
 }

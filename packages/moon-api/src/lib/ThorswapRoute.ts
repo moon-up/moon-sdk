@@ -11,8 +11,8 @@
 
 import {
   GetGasPriceData,
-  GetQuoteResult,
-  GetSupportedChainsData,
+  GetQuoteOutput,
+  GetSupportedChainsResult,
   GetSupportedProvidersData,
   PostQuoteResult,
 } from './data-contracts';
@@ -60,7 +60,7 @@ export namespace Thorswap {
     };
     export type RequestBody = never;
     export type RequestHeaders = {};
-    export type ResponseBody = GetQuoteResult;
+    export type ResponseBody = GetQuoteOutput;
   }
 
   /**
@@ -73,7 +73,7 @@ export namespace Thorswap {
     export type RequestQuery = {};
     export type RequestBody = never;
     export type RequestHeaders = {};
-    export type ResponseBody = GetSupportedChainsData;
+    export type ResponseBody = GetSupportedChainsResult;
   }
 
   /**

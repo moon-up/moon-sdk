@@ -51,6 +51,7 @@ export class Lifi<SecurityDataType = unknown> {
       path: `/lifi/token`,
       method: 'GET',
       query: query,
+      format: 'json',
       ...params,
     });
   /**
@@ -63,6 +64,7 @@ export class Lifi<SecurityDataType = unknown> {
     this.http.request<FetchTokensData, any>({
       path: `/lifi/tokens`,
       method: 'GET',
+      format: 'json',
       ...params,
     });
   /**
@@ -79,6 +81,7 @@ export class Lifi<SecurityDataType = unknown> {
       path: `/lifi/allPossibleConnections`,
       method: 'GET',
       query: query,
+      format: 'json',
       ...params,
     });
   /**
@@ -92,6 +95,7 @@ export class Lifi<SecurityDataType = unknown> {
       path: `/lifi/chains`,
       method: 'GET',
       query: query,
+      format: 'json',
       ...params,
     });
   /**
@@ -105,6 +109,7 @@ export class Lifi<SecurityDataType = unknown> {
       path: `/lifi/connections`,
       method: 'GET',
       query: query,
+      format: 'json',
       ...params,
     });
   /**
@@ -118,6 +123,7 @@ export class Lifi<SecurityDataType = unknown> {
       path: `/lifi/quote`,
       method: 'GET',
       query: query,
+      format: 'json',
       ...params,
     });
   /**
@@ -131,6 +137,7 @@ export class Lifi<SecurityDataType = unknown> {
       path: `/lifi/status`,
       method: 'GET',
       query: query,
+      format: 'json',
       ...params,
     });
   /**
@@ -144,6 +151,7 @@ export class Lifi<SecurityDataType = unknown> {
       path: `/lifi/tools`,
       method: 'GET',
       query: query,
+      format: 'json',
       ...params,
     });
   /**
@@ -160,6 +168,7 @@ export class Lifi<SecurityDataType = unknown> {
       path: `/lifi/${accountName}/quote`,
       method: 'POST',
       query: query,
+      format: 'json',
       ...params,
     });
 }

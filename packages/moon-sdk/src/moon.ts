@@ -5,31 +5,33 @@ import {
 import { BytesLike, arrayify } from '@ethersproject/bytes';
 import { hashMessage } from '@ethersproject/hash';
 import {
-  Aave,
   Accounts,
   ApiConfig,
   Bitcoin,
   Bitcoincash,
   ContentType,
-  Conveyorfinance,
   Cosmos,
   Dogecoin,
   Ens,
   Eos,
   Erc1155,
   Erc20,
+  Erc4626,
   Erc721,
   HttpClient,
   InputBody,
+  LendingPool,
+  Leverager,
+  Lifi,
   Litecoin,
   Transaction as MoonTransaction,
-  Oneinch,
+  Odos,
+  Onramper,
   Ripple,
   Solana,
+  Thorswap,
   TransactionData,
   Tron,
-  Uniswap,
-  Yearn,
 } from '@moonup/moon-api';
 import {
   PublicKeyCredentialCreationOptionsJSON,
@@ -113,15 +115,10 @@ interface Auth {
  */
 export class MoonSDK extends EventEmitter {
   private AccountsSDK: Accounts;
-  private AaveSDK: Aave;
-  private ConveyorfinanceSDK: Conveyorfinance;
   private ENSSDK: Ens;
   private Erc20SDK: Erc20;
   private Erc1155SDK: Erc1155;
   private Erc721SDK: Erc721;
-  private OneinchSDK: Oneinch;
-  private UniswapSDK: Uniswap;
-  private YearnSDK: Yearn;
   private BitcoinSDK: Bitcoin;
   private SolanaSDK: Solana;
   private CosmosSDK: Cosmos;
@@ -133,6 +130,13 @@ export class MoonSDK extends EventEmitter {
   private DogecoinSDK: Dogecoin;
   private MoonAPIClient: SupabaseClient;
   private http: HttpClient;
+  private Erc4626SDK: Erc4626;
+  private LendingPoolSDK: LendingPool;
+  private LeveragerSDK: Leverager;
+  private LifiSDK: Lifi;
+  private OdosSDK: Odos;
+  private OnramperSDK: Onramper;
+  private ThorswapSDK: Thorswap;
   isAuthenticated = false;
   private config: MoonSDKConfig;
   /**
@@ -209,8 +213,6 @@ export class MoonSDK extends EventEmitter {
     }
     this.AccountsSDK = new Accounts(this.http);
 
-    this.AaveSDK = new Aave(this.http);
-
     this.ENSSDK = new Ens(this.http);
 
     this.Erc20SDK = new Erc20(this.http);
@@ -218,14 +220,6 @@ export class MoonSDK extends EventEmitter {
     this.Erc1155SDK = new Erc1155(this.http);
 
     this.Erc721SDK = new Erc721(this.http);
-
-    this.OneinchSDK = new Oneinch(this.http);
-
-    this.UniswapSDK = new Uniswap(this.http);
-
-    this.YearnSDK = new Yearn(this.http);
-
-    this.ConveyorfinanceSDK = new Conveyorfinance(this.http);
 
     this.BitcoinSDK = new Bitcoin(this.http);
 
@@ -243,6 +237,13 @@ export class MoonSDK extends EventEmitter {
     this.RippleSDK = new Ripple(this.http);
 
     this.TronSDK = new Tron(this.http);
+    this.Erc4626SDK = new Erc4626(this.http);
+    this.LendingPoolSDK = new LendingPool(this.http);
+    this.LeveragerSDK = new Leverager(this.http);
+    this.LifiSDK = new Lifi(this.http);
+    this.OdosSDK = new Odos(this.http);
+    this.OnramperSDK = new Onramper(this.http);
+    this.ThorswapSDK = new Thorswap(this.http);
 
     this.connect();
   }
@@ -353,15 +354,6 @@ export class MoonSDK extends EventEmitter {
   public getAccountsSDK(): Accounts {
     return this.AccountsSDK;
   }
-
-  public getAaveSDK(): Aave {
-    return this.AaveSDK;
-  }
-
-  public getConveyorfinanceSDK(): Conveyorfinance {
-    return this.ConveyorfinanceSDK;
-  }
-
   public getENSSDK(): Ens {
     return this.ENSSDK;
   }
@@ -377,18 +369,34 @@ export class MoonSDK extends EventEmitter {
   public getErc721SDK(): Erc721 {
     return this.Erc721SDK;
   }
-
-  public getOneinchSDK(): Oneinch {
-    return this.OneinchSDK;
+  public getErc4626SDK(): Erc4626 {
+    return this.Erc4626SDK;
   }
 
-  public getUniswapSDK(): Uniswap {
-    return this.UniswapSDK;
+  public getLendingPoolSDK(): LendingPool {
+    return this.LendingPoolSDK;
   }
 
-  public getYearnSDK(): Yearn {
-    return this.YearnSDK;
+  public getLeveragerSDK(): Leverager {
+    return this.LeveragerSDK;
   }
+
+  public getLifiSDK(): Lifi {
+    return this.LifiSDK;
+  }
+
+  public getOdosSDK(): Odos {
+    return this.OdosSDK;
+  }
+
+  public getOnramperSDK(): Onramper {
+    return this.OnramperSDK;
+  }
+
+  public getThorswapSDK(): Thorswap {
+    return this.ThorswapSDK;
+  }
+
   /**
    * Returns a list of Ethereum accounts managed by the Moon API.
    */
@@ -579,14 +587,12 @@ export class MoonSDK extends EventEmitter {
   public async performDiscordOauthCodeExchange(code: string) {
     const provider = 'discord';
     // Ensure clientId is accessed correctly from this.config
-    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}/token`;
+    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}/token?code=${code}`;
 
     const response = await fetch(uri, {
-      method: 'POST', // Change method to POST for code exchange
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ code }), // Send code in the request body
     });
 
     if (!response.ok) {
@@ -613,13 +619,11 @@ export class MoonSDK extends EventEmitter {
   public async performGithubOauthCodeExchange(code: string) {
     const provider = 'github';
     // Correctly use POST method and include code in the body, not in the URL
-    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}/token`;
+    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}/token?code=${code}`;
     const response = await fetch(uri, {
-      method: 'POST', // Change method to POST
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ code }), // Include code in the body
     });
 
     if (!response.ok) {
@@ -646,13 +650,11 @@ export class MoonSDK extends EventEmitter {
   public async performGoogleOauthCodeExchange(code: string) {
     const provider = 'google';
     // Correctly use POST method and include code in the body, not in the URL
-    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}/token`;
+    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}/token?code=${code}`;
     const response = await fetch(uri, {
-      method: 'POST', // Change method to POST
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ code }), // Include code in the body
     });
 
     if (!response.ok) {
@@ -680,13 +682,11 @@ export class MoonSDK extends EventEmitter {
   public async performTwitterOauthCodeExchange(code: string) {
     const provider = 'twitter';
     // Use POST method and include code in the body instead of the URL
-    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}/token`;
+    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}/token?code=${code}`;
     const response = await fetch(uri, {
-      method: 'POST', // Correct method to POST
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ code }), // Include code in the body
     });
 
     if (!response.ok) {

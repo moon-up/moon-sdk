@@ -46,6 +46,7 @@ export class Cosmos<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     });
   /**
@@ -61,6 +62,7 @@ export class Cosmos<SecurityDataType = unknown> {
       path: `/cosmos/accounts/${accountName}`,
       method: 'DELETE',
       secure: true,
+      format: 'json',
       ...params,
     });
   /**
@@ -76,6 +78,7 @@ export class Cosmos<SecurityDataType = unknown> {
       path: `/cosmos/accounts`,
       method: 'GET',
       secure: true,
+      format: 'json',
       ...params,
     });
   /**
@@ -91,6 +94,7 @@ export class Cosmos<SecurityDataType = unknown> {
       path: `/cosmos/accounts/${accountName}`,
       method: 'GET',
       secure: true,
+      format: 'json',
       ...params,
     });
   /**
@@ -112,6 +116,7 @@ export class Cosmos<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     });
   /**
@@ -133,6 +138,7 @@ export class Cosmos<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     });
   /**
@@ -154,6 +160,7 @@ export class Cosmos<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     });
 }

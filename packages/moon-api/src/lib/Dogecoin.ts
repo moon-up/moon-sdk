@@ -41,6 +41,7 @@ export class Dogecoin<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     });
   /**
@@ -56,6 +57,7 @@ export class Dogecoin<SecurityDataType = unknown> {
       path: `/dogecoin/${accountName}`,
       method: 'GET',
       secure: true,
+      format: 'json',
       ...params,
     });
   /**
@@ -71,6 +73,7 @@ export class Dogecoin<SecurityDataType = unknown> {
       path: `/dogecoin`,
       method: 'GET',
       secure: true,
+      format: 'json',
       ...params,
     });
   /**
@@ -92,6 +95,7 @@ export class Dogecoin<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
       ...params,
     });
 }

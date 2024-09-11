@@ -10,247 +10,265 @@
  */
 
 import {
-  ApproveData,
-  BalanceOfResult,
-  Erc721Request,
-  GetApprovedData,
-  IsApprovedForAllResult,
-  NameData,
-  OwnerOfData,
-  SafeTransferFromResult,
-  SetApprovalForAllResult,
-  SymbolData,
-  TokenUriData,
-  TransferData,
-  TransferFromData,
+  ApproveErc721Data,
+  GetErc721ApprovedData,
+  GetErc721BalanceOfData,
+  GetErc721IsApprovedForAllData,
+  GetErc721NameData,
+  GetErc721OwnerOfData,
+  GetErc721SymbolData,
+  GetErc721TokenUriData,
+  InputBody,
+  SafeTransferFromErc721Data,
+  SafeTransferFromWithDataErc721Data,
+  SetApprovalForAllErc721Data,
+  TransferFromErc721Data,
 } from './data-contracts';
 
 export namespace Erc721 {
   /**
    * No description
-   * @tags Erc721
-   * @name Approve
-   * @request POST:/erc721/{name}/approve
+   * @tags ERC721
+   * @name ApproveErc721
+   * @request POST:/erc721/{address}/approve
    * @secure
    */
-  export namespace Approve {
+  export namespace ApproveErc721 {
     export type RequestParams = {
-      name: string;
+      address: string;
     };
     export type RequestQuery = {};
-    export type RequestBody = Erc721Request;
+    export type RequestBody = InputBody;
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = ApproveData;
+    export type ResponseBody = ApproveErc721Data;
   }
 
   /**
    * No description
-   * @tags Erc721
-   * @name BalanceOf
-   * @request POST:/erc721/{name}/balance-of
+   * @tags ERC721
+   * @name GetErc721Approved
+   * @request GET:/erc721/{tokenId}/getApproved
    * @secure
    */
-  export namespace BalanceOf {
+  export namespace GetErc721Approved {
     export type RequestParams = {
-      name: string;
+      tokenId: string;
     };
-    export type RequestQuery = {};
-    export type RequestBody = Erc721Request;
+    export type RequestQuery = {
+      address: string;
+      chainId: string;
+    };
+    export type RequestBody = never;
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = BalanceOfResult;
+    export type ResponseBody = GetErc721ApprovedData;
   }
 
   /**
    * No description
-   * @tags Erc721
-   * @name GetApproved
-   * @request POST:/erc721/{name}/get-approved
+   * @tags ERC721
+   * @name GetErc721BalanceOf
+   * @request GET:/erc721/{account}/balanceOf
    * @secure
    */
-  export namespace GetApproved {
+  export namespace GetErc721BalanceOf {
     export type RequestParams = {
-      name: string;
+      account: string;
     };
-    export type RequestQuery = {};
-    export type RequestBody = Erc721Request;
+    export type RequestQuery = {
+      address: string;
+      chainId: string;
+    };
+    export type RequestBody = never;
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetApprovedData;
+    export type ResponseBody = GetErc721BalanceOfData;
   }
 
   /**
    * No description
-   * @tags Erc721
-   * @name IsApprovedForAll
-   * @request POST:/erc721/{name}/is-approved-for-all
+   * @tags ERC721
+   * @name GetErc721IsApprovedForAll
+   * @request GET:/erc721/{owner}/{operator}/isApprovedForAll
    * @secure
    */
-  export namespace IsApprovedForAll {
+  export namespace GetErc721IsApprovedForAll {
     export type RequestParams = {
-      name: string;
+      operator: string;
+      owner: string;
     };
-    export type RequestQuery = {};
-    export type RequestBody = Erc721Request;
+    export type RequestQuery = {
+      address: string;
+      chainId: string;
+    };
+    export type RequestBody = never;
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = IsApprovedForAllResult;
+    export type ResponseBody = GetErc721IsApprovedForAllData;
   }
 
   /**
    * No description
-   * @tags Erc721
-   * @name Name
-   * @request POST:/erc721/{name}/name
+   * @tags ERC721
+   * @name GetErc721Name
+   * @request GET:/erc721/name
    * @secure
    */
-  export namespace Name {
-    export type RequestParams = {
-      name: string;
+  export namespace GetErc721Name {
+    export type RequestParams = {};
+    export type RequestQuery = {
+      address: string;
+      chainId: string;
     };
-    export type RequestQuery = {};
-    export type RequestBody = Erc721Request;
+    export type RequestBody = never;
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = NameData;
+    export type ResponseBody = GetErc721NameData;
   }
 
   /**
    * No description
-   * @tags Erc721
-   * @name OwnerOf
-   * @request POST:/erc721/{name}/owner-of
+   * @tags ERC721
+   * @name GetErc721OwnerOf
+   * @request GET:/erc721/{tokenId}/ownerOf
    * @secure
    */
-  export namespace OwnerOf {
+  export namespace GetErc721OwnerOf {
     export type RequestParams = {
-      name: string;
+      tokenId: string;
     };
-    export type RequestQuery = {};
-    export type RequestBody = Erc721Request;
+    export type RequestQuery = {
+      address: string;
+      chainId: string;
+    };
+    export type RequestBody = never;
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = OwnerOfData;
+    export type ResponseBody = GetErc721OwnerOfData;
   }
 
   /**
    * No description
-   * @tags Erc721
-   * @name SafeTransferFrom
-   * @request POST:/erc721/{name}/safe-transfer-from
+   * @tags ERC721
+   * @name GetErc721Symbol
+   * @request GET:/erc721/symbol
    * @secure
    */
-  export namespace SafeTransferFrom {
-    export type RequestParams = {
-      name: string;
+  export namespace GetErc721Symbol {
+    export type RequestParams = {};
+    export type RequestQuery = {
+      address: string;
+      chainId: string;
     };
-    export type RequestQuery = {};
-    export type RequestBody = Erc721Request;
+    export type RequestBody = never;
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = SafeTransferFromResult;
+    export type ResponseBody = GetErc721SymbolData;
   }
 
   /**
    * No description
-   * @tags Erc721
-   * @name SetApprovalForAll
-   * @request POST:/erc721/{name}/set-approval-for-all
+   * @tags ERC721
+   * @name GetErc721TokenUri
+   * @request GET:/erc721/{tokenId}/tokenURI
    * @secure
    */
-  export namespace SetApprovalForAll {
+  export namespace GetErc721TokenUri {
     export type RequestParams = {
-      name: string;
+      tokenId: string;
     };
-    export type RequestQuery = {};
-    export type RequestBody = Erc721Request;
+    export type RequestQuery = {
+      address: string;
+      chainId: string;
+    };
+    export type RequestBody = never;
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = SetApprovalForAllResult;
+    export type ResponseBody = GetErc721TokenUriData;
   }
 
   /**
    * No description
-   * @tags Erc721
-   * @name Symbol
-   * @request POST:/erc721/{name}/symbol
+   * @tags ERC721
+   * @name SafeTransferFromErc721
+   * @request POST:/erc721/{address}/safeTransferFrom
    * @secure
    */
-  export namespace Symbol {
+  export namespace SafeTransferFromErc721 {
     export type RequestParams = {
-      name: string;
+      address: string;
     };
     export type RequestQuery = {};
-    export type RequestBody = Erc721Request;
+    export type RequestBody = InputBody;
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = SymbolData;
+    export type ResponseBody = SafeTransferFromErc721Data;
   }
 
   /**
    * No description
-   * @tags Erc721
-   * @name TokenUri
-   * @request POST:/erc721/{name}/token-uri
+   * @tags ERC721
+   * @name SafeTransferFromWithDataErc721
+   * @request POST:/erc721/{address}/safeTransferFromWithData
    * @secure
    */
-  export namespace TokenUri {
+  export namespace SafeTransferFromWithDataErc721 {
     export type RequestParams = {
-      name: string;
+      address: string;
     };
     export type RequestQuery = {};
-    export type RequestBody = Erc721Request;
+    export type RequestBody = InputBody;
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = TokenUriData;
+    export type ResponseBody = SafeTransferFromWithDataErc721Data;
   }
 
   /**
    * No description
-   * @tags Erc721
-   * @name Transfer
-   * @request POST:/erc721/{name}/transfer
+   * @tags ERC721
+   * @name SetApprovalForAllErc721
+   * @request POST:/erc721/{address}/setApprovalForAll
    * @secure
    */
-  export namespace Transfer {
+  export namespace SetApprovalForAllErc721 {
     export type RequestParams = {
-      name: string;
+      address: string;
     };
     export type RequestQuery = {};
-    export type RequestBody = Erc721Request;
+    export type RequestBody = InputBody;
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = TransferData;
+    export type ResponseBody = SetApprovalForAllErc721Data;
   }
 
   /**
    * No description
-   * @tags Erc721
-   * @name TransferFrom
-   * @request POST:/erc721/{name}/transfer-from
+   * @tags ERC721
+   * @name TransferFromErc721
+   * @request POST:/erc721/{address}/transferFrom
    * @secure
    */
-  export namespace TransferFrom {
+  export namespace TransferFromErc721 {
     export type RequestParams = {
-      name: string;
+      address: string;
     };
     export type RequestQuery = {};
-    export type RequestBody = Erc721Request;
+    export type RequestBody = InputBody;
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = TransferFromData;
+    export type ResponseBody = TransferFromErc721Data;
   }
 }
