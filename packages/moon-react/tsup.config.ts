@@ -9,6 +9,6 @@ export default defineConfig({
   dts: true,
   minify: true,
   cjsInterop: true,
-  entryPoints: ['src'],
+  entry: ['src'],
   external: ['react', 'react-dom'],
 });

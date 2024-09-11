@@ -3,11 +3,15 @@
   "extends": "@tsconfig/vite-react/tsconfig.json",
   "include": ["src", "types"],
   "types": ["vitest/globals"],
+  "typeRoots": [],
+  "outDir": "./dist",
   "compilerOptions": {
+    "noEmit": false,
     "jsx": "react",
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "preserveSymlinks": true,
+    "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
