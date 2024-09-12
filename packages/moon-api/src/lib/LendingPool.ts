@@ -10,7 +10,7 @@
  */
 
 import {
-  BorrowData,
+  BorrowResult,
   DepositResult,
   FlashLoanData,
   GetAddressesProviderData,
@@ -23,18 +23,18 @@ import {
   GetMaxNumberReservesParams,
   GetMaxStableRateBorrowSizePercentData,
   GetMaxStableRateBorrowSizePercentParams,
-  GetReserveDataData,
-  GetReserveDataParams,
+  GetReserveDataParams2,
+  GetReserveDataResult,
   GetReservesListData,
   GetReservesListParams,
-  GetUserAccountDataData,
-  GetUserAccountDataParams,
+  GetUserAccountDataParams2,
+  GetUserAccountDataResult,
   IsPausedData,
   IsPausedParams,
   LendingPoolInputBody,
-  LiquidationCallData,
-  RepayData,
-  SetUserUseReserveAsCollateralData,
+  LiquidationCallResult,
+  RepayResult,
+  SetUserUseReserveAsCollateralResult,
   SwapBorrowRateModeData,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
@@ -59,7 +59,7 @@ export class LendingPool<SecurityDataType = unknown> {
     data: LendingPoolInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<BorrowData, any>({
+    this.http.request<BorrowResult, any>({
       path: `/lending-pool/${accountName}/borrow`,
       method: 'POST',
       body: data,
@@ -220,8 +220,8 @@ export class LendingPool<SecurityDataType = unknown> {
    * @request GET:/lending-pool/reserve-data
    * @secure
    */
-  getReserveData = (query: GetReserveDataParams, params: RequestParams = {}) =>
-    this.http.request<GetReserveDataData, any>({
+  getReserveData = (query: GetReserveDataParams2, params: RequestParams = {}) =>
+    this.http.request<GetReserveDataResult, any>({
       path: `/lending-pool/reserve-data`,
       method: 'GET',
       query: query,
@@ -258,10 +258,10 @@ export class LendingPool<SecurityDataType = unknown> {
    * @secure
    */
   getUserAccountData = (
-    query: GetUserAccountDataParams,
+    query: GetUserAccountDataParams2,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetUserAccountDataData, any>({
+    this.http.request<GetUserAccountDataResult, any>({
       path: `/lending-pool/user-account-data`,
       method: 'GET',
       query: query,
@@ -299,7 +299,7 @@ export class LendingPool<SecurityDataType = unknown> {
     data: LendingPoolInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<LiquidationCallData, any>({
+    this.http.request<LiquidationCallResult, any>({
       path: `/lending-pool/${accountName}/liquidation-call`,
       method: 'POST',
       body: data,
@@ -321,7 +321,7 @@ export class LendingPool<SecurityDataType = unknown> {
     data: LendingPoolInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<RepayData, any>({
+    this.http.request<RepayResult, any>({
       path: `/lending-pool/${accountName}/repay`,
       method: 'POST',
       body: data,
@@ -343,7 +343,7 @@ export class LendingPool<SecurityDataType = unknown> {
     data: LendingPoolInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<SetUserUseReserveAsCollateralData, any>({
+    this.http.request<SetUserUseReserveAsCollateralResult, any>({
       path: `/lending-pool/${accountName}/set-user-use-reserve-as-collateral`,
       method: 'POST',
       body: data,

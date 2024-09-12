@@ -17,7 +17,7 @@ import {
   GetMaxDepositData,
   GetTotalAssetsData,
   InputBody,
-  WithdrawData,
+  WithdrawResult,
 } from './data-contracts';
 
 export namespace Erc4626 {
@@ -169,6 +169,6 @@ export namespace Erc4626 {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = WithdrawData;
+    export type ResponseBody = WithdrawResult;
   }
 }

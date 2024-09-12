@@ -22,7 +22,7 @@ import {
   GetTotalAssetsData,
   GetTotalAssetsParams,
   InputBody,
-  WithdrawData,
+  WithdrawResult,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
@@ -160,7 +160,7 @@ export class Erc4626<SecurityDataType = unknown> {
    * @secure
    */
   withdraw = (address: string, data: InputBody, params: RequestParams = {}) =>
-    this.http.request<WithdrawData, any>({
+    this.http.request<WithdrawResult, any>({
       path: `/erc4626/${address}/withdraw`,
       method: 'POST',
       body: data,

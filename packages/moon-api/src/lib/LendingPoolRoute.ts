@@ -10,7 +10,7 @@
  */
 
 import {
-  BorrowData,
+  BorrowResult,
   DepositResult,
   FlashLoanData,
   GetAddressesProviderData,
@@ -18,14 +18,14 @@ import {
   GetLendingPoolRevisionData,
   GetMaxNumberReservesData,
   GetMaxStableRateBorrowSizePercentData,
-  GetReserveDataData,
+  GetReserveDataResult,
   GetReservesListData,
-  GetUserAccountDataData,
+  GetUserAccountDataResult,
   IsPausedData,
   LendingPoolInputBody,
-  LiquidationCallData,
-  RepayData,
-  SetUserUseReserveAsCollateralData,
+  LiquidationCallResult,
+  RepayResult,
+  SetUserUseReserveAsCollateralResult,
   SwapBorrowRateModeData,
 } from './data-contracts';
 
@@ -46,7 +46,7 @@ export namespace LendingPool {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = BorrowData;
+    export type ResponseBody = BorrowResult;
   }
 
   /**
@@ -205,7 +205,7 @@ export namespace LendingPool {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetReserveDataData;
+    export type ResponseBody = GetReserveDataResult;
   }
 
   /**
@@ -246,7 +246,7 @@ export namespace LendingPool {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetUserAccountDataData;
+    export type ResponseBody = GetUserAccountDataResult;
   }
 
   /**
@@ -285,7 +285,7 @@ export namespace LendingPool {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = LiquidationCallData;
+    export type ResponseBody = LiquidationCallResult;
   }
 
   /**
@@ -304,7 +304,7 @@ export namespace LendingPool {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = RepayData;
+    export type ResponseBody = RepayResult;
   }
 
   /**
@@ -323,7 +323,7 @@ export namespace LendingPool {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = SetUserUseReserveAsCollateralData;
+    export type ResponseBody = SetUserUseReserveAsCollateralResult;
   }
 
   /**

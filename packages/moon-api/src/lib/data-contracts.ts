@@ -9,6 +9,130 @@
  * ---------------------------------------------------------------
  */
 
+export interface AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult {
+  data?: AAVEv3RewardsExecuteFunctionResult;
+  message: string;
+  success: boolean;
+}
+
+export interface AAVEv3RewardsAPIResponseString {
+  data?: string;
+  message: string;
+  success: boolean;
+}
+
+export interface AAVEv3RewardsAPIResponseStringArray {
+  data?: string[];
+  message: string;
+  success: boolean;
+}
+
+export interface AAVEv3RewardsExecuteFunctionResult {
+  broadcasted?: BroadCastRawTransactionResponse;
+  data?: Transaction;
+  function: string;
+  message?: string;
+  params: any[];
+  success?: boolean;
+  transaction: AAVEv3RewardsTransaction;
+  user_op?: string;
+}
+
+export interface AAVEv3RewardsInputBody {
+  EOA?: boolean;
+  alwaysIncrementNonce?: boolean;
+  amount?: string;
+  assets?: string[];
+  broadcast?: boolean;
+  chain_id?: string;
+  contract_address?: string;
+  data?: string;
+  dryrun?: boolean;
+  gas?: string;
+  gasPrice?: string;
+  nonce?: string;
+  reward?: string;
+  to?: string;
+  user?: string;
+  value?: string;
+}
+
+export interface AAVEv3RewardsTransaction {
+  chainId: string;
+  data: string;
+  from: string;
+  gasLimit?: string;
+  gasPrice?: string;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  /** @format double */
+  nonce: number;
+  to: string;
+  /** @format double */
+  type?: number;
+  value: string;
+}
+
+export interface AavePoolAPIResponseAavePoolExecuteFunctionResult {
+  data?: AavePoolExecuteFunctionResult;
+  message: string;
+  success: boolean;
+}
+
+export interface AavePoolAPIResponseAny {
+  data?: any;
+  message: string;
+  success: boolean;
+}
+
+export interface AavePoolExecuteFunctionResult {
+  broadcasted?: BroadCastRawTransactionResponse;
+  data?: Transaction;
+  function: string;
+  message?: string;
+  params: any[];
+  success?: boolean;
+  transaction: AavePoolTransaction;
+  user_op?: string;
+}
+
+export interface AavePoolInputBody {
+  EOA?: boolean;
+  alwaysIncrementNonce?: boolean;
+  amount?: string;
+  broadcast?: boolean;
+  chain_id?: string;
+  contract_address?: string;
+  data?: string;
+  dryrun?: boolean;
+  gas?: string;
+  gasPrice?: string;
+  /** @format double */
+  interestRateMode?: number;
+  nonce?: string;
+  onBehalfOf?: string;
+  /** @format double */
+  referralCode?: number;
+  to?: string;
+  value?: string;
+}
+
+export interface AavePoolTransaction {
+  chainId: string;
+  data: string;
+  from: string;
+  gasLimit?: string;
+  gasPrice?: string;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  /** @format double */
+  nonce: number;
+  to: string;
+  /** @format double */
+  type?: number;
+  value: string;
+}
+
 export interface AbiEncodeInput {
   abi: any;
   functionName: string;
@@ -209,7 +333,10 @@ export interface BitcoinTransactionOutput {
   transaction_hash?: string;
 }
 
-export type BorrowData = LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
+export type BorrowData = AavePoolAPIResponseAavePoolExecuteFunctionResult;
+
+export type BorrowResult =
+  LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
 
 export interface Bridge {
   key: string;
@@ -295,6 +422,24 @@ export type ChainMap = Record<string, ChainId>;
 export interface ChainsResponse {
   chains: Chain[];
 }
+
+export type ClaimAllRewardsData =
+  AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
+
+export type ClaimAllRewardsOnBehalfData =
+  AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
+
+export type ClaimAllRewardsToSelfData =
+  AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
+
+export type ClaimRewardsData =
+  AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
+
+export type ClaimRewardsOnBehalfData =
+  AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
+
+export type ClaimRewardsToSelfData =
+  AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
 
 export interface Connection {
   /** @format double */
@@ -1001,19 +1146,47 @@ export interface GetQuoteParams3 {
 
 export type GetQuoteResult = OdosAPIResponseOdosExecuteFunctionResult;
 
-export type GetReserveDataData = LendingPoolAPIResponseAny;
+export type GetReserveDataData = AavePoolAPIResponseAny;
 
 export interface GetReserveDataParams {
+  account: string;
   address: string;
   asset: string;
   chainId: string;
 }
+
+export interface GetReserveDataParams2 {
+  address: string;
+  asset: string;
+  chainId: string;
+}
+
+export type GetReserveDataResult = LendingPoolAPIResponseAny;
 
 export type GetReservesListData = LendingPoolAPIResponseStringArray;
 
 export interface GetReservesListParams {
   address: string;
   chainId: string;
+}
+
+export type GetRewardsByAssetData = AAVEv3RewardsAPIResponseStringArray;
+
+export interface GetRewardsByAssetParams {
+  account: string;
+  address: string;
+  asset: string;
+  chainId: string;
+}
+
+export type GetRewardsDataData = AAVEv3RewardsAPIResponseStringArray;
+
+export interface GetRewardsDataParams {
+  account: string;
+  address: string;
+  asset: string;
+  chainId: string;
+  reward: string;
 }
 
 export type GetRippleAccountData = AccountAPIResponse;
@@ -1106,11 +1279,31 @@ export interface GetTotalSupplyParams {
 
 export type GetTronAccountData = AccountAPIResponse;
 
-export type GetUserAccountDataData = LendingPoolAPIResponseAny;
+export type GetUserAccountDataData = AavePoolAPIResponseAny;
 
 export interface GetUserAccountDataParams {
+  account: string;
   address: string;
   chainId: string;
+  user: string;
+}
+
+export interface GetUserAccountDataParams2 {
+  address: string;
+  chainId: string;
+  user: string;
+}
+
+export type GetUserAccountDataResult = LendingPoolAPIResponseAny;
+
+export type GetUserRewardsData = AAVEv3RewardsAPIResponseString;
+
+export interface GetUserRewardsParams {
+  account: string;
+  address: string;
+  assets: string[];
+  chainId: string;
+  reward: string;
   user: string;
 }
 
@@ -1403,6 +1596,9 @@ export interface LeveragerTransaction {
 }
 
 export type LiquidationCallData =
+  AavePoolAPIResponseAavePoolExecuteFunctionResult;
+
+export type LiquidationCallResult =
   LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
 
 export type ListAccountsData = AccountAPIResponse;
@@ -1742,7 +1938,10 @@ export type ReadAccountData = CosmosAPIResponse;
 export type RenounceRoleData =
   LeveragerAPIResponseLeveragerExecuteFunctionResult;
 
-export type RepayData = LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
+export type RepayData = AavePoolAPIResponseAavePoolExecuteFunctionResult;
+
+export type RepayResult =
+  LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
 
 export type ResolveData = EnsResolveAPIResponse;
 
@@ -1804,6 +2003,9 @@ export type SetApprovalForAllData = TransactionAPIResponse;
 export type SetApprovalForAllErc721Data = ERC721APIResponse;
 
 export type SetUserUseReserveAsCollateralData =
+  AavePoolAPIResponseAavePoolExecuteFunctionResult;
+
+export type SetUserUseReserveAsCollateralResult =
   LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
 
 export type SignBitcoinCashTransactionData = BitcoinCashAPIResponse;
@@ -1907,6 +2109,8 @@ export interface SuggestGasPriceParams {
   accountName: string;
   chainId: string;
 }
+
+export type SupplyData = AavePoolAPIResponseAavePoolExecuteFunctionResult;
 
 export interface SupportedAssetResponse {
   assets: {
@@ -2212,4 +2416,6 @@ export enum VersionEnum2 {
   V2 = 'v2',
 }
 
-export type WithdrawData = ERC4626APIResponse;
+export type WithdrawData = AavePoolAPIResponseAavePoolExecuteFunctionResult;
+
+export type WithdrawResult = ERC4626APIResponse;
