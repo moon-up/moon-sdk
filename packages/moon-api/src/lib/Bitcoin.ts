@@ -10,12 +10,18 @@
  */
 
 import {
+  BRC20TransactionInput,
   BitcoinInput,
   BitcoinTransactionInput,
   CreateBitcoinAccountData,
+  CreateBrc20TransactionData,
+  CreateSrc20InscriptionData,
+  GenerateUnsignedPsbtHexData,
   GetBitcoinAccountData,
   ListBitcoinAccountsData,
+  SRC20InscriptionInput,
   SignBitcoinTransactionData,
+  UnsignedPSBTInput,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
@@ -37,6 +43,72 @@ export class Bitcoin<SecurityDataType = unknown> {
   createBitcoinAccount = (data: BitcoinInput, params: RequestParams = {}) =>
     this.http.request<CreateBitcoinAccountData, any>({
       path: `/bitcoin`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Bitcoin
+   * @name CreateBrc20Transaction
+   * @request POST:/bitcoin/{accountName}/brc20-tx
+   * @secure
+   */
+  createBrc20Transaction = (
+    accountName: string,
+    data: BRC20TransactionInput,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<CreateBrc20TransactionData, any>({
+      path: `/bitcoin/${accountName}/brc20-tx`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Bitcoin
+   * @name CreateSrc20Inscription
+   * @request POST:/bitcoin/{accountName}/src20-inscription
+   * @secure
+   */
+  createSrc20Inscription = (
+    accountName: string,
+    data: SRC20InscriptionInput,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<CreateSrc20InscriptionData, any>({
+      path: `/bitcoin/${accountName}/src20-inscription`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Bitcoin
+   * @name GenerateUnsignedPsbtHex
+   * @request POST:/bitcoin/{accountName}/generate-unsigned-psbt
+   * @secure
+   */
+  generateUnsignedPsbtHex = (
+    accountName: string,
+    data: UnsignedPSBTInput,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<GenerateUnsignedPsbtHexData, any>({
+      path: `/bitcoin/${accountName}/generate-unsigned-psbt`,
       method: 'POST',
       body: data,
       secure: true,

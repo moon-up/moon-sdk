@@ -160,6 +160,8 @@ export interface AccountAPIResponse {
 export interface AccountData {
   address?: string;
   keys?: string[];
+  private_key?: string;
+  public_key?: string;
 }
 
 export interface AccountResponse {
@@ -256,6 +258,8 @@ export type ApproveData = ERC20APIResponseERC20ExecuteFunctionResult;
 
 export type ApproveErc721Data = ERC721APIResponse;
 
+export type ApproveResult = ERC4626APIResponse;
+
 export type AssembleTransactionData = OdosAPIResponseOdosExecuteFunctionResult;
 
 export type AssembleTransactionPayload = OdosInputBody & {
@@ -264,6 +268,23 @@ export type AssembleTransactionPayload = OdosInputBody & {
   simulate?: boolean;
   userAddr: string;
 };
+
+export interface BRC20TransactionInput {
+  amt: string;
+  change_address: string;
+  input_amount: string;
+  input_txid: string;
+  /** @format double */
+  input_vout: number;
+  network: string;
+  op: string;
+  output_address: string;
+  tick: string;
+}
+
+export interface BRC20TransactionOutput {
+  transaction: string;
+}
 
 export interface BalanceAPIResponse {
   address?: string;
@@ -281,10 +302,17 @@ export interface BalanceResponse {
   balance: string;
 }
 
+export interface BaseCosmosAPIResponse {
+  message: string;
+  success: boolean;
+}
+
 export interface BitcoinAPIResponse {
-  address?: string;
-  body?: InputBody;
-  data?: BitcoinTransactionOutput;
+  data?:
+    | BitcoinTransactionOutput
+    | SRC20InscriptionOutput
+    | BRC20TransactionOutput
+    | UnsignedPSBTOutput;
   message: string;
   success: boolean;
 }
@@ -454,15 +482,104 @@ export interface ConnectionsResponse {
   connections: Connection[];
 }
 
-export interface CosmosAPIResponse {
-  data?: any;
+export interface CosmosAccount {
+  address: string;
+  pubkey: string;
+}
+
+export interface CosmosAccountAPIResponse {
+  data?: CosmosAccountResponse;
   message: string;
   success: boolean;
 }
 
+export interface CosmosAccountListAPIResponse {
+  data?: CosmosAccountListResponse;
+  message: string;
+  success: boolean;
+}
+
+export interface CosmosAccountListResponse {
+  data: {
+    keys: CosmosAccount[];
+  };
+}
+
+export interface CosmosAccountResponse {
+  data: {
+    address: string;
+  };
+}
+
+export interface CosmosIBCTransferInput {
+  /** @format double */
+  accountNumber: number;
+  amount: string;
+  chainId: string;
+  denom: string;
+  feeAmount: string;
+  feeDenom: string;
+  fromAddress: string;
+  /** @format double */
+  gasLimit: number;
+  memo: string;
+  /** @format double */
+  sequence: number;
+  sourceChannel: string;
+  sourcePort: string;
+  /** @format double */
+  timeoutHeight: number;
+  /** @format double */
+  timeoutTimestamp: number;
+  toAddress: string;
+}
+
+export interface CosmosSignMessageInput {
+  message: string;
+}
+
+export interface CosmosSignedMessageAPIResponse {
+  data?: CosmosSignedMessageResponse;
+  message: string;
+  success: boolean;
+}
+
+export interface CosmosSignedMessageResponse {
+  signedMessage: string;
+}
+
+export interface CosmosTransactionAPIResponse {
+  data?: CosmosTransactionResponse;
+  message: string;
+  success: boolean;
+}
+
+export interface CosmosTransactionResponse {
+  signedTx: string;
+  txHash: string;
+}
+
+export interface CosmosTransferInput {
+  /** @format double */
+  accountNumber: number;
+  amount: string;
+  chainId: string;
+  denom: string;
+  feeAmount: string;
+  feeDenom: string;
+  fromAddress: string;
+  /** @format double */
+  gasLimit: number;
+  memo: string;
+  /** @format double */
+  sequence: number;
+  /** @format double */
+  timeoutHeight: number;
+  toAddress: string;
+}
+
 export interface CreateAccountBody {
   network?: string;
-  private_key?: string;
 }
 
 export type CreateAccountData = AccountAPIResponse;
@@ -471,11 +588,13 @@ export interface CreateAccountInput {
   private_key?: string;
 }
 
-export type CreateAccountResult = CosmosAPIResponse;
+export type CreateAccountResult = CosmosAccountAPIResponse;
 
 export type CreateBitcoinAccountData = AccountAPIResponse;
 
 export type CreateBitcoinCashAccountData = AccountAPIResponse;
+
+export type CreateBrc20TransactionData = BitcoinAPIResponse;
 
 export type CreateDogeCoinAccountData = AccountAPIResponse;
 
@@ -486,6 +605,8 @@ export type CreateLitecoinAccountData = AccountAPIResponse;
 export type CreateRippleAccountData = AccountAPIResponse;
 
 export type CreateSolanaAccountData = AccountAPIResponse;
+
+export type CreateSrc20InscriptionData = BitcoinAPIResponse;
 
 export type CreateTronAccountData = AccountAPIResponse;
 
@@ -506,7 +627,7 @@ export interface CryptoCurrency {
 
 export type DeleteAccountData = AccountAPIResponse;
 
-export type DeleteAccountResult = CosmosAPIResponse;
+export type DeleteAccountResult = BaseCosmosAPIResponse;
 
 export type DeleverageErc20Data =
   LeveragerAPIResponseLeveragerExecuteFunctionResult;
@@ -749,6 +870,20 @@ export interface Exchange {
 export type ExecuteOperationData =
   LeveragerAPIResponseLeveragerExecuteFunctionResult;
 
+export interface ExportAccountAPIResponse {
+  address?: string;
+  body?: InputBody;
+  data?: {
+    address: string;
+    private_key: string;
+    public_key: string;
+  };
+  message: string;
+  success: boolean;
+}
+
+export type ExportAccountData = ExportAccountAPIResponse;
+
 export interface FeeCost {
   /** @format double */
   amount: number;
@@ -805,7 +940,11 @@ export interface GasPrice {
   unitName: string;
 }
 
+export type GenerateUnsignedPsbtHexData = BitcoinAPIResponse;
+
 export type GetAccountData = AccountAPIResponse;
+
+export type GetAccountResult = CosmosAccountAPIResponse;
 
 export type GetAddressesProviderData = LendingPoolAPIResponseString;
 
@@ -838,6 +977,16 @@ export interface GetAllowanceParams {
   spender: string;
 }
 
+export interface GetAllowanceParams2 {
+  account: string;
+  address: string;
+  chainId: string;
+  owner: string;
+  spender: string;
+}
+
+export type GetAllowanceResult = ERC4626APIResponse;
+
 export type GetAssetData = ERC4626APIResponse;
 
 export interface GetAssetParams {
@@ -855,6 +1004,14 @@ export interface GetBalanceOfParams {
   address: string;
   chainId: string;
 }
+
+export interface GetBalanceOfParams2 {
+  account: string;
+  address: string;
+  chainId: string;
+}
+
+export type GetBalanceOfResult = ERC4626APIResponse;
 
 export interface GetBalanceParams {
   accountName: string;
@@ -1058,11 +1215,29 @@ export interface GetMaxDepositParams {
   receiver: string;
 }
 
+export type GetMaxMintData = ERC4626APIResponse;
+
+export interface GetMaxMintParams {
+  account: string;
+  address: string;
+  chainId: string;
+  receiver: string;
+}
+
 export type GetMaxNumberReservesData = LendingPoolAPIResponseNumber;
 
 export interface GetMaxNumberReservesParams {
   address: string;
   chainId: string;
+}
+
+export type GetMaxRedeemData = ERC4626APIResponse;
+
+export interface GetMaxRedeemParams {
+  account: string;
+  address: string;
+  chainId: string;
+  owner: string;
 }
 
 export type GetMaxStableRateBorrowSizePercentData =
@@ -1071,6 +1246,15 @@ export type GetMaxStableRateBorrowSizePercentData =
 export interface GetMaxStableRateBorrowSizePercentParams {
   address: string;
   chainId: string;
+}
+
+export type GetMaxWithdrawData = ERC4626APIResponse;
+
+export interface GetMaxWithdrawParams {
+  account: string;
+  address: string;
+  chainId: string;
+  owner: string;
 }
 
 export type GetMessageData = PingResponse;
@@ -1091,6 +1275,42 @@ export interface GetNameParams {
 }
 
 export type GetNonceData = NonceAPIResponse;
+
+export type GetPreviewDepositData = ERC4626APIResponse;
+
+export interface GetPreviewDepositParams {
+  account: string;
+  address: string;
+  assets: string;
+  chainId: string;
+}
+
+export type GetPreviewMintData = ERC4626APIResponse;
+
+export interface GetPreviewMintParams {
+  account: string;
+  address: string;
+  chainId: string;
+  shares: string;
+}
+
+export type GetPreviewRedeemData = ERC4626APIResponse;
+
+export interface GetPreviewRedeemParams {
+  account: string;
+  address: string;
+  chainId: string;
+  shares: string;
+}
+
+export type GetPreviewWithdrawData = ERC4626APIResponse;
+
+export interface GetPreviewWithdrawParams {
+  account: string;
+  address: string;
+  assets: string;
+  chainId: string;
+}
 
 export type GetQuoteData = ApiResponseQuote;
 
@@ -1277,6 +1497,14 @@ export interface GetTotalSupplyParams {
   chainId: string;
 }
 
+export interface GetTotalSupplyParams2 {
+  account: string;
+  address: string;
+  chainId: string;
+}
+
+export type GetTotalSupplyResult = ERC4626APIResponse;
+
 export type GetTronAccountData = AccountAPIResponse;
 
 export type GetUserAccountDataData = AavePoolAPIResponseAny;
@@ -1329,27 +1557,6 @@ export interface HasRoleParams {
   address: string;
   chainId: string;
   role: string;
-}
-
-export interface IBCTransferTransactionInput {
-  /** @format double */
-  account_number: number;
-  amount: string;
-  chain_id: string;
-  demon: string;
-  fee_amount: string;
-  fee_demon: string;
-  from_address: string;
-  /** @format double */
-  gas_limit: number;
-  memo: string;
-  /** @format double */
-  sequence: number;
-  source_channel: string;
-  source_port: string;
-  /** @format double */
-  timeout_height: number;
-  to_address: string;
 }
 
 export interface InputBody {
@@ -1603,7 +1810,7 @@ export type LiquidationCallResult =
 
 export type ListAccountsData = AccountAPIResponse;
 
-export type ListAccountsResult = CosmosAPIResponse;
+export type ListAccountsResult = CosmosAccountListAPIResponse;
 
 export type ListBitcoinAccountsData = AccountAPIResponse;
 
@@ -1652,9 +1859,7 @@ export interface Message {
   fiat: FiatCurrency[];
 }
 
-export interface MessageInput {
-  message: string;
-}
+export type MintData = ERC4626APIResponse;
 
 export type MultiSignSolanaTransactionData = SolanaAPIResponse;
 
@@ -1933,7 +2138,7 @@ export interface Quote {
 
 export type Quotes = Quote[];
 
-export type ReadAccountData = CosmosAPIResponse;
+export type RedeemData = ERC4626APIResponse;
 
 export type RenounceRoleData =
   LeveragerAPIResponseLeveragerExecuteFunctionResult;
@@ -1971,6 +2176,21 @@ export interface RippleTransactionInput {
 export interface RippleTransactionOutput {
   signedTx?: string;
   transaction_hash?: string;
+}
+
+export interface SRC20InscriptionInput {
+  address: string;
+  /** @format double */
+  commit_fee_rate: number;
+  inscription_data: string;
+  network: string;
+  prev_outputs: string;
+  /** @format double */
+  reveal_out_value: number;
+}
+
+export interface SRC20InscriptionOutput {
+  transactions: string;
 }
 
 export type SafeBatchTransferFromData = TransactionAPIResponse;
@@ -2016,7 +2236,7 @@ export type SignDogeCoinTransactionData = DogeCoinAPIResponse;
 
 export type SignEosTransactionData = EosAPIResponse;
 
-export type SignIbcTransferTransactionData = CosmosAPIResponse;
+export type SignIbcTransferTransactionData = CosmosTransactionAPIResponse;
 
 export type SignLitecoinTransactionData = LitecoinAPIResponse;
 
@@ -2038,7 +2258,7 @@ export interface SignMessageAPIResponse {
 
 export type SignMessageData = SignMessageAPIResponse;
 
-export type SignMessageResult = CosmosAPIResponse;
+export type SignMessageResult = CosmosSignedMessageAPIResponse;
 
 export type SignRippleTransactionData = RippleAPIResponse;
 
@@ -2046,7 +2266,7 @@ export type SignSolanaTransactionData = SolanaAPIResponse;
 
 export type SignTransactionData = TransactionAPIResponse;
 
-export type SignTransferTransactionData = CosmosAPIResponse;
+export type SignTransferTransactionData = CosmosTransactionAPIResponse;
 
 export type SignTronTransactionData = TronAPIResponse;
 
@@ -2330,28 +2550,13 @@ export type TransferFromData = ERC20APIResponseERC20ExecuteFunctionResult;
 
 export type TransferFromErc721Data = ERC721APIResponse;
 
+export type TransferFromResult = ERC4626APIResponse;
+
+export type TransferResult = ERC4626APIResponse;
+
 export type TransferSolanaTransactionData = SolanaAPIResponse;
 
 export type TransferTokensSignSolanaTransactionData = SolanaAPIResponse;
-
-export interface TransferTransactionInput {
-  /** @format double */
-  account_number: number;
-  amount: string;
-  chain_id: string;
-  demon: string;
-  fee_amount: string;
-  fee_demon: string;
-  from_address: string;
-  /** @format double */
-  gas_limit: number;
-  memo: string;
-  /** @format double */
-  sequence: number;
-  /** @format double */
-  timeout_height: number;
-  to_address: string;
-}
 
 export interface TronAPIResponse {
   address?: string;
@@ -2403,6 +2608,16 @@ export interface Tx {
 }
 
 export type UnpauseData = LeveragerAPIResponseLeveragerExecuteFunctionResult;
+
+export interface UnsignedPSBTInput {
+  inputs: string;
+  network: string;
+  outputs: string;
+}
+
+export interface UnsignedPSBTOutput {
+  psbt_hex: string;
+}
 
 export enum VersionEnum {
   V2 = 'v2',

@@ -20,6 +20,7 @@ import {
   DeployInput,
   EncodeDataData,
   EstimateGasData,
+  ExportAccountData,
   GetAccountData,
   GetBalanceData,
   GetBalanceParams,
@@ -159,6 +160,22 @@ export class Accounts<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Accounts
+   * @name ExportAccount
+   * @request GET:/accounts/{accountName}/export
+   * @secure
+   */
+  exportAccount = (accountName: string, params: RequestParams = {}) =>
+    this.http.request<ExportAccountData, any>({
+      path: `/accounts/${accountName}/export`,
+      method: 'GET',
+      secure: true,
       format: 'json',
       ...params,
     });
