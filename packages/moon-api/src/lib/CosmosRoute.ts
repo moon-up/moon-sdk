@@ -10,17 +10,17 @@
  */
 
 import {
+  CosmosIBCTransferInput,
+  CosmosSignMessageInput,
+  CosmosTransferInput,
   CreateAccountBody,
   CreateAccountResult,
   DeleteAccountResult,
-  IBCTransferTransactionInput,
+  GetAccountResult,
   ListAccountsResult,
-  MessageInput,
-  ReadAccountData,
   SignIbcTransferTransactionData,
   SignMessageResult,
   SignTransferTransactionData,
-  TransferTransactionInput,
 } from './data-contracts';
 
 export namespace Cosmos {
@@ -28,7 +28,7 @@ export namespace Cosmos {
    * No description
    * @tags Cosmos
    * @name CreateAccount
-   * @request POST:/cosmos/accounts
+   * @request POST:/cosmos
    * @secure
    */
   export namespace CreateAccount {
@@ -45,7 +45,7 @@ export namespace Cosmos {
    * No description
    * @tags Cosmos
    * @name DeleteAccount
-   * @request DELETE:/cosmos/accounts/{accountName}
+   * @request DELETE:/cosmos/{accountName}
    * @secure
    */
   export namespace DeleteAccount {
@@ -63,8 +63,27 @@ export namespace Cosmos {
   /**
    * No description
    * @tags Cosmos
+   * @name GetAccount
+   * @request GET:/cosmos/{accountName}
+   * @secure
+   */
+  export namespace GetAccount {
+    export type RequestParams = {
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = GetAccountResult;
+  }
+
+  /**
+   * No description
+   * @tags Cosmos
    * @name ListAccounts
-   * @request GET:/cosmos/accounts
+   * @request GET:/cosmos
    * @secure
    */
   export namespace ListAccounts {
@@ -80,27 +99,8 @@ export namespace Cosmos {
   /**
    * No description
    * @tags Cosmos
-   * @name ReadAccount
-   * @request GET:/cosmos/accounts/{accountName}
-   * @secure
-   */
-  export namespace ReadAccount {
-    export type RequestParams = {
-      accountName: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = ReadAccountData;
-  }
-
-  /**
-   * No description
-   * @tags Cosmos
    * @name SignIbcTransferTransaction
-   * @request POST:/cosmos/accounts/{accountName}/sign-ibc-transfer
+   * @request POST:/cosmos/{accountName}/sign-ibc-transfer
    * @secure
    */
   export namespace SignIbcTransferTransaction {
@@ -108,7 +108,7 @@ export namespace Cosmos {
       accountName: string;
     };
     export type RequestQuery = {};
-    export type RequestBody = IBCTransferTransactionInput;
+    export type RequestBody = CosmosIBCTransferInput;
     export type RequestHeaders = {
       Authorization: string;
     };
@@ -119,7 +119,7 @@ export namespace Cosmos {
    * No description
    * @tags Cosmos
    * @name SignMessage
-   * @request POST:/cosmos/accounts/{accountName}/sign-message
+   * @request POST:/cosmos/{accountName}/sign-message
    * @secure
    */
   export namespace SignMessage {
@@ -127,7 +127,7 @@ export namespace Cosmos {
       accountName: string;
     };
     export type RequestQuery = {};
-    export type RequestBody = MessageInput;
+    export type RequestBody = CosmosSignMessageInput;
     export type RequestHeaders = {
       Authorization: string;
     };
@@ -138,7 +138,7 @@ export namespace Cosmos {
    * No description
    * @tags Cosmos
    * @name SignTransferTransaction
-   * @request POST:/cosmos/accounts/{accountName}/sign-transfer
+   * @request POST:/cosmos/{accountName}/sign-transfer
    * @secure
    */
   export namespace SignTransferTransaction {
@@ -146,7 +146,7 @@ export namespace Cosmos {
       accountName: string;
     };
     export type RequestQuery = {};
-    export type RequestBody = TransferTransactionInput;
+    export type RequestBody = CosmosTransferInput;
     export type RequestHeaders = {
       Authorization: string;
     };

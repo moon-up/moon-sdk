@@ -5,6 +5,8 @@ import {
 import { BytesLike, arrayify } from '@ethersproject/bytes';
 import { hashMessage } from '@ethersproject/hash';
 import {
+  Aavepool,
+  Aavev3Rewards,
   Accounts,
   ApiConfig,
   Bitcoin,
@@ -137,6 +139,8 @@ export class MoonSDK extends EventEmitter {
   private OdosSDK: Odos;
   private OnramperSDK: Onramper;
   private ThorswapSDK: Thorswap;
+  private AavepoolSDK: Aavepool;
+  private Aavev3RewardsSDK: Aavev3Rewards;
   isAuthenticated = false;
   private config: MoonSDKConfig;
   /**
@@ -244,6 +248,8 @@ export class MoonSDK extends EventEmitter {
     this.OdosSDK = new Odos(this.http);
     this.OnramperSDK = new Onramper(this.http);
     this.ThorswapSDK = new Thorswap(this.http);
+    this.AavepoolSDK = new Aavepool(this.http);
+    this.Aavev3RewardsSDK = new Aavev3Rewards(this.http);
 
     this.connect();
   }
@@ -397,6 +403,14 @@ export class MoonSDK extends EventEmitter {
     return this.ThorswapSDK;
   }
 
+  public getAavepoolSDK(): Aavepool {
+    return this.AavepoolSDK;
+  }
+
+  public getAavev3RewardsSDK(): Aavev3Rewards {
+    return this.Aavev3RewardsSDK;
+  }
+
   /**
    * Returns a list of Ethereum accounts managed by the Moon API.
    */
@@ -411,7 +425,6 @@ export class MoonSDK extends EventEmitter {
       throw error;
     }
   }
-
   /**
    * Creates a new Ethereum account and returns its address.
    */

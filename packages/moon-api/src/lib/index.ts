@@ -1,3 +1,5 @@
+export * from './Aavepool';
+export * from './Aavev3Rewards';
 export * from './Accounts';
 export * from './Bitcoin';
 export * from './Bitcoincash';

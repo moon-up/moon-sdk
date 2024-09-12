@@ -20,6 +20,7 @@ import {
   DeployInput,
   EncodeDataData,
   EstimateGasData,
+  ExportAccountData,
   GetAccountData,
   GetBalanceData,
   GetNonceData,
@@ -143,6 +144,25 @@ export namespace Accounts {
       Authorization: string;
     };
     export type ResponseBody = EstimateGasData;
+  }
+
+  /**
+   * No description
+   * @tags Accounts
+   * @name ExportAccount
+   * @request GET:/accounts/{accountName}/export
+   * @secure
+   */
+  export namespace ExportAccount {
+    export type RequestParams = {
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = ExportAccountData;
   }
 
   /**
