@@ -1,14 +1,14 @@
 import Button from "@/components/Button/Button";
 import { ChainSelectorModal } from "../ChainSelectors/ChainSelectorModal";
 import React, { useEffect, useState } from "react";
-import { TokenSwapParams } from "@moonup/moon-api";
-import { useMoonConveyorFinance } from "@/hooks/useMoonConveyorFinance";
+import { useMoonTokenSwap } from "@/hooks/useMoonTokenSwap";
 import { useMoonSDK } from "@/index";
 import { useMoonTokenManager } from "@/hooks/useMoonTokenManager";
 import { UserToken } from "../TokenManager/types";
 import { useDebounceCallback } from "usehooks-ts";
 import { safelyParseUnits, weiStringAsFloat } from "@/utils/parse";
 import { useQueryClient } from "@tanstack/react-query";
+import { OdosAPIResponseOdosExecuteFunctionResult, OdosSwapInputBody } from "@moonup/moon-api";
 
 // interface Token {
 //   address: string;
@@ -16,38 +16,38 @@ import { useQueryClient } from "@tanstack/react-query";
 //   decimals: number;
 // }
 
-type EstimateResult = {
-  message?: string;
-  tx: {
-    from: string;
-    to: string;
-    gas: string;
-    nonce: number;
-    value: string;
-    simulation: {
-      simulationResults: string;
-      data: string;
-    };
-    data: string;
-  };
-  info: {
-    amountOutMin: string;
-    amountOut: string;
-    affiliateAggregator: string;
-    affiliateGas: string;
-    conveyorGas: string;
-    gasPrice: string;
-    poolNames: string[];
-  };
-  tax: {
-    tokenInSellTax: number;
-    tokenInBuyTax: number;
-    tokenOutSellTax: number;
-    tokenOutBuyTax: number;
-  };
-  chainId: number;
-  currentBlockNumber: string;
-};
+// type EstimateResult = {
+//   message?: string;
+//   tx: {
+//     from: string;
+//     to: string;
+//     gas: string;
+//     nonce: number;
+//     value: string;
+//     simulation: {
+//       simulationResults: string;
+//       data: string;
+//     };
+//     data: string;
+//   };
+//   info: {
+//     amountOutMin: string;
+//     amountOut: string;
+//     affiliateAggregator: string;
+//     affiliateGas: string;
+//     conveyorGas: string;
+//     gasPrice: string;
+//     poolNames: string[];
+//   };
+//   tax: {
+//     tokenInSellTax: number;
+//     tokenInBuyTax: number;
+//     tokenOutSellTax: number;
+//     tokenOutBuyTax: number;
+//   };
+//   chainId: number;
+//   currentBlockNumber: string;
+// };
 const converyGasTokenAddress = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE";
 type ButtonStatus =
   | "Estimate"
@@ -58,14 +58,13 @@ type ButtonStatus =
 
 const SwapInterface: React.FC = () => {
   const { wallet } = useMoonSDK();
-  const { swap, estimate } = useMoonConveyorFinance();
+  const { swapOdos, getQuoteOdos } = useMoonTokenSwap();
   const {
     tokensWithGasToken: tokenList,
     chain,
-    gasToken,
   } = useMoonTokenManager();
 
-  const [estimateResult, setEstimate] = useState<EstimateResult | null>(null);
+  const [estimateResult, setEstimate] = useState<OdosAPIResponseOdosExecuteFunctionResult | null>(null);
   const [fromToken, setFromToken] = useState<UserToken | null>(null);
   const [toToken, setToToken] = useState<UserToken | null>(null);
   const [fromAmount, setFromAmount] = useState<string>("");
@@ -95,19 +94,31 @@ const SwapInterface: React.FC = () => {
     let bigAmountWei = safelyParseUnits(fromAmount, fromToken.decimals);
 
     try {
-      const estimateResult = await estimate({
-        tokenIn: fromToken.address,
-        tokenOut: toToken.address,
-        tokenInDecimals: fromToken.decimals,
-        tokenOutDecimals: toToken.decimals,
-        amountIn: bigAmountWei.toString(),
-        slippage: Math.round(parseFloat(slippage) * 100).toString(),
-        chainId: chain?.chain_id || 1, // Assuming Ethereum mainnet
-        recipient: wallet, // Replace with recipient address
+      const swapParams: OdosSwapInputBody = {
+        inputTokens: [
+          {
+            amount: bigAmountWei.toString(),
+            tokenAddress: fromToken.address,
+          },
+        ],
+        outputTokens: [
+          {
+            proportion: 1,
+            tokenAddress: toToken.address,
+          },
+        ],
+        slippageLimitPercent: Math.round(parseFloat(slippage) * 100),
+        chain_id: chain?.chain_id?.toString() || "", // Assuming Ethereum mainnet
+        broadcast: true,
+      };
+
+      const estimateResult = await getQuoteOdos({
+        accountName: wallet || "",
+        data: swapParams,
       });
       setEstimate(estimateResult);
       console.log("Estimate result:", estimateResult);
-      setToAmount(weiStringAsFloat(estimateResult.amountOut).toString());
+      setToAmount("0");
       setButtonStatus("Swap");
     } catch (error) {
       console.error("Estimate failed:", error);
@@ -123,22 +134,27 @@ const SwapInterface: React.FC = () => {
     //convert fromAmount from float to bigInt
     let bigAmountWei = safelyParseUnits(fromAmount, fromToken.decimals);
     try {
-      const swapParams: TokenSwapParams = {
-        tokenIn: fromToken.address,
-        tokenOut: toToken.address,
-        tokenInDecimals: fromToken.decimals,
-        tokenOutDecimals: toToken.decimals,
-        amountIn: bigAmountWei.toString(),
-        slippage: Math.round(parseFloat(slippage) * 100).toString(),
-        chain_id: chain?.chain_id?.toString(), // Assuming Ethereum mainnet
-        recipient: wallet, // Replace with recipient address
-        referrer: "0",
+      const swapParams: OdosSwapInputBody = {
+        inputTokens: [
+          {
+            amount: bigAmountWei.toString(),
+            tokenAddress: fromToken.address,
+          },
+        ],
+        outputTokens: [
+          {
+            proportion: 1,
+            tokenAddress: toToken.address,
+          },
+        ],
+        slippageLimitPercent: Math.round(parseFloat(slippage) * 100),
+        chain_id: chain?.chain_id?.toString() || "", // Assuming Ethereum mainnet
         broadcast: true,
       };
 
-      const result = await swap({
+      const result = await swapOdos({
         accountName: wallet,
-        transaction: swapParams,
+        data: swapParams,
       });
       queryClient.invalidateQueries({ queryKey: ["erc20TokenBalances"] });
 
@@ -152,23 +168,23 @@ const SwapInterface: React.FC = () => {
     }
   };
 
-  const formatEth = (value: string) => {
-    return weiStringAsFloat(value, 10) + " ETH";
-  };
+  // const formatEth = (value: string) => {
+  //   return weiStringAsFloat(value, 10) + " ETH";
+  // };
 
-  const formatUsd = (value: string) => {
-    let ether = weiStringAsFloat(value, 10);
-    let usd = ether * (gasToken?.price || 0);
-    return "$" + usd.toFixed(2);
-  };
+  // const formatUsd = (value: string) => {
+  //   let ether = weiStringAsFloat(value, 10);
+  //   let usd = ether * (gasToken?.price || 0);
+  //   return "$" + usd.toFixed(2);
+  // };
 
-  const calculatePriceImpact = (amountIn: string, amountOut: string) => {
-    const inValue = parseFloat(amountIn) * (fromToken?.price || 0);
-    const outValue = parseFloat(amountOut) * (toToken?.price || 0);
-    console.log("inValue", inValue, fromToken, "outValue", outValue, toToken);
-    const impact = ((inValue - outValue) / inValue) * 100;
-    return impact.toFixed(2) + "%";
-  };
+  // const calculatePriceImpact = (amountIn: string, amountOut: string) => {
+  //   const inValue = parseFloat(amountIn) * (fromToken?.price || 0);
+  //   const outValue = parseFloat(amountOut) * (toToken?.price || 0);
+  //   console.log("inValue", inValue, fromToken, "outValue", outValue, toToken);
+  //   const impact = ((inValue - outValue) / inValue) * 100;
+  //   return impact.toFixed(2) + "%";
+  // };
 
   const tokensFilteredForChain = tokenList.filter(
     (token) => token.chainId === chain?.chain_id
@@ -268,7 +284,7 @@ const SwapInterface: React.FC = () => {
           </select>
           <input
             type="number"
-            value={weiStringAsFloat(estimateResult?.info?.amountOut) || ""}
+            value={weiStringAsFloat("0") || "amountOut"}
             readOnly
             placeholder="0.0"
             className="bg-transparent text-right text-2xl "
@@ -295,7 +311,7 @@ const SwapInterface: React.FC = () => {
           {estimateResult.message}
         </div>
       )}
-      {estimateResult && !estimateResult?.message && (
+      {/* {estimateResult && !estimateResult?.message && (
         <div className="mb-4 bg-gray-800 rounded-lg p-4">
           <h3 className="text-lg font-semibold mb-2">
             Best route from {estimateResult.info.affiliateAggregator} API
@@ -359,7 +375,7 @@ const SwapInterface: React.FC = () => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
 
       <Button onClick={handleSwap} disabled={buttonStatus != "Swap"}>
         {buttonStatus}

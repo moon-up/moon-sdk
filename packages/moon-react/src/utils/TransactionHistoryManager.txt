@@ -1,6 +1,6 @@
 import EventEmitter from "events";
 // import { chains } from "../config/chains";
-import { BlockExplorerERC20Transfer, BlockExplorerERC721Transfer, BlockExplorerInterface, BlockExplorerTransaction, ExplorerResultType } from "./BlockExplorer/BlockExplorerInterface";
+import { BlockExplorerERC20Transfer, BlockExplorerERC721Transfer, BlockExplorerInterface, BlockExplorerTransaction } from "./BlockExplorer/BlockExplorerInterface";
 
 interface ChainBlockExplorers {
     [chainId: string]: BlockExplorerInterface;

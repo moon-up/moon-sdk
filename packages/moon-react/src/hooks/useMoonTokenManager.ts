@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { useCoinGeckoPrices, useTokenList } from "@/utils/react-coinghecko";
 import { useMoonSDK } from "@/index";
 import { useTokenBalances } from "@/hooks/useTokenBalances";
@@ -25,14 +25,14 @@ export const useMoonTokenManager = (addresses?: string[]) => {
   const tokenBalanceQueries = useTokenBalances(walletAddresses, tokens);
   //filter queries that have data
   let tokenBalanceQueriesFiltered = tokenBalanceQueries.filter(
-    (query) => query.data !== undefined
+    (query) => (query as any).data !== undefined
   );
 
   const tokensWithBalance = useMemo(
     () =>
       tokenBalanceQueriesFiltered.map((query) => ({
-        ...query.data,
-        price: tokenPrices?.[query.data.coinGeckoId] || 0,
+        ...(query as any).data,
+        price: tokenPrices?.[(query as any).data.coinGeckoId] || 0,
       })),
     [tokens, tokenBalanceQueries, tokenPrices]
   );

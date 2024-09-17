@@ -17,11 +17,11 @@ type AuthModalProps = {
 
 export const AuthModal: React.FC<AuthModalProps> = ({ config, children }) => {
   const { enabled, appearance } = config;
-  const [connectWallet, setConnectWallet] = useState(false);
+  const [_, setConnectWallet] = useState(false);
   const [screen, setScreen] = useState<"login" | "walletConnect" | "signup">(
     "login"
   );
-  const { session, supabase } = useMoonSDK();
+  const { session } = useMoonSDK();
 
   if (!enabled) return <>{children}</>;
   if (session) return <>{children}</>;

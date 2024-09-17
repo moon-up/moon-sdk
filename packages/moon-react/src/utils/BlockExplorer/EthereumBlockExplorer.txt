@@ -25,7 +25,7 @@ export class EthereumBlockExplorer extends BlockExplorerInterface {
 
         } catch (e) {
             console.error("BlockExplorerInterface::getTransactionsForAddress::error", e)
-            throw new Error(e)
+            throw new Error(e as any)
         }
     }
 
@@ -46,13 +46,14 @@ export class EthereumBlockExplorer extends BlockExplorerInterface {
             }) as Promise<BlockExplorerERC20Transfer[]>;
         } catch (e) {
             console.error("BlockExplorerInterface::getERC20TransfersForAddress::error", e)
-            throw new Error(e)
+            throw new Error(e as any)
         }
     }
 
     async getERC721TransfersForAddress(address: string): Promise<BlockExplorerERC721Transfer[]> {
         //update this endpoint to match given block explorer
         const type = ExplorerResultType.ERC721Transfers;
+        console.log(type)
         console.log("BlockExplorerInterface::getERC721TransfersForAddress::new request", this.blockExplorerAPIURL)
         const accountTxListUrl = `${this.blockExplorerAPIURL}?module=account&action=tokennfttx&address=${address}&startblock=0&endblock=99999999&sort=desc`;
         try {
@@ -67,7 +68,7 @@ export class EthereumBlockExplorer extends BlockExplorerInterface {
             }) as Promise<BlockExplorerERC721Transfer[]>;
         } catch (e) {
             console.error("BlockExplorerInterface::getERC721TransfersForAddress::error", e)
-            throw new Error(e)
+            throw new Error(e as any)
         }
     }
 

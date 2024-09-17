@@ -1,10 +1,5 @@
 import { useQueries, UseQueryResult } from "@tanstack/react-query";
-import {
-  useMoonErc1155,
-  useMoonErc20,
-  useMoonErc721,
-  useMoonSDK,
-} from "@/index";
+import { useMoonErc1155, useMoonErc20, useMoonErc721 } from "@/index";
 import { UserToken } from "@/components/public/TokenManager/types";
 import { ethers } from "ethers";
 
@@ -24,29 +19,37 @@ export function useTokenBalances(
         if (!wallet) {
           throw new Error("Wallet not found");
         }
-        let balanceFnc = null;
+        let res = null;
         switch (token.type) {
           case "erc721":
-            balanceFnc = balanceOfErc721;
+            res = await balanceOfErc721({
+              account: wallet,
+              address: token.address,
+              chainId: token.chainId.toString(),
+            });
+
             break;
           case "erc1155":
-            balanceFnc = balanceOfErc1155;
+            res = await balanceOfErc1155({
+              accountName: wallet,
+              transaction: {
+                chain_id: token.chainId.toString(),
+                contract_address: token.address,
+              },
+            });
             break;
           case "erc20":
-          default:
-            balanceFnc = balanceOfErc20;
+            res = await balanceOfErc20({
+              accountName: wallet,
+              transaction: {
+                chain_id: token.chainId.toString(),
+                contract_address: token.address,
+              },
+            });
             break;
+          default:
+            throw new Error("Unsupported token type");
         }
-        if (!balanceFnc) {
-          throw new Error("Unsupported token type");
-        }
-        const res = await balanceFnc({
-          accountName: wallet,
-          transaction: {
-            chain_id: token.chainId.toString(),
-            contract_address: token.address,
-          },
-        });
         let balanceDec = ethers.utils.formatUnits(res.balance, token.decimals);
         return {
           ...token,

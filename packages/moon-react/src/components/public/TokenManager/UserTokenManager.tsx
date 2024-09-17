@@ -3,7 +3,6 @@ import TokenListItem from "./components/TokenListItem";
 import TokenModal from "./components/TokenModal";
 import Button from "@/components/Button/Button";
 import TokenInfoModal from "../TokenInfoModal/TokenInfoModal";
-import { ethers } from "ethers";
 import { useMoonTokenManager } from "@/hooks/useMoonTokenManager";
 import { useTokenManagmentUIState } from "./useTokenManagmentUIState";
 import { useMoonSDK } from "@/index";
@@ -21,7 +20,6 @@ export const UserTokenManager: React.FC = () => {
     updateToken,
     tokenList,
     chain,
-    gasBalanceQueries,
   } = useMoonTokenManager(wallets);
 
   const [activeFilters, setActiveFilters] = useState<string[]>([

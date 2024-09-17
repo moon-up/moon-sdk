@@ -27,7 +27,7 @@ export const useMoonErc20 = () => {
     }): Promise<Transaction> => {
       return handleTransaction("approveErc20", async () => {
         const erc20SDK = getErc20SDK();
-        const response = await erc20SDK.approveErc20(
+        const response = await erc20SDK.approve(
           payload.accountName,
           payload.transaction
         );
@@ -51,7 +51,7 @@ export const useMoonErc20 = () => {
     }): Promise<Transaction> => {
       return handleTransaction("transferErc20", async () => {
         const erc20SDK = getErc20SDK();
-        const response = await erc20SDK.transferErc20(
+        const response = await erc20SDK.transfer(
           payload.accountName,
           payload.transaction,
           payload.params
@@ -75,7 +75,7 @@ export const useMoonErc20 = () => {
     }): Promise<Transaction> => {
       return handleTransaction("transferFromErc20", async () => {
         const erc20SDK = getErc20SDK();
-        const response = await erc20SDK.transferFromErc20(
+        const response = await erc20SDK.transferFrom(
           payload.accountName,
           payload.transaction
         );
@@ -95,14 +95,15 @@ export const useMoonErc20 = () => {
     }): Promise<{ balance: string }> => {
       return handleTransaction("balanceOfErc20", async () => {
         const erc20SDK = getErc20SDK();
-        const response = await erc20SDK.balanceOfErc20(
-          payload.accountName,
-          payload.transaction
-        );
+        const response = await erc20SDK.getBalanceOf({
+          account: payload.accountName,
+          chainId: payload.transaction.chain_id,
+          address: payload.transaction.contract_address,
+        });
         if (!response.success) {
           throw new Error(response.message);
         }
-        return response.data as { balance: string };
+        return response.data;
       });
     },
     [moon]
@@ -111,14 +112,23 @@ export const useMoonErc20 = () => {
   const allowanceErc20 = useCallback(
     async (payload: {
       accountName: string;
-      transaction: InputBody;
+      transaction: {
+        account: string;
+        address: string;
+        chainId: string;
+        owner: string;
+        spender: string;
+      };
     }): Promise<TransactionData> => {
       return handleTransaction("allowanceErc20", async () => {
         const erc20SDK = getErc20SDK();
-        const response = await erc20SDK.allowanceErc20(
-          payload.accountName,
-          payload.transaction
-        );
+        const response = await erc20SDK.getAllowance({
+          account: payload.accountName,
+          chainId: payload.transaction.chainId,
+          address: payload.transaction.address,
+          spender: payload.transaction.spender,
+          owner: payload.transaction.owner,
+        });
         return response.data;
       });
     },
