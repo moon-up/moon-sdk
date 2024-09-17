@@ -27,7 +27,6 @@ import {
   GetSupportedTokensData,
   GetSupportedTokensParams,
   OdosSwapInputBody,
-  QuoteRequestV2,
   SwapData,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
@@ -142,12 +141,16 @@ export class Odos<SecurityDataType = unknown> {
    *
    * @tags Odos
    * @name GetQuote
-   * @request POST:/odos/get-quote
+   * @request POST:/odos/{accountName}/get-quote
    * @secure
    */
-  getQuote = (data: QuoteRequestV2, params: RequestParams = {}) =>
+  getQuote = (
+    accountName: string,
+    data: OdosSwapInputBody,
+    params: RequestParams = {}
+  ) =>
     this.http.request<GetQuoteResult, any>({
-      path: `/odos/get-quote`,
+      path: `/odos/${accountName}/get-quote`,
       method: 'POST',
       body: data,
       secure: true,

@@ -2112,30 +2112,6 @@ export interface Quote {
   type: string;
 }
 
-export interface QuoteRequestV2 {
-  /** @format double */
-  chainId: number;
-  compact?: boolean;
-  disableRFQs?: boolean;
-  /** @format double */
-  gasPrice?: number;
-  inputTokens: TokenAmount[];
-  likeAsset?: boolean;
-  outputTokens: TokenProportion[];
-  pathViz?: boolean;
-  pathVizImage?: boolean;
-  pathVizImageConfig?: PathVizImageConfig;
-  poolBlacklist?: string[];
-  /** @format double */
-  referralCode?: number;
-  simple?: boolean;
-  /** @format double */
-  slippageLimitPercent?: number;
-  sourceBlacklist?: string[];
-  sourceWhitelist?: string[];
-  userAddr?: string;
-}
-
 export type Quotes = Quote[];
 
 export type RedeemData = ERC4626APIResponse;

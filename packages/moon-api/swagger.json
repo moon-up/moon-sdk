@@ -4158,87 +4158,6 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"QuoteRequestV2": {
-				"properties": {
-					"chainId": {
-						"type": "number",
-						"format": "double"
-					},
-					"inputTokens": {
-						"items": {
-							"$ref": "#/components/schemas/TokenAmount"
-						},
-						"type": "array"
-					},
-					"outputTokens": {
-						"items": {
-							"$ref": "#/components/schemas/TokenProportion"
-						},
-						"type": "array"
-					},
-					"gasPrice": {
-						"type": "number",
-						"format": "double"
-					},
-					"userAddr": {
-						"type": "string"
-					},
-					"slippageLimitPercent": {
-						"type": "number",
-						"format": "double"
-					},
-					"sourceBlacklist": {
-						"items": {
-							"type": "string"
-						},
-						"type": "array"
-					},
-					"sourceWhitelist": {
-						"items": {
-							"type": "string"
-						},
-						"type": "array"
-					},
-					"poolBlacklist": {
-						"items": {
-							"type": "string"
-						},
-						"type": "array"
-					},
-					"pathViz": {
-						"type": "boolean"
-					},
-					"pathVizImage": {
-						"type": "boolean"
-					},
-					"pathVizImageConfig": {
-						"$ref": "#/components/schemas/PathVizImageConfig"
-					},
-					"disableRFQs": {
-						"type": "boolean"
-					},
-					"referralCode": {
-						"type": "number",
-						"format": "double"
-					},
-					"compact": {
-						"type": "boolean"
-					},
-					"likeAsset": {
-						"type": "boolean"
-					},
-					"simple": {
-						"type": "boolean"
-					}
-				},
-				"required": [
-					"chainId",
-					"inputTokens",
-					"outputTokens"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
 			"AssembleRequest": {
 				"properties": {
 					"userAddr": {
@@ -14665,7 +14584,7 @@
 				}
 			}
 		},
-		"/odos/get-quote": {
+		"/odos/{accountName}/get-quote": {
 			"post": {
 				"operationId": "GetQuote",
 				"responses": {
@@ -14696,6 +14615,14 @@
 				],
 				"parameters": [
 					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
 						"in": "header",
 						"name": "Authorization",
 						"required": true,
@@ -14709,7 +14636,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/QuoteRequestV2"
+								"$ref": "#/components/schemas/OdosSwapInputBody"
 							}
 						}
 					}

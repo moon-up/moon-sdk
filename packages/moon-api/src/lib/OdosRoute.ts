@@ -24,7 +24,6 @@ import {
   GetSupportedChainsData,
   GetSupportedTokensData,
   OdosSwapInputBody,
-  QuoteRequestV2,
   SwapData,
 } from './data-contracts';
 
@@ -132,13 +131,15 @@ export namespace Odos {
    * No description
    * @tags Odos
    * @name GetQuote
-   * @request POST:/odos/get-quote
+   * @request POST:/odos/{accountName}/get-quote
    * @secure
    */
   export namespace GetQuote {
-    export type RequestParams = {};
+    export type RequestParams = {
+      accountName: string;
+    };
     export type RequestQuery = {};
-    export type RequestBody = QuoteRequestV2;
+    export type RequestBody = OdosSwapInputBody;
     export type RequestHeaders = {
       Authorization: string;
     };
