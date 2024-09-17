@@ -6,13 +6,14 @@ import {
   Odos,
   OdosAPIResponseOdosExecuteFunctionResult,
   OdosSwapInputBody,
+  QuoteRequestV2,
 } from "@moonup/moon-api";
 import { useQuery } from "@tanstack/react-query";
 
 export const useMoonTokenSwap = () => {
   const context = useMoonSDK();
   const { handleTransaction } = useMoonTransaction();
-  const { moon, chain, wallet } = context;
+  const { moon, chain } = context;
 
   // react query to fetch supported tokens
   const supportedTokensQuery = useQuery({
@@ -21,7 +22,6 @@ export const useMoonTokenSwap = () => {
       const odosSDK = moon?.getOdosSDK();
       if (!odosSDK) throw new Error("Moon Lifi SDK not initialized");
       const response = await odosSDK.getSupportedTokens({
-        accountName: wallet || "",
         chainId: chain?.chain_id || 1,
       });
       return response.data as OdosAPIResponseOdosExecuteFunctionResult;
@@ -49,16 +49,12 @@ export const useMoonTokenSwap = () => {
   );
 
   const getQuoteOdos = useCallback(
-    async (payload: {
-      accountName: string;
-      data: OdosSwapInputBody;
-    }): Promise<OdosAPIResponseOdosExecuteFunctionResult> => {
+    async (
+      payload: QuoteRequestV2
+    ): Promise<OdosAPIResponseOdosExecuteFunctionResult> => {
       return handleTransaction("getQuoteLifi", async () => {
         const odosSDK = getOdosSDK();
-        const response = await odosSDK.getQuote(
-          payload.accountName,
-          payload.data
-        );
+        const response = await odosSDK.getQuote(payload);
         return response.data as OdosAPIResponseOdosExecuteFunctionResult;
       });
     },

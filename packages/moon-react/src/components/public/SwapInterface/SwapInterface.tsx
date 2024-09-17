@@ -8,7 +8,11 @@ import { UserToken } from "../TokenManager/types";
 import { useDebounceCallback } from "usehooks-ts";
 import { safelyParseUnits, weiStringAsFloat } from "@/utils/parse";
 import { useQueryClient } from "@tanstack/react-query";
-import { OdosAPIResponseOdosExecuteFunctionResult, OdosSwapInputBody } from "@moonup/moon-api";
+import {
+  OdosAPIResponseOdosExecuteFunctionResult,
+  OdosSwapInputBody,
+  QuoteRequestV2,
+} from "@moonup/moon-api";
 
 // interface Token {
 //   address: string;
@@ -59,12 +63,12 @@ type ButtonStatus =
 const SwapInterface: React.FC = () => {
   const { wallet } = useMoonSDK();
   const { swapOdos, getQuoteOdos } = useMoonTokenSwap();
-  const {
-    tokensWithGasToken: tokenList,
-    chain,
-  } = useMoonTokenManager();
+  const { tokensWithGasToken: tokenList, chain } = useMoonTokenManager();
 
-  const [estimateResult, setEstimate] = useState<OdosAPIResponseOdosExecuteFunctionResult | null>(null);
+  const [
+    estimateResult,
+    setEstimate,
+  ] = useState<OdosAPIResponseOdosExecuteFunctionResult | null>(null);
   const [fromToken, setFromToken] = useState<UserToken | null>(null);
   const [toToken, setToToken] = useState<UserToken | null>(null);
   const [fromAmount, setFromAmount] = useState<string>("");
@@ -94,7 +98,7 @@ const SwapInterface: React.FC = () => {
     let bigAmountWei = safelyParseUnits(fromAmount, fromToken.decimals);
 
     try {
-      const swapParams: OdosSwapInputBody = {
+      const swapParams: QuoteRequestV2 = {
         inputTokens: [
           {
             amount: bigAmountWei.toString(),
@@ -108,14 +112,10 @@ const SwapInterface: React.FC = () => {
           },
         ],
         slippageLimitPercent: Math.round(parseFloat(slippage) * 100),
-        chain_id: chain?.chain_id?.toString() || "", // Assuming Ethereum mainnet
-        broadcast: true,
+        chainId: chain?.chain_id || 1, // Assuming Ethereum mainnet
       };
 
-      const estimateResult = await getQuoteOdos({
-        accountName: wallet || "",
-        data: swapParams,
-      });
+      const estimateResult = await getQuoteOdos(swapParams);
       setEstimate(estimateResult);
       console.log("Estimate result:", estimateResult);
       setToAmount("0");

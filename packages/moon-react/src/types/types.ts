@@ -98,3 +98,14 @@ export type TransactionResult = {
   error?: string;
   timestamp: number;
 };
+
+export interface OdosToken {
+  name: string;
+  symbol: string;
+  decimals: number;
+  assetId: string;
+  assetType: string;
+  protocolId: string;
+  isRebasing: boolean;
+}
+export type OdosTokenMap = Record<string, OdosToken>;
