@@ -3978,9 +3978,7 @@
 					"user_op": {
 						"type": "string"
 					},
-					"data": {
-						"$ref": "#/components/schemas/Transaction"
-					},
+					"data": {},
 					"params": {
 						"items": {},
 						"type": "array"
@@ -3994,8 +3992,7 @@
 				},
 				"required": [
 					"params",
-					"function",
-					"transaction"
+					"function"
 				],
 				"type": "object"
 			},
@@ -4161,42 +4158,106 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"OdosInputBody": {
+			"QuoteRequestV2": {
 				"properties": {
-					"chain_id": {
-						"type": "string"
+					"chainId": {
+						"type": "number",
+						"format": "double"
 					},
-					"to": {
-						"type": "string"
+					"inputTokens": {
+						"items": {
+							"$ref": "#/components/schemas/TokenAmount"
+						},
+						"type": "array"
 					},
-					"value": {
-						"type": "string"
-					},
-					"data": {
-						"type": "string"
-					},
-					"nonce": {
-						"type": "string"
-					},
-					"gas": {
-						"type": "string"
+					"outputTokens": {
+						"items": {
+							"$ref": "#/components/schemas/TokenProportion"
+						},
+						"type": "array"
 					},
 					"gasPrice": {
+						"type": "number",
+						"format": "double"
+					},
+					"userAddr": {
 						"type": "string"
 					},
-					"dryrun": {
+					"slippageLimitPercent": {
+						"type": "number",
+						"format": "double"
+					},
+					"sourceBlacklist": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"sourceWhitelist": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"poolBlacklist": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"pathViz": {
 						"type": "boolean"
 					},
-					"EOA": {
+					"pathVizImage": {
 						"type": "boolean"
 					},
-					"broadcast": {
+					"pathVizImageConfig": {
+						"$ref": "#/components/schemas/PathVizImageConfig"
+					},
+					"disableRFQs": {
 						"type": "boolean"
 					},
-					"alwaysIncrementNonce": {
+					"referralCode": {
+						"type": "number",
+						"format": "double"
+					},
+					"compact": {
+						"type": "boolean"
+					},
+					"likeAsset": {
+						"type": "boolean"
+					},
+					"simple": {
 						"type": "boolean"
 					}
 				},
+				"required": [
+					"chainId",
+					"inputTokens",
+					"outputTokens"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AssembleRequest": {
+				"properties": {
+					"userAddr": {
+						"type": "string"
+					},
+					"pathId": {
+						"type": "string"
+					},
+					"simulate": {
+						"type": "boolean"
+					},
+					"receiver": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"userAddr",
+					"pathId"
+				],
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -14604,7 +14665,7 @@
 				}
 			}
 		},
-		"/odos/{accountName}/get-quote": {
+		"/odos/get-quote": {
 			"post": {
 				"operationId": "GetQuote",
 				"responses": {
@@ -14635,14 +14696,6 @@
 				],
 				"parameters": [
 					{
-						"in": "path",
-						"name": "accountName",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
 						"in": "header",
 						"name": "Authorization",
 						"required": true,
@@ -14656,14 +14709,14 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/OdosSwapInputBody"
+								"$ref": "#/components/schemas/QuoteRequestV2"
 							}
 						}
 					}
 				}
 			}
 		},
-		"/odos/{accountName}/assemble-transaction": {
+		"/odos/assemble-transaction": {
 			"post": {
 				"operationId": "AssembleTransaction",
 				"responses": {
@@ -14694,14 +14747,6 @@
 				],
 				"parameters": [
 					{
-						"in": "path",
-						"name": "accountName",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
 						"in": "header",
 						"name": "Authorization",
 						"required": true,
@@ -14715,32 +14760,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"allOf": [
-									{
-										"$ref": "#/components/schemas/OdosInputBody"
-									},
-									{
-										"properties": {
-											"receiver": {
-												"type": "string"
-											},
-											"simulate": {
-												"type": "boolean"
-											},
-											"pathId": {
-												"type": "string"
-											},
-											"userAddr": {
-												"type": "string"
-											}
-										},
-										"required": [
-											"pathId",
-											"userAddr"
-										],
-										"type": "object"
-									}
-								]
+								"$ref": "#/components/schemas/AssembleRequest"
 							}
 						}
 					}
@@ -14784,19 +14804,11 @@
 						"schema": {
 							"type": "string"
 						}
-					},
-					{
-						"in": "query",
-						"name": "accountName",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
 					}
 				]
 			}
 		},
-		"/odos/{accountName}/contract-info": {
+		"/odos/contract-info": {
 			"get": {
 				"operationId": "GetContractInfo",
 				"responses": {
@@ -14827,14 +14839,6 @@
 				],
 				"parameters": [
 					{
-						"in": "path",
-						"name": "accountName",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
 						"in": "header",
 						"name": "Authorization",
 						"required": true,
@@ -14865,7 +14869,7 @@
 				]
 			}
 		},
-		"/odos/{accountName}/router-address": {
+		"/odos/router-address": {
 			"get": {
 				"operationId": "GetRouterAddress",
 				"responses": {
@@ -14896,14 +14900,6 @@
 				],
 				"parameters": [
 					{
-						"in": "path",
-						"name": "accountName",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
 						"in": "header",
 						"name": "Authorization",
 						"required": true,
@@ -14934,7 +14930,7 @@
 				]
 			}
 		},
-		"/odos/{accountName}/executor-address": {
+		"/odos/executor-address": {
 			"get": {
 				"operationId": "GetExecutorAddress",
 				"responses": {
@@ -14965,14 +14961,6 @@
 				],
 				"parameters": [
 					{
-						"in": "path",
-						"name": "accountName",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
 						"in": "header",
 						"name": "Authorization",
 						"required": true,
@@ -15003,7 +14991,7 @@
 				]
 			}
 		},
-		"/odos/{accountName}/liquidity-sources": {
+		"/odos/liquidity-sources": {
 			"get": {
 				"operationId": "GetLiquiditySources",
 				"responses": {
@@ -15034,14 +15022,6 @@
 				],
 				"parameters": [
 					{
-						"in": "path",
-						"name": "accountName",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
 						"in": "header",
 						"name": "Authorization",
 						"required": true,
@@ -15061,7 +15041,7 @@
 				]
 			}
 		},
-		"/odos/{accountName}/supported-tokens": {
+		"/odos/supported-tokens": {
 			"get": {
 				"operationId": "GetSupportedTokens",
 				"responses": {
@@ -15092,14 +15072,6 @@
 				],
 				"parameters": [
 					{
-						"in": "path",
-						"name": "accountName",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
 						"in": "header",
 						"name": "Authorization",
 						"required": true,
@@ -15119,7 +15091,7 @@
 				]
 			}
 		},
-		"/odos/{accountName}/current-block": {
+		"/odos/current-block": {
 			"get": {
 				"operationId": "GetCurrentBlock",
 				"responses": {
@@ -15149,14 +15121,6 @@
 					}
 				],
 				"parameters": [
-					{
-						"in": "path",
-						"name": "accountName",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
 					{
 						"in": "header",
 						"name": "Authorization",

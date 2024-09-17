@@ -260,14 +260,14 @@ export type ApproveErc721Data = ERC721APIResponse;
 
 export type ApproveResult = ERC4626APIResponse;
 
-export type AssembleTransactionData = OdosAPIResponseOdosExecuteFunctionResult;
-
-export type AssembleTransactionPayload = OdosInputBody & {
+export interface AssembleRequest {
   pathId: string;
   receiver?: string;
   simulate?: boolean;
   userAddr: string;
-};
+}
+
+export type AssembleTransactionData = OdosAPIResponseOdosExecuteFunctionResult;
 
 export interface BRC20TransactionInput {
   amt: string;
@@ -1046,7 +1046,6 @@ export interface GetConnectionsParams {
 export type GetContractInfoData = OdosAPIResponseOdosExecuteFunctionResult;
 
 export interface GetContractInfoParams {
-  accountName: string;
   /** @format double */
   chainId: number;
   version: VersionEnum;
@@ -1077,7 +1076,6 @@ export interface GetConvertToSharesParams {
 export type GetCurrentBlockData = OdosAPIResponseOdosExecuteFunctionResult;
 
 export interface GetCurrentBlockParams {
-  accountName: string;
   /** @format double */
   chainId: number;
 }
@@ -1159,7 +1157,6 @@ export interface GetErc721TokenUriParams {
 export type GetExecutorAddressData = OdosAPIResponseOdosExecuteFunctionResult;
 
 export interface GetExecutorAddressParams {
-  accountName: string;
   /** @format double */
   chainId: number;
   version: VersionEnum2;
@@ -1199,7 +1196,6 @@ export interface GetLendingPoolRevisionParams {
 export type GetLiquiditySourcesData = OdosAPIResponseOdosExecuteFunctionResult;
 
 export interface GetLiquiditySourcesParams {
-  accountName: string;
   /** @format double */
   chainId: number;
 }
@@ -1422,7 +1418,6 @@ export interface GetRoleAdminParams {
 export type GetRouterAddressData = OdosAPIResponseOdosExecuteFunctionResult;
 
 export interface GetRouterAddressParams {
-  accountName: string;
   /** @format double */
   chainId: number;
   version: VersionEnum1;
@@ -1435,10 +1430,6 @@ export enum GetRouterAddressParams1VersionEnum {
 export type GetSolanaAccountData = AccountAPIResponse;
 
 export type GetSupportedChainsData = OdosAPIResponseOdosExecuteFunctionResult;
-
-export interface GetSupportedChainsParams {
-  accountName: string;
-}
 
 export type GetSupportedChainsResult = ApiResponseChainMap;
 
@@ -1462,7 +1453,6 @@ export type GetSupportedProvidersData = ApiResponseStringArray;
 export type GetSupportedTokensData = OdosAPIResponseOdosExecuteFunctionResult;
 
 export interface GetSupportedTokensParams {
-  accountName: string;
   /** @format double */
   chainId: number;
 }
@@ -1884,27 +1874,13 @@ export interface OdosAPIResponseOdosExecuteFunctionResult {
 
 export interface OdosExecuteFunctionResult {
   broadcasted?: BroadCastRawTransactionResponse;
-  data?: Transaction;
+  data?: any;
   function: string;
   message?: string;
   params: any[];
   success?: boolean;
-  transaction: OdosTransaction;
+  transaction?: OdosTransaction;
   user_op?: string;
-}
-
-export interface OdosInputBody {
-  EOA?: boolean;
-  alwaysIncrementNonce?: boolean;
-  broadcast?: boolean;
-  chain_id?: string;
-  data?: string;
-  dryrun?: boolean;
-  gas?: string;
-  gasPrice?: string;
-  nonce?: string;
-  to?: string;
-  value?: string;
 }
 
 export interface OdosSwapInputBody {
@@ -2134,6 +2110,30 @@ export interface Quote {
   tool: string;
   transactionRequest: TransactionRequest;
   type: string;
+}
+
+export interface QuoteRequestV2 {
+  /** @format double */
+  chainId: number;
+  compact?: boolean;
+  disableRFQs?: boolean;
+  /** @format double */
+  gasPrice?: number;
+  inputTokens: TokenAmount[];
+  likeAsset?: boolean;
+  outputTokens: TokenProportion[];
+  pathViz?: boolean;
+  pathVizImage?: boolean;
+  pathVizImageConfig?: PathVizImageConfig;
+  poolBlacklist?: string[];
+  /** @format double */
+  referralCode?: number;
+  simple?: boolean;
+  /** @format double */
+  slippageLimitPercent?: number;
+  sourceBlacklist?: string[];
+  sourceWhitelist?: string[];
+  userAddr?: string;
 }
 
 export type Quotes = Quote[];

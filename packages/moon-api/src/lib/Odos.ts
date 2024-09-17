@@ -10,8 +10,8 @@
  */
 
 import {
+  AssembleRequest,
   AssembleTransactionData,
-  AssembleTransactionPayload,
   GetContractInfoData,
   GetContractInfoParams,
   GetCurrentBlockData,
@@ -24,10 +24,10 @@ import {
   GetRouterAddressData,
   GetRouterAddressParams,
   GetSupportedChainsData,
-  GetSupportedChainsParams,
   GetSupportedTokensData,
   GetSupportedTokensParams,
   OdosSwapInputBody,
+  QuoteRequestV2,
   SwapData,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
@@ -44,16 +44,12 @@ export class Odos<SecurityDataType = unknown> {
    *
    * @tags Odos
    * @name AssembleTransaction
-   * @request POST:/odos/{accountName}/assemble-transaction
+   * @request POST:/odos/assemble-transaction
    * @secure
    */
-  assembleTransaction = (
-    accountName: string,
-    data: AssembleTransactionPayload,
-    params: RequestParams = {}
-  ) =>
+  assembleTransaction = (data: AssembleRequest, params: RequestParams = {}) =>
     this.http.request<AssembleTransactionData, any>({
-      path: `/odos/${accountName}/assemble-transaction`,
+      path: `/odos/assemble-transaction`,
       method: 'POST',
       body: data,
       secure: true,
@@ -66,15 +62,15 @@ export class Odos<SecurityDataType = unknown> {
    *
    * @tags Odos
    * @name GetContractInfo
-   * @request GET:/odos/{accountName}/contract-info
+   * @request GET:/odos/contract-info
    * @secure
    */
   getContractInfo = (
-    { accountName, ...query }: GetContractInfoParams,
+    query: GetContractInfoParams,
     params: RequestParams = {}
   ) =>
     this.http.request<GetContractInfoData, any>({
-      path: `/odos/${accountName}/contract-info`,
+      path: `/odos/contract-info`,
       method: 'GET',
       query: query,
       secure: true,
@@ -86,15 +82,15 @@ export class Odos<SecurityDataType = unknown> {
    *
    * @tags Odos
    * @name GetCurrentBlock
-   * @request GET:/odos/{accountName}/current-block
+   * @request GET:/odos/current-block
    * @secure
    */
   getCurrentBlock = (
-    { accountName, ...query }: GetCurrentBlockParams,
+    query: GetCurrentBlockParams,
     params: RequestParams = {}
   ) =>
     this.http.request<GetCurrentBlockData, any>({
-      path: `/odos/${accountName}/current-block`,
+      path: `/odos/current-block`,
       method: 'GET',
       query: query,
       secure: true,
@@ -106,15 +102,15 @@ export class Odos<SecurityDataType = unknown> {
    *
    * @tags Odos
    * @name GetExecutorAddress
-   * @request GET:/odos/{accountName}/executor-address
+   * @request GET:/odos/executor-address
    * @secure
    */
   getExecutorAddress = (
-    { accountName, ...query }: GetExecutorAddressParams,
+    query: GetExecutorAddressParams,
     params: RequestParams = {}
   ) =>
     this.http.request<GetExecutorAddressData, any>({
-      path: `/odos/${accountName}/executor-address`,
+      path: `/odos/executor-address`,
       method: 'GET',
       query: query,
       secure: true,
@@ -126,15 +122,15 @@ export class Odos<SecurityDataType = unknown> {
    *
    * @tags Odos
    * @name GetLiquiditySources
-   * @request GET:/odos/{accountName}/liquidity-sources
+   * @request GET:/odos/liquidity-sources
    * @secure
    */
   getLiquiditySources = (
-    { accountName, ...query }: GetLiquiditySourcesParams,
+    query: GetLiquiditySourcesParams,
     params: RequestParams = {}
   ) =>
     this.http.request<GetLiquiditySourcesData, any>({
-      path: `/odos/${accountName}/liquidity-sources`,
+      path: `/odos/liquidity-sources`,
       method: 'GET',
       query: query,
       secure: true,
@@ -146,16 +142,12 @@ export class Odos<SecurityDataType = unknown> {
    *
    * @tags Odos
    * @name GetQuote
-   * @request POST:/odos/{accountName}/get-quote
+   * @request POST:/odos/get-quote
    * @secure
    */
-  getQuote = (
-    accountName: string,
-    data: OdosSwapInputBody,
-    params: RequestParams = {}
-  ) =>
+  getQuote = (data: QuoteRequestV2, params: RequestParams = {}) =>
     this.http.request<GetQuoteResult, any>({
-      path: `/odos/${accountName}/get-quote`,
+      path: `/odos/get-quote`,
       method: 'POST',
       body: data,
       secure: true,
@@ -168,15 +160,15 @@ export class Odos<SecurityDataType = unknown> {
    *
    * @tags Odos
    * @name GetRouterAddress
-   * @request GET:/odos/{accountName}/router-address
+   * @request GET:/odos/router-address
    * @secure
    */
   getRouterAddress = (
-    { accountName, ...query }: GetRouterAddressParams,
+    query: GetRouterAddressParams,
     params: RequestParams = {}
   ) =>
     this.http.request<GetRouterAddressData, any>({
-      path: `/odos/${accountName}/router-address`,
+      path: `/odos/router-address`,
       method: 'GET',
       query: query,
       secure: true,
@@ -191,14 +183,10 @@ export class Odos<SecurityDataType = unknown> {
    * @request GET:/odos/supported-chains
    * @secure
    */
-  getSupportedChains = (
-    query: GetSupportedChainsParams,
-    params: RequestParams = {}
-  ) =>
+  getSupportedChains = (params: RequestParams = {}) =>
     this.http.request<GetSupportedChainsData, any>({
       path: `/odos/supported-chains`,
       method: 'GET',
-      query: query,
       secure: true,
       format: 'json',
       ...params,
@@ -208,15 +196,15 @@ export class Odos<SecurityDataType = unknown> {
    *
    * @tags Odos
    * @name GetSupportedTokens
-   * @request GET:/odos/{accountName}/supported-tokens
+   * @request GET:/odos/supported-tokens
    * @secure
    */
   getSupportedTokens = (
-    { accountName, ...query }: GetSupportedTokensParams,
+    query: GetSupportedTokensParams,
     params: RequestParams = {}
   ) =>
     this.http.request<GetSupportedTokensData, any>({
-      path: `/odos/${accountName}/supported-tokens`,
+      path: `/odos/supported-tokens`,
       method: 'GET',
       query: query,
       secure: true,
