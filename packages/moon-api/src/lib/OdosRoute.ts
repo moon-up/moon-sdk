@@ -10,8 +10,8 @@
  */
 
 import {
+  AssembleRequest,
   AssembleTransactionData,
-  AssembleTransactionPayload,
   GetContractInfoData,
   GetContractInfoParams1VersionEnum,
   GetCurrentBlockData,
@@ -24,6 +24,7 @@ import {
   GetSupportedChainsData,
   GetSupportedTokensData,
   OdosSwapInputBody,
+  QuoteRequestV2,
   SwapData,
 } from './data-contracts';
 
@@ -32,15 +33,13 @@ export namespace Odos {
    * No description
    * @tags Odos
    * @name AssembleTransaction
-   * @request POST:/odos/{accountName}/assemble-transaction
+   * @request POST:/odos/assemble-transaction
    * @secure
    */
   export namespace AssembleTransaction {
-    export type RequestParams = {
-      accountName: string;
-    };
+    export type RequestParams = {};
     export type RequestQuery = {};
-    export type RequestBody = AssembleTransactionPayload;
+    export type RequestBody = AssembleRequest;
     export type RequestHeaders = {
       Authorization: string;
     };
@@ -51,13 +50,11 @@ export namespace Odos {
    * No description
    * @tags Odos
    * @name GetContractInfo
-   * @request GET:/odos/{accountName}/contract-info
+   * @request GET:/odos/contract-info
    * @secure
    */
   export namespace GetContractInfo {
-    export type RequestParams = {
-      accountName: string;
-    };
+    export type RequestParams = {};
     export type RequestQuery = {
       /** @format double */
       chainId: number;
@@ -74,13 +71,11 @@ export namespace Odos {
    * No description
    * @tags Odos
    * @name GetCurrentBlock
-   * @request GET:/odos/{accountName}/current-block
+   * @request GET:/odos/current-block
    * @secure
    */
   export namespace GetCurrentBlock {
-    export type RequestParams = {
-      accountName: string;
-    };
+    export type RequestParams = {};
     export type RequestQuery = {
       /** @format double */
       chainId: number;
@@ -96,13 +91,11 @@ export namespace Odos {
    * No description
    * @tags Odos
    * @name GetExecutorAddress
-   * @request GET:/odos/{accountName}/executor-address
+   * @request GET:/odos/executor-address
    * @secure
    */
   export namespace GetExecutorAddress {
-    export type RequestParams = {
-      accountName: string;
-    };
+    export type RequestParams = {};
     export type RequestQuery = {
       /** @format double */
       chainId: number;
@@ -119,13 +112,11 @@ export namespace Odos {
    * No description
    * @tags Odos
    * @name GetLiquiditySources
-   * @request GET:/odos/{accountName}/liquidity-sources
+   * @request GET:/odos/liquidity-sources
    * @secure
    */
   export namespace GetLiquiditySources {
-    export type RequestParams = {
-      accountName: string;
-    };
+    export type RequestParams = {};
     export type RequestQuery = {
       /** @format double */
       chainId: number;
@@ -141,15 +132,13 @@ export namespace Odos {
    * No description
    * @tags Odos
    * @name GetQuote
-   * @request POST:/odos/{accountName}/get-quote
+   * @request POST:/odos/get-quote
    * @secure
    */
   export namespace GetQuote {
-    export type RequestParams = {
-      accountName: string;
-    };
+    export type RequestParams = {};
     export type RequestQuery = {};
-    export type RequestBody = OdosSwapInputBody;
+    export type RequestBody = QuoteRequestV2;
     export type RequestHeaders = {
       Authorization: string;
     };
@@ -160,13 +149,11 @@ export namespace Odos {
    * No description
    * @tags Odos
    * @name GetRouterAddress
-   * @request GET:/odos/{accountName}/router-address
+   * @request GET:/odos/router-address
    * @secure
    */
   export namespace GetRouterAddress {
-    export type RequestParams = {
-      accountName: string;
-    };
+    export type RequestParams = {};
     export type RequestQuery = {
       /** @format double */
       chainId: number;
@@ -188,9 +175,7 @@ export namespace Odos {
    */
   export namespace GetSupportedChains {
     export type RequestParams = {};
-    export type RequestQuery = {
-      accountName: string;
-    };
+    export type RequestQuery = {};
     export type RequestBody = never;
     export type RequestHeaders = {
       Authorization: string;
@@ -202,13 +187,11 @@ export namespace Odos {
    * No description
    * @tags Odos
    * @name GetSupportedTokens
-   * @request GET:/odos/{accountName}/supported-tokens
+   * @request GET:/odos/supported-tokens
    * @secure
    */
   export namespace GetSupportedTokens {
-    export type RequestParams = {
-      accountName: string;
-    };
+    export type RequestParams = {};
     export type RequestQuery = {
       /** @format double */
       chainId: number;
