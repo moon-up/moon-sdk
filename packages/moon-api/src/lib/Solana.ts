@@ -11,6 +11,8 @@
 
 import {
   CreateSolanaAccountData,
+  DeleteSolanaAccountData,
+  ExportSolanaAccountData,
   GetSolanaAccountData,
   ListSolanaAccountsData,
   MultiSignSolanaTransactionData,
@@ -45,6 +47,38 @@ export class Solana<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Solana
+   * @name DeleteSolanaAccount
+   * @request POST:/solana/{accountName}/delete
+   * @secure
+   */
+  deleteSolanaAccount = (accountName: string, params: RequestParams = {}) =>
+    this.http.request<DeleteSolanaAccountData, any>({
+      path: `/solana/${accountName}/delete`,
+      method: 'POST',
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Solana
+   * @name ExportSolanaAccount
+   * @request POST:/solana/{accountName}/export
+   * @secure
+   */
+  exportSolanaAccount = (accountName: string, params: RequestParams = {}) =>
+    this.http.request<ExportSolanaAccountData, any>({
+      path: `/solana/${accountName}/export`,
+      method: 'POST',
+      secure: true,
       format: 'json',
       ...params,
     });

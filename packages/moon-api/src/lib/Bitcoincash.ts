@@ -13,9 +13,12 @@ import {
   BitcoinCashInput,
   BitcoinCashTransactionInput,
   CreateBitcoinCashAccountData,
+  DeleteBitcoinCashAccountData,
+  ExportBitcoinCashAccountData,
   GetBitcoinCashAccountData,
   ListBitcoinCashAccountsData,
   SignBitcoinCashTransactionData,
+  SignBitcoinCashTransactionWithMemoData,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
@@ -44,6 +47,44 @@ export class Bitcoincash<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags bitcoincash
+   * @name DeleteBitcoinCashAccount
+   * @request POST:/bitcoincash/{accountName}/delete
+   * @secure
+   */
+  deleteBitcoinCashAccount = (
+    accountName: string,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<DeleteBitcoinCashAccountData, any>({
+      path: `/bitcoincash/${accountName}/delete`,
+      method: 'POST',
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags bitcoincash
+   * @name ExportBitcoinCashAccount
+   * @request POST:/bitcoincash/{accountName}/export
+   * @secure
+   */
+  exportBitcoinCashAccount = (
+    accountName: string,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<ExportBitcoinCashAccountData, any>({
+      path: `/bitcoincash/${accountName}/export`,
+      method: 'POST',
+      secure: true,
       format: 'json',
       ...params,
     });
@@ -94,6 +135,28 @@ export class Bitcoincash<SecurityDataType = unknown> {
   ) =>
     this.http.request<SignBitcoinCashTransactionData, any>({
       path: `/bitcoincash/${accountName}/sign-tx`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags bitcoincash
+   * @name SignBitcoinCashTransactionWithMemo
+   * @request POST:/bitcoincash/{accountName}/memo-sign-tx
+   * @secure
+   */
+  signBitcoinCashTransactionWithMemo = (
+    accountName: string,
+    data: BitcoinCashTransactionInput,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<SignBitcoinCashTransactionWithMemoData, any>({
+      path: `/bitcoincash/${accountName}/memo-sign-tx`,
       method: 'POST',
       body: data,
       secure: true,

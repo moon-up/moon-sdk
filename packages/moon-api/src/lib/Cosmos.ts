@@ -16,6 +16,7 @@ import {
   CreateAccountBody,
   CreateAccountResult,
   DeleteAccountResult,
+  ExportAccountResult,
   GetAccountResult,
   ListAccountsResult,
   SignIbcTransferTransactionData,
@@ -61,6 +62,22 @@ export class Cosmos<SecurityDataType = unknown> {
     this.http.request<DeleteAccountResult, any>({
       path: `/cosmos/${accountName}`,
       method: 'DELETE',
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Cosmos
+   * @name ExportAccount
+   * @request POST:/cosmos/{accountName}/export
+   * @secure
+   */
+  exportAccount = (accountName: string, params: RequestParams = {}) =>
+    this.http.request<ExportAccountResult, any>({
+      path: `/cosmos/${accountName}/export`,
+      method: 'POST',
       secure: true,
       format: 'json',
       ...params,

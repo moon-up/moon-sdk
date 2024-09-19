@@ -11,6 +11,8 @@
 
 import {
   CreateTronAccountData,
+  DeleteTronAccountData,
+  ExportTronAccountData,
   GetTronAccountData,
   ListTronAccountsData,
   SignTronTransactionData,
@@ -34,6 +36,44 @@ export namespace Tron {
       Authorization: string;
     };
     export type ResponseBody = CreateTronAccountData;
+  }
+
+  /**
+   * No description
+   * @tags Tron
+   * @name DeleteTronAccount
+   * @request POST:/tron/{accountName}/delete
+   * @secure
+   */
+  export namespace DeleteTronAccount {
+    export type RequestParams = {
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = DeleteTronAccountData;
+  }
+
+  /**
+   * No description
+   * @tags Tron
+   * @name ExportTronAccount
+   * @request POST:/tron/{accountName}/export
+   * @secure
+   */
+  export namespace ExportTronAccount {
+    export type RequestParams = {
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = ExportTronAccountData;
   }
 
   /**

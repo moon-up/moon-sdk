@@ -11,11 +11,14 @@
 
 import {
   CreateDogeCoinAccountData,
+  DeleteDogeCoinAccountData,
   DogeCoinInput,
   DogeCoinTransactionInput,
+  ExportDogeCoinAccountData,
   GetDogeCoinAccountData,
   ListDogeCoinAccountsData,
   SignDogeCoinTransactionData,
+  SignDogeCoinTransactionWithMemoData,
 } from './data-contracts';
 
 export namespace Dogecoin {
@@ -34,6 +37,44 @@ export namespace Dogecoin {
       Authorization: string;
     };
     export type ResponseBody = CreateDogeCoinAccountData;
+  }
+
+  /**
+   * No description
+   * @tags DogeCoin
+   * @name DeleteDogeCoinAccount
+   * @request POST:/dogecoin/{accountName}/delete
+   * @secure
+   */
+  export namespace DeleteDogeCoinAccount {
+    export type RequestParams = {
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = DeleteDogeCoinAccountData;
+  }
+
+  /**
+   * No description
+   * @tags DogeCoin
+   * @name ExportDogeCoinAccount
+   * @request POST:/dogecoin/{accountName}/export
+   * @secure
+   */
+  export namespace ExportDogeCoinAccount {
+    export type RequestParams = {
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = ExportDogeCoinAccountData;
   }
 
   /**
@@ -89,5 +130,24 @@ export namespace Dogecoin {
       Authorization: string;
     };
     export type ResponseBody = SignDogeCoinTransactionData;
+  }
+
+  /**
+   * No description
+   * @tags DogeCoin
+   * @name SignDogeCoinTransactionWithMemo
+   * @request POST:/dogecoin/{accountName}/memo-sign-tx
+   * @secure
+   */
+  export namespace SignDogeCoinTransactionWithMemo {
+    export type RequestParams = {
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = DogeCoinTransactionInput;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = SignDogeCoinTransactionWithMemoData;
   }
 }

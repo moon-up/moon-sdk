@@ -11,11 +11,14 @@
 
 import {
   CreateLitecoinAccountData,
+  DeleteLitecoinAccountData,
+  ExportLitecoinAccountData,
   GetLitecoinAccountData,
   ListLitecoinAccountsData,
   LitecoinInput,
   LitecoinTransactionInput,
   SignLitecoinTransactionData,
+  SignLitecoinTransactionWithMemoData,
 } from './data-contracts';
 
 export namespace Litecoin {
@@ -34,6 +37,44 @@ export namespace Litecoin {
       Authorization: string;
     };
     export type ResponseBody = CreateLitecoinAccountData;
+  }
+
+  /**
+   * No description
+   * @tags Litecoin
+   * @name DeleteLitecoinAccount
+   * @request POST:/litecoin/{accountName}/delete
+   * @secure
+   */
+  export namespace DeleteLitecoinAccount {
+    export type RequestParams = {
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = DeleteLitecoinAccountData;
+  }
+
+  /**
+   * No description
+   * @tags Litecoin
+   * @name ExportLitecoinAccount
+   * @request POST:/litecoin/{accountName}/export
+   * @secure
+   */
+  export namespace ExportLitecoinAccount {
+    export type RequestParams = {
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = ExportLitecoinAccountData;
   }
 
   /**
@@ -89,5 +130,24 @@ export namespace Litecoin {
       Authorization: string;
     };
     export type ResponseBody = SignLitecoinTransactionData;
+  }
+
+  /**
+   * No description
+   * @tags Litecoin
+   * @name SignLitecoinTransactionWithMemo
+   * @request POST:/litecoin/{accountName}/memo-sign-tx
+   * @secure
+   */
+  export namespace SignLitecoinTransactionWithMemo {
+    export type RequestParams = {
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = LitecoinTransactionInput;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = SignLitecoinTransactionWithMemoData;
   }
 }

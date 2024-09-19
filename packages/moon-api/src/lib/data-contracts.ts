@@ -629,6 +629,22 @@ export type DeleteAccountData = AccountAPIResponse;
 
 export type DeleteAccountResult = BaseCosmosAPIResponse;
 
+export type DeleteBitcoinAccountData = AccountAPIResponse;
+
+export type DeleteBitcoinCashAccountData = AccountAPIResponse;
+
+export type DeleteDogeCoinAccountData = AccountAPIResponse;
+
+export type DeleteEosAccountData = AccountAPIResponse;
+
+export type DeleteLitecoinAccountData = AccountAPIResponse;
+
+export type DeleteRippleAccountData = AccountAPIResponse;
+
+export type DeleteSolanaAccountData = AccountAPIResponse;
+
+export type DeleteTronAccountData = AccountAPIResponse;
+
 export type DeleverageErc20Data =
   LeveragerAPIResponseLeveragerExecuteFunctionResult;
 
@@ -883,6 +899,24 @@ export interface ExportAccountAPIResponse {
 }
 
 export type ExportAccountData = ExportAccountAPIResponse;
+
+export type ExportAccountResult = BaseCosmosAPIResponse;
+
+export type ExportBitcoinAccountData = AccountAPIResponse;
+
+export type ExportBitcoinCashAccountData = AccountAPIResponse;
+
+export type ExportDogeCoinAccountData = AccountAPIResponse;
+
+export type ExportEosAccountData = AccountAPIResponse;
+
+export type ExportLitecoinAccountData = AccountAPIResponse;
+
+export type ExportRippleAccountData = AccountAPIResponse;
+
+export type ExportSolanaAccountData = AccountAPIResponse;
+
+export type ExportTronAccountData = AccountAPIResponse;
 
 export interface FeeCost {
   /** @format double */
@@ -1877,6 +1911,7 @@ export interface OdosExecuteFunctionResult {
   data?: any;
   function: string;
   message?: string;
+  odos?: any;
   params: any[];
   success?: boolean;
   transaction?: OdosTransaction;
@@ -2206,15 +2241,21 @@ export type SetUserUseReserveAsCollateralResult =
 
 export type SignBitcoinCashTransactionData = BitcoinCashAPIResponse;
 
+export type SignBitcoinCashTransactionWithMemoData = BitcoinCashAPIResponse;
+
 export type SignBitcoinTransactionData = BitcoinAPIResponse;
 
 export type SignDogeCoinTransactionData = DogeCoinAPIResponse;
+
+export type SignDogeCoinTransactionWithMemoData = DogeCoinAPIResponse;
 
 export type SignEosTransactionData = EosAPIResponse;
 
 export type SignIbcTransferTransactionData = CosmosTransactionAPIResponse;
 
 export type SignLitecoinTransactionData = LitecoinAPIResponse;
+
+export type SignLitecoinTransactionWithMemoData = LitecoinAPIResponse;
 
 export interface SignMessage {
   data: string;

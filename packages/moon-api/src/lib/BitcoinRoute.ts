@@ -16,6 +16,8 @@ import {
   CreateBitcoinAccountData,
   CreateBrc20TransactionData,
   CreateSrc20InscriptionData,
+  DeleteBitcoinAccountData,
+  ExportBitcoinAccountData,
   GenerateUnsignedPsbtHexData,
   GetBitcoinAccountData,
   ListBitcoinAccountsData,
@@ -78,6 +80,44 @@ export namespace Bitcoin {
       Authorization: string;
     };
     export type ResponseBody = CreateSrc20InscriptionData;
+  }
+
+  /**
+   * No description
+   * @tags Bitcoin
+   * @name DeleteBitcoinAccount
+   * @request POST:/bitcoin/{accountName}/delete
+   * @secure
+   */
+  export namespace DeleteBitcoinAccount {
+    export type RequestParams = {
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = DeleteBitcoinAccountData;
+  }
+
+  /**
+   * No description
+   * @tags Bitcoin
+   * @name ExportBitcoinAccount
+   * @request POST:/bitcoin/{accountName}/export
+   * @secure
+   */
+  export namespace ExportBitcoinAccount {
+    export type RequestParams = {
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = ExportBitcoinAccountData;
   }
 
   /**

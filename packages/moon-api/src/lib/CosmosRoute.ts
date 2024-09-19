@@ -16,6 +16,7 @@ import {
   CreateAccountBody,
   CreateAccountResult,
   DeleteAccountResult,
+  ExportAccountResult,
   GetAccountResult,
   ListAccountsResult,
   SignIbcTransferTransactionData,
@@ -58,6 +59,25 @@ export namespace Cosmos {
       Authorization: string;
     };
     export type ResponseBody = DeleteAccountResult;
+  }
+
+  /**
+   * No description
+   * @tags Cosmos
+   * @name ExportAccount
+   * @request POST:/cosmos/{accountName}/export
+   * @secure
+   */
+  export namespace ExportAccount {
+    export type RequestParams = {
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = ExportAccountResult;
   }
 
   /**

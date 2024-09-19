@@ -13,9 +13,12 @@ import {
   BitcoinCashInput,
   BitcoinCashTransactionInput,
   CreateBitcoinCashAccountData,
+  DeleteBitcoinCashAccountData,
+  ExportBitcoinCashAccountData,
   GetBitcoinCashAccountData,
   ListBitcoinCashAccountsData,
   SignBitcoinCashTransactionData,
+  SignBitcoinCashTransactionWithMemoData,
 } from './data-contracts';
 
 export namespace Bitcoincash {
@@ -34,6 +37,44 @@ export namespace Bitcoincash {
       Authorization: string;
     };
     export type ResponseBody = CreateBitcoinCashAccountData;
+  }
+
+  /**
+   * No description
+   * @tags bitcoincash
+   * @name DeleteBitcoinCashAccount
+   * @request POST:/bitcoincash/{accountName}/delete
+   * @secure
+   */
+  export namespace DeleteBitcoinCashAccount {
+    export type RequestParams = {
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = DeleteBitcoinCashAccountData;
+  }
+
+  /**
+   * No description
+   * @tags bitcoincash
+   * @name ExportBitcoinCashAccount
+   * @request POST:/bitcoincash/{accountName}/export
+   * @secure
+   */
+  export namespace ExportBitcoinCashAccount {
+    export type RequestParams = {
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = ExportBitcoinCashAccountData;
   }
 
   /**
@@ -89,5 +130,24 @@ export namespace Bitcoincash {
       Authorization: string;
     };
     export type ResponseBody = SignBitcoinCashTransactionData;
+  }
+
+  /**
+   * No description
+   * @tags bitcoincash
+   * @name SignBitcoinCashTransactionWithMemo
+   * @request POST:/bitcoincash/{accountName}/memo-sign-tx
+   * @secure
+   */
+  export namespace SignBitcoinCashTransactionWithMemo {
+    export type RequestParams = {
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = BitcoinCashTransactionInput;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = SignBitcoinCashTransactionWithMemoData;
   }
 }
