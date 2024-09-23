@@ -11,6 +11,8 @@
 
 import {
   CreateRippleAccountData,
+  DeleteRippleAccountData,
+  ExportRippleAccountData,
   GetRippleAccountData,
   ListRippleAccountsData,
   RippleInput,
@@ -34,6 +36,44 @@ export namespace Ripple {
       Authorization: string;
     };
     export type ResponseBody = CreateRippleAccountData;
+  }
+
+  /**
+   * No description
+   * @tags ripple
+   * @name DeleteRippleAccount
+   * @request POST:/ripple/{accountName}/delete
+   * @secure
+   */
+  export namespace DeleteRippleAccount {
+    export type RequestParams = {
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = DeleteRippleAccountData;
+  }
+
+  /**
+   * No description
+   * @tags ripple
+   * @name ExportRippleAccount
+   * @request POST:/ripple/{accountName}/export
+   * @secure
+   */
+  export namespace ExportRippleAccount {
+    export type RequestParams = {
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = ExportRippleAccountData;
   }
 
   /**

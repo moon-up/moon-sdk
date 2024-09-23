@@ -13,7 +13,7 @@ import {
   BorrowResult,
   DepositResult,
   FlashLoanData,
-  GetAddressesProviderData,
+  GetAddressesProviderResult,
   GetFlashLoanPremiumTotalData,
   GetLendingPoolRevisionData,
   GetMaxNumberReservesData,
@@ -104,7 +104,7 @@ export namespace LendingPool {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetAddressesProviderData;
+    export type ResponseBody = GetAddressesProviderResult;
   }
 
   /**

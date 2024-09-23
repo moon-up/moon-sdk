@@ -11,8 +11,10 @@
 
 import {
   CreateEosAccountData,
+  DeleteEosAccountData,
   EosInput,
   EosTransactionInput,
+  ExportEosAccountData,
   GetEosAccountData,
   ListEosAccountsData,
   SignEosTransactionData,
@@ -41,6 +43,38 @@ export class Eos<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags eos
+   * @name DeleteEosAccount
+   * @request POST:/eos/{accountName}/delete
+   * @secure
+   */
+  deleteEosAccount = (accountName: string, params: RequestParams = {}) =>
+    this.http.request<DeleteEosAccountData, any>({
+      path: `/eos/${accountName}/delete`,
+      method: 'POST',
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags eos
+   * @name ExportEosAccount
+   * @request POST:/eos/{accountName}/export
+   * @secure
+   */
+  exportEosAccount = (accountName: string, params: RequestParams = {}) =>
+    this.http.request<ExportEosAccountData, any>({
+      path: `/eos/${accountName}/export`,
+      method: 'POST',
+      secure: true,
       format: 'json',
       ...params,
     });

@@ -11,6 +11,8 @@
 
 import {
   CreateSolanaAccountData,
+  DeleteSolanaAccountData,
+  ExportSolanaAccountData,
   GetSolanaAccountData,
   ListSolanaAccountsData,
   MultiSignSolanaTransactionData,
@@ -38,6 +40,44 @@ export namespace Solana {
       Authorization: string;
     };
     export type ResponseBody = CreateSolanaAccountData;
+  }
+
+  /**
+   * No description
+   * @tags Solana
+   * @name DeleteSolanaAccount
+   * @request POST:/solana/{accountName}/delete
+   * @secure
+   */
+  export namespace DeleteSolanaAccount {
+    export type RequestParams = {
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = DeleteSolanaAccountData;
+  }
+
+  /**
+   * No description
+   * @tags Solana
+   * @name ExportSolanaAccount
+   * @request POST:/solana/{accountName}/export
+   * @secure
+   */
+  export namespace ExportSolanaAccount {
+    export type RequestParams = {
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = ExportSolanaAccountData;
   }
 
   /**

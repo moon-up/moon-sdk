@@ -14,29 +14,37 @@ import {
   GetQuoteOutput,
   GetSupportedChainsResult,
   GetSupportedProvidersData,
-  PostQuoteResult,
+  SwapBody,
+  SwapResult,
 } from './data-contracts';
 
 export namespace Thorswap {
   /**
    * No description
+   * @tags ThorSwap
    * @name GetGasPrice
    * @request GET:/thorswap/gasPrice
+   * @secure
    */
   export namespace GetGasPrice {
     export type RequestParams = {};
     export type RequestQuery = {
+      address: string;
       chainId: string;
     };
     export type RequestBody = never;
-    export type RequestHeaders = {};
+    export type RequestHeaders = {
+      Authorization: string;
+    };
     export type ResponseBody = GetGasPriceData;
   }
 
   /**
    * No description
+   * @tags ThorSwap
    * @name GetQuote
    * @request GET:/thorswap/quote
+   * @secure
    */
   export namespace GetQuote {
     export type RequestParams = {};
@@ -46,6 +54,7 @@ export namespace Thorswap {
       affiliateBasisPoints?: number;
       allowSmartContractRecipient?: boolean;
       buyAsset: string;
+      chainId: string;
       /** @format double */
       limit?: number;
       preferredProvider?: string;
@@ -59,65 +68,66 @@ export namespace Thorswap {
       slippage?: number;
     };
     export type RequestBody = never;
-    export type RequestHeaders = {};
+    export type RequestHeaders = {
+      Authorization: string;
+    };
     export type ResponseBody = GetQuoteOutput;
   }
 
   /**
    * No description
+   * @tags ThorSwap
    * @name GetSupportedChains
-   * @request GET:/thorswap/chains
+   * @request GET:/thorswap/supportedChains
+   * @secure
    */
   export namespace GetSupportedChains {
     export type RequestParams = {};
-    export type RequestQuery = {};
+    export type RequestQuery = {
+      address: string;
+      chainId: string;
+    };
     export type RequestBody = never;
-    export type RequestHeaders = {};
+    export type RequestHeaders = {
+      Authorization: string;
+    };
     export type ResponseBody = GetSupportedChainsResult;
   }
 
   /**
    * No description
+   * @tags ThorSwap
    * @name GetSupportedProviders
-   * @request GET:/thorswap/providers
+   * @request GET:/thorswap/supportedProviders
+   * @secure
    */
   export namespace GetSupportedProviders {
     export type RequestParams = {};
-    export type RequestQuery = {};
+    export type RequestQuery = {
+      address: string;
+      chainId: string;
+    };
     export type RequestBody = never;
-    export type RequestHeaders = {};
+    export type RequestHeaders = {
+      Authorization: string;
+    };
     export type ResponseBody = GetSupportedProvidersData;
   }
 
   /**
    * No description
-   * @name PostQuote
-   * @request POST:/thorswap/{accountName}/quote
+   * @tags ThorSwap
+   * @name Swap
+   * @request POST:/thorswap/swap
+   * @secure
    */
-  export namespace PostQuote {
-    export type RequestParams = {
-      accountName: string;
+  export namespace Swap {
+    export type RequestParams = {};
+    export type RequestQuery = {};
+    export type RequestBody = SwapBody;
+    export type RequestHeaders = {
+      Authorization: string;
     };
-    export type RequestQuery = {
-      affiliateAddress?: string;
-      /** @format double */
-      affiliateBasisPoints?: number;
-      allowSmartContractRecipient?: boolean;
-      buyAsset: string;
-      /** @format double */
-      limit?: number;
-      preferredProvider?: string;
-      providers?: string[];
-      recipientAddress: string;
-      /** @format double */
-      sellAmount: number;
-      sellAsset: string;
-      senderAddress: string;
-      /** @format double */
-      slippage?: number;
-    };
-    export type RequestBody = never;
-    export type RequestHeaders = {};
-    export type ResponseBody = PostQuoteResult;
+    export type ResponseBody = SwapResult;
   }
 }

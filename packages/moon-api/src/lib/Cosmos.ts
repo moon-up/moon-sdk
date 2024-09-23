@@ -13,11 +13,12 @@ import {
   CosmosIBCTransferInput,
   CosmosSignMessageInput,
   CosmosTransferInput,
-  CreateAccountBody,
-  CreateAccountResult,
-  DeleteAccountResult,
+  CreateAccountInput,
+  CreateAccountOutput,
+  DeleteAccountOutput,
+  ExportAccountOutput,
   GetAccountResult,
-  ListAccountsResult,
+  ListAccountsOutput,
   SignIbcTransferTransactionData,
   SignMessageResult,
   SignTransferTransactionData,
@@ -39,8 +40,8 @@ export class Cosmos<SecurityDataType = unknown> {
    * @request POST:/cosmos
    * @secure
    */
-  createAccount = (data: CreateAccountBody, params: RequestParams = {}) =>
-    this.http.request<CreateAccountResult, any>({
+  createAccount = (data: CreateAccountInput, params: RequestParams = {}) =>
+    this.http.request<CreateAccountOutput, any>({
       path: `/cosmos`,
       method: 'POST',
       body: data,
@@ -58,9 +59,25 @@ export class Cosmos<SecurityDataType = unknown> {
    * @secure
    */
   deleteAccount = (accountName: string, params: RequestParams = {}) =>
-    this.http.request<DeleteAccountResult, any>({
+    this.http.request<DeleteAccountOutput, any>({
       path: `/cosmos/${accountName}`,
       method: 'DELETE',
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Cosmos
+   * @name ExportAccount
+   * @request POST:/cosmos/{accountName}/export
+   * @secure
+   */
+  exportAccount = (accountName: string, params: RequestParams = {}) =>
+    this.http.request<ExportAccountOutput, any>({
+      path: `/cosmos/${accountName}/export`,
+      method: 'POST',
       secure: true,
       format: 'json',
       ...params,
@@ -90,7 +107,7 @@ export class Cosmos<SecurityDataType = unknown> {
    * @secure
    */
   listAccounts = (params: RequestParams = {}) =>
-    this.http.request<ListAccountsResult, any>({
+    this.http.request<ListAccountsOutput, any>({
       path: `/cosmos`,
       method: 'GET',
       secure: true,

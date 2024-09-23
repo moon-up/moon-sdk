@@ -11,8 +11,10 @@
 
 import {
   CreateEosAccountData,
+  DeleteEosAccountData,
   EosInput,
   EosTransactionInput,
+  ExportEosAccountData,
   GetEosAccountData,
   ListEosAccountsData,
   SignEosTransactionData,
@@ -34,6 +36,44 @@ export namespace Eos {
       Authorization: string;
     };
     export type ResponseBody = CreateEosAccountData;
+  }
+
+  /**
+   * No description
+   * @tags eos
+   * @name DeleteEosAccount
+   * @request POST:/eos/{accountName}/delete
+   * @secure
+   */
+  export namespace DeleteEosAccount {
+    export type RequestParams = {
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = DeleteEosAccountData;
+  }
+
+  /**
+   * No description
+   * @tags eos
+   * @name ExportEosAccount
+   * @request POST:/eos/{accountName}/export
+   * @secure
+   */
+  export namespace ExportEosAccount {
+    export type RequestParams = {
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = ExportEosAccountData;
   }
 
   /**

@@ -13,8 +13,8 @@ import {
   DeleverageErc20Data,
   DeleverageNativeData,
   ExecuteOperationData,
-  GetAddressesProviderParams2,
-  GetAddressesProviderResult,
+  GetAddressesProviderOutput,
+  GetAddressesProviderParams4,
   GetDefaultAdminRoleData,
   GetDefaultAdminRoleParams,
   GetLendingPoolData,
@@ -124,10 +124,10 @@ export class Leverager<SecurityDataType = unknown> {
    * @secure
    */
   getAddressesProvider = (
-    query: GetAddressesProviderParams2,
+    query: GetAddressesProviderParams4,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetAddressesProviderResult, any>({
+    this.http.request<GetAddressesProviderOutput, any>({
       path: `/leverager/addresses-provider`,
       method: 'GET',
       query: query,

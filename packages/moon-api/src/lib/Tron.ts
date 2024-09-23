@@ -11,6 +11,8 @@
 
 import {
   CreateTronAccountData,
+  DeleteTronAccountData,
+  ExportTronAccountData,
   GetTronAccountData,
   ListTronAccountsData,
   SignTronTransactionData,
@@ -41,6 +43,38 @@ export class Tron<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Tron
+   * @name DeleteTronAccount
+   * @request POST:/tron/{accountName}/delete
+   * @secure
+   */
+  deleteTronAccount = (accountName: string, params: RequestParams = {}) =>
+    this.http.request<DeleteTronAccountData, any>({
+      path: `/tron/${accountName}/delete`,
+      method: 'POST',
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Tron
+   * @name ExportTronAccount
+   * @request POST:/tron/{accountName}/export
+   * @secure
+   */
+  exportTronAccount = (accountName: string, params: RequestParams = {}) =>
+    this.http.request<ExportTronAccountData, any>({
+      path: `/tron/${accountName}/export`,
+      method: 'POST',
+      secure: true,
       format: 'json',
       ...params,
     });

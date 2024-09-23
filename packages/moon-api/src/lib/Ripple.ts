@@ -11,6 +11,8 @@
 
 import {
   CreateRippleAccountData,
+  DeleteRippleAccountData,
+  ExportRippleAccountData,
   GetRippleAccountData,
   ListRippleAccountsData,
   RippleInput,
@@ -41,6 +43,38 @@ export class Ripple<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags ripple
+   * @name DeleteRippleAccount
+   * @request POST:/ripple/{accountName}/delete
+   * @secure
+   */
+  deleteRippleAccount = (accountName: string, params: RequestParams = {}) =>
+    this.http.request<DeleteRippleAccountData, any>({
+      path: `/ripple/${accountName}/delete`,
+      method: 'POST',
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags ripple
+   * @name ExportRippleAccount
+   * @request POST:/ripple/{accountName}/export
+   * @secure
+   */
+  exportRippleAccount = (accountName: string, params: RequestParams = {}) =>
+    this.http.request<ExportRippleAccountData, any>({
+      path: `/ripple/${accountName}/export`,
+      method: 'POST',
+      secure: true,
       format: 'json',
       ...params,
     });

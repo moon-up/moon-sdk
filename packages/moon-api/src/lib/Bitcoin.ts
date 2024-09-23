@@ -16,6 +16,8 @@ import {
   CreateBitcoinAccountData,
   CreateBrc20TransactionData,
   CreateSrc20InscriptionData,
+  DeleteBitcoinAccountData,
+  ExportBitcoinAccountData,
   GenerateUnsignedPsbtHexData,
   GetBitcoinAccountData,
   ListBitcoinAccountsData,
@@ -91,6 +93,38 @@ export class Bitcoin<SecurityDataType = unknown> {
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Bitcoin
+   * @name DeleteBitcoinAccount
+   * @request POST:/bitcoin/{accountName}/delete
+   * @secure
+   */
+  deleteBitcoinAccount = (accountName: string, params: RequestParams = {}) =>
+    this.http.request<DeleteBitcoinAccountData, any>({
+      path: `/bitcoin/${accountName}/delete`,
+      method: 'POST',
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Bitcoin
+   * @name ExportBitcoinAccount
+   * @request POST:/bitcoin/{accountName}/export
+   * @secure
+   */
+  exportBitcoinAccount = (accountName: string, params: RequestParams = {}) =>
+    this.http.request<ExportBitcoinAccountData, any>({
+      path: `/bitcoin/${accountName}/export`,
+      method: 'POST',
+      secure: true,
       format: 'json',
       ...params,
     });

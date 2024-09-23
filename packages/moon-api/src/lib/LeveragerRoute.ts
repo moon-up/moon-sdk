@@ -13,7 +13,7 @@ import {
   DeleverageErc20Data,
   DeleverageNativeData,
   ExecuteOperationData,
-  GetAddressesProviderResult,
+  GetAddressesProviderOutput,
   GetDefaultAdminRoleData,
   GetLendingPoolData,
   GetMinHfData,
@@ -107,7 +107,7 @@ export namespace Leverager {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetAddressesProviderResult;
+    export type ResponseBody = GetAddressesProviderOutput;
   }
 
   /**
