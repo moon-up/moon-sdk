@@ -13,12 +13,12 @@ import {
   CosmosIBCTransferInput,
   CosmosSignMessageInput,
   CosmosTransferInput,
-  CreateAccountBody,
-  CreateAccountResult,
-  DeleteAccountResult,
-  ExportAccountResult,
+  CreateAccountInput,
+  CreateAccountOutput,
+  DeleteAccountOutput,
+  ExportAccountOutput,
   GetAccountResult,
-  ListAccountsResult,
+  ListAccountsOutput,
   SignIbcTransferTransactionData,
   SignMessageResult,
   SignTransferTransactionData,
@@ -35,11 +35,11 @@ export namespace Cosmos {
   export namespace CreateAccount {
     export type RequestParams = {};
     export type RequestQuery = {};
-    export type RequestBody = CreateAccountBody;
+    export type RequestBody = CreateAccountInput;
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = CreateAccountResult;
+    export type ResponseBody = CreateAccountOutput;
   }
 
   /**
@@ -58,7 +58,7 @@ export namespace Cosmos {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = DeleteAccountResult;
+    export type ResponseBody = DeleteAccountOutput;
   }
 
   /**
@@ -77,7 +77,7 @@ export namespace Cosmos {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = ExportAccountResult;
+    export type ResponseBody = ExportAccountOutput;
   }
 
   /**
@@ -113,7 +113,7 @@ export namespace Cosmos {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = ListAccountsResult;
+    export type ResponseBody = ListAccountsOutput;
   }
 
   /**

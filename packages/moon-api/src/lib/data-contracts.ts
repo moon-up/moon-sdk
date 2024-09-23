@@ -182,12 +182,6 @@ export interface Action {
   toToken: TokenDetails;
 }
 
-export interface ApiResponseChainMap {
-  data?: ChainMap;
-  message: string;
-  success: boolean;
-}
-
 export interface ApiResponseChainsResponse {
   data?: ChainsResponse;
   message: string;
@@ -196,12 +190,6 @@ export interface ApiResponseChainsResponse {
 
 export interface ApiResponseConnectionsResponse {
   data?: ConnectionsResponse;
-  message: string;
-  success: boolean;
-}
-
-export interface ApiResponseGasPrice {
-  data?: GasPrice;
   message: string;
   success: boolean;
 }
@@ -220,12 +208,6 @@ export interface ApiResponseQuote {
 
 export interface ApiResponseStatusResponse {
   data?: StatusResponse;
-  message: string;
-  success: boolean;
-}
-
-export interface ApiResponseStringArray {
-  data?: string[];
   message: string;
   success: boolean;
 }
@@ -317,10 +299,38 @@ export interface BitcoinAPIResponse {
   success: boolean;
 }
 
-export interface BitcoinCashAPIResponse {
-  address?: string;
-  body?: InputBody;
+export interface BitcoinCashAPIResponseAccountResponse {
+  data?: AccountResponse;
+  message: string;
+  success: boolean;
+}
+
+export interface BitcoinCashAPIResponseBitcoinCashTransactionOutput {
   data?: BitcoinCashTransactionOutput;
+  message: string;
+  success: boolean;
+}
+
+export interface BitcoinCashAPIResponsePsbtHexString {
+  data?: {
+    psbt_hex: string;
+  };
+  message: string;
+  success: boolean;
+}
+
+export interface BitcoinCashAPIResponseSignedPsbtHexString {
+  data?: {
+    signed_psbt_hex: string;
+  };
+  message: string;
+  success: boolean;
+}
+
+export interface BitcoinCashAPIResponseSignedTxString {
+  data?: {
+    signed_tx: string;
+  };
   message: string;
   success: boolean;
 }
@@ -442,10 +452,6 @@ export enum ChainChainTypeEnum {
   EVM = 'EVM',
   SOL = 'SOL',
 }
-
-export type ChainId = string | number;
-
-export type ChainMap = Record<string, ChainId>;
 
 export interface ChainsResponse {
   chains: Chain[];
@@ -578,21 +584,17 @@ export interface CosmosTransferInput {
   toAddress: string;
 }
 
-export interface CreateAccountBody {
-  network?: string;
-}
-
 export type CreateAccountData = AccountAPIResponse;
 
 export interface CreateAccountInput {
-  private_key?: string;
+  network?: string;
 }
 
-export type CreateAccountResult = CosmosAccountAPIResponse;
+export type CreateAccountOutput = CosmosAccountAPIResponse;
+
+export type CreateAccountResult = BitcoinCashAPIResponseAccountResponse;
 
 export type CreateBitcoinAccountData = AccountAPIResponse;
-
-export type CreateBitcoinCashAccountData = AccountAPIResponse;
 
 export type CreateBrc20TransactionData = BitcoinAPIResponse;
 
@@ -627,11 +629,11 @@ export interface CryptoCurrency {
 
 export type DeleteAccountData = AccountAPIResponse;
 
-export type DeleteAccountResult = BaseCosmosAPIResponse;
+export type DeleteAccountOutput = BaseCosmosAPIResponse;
+
+export type DeleteAccountResult = BitcoinCashAPIResponseAccountResponse;
 
 export type DeleteBitcoinAccountData = AccountAPIResponse;
-
-export type DeleteBitcoinCashAccountData = AccountAPIResponse;
 
 export type DeleteDogeCoinAccountData = AccountAPIResponse;
 
@@ -900,11 +902,11 @@ export interface ExportAccountAPIResponse {
 
 export type ExportAccountData = ExportAccountAPIResponse;
 
-export type ExportAccountResult = BaseCosmosAPIResponse;
+export type ExportAccountOutput = BaseCosmosAPIResponse;
+
+export type ExportAccountResult = BitcoinCashAPIResponseAccountResponse;
 
 export type ExportBitcoinAccountData = AccountAPIResponse;
-
-export type ExportBitcoinCashAccountData = AccountAPIResponse;
 
 export type ExportDogeCoinAccountData = AccountAPIResponse;
 
@@ -975,6 +977,8 @@ export interface GasPrice {
 }
 
 export type GenerateUnsignedPsbtHexData = BitcoinAPIResponse;
+
+export type GenerateUnsignedPsbtHexResult = BitcoinCashAPIResponsePsbtHexString;
 
 export type GetAccountData = AccountAPIResponse;
 
@@ -1053,8 +1057,6 @@ export interface GetBalanceParams {
 }
 
 export type GetBitcoinAccountData = AccountAPIResponse;
-
-export type GetBitcoinCashAccountData = AccountAPIResponse;
 
 export type GetChainsData = ApiResponseChainsResponse;
 
@@ -1207,9 +1209,10 @@ export interface GetFlashLoanPremiumTotalParams {
   chainId: string;
 }
 
-export type GetGasPriceData = ApiResponseGasPrice;
+export type GetGasPriceData = ThorSwapAPIResponseGasPrice;
 
 export interface GetGasPriceParams {
+  address: string;
   chainId: string;
 }
 
@@ -1344,7 +1347,7 @@ export interface GetPreviewWithdrawParams {
 
 export type GetQuoteData = ApiResponseQuote;
 
-export type GetQuoteOutput = ApiResponseQuote;
+export type GetQuoteOutput = ThorSwapAPIResponseQuote;
 
 export interface GetQuoteParams {
   allowBridges?: string[];
@@ -1381,6 +1384,7 @@ export interface GetQuoteParams3 {
   affiliateBasisPoints?: number;
   allowSmartContractRecipient?: boolean;
   buyAsset: string;
+  chainId: string;
   /** @format double */
   limit?: number;
   preferredProvider?: string;
@@ -1465,7 +1469,12 @@ export type GetSolanaAccountData = AccountAPIResponse;
 
 export type GetSupportedChainsData = OdosAPIResponseOdosExecuteFunctionResult;
 
-export type GetSupportedChainsResult = ApiResponseChainMap;
+export interface GetSupportedChainsParams1 {
+  address: string;
+  chainId: string;
+}
+
+export type GetSupportedChainsResult = ThorSwapAPIResponseStringArray;
 
 export interface GetSupportedOnRampsResponse {
   message: {
@@ -1482,7 +1491,12 @@ export interface GetSupportedOnRampsResponse {
   }[];
 }
 
-export type GetSupportedProvidersData = ApiResponseStringArray;
+export type GetSupportedProvidersData = ThorSwapAPIResponseStringArray;
+
+export interface GetSupportedProvidersParams {
+  address: string;
+  chainId: string;
+}
 
 export type GetSupportedTokensData = OdosAPIResponseOdosExecuteFunctionResult;
 
@@ -1834,11 +1848,11 @@ export type LiquidationCallResult =
 
 export type ListAccountsData = AccountAPIResponse;
 
-export type ListAccountsResult = CosmosAccountListAPIResponse;
+export type ListAccountsOutput = CosmosAccountListAPIResponse;
+
+export type ListAccountsResult = BitcoinCashAPIResponseAccountResponse;
 
 export type ListBitcoinAccountsData = AccountAPIResponse;
-
-export type ListBitcoinCashAccountsData = AccountAPIResponse;
 
 export type ListDogeCoinAccountsData = AccountAPIResponse;
 
@@ -2115,28 +2129,6 @@ export enum PostQuoteParams1OrderEnum {
   BEST_FEE_GAS = 'BEST_FEE_GAS',
 }
 
-export interface PostQuoteParams2 {
-  accountName: string;
-  affiliateAddress?: string;
-  /** @format double */
-  affiliateBasisPoints?: number;
-  allowSmartContractRecipient?: boolean;
-  buyAsset: string;
-  /** @format double */
-  limit?: number;
-  preferredProvider?: string;
-  providers?: string[];
-  recipientAddress: string;
-  /** @format double */
-  sellAmount: number;
-  sellAsset: string;
-  senderAddress: string;
-  /** @format double */
-  slippage?: number;
-}
-
-export type PostQuoteResult = ApiResponseQuote;
-
 export interface Quote {
   action: Action;
   estimate: Estimate;
@@ -2148,6 +2140,8 @@ export interface Quote {
 }
 
 export type Quotes = Quote[];
+
+export type ReadAccountData = BitcoinCashAPIResponseAccountResponse;
 
 export type RedeemData = ERC4626APIResponse;
 
@@ -2239,11 +2233,15 @@ export type SetUserUseReserveAsCollateralData =
 export type SetUserUseReserveAsCollateralResult =
   LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
 
-export type SignBitcoinCashTransactionData = BitcoinCashAPIResponse;
-
-export type SignBitcoinCashTransactionWithMemoData = BitcoinCashAPIResponse;
+export interface SignBitcoinTransactionBody {
+  inputs: string;
+  network: string;
+  outputs: string;
+}
 
 export type SignBitcoinTransactionData = BitcoinAPIResponse;
+
+export type SignBitcoinTransactionResult = BitcoinCashAPIResponseSignedTxString;
 
 export type SignDogeCoinTransactionData = DogeCoinAPIResponse;
 
@@ -2277,11 +2275,25 @@ export type SignMessageData = SignMessageAPIResponse;
 
 export type SignMessageResult = CosmosSignedMessageAPIResponse;
 
+export type SignPsbtWithKeyPathAndScriptPathData =
+  BitcoinCashAPIResponseSignedPsbtHexString;
+
+export interface SignPsbtWithKeyPathAndScriptPathPayload {
+  network: string;
+  psbt_hex: string;
+}
+
 export type SignRippleTransactionData = RippleAPIResponse;
 
 export type SignSolanaTransactionData = SolanaAPIResponse;
 
 export type SignTransactionData = TransactionAPIResponse;
+
+export type SignTransactionResult =
+  BitcoinCashAPIResponseBitcoinCashTransactionOutput;
+
+export type SignTransactionWithMemoData =
+  BitcoinCashAPIResponseBitcoinCashTransactionOutput;
 
 export type SignTransferTransactionData = CosmosTransactionAPIResponse;
 
@@ -2401,10 +2413,48 @@ export interface SupportsInterfaceParams {
   interfaceId: string;
 }
 
+export interface SwapBody {
+  accountName: string;
+  /** @format double */
+  amount: number;
+  chainId: string;
+  fromAsset: string;
+  provider?: string;
+  recipientAddress: string;
+  senderAddress: string;
+  toAsset: string;
+}
+
 export type SwapBorrowRateModeData =
   LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
 
 export type SwapData = OdosAPIResponseOdosExecuteFunctionResult;
+
+export type SwapResult = ThorSwapAPIResponseString;
+
+export interface ThorSwapAPIResponseGasPrice {
+  data?: GasPrice;
+  message: string;
+  success: boolean;
+}
+
+export interface ThorSwapAPIResponseQuote {
+  data?: Quote;
+  message: string;
+  success: boolean;
+}
+
+export interface ThorSwapAPIResponseString {
+  data?: string;
+  message: string;
+  success: boolean;
+}
+
+export interface ThorSwapAPIResponseStringArray {
+  data?: string[];
+  message: string;
+  success: boolean;
+}
 
 export interface Token {
   address: string;

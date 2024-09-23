@@ -14,12 +14,14 @@ import {
   GetGasPriceParams,
   GetQuoteOutput,
   GetQuoteParams3,
+  GetSupportedChainsParams1,
   GetSupportedChainsResult,
   GetSupportedProvidersData,
-  PostQuoteParams2,
-  PostQuoteResult,
+  GetSupportedProvidersParams,
+  SwapBody,
+  SwapResult,
 } from './data-contracts';
-import { HttpClient, RequestParams } from './http-client';
+import { ContentType, HttpClient, RequestParams } from './http-client';
 
 export class Thorswap<SecurityDataType = unknown> {
   http: HttpClient<SecurityDataType>;
@@ -31,71 +33,92 @@ export class Thorswap<SecurityDataType = unknown> {
   /**
    * No description
    *
+   * @tags ThorSwap
    * @name GetGasPrice
    * @request GET:/thorswap/gasPrice
+   * @secure
    */
   getGasPrice = (query: GetGasPriceParams, params: RequestParams = {}) =>
     this.http.request<GetGasPriceData, any>({
       path: `/thorswap/gasPrice`,
       method: 'GET',
       query: query,
+      secure: true,
       format: 'json',
       ...params,
     });
   /**
    * No description
    *
+   * @tags ThorSwap
    * @name GetQuote
    * @request GET:/thorswap/quote
+   * @secure
    */
   getQuote = (query: GetQuoteParams3, params: RequestParams = {}) =>
     this.http.request<GetQuoteOutput, any>({
       path: `/thorswap/quote`,
       method: 'GET',
       query: query,
+      secure: true,
       format: 'json',
       ...params,
     });
   /**
    * No description
    *
+   * @tags ThorSwap
    * @name GetSupportedChains
-   * @request GET:/thorswap/chains
+   * @request GET:/thorswap/supportedChains
+   * @secure
    */
-  getSupportedChains = (params: RequestParams = {}) =>
-    this.http.request<GetSupportedChainsResult, any>({
-      path: `/thorswap/chains`,
-      method: 'GET',
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @name GetSupportedProviders
-   * @request GET:/thorswap/providers
-   */
-  getSupportedProviders = (params: RequestParams = {}) =>
-    this.http.request<GetSupportedProvidersData, any>({
-      path: `/thorswap/providers`,
-      method: 'GET',
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @name PostQuote
-   * @request POST:/thorswap/{accountName}/quote
-   */
-  postQuote = (
-    { accountName, ...query }: PostQuoteParams2,
+  getSupportedChains = (
+    query: GetSupportedChainsParams1,
     params: RequestParams = {}
   ) =>
-    this.http.request<PostQuoteResult, any>({
-      path: `/thorswap/${accountName}/quote`,
-      method: 'POST',
+    this.http.request<GetSupportedChainsResult, any>({
+      path: `/thorswap/supportedChains`,
+      method: 'GET',
       query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags ThorSwap
+   * @name GetSupportedProviders
+   * @request GET:/thorswap/supportedProviders
+   * @secure
+   */
+  getSupportedProviders = (
+    query: GetSupportedProvidersParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<GetSupportedProvidersData, any>({
+      path: `/thorswap/supportedProviders`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags ThorSwap
+   * @name Swap
+   * @request POST:/thorswap/swap
+   * @secure
+   */
+  swap = (data: SwapBody, params: RequestParams = {}) =>
+    this.http.request<SwapResult, any>({
+      path: `/thorswap/swap`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
       format: 'json',
       ...params,
     });

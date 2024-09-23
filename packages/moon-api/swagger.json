@@ -1418,6 +1418,25 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"BitcoinCashAPIResponse_AccountResponse_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/AccountResponse"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"BitcoinCashInput": {
 				"properties": {
 					"network": {
@@ -1442,18 +1461,12 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"BitcoinCashAPIResponse": {
+			"BitcoinCashAPIResponse_BitcoinCashTransactionOutput_": {
 				"properties": {
 					"success": {
 						"type": "boolean"
 					},
 					"message": {
-						"type": "string"
-					},
-					"body": {
-						"$ref": "#/components/schemas/InputBody"
-					},
-					"address": {
 						"type": "string"
 					},
 					"data": {
@@ -1483,6 +1496,87 @@
 						"type": "boolean"
 					}
 				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BitcoinCashAPIResponse__signed_tx-string__": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"properties": {
+							"signed_tx": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"signed_tx"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BitcoinCashAPIResponse__psbt_hex-string__": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"properties": {
+							"psbt_hex": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"psbt_hex"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BitcoinCashAPIResponse__signed_psbt_hex-string__": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"properties": {
+							"signed_psbt_hex": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"signed_psbt_hex"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -4872,25 +4966,7 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"ChainId": {
-				"anyOf": [
-					{
-						"type": "string"
-					},
-					{
-						"type": "number",
-						"format": "double"
-					}
-				]
-			},
-			"ChainMap": {
-				"properties": {},
-				"type": "object",
-				"additionalProperties": {
-					"$ref": "#/components/schemas/ChainId"
-				}
-			},
-			"ApiResponse_ChainMap_": {
+			"ThorSwapAPIResponse_Quote_": {
 				"properties": {
 					"success": {
 						"type": "boolean"
@@ -4899,7 +4975,7 @@
 						"type": "string"
 					},
 					"data": {
-						"$ref": "#/components/schemas/ChainMap"
+						"$ref": "#/components/schemas/Quote"
 					}
 				},
 				"required": [
@@ -4909,7 +4985,7 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"ApiResponse_string-Array_": {
+			"ThorSwapAPIResponse_string_": {
 				"properties": {
 					"success": {
 						"type": "boolean"
@@ -4918,10 +4994,7 @@
 						"type": "string"
 					},
 					"data": {
-						"items": {
-							"type": "string"
-						},
-						"type": "array"
+						"type": "string"
 					}
 				},
 				"required": [
@@ -4983,7 +5056,7 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"ApiResponse_GasPrice_": {
+			"ThorSwapAPIResponse_GasPrice_": {
 				"properties": {
 					"success": {
 						"type": "boolean"
@@ -4993,6 +5066,28 @@
 					},
 					"data": {
 						"$ref": "#/components/schemas/GasPrice"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ThorSwapAPIResponse_string-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
 					}
 				},
 				"required": [
@@ -7540,23 +7635,23 @@
 				]
 			}
 		},
-		"/bitcoincash": {
+		"/bitcoincash/accounts": {
 			"get": {
-				"operationId": "ListBitcoinCashAccounts",
+				"operationId": "ListAccounts",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/AccountAPIResponse"
+									"$ref": "#/components/schemas/BitcoinCashAPIResponse_AccountResponse_"
 								}
 							}
 						}
 					}
 				},
 				"tags": [
-					"bitcoincash"
+					"BitcoinCash"
 				],
 				"security": [
 					{
@@ -7581,21 +7676,21 @@
 				]
 			},
 			"post": {
-				"operationId": "CreateBitcoinCashAccount",
+				"operationId": "CreateAccount",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/AccountAPIResponse"
+									"$ref": "#/components/schemas/BitcoinCashAPIResponse_AccountResponse_"
 								}
 							}
 						}
 					}
 				},
 				"tags": [
-					"bitcoincash"
+					"BitcoinCash"
 				],
 				"security": [
 					{
@@ -7630,23 +7725,23 @@
 				}
 			}
 		},
-		"/bitcoincash/{accountName}": {
+		"/bitcoincash/accounts/{accountName}": {
 			"get": {
-				"operationId": "GetBitcoinCashAccount",
+				"operationId": "ReadAccount",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/AccountAPIResponse"
+									"$ref": "#/components/schemas/BitcoinCashAPIResponse_AccountResponse_"
 								}
 							}
 						}
 					}
 				},
 				"tags": [
-					"bitcoincash"
+					"BitcoinCash"
 				],
 				"security": [
 					{
@@ -7661,16 +7756,16 @@
 				],
 				"parameters": [
 					{
-						"in": "header",
-						"name": "Authorization",
+						"in": "path",
+						"name": "accountName",
 						"required": true,
 						"schema": {
 							"type": "string"
 						}
 					},
 					{
-						"in": "path",
-						"name": "accountName",
+						"in": "header",
+						"name": "Authorization",
 						"required": true,
 						"schema": {
 							"type": "string"
@@ -7679,23 +7774,23 @@
 				]
 			}
 		},
-		"/bitcoincash/{accountName}/sign-tx": {
+		"/bitcoincash/accounts/{accountName}/export": {
 			"post": {
-				"operationId": "SignBitcoinCashTransaction",
+				"operationId": "ExportAccount",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/BitcoinCashAPIResponse"
+									"$ref": "#/components/schemas/BitcoinCashAPIResponse_AccountResponse_"
 								}
 							}
 						}
 					}
 				},
 				"tags": [
-					"bitcoincash"
+					"BitcoinCash"
 				],
 				"security": [
 					{
@@ -7710,16 +7805,114 @@
 				],
 				"parameters": [
 					{
-						"in": "header",
-						"name": "Authorization",
+						"in": "path",
+						"name": "accountName",
 						"required": true,
 						"schema": {
 							"type": "string"
 						}
 					},
 					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/bitcoincash/accounts/{accountName}/delete": {
+			"post": {
+				"operationId": "DeleteAccount",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BitcoinCashAPIResponse_AccountResponse_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"BitcoinCash"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
 						"in": "path",
 						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/bitcoincash/accounts/{accountName}/sign-tx": {
+			"post": {
+				"operationId": "SignTransaction",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BitcoinCashAPIResponse_BitcoinCashTransactionOutput_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"BitcoinCash"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
 						"required": true,
 						"schema": {
 							"type": "string"
@@ -7738,23 +7931,23 @@
 				}
 			}
 		},
-		"/bitcoincash/{accountName}/export": {
+		"/bitcoincash/accounts/{accountName}/memo-sign-tx": {
 			"post": {
-				"operationId": "ExportBitcoinCashAccount",
+				"operationId": "SignTransactionWithMemo",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/AccountAPIResponse"
+									"$ref": "#/components/schemas/BitcoinCashAPIResponse_BitcoinCashTransactionOutput_"
 								}
 							}
 						}
 					}
 				},
 				"tags": [
-					"bitcoincash"
+					"BitcoinCash"
 				],
 				"security": [
 					{
@@ -7769,114 +7962,16 @@
 				],
 				"parameters": [
 					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
 						"in": "path",
 						"name": "accountName",
 						"required": true,
 						"schema": {
 							"type": "string"
 						}
-					}
-				]
-			}
-		},
-		"/bitcoincash/{accountName}/delete": {
-			"post": {
-				"operationId": "DeleteBitcoinCashAccount",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/AccountAPIResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"bitcoincash"
-				],
-				"security": [
-					{
-						"BearerAuth": []
 					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
 					{
 						"in": "header",
 						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "accountName",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/bitcoincash/{accountName}/memo-sign-tx": {
-			"post": {
-				"operationId": "SignBitcoinCashTransactionWithMemo",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/BitcoinCashAPIResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"bitcoincash"
-				],
-				"security": [
-					{
-						"BearerAuth": []
-					},
-					{
-						"Oauth2": []
-					},
-					{
-						"ApiKeyAuth": []
-					}
-				],
-				"parameters": [
-					{
-						"in": "header",
-						"name": "Authorization",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "path",
-						"name": "accountName",
 						"required": true,
 						"schema": {
 							"type": "string"
@@ -7889,6 +7984,211 @@
 						"application/json": {
 							"schema": {
 								"$ref": "#/components/schemas/BitcoinCashTransactionInput"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/bitcoincash/accounts/{accountName}/sign-btc-tx": {
+			"post": {
+				"operationId": "SignBitcoinTransaction",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BitcoinCashAPIResponse__signed_tx-string__"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"BitcoinCash"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"outputs": {
+										"type": "string"
+									},
+									"inputs": {
+										"type": "string"
+									},
+									"network": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"outputs",
+									"inputs",
+									"network"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/bitcoincash/accounts/{accountName}/generate-unsigned-psbt": {
+			"post": {
+				"operationId": "GenerateUnsignedPSBTHex",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BitcoinCashAPIResponse__psbt_hex-string__"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"BitcoinCash"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UnsignedPSBTInput"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/bitcoincash/accounts/{accountName}/sign-psbt-with-key-path-and-script-path": {
+			"post": {
+				"operationId": "SignPSBTWithKeyPathAndScriptPath",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BitcoinCashAPIResponse__signed_psbt_hex-string__"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"BitcoinCash"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"psbt_hex": {
+										"type": "string"
+									},
+									"network": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"psbt_hex",
+									"network"
+								],
+								"type": "object"
 							}
 						}
 					}
@@ -17160,44 +17460,6 @@
 				]
 			}
 		},
-		"/thorswap/chains": {
-			"get": {
-				"operationId": "GetSupportedChains",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ApiResponse_ChainMap_"
-								}
-							}
-						}
-					}
-				},
-				"security": [],
-				"parameters": []
-			}
-		},
-		"/thorswap/providers": {
-			"get": {
-				"operationId": "GetSupportedProviders",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ApiResponse_string-Array_"
-								}
-							}
-						}
-					}
-				},
-				"security": [],
-				"parameters": []
-			}
-		},
 		"/thorswap/quote": {
 			"get": {
 				"operationId": "GetQuote",
@@ -17207,14 +17469,35 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ApiResponse_Quote_"
+									"$ref": "#/components/schemas/ThorSwapAPIResponse_Quote_"
 								}
 							}
 						}
 					}
 				},
-				"security": [],
+				"tags": [
+					"ThorSwap"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
 					{
 						"in": "query",
 						"name": "sellAsset",
@@ -17251,6 +17534,14 @@
 					{
 						"in": "query",
 						"name": "recipientAddress",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
 						"required": true,
 						"schema": {
 							"type": "string"
@@ -17321,135 +17612,91 @@
 				]
 			}
 		},
-		"/thorswap/{accountName}/quote": {
+		"/thorswap/swap": {
 			"post": {
-				"operationId": "PostQuote",
+				"operationId": "Swap",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ApiResponse_Quote_"
+									"$ref": "#/components/schemas/ThorSwapAPIResponse_string_"
 								}
 							}
 						}
 					}
 				},
-				"security": [],
+				"tags": [
+					"ThorSwap"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
 					{
-						"in": "path",
-						"name": "accountName",
+						"in": "header",
+						"name": "Authorization",
 						"required": true,
 						"schema": {
 							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "sellAsset",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "buyAsset",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "sellAmount",
-						"required": true,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					},
-					{
-						"in": "query",
-						"name": "senderAddress",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "recipientAddress",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "slippage",
-						"required": false,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					},
-					{
-						"in": "query",
-						"name": "limit",
-						"required": false,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					},
-					{
-						"in": "query",
-						"name": "providers",
-						"required": false,
-						"schema": {
-							"type": "array",
-							"items": {
-								"type": "string"
-							}
-						}
-					},
-					{
-						"in": "query",
-						"name": "preferredProvider",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "affiliateAddress",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "affiliateBasisPoints",
-						"required": false,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					},
-					{
-						"in": "query",
-						"name": "allowSmartContractRecipient",
-						"required": false,
-						"schema": {
-							"type": "boolean"
 						}
 					}
-				]
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"chainId": {
+										"type": "string"
+									},
+									"accountName": {
+										"type": "string"
+									},
+									"provider": {
+										"type": "string"
+									},
+									"recipientAddress": {
+										"type": "string"
+									},
+									"senderAddress": {
+										"type": "string"
+									},
+									"toAsset": {
+										"type": "string"
+									},
+									"fromAsset": {
+										"type": "string"
+									},
+									"amount": {
+										"type": "number",
+										"format": "double"
+									}
+								},
+								"required": [
+									"chainId",
+									"accountName",
+									"recipientAddress",
+									"senderAddress",
+									"toAsset",
+									"fromAsset",
+									"amount"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/thorswap/gasPrice": {
@@ -17461,17 +17708,160 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ApiResponse_GasPrice_"
+									"$ref": "#/components/schemas/ThorSwapAPIResponse_GasPrice_"
 								}
 							}
 						}
 					}
 				},
-				"security": [],
+				"tags": [
+					"ThorSwap"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
 				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
 					{
 						"in": "query",
 						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thorswap/supportedChains": {
+			"get": {
+				"operationId": "GetSupportedChains",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ThorSwapAPIResponse_string-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"ThorSwap"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thorswap/supportedProviders": {
+			"get": {
+				"operationId": "GetSupportedProviders",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ThorSwapAPIResponse_string-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"ThorSwap"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
 						"required": true,
 						"schema": {
 							"type": "string"
@@ -17779,7 +18169,7 @@
 	},
 	"servers": [
 		{
-			"url": "https://beta.usemoon.ai/"
+			"url": "https://beta.usemoon.ai"
 		}
 	]
 }
