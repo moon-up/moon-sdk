@@ -381,6 +381,218 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"PoolAddressProviderAPIResponse_string_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PoolAddressProviderTransaction": {
+				"properties": {
+					"data": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"to": {
+						"type": "string"
+					},
+					"from": {
+						"type": "string"
+					},
+					"gasPrice": {
+						"type": "string"
+					},
+					"gasLimit": {
+						"type": "string"
+					},
+					"maxPriorityFeePerGas": {
+						"type": "string"
+					},
+					"maxFeePerGas": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "number",
+						"format": "double"
+					},
+					"type": {
+						"type": "number",
+						"format": "double"
+					},
+					"chainId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"data",
+					"value",
+					"to",
+					"from",
+					"nonce",
+					"chainId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PoolAddressProviderExecuteFunctionResult": {
+				"properties": {
+					"broadcasted": {
+						"$ref": "#/components/schemas/BroadCastRawTransactionResponse"
+					},
+					"message": {
+						"type": "string"
+					},
+					"success": {
+						"type": "boolean"
+					},
+					"user_op": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/Transaction"
+					},
+					"params": {
+						"items": {},
+						"type": "array"
+					},
+					"function": {
+						"type": "string"
+					},
+					"transaction": {
+						"$ref": "#/components/schemas/PoolAddressProviderTransaction"
+					}
+				},
+				"required": [
+					"params",
+					"function",
+					"transaction"
+				],
+				"type": "object"
+			},
+			"PoolAddressProviderAPIResponse_PoolAddressProviderExecuteFunctionResult_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/PoolAddressProviderExecuteFunctionResult"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PoolAddressProviderInputBody": {
+				"properties": {
+					"chain_id": {
+						"type": "string"
+					},
+					"to": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "string"
+					},
+					"gas": {
+						"type": "string"
+					},
+					"gasPrice": {
+						"type": "string"
+					},
+					"dryrun": {
+						"type": "boolean"
+					},
+					"EOA": {
+						"type": "boolean"
+					},
+					"broadcast": {
+						"type": "boolean"
+					},
+					"alwaysIncrementNonce": {
+						"type": "boolean"
+					},
+					"contract_address": {
+						"type": "string"
+					},
+					"newAddress": {
+						"type": "string"
+					},
+					"newMarketId": {
+						"type": "string"
+					},
+					"newImplementationAddress": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PoolAddressProviderRegistryAPIResponse_string_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PoolAddressProviderRegistryAPIResponse_any-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"AAVEv3RewardsAPIResponse_string-Array_": {
 				"properties": {
 					"success": {
@@ -5698,6 +5910,1164 @@
 						}
 					}
 				}
+			}
+		},
+		"/poolAddressProvider/{account}/getACLAdmin": {
+			"get": {
+				"operationId": "GetACLAdmin",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PoolAddressProviderAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Pool Address Provider"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/poolAddressProvider/{account}/getACLManager": {
+			"get": {
+				"operationId": "GetACLManager",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PoolAddressProviderAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Pool Address Provider"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/poolAddressProvider/{account}/getAddress": {
+			"get": {
+				"operationId": "GetAddress",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PoolAddressProviderAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Pool Address Provider"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/poolAddressProvider/{account}/getMarketId": {
+			"get": {
+				"operationId": "GetMarketId",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PoolAddressProviderAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Pool Address Provider"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/poolAddressProvider/{account}/getPool": {
+			"get": {
+				"operationId": "GetPool",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PoolAddressProviderAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Pool Address Provider"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/poolAddressProvider/{account}/getPoolConfigurator": {
+			"get": {
+				"operationId": "GetPoolConfigurator",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PoolAddressProviderAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Pool Address Provider"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/poolAddressProvider/{account}/getPriceOracle": {
+			"get": {
+				"operationId": "GetPriceOracle",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PoolAddressProviderAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Pool Address Provider"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/poolAddressProvider/{address}/setACLAdmin": {
+			"post": {
+				"operationId": "SetACLAdmin",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PoolAddressProviderAPIResponse_PoolAddressProviderExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Pool Address Provider"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PoolAddressProviderInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/poolAddressProvider/{address}/setACLManager": {
+			"post": {
+				"operationId": "SetACLManager",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PoolAddressProviderAPIResponse_PoolAddressProviderExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Pool Address Provider"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PoolAddressProviderInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/poolAddressProvider/{address}/setAddress": {
+			"post": {
+				"operationId": "SetAddress",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PoolAddressProviderAPIResponse_PoolAddressProviderExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Pool Address Provider"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PoolAddressProviderInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/poolAddressProvider/{address}/setMarketId": {
+			"post": {
+				"operationId": "SetMarketId",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PoolAddressProviderAPIResponse_PoolAddressProviderExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Pool Address Provider"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PoolAddressProviderInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/poolAddressProvider/{address}/setPoolConfiguratorImpl": {
+			"post": {
+				"operationId": "SetPoolConfiguratorImpl",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PoolAddressProviderAPIResponse_PoolAddressProviderExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Pool Address Provider"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PoolAddressProviderInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/poolAddressProvider/{address}/setPoolImpl": {
+			"post": {
+				"operationId": "SetPoolImpl",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PoolAddressProviderAPIResponse_PoolAddressProviderExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Pool Address Provider"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PoolAddressProviderInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/pooladdressproviderregistry/{account}/getAddressesProvider": {
+			"get": {
+				"operationId": "GetAddressesProvider",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PoolAddressProviderRegistryAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"PoolAddressProviderRegistry"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/pooladdressproviderregistry/{account}/getATokenTotalSupply": {
+			"get": {
+				"operationId": "GetATokenTotalSupply",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PoolAddressProviderRegistryAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"PoolAddressProviderRegistry"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "asset",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/pooladdressproviderregistry/{account}/getAllATokens": {
+			"get": {
+				"operationId": "GetAllATokens",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PoolAddressProviderRegistryAPIResponse_any-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"PoolAddressProviderRegistry"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/pooladdressproviderregistry/{account}/getAllReservesTokens": {
+			"get": {
+				"operationId": "GetAllReservesTokens",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PoolAddressProviderRegistryAPIResponse_any-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"PoolAddressProviderRegistry"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/pooladdressproviderregistry/{account}/getDebtCeiling": {
+			"get": {
+				"operationId": "GetDebtCeiling",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PoolAddressProviderRegistryAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"PoolAddressProviderRegistry"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "asset",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		},
 		"/aavev3rewards/{account}/rewardsByAsset": {

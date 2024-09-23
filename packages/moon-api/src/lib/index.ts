@@ -19,6 +19,8 @@ export * from './Lifi';
 export * from './Litecoin';
 export * from './Odos';
 export * from './Onramper';
+export * from './PoolAddressProvider';
+export * from './Pooladdressproviderregistry';
 export * from './Ripple';
 export * from './Solana';
 export * from './Thorswap';

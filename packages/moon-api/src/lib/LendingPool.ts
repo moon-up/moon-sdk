@@ -13,8 +13,8 @@ import {
   BorrowResult,
   DepositResult,
   FlashLoanData,
-  GetAddressesProviderData,
-  GetAddressesProviderParams,
+  GetAddressesProviderParams2,
+  GetAddressesProviderResult,
   GetFlashLoanPremiumTotalData,
   GetFlashLoanPremiumTotalParams,
   GetLendingPoolRevisionData,
@@ -121,10 +121,10 @@ export class LendingPool<SecurityDataType = unknown> {
    * @secure
    */
   getAddressesProvider = (
-    query: GetAddressesProviderParams,
+    query: GetAddressesProviderParams2,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetAddressesProviderData, any>({
+    this.http.request<GetAddressesProviderResult, any>({
       path: `/lending-pool/addresses-provider`,
       method: 'GET',
       query: query,

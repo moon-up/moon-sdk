@@ -29,6 +29,8 @@ import {
   Transaction as MoonTransaction,
   Odos,
   Onramper,
+  PoolAddressProvider,
+  Pooladdressproviderregistry,
   Ripple,
   Solana,
   Thorswap,
@@ -141,6 +143,8 @@ export class MoonSDK extends EventEmitter {
   private ThorswapSDK: Thorswap;
   private AavepoolSDK: Aavepool;
   private Aavev3RewardsSDK: Aavev3Rewards;
+  private Aavev3PoolAddressProvider: PoolAddressProvider;
+  private Aavev3PoolAddressProviderRegistry: Pooladdressproviderregistry;
   isAuthenticated = false;
   private config: MoonSDKConfig;
   /**
@@ -250,6 +254,10 @@ export class MoonSDK extends EventEmitter {
     this.ThorswapSDK = new Thorswap(this.http);
     this.AavepoolSDK = new Aavepool(this.http);
     this.Aavev3RewardsSDK = new Aavev3Rewards(this.http);
+    this.Aavev3PoolAddressProvider = new PoolAddressProvider(this.http);
+    this.Aavev3PoolAddressProviderRegistry = new Pooladdressproviderregistry(
+      this.http
+    );
 
     this.connect();
   }
@@ -409,6 +417,13 @@ export class MoonSDK extends EventEmitter {
 
   public getAavev3RewardsSDK(): Aavev3Rewards {
     return this.Aavev3RewardsSDK;
+  }
+  public getAavev3PoolAddressProvider(): PoolAddressProvider {
+    return this.Aavev3PoolAddressProvider;
+  }
+
+  public getAavev3PoolAddressProviderRegistry(): Pooladdressproviderregistry {
+    return this.Aavev3PoolAddressProviderRegistry;
   }
 
   /**

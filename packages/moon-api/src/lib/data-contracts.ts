@@ -980,13 +980,52 @@ export type GenerateUnsignedPsbtHexData = BitcoinAPIResponse;
 
 export type GenerateUnsignedPsbtHexResult = BitcoinCashAPIResponsePsbtHexString;
 
+export type GetATokenTotalSupplyData =
+  PoolAddressProviderRegistryAPIResponseString;
+
+export interface GetATokenTotalSupplyParams {
+  account: string;
+  address: string;
+  asset: string;
+  chainId: string;
+}
+
 export type GetAccountData = AccountAPIResponse;
 
 export type GetAccountResult = CosmosAccountAPIResponse;
 
-export type GetAddressesProviderData = LendingPoolAPIResponseString;
+export type GetAclAdminData = PoolAddressProviderAPIResponseString;
+
+export interface GetAclAdminParams {
+  account: string;
+  address: string;
+  chainId: string;
+}
+
+export type GetAclManagerData = PoolAddressProviderAPIResponseString;
+
+export interface GetAclManagerParams {
+  account: string;
+  address: string;
+  chainId: string;
+}
+
+export type GetAddressData = PoolAddressProviderAPIResponseString;
+
+export interface GetAddressParams {
+  account: string;
+  address: string;
+  chainId: string;
+  id: string;
+}
+
+export type GetAddressesProviderData =
+  PoolAddressProviderRegistryAPIResponseString;
+
+export type GetAddressesProviderOutput = LeveragerAPIResponseString;
 
 export interface GetAddressesProviderParams {
+  account: string;
   address: string;
   chainId: string;
 }
@@ -996,13 +1035,35 @@ export interface GetAddressesProviderParams2 {
   chainId: string;
 }
 
-export type GetAddressesProviderResult = LeveragerAPIResponseString;
+export interface GetAddressesProviderParams4 {
+  address: string;
+  chainId: string;
+}
+
+export type GetAddressesProviderResult = LendingPoolAPIResponseString;
+
+export type GetAllATokensData = PoolAddressProviderRegistryAPIResponseAnyArray;
+
+export interface GetAllATokensParams {
+  account: string;
+  address: string;
+  chainId: string;
+}
 
 export type GetAllPossibleConnectionsData = ApiResponseTokenInfoByChainId;
 
 export interface GetAllPossibleConnectionsParams {
   toChain: string;
   toToken: string;
+}
+
+export type GetAllReservesTokensData =
+  PoolAddressProviderRegistryAPIResponseAnyArray;
+
+export interface GetAllReservesTokensParams {
+  account: string;
+  address: string;
+  chainId: string;
 }
 
 export type GetAllowanceData = ERC20APIResponseString;
@@ -1114,6 +1175,15 @@ export type GetCurrentBlockData = OdosAPIResponseOdosExecuteFunctionResult;
 export interface GetCurrentBlockParams {
   /** @format double */
   chainId: number;
+}
+
+export type GetDebtCeilingData = PoolAddressProviderRegistryAPIResponseString;
+
+export interface GetDebtCeilingParams {
+  account: string;
+  address: string;
+  asset: string;
+  chainId: string;
 }
 
 export type GetDecimalsData = ERC20APIResponseNumber;
@@ -1239,6 +1309,14 @@ export interface GetLiquiditySourcesParams {
 
 export type GetLitecoinAccountData = AccountAPIResponse;
 
+export type GetMarketIdData = PoolAddressProviderAPIResponseString;
+
+export interface GetMarketIdParams {
+  account: string;
+  address: string;
+  chainId: string;
+}
+
 export type GetMaxDepositData = ERC4626APIResponse;
 
 export interface GetMaxDepositParams {
@@ -1309,6 +1387,22 @@ export interface GetNameParams {
 
 export type GetNonceData = NonceAPIResponse;
 
+export type GetPoolConfiguratorData = PoolAddressProviderAPIResponseString;
+
+export interface GetPoolConfiguratorParams {
+  account: string;
+  address: string;
+  chainId: string;
+}
+
+export type GetPoolData = PoolAddressProviderAPIResponseString;
+
+export interface GetPoolParams {
+  account: string;
+  address: string;
+  chainId: string;
+}
+
 export type GetPreviewDepositData = ERC4626APIResponse;
 
 export interface GetPreviewDepositParams {
@@ -1342,6 +1436,14 @@ export interface GetPreviewWithdrawParams {
   account: string;
   address: string;
   assets: string;
+  chainId: string;
+}
+
+export type GetPriceOracleData = PoolAddressProviderAPIResponseString;
+
+export interface GetPriceOracleParams {
+  account: string;
+  address: string;
   chainId: string;
 }
 
@@ -2090,6 +2192,75 @@ export interface PingResponse {
   message: string;
 }
 
+export interface PoolAddressProviderAPIResponsePoolAddressProviderExecuteFunctionResult {
+  data?: PoolAddressProviderExecuteFunctionResult;
+  message: string;
+  success: boolean;
+}
+
+export interface PoolAddressProviderAPIResponseString {
+  data?: string;
+  message: string;
+  success: boolean;
+}
+
+export interface PoolAddressProviderExecuteFunctionResult {
+  broadcasted?: BroadCastRawTransactionResponse;
+  data?: Transaction;
+  function: string;
+  message?: string;
+  params: any[];
+  success?: boolean;
+  transaction: PoolAddressProviderTransaction;
+  user_op?: string;
+}
+
+export interface PoolAddressProviderInputBody {
+  EOA?: boolean;
+  alwaysIncrementNonce?: boolean;
+  broadcast?: boolean;
+  chain_id?: string;
+  contract_address?: string;
+  data?: string;
+  dryrun?: boolean;
+  gas?: string;
+  gasPrice?: string;
+  newAddress?: string;
+  newImplementationAddress?: string;
+  newMarketId?: string;
+  nonce?: string;
+  to?: string;
+  value?: string;
+}
+
+export interface PoolAddressProviderRegistryAPIResponseAnyArray {
+  data?: any[];
+  message: string;
+  success: boolean;
+}
+
+export interface PoolAddressProviderRegistryAPIResponseString {
+  data?: string;
+  message: string;
+  success: boolean;
+}
+
+export interface PoolAddressProviderTransaction {
+  chainId: string;
+  data: string;
+  from: string;
+  gasLimit?: string;
+  gasPrice?: string;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  /** @format double */
+  nonce: number;
+  to: string;
+  /** @format double */
+  type?: number;
+  value: string;
+}
+
 export interface PostQuote {
   broadcast: any;
   input: InputBody;
@@ -2223,9 +2394,27 @@ export interface SellQuote {
 
 export type SellQuotes = SellQuote[];
 
+export type SetAclAdminData =
+  PoolAddressProviderAPIResponsePoolAddressProviderExecuteFunctionResult;
+
+export type SetAclManagerData =
+  PoolAddressProviderAPIResponsePoolAddressProviderExecuteFunctionResult;
+
+export type SetAddressData =
+  PoolAddressProviderAPIResponsePoolAddressProviderExecuteFunctionResult;
+
 export type SetApprovalForAllData = TransactionAPIResponse;
 
 export type SetApprovalForAllErc721Data = ERC721APIResponse;
+
+export type SetMarketIdData =
+  PoolAddressProviderAPIResponsePoolAddressProviderExecuteFunctionResult;
+
+export type SetPoolConfiguratorImplData =
+  PoolAddressProviderAPIResponsePoolAddressProviderExecuteFunctionResult;
+
+export type SetPoolImplData =
+  PoolAddressProviderAPIResponsePoolAddressProviderExecuteFunctionResult;
 
 export type SetUserUseReserveAsCollateralData =
   AavePoolAPIResponseAavePoolExecuteFunctionResult;
