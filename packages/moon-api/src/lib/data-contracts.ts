@@ -411,6 +411,8 @@ export interface BroadcastInput {
 
 export type BroadcastTxData = BroadCastRawTransactionAPIResponse;
 
+export type CallWebhookData = MultiCallAPIResponse;
+
 export interface Chain {
   chainType: ChainChainTypeEnum;
   coin: string;
@@ -602,6 +604,8 @@ export type CreateDogeCoinAccountData = AccountAPIResponse;
 
 export type CreateEosAccountData = AccountAPIResponse;
 
+export type CreateJobData = MultiCallAPIResponseString;
+
 export type CreateLitecoinAccountData = AccountAPIResponse;
 
 export type CreateRippleAccountData = AccountAPIResponse;
@@ -638,6 +642,12 @@ export type DeleteBitcoinAccountData = AccountAPIResponse;
 export type DeleteDogeCoinAccountData = AccountAPIResponse;
 
 export type DeleteEosAccountData = AccountAPIResponse;
+
+export type DeleteHistoryEntryData = MultiCallAPIResponse;
+
+export type DeleteJobData = MultiCallAPIResponse;
+
+export type DeleteJobHistoryData = MultiCallAPIResponse;
 
 export type DeleteLitecoinAccountData = AccountAPIResponse;
 
@@ -767,6 +777,10 @@ export interface ERC721APIResponse {
   success: boolean;
 }
 
+export type EditHistoryEntryData = MultiCallAPIResponseHistory;
+
+export type EditJobData = MultiCallAPIResponseJobs;
+
 export type EncodeDataData = AbiEncodeOutput;
 
 export interface EnsResolveAPIResponse {
@@ -884,6 +898,8 @@ export interface Exchange {
   name: string;
   supportedChains: number[];
 }
+
+export type ExecuteJobData = MultiCallAPIResponse;
 
 export type ExecuteOperationData =
   LeveragerAPIResponseLeveragerExecuteFunctionResult;
@@ -1286,6 +1302,14 @@ export interface GetGasPriceParams {
   chainId: string;
 }
 
+export type GetHistoryEntryData = MultiCallAPIResponseHistory;
+
+export type GetJobData = MultiCallAPIResponseJobs;
+
+export type GetJobHistoryData = MultiCallAPIResponseHistoryArray;
+
+export type GetJobResultData = MultiCallAPIResponseMultiCallResult;
+
 export type GetLendingPoolData = LeveragerAPIResponseString;
 
 export interface GetLendingPoolParams {
@@ -1567,6 +1591,8 @@ export enum GetRouterAddressParams1VersionEnum {
   V2 = 'v2',
 }
 
+export type GetScheduledJobsData = MultiCallAPIResponseScheduledJobArray;
+
 export type GetSolanaAccountData = AccountAPIResponse;
 
 export type GetSupportedChainsData = OdosAPIResponseOdosExecuteFunctionResult;
@@ -1699,6 +1725,20 @@ export interface HasRoleParams {
   role: string;
 }
 
+export interface History {
+  created_at: string;
+  error: string | null;
+  function: string;
+  id: string;
+  job_id: string;
+  params: Json;
+  result: Json | null;
+  status: string;
+  updated_at: string;
+  user_id: string;
+  wrapper: string;
+}
+
 export interface InputBody {
   EOA?: boolean;
   account?: string;
@@ -1765,6 +1805,18 @@ export interface IsPausedParams2 {
 }
 
 export type IsPausedResult = LeveragerAPIResponseBoolean;
+
+export interface Jobs {
+  calls: Json;
+  created_at: string;
+  error: Json | null;
+  id: string;
+  status: string;
+  updated_at: string;
+  user_id: string;
+}
+
+export type Json = string | number | boolean | null;
 
 export interface LendingPoolAPIResponseAny {
   data?: any;
@@ -1954,6 +2006,10 @@ export type ListAccountsOutput = CosmosAccountListAPIResponse;
 
 export type ListAccountsResult = BitcoinCashAPIResponseAccountResponse;
 
+export type ListAllHistoryData = MultiCallAPIResponseHistoryArray;
+
+export type ListAllJobsData = MultiCallAPIResponseJobsArray;
+
 export type ListBitcoinAccountsData = AccountAPIResponse;
 
 export type ListDogeCoinAccountsData = AccountAPIResponse;
@@ -2000,6 +2056,73 @@ export interface Message {
 }
 
 export type MintData = ERC4626APIResponse;
+
+export type MonitorJobData = MultiCallAPIResponseMultiCallResult;
+
+export interface MultiCallAPIResponse {
+  data?: any;
+  message: string;
+  success: boolean;
+}
+
+export interface MultiCallAPIResponseHistory {
+  data?: History;
+  message: string;
+  success: boolean;
+}
+
+export interface MultiCallAPIResponseHistoryArray {
+  data?: History[];
+  message: string;
+  success: boolean;
+}
+
+export interface MultiCallAPIResponseJobs {
+  data?: Jobs;
+  message: string;
+  success: boolean;
+}
+
+export interface MultiCallAPIResponseJobsArray {
+  data?: Jobs[];
+  message: string;
+  success: boolean;
+}
+
+export interface MultiCallAPIResponseMultiCallResult {
+  data?: MultiCallResult;
+  message: string;
+  success: boolean;
+}
+
+export interface MultiCallAPIResponseScheduledJobArray {
+  data?: ScheduledJob[];
+  message: string;
+  success: boolean;
+}
+
+export interface MultiCallAPIResponseString {
+  data?: string;
+  message: string;
+  success: boolean;
+}
+
+export interface MultiCallInputBody {
+  calls: {
+    chainId: string;
+    from: string;
+    function: string;
+    params: any;
+    wrapper: string;
+  }[];
+  chain_id?: string;
+}
+
+export interface MultiCallResult {
+  errors: string[];
+  results: any[];
+  success: boolean;
+}
 
 export type MultiSignSolanaTransactionData = SolanaAPIResponse;
 
@@ -2167,6 +2290,32 @@ export enum OrderEnum1 {
   BEST_VALUE = 'BEST_VALUE',
   BEST_FEE = 'BEST_FEE',
   BEST_FEE_GAS = 'BEST_FEE_GAS',
+}
+
+/** Make all properties in T optional */
+export interface PartialHistory {
+  created_at?: string;
+  error?: string | null;
+  function?: string;
+  id?: string;
+  job_id?: string;
+  params?: Json;
+  result?: Json | null;
+  status?: string;
+  updated_at?: string;
+  user_id?: string;
+  wrapper?: string;
+}
+
+/** Make all properties in T optional */
+export interface PartialJobs {
+  calls?: Json;
+  created_at?: string;
+  error?: Json | null;
+  id?: string;
+  status?: string;
+  updated_at?: string;
+  user_id?: string;
 }
 
 export interface PathVizImageConfig {
@@ -2376,6 +2525,20 @@ export type SafeTransferFromData = TransactionAPIResponse;
 export type SafeTransferFromErc721Data = ERC721APIResponse;
 
 export type SafeTransferFromWithDataErc721Data = ERC721APIResponse;
+
+export interface ScheduleJobBody {
+  jobId: string;
+  schedule: string;
+}
+
+export type ScheduleJobData = MultiCallAPIResponse;
+
+export interface ScheduledJob {
+  job_id: string;
+  job_name: string;
+  schedule: string;
+  user_id: string;
+}
 
 export interface SellQuote {
   /** @format double */
