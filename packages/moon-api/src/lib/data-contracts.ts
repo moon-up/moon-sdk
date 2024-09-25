@@ -411,6 +411,8 @@ export interface BroadcastInput {
 
 export type BroadcastTxData = BroadCastRawTransactionAPIResponse;
 
+export type CallWebhookData = MultiCallAPIResponse;
+
 export interface Chain {
   chainType: ChainChainTypeEnum;
   coin: string;
@@ -602,6 +604,8 @@ export type CreateDogeCoinAccountData = AccountAPIResponse;
 
 export type CreateEosAccountData = AccountAPIResponse;
 
+export type CreateJobData = MultiCallAPIResponseString;
+
 export type CreateLitecoinAccountData = AccountAPIResponse;
 
 export type CreateRippleAccountData = AccountAPIResponse;
@@ -638,6 +642,8 @@ export type DeleteBitcoinAccountData = AccountAPIResponse;
 export type DeleteDogeCoinAccountData = AccountAPIResponse;
 
 export type DeleteEosAccountData = AccountAPIResponse;
+
+export type DeleteJobData = MultiCallAPIResponse;
 
 export type DeleteLitecoinAccountData = AccountAPIResponse;
 
@@ -884,6 +890,8 @@ export interface Exchange {
   name: string;
   supportedChains: number[];
 }
+
+export type ExecuteJobData = MultiCallAPIResponse;
 
 export type ExecuteOperationData =
   LeveragerAPIResponseLeveragerExecuteFunctionResult;
@@ -1286,6 +1294,8 @@ export interface GetGasPriceParams {
   chainId: string;
 }
 
+export type GetJobResultData = MultiCallAPIResponseMultiCallResult;
+
 export type GetLendingPoolData = LeveragerAPIResponseString;
 
 export interface GetLendingPoolParams {
@@ -1566,6 +1576,8 @@ export interface GetRouterAddressParams {
 export enum GetRouterAddressParams1VersionEnum {
   V2 = 'v2',
 }
+
+export type GetScheduledJobsData = MultiCallAPIResponseScheduledJobArray;
 
 export type GetSolanaAccountData = AccountAPIResponse;
 
@@ -2001,6 +2013,49 @@ export interface Message {
 
 export type MintData = ERC4626APIResponse;
 
+export type MonitorJobData = MultiCallAPIResponseMultiCallResult;
+
+export interface MultiCallAPIResponse {
+  data?: any;
+  message: string;
+  success: boolean;
+}
+
+export interface MultiCallAPIResponseMultiCallResult {
+  data?: MultiCallResult;
+  message: string;
+  success: boolean;
+}
+
+export interface MultiCallAPIResponseScheduledJobArray {
+  data?: ScheduledJob[];
+  message: string;
+  success: boolean;
+}
+
+export interface MultiCallAPIResponseString {
+  data?: string;
+  message: string;
+  success: boolean;
+}
+
+export interface MultiCallInputBody {
+  calls: {
+    chainId: string;
+    from: string;
+    function: string;
+    params: any;
+    wrapper: string;
+  }[];
+  chain_id?: string;
+}
+
+export interface MultiCallResult {
+  errors: string[];
+  results: any[];
+  success: boolean;
+}
+
 export type MultiSignSolanaTransactionData = SolanaAPIResponse;
 
 export interface NonceAPIResponse {
@@ -2376,6 +2431,20 @@ export type SafeTransferFromData = TransactionAPIResponse;
 export type SafeTransferFromErc721Data = ERC721APIResponse;
 
 export type SafeTransferFromWithDataErc721Data = ERC721APIResponse;
+
+export interface ScheduleJobBody {
+  jobId: string;
+  schedule: string;
+}
+
+export type ScheduleJobData = MultiCallAPIResponse;
+
+export interface ScheduledJob {
+  job_id: string;
+  job_name: string;
+  schedule: string;
+  user_id: string;
+}
 
 export interface SellQuote {
   /** @format double */

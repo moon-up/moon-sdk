@@ -27,6 +27,7 @@ import {
   Lifi,
   Litecoin,
   Transaction as MoonTransaction,
+  Multicall,
   Odos,
   Onramper,
   PoolAddressProvider,
@@ -145,6 +146,7 @@ export class MoonSDK extends EventEmitter {
   private Aavev3RewardsSDK: Aavev3Rewards;
   private Aavev3PoolAddressProvider: PoolAddressProvider;
   private Aavev3PoolAddressProviderRegistry: Pooladdressproviderregistry;
+  private MultiCallSDK: Multicall;
   isAuthenticated = false;
   private config: MoonSDKConfig;
   /**
@@ -254,6 +256,7 @@ export class MoonSDK extends EventEmitter {
     this.ThorswapSDK = new Thorswap(this.http);
     this.AavepoolSDK = new Aavepool(this.http);
     this.Aavev3RewardsSDK = new Aavev3Rewards(this.http);
+    this.MultiCallSDK = new Multicall(this.http);
     this.Aavev3PoolAddressProvider = new PoolAddressProvider(this.http);
     this.Aavev3PoolAddressProviderRegistry = new Pooladdressproviderregistry(
       this.http
@@ -424,6 +427,9 @@ export class MoonSDK extends EventEmitter {
 
   public getAavev3PoolAddressProviderRegistry(): Pooladdressproviderregistry {
     return this.Aavev3PoolAddressProviderRegistry;
+  }
+  public getMultiCallSDK(): Multicall {
+    return this.MultiCallSDK;
   }
 
   /**

@@ -17,6 +17,7 @@ export * from './LendingPool';
 export * from './Leverager';
 export * from './Lifi';
 export * from './Litecoin';
+export * from './Multicall';
 export * from './Odos';
 export * from './Onramper';
 export * from './PoolAddressProvider';

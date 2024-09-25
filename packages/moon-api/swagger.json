@@ -4231,6 +4231,187 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"MultiCallAPIResponse_string_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"MultiCallInputBody": {
+				"properties": {
+					"chain_id": {
+						"type": "string"
+					},
+					"calls": {
+						"items": {
+							"properties": {
+								"chainId": {
+									"type": "string"
+								},
+								"params": {},
+								"function": {
+									"type": "string"
+								},
+								"wrapper": {
+									"type": "string"
+								},
+								"from": {
+									"type": "string"
+								}
+							},
+							"required": [
+								"chainId",
+								"params",
+								"function",
+								"wrapper",
+								"from"
+							],
+							"type": "object"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"calls"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"MultiCallAPIResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"MultiCallResult": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"results": {
+						"items": {},
+						"type": "array"
+					},
+					"errors": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"results",
+					"errors"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"MultiCallAPIResponse_MultiCallResult_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/MultiCallResult"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ScheduleJobBody": {
+				"properties": {
+					"jobId": {
+						"type": "string"
+					},
+					"schedule": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"jobId",
+					"schedule"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ScheduledJob": {
+				"properties": {
+					"job_name": {
+						"type": "string"
+					},
+					"schedule": {
+						"type": "string"
+					},
+					"job_id": {
+						"type": "string"
+					},
+					"user_id": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"job_name",
+					"schedule",
+					"job_id",
+					"user_id"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"MultiCallAPIResponse_ScheduledJob-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/ScheduledJob"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"OdosTransaction": {
 				"properties": {
 					"data": {
@@ -16912,6 +17093,368 @@
 				}
 			}
 		},
+		"/multicall/create-job": {
+			"post": {
+				"operationId": "CreateJob",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MultiCallAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MultiCall"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MultiCallInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/multicall/execute-job/{jobId}": {
+			"post": {
+				"operationId": "ExecuteJob",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MultiCallAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MultiCall"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "jobId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/multicall/job-result/{jobId}": {
+			"get": {
+				"operationId": "GetJobResult",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MultiCallAPIResponse_MultiCallResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MultiCall"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "jobId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/multicall/monitor-job/{jobId}": {
+			"post": {
+				"operationId": "MonitorJob",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MultiCallAPIResponse_MultiCallResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MultiCall"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "jobId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/multicall/call-webhook/{jobId}": {
+			"post": {
+				"operationId": "CallWebhook",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MultiCallAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MultiCall"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "jobId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/multicall/schedule-job": {
+			"post": {
+				"operationId": "ScheduleJob",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MultiCallAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MultiCall"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ScheduleJobBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/multicall/delete-job/{jobId}": {
+			"post": {
+				"operationId": "DeleteJob",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MultiCallAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MultiCall"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "jobId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/multicall/scheduled-jobs": {
+			"get": {
+				"operationId": "GetScheduledJobs",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MultiCallAPIResponse_ScheduledJob-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MultiCall"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": []
+			}
+		},
 		"/odos/{accountName}/swap": {
 			"post": {
 				"operationId": "Swap",
@@ -19539,7 +20082,7 @@
 	},
 	"servers": [
 		{
-			"url": "https://beta.usemoon.ai"
+			"url": "https://beta.usemoon.ai/"
 		}
 	]
 }
