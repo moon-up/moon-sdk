@@ -643,7 +643,11 @@ export type DeleteDogeCoinAccountData = AccountAPIResponse;
 
 export type DeleteEosAccountData = AccountAPIResponse;
 
+export type DeleteHistoryEntryData = MultiCallAPIResponse;
+
 export type DeleteJobData = MultiCallAPIResponse;
+
+export type DeleteJobHistoryData = MultiCallAPIResponse;
 
 export type DeleteLitecoinAccountData = AccountAPIResponse;
 
@@ -772,6 +776,10 @@ export interface ERC721APIResponse {
   message: string;
   success: boolean;
 }
+
+export type EditHistoryEntryData = MultiCallAPIResponseHistory;
+
+export type EditJobData = MultiCallAPIResponseJobs;
 
 export type EncodeDataData = AbiEncodeOutput;
 
@@ -1294,6 +1302,12 @@ export interface GetGasPriceParams {
   chainId: string;
 }
 
+export type GetHistoryEntryData = MultiCallAPIResponseHistory;
+
+export type GetJobData = MultiCallAPIResponseJobs;
+
+export type GetJobHistoryData = MultiCallAPIResponseHistoryArray;
+
 export type GetJobResultData = MultiCallAPIResponseMultiCallResult;
 
 export type GetLendingPoolData = LeveragerAPIResponseString;
@@ -1711,6 +1725,20 @@ export interface HasRoleParams {
   role: string;
 }
 
+export interface History {
+  created_at: string;
+  error: string | null;
+  function: string;
+  id: string;
+  job_id: string;
+  params: Json;
+  result: Json | null;
+  status: string;
+  updated_at: string;
+  user_id: string;
+  wrapper: string;
+}
+
 export interface InputBody {
   EOA?: boolean;
   account?: string;
@@ -1777,6 +1805,18 @@ export interface IsPausedParams2 {
 }
 
 export type IsPausedResult = LeveragerAPIResponseBoolean;
+
+export interface Jobs {
+  calls: Json;
+  created_at: string;
+  error: Json | null;
+  id: string;
+  status: string;
+  updated_at: string;
+  user_id: string;
+}
+
+export type Json = string | number | boolean | null;
 
 export interface LendingPoolAPIResponseAny {
   data?: any;
@@ -1966,6 +2006,10 @@ export type ListAccountsOutput = CosmosAccountListAPIResponse;
 
 export type ListAccountsResult = BitcoinCashAPIResponseAccountResponse;
 
+export type ListAllHistoryData = MultiCallAPIResponseHistoryArray;
+
+export type ListAllJobsData = MultiCallAPIResponseJobsArray;
+
 export type ListBitcoinAccountsData = AccountAPIResponse;
 
 export type ListDogeCoinAccountsData = AccountAPIResponse;
@@ -2017,6 +2061,30 @@ export type MonitorJobData = MultiCallAPIResponseMultiCallResult;
 
 export interface MultiCallAPIResponse {
   data?: any;
+  message: string;
+  success: boolean;
+}
+
+export interface MultiCallAPIResponseHistory {
+  data?: History;
+  message: string;
+  success: boolean;
+}
+
+export interface MultiCallAPIResponseHistoryArray {
+  data?: History[];
+  message: string;
+  success: boolean;
+}
+
+export interface MultiCallAPIResponseJobs {
+  data?: Jobs;
+  message: string;
+  success: boolean;
+}
+
+export interface MultiCallAPIResponseJobsArray {
+  data?: Jobs[];
   message: string;
   success: boolean;
 }
@@ -2222,6 +2290,32 @@ export enum OrderEnum1 {
   BEST_VALUE = 'BEST_VALUE',
   BEST_FEE = 'BEST_FEE',
   BEST_FEE_GAS = 'BEST_FEE_GAS',
+}
+
+/** Make all properties in T optional */
+export interface PartialHistory {
+  created_at?: string;
+  error?: string | null;
+  function?: string;
+  id?: string;
+  job_id?: string;
+  params?: Json;
+  result?: Json | null;
+  status?: string;
+  updated_at?: string;
+  user_id?: string;
+  wrapper?: string;
+}
+
+/** Make all properties in T optional */
+export interface PartialJobs {
+  calls?: Json;
+  created_at?: string;
+  error?: Json | null;
+  id?: string;
+  status?: string;
+  updated_at?: string;
+  user_id?: string;
 }
 
 export interface PathVizImageConfig {

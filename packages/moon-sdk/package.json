@@ -1,6 +1,6 @@
 {
     "name": "@moonup/moon-sdk",
-    "version": "1.0.28",
+    "version": "1.0.29",
     "author": "0xEwhal <ewhal@bytemasons.com>",
     "type": "commonjs",
     "main": "./dist/index.js",

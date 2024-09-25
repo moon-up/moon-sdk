@@ -4412,6 +4412,290 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"Json": {
+				"anyOf": [
+					{
+						"type": "string"
+					},
+					{
+						"type": "number",
+						"format": "double"
+					},
+					{
+						"type": "boolean"
+					},
+					{
+						"properties": {},
+						"additionalProperties": {
+							"$ref": "#/components/schemas/Json"
+						},
+						"type": "object"
+					},
+					{
+						"items": {
+							"$ref": "#/components/schemas/Json"
+						},
+						"type": "array"
+					}
+				],
+				"nullable": true
+			},
+			"Jobs": {
+				"properties": {
+					"user_id": {
+						"type": "string"
+					},
+					"updated_at": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string"
+					},
+					"id": {
+						"type": "string"
+					},
+					"error": {
+						"allOf": [
+							{
+								"$ref": "#/components/schemas/Json"
+							}
+						],
+						"nullable": true
+					},
+					"created_at": {
+						"type": "string"
+					},
+					"calls": {
+						"$ref": "#/components/schemas/Json"
+					}
+				},
+				"required": [
+					"user_id",
+					"updated_at",
+					"status",
+					"id",
+					"error",
+					"created_at",
+					"calls"
+				],
+				"type": "object"
+			},
+			"MultiCallAPIResponse_Jobs-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/Jobs"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"MultiCallAPIResponse_Jobs_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/Jobs"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Partial_Jobs_": {
+				"properties": {
+					"calls": {
+						"$ref": "#/components/schemas/Json"
+					},
+					"created_at": {
+						"type": "string"
+					},
+					"error": {
+						"allOf": [
+							{
+								"$ref": "#/components/schemas/Json"
+							}
+						],
+						"nullable": true
+					},
+					"id": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string"
+					},
+					"updated_at": {
+						"type": "string"
+					},
+					"user_id": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"description": "Make all properties in T optional"
+			},
+			"History": {
+				"properties": {
+					"wrapper": {
+						"type": "string"
+					},
+					"user_id": {
+						"type": "string"
+					},
+					"updated_at": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string"
+					},
+					"result": {
+						"allOf": [
+							{
+								"$ref": "#/components/schemas/Json"
+							}
+						],
+						"nullable": true
+					},
+					"params": {
+						"$ref": "#/components/schemas/Json"
+					},
+					"job_id": {
+						"type": "string"
+					},
+					"id": {
+						"type": "string"
+					},
+					"function": {
+						"type": "string"
+					},
+					"error": {
+						"type": "string",
+						"nullable": true
+					},
+					"created_at": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"wrapper",
+					"user_id",
+					"updated_at",
+					"status",
+					"result",
+					"params",
+					"job_id",
+					"id",
+					"function",
+					"error",
+					"created_at"
+				],
+				"type": "object"
+			},
+			"MultiCallAPIResponse_History-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/History"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"MultiCallAPIResponse_History_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/History"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Partial_History_": {
+				"properties": {
+					"created_at": {
+						"type": "string"
+					},
+					"error": {
+						"type": "string",
+						"nullable": true
+					},
+					"function": {
+						"type": "string"
+					},
+					"id": {
+						"type": "string"
+					},
+					"job_id": {
+						"type": "string"
+					},
+					"params": {
+						"$ref": "#/components/schemas/Json"
+					},
+					"result": {
+						"allOf": [
+							{
+								"$ref": "#/components/schemas/Json"
+							}
+						],
+						"nullable": true
+					},
+					"status": {
+						"type": "string"
+					},
+					"updated_at": {
+						"type": "string"
+					},
+					"user_id": {
+						"type": "string"
+					},
+					"wrapper": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"description": "Make all properties in T optional"
+			},
 			"OdosTransaction": {
 				"properties": {
 					"data": {
@@ -5593,7 +5877,7 @@
 	},
 	"openapi": "3.0.0",
 	"paths": {
-		"/aavepool/{account}/getReserveData": {
+		"/aave/v3/pool/{account}/getReserveData": {
 			"get": {
 				"operationId": "GetReserveData",
 				"responses": {
@@ -5666,7 +5950,7 @@
 				]
 			}
 		},
-		"/aavepool/{account}/getUserAccountData": {
+		"/aave/v3/pool/{account}/getUserAccountData": {
 			"get": {
 				"operationId": "GetUserAccountData",
 				"responses": {
@@ -5739,7 +6023,7 @@
 				]
 			}
 		},
-		"/aavepool/{address}/supply": {
+		"/aave/v3/pool/{address}/supply": {
 			"post": {
 				"operationId": "Supply",
 				"responses": {
@@ -5798,7 +6082,7 @@
 				}
 			}
 		},
-		"/aavepool/{address}/withdraw": {
+		"/aave/v3/pool/{address}/withdraw": {
 			"post": {
 				"operationId": "Withdraw",
 				"responses": {
@@ -5857,7 +6141,7 @@
 				}
 			}
 		},
-		"/aavepool/{address}/borrow": {
+		"/aave/v3/pool/{address}/borrow": {
 			"post": {
 				"operationId": "Borrow",
 				"responses": {
@@ -5916,7 +6200,7 @@
 				}
 			}
 		},
-		"/aavepool/{address}/repay": {
+		"/aave/v3/pool/{address}/repay": {
 			"post": {
 				"operationId": "Repay",
 				"responses": {
@@ -5975,7 +6259,7 @@
 				}
 			}
 		},
-		"/aavepool/{address}/setUserUseReserveAsCollateral": {
+		"/aave/v3/pool/{address}/setUserUseReserveAsCollateral": {
 			"post": {
 				"operationId": "SetUserUseReserveAsCollateral",
 				"responses": {
@@ -6034,7 +6318,7 @@
 				}
 			}
 		},
-		"/aavepool/{address}/liquidationCall": {
+		"/aave/v3/pool/{address}/liquidationCall": {
 			"post": {
 				"operationId": "LiquidationCall",
 				"responses": {
@@ -6093,7 +6377,7 @@
 				}
 			}
 		},
-		"/poolAddressProvider/{account}/getACLAdmin": {
+		"/aave/v3/poolAddressProvider/{account}/getACLAdmin": {
 			"get": {
 				"operationId": "GetACLAdmin",
 				"responses": {
@@ -6158,7 +6442,7 @@
 				]
 			}
 		},
-		"/poolAddressProvider/{account}/getACLManager": {
+		"/aave/v3/poolAddressProvider/{account}/getACLManager": {
 			"get": {
 				"operationId": "GetACLManager",
 				"responses": {
@@ -6223,7 +6507,7 @@
 				]
 			}
 		},
-		"/poolAddressProvider/{account}/getAddress": {
+		"/aave/v3/poolAddressProvider/{account}/getAddress": {
 			"get": {
 				"operationId": "GetAddress",
 				"responses": {
@@ -6296,7 +6580,7 @@
 				]
 			}
 		},
-		"/poolAddressProvider/{account}/getMarketId": {
+		"/aave/v3/poolAddressProvider/{account}/getMarketId": {
 			"get": {
 				"operationId": "GetMarketId",
 				"responses": {
@@ -6361,7 +6645,7 @@
 				]
 			}
 		},
-		"/poolAddressProvider/{account}/getPool": {
+		"/aave/v3/poolAddressProvider/{account}/getPool": {
 			"get": {
 				"operationId": "GetPool",
 				"responses": {
@@ -6426,7 +6710,7 @@
 				]
 			}
 		},
-		"/poolAddressProvider/{account}/getPoolConfigurator": {
+		"/aave/v3/poolAddressProvider/{account}/getPoolConfigurator": {
 			"get": {
 				"operationId": "GetPoolConfigurator",
 				"responses": {
@@ -6491,7 +6775,7 @@
 				]
 			}
 		},
-		"/poolAddressProvider/{account}/getPriceOracle": {
+		"/aave/v3/poolAddressProvider/{account}/getPriceOracle": {
 			"get": {
 				"operationId": "GetPriceOracle",
 				"responses": {
@@ -6556,7 +6840,7 @@
 				]
 			}
 		},
-		"/poolAddressProvider/{address}/setACLAdmin": {
+		"/aave/v3/poolAddressProvider/{address}/setACLAdmin": {
 			"post": {
 				"operationId": "SetACLAdmin",
 				"responses": {
@@ -6615,7 +6899,7 @@
 				}
 			}
 		},
-		"/poolAddressProvider/{address}/setACLManager": {
+		"/aave/v3/poolAddressProvider/{address}/setACLManager": {
 			"post": {
 				"operationId": "SetACLManager",
 				"responses": {
@@ -6674,7 +6958,7 @@
 				}
 			}
 		},
-		"/poolAddressProvider/{address}/setAddress": {
+		"/aave/v3/poolAddressProvider/{address}/setAddress": {
 			"post": {
 				"operationId": "SetAddress",
 				"responses": {
@@ -6733,7 +7017,7 @@
 				}
 			}
 		},
-		"/poolAddressProvider/{address}/setMarketId": {
+		"/aave/v3/poolAddressProvider/{address}/setMarketId": {
 			"post": {
 				"operationId": "SetMarketId",
 				"responses": {
@@ -6792,7 +7076,7 @@
 				}
 			}
 		},
-		"/poolAddressProvider/{address}/setPoolConfiguratorImpl": {
+		"/aave/v3/poolAddressProvider/{address}/setPoolConfiguratorImpl": {
 			"post": {
 				"operationId": "SetPoolConfiguratorImpl",
 				"responses": {
@@ -6851,7 +7135,7 @@
 				}
 			}
 		},
-		"/poolAddressProvider/{address}/setPoolImpl": {
+		"/aave/v3/poolAddressProvider/{address}/setPoolImpl": {
 			"post": {
 				"operationId": "SetPoolImpl",
 				"responses": {
@@ -6910,7 +7194,7 @@
 				}
 			}
 		},
-		"/pooladdressproviderregistry/{account}/getAddressesProvider": {
+		"/aave/v3/poolAddressProviderRegistry/{account}/getAddressesProvider": {
 			"get": {
 				"operationId": "GetAddressesProvider",
 				"responses": {
@@ -6975,7 +7259,7 @@
 				]
 			}
 		},
-		"/pooladdressproviderregistry/{account}/getATokenTotalSupply": {
+		"/aave/v3/poolAddressProviderRegistry/{account}/getATokenTotalSupply": {
 			"get": {
 				"operationId": "GetATokenTotalSupply",
 				"responses": {
@@ -7048,7 +7332,7 @@
 				]
 			}
 		},
-		"/pooladdressproviderregistry/{account}/getAllATokens": {
+		"/aave/v3/poolAddressProviderRegistry/{account}/getAllATokens": {
 			"get": {
 				"operationId": "GetAllATokens",
 				"responses": {
@@ -7113,7 +7397,7 @@
 				]
 			}
 		},
-		"/pooladdressproviderregistry/{account}/getAllReservesTokens": {
+		"/aave/v3/poolAddressProviderRegistry/{account}/getAllReservesTokens": {
 			"get": {
 				"operationId": "GetAllReservesTokens",
 				"responses": {
@@ -7178,7 +7462,7 @@
 				]
 			}
 		},
-		"/pooladdressproviderregistry/{account}/getDebtCeiling": {
+		"/aave/v3/poolAddressProviderRegistry/{account}/getDebtCeiling": {
 			"get": {
 				"operationId": "GetDebtCeiling",
 				"responses": {
@@ -7251,7 +7535,7 @@
 				]
 			}
 		},
-		"/aavev3rewards/{account}/rewardsByAsset": {
+		"/aave/v3/rewards/{account}/rewardsByAsset": {
 			"get": {
 				"operationId": "GetRewardsByAsset",
 				"responses": {
@@ -7324,7 +7608,7 @@
 				]
 			}
 		},
-		"/aavev3rewards/{account}/userRewards": {
+		"/aave/v3/rewards/{account}/userRewards": {
 			"get": {
 				"operationId": "GetUserRewards",
 				"responses": {
@@ -7416,7 +7700,7 @@
 				]
 			}
 		},
-		"/aavev3rewards/{account}/rewardsData": {
+		"/aave/v3/rewards/{account}/rewardsData": {
 			"get": {
 				"operationId": "GetRewardsData",
 				"responses": {
@@ -7497,7 +7781,7 @@
 				]
 			}
 		},
-		"/aavev3rewards/{address}/claimRewards": {
+		"/aave/v3/rewards/{address}/claimRewards": {
 			"post": {
 				"operationId": "ClaimRewards",
 				"responses": {
@@ -7556,7 +7840,7 @@
 				}
 			}
 		},
-		"/aavev3rewards/{address}/claimRewardsOnBehalf": {
+		"/aave/v3/rewards/{address}/claimRewardsOnBehalf": {
 			"post": {
 				"operationId": "ClaimRewardsOnBehalf",
 				"responses": {
@@ -7615,7 +7899,7 @@
 				}
 			}
 		},
-		"/aavev3rewards/{address}/claimRewardsToSelf": {
+		"/aave/v3/rewards/{address}/claimRewardsToSelf": {
 			"post": {
 				"operationId": "ClaimRewardsToSelf",
 				"responses": {
@@ -7674,7 +7958,7 @@
 				}
 			}
 		},
-		"/aavev3rewards/{address}/claimAllRewards": {
+		"/aave/v3/rewards/{address}/claimAllRewards": {
 			"post": {
 				"operationId": "ClaimAllRewards",
 				"responses": {
@@ -7733,7 +8017,7 @@
 				}
 			}
 		},
-		"/aavev3rewards/{address}/claimAllRewardsOnBehalf": {
+		"/aave/v3/rewards/{address}/claimAllRewardsOnBehalf": {
 			"post": {
 				"operationId": "ClaimAllRewardsOnBehalf",
 				"responses": {
@@ -7792,7 +8076,7 @@
 				}
 			}
 		},
-		"/aavev3rewards/{address}/claimAllRewardsToSelf": {
+		"/aave/v3/rewards/{address}/claimAllRewardsToSelf": {
 			"post": {
 				"operationId": "ClaimAllRewardsToSelf",
 				"responses": {
@@ -17455,6 +17739,443 @@
 				"parameters": []
 			}
 		},
+		"/multicall/jobs": {
+			"get": {
+				"operationId": "ListAllJobs",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MultiCallAPIResponse_Jobs-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MultiCall"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/multicall/job/{jobId}": {
+			"get": {
+				"operationId": "GetJob",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MultiCallAPIResponse_Jobs_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MultiCall"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "jobId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "EditJob",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MultiCallAPIResponse_Jobs_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MultiCall"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "jobId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Partial_Jobs_"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/multicall/history": {
+			"get": {
+				"operationId": "ListAllHistory",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MultiCallAPIResponse_History-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MultiCall"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/multicall/history/{historyId}": {
+			"get": {
+				"operationId": "GetHistoryEntry",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MultiCallAPIResponse_History_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MultiCall"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "historyId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "DeleteHistoryEntry",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MultiCallAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MultiCall"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "historyId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "EditHistoryEntry",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MultiCallAPIResponse_History_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MultiCall"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "historyId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Partial_History_"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/multicall/job/{jobId}/history": {
+			"get": {
+				"operationId": "GetJobHistory",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MultiCallAPIResponse_History-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MultiCall"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "jobId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "DeleteJobHistory",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MultiCallAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MultiCall"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "jobId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
 		"/odos/{accountName}/swap": {
 			"post": {
 				"operationId": "Swap",
@@ -20082,7 +20803,7 @@
 	},
 	"servers": [
 		{
-			"url": "https://beta.usemoon.ai/"
+			"url": "https://beta.usemoon.ai"
 		}
 	]
 }

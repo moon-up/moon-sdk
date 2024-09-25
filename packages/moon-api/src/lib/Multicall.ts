@@ -12,12 +12,23 @@
 import {
   CallWebhookData,
   CreateJobData,
+  DeleteHistoryEntryData,
   DeleteJobData,
+  DeleteJobHistoryData,
+  EditHistoryEntryData,
+  EditJobData,
   ExecuteJobData,
+  GetHistoryEntryData,
+  GetJobData,
+  GetJobHistoryData,
   GetJobResultData,
   GetScheduledJobsData,
+  ListAllHistoryData,
+  ListAllJobsData,
   MonitorJobData,
   MultiCallInputBody,
+  PartialHistory,
+  PartialJobs,
   ScheduleJobBody,
   ScheduleJobData,
 } from './data-contracts';
@@ -68,6 +79,22 @@ export class Multicall<SecurityDataType = unknown> {
    * No description
    *
    * @tags MultiCall
+   * @name DeleteHistoryEntry
+   * @request DELETE:/multicall/history/{historyId}
+   * @secure
+   */
+  deleteHistoryEntry = (historyId: string, params: RequestParams = {}) =>
+    this.http.request<DeleteHistoryEntryData, any>({
+      path: `/multicall/history/${historyId}`,
+      method: 'DELETE',
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags MultiCall
    * @name DeleteJob
    * @request POST:/multicall/delete-job/{jobId}
    * @secure
@@ -84,6 +111,62 @@ export class Multicall<SecurityDataType = unknown> {
    * No description
    *
    * @tags MultiCall
+   * @name DeleteJobHistory
+   * @request DELETE:/multicall/job/{jobId}/history
+   * @secure
+   */
+  deleteJobHistory = (jobId: string, params: RequestParams = {}) =>
+    this.http.request<DeleteJobHistoryData, any>({
+      path: `/multicall/job/${jobId}/history`,
+      method: 'DELETE',
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags MultiCall
+   * @name EditHistoryEntry
+   * @request PUT:/multicall/history/{historyId}
+   * @secure
+   */
+  editHistoryEntry = (
+    historyId: string,
+    data: PartialHistory,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<EditHistoryEntryData, any>({
+      path: `/multicall/history/${historyId}`,
+      method: 'PUT',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags MultiCall
+   * @name EditJob
+   * @request PUT:/multicall/job/{jobId}
+   * @secure
+   */
+  editJob = (jobId: string, data: PartialJobs, params: RequestParams = {}) =>
+    this.http.request<EditJobData, any>({
+      path: `/multicall/job/${jobId}`,
+      method: 'PUT',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags MultiCall
    * @name ExecuteJob
    * @request POST:/multicall/execute-job/{jobId}
    * @secure
@@ -92,6 +175,54 @@ export class Multicall<SecurityDataType = unknown> {
     this.http.request<ExecuteJobData, any>({
       path: `/multicall/execute-job/${jobId}`,
       method: 'POST',
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags MultiCall
+   * @name GetHistoryEntry
+   * @request GET:/multicall/history/{historyId}
+   * @secure
+   */
+  getHistoryEntry = (historyId: string, params: RequestParams = {}) =>
+    this.http.request<GetHistoryEntryData, any>({
+      path: `/multicall/history/${historyId}`,
+      method: 'GET',
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags MultiCall
+   * @name GetJob
+   * @request GET:/multicall/job/{jobId}
+   * @secure
+   */
+  getJob = (jobId: string, params: RequestParams = {}) =>
+    this.http.request<GetJobData, any>({
+      path: `/multicall/job/${jobId}`,
+      method: 'GET',
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags MultiCall
+   * @name GetJobHistory
+   * @request GET:/multicall/job/{jobId}/history
+   * @secure
+   */
+  getJobHistory = (jobId: string, params: RequestParams = {}) =>
+    this.http.request<GetJobHistoryData, any>({
+      path: `/multicall/job/${jobId}/history`,
+      method: 'GET',
       secure: true,
       format: 'json',
       ...params,
@@ -123,6 +254,38 @@ export class Multicall<SecurityDataType = unknown> {
   getScheduledJobs = (params: RequestParams = {}) =>
     this.http.request<GetScheduledJobsData, any>({
       path: `/multicall/scheduled-jobs`,
+      method: 'GET',
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags MultiCall
+   * @name ListAllHistory
+   * @request GET:/multicall/history
+   * @secure
+   */
+  listAllHistory = (params: RequestParams = {}) =>
+    this.http.request<ListAllHistoryData, any>({
+      path: `/multicall/history`,
+      method: 'GET',
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags MultiCall
+   * @name ListAllJobs
+   * @request GET:/multicall/jobs
+   * @secure
+   */
+  listAllJobs = (params: RequestParams = {}) =>
+    this.http.request<ListAllJobsData, any>({
+      path: `/multicall/jobs`,
       method: 'GET',
       secure: true,
       format: 'json',
