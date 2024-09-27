@@ -149,6 +149,11 @@ export interface AbiEncodeOutput {
   success: boolean;
 }
 
+export interface AccessTuple {
+  address: string;
+  storageKeys: string[];
+}
+
 export interface AccountAPIResponse {
   address?: string;
   body?: InputBody;
@@ -604,6 +609,15 @@ export type CreateDogeCoinAccountData = AccountAPIResponse;
 
 export type CreateEosAccountData = AccountAPIResponse;
 
+export interface CreateFlowBody {
+  description?: string;
+  edges: FlowEdge[];
+  name: string;
+  nodes: FlowNode[];
+}
+
+export type CreateFlowData = MultiCallAPIResponseAny;
+
 export type CreateJobData = MultiCallAPIResponseString;
 
 export type CreateLitecoinAccountData = AccountAPIResponse;
@@ -615,6 +629,14 @@ export type CreateSolanaAccountData = AccountAPIResponse;
 export type CreateSrc20InscriptionData = BitcoinAPIResponse;
 
 export type CreateTronAccountData = AccountAPIResponse;
+
+export interface CreateUserDefinedFunctionBody {
+  description?: string;
+  functionBody: string;
+  name: string;
+}
+
+export type CreateUserDefinedFunctionData = MultiCallAPIResponseAny;
 
 export interface CryptoCurrency {
   address: string;
@@ -643,6 +665,8 @@ export type DeleteDogeCoinAccountData = AccountAPIResponse;
 
 export type DeleteEosAccountData = AccountAPIResponse;
 
+export type DeleteFlowData = MultiCallAPIResponse;
+
 export type DeleteHistoryEntryData = MultiCallAPIResponse;
 
 export type DeleteJobData = MultiCallAPIResponse;
@@ -656,6 +680,8 @@ export type DeleteRippleAccountData = AccountAPIResponse;
 export type DeleteSolanaAccountData = AccountAPIResponse;
 
 export type DeleteTronAccountData = AccountAPIResponse;
+
+export type DeleteUserDefinedFunctionData = MultiCallAPIResponse;
 
 export type DeleverageErc20Data =
   LeveragerAPIResponseLeveragerExecuteFunctionResult;
@@ -743,6 +769,7 @@ export interface ERC20InputBody {
   data?: string;
   dryrun?: boolean;
   gas?: string;
+  gasLimit?: string;
   gasPrice?: string;
   nonce?: string;
   to?: string;
@@ -828,6 +855,7 @@ export interface EosTransactionOutput {
 
 export interface Erc1155Request {
   EOA?: boolean;
+  accessList?: AccessTuple[];
   account?: string;
   alwaysIncrementNonce?: boolean;
   amount?: string;
@@ -835,6 +863,9 @@ export interface Erc1155Request {
   approved?: boolean;
   asset?: string;
   assets?: string[];
+  blobGas?: string;
+  blobGasFeeCap?: string;
+  blobHashes?: string[];
   borrowAmount?: string | number;
   broadcast?: boolean;
   chain_id?: string;
@@ -853,6 +884,8 @@ export interface Erc1155Request {
   inputTokens?: TokenAmount[];
   /** @format double */
   interestRateMode?: number;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
   minHealthFactor?: string | number;
   modes?: number[];
   nonce?: string;
@@ -872,6 +905,8 @@ export interface Erc1155Request {
   to?: string;
   token_id?: string;
   token_ids?: string;
+  /** @format double */
+  type?: number;
   useAsCollateral?: boolean;
   user?: string;
   value?: string;
@@ -898,6 +933,8 @@ export interface Exchange {
   name: string;
   supportedChains: number[];
 }
+
+export type ExecuteFlowData = MultiCallAPIResponse;
 
 export type ExecuteJobData = MultiCallAPIResponse;
 
@@ -964,6 +1001,31 @@ export interface FiatCurrency {
 
 export type FlashLoanData =
   LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
+
+export interface FlowEdge {
+  id: string;
+  label?: string;
+  source: string;
+  target: string;
+}
+
+export interface FlowNode {
+  data: {
+    condition?: string;
+    function?: string;
+    params?: any;
+    userFunctionName?: string;
+    wrapper?: string;
+  };
+  id: string;
+  type: FlowNodeTypeEnum;
+}
+
+export enum FlowNodeTypeEnum {
+  Action = 'action',
+  Condition = 'condition',
+  UserFunction = 'userFunction',
+}
 
 export interface GasCost {
   amount: string;
@@ -1294,6 +1356,8 @@ export interface GetFlashLoanPremiumTotalParams {
   address: string;
   chainId: string;
 }
+
+export type GetFlowData = MultiCallAPIResponseAny;
 
 export type GetGasPriceData = ThorSwapAPIResponseGasPrice;
 
@@ -1690,6 +1754,8 @@ export interface GetUserAccountDataParams2 {
 
 export type GetUserAccountDataResult = LendingPoolAPIResponseAny;
 
+export type GetUserDefinedFunctionData = MultiCallAPIResponseAny;
+
 export type GetUserRewardsData = AAVEv3RewardsAPIResponseString;
 
 export interface GetUserRewardsParams {
@@ -1741,6 +1807,7 @@ export interface History {
 
 export interface InputBody {
   EOA?: boolean;
+  accessList?: AccessTuple[];
   account?: string;
   alwaysIncrementNonce?: boolean;
   amount?: string;
@@ -1748,6 +1815,9 @@ export interface InputBody {
   approved?: boolean;
   asset?: string;
   assets?: string[];
+  blobGas?: string;
+  blobGasFeeCap?: string;
+  blobHashes?: string[];
   borrowAmount?: string | number;
   broadcast?: boolean;
   chain_id?: string;
@@ -1766,6 +1836,8 @@ export interface InputBody {
   inputTokens?: TokenAmount[];
   /** @format double */
   interestRateMode?: number;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
   minHealthFactor?: string | number;
   modes?: number[];
   nonce?: string;
@@ -1785,6 +1857,8 @@ export interface InputBody {
   to?: string;
   token_id?: string;
   token_ids?: string;
+  /** @format double */
+  type?: number;
   useAsCollateral?: boolean;
   user?: string;
   value?: string;
@@ -1810,6 +1884,8 @@ export interface Jobs {
   calls: Json;
   created_at: string;
   error: Json | null;
+  flow_id: string | null;
+  global_variables: Json | null;
   id: string;
   status: string;
   updated_at: string;
@@ -2010,11 +2086,16 @@ export type ListAllHistoryData = MultiCallAPIResponseHistoryArray;
 
 export type ListAllJobsData = MultiCallAPIResponseJobsArray;
 
+export type ListAvailableFunctionsData =
+  MultiCallAPIResponseRecordStringStringArray;
+
 export type ListBitcoinAccountsData = AccountAPIResponse;
 
 export type ListDogeCoinAccountsData = AccountAPIResponse;
 
 export type ListEosAccountsData = AccountAPIResponse;
+
+export type ListFlowsData = MultiCallAPIResponseAnyArray;
 
 export type ListLitecoinAccountsData = AccountAPIResponse;
 
@@ -2023,6 +2104,8 @@ export type ListRippleAccountsData = AccountAPIResponse;
 export type ListSolanaAccountsData = AccountAPIResponse;
 
 export type ListTronAccountsData = AccountAPIResponse;
+
+export type ListUserDefinedFunctionsData = MultiCallAPIResponseAnyArray;
 
 export interface LitecoinAPIResponse {
   address?: string;
@@ -2065,6 +2148,18 @@ export interface MultiCallAPIResponse {
   success: boolean;
 }
 
+export interface MultiCallAPIResponseAny {
+  data?: any;
+  message: string;
+  success: boolean;
+}
+
+export interface MultiCallAPIResponseAnyArray {
+  data?: any[];
+  message: string;
+  success: boolean;
+}
+
 export interface MultiCallAPIResponseHistory {
   data?: History;
   message: string;
@@ -2095,6 +2190,13 @@ export interface MultiCallAPIResponseMultiCallResult {
   success: boolean;
 }
 
+export interface MultiCallAPIResponseRecordStringStringArray {
+  /** Construct a type with a set of properties K of type T */
+  data?: RecordStringStringArray;
+  message: string;
+  success: boolean;
+}
+
 export interface MultiCallAPIResponseScheduledJobArray {
   data?: ScheduledJob[];
   message: string;
@@ -2116,6 +2218,12 @@ export interface MultiCallInputBody {
     wrapper: string;
   }[];
   chain_id?: string;
+  flow?: {
+    edges: FlowEdge[];
+    nodes: FlowNode[];
+  };
+  /** Construct a type with a set of properties K of type T */
+  globalVariables?: RecordStringAny;
 }
 
 export interface MultiCallResult {
@@ -2312,6 +2420,8 @@ export interface PartialJobs {
   calls?: Json;
   created_at?: string;
   error?: Json | null;
+  flow_id?: string | null;
+  global_variables?: Json | null;
   id?: string;
   status?: string;
   updated_at?: string;
@@ -2462,6 +2572,12 @@ export interface Quote {
 export type Quotes = Quote[];
 
 export type ReadAccountData = BitcoinCashAPIResponseAccountResponse;
+
+/** Construct a type with a set of properties K of type T */
+export type RecordStringAny = object;
+
+/** Construct a type with a set of properties K of type T */
+export type RecordStringStringArray = object;
 
 export type RedeemData = ERC4626APIResponse;
 
@@ -3037,6 +3153,23 @@ export interface UnsignedPSBTInput {
 export interface UnsignedPSBTOutput {
   psbt_hex: string;
 }
+
+export interface UpdateFlowBody {
+  description?: string;
+  edges?: FlowEdge[];
+  name?: string;
+  nodes?: FlowNode[];
+}
+
+export type UpdateFlowData = MultiCallAPIResponseAny;
+
+export interface UpdateUserDefinedFunctionBody {
+  description?: string;
+  functionBody?: string;
+  name?: string;
+}
+
+export type UpdateUserDefinedFunctionData = MultiCallAPIResponseAny;
 
 export enum VersionEnum {
   V2 = 'v2',
