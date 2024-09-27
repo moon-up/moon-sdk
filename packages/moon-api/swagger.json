@@ -807,6 +807,25 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"AccessTuple": {
+				"properties": {
+					"address": {
+						"type": "string"
+					},
+					"storageKeys": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"address",
+					"storageKeys"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"TokenAmount": {
 				"properties": {
 					"tokenAddress": {
@@ -842,16 +861,10 @@
 			},
 			"InputBody": {
 				"properties": {
-					"dryrun": {
-						"type": "boolean"
-					},
 					"to": {
 						"type": "string"
 					},
 					"data": {
-						"type": "string"
-					},
-					"input": {
 						"type": "string"
 					},
 					"value": {
@@ -866,10 +879,44 @@
 					"gasPrice": {
 						"type": "string"
 					},
+					"maxFeePerGas": {
+						"type": "string"
+					},
+					"maxPriorityFeePerGas": {
+						"type": "string"
+					},
 					"chain_id": {
 						"type": "string"
 					},
 					"encoding": {
+						"type": "string"
+					},
+					"type": {
+						"type": "number",
+						"format": "double"
+					},
+					"accessList": {
+						"items": {
+							"$ref": "#/components/schemas/AccessTuple"
+						},
+						"type": "array"
+					},
+					"blobGas": {
+						"type": "string"
+					},
+					"blobGasFeeCap": {
+						"type": "string"
+					},
+					"blobHashes": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"dryrun": {
+						"type": "boolean"
+					},
+					"input": {
 						"type": "string"
 					},
 					"EOA": {
@@ -2307,16 +2354,10 @@
 			},
 			"Erc1155Request": {
 				"properties": {
-					"dryrun": {
-						"type": "boolean"
-					},
 					"to": {
 						"type": "string"
 					},
 					"data": {
-						"type": "string"
-					},
-					"input": {
 						"type": "string"
 					},
 					"value": {
@@ -2331,10 +2372,44 @@
 					"gasPrice": {
 						"type": "string"
 					},
+					"maxFeePerGas": {
+						"type": "string"
+					},
+					"maxPriorityFeePerGas": {
+						"type": "string"
+					},
 					"chain_id": {
 						"type": "string"
 					},
 					"encoding": {
+						"type": "string"
+					},
+					"type": {
+						"type": "number",
+						"format": "double"
+					},
+					"accessList": {
+						"items": {
+							"$ref": "#/components/schemas/AccessTuple"
+						},
+						"type": "array"
+					},
+					"blobGas": {
+						"type": "string"
+					},
+					"blobGasFeeCap": {
+						"type": "string"
+					},
+					"blobHashes": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"dryrun": {
+						"type": "boolean"
+					},
+					"input": {
 						"type": "string"
 					},
 					"EOA": {
@@ -2667,6 +2742,9 @@
 						"type": "string"
 					},
 					"gasPrice": {
+						"type": "string"
+					},
+					"gasLimit": {
 						"type": "string"
 					},
 					"dryrun": {
@@ -4250,10 +4328,99 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"FlowNode": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string",
+						"enum": [
+							"action",
+							"condition",
+							"userFunction"
+						]
+					},
+					"data": {
+						"properties": {
+							"userFunctionName": {
+								"type": "string"
+							},
+							"condition": {
+								"type": "string"
+							},
+							"params": {},
+							"function": {
+								"type": "string"
+							},
+							"wrapper": {
+								"type": "string"
+							}
+						},
+						"type": "object"
+					}
+				},
+				"required": [
+					"id",
+					"type",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"FlowEdge": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"source": {
+						"type": "string"
+					},
+					"target": {
+						"type": "string"
+					},
+					"label": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"source",
+					"target"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Record_string.any_": {
+				"properties": {},
+				"type": "object",
+				"description": "Construct a type with a set of properties K of type T"
+			},
 			"MultiCallInputBody": {
 				"properties": {
 					"chain_id": {
 						"type": "string"
+					},
+					"flow": {
+						"properties": {
+							"edges": {
+								"items": {
+									"$ref": "#/components/schemas/FlowEdge"
+								},
+								"type": "array"
+							},
+							"nodes": {
+								"items": {
+									"$ref": "#/components/schemas/FlowNode"
+								},
+								"type": "array"
+							}
+						},
+						"required": [
+							"edges",
+							"nodes"
+						],
+						"type": "object"
 					},
 					"calls": {
 						"items": {
@@ -4282,6 +4449,9 @@
 							"type": "object"
 						},
 						"type": "array"
+					},
+					"globalVariables": {
+						"$ref": "#/components/schemas/Record_string.any_"
 					}
 				},
 				"required": [
@@ -4454,6 +4624,18 @@
 					"id": {
 						"type": "string"
 					},
+					"global_variables": {
+						"allOf": [
+							{
+								"$ref": "#/components/schemas/Json"
+							}
+						],
+						"nullable": true
+					},
+					"flow_id": {
+						"type": "string",
+						"nullable": true
+					},
 					"error": {
 						"allOf": [
 							{
@@ -4474,6 +4656,8 @@
 					"updated_at",
 					"status",
 					"id",
+					"global_variables",
+					"flow_id",
 					"error",
 					"created_at",
 					"calls"
@@ -4530,6 +4714,18 @@
 						"type": "string"
 					},
 					"error": {
+						"allOf": [
+							{
+								"$ref": "#/components/schemas/Json"
+							}
+						],
+						"nullable": true
+					},
+					"flow_id": {
+						"type": "string",
+						"nullable": true
+					},
+					"global_variables": {
 						"allOf": [
 							{
 								"$ref": "#/components/schemas/Json"
@@ -4695,6 +4891,154 @@
 				},
 				"type": "object",
 				"description": "Make all properties in T optional"
+			},
+			"MultiCallAPIResponse_any_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateFlowBody": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"nodes": {
+						"items": {
+							"$ref": "#/components/schemas/FlowNode"
+						},
+						"type": "array"
+					},
+					"edges": {
+						"items": {
+							"$ref": "#/components/schemas/FlowEdge"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"name",
+					"nodes",
+					"edges"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"MultiCallAPIResponse_any-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateFlowBody": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"nodes": {
+						"items": {
+							"$ref": "#/components/schemas/FlowNode"
+						},
+						"type": "array"
+					},
+					"edges": {
+						"items": {
+							"$ref": "#/components/schemas/FlowEdge"
+						},
+						"type": "array"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateUserDefinedFunctionBody": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"functionBody": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"functionBody"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateUserDefinedFunctionBody": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"functionBody": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Record_string.string-Array_": {
+				"properties": {},
+				"type": "object",
+				"description": "Construct a type with a set of properties K of type T"
+			},
+			"MultiCallAPIResponse_Record_string.string-Array__": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/Record_string.string-Array_"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
 			},
 			"OdosTransaction": {
 				"properties": {
@@ -18176,6 +18520,582 @@
 				]
 			}
 		},
+		"/multicall/flows": {
+			"post": {
+				"operationId": "CreateFlow",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MultiCallAPIResponse_any_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MultiCall"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateFlowBody"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "ListFlows",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MultiCallAPIResponse_any-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MultiCall"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/multicall/flows/{flowId}": {
+			"get": {
+				"operationId": "GetFlow",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MultiCallAPIResponse_any_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MultiCall"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "flowId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "UpdateFlow",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MultiCallAPIResponse_any_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MultiCall"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "flowId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateFlowBody"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeleteFlow",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MultiCallAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MultiCall"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "flowId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/multicall/user-defined-functions": {
+			"post": {
+				"operationId": "CreateUserDefinedFunction",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MultiCallAPIResponse_any_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MultiCall"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateUserDefinedFunctionBody"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "ListUserDefinedFunctions",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MultiCallAPIResponse_any-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MultiCall"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/multicall/user-defined-functions/{functionId}": {
+			"get": {
+				"operationId": "GetUserDefinedFunction",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MultiCallAPIResponse_any_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MultiCall"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "functionId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"put": {
+				"operationId": "UpdateUserDefinedFunction",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MultiCallAPIResponse_any_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MultiCall"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "functionId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateUserDefinedFunctionBody"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeleteUserDefinedFunction",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MultiCallAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MultiCall"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "functionId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/multicall/execute-flow/{flowId}": {
+			"post": {
+				"operationId": "ExecuteFlow",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MultiCallAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MultiCall"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "flowId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/multicall/available-functions": {
+			"get": {
+				"operationId": "ListAvailableFunctions",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MultiCallAPIResponse_Record_string.string-Array__"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MultiCall"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
 		"/odos/{accountName}/swap": {
 			"post": {
 				"operationId": "Swap",
@@ -20803,7 +21723,7 @@
 	},
 	"servers": [
 		{
-			"url": "https://beta.usemoon.ai"
+			"url": "https://beta.usemoon.ai/"
 		}
 	]
 }
