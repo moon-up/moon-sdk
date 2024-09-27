@@ -12,6 +12,7 @@ import {
   Bitcoincash,
   ContentType,
   Cosmos,
+  Data,
   Dogecoin,
   Ens,
   Eos,
@@ -141,6 +142,7 @@ export class MoonSDK extends EventEmitter {
   private ThorswapSDK: Thorswap;
   private AaveSDK: Aave;
   private MultiCallSDK: Multicall;
+  private DataSDK: Data;
   isAuthenticated = false;
   private config: MoonSDKConfig;
   /**
@@ -250,6 +252,7 @@ export class MoonSDK extends EventEmitter {
     this.ThorswapSDK = new Thorswap(this.http);
     this.MultiCallSDK = new Multicall(this.http);
     this.AaveSDK = new Aave(this.http);
+    this.DataSDK = new Data(this.http);
 
     this.connect();
   }
@@ -409,6 +412,9 @@ export class MoonSDK extends EventEmitter {
 
   public getMultiCallSDK(): Multicall {
     return this.MultiCallSDK;
+  }
+  public getDataSDK(): Data {
+    return this.DataSDK;
   }
 
   /**

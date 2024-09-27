@@ -40,19 +40,61 @@ export interface AAVEv3RewardsExecuteFunctionResult {
 
 export interface AAVEv3RewardsInputBody {
   EOA?: boolean;
+  accessList?: AccessTuple[];
+  account?: string;
   alwaysIncrementNonce?: boolean;
   amount?: string;
+  amounts?: string[];
+  approved?: boolean;
+  asset?: string;
   assets?: string[];
+  blobGas?: string;
+  blobGasFeeCap?: string;
+  blobHashes?: string[];
+  borrowAmount?: string | number;
   broadcast?: boolean;
   chain_id?: string;
+  collateralAsset?: string;
   contract_address?: string;
   data?: string;
+  debtAsset?: string;
+  debtToCover?: string;
   dryrun?: boolean;
+  encoding?: string;
   gas?: string;
+  gasLimit?: string;
   gasPrice?: string;
+  initialDeposit?: string | number;
+  initiator?: string;
+  input?: string;
+  inputTokens?: TokenAmount[];
+  /** @format double */
+  interestRateMode?: number;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  minHealthFactor?: string | number;
+  modes?: number[];
   nonce?: string;
+  onBehalfOf?: string;
+  outputTokens?: TokenProportion[];
+  params?: string;
+  premiums?: string[] | number[];
+  /** @format double */
+  rateMode?: number;
+  receiveAToken?: boolean;
+  receiverAddress?: string;
+  /** @format double */
+  referralCode?: number;
   reward?: string;
+  role?: string;
+  /** @format double */
+  slippageLimitPercent?: number;
   to?: string;
+  token_id?: string;
+  token_ids?: string;
+  /** @format double */
+  type?: number;
+  useAsCollateral?: boolean;
   user?: string;
   value?: string;
 }
@@ -98,22 +140,61 @@ export interface AavePoolExecuteFunctionResult {
 
 export interface AavePoolInputBody {
   EOA?: boolean;
+  accessList?: AccessTuple[];
+  account?: string;
   alwaysIncrementNonce?: boolean;
   amount?: string;
+  amounts?: string[];
+  approved?: boolean;
+  asset?: string;
+  assets?: string[];
+  blobGas?: string;
+  blobGasFeeCap?: string;
+  blobHashes?: string[];
+  borrowAmount?: string | number;
   broadcast?: boolean;
   chain_id?: string;
+  collateralAsset?: string;
   contract_address?: string;
   data?: string;
+  debtAsset?: string;
+  debtToCover?: string;
   dryrun?: boolean;
+  encoding?: string;
   gas?: string;
+  gasLimit?: string;
   gasPrice?: string;
+  initialDeposit?: string | number;
+  initiator?: string;
+  input?: string;
+  inputTokens?: TokenAmount[];
   /** @format double */
   interestRateMode?: number;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  minHealthFactor?: string | number;
+  modes?: number[];
   nonce?: string;
   onBehalfOf?: string;
+  outputTokens?: TokenProportion[];
+  params?: string;
+  premiums?: string[] | number[];
+  /** @format double */
+  rateMode?: number;
+  receiveAToken?: boolean;
+  receiverAddress?: string;
   /** @format double */
   referralCode?: number;
+  role?: string;
+  /** @format double */
+  slippageLimitPercent?: number;
   to?: string;
+  token_id?: string;
+  token_ids?: string;
+  /** @format double */
+  type?: number;
+  useAsCollateral?: boolean;
+  user?: string;
   value?: string;
 }
 
@@ -293,6 +374,8 @@ export interface BaseCosmosAPIResponse {
   message: string;
   success: boolean;
 }
+
+export type BigNumberJSON = string;
 
 export interface BitcoinAPIResponse {
   data?:
@@ -761,18 +844,61 @@ export interface ERC20ExecuteFunctionResult {
 
 export interface ERC20InputBody {
   EOA?: boolean;
+  accessList?: AccessTuple[];
+  account?: string;
   alwaysIncrementNonce?: boolean;
   amount?: string;
+  amounts?: string[];
+  approved?: boolean;
+  asset?: string;
+  assets?: string[];
+  blobGas?: string;
+  blobGasFeeCap?: string;
+  blobHashes?: string[];
+  borrowAmount?: string | number;
   broadcast?: boolean;
   chain_id?: string;
+  collateralAsset?: string;
   contract_address?: string;
   data?: string;
+  debtAsset?: string;
+  debtToCover?: string;
   dryrun?: boolean;
+  encoding?: string;
   gas?: string;
   gasLimit?: string;
   gasPrice?: string;
+  initialDeposit?: string | number;
+  initiator?: string;
+  input?: string;
+  inputTokens?: TokenAmount[];
+  /** @format double */
+  interestRateMode?: number;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  minHealthFactor?: string | number;
+  modes?: number[];
   nonce?: string;
+  onBehalfOf?: string;
+  outputTokens?: TokenProportion[];
+  params?: string;
+  premiums?: string[] | number[];
+  /** @format double */
+  rateMode?: number;
+  receiveAToken?: boolean;
+  receiverAddress?: string;
+  /** @format double */
+  referralCode?: number;
+  role?: string;
+  /** @format double */
+  slippageLimitPercent?: number;
   to?: string;
+  token_id?: string;
+  token_ids?: string;
+  /** @format double */
+  type?: number;
+  useAsCollateral?: boolean;
+  user?: string;
   value?: string;
 }
 
@@ -877,6 +1003,7 @@ export interface Erc1155Request {
   dryrun?: boolean;
   encoding?: string;
   gas?: string;
+  gasLimit?: string;
   gasPrice?: string;
   initialDeposit?: string | number;
   initiator?: string;
@@ -926,6 +1053,225 @@ export interface Estimate {
 }
 
 export type EstimateGasData = TransactionAPIResponse;
+
+export type EvmAddressJSON = string;
+
+export interface EvmCommonContractDataJSON {
+  spender: EvmContractSpenderDetailsJSON;
+  token: EvmContractTokenDetailsJSON;
+  value: string;
+  value_formatted?: string;
+}
+
+export interface EvmContractSpenderDetailsJSON {
+  address: EvmAddressJSON;
+  address_label?: string;
+  logo?: string;
+  name?: string;
+  symbol?: string;
+}
+
+export interface EvmContractTokenDetailsJSON {
+  address: EvmAddressJSON;
+  address_label?: string;
+  token_logo: string;
+  token_name: string;
+  token_symbol: string;
+}
+
+export interface EvmDecodedEventJSON {
+  label?: string;
+  params?: EvmDecodedEventParamsItemJSON[];
+  signature?: string;
+  type?: string;
+}
+
+export interface EvmDecodedEventParamsItemJSON {
+  name?: string;
+  type?: string;
+  value?: string;
+}
+
+export enum EvmETransactionCategoryJSON {
+  Send = 'send',
+  Receive = 'receive',
+  TokenSend = 'token send',
+  TokenReceive = 'token receive',
+  NftSend = 'nft send',
+  NftReceive = 'nft receive',
+  TokenSwap = 'token swap',
+  Deposit = 'deposit',
+  Withdraw = 'withdraw',
+  NftPurchase = 'nft purchase',
+  NftSale = 'nft sale',
+  Airdrop = 'airdrop',
+  Mint = 'mint',
+  Burn = 'burn',
+  Borrow = 'borrow',
+  ContractInteraction = 'contract interaction',
+}
+
+export interface EvmInternalTransactionJSON {
+  block_hash: string;
+  block_number: string;
+  from: string;
+  gas: string;
+  gas_used: string;
+  input: string;
+  output: string;
+  to: string;
+  transaction_hash: string;
+  type: string;
+  value: string;
+}
+
+export interface EvmLogVerboseJSON {
+  topic0: string;
+  topic1?: string;
+  topic2?: string;
+  topic3?: string;
+  address: EvmAddressJSON;
+  block_hash: string;
+  block_number: BigNumberJSON;
+  block_timestamp: string;
+  data: string;
+  decoded_event: EvmDecodedEventJSON;
+  log_index: string;
+  transaction_hash: string;
+  transaction_index: string;
+}
+
+export interface EvmNativeTransferJSON {
+  direction?: string;
+  from_address: EvmAddressJSON;
+  from_address_entity?: string;
+  from_address_entity_logo?: string;
+  from_address_label?: string;
+  internal_transaction: boolean;
+  to_address?: EvmAddressJSON;
+  to_address_entity?: string;
+  to_address_entity_logo?: string;
+  to_address_label?: string;
+  token_logo: string;
+  token_symbol: string;
+  value: string;
+  value_formatted: string;
+}
+
+export interface EvmNormalizedMetadataAttributeJSON {
+  display_type?: string;
+  /** @format double */
+  max_value?: number;
+  /** @format double */
+  order?: number;
+  /** @format double */
+  trait_count?: number;
+  trait_type?: string;
+  value?: EvmNormalizedMetadataAttributeValueJSON;
+}
+
+export type EvmNormalizedMetadataAttributeValueJSON = object;
+
+export interface EvmNormalizedMetadataJSON {
+  animation_url?: string;
+  attributes?: EvmNormalizedMetadataAttributeJSON[];
+  description?: string;
+  external_link?: string;
+  image?: string;
+  name?: string;
+}
+
+export interface EvmResolveContractInteractionResponseJSON {
+  approvals?: EvmCommonContractDataJSON[];
+  approvalsAll?: EvmCommonContractDataJSON[];
+  revokes?: EvmCommonContractDataJSON[];
+  revokesAll?: EvmCommonContractDataJSON[];
+}
+
+export interface EvmWalletHistoryErc20TransferJSON {
+  address: EvmAddressJSON;
+  block_timestamp?: string;
+  from_address: EvmAddressJSON;
+  from_address_entity?: string;
+  from_address_entity_logo?: string;
+  from_address_label?: string;
+  /** @format double */
+  log_index: number;
+  possible_spam: boolean;
+  to_address?: EvmAddressJSON;
+  to_address_entity?: string;
+  to_address_entity_logo?: string;
+  to_address_label?: string;
+  token_decimals: string;
+  token_logo: string;
+  token_name: string;
+  token_symbol: string;
+  value: string;
+  value_formatted: string;
+  verified_contract: boolean;
+}
+
+export interface EvmWalletHistoryNftTransferJSON {
+  amount: string;
+  collection_banner_image?: string;
+  collection_logo?: string;
+  contract_type: string;
+  direction: string;
+  from_address: EvmAddressJSON;
+  from_address_entity?: string;
+  from_address_entity_logo?: string;
+  from_address_label?: string;
+  /** @format double */
+  log_index: number;
+  normalized_metadata?: EvmNormalizedMetadataJSON;
+  operator?: string;
+  possible_spam: boolean;
+  to_address?: EvmAddressJSON;
+  to_address_entity?: string;
+  to_address_entity_logo?: string;
+  to_address_label?: string;
+  token_address: EvmAddressJSON;
+  token_id: string;
+  transaction_type: string;
+  value: string;
+  verified_collection?: boolean;
+}
+
+export interface EvmWalletHistoryTransactionJSON {
+  erc20_transfers: EvmWalletHistoryErc20TransferJSON[];
+  block_hash: string;
+  block_number: BigNumberJSON;
+  block_timestamp: string;
+  category: EvmETransactionCategoryJSON;
+  contract_interactions?: EvmResolveContractInteractionResponseJSON;
+  from_address: EvmAddressJSON;
+  from_address_entity?: string;
+  from_address_entity_logo?: string;
+  from_address_label?: string;
+  gas?: string;
+  gas_price: string;
+  hash: string;
+  input?: string;
+  internal_transactions?: EvmInternalTransactionJSON[];
+  logs?: EvmLogVerboseJSON[];
+  method_label?: string;
+  native_transfers: EvmNativeTransferJSON[];
+  nft_transfers: EvmWalletHistoryNftTransferJSON[];
+  nonce: string;
+  possible_spam?: boolean;
+  receipt_contract_address?: string;
+  receipt_cumulative_gas_used: string;
+  receipt_gas_used: string;
+  receipt_status: string;
+  summary: string;
+  to_address?: EvmAddressJSON;
+  to_address_entity?: string;
+  to_address_entity_logo?: string;
+  to_address_label?: string;
+  transaction_fee?: string;
+  transaction_index: string;
+  value: string;
+}
 
 export interface Exchange {
   key: string;
@@ -1767,6 +2113,21 @@ export interface GetUserRewardsParams {
   user: string;
 }
 
+export type GetWalletBalanceData = WalletBalanceAPIResponse;
+
+export interface GetWalletBalanceParams {
+  address: string;
+  chain: string;
+  excludeNative?: boolean;
+}
+
+export type GetWalletHistoryData = WalletHistoryAPIResponse;
+
+export interface GetWalletHistoryParams {
+  address: string;
+  chain: string;
+}
+
 export type GetWethData = LeveragerAPIResponseString;
 
 export interface GetWethParams {
@@ -1829,6 +2190,7 @@ export interface InputBody {
   dryrun?: boolean;
   encoding?: string;
   gas?: string;
+  gasLimit?: string;
   gasPrice?: string;
   initialDeposit?: string | number;
   initiator?: string;
@@ -1944,11 +2306,18 @@ export interface LendingPoolExecuteFunctionResult {
 
 export interface LendingPoolInputBody {
   EOA?: boolean;
+  accessList?: AccessTuple[];
+  account?: string;
   alwaysIncrementNonce?: boolean;
   amount?: string;
   amounts?: string[];
+  approved?: boolean;
   asset?: string;
   assets?: string[];
+  blobGas?: string;
+  blobGasFeeCap?: string;
+  blobHashes?: string[];
+  borrowAmount?: string | number;
   broadcast?: boolean;
   chain_id?: string;
   collateralAsset?: string;
@@ -1957,21 +2326,39 @@ export interface LendingPoolInputBody {
   debtAsset?: string;
   debtToCover?: string;
   dryrun?: boolean;
+  encoding?: string;
   gas?: string;
+  gasLimit?: string;
   gasPrice?: string;
+  initialDeposit?: string | number;
+  initiator?: string;
+  input?: string;
+  inputTokens?: TokenAmount[];
   /** @format double */
   interestRateMode?: number;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  minHealthFactor?: string | number;
   modes?: number[];
   nonce?: string;
   onBehalfOf?: string;
+  outputTokens?: TokenProportion[];
   params?: string;
+  premiums?: string[] | number[];
   /** @format double */
   rateMode?: number;
   receiveAToken?: boolean;
   receiverAddress?: string;
   /** @format double */
   referralCode?: number;
+  role?: string;
+  /** @format double */
+  slippageLimitPercent?: number;
   to?: string;
+  token_id?: string;
+  token_ids?: string;
+  /** @format double */
+  type?: number;
   useAsCollateral?: boolean;
   user?: string;
   value?: string;
@@ -2030,27 +2417,61 @@ export interface LeveragerExecuteFunctionResult {
 
 export interface LeveragerInputBody {
   EOA?: boolean;
+  accessList?: AccessTuple[];
   account?: string;
   alwaysIncrementNonce?: boolean;
+  amount?: string;
   amounts?: string[];
+  approved?: boolean;
   asset?: string;
   assets?: string[];
+  blobGas?: string;
+  blobGasFeeCap?: string;
+  blobHashes?: string[];
   borrowAmount?: string;
   broadcast?: boolean;
   chain_id?: string;
+  collateralAsset?: string;
   contract_address?: string;
   data?: string;
+  debtAsset?: string;
+  debtToCover?: string;
   dryrun?: boolean;
+  encoding?: string;
   gas?: string;
+  gasLimit?: string;
   gasPrice?: string;
   initialDeposit?: string;
   initiator?: string;
+  input?: string;
+  inputTokens?: TokenAmount[];
+  /** @format double */
+  interestRateMode?: number;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
   minHealthFactor?: string;
+  modes?: number[];
   nonce?: string;
+  onBehalfOf?: string;
+  outputTokens?: TokenProportion[];
   params?: string;
   premiums?: string[];
+  /** @format double */
+  rateMode?: number;
+  receiveAToken?: boolean;
+  receiverAddress?: string;
+  /** @format double */
+  referralCode?: number;
   role?: string;
+  /** @format double */
+  slippageLimitPercent?: number;
   to?: string;
+  token_id?: string;
+  token_ids?: string;
+  /** @format double */
+  type?: number;
+  useAsCollateral?: boolean;
+  user?: string;
   value?: string;
 }
 
@@ -2476,19 +2897,64 @@ export interface PoolAddressProviderExecuteFunctionResult {
 
 export interface PoolAddressProviderInputBody {
   EOA?: boolean;
+  accessList?: AccessTuple[];
+  account?: string;
   alwaysIncrementNonce?: boolean;
+  amount?: string;
+  amounts?: string[];
+  approved?: boolean;
+  asset?: string;
+  assets?: string[];
+  blobGas?: string;
+  blobGasFeeCap?: string;
+  blobHashes?: string[];
+  borrowAmount?: string | number;
   broadcast?: boolean;
   chain_id?: string;
+  collateralAsset?: string;
   contract_address?: string;
   data?: string;
+  debtAsset?: string;
+  debtToCover?: string;
   dryrun?: boolean;
+  encoding?: string;
   gas?: string;
+  gasLimit?: string;
   gasPrice?: string;
+  initialDeposit?: string | number;
+  initiator?: string;
+  input?: string;
+  inputTokens?: TokenAmount[];
+  /** @format double */
+  interestRateMode?: number;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  minHealthFactor?: string | number;
+  modes?: number[];
   newAddress?: string;
   newImplementationAddress?: string;
   newMarketId?: string;
   nonce?: string;
+  onBehalfOf?: string;
+  outputTokens?: TokenProportion[];
+  params?: string;
+  premiums?: string[] | number[];
+  /** @format double */
+  rateMode?: number;
+  receiveAToken?: boolean;
+  receiverAddress?: string;
+  /** @format double */
+  referralCode?: number;
+  role?: string;
+  /** @format double */
+  slippageLimitPercent?: number;
   to?: string;
+  token_id?: string;
+  token_ids?: string;
+  /** @format double */
+  type?: number;
+  useAsCollateral?: boolean;
+  user?: string;
   value?: string;
 }
 
@@ -3181,6 +3647,22 @@ export enum VersionEnum1 {
 
 export enum VersionEnum2 {
   V2 = 'v2',
+}
+
+export interface WalletBalanceAPIResponse {
+  address?: string;
+  body?: InputBody;
+  data?: any[];
+  message: string;
+  success: boolean;
+}
+
+export interface WalletHistoryAPIResponse {
+  address?: string;
+  body?: InputBody;
+  data?: EvmWalletHistoryTransactionJSON[];
+  message: string;
+  success: boolean;
 }
 
 export type WithdrawData = AavePoolAPIResponseAavePoolExecuteFunctionResult;
