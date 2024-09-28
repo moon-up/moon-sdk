@@ -325,21 +325,70 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"AavePoolInputBody": {
+			"AccessTuple": {
 				"properties": {
-					"chain_id": {
+					"address": {
 						"type": "string"
 					},
-					"to": {
+					"storageKeys": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"address",
+					"storageKeys"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TokenAmount": {
+				"properties": {
+					"tokenAddress": {
 						"type": "string"
 					},
 					"amount": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"tokenAddress",
+					"amount"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TokenProportion": {
+				"properties": {
+					"tokenAddress": {
+						"type": "string"
+					},
+					"proportion": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"tokenAddress",
+					"proportion"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AavePoolInputBody": {
+				"properties": {
+					"to": {
+						"type": "string"
+					},
+					"data": {
 						"type": "string"
 					},
 					"value": {
 						"type": "string"
 					},
-					"data": {
+					"gasLimit": {
 						"type": "string"
 					},
 					"nonce": {
@@ -351,10 +400,59 @@
 					"gasPrice": {
 						"type": "string"
 					},
+					"maxFeePerGas": {
+						"type": "string"
+					},
+					"maxPriorityFeePerGas": {
+						"type": "string"
+					},
+					"chain_id": {
+						"type": "string"
+					},
+					"encoding": {
+						"type": "string"
+					},
+					"type": {
+						"type": "number",
+						"format": "double"
+					},
+					"accessList": {
+						"items": {
+							"$ref": "#/components/schemas/AccessTuple"
+						},
+						"type": "array"
+					},
+					"blobGas": {
+						"type": "string"
+					},
+					"blobGasFeeCap": {
+						"type": "string"
+					},
+					"blobHashes": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
 					"dryrun": {
 						"type": "boolean"
 					},
+					"input": {
+						"type": "string"
+					},
 					"EOA": {
+						"type": "boolean"
+					},
+					"contract_address": {
+						"type": "string"
+					},
+					"token_id": {
+						"type": "string"
+					},
+					"token_ids": {
+						"type": "string"
+					},
+					"approved": {
 						"type": "boolean"
 					},
 					"broadcast": {
@@ -363,7 +461,10 @@
 					"alwaysIncrementNonce": {
 						"type": "boolean"
 					},
-					"contract_address": {
+					"asset": {
+						"type": "string"
+					},
+					"amount": {
 						"type": "string"
 					},
 					"interestRateMode": {
@@ -376,6 +477,128 @@
 					},
 					"onBehalfOf": {
 						"type": "string"
+					},
+					"receiverAddress": {
+						"type": "string"
+					},
+					"assets": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"amounts": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"modes": {
+						"items": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "array"
+					},
+					"params": {
+						"type": "string"
+					},
+					"rateMode": {
+						"type": "number",
+						"format": "double"
+					},
+					"useAsCollateral": {
+						"type": "boolean"
+					},
+					"collateralAsset": {
+						"type": "string"
+					},
+					"debtAsset": {
+						"type": "string"
+					},
+					"user": {
+						"type": "string"
+					},
+					"debtToCover": {
+						"type": "string"
+					},
+					"receiveAToken": {
+						"type": "boolean"
+					},
+					"inputTokens": {
+						"items": {
+							"$ref": "#/components/schemas/TokenAmount"
+						},
+						"type": "array"
+					},
+					"outputTokens": {
+						"items": {
+							"$ref": "#/components/schemas/TokenProportion"
+						},
+						"type": "array"
+					},
+					"slippageLimitPercent": {
+						"type": "number",
+						"format": "double"
+					},
+					"minHealthFactor": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
+					},
+					"premiums": {
+						"anyOf": [
+							{
+								"items": {
+									"type": "string"
+								},
+								"type": "array"
+							},
+							{
+								"items": {
+									"type": "number",
+									"format": "double"
+								},
+								"type": "array"
+							}
+						]
+					},
+					"initiator": {
+						"type": "string"
+					},
+					"role": {
+						"type": "string"
+					},
+					"account": {
+						"type": "string"
+					},
+					"initialDeposit": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
+					},
+					"borrowAmount": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
 					}
 				},
 				"type": "object",
@@ -505,16 +728,16 @@
 			},
 			"PoolAddressProviderInputBody": {
 				"properties": {
-					"chain_id": {
+					"to": {
 						"type": "string"
 					},
-					"to": {
+					"data": {
 						"type": "string"
 					},
 					"value": {
 						"type": "string"
 					},
-					"data": {
+					"gasLimit": {
 						"type": "string"
 					},
 					"nonce": {
@@ -526,10 +749,59 @@
 					"gasPrice": {
 						"type": "string"
 					},
+					"maxFeePerGas": {
+						"type": "string"
+					},
+					"maxPriorityFeePerGas": {
+						"type": "string"
+					},
+					"chain_id": {
+						"type": "string"
+					},
+					"encoding": {
+						"type": "string"
+					},
+					"type": {
+						"type": "number",
+						"format": "double"
+					},
+					"accessList": {
+						"items": {
+							"$ref": "#/components/schemas/AccessTuple"
+						},
+						"type": "array"
+					},
+					"blobGas": {
+						"type": "string"
+					},
+					"blobGasFeeCap": {
+						"type": "string"
+					},
+					"blobHashes": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
 					"dryrun": {
 						"type": "boolean"
 					},
+					"input": {
+						"type": "string"
+					},
 					"EOA": {
+						"type": "boolean"
+					},
+					"contract_address": {
+						"type": "string"
+					},
+					"token_id": {
+						"type": "string"
+					},
+					"token_ids": {
+						"type": "string"
+					},
+					"approved": {
 						"type": "boolean"
 					},
 					"broadcast": {
@@ -538,8 +810,144 @@
 					"alwaysIncrementNonce": {
 						"type": "boolean"
 					},
-					"contract_address": {
+					"asset": {
 						"type": "string"
+					},
+					"amount": {
+						"type": "string"
+					},
+					"interestRateMode": {
+						"type": "number",
+						"format": "double"
+					},
+					"referralCode": {
+						"type": "number",
+						"format": "double"
+					},
+					"onBehalfOf": {
+						"type": "string"
+					},
+					"receiverAddress": {
+						"type": "string"
+					},
+					"assets": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"amounts": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"modes": {
+						"items": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "array"
+					},
+					"params": {
+						"type": "string"
+					},
+					"rateMode": {
+						"type": "number",
+						"format": "double"
+					},
+					"useAsCollateral": {
+						"type": "boolean"
+					},
+					"collateralAsset": {
+						"type": "string"
+					},
+					"debtAsset": {
+						"type": "string"
+					},
+					"user": {
+						"type": "string"
+					},
+					"debtToCover": {
+						"type": "string"
+					},
+					"receiveAToken": {
+						"type": "boolean"
+					},
+					"inputTokens": {
+						"items": {
+							"$ref": "#/components/schemas/TokenAmount"
+						},
+						"type": "array"
+					},
+					"outputTokens": {
+						"items": {
+							"$ref": "#/components/schemas/TokenProportion"
+						},
+						"type": "array"
+					},
+					"slippageLimitPercent": {
+						"type": "number",
+						"format": "double"
+					},
+					"minHealthFactor": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
+					},
+					"premiums": {
+						"anyOf": [
+							{
+								"items": {
+									"type": "string"
+								},
+								"type": "array"
+							},
+							{
+								"items": {
+									"type": "number",
+									"format": "double"
+								},
+								"type": "array"
+							}
+						]
+					},
+					"initiator": {
+						"type": "string"
+					},
+					"role": {
+						"type": "string"
+					},
+					"account": {
+						"type": "string"
+					},
+					"initialDeposit": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
+					},
+					"borrowAmount": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
 					},
 					"newAddress": {
 						"type": "string"
@@ -739,19 +1147,16 @@
 			},
 			"AAVEv3RewardsInputBody": {
 				"properties": {
-					"chain_id": {
-						"type": "string"
-					},
 					"to": {
 						"type": "string"
 					},
-					"amount": {
+					"data": {
 						"type": "string"
 					},
 					"value": {
 						"type": "string"
 					},
-					"data": {
+					"gasLimit": {
 						"type": "string"
 					},
 					"nonce": {
@@ -763,10 +1168,59 @@
 					"gasPrice": {
 						"type": "string"
 					},
+					"maxFeePerGas": {
+						"type": "string"
+					},
+					"maxPriorityFeePerGas": {
+						"type": "string"
+					},
+					"chain_id": {
+						"type": "string"
+					},
+					"encoding": {
+						"type": "string"
+					},
+					"type": {
+						"type": "number",
+						"format": "double"
+					},
+					"accessList": {
+						"items": {
+							"$ref": "#/components/schemas/AccessTuple"
+						},
+						"type": "array"
+					},
+					"blobGas": {
+						"type": "string"
+					},
+					"blobGasFeeCap": {
+						"type": "string"
+					},
+					"blobHashes": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
 					"dryrun": {
 						"type": "boolean"
 					},
+					"input": {
+						"type": "string"
+					},
 					"EOA": {
+						"type": "boolean"
+					},
+					"contract_address": {
+						"type": "string"
+					},
+					"token_id": {
+						"type": "string"
+					},
+					"token_ids": {
+						"type": "string"
+					},
+					"approved": {
 						"type": "boolean"
 					},
 					"broadcast": {
@@ -775,7 +1229,24 @@
 					"alwaysIncrementNonce": {
 						"type": "boolean"
 					},
-					"contract_address": {
+					"asset": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "string"
+					},
+					"interestRateMode": {
+						"type": "number",
+						"format": "double"
+					},
+					"referralCode": {
+						"type": "number",
+						"format": "double"
+					},
+					"onBehalfOf": {
+						"type": "string"
+					},
+					"receiverAddress": {
 						"type": "string"
 					},
 					"assets": {
@@ -784,8 +1255,118 @@
 						},
 						"type": "array"
 					},
+					"amounts": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"modes": {
+						"items": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "array"
+					},
+					"params": {
+						"type": "string"
+					},
+					"rateMode": {
+						"type": "number",
+						"format": "double"
+					},
+					"useAsCollateral": {
+						"type": "boolean"
+					},
+					"collateralAsset": {
+						"type": "string"
+					},
+					"debtAsset": {
+						"type": "string"
+					},
 					"user": {
 						"type": "string"
+					},
+					"debtToCover": {
+						"type": "string"
+					},
+					"receiveAToken": {
+						"type": "boolean"
+					},
+					"inputTokens": {
+						"items": {
+							"$ref": "#/components/schemas/TokenAmount"
+						},
+						"type": "array"
+					},
+					"outputTokens": {
+						"items": {
+							"$ref": "#/components/schemas/TokenProportion"
+						},
+						"type": "array"
+					},
+					"slippageLimitPercent": {
+						"type": "number",
+						"format": "double"
+					},
+					"minHealthFactor": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
+					},
+					"premiums": {
+						"anyOf": [
+							{
+								"items": {
+									"type": "string"
+								},
+								"type": "array"
+							},
+							{
+								"items": {
+									"type": "number",
+									"format": "double"
+								},
+								"type": "array"
+							}
+						]
+					},
+					"initiator": {
+						"type": "string"
+					},
+					"role": {
+						"type": "string"
+					},
+					"account": {
+						"type": "string"
+					},
+					"initialDeposit": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
+					},
+					"borrowAmount": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
 					},
 					"reward": {
 						"type": "string"
@@ -807,58 +1388,6 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"AccessTuple": {
-				"properties": {
-					"address": {
-						"type": "string"
-					},
-					"storageKeys": {
-						"items": {
-							"type": "string"
-						},
-						"type": "array"
-					}
-				},
-				"required": [
-					"address",
-					"storageKeys"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"TokenAmount": {
-				"properties": {
-					"tokenAddress": {
-						"type": "string"
-					},
-					"amount": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"tokenAddress",
-					"amount"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"TokenProportion": {
-				"properties": {
-					"tokenAddress": {
-						"type": "string"
-					},
-					"proportion": {
-						"type": "number",
-						"format": "double"
-					}
-				},
-				"required": [
-					"tokenAddress",
-					"proportion"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
 			"InputBody": {
 				"properties": {
 					"to": {
@@ -868,6 +1397,9 @@
 						"type": "string"
 					},
 					"value": {
+						"type": "string"
+					},
+					"gasLimit": {
 						"type": "string"
 					},
 					"nonce": {
@@ -2163,6 +2695,751 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"WalletBalanceAPIResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody"
+					},
+					"address": {
+						"type": "string"
+					},
+					"data": {
+						"items": {},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"EvmAddressJSON": {
+				"type": "string"
+			},
+			"BigNumberJSON": {
+				"type": "string"
+			},
+			"EvmInternalTransactionJSON": {
+				"properties": {
+					"transaction_hash": {
+						"type": "string"
+					},
+					"block_number": {
+						"type": "string"
+					},
+					"block_hash": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"from": {
+						"type": "string"
+					},
+					"to": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"gas": {
+						"type": "string"
+					},
+					"gas_used": {
+						"type": "string"
+					},
+					"input": {
+						"type": "string"
+					},
+					"output": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"transaction_hash",
+					"block_number",
+					"block_hash",
+					"type",
+					"from",
+					"to",
+					"value",
+					"gas",
+					"gas_used",
+					"input",
+					"output"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"EvmETransactionCategoryJSON": {
+				"type": "string",
+				"enum": [
+					"send",
+					"receive",
+					"token send",
+					"token receive",
+					"nft send",
+					"nft receive",
+					"token swap",
+					"deposit",
+					"withdraw",
+					"nft purchase",
+					"nft sale",
+					"airdrop",
+					"mint",
+					"burn",
+					"borrow",
+					"contract interaction"
+				]
+			},
+			"EvmContractTokenDetailsJSON": {
+				"properties": {
+					"address": {
+						"$ref": "#/components/schemas/EvmAddressJSON"
+					},
+					"address_label": {
+						"type": "string"
+					},
+					"token_name": {
+						"type": "string"
+					},
+					"token_logo": {
+						"type": "string"
+					},
+					"token_symbol": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"address",
+					"token_name",
+					"token_logo",
+					"token_symbol"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"EvmContractSpenderDetailsJSON": {
+				"properties": {
+					"address": {
+						"$ref": "#/components/schemas/EvmAddressJSON"
+					},
+					"address_label": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"symbol": {
+						"type": "string"
+					},
+					"logo": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"address"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"EvmCommonContractDataJSON": {
+				"properties": {
+					"value": {
+						"type": "string"
+					},
+					"value_formatted": {
+						"type": "string"
+					},
+					"token": {
+						"$ref": "#/components/schemas/EvmContractTokenDetailsJSON"
+					},
+					"spender": {
+						"$ref": "#/components/schemas/EvmContractSpenderDetailsJSON"
+					}
+				},
+				"required": [
+					"value",
+					"token",
+					"spender"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"EvmResolveContractInteractionResponseJSON": {
+				"properties": {
+					"approvals": {
+						"items": {
+							"$ref": "#/components/schemas/EvmCommonContractDataJSON"
+						},
+						"type": "array"
+					},
+					"revokes": {
+						"items": {
+							"$ref": "#/components/schemas/EvmCommonContractDataJSON"
+						},
+						"type": "array"
+					},
+					"approvalsAll": {
+						"items": {
+							"$ref": "#/components/schemas/EvmCommonContractDataJSON"
+						},
+						"type": "array"
+					},
+					"revokesAll": {
+						"items": {
+							"$ref": "#/components/schemas/EvmCommonContractDataJSON"
+						},
+						"type": "array"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"EvmNormalizedMetadataAttributeValueJSON": {
+				"additionalProperties": false,
+				"type": "object"
+			},
+			"EvmNormalizedMetadataAttributeJSON": {
+				"properties": {
+					"trait_type": {
+						"type": "string"
+					},
+					"value": {
+						"$ref": "#/components/schemas/EvmNormalizedMetadataAttributeValueJSON"
+					},
+					"display_type": {
+						"type": "string"
+					},
+					"max_value": {
+						"type": "number",
+						"format": "double"
+					},
+					"trait_count": {
+						"type": "number",
+						"format": "double"
+					},
+					"order": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"EvmNormalizedMetadataJSON": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"image": {
+						"type": "string"
+					},
+					"external_link": {
+						"type": "string"
+					},
+					"animation_url": {
+						"type": "string"
+					},
+					"attributes": {
+						"items": {
+							"$ref": "#/components/schemas/EvmNormalizedMetadataAttributeJSON"
+						},
+						"type": "array"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"EvmWalletHistoryNftTransferJSON": {
+				"properties": {
+					"token_address": {
+						"$ref": "#/components/schemas/EvmAddressJSON"
+					},
+					"token_id": {
+						"type": "string"
+					},
+					"from_address_entity": {
+						"type": "string"
+					},
+					"from_address_entity_logo": {
+						"type": "string"
+					},
+					"from_address": {
+						"$ref": "#/components/schemas/EvmAddressJSON"
+					},
+					"from_address_label": {
+						"type": "string"
+					},
+					"to_address_entity": {
+						"type": "string"
+					},
+					"to_address_entity_logo": {
+						"type": "string"
+					},
+					"to_address": {
+						"$ref": "#/components/schemas/EvmAddressJSON"
+					},
+					"to_address_label": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "string"
+					},
+					"contract_type": {
+						"type": "string"
+					},
+					"transaction_type": {
+						"type": "string"
+					},
+					"log_index": {
+						"type": "number",
+						"format": "double"
+					},
+					"operator": {
+						"type": "string"
+					},
+					"possible_spam": {
+						"type": "boolean"
+					},
+					"verified_collection": {
+						"type": "boolean"
+					},
+					"direction": {
+						"type": "string"
+					},
+					"collection_logo": {
+						"type": "string"
+					},
+					"collection_banner_image": {
+						"type": "string"
+					},
+					"normalized_metadata": {
+						"$ref": "#/components/schemas/EvmNormalizedMetadataJSON"
+					}
+				},
+				"required": [
+					"token_address",
+					"token_id",
+					"from_address",
+					"value",
+					"amount",
+					"contract_type",
+					"transaction_type",
+					"log_index",
+					"possible_spam",
+					"direction"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"EvmWalletHistoryErc20TransferJSON": {
+				"properties": {
+					"token_name": {
+						"type": "string"
+					},
+					"token_symbol": {
+						"type": "string"
+					},
+					"token_logo": {
+						"type": "string"
+					},
+					"token_decimals": {
+						"type": "string"
+					},
+					"address": {
+						"$ref": "#/components/schemas/EvmAddressJSON"
+					},
+					"block_timestamp": {
+						"type": "string"
+					},
+					"to_address_entity": {
+						"type": "string"
+					},
+					"to_address_entity_logo": {
+						"type": "string"
+					},
+					"to_address": {
+						"$ref": "#/components/schemas/EvmAddressJSON"
+					},
+					"to_address_label": {
+						"type": "string"
+					},
+					"from_address_entity": {
+						"type": "string"
+					},
+					"from_address_entity_logo": {
+						"type": "string"
+					},
+					"from_address": {
+						"$ref": "#/components/schemas/EvmAddressJSON"
+					},
+					"from_address_label": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"value_formatted": {
+						"type": "string"
+					},
+					"log_index": {
+						"type": "number",
+						"format": "double"
+					},
+					"possible_spam": {
+						"type": "boolean"
+					},
+					"verified_contract": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"token_name",
+					"token_symbol",
+					"token_logo",
+					"token_decimals",
+					"address",
+					"from_address",
+					"value",
+					"value_formatted",
+					"log_index",
+					"possible_spam",
+					"verified_contract"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"EvmNativeTransferJSON": {
+				"properties": {
+					"from_address_entity": {
+						"type": "string"
+					},
+					"from_address_entity_logo": {
+						"type": "string"
+					},
+					"from_address": {
+						"$ref": "#/components/schemas/EvmAddressJSON"
+					},
+					"from_address_label": {
+						"type": "string"
+					},
+					"to_address_entity": {
+						"type": "string"
+					},
+					"to_address_entity_logo": {
+						"type": "string"
+					},
+					"to_address": {
+						"$ref": "#/components/schemas/EvmAddressJSON"
+					},
+					"to_address_label": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"value_formatted": {
+						"type": "string"
+					},
+					"direction": {
+						"type": "string"
+					},
+					"internal_transaction": {
+						"type": "boolean"
+					},
+					"token_symbol": {
+						"type": "string"
+					},
+					"token_logo": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"from_address",
+					"value",
+					"value_formatted",
+					"internal_transaction",
+					"token_symbol",
+					"token_logo"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"EvmDecodedEventParamsItemJSON": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"EvmDecodedEventJSON": {
+				"properties": {
+					"signature": {
+						"type": "string"
+					},
+					"label": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"params": {
+						"items": {
+							"$ref": "#/components/schemas/EvmDecodedEventParamsItemJSON"
+						},
+						"type": "array"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"EvmLogVerboseJSON": {
+				"properties": {
+					"log_index": {
+						"type": "string"
+					},
+					"transaction_hash": {
+						"type": "string"
+					},
+					"transaction_index": {
+						"type": "string"
+					},
+					"address": {
+						"$ref": "#/components/schemas/EvmAddressJSON"
+					},
+					"data": {
+						"type": "string"
+					},
+					"topic0": {
+						"type": "string"
+					},
+					"topic1": {
+						"type": "string"
+					},
+					"topic2": {
+						"type": "string"
+					},
+					"topic3": {
+						"type": "string"
+					},
+					"block_timestamp": {
+						"type": "string"
+					},
+					"block_number": {
+						"$ref": "#/components/schemas/BigNumberJSON"
+					},
+					"block_hash": {
+						"type": "string"
+					},
+					"decoded_event": {
+						"$ref": "#/components/schemas/EvmDecodedEventJSON"
+					}
+				},
+				"required": [
+					"log_index",
+					"transaction_hash",
+					"transaction_index",
+					"address",
+					"data",
+					"topic0",
+					"block_timestamp",
+					"block_number",
+					"block_hash",
+					"decoded_event"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"EvmWalletHistoryTransactionJSON": {
+				"properties": {
+					"hash": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "string"
+					},
+					"transaction_index": {
+						"type": "string"
+					},
+					"from_address_entity": {
+						"type": "string"
+					},
+					"from_address_entity_logo": {
+						"type": "string"
+					},
+					"from_address": {
+						"$ref": "#/components/schemas/EvmAddressJSON"
+					},
+					"from_address_label": {
+						"type": "string"
+					},
+					"to_address_entity": {
+						"type": "string"
+					},
+					"to_address_entity_logo": {
+						"type": "string"
+					},
+					"to_address": {
+						"$ref": "#/components/schemas/EvmAddressJSON"
+					},
+					"to_address_label": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"gas": {
+						"type": "string"
+					},
+					"gas_price": {
+						"type": "string"
+					},
+					"input": {
+						"type": "string"
+					},
+					"receipt_cumulative_gas_used": {
+						"type": "string"
+					},
+					"receipt_gas_used": {
+						"type": "string"
+					},
+					"receipt_contract_address": {
+						"type": "string"
+					},
+					"receipt_status": {
+						"type": "string"
+					},
+					"transaction_fee": {
+						"type": "string"
+					},
+					"block_timestamp": {
+						"type": "string"
+					},
+					"block_number": {
+						"$ref": "#/components/schemas/BigNumberJSON"
+					},
+					"block_hash": {
+						"type": "string"
+					},
+					"internal_transactions": {
+						"items": {
+							"$ref": "#/components/schemas/EvmInternalTransactionJSON"
+						},
+						"type": "array"
+					},
+					"category": {
+						"$ref": "#/components/schemas/EvmETransactionCategoryJSON"
+					},
+					"contract_interactions": {
+						"$ref": "#/components/schemas/EvmResolveContractInteractionResponseJSON"
+					},
+					"possible_spam": {
+						"type": "boolean"
+					},
+					"method_label": {
+						"type": "string"
+					},
+					"summary": {
+						"type": "string"
+					},
+					"nft_transfers": {
+						"items": {
+							"$ref": "#/components/schemas/EvmWalletHistoryNftTransferJSON"
+						},
+						"type": "array"
+					},
+					"erc20_transfers": {
+						"items": {
+							"$ref": "#/components/schemas/EvmWalletHistoryErc20TransferJSON"
+						},
+						"type": "array"
+					},
+					"native_transfers": {
+						"items": {
+							"$ref": "#/components/schemas/EvmNativeTransferJSON"
+						},
+						"type": "array"
+					},
+					"logs": {
+						"items": {
+							"$ref": "#/components/schemas/EvmLogVerboseJSON"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"hash",
+					"nonce",
+					"transaction_index",
+					"from_address",
+					"value",
+					"gas_price",
+					"receipt_cumulative_gas_used",
+					"receipt_gas_used",
+					"receipt_status",
+					"block_timestamp",
+					"block_number",
+					"block_hash",
+					"category",
+					"summary",
+					"nft_transfers",
+					"erc20_transfers",
+					"native_transfers"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"WalletHistoryAPIResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody"
+					},
+					"address": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/EvmWalletHistoryTransactionJSON"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"DogeCoinInput": {
 				"properties": {
 					"network": {
@@ -2361,6 +3638,9 @@
 						"type": "string"
 					},
 					"value": {
+						"type": "string"
+					},
+					"gasLimit": {
 						"type": "string"
 					},
 					"nonce": {
@@ -2720,19 +4000,16 @@
 			},
 			"ERC20InputBody": {
 				"properties": {
-					"chain_id": {
-						"type": "string"
-					},
 					"to": {
 						"type": "string"
 					},
-					"amount": {
+					"data": {
 						"type": "string"
 					},
 					"value": {
 						"type": "string"
 					},
-					"data": {
+					"gasLimit": {
 						"type": "string"
 					},
 					"nonce": {
@@ -2744,13 +4021,59 @@
 					"gasPrice": {
 						"type": "string"
 					},
-					"gasLimit": {
+					"maxFeePerGas": {
 						"type": "string"
+					},
+					"maxPriorityFeePerGas": {
+						"type": "string"
+					},
+					"chain_id": {
+						"type": "string"
+					},
+					"encoding": {
+						"type": "string"
+					},
+					"type": {
+						"type": "number",
+						"format": "double"
+					},
+					"accessList": {
+						"items": {
+							"$ref": "#/components/schemas/AccessTuple"
+						},
+						"type": "array"
+					},
+					"blobGas": {
+						"type": "string"
+					},
+					"blobGasFeeCap": {
+						"type": "string"
+					},
+					"blobHashes": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
 					},
 					"dryrun": {
 						"type": "boolean"
 					},
+					"input": {
+						"type": "string"
+					},
 					"EOA": {
+						"type": "boolean"
+					},
+					"contract_address": {
+						"type": "string"
+					},
+					"token_id": {
+						"type": "string"
+					},
+					"token_ids": {
+						"type": "string"
+					},
+					"approved": {
 						"type": "boolean"
 					},
 					"broadcast": {
@@ -2759,8 +4082,144 @@
 					"alwaysIncrementNonce": {
 						"type": "boolean"
 					},
-					"contract_address": {
+					"asset": {
 						"type": "string"
+					},
+					"amount": {
+						"type": "string"
+					},
+					"interestRateMode": {
+						"type": "number",
+						"format": "double"
+					},
+					"referralCode": {
+						"type": "number",
+						"format": "double"
+					},
+					"onBehalfOf": {
+						"type": "string"
+					},
+					"receiverAddress": {
+						"type": "string"
+					},
+					"assets": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"amounts": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"modes": {
+						"items": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "array"
+					},
+					"params": {
+						"type": "string"
+					},
+					"rateMode": {
+						"type": "number",
+						"format": "double"
+					},
+					"useAsCollateral": {
+						"type": "boolean"
+					},
+					"collateralAsset": {
+						"type": "string"
+					},
+					"debtAsset": {
+						"type": "string"
+					},
+					"user": {
+						"type": "string"
+					},
+					"debtToCover": {
+						"type": "string"
+					},
+					"receiveAToken": {
+						"type": "boolean"
+					},
+					"inputTokens": {
+						"items": {
+							"$ref": "#/components/schemas/TokenAmount"
+						},
+						"type": "array"
+					},
+					"outputTokens": {
+						"items": {
+							"$ref": "#/components/schemas/TokenProportion"
+						},
+						"type": "array"
+					},
+					"slippageLimitPercent": {
+						"type": "number",
+						"format": "double"
+					},
+					"minHealthFactor": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
+					},
+					"premiums": {
+						"anyOf": [
+							{
+								"items": {
+									"type": "string"
+								},
+								"type": "array"
+							},
+							{
+								"items": {
+									"type": "number",
+									"format": "double"
+								},
+								"type": "array"
+							}
+						]
+					},
+					"initiator": {
+						"type": "string"
+					},
+					"role": {
+						"type": "string"
+					},
+					"account": {
+						"type": "string"
+					},
+					"initialDeposit": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
+					},
+					"borrowAmount": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
 					}
 				},
 				"type": "object",
@@ -2925,8 +4384,87 @@
 			},
 			"LendingPoolInputBody": {
 				"properties": {
+					"to": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"gasLimit": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "string"
+					},
+					"gas": {
+						"type": "string"
+					},
+					"gasPrice": {
+						"type": "string"
+					},
+					"maxFeePerGas": {
+						"type": "string"
+					},
+					"maxPriorityFeePerGas": {
+						"type": "string"
+					},
 					"chain_id": {
 						"type": "string"
+					},
+					"encoding": {
+						"type": "string"
+					},
+					"type": {
+						"type": "number",
+						"format": "double"
+					},
+					"accessList": {
+						"items": {
+							"$ref": "#/components/schemas/AccessTuple"
+						},
+						"type": "array"
+					},
+					"blobGas": {
+						"type": "string"
+					},
+					"blobGasFeeCap": {
+						"type": "string"
+					},
+					"blobHashes": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"dryrun": {
+						"type": "boolean"
+					},
+					"input": {
+						"type": "string"
+					},
+					"EOA": {
+						"type": "boolean"
+					},
+					"contract_address": {
+						"type": "string"
+					},
+					"token_id": {
+						"type": "string"
+					},
+					"token_ids": {
+						"type": "string"
+					},
+					"approved": {
+						"type": "boolean"
+					},
+					"broadcast": {
+						"type": "boolean"
+					},
+					"alwaysIncrementNonce": {
+						"type": "boolean"
 					},
 					"asset": {
 						"type": "string"
@@ -2992,38 +4530,80 @@
 					"receiveAToken": {
 						"type": "boolean"
 					},
-					"to": {
+					"inputTokens": {
+						"items": {
+							"$ref": "#/components/schemas/TokenAmount"
+						},
+						"type": "array"
+					},
+					"outputTokens": {
+						"items": {
+							"$ref": "#/components/schemas/TokenProportion"
+						},
+						"type": "array"
+					},
+					"slippageLimitPercent": {
+						"type": "number",
+						"format": "double"
+					},
+					"minHealthFactor": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
+					},
+					"premiums": {
+						"anyOf": [
+							{
+								"items": {
+									"type": "string"
+								},
+								"type": "array"
+							},
+							{
+								"items": {
+									"type": "number",
+									"format": "double"
+								},
+								"type": "array"
+							}
+						]
+					},
+					"initiator": {
 						"type": "string"
 					},
-					"value": {
+					"role": {
 						"type": "string"
 					},
-					"data": {
+					"account": {
 						"type": "string"
 					},
-					"nonce": {
-						"type": "string"
+					"initialDeposit": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
 					},
-					"gas": {
-						"type": "string"
-					},
-					"gasPrice": {
-						"type": "string"
-					},
-					"dryrun": {
-						"type": "boolean"
-					},
-					"EOA": {
-						"type": "boolean"
-					},
-					"broadcast": {
-						"type": "boolean"
-					},
-					"alwaysIncrementNonce": {
-						"type": "boolean"
-					},
-					"contract_address": {
-						"type": "string"
+					"borrowAmount": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
 					}
 				},
 				"type": "object",
@@ -3249,13 +4829,106 @@
 			},
 			"LeveragerInputBody": {
 				"properties": {
+					"to": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"gasLimit": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "string"
+					},
+					"gas": {
+						"type": "string"
+					},
+					"gasPrice": {
+						"type": "string"
+					},
+					"maxFeePerGas": {
+						"type": "string"
+					},
+					"maxPriorityFeePerGas": {
+						"type": "string"
+					},
 					"chain_id": {
 						"type": "string"
+					},
+					"encoding": {
+						"type": "string"
+					},
+					"type": {
+						"type": "number",
+						"format": "double"
+					},
+					"accessList": {
+						"items": {
+							"$ref": "#/components/schemas/AccessTuple"
+						},
+						"type": "array"
+					},
+					"blobGas": {
+						"type": "string"
+					},
+					"blobGasFeeCap": {
+						"type": "string"
+					},
+					"blobHashes": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"dryrun": {
+						"type": "boolean"
+					},
+					"input": {
+						"type": "string"
+					},
+					"EOA": {
+						"type": "boolean"
+					},
+					"contract_address": {
+						"type": "string"
+					},
+					"token_id": {
+						"type": "string"
+					},
+					"token_ids": {
+						"type": "string"
+					},
+					"approved": {
+						"type": "boolean"
+					},
+					"broadcast": {
+						"type": "boolean"
+					},
+					"alwaysIncrementNonce": {
+						"type": "boolean"
 					},
 					"asset": {
 						"type": "string"
 					},
-					"minHealthFactor": {
+					"amount": {
+						"type": "string"
+					},
+					"interestRateMode": {
+						"type": "number",
+						"format": "double"
+					},
+					"referralCode": {
+						"type": "number",
+						"format": "double"
+					},
+					"onBehalfOf": {
+						"type": "string"
+					},
+					"receiverAddress": {
 						"type": "string"
 					},
 					"assets": {
@@ -3270,6 +4943,57 @@
 						},
 						"type": "array"
 					},
+					"modes": {
+						"items": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "array"
+					},
+					"params": {
+						"type": "string"
+					},
+					"rateMode": {
+						"type": "number",
+						"format": "double"
+					},
+					"useAsCollateral": {
+						"type": "boolean"
+					},
+					"collateralAsset": {
+						"type": "string"
+					},
+					"debtAsset": {
+						"type": "string"
+					},
+					"user": {
+						"type": "string"
+					},
+					"debtToCover": {
+						"type": "string"
+					},
+					"receiveAToken": {
+						"type": "boolean"
+					},
+					"inputTokens": {
+						"items": {
+							"$ref": "#/components/schemas/TokenAmount"
+						},
+						"type": "array"
+					},
+					"outputTokens": {
+						"items": {
+							"$ref": "#/components/schemas/TokenProportion"
+						},
+						"type": "array"
+					},
+					"slippageLimitPercent": {
+						"type": "number",
+						"format": "double"
+					},
+					"minHealthFactor": {
+						"type": "string"
+					},
 					"premiums": {
 						"items": {
 							"type": "string"
@@ -3277,9 +5001,6 @@
 						"type": "array"
 					},
 					"initiator": {
-						"type": "string"
-					},
-					"params": {
 						"type": "string"
 					},
 					"role": {
@@ -3292,39 +5013,6 @@
 						"type": "string"
 					},
 					"borrowAmount": {
-						"type": "string"
-					},
-					"to": {
-						"type": "string"
-					},
-					"value": {
-						"type": "string"
-					},
-					"data": {
-						"type": "string"
-					},
-					"nonce": {
-						"type": "string"
-					},
-					"gas": {
-						"type": "string"
-					},
-					"gasPrice": {
-						"type": "string"
-					},
-					"dryrun": {
-						"type": "boolean"
-					},
-					"EOA": {
-						"type": "boolean"
-					},
-					"broadcast": {
-						"type": "boolean"
-					},
-					"alwaysIncrementNonce": {
-						"type": "boolean"
-					},
-					"contract_address": {
 						"type": "string"
 					}
 				},
@@ -10789,6 +12477,128 @@
 						}
 					}
 				}
+			}
+		},
+		"/data/{address}/balance": {
+			"get": {
+				"operationId": "GetWalletBalance",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/WalletBalanceAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Data"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chain",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "excludeNative",
+						"required": false,
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				]
+			}
+		},
+		"/data/{address}/history": {
+			"get": {
+				"operationId": "GetWalletHistory",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/WalletHistoryAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Data"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chain",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		},
 		"/dogecoin": {

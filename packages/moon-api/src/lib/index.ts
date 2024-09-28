@@ -3,6 +3,7 @@ export * from './Accounts';
 export * from './Bitcoin';
 export * from './Bitcoincash';
 export * from './Cosmos';
+export * from './Data';
 export * from './data-contracts';
 export * from './Dogecoin';
 export * from './Ens';
