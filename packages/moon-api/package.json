@@ -1,6 +1,6 @@
 {
     "name": "@moonup/moon-api",
-    "version": "0.0.49",
+    "version": "0.0.50",
     "type": "commonjs",
     "main": "./dist/index.js",
     "module": "./dist/index.mjs",
