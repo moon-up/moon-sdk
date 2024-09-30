@@ -19,8 +19,8 @@ import {
   GetChainsParams,
   GetConnectionsData,
   GetConnectionsParams,
-  GetQuoteData,
-  GetQuoteParams,
+  GetQuoteParams1,
+  GetQuoteResult,
   GetToolsData,
   GetToolsParams,
   GetstatusData,
@@ -118,8 +118,8 @@ export class Lifi<SecurityDataType = unknown> {
    * @name GetQuote
    * @request GET:/lifi/quote
    */
-  getQuote = (query: GetQuoteParams, params: RequestParams = {}) =>
-    this.http.request<GetQuoteData, any>({
+  getQuote = (query: GetQuoteParams1, params: RequestParams = {}) =>
+    this.http.request<GetQuoteResult, any>({
       path: `/lifi/quote`,
       method: 'GET',
       query: query,

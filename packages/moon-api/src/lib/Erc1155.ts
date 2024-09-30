@@ -11,7 +11,7 @@
 
 import {
   BalanceOfBatchData,
-  BalanceOfData,
+  BalanceOfResult,
   Erc1155Request,
   IsApprovedForAllData,
   SafeBatchTransferFromData,
@@ -40,7 +40,7 @@ export class Erc1155<SecurityDataType = unknown> {
     data: Erc1155Request,
     params: RequestParams = {}
   ) =>
-    this.http.request<BalanceOfData, any>({
+    this.http.request<BalanceOfResult, any>({
       path: `/erc1155/${name}/balance-of`,
       method: 'POST',
       body: data,

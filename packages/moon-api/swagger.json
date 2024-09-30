@@ -208,6 +208,26 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"BroadCastRawTransactionResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"success",
+					"message",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"Transaction": {
 				"properties": {
 					"transaction_hash": {
@@ -246,28 +266,20 @@
 					},
 					"userop_transaction": {
 						"type": "string"
-					}
-				},
-				"type": "object",
-				"additionalProperties": false
-			},
-			"BroadCastRawTransactionResponse": {
-				"properties": {
+					},
+					"user_op": {
+						"type": "string"
+					},
 					"success": {
 						"type": "boolean"
 					},
 					"message": {
 						"type": "string"
 					},
-					"data": {
-						"type": "string"
+					"broadcasted": {
+						"$ref": "#/components/schemas/BroadCastRawTransactionResponse"
 					}
 				},
-				"required": [
-					"success",
-					"message",
-					"data"
-				],
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -1375,6 +1387,361 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"BigNumber": {},
+			"RewardInfo": {
+				"properties": {
+					"rewardTokenSymbol": {
+						"type": "string"
+					},
+					"rewardTokenAddress": {
+						"type": "string"
+					},
+					"rewardOracleAddress": {
+						"type": "string"
+					},
+					"emissionPerSecond": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"incentivesLastUpdateTimestamp": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"tokenIncentivesIndex": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"emissionEndTimestamp": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"rewardPriceFeed": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"rewardTokenDecimals": {
+						"type": "number",
+						"format": "double"
+					},
+					"precision": {
+						"type": "number",
+						"format": "double"
+					},
+					"priceFeedDecimals": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"rewardTokenSymbol",
+					"rewardTokenAddress",
+					"rewardOracleAddress",
+					"emissionPerSecond",
+					"incentivesLastUpdateTimestamp",
+					"tokenIncentivesIndex",
+					"emissionEndTimestamp",
+					"rewardPriceFeed",
+					"rewardTokenDecimals",
+					"precision",
+					"priceFeedDecimals"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IncentiveData": {
+				"properties": {
+					"tokenAddress": {
+						"type": "string"
+					},
+					"incentiveControllerAddress": {
+						"type": "string"
+					},
+					"rewardsTokenInformation": {
+						"items": {
+							"$ref": "#/components/schemas/RewardInfo"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"tokenAddress",
+					"incentiveControllerAddress",
+					"rewardsTokenInformation"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AggregatedReserveIncentiveData": {
+				"properties": {
+					"underlyingAsset": {
+						"type": "string"
+					},
+					"aIncentiveData": {
+						"$ref": "#/components/schemas/IncentiveData"
+					},
+					"vIncentiveData": {
+						"$ref": "#/components/schemas/IncentiveData"
+					},
+					"sIncentiveData": {
+						"$ref": "#/components/schemas/IncentiveData"
+					}
+				},
+				"required": [
+					"underlyingAsset",
+					"aIncentiveData",
+					"vIncentiveData",
+					"sIncentiveData"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UserRewardInfo": {
+				"properties": {
+					"rewardTokenSymbol": {
+						"type": "string"
+					},
+					"rewardOracleAddress": {
+						"type": "string"
+					},
+					"rewardTokenAddress": {
+						"type": "string"
+					},
+					"userUnclaimedRewards": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"tokenIncentivesUserIndex": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"rewardPriceFeed": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"priceFeedDecimals": {
+						"type": "number",
+						"format": "double"
+					},
+					"rewardTokenDecimals": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"rewardTokenSymbol",
+					"rewardOracleAddress",
+					"rewardTokenAddress",
+					"userUnclaimedRewards",
+					"tokenIncentivesUserIndex",
+					"rewardPriceFeed",
+					"priceFeedDecimals",
+					"rewardTokenDecimals"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UserIncentiveData": {
+				"properties": {
+					"tokenAddress": {
+						"type": "string"
+					},
+					"incentiveControllerAddress": {
+						"type": "string"
+					},
+					"userRewardsInformation": {
+						"items": {
+							"$ref": "#/components/schemas/UserRewardInfo"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"tokenAddress",
+					"incentiveControllerAddress",
+					"userRewardsInformation"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UserReserveIncentiveData": {
+				"properties": {
+					"underlyingAsset": {
+						"type": "string"
+					},
+					"aTokenIncentivesUserData": {
+						"$ref": "#/components/schemas/UserIncentiveData"
+					},
+					"vTokenIncentivesUserData": {
+						"$ref": "#/components/schemas/UserIncentiveData"
+					},
+					"sTokenIncentivesUserData": {
+						"$ref": "#/components/schemas/UserIncentiveData"
+					}
+				},
+				"required": [
+					"underlyingAsset",
+					"aTokenIncentivesUserData",
+					"vTokenIncentivesUserData",
+					"sTokenIncentivesUserData"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"FullReservesIncentiveData": {
+				"properties": {
+					"reservesIncentiveData": {
+						"items": {
+							"$ref": "#/components/schemas/AggregatedReserveIncentiveData"
+						},
+						"type": "array"
+					},
+					"userReserveIncentiveData": {
+						"items": {
+							"$ref": "#/components/schemas/UserReserveIncentiveData"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"reservesIncentiveData",
+					"userReserveIncentiveData"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AAVEv3UiIncentiveDataProviderAPIResponse_FullReservesIncentiveData_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/FullReservesIncentiveData"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AAVEv3UiIncentiveDataProviderAPIResponse_AggregatedReserveIncentiveData-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/AggregatedReserveIncentiveData"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AAVEv3UiIncentiveDataProviderAPIResponse_UserReserveIncentiveData-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/UserReserveIncentiveData"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AAVEv3WalletBalanceProviderAPIResponse_string_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AAVEv3WalletBalanceProviderAPIResponse_string-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AAVEv3WalletBalanceProviderAPIResponse__tokens-string-Array--balances-string-Array--__": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"properties": {
+							"balances": {
+								"items": {
+									"type": "string"
+								},
+								"type": "array"
+							},
+							"tokens": {
+								"items": {
+									"type": "string"
+								},
+								"type": "array"
+							}
+						},
+						"required": [
+							"balances",
+							"tokens"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"NonceResponse": {
 				"properties": {
 					"nonce": {
@@ -1742,6 +2109,9 @@
 			},
 			"SignMessage": {
 				"properties": {
+					"chain_id": {
+						"type": "string"
+					},
 					"name": {
 						"type": "string"
 					},
@@ -1807,6 +2177,9 @@
 			},
 			"SignTypedData": {
 				"properties": {
+					"chain_id": {
+						"type": "string"
+					},
 					"data": {
 						"type": "string"
 					}
@@ -4258,6 +4631,156 @@
 				],
 				"type": "object",
 				"additionalProperties": false
+			},
+			"Record_string.string_": {
+				"properties": {},
+				"type": "object",
+				"description": "Construct a type with a set of properties K of type T"
+			},
+			"JupiterAPIResponse_Record_string.string__": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/Record_string.string_"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"JupiterAPIResponse_any_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"JupiterAPIResponse_string-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"JupiterExecuteFunctionResult": {
+				"properties": {
+					"transaction": {},
+					"function": {
+						"type": "string"
+					},
+					"params": {
+						"items": {},
+						"type": "array"
+					},
+					"data": {},
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"jupiter": {},
+					"transactionHash": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"function",
+					"params"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"JupiterAPIResponse_JupiterExecuteFunctionResult_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/JupiterExecuteFunctionResult"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Pick_JupiterInputBody.Exclude_keyofJupiterInputBody.accountName__": {
+				"properties": {
+					"inputMint": {
+						"type": "string"
+					},
+					"outputMint": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "number",
+						"format": "double"
+					},
+					"slippage": {
+						"type": "number",
+						"format": "double"
+					},
+					"feeBps": {
+						"type": "number",
+						"format": "double"
+					},
+					"dryrun": {
+						"type": "boolean"
+					},
+					"broadcast": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"inputMint",
+					"outputMint",
+					"amount"
+				],
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"Omit_JupiterInputBody.accountName_": {
+				"$ref": "#/components/schemas/Pick_JupiterInputBody.Exclude_keyofJupiterInputBody.accountName__",
+				"description": "Construct a type with the properties of T except for those in type K."
 			},
 			"LendingPoolAPIResponse_number_": {
 				"properties": {
@@ -6754,6 +7277,16 @@
 					},
 					"chainId": {
 						"type": "string"
+					},
+					"maxPriorityFeePerGas": {
+						"type": "string"
+					},
+					"maxFeePerGas": {
+						"type": "string"
+					},
+					"type": {
+						"type": "number",
+						"format": "double"
 					}
 				},
 				"required": [
@@ -6853,10 +7386,13 @@
 					"to": {
 						"type": "string"
 					},
+					"data": {
+						"type": "string"
+					},
 					"value": {
 						"type": "string"
 					},
-					"data": {
+					"gasLimit": {
 						"type": "string"
 					},
 					"nonce": {
@@ -6865,19 +7401,132 @@
 					"gas": {
 						"type": "string"
 					},
-					"dryrun": {
-						"type": "boolean"
+					"gasPrice": {
+						"type": "string"
+					},
+					"maxFeePerGas": {
+						"type": "string"
+					},
+					"maxPriorityFeePerGas": {
+						"type": "string"
 					},
 					"chain_id": {
 						"type": "string"
 					},
+					"encoding": {
+						"type": "string"
+					},
+					"type": {
+						"type": "number",
+						"format": "double"
+					},
+					"accessList": {
+						"items": {
+							"$ref": "#/components/schemas/AccessTuple"
+						},
+						"type": "array"
+					},
+					"blobGas": {
+						"type": "string"
+					},
+					"blobGasFeeCap": {
+						"type": "string"
+					},
+					"blobHashes": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"dryrun": {
+						"type": "boolean"
+					},
+					"input": {
+						"type": "string"
+					},
 					"EOA": {
+						"type": "boolean"
+					},
+					"contract_address": {
+						"type": "string"
+					},
+					"token_id": {
+						"type": "string"
+					},
+					"token_ids": {
+						"type": "string"
+					},
+					"approved": {
 						"type": "boolean"
 					},
 					"broadcast": {
 						"type": "boolean"
 					},
 					"alwaysIncrementNonce": {
+						"type": "boolean"
+					},
+					"asset": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "string"
+					},
+					"interestRateMode": {
+						"type": "number",
+						"format": "double"
+					},
+					"referralCode": {
+						"type": "number",
+						"format": "double"
+					},
+					"onBehalfOf": {
+						"type": "string"
+					},
+					"receiverAddress": {
+						"type": "string"
+					},
+					"assets": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"amounts": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"modes": {
+						"items": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "array"
+					},
+					"params": {
+						"type": "string"
+					},
+					"rateMode": {
+						"type": "number",
+						"format": "double"
+					},
+					"useAsCollateral": {
+						"type": "boolean"
+					},
+					"collateralAsset": {
+						"type": "string"
+					},
+					"debtAsset": {
+						"type": "string"
+					},
+					"user": {
+						"type": "string"
+					},
+					"debtToCover": {
+						"type": "string"
+					},
+					"receiveAToken": {
 						"type": "boolean"
 					},
 					"inputTokens": {
@@ -6892,12 +7541,68 @@
 						},
 						"type": "array"
 					},
-					"userAddr": {
-						"type": "string"
-					},
 					"slippageLimitPercent": {
 						"type": "number",
 						"format": "double"
+					},
+					"minHealthFactor": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
+					},
+					"premiums": {
+						"anyOf": [
+							{
+								"items": {
+									"type": "string"
+								},
+								"type": "array"
+							},
+							{
+								"items": {
+									"type": "number",
+									"format": "double"
+								},
+								"type": "array"
+							}
+						]
+					},
+					"initiator": {
+						"type": "string"
+					},
+					"role": {
+						"type": "string"
+					},
+					"account": {
+						"type": "string"
+					},
+					"initialDeposit": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
+					},
+					"borrowAmount": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
 					},
 					"sourceBlacklist": {
 						"items": {
@@ -6929,10 +7634,6 @@
 					"disableRFQs": {
 						"type": "boolean"
 					},
-					"referralCode": {
-						"type": "number",
-						"format": "double"
-					},
 					"compact": {
 						"type": "boolean"
 					},
@@ -6941,23 +7642,11 @@
 					},
 					"simple": {
 						"type": "boolean"
-					},
-					"gasPrice": {
-						"anyOf": [
-							{
-								"type": "string"
-							},
-							{
-								"type": "number",
-								"format": "double"
-							}
-						]
 					}
 				},
 				"required": [
 					"inputTokens",
-					"outputTokens",
-					"chain_id"
+					"outputTokens"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -7675,6 +8364,23 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"ThenaAPIResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"ThorSwapAPIResponse_Quote_": {
 				"properties": {
 					"success": {
@@ -7869,6 +8575,889 @@
 					},
 					"compress": {
 						"type": "boolean"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"VeTheNFTAPIResponse_string_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"VeTheNFTAPIResponse_boolean_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LockedData": {
+				"properties": {
+					"amount": {
+						"type": "string"
+					},
+					"end": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"amount",
+					"end"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"VeTheNFTAPIResponse_LockedData_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/LockedData"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"VeNFTTransaction": {
+				"properties": {
+					"data": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"to": {
+						"type": "string"
+					},
+					"from": {
+						"type": "string"
+					},
+					"gasPrice": {
+						"type": "string"
+					},
+					"gasLimit": {
+						"type": "string"
+					},
+					"maxPriorityFeePerGas": {
+						"type": "string"
+					},
+					"maxFeePerGas": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "number",
+						"format": "double"
+					},
+					"type": {
+						"type": "number",
+						"format": "double"
+					},
+					"chainId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"data",
+					"value",
+					"to",
+					"from",
+					"nonce",
+					"chainId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"VeNFTExecuteFunctionResult": {
+				"properties": {
+					"broadcasted": {
+						"$ref": "#/components/schemas/BroadCastRawTransactionResponse"
+					},
+					"message": {
+						"type": "string"
+					},
+					"success": {
+						"type": "boolean"
+					},
+					"user_op": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/Transaction"
+					},
+					"params": {
+						"items": {},
+						"type": "array"
+					},
+					"function": {
+						"type": "string"
+					},
+					"transaction": {
+						"$ref": "#/components/schemas/VeNFTTransaction"
+					}
+				},
+				"required": [
+					"params",
+					"function",
+					"transaction"
+				],
+				"type": "object"
+			},
+			"VeTheNFTAPIResponse_VeNFTExecuteFunctionResult_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/VeNFTExecuteFunctionResult"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"VeNFTInputBody": {
+				"properties": {
+					"to": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"gasLimit": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "string"
+					},
+					"gas": {
+						"type": "string"
+					},
+					"gasPrice": {
+						"type": "string"
+					},
+					"maxFeePerGas": {
+						"type": "string"
+					},
+					"maxPriorityFeePerGas": {
+						"type": "string"
+					},
+					"chain_id": {
+						"type": "string"
+					},
+					"encoding": {
+						"type": "string"
+					},
+					"type": {
+						"type": "number",
+						"format": "double"
+					},
+					"accessList": {
+						"items": {
+							"$ref": "#/components/schemas/AccessTuple"
+						},
+						"type": "array"
+					},
+					"blobGas": {
+						"type": "string"
+					},
+					"blobGasFeeCap": {
+						"type": "string"
+					},
+					"blobHashes": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"dryrun": {
+						"type": "boolean"
+					},
+					"input": {
+						"type": "string"
+					},
+					"EOA": {
+						"type": "boolean"
+					},
+					"contract_address": {
+						"type": "string"
+					},
+					"token_id": {
+						"type": "string"
+					},
+					"token_ids": {
+						"type": "string"
+					},
+					"approved": {
+						"type": "boolean"
+					},
+					"broadcast": {
+						"type": "boolean"
+					},
+					"alwaysIncrementNonce": {
+						"type": "boolean"
+					},
+					"asset": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "string"
+					},
+					"interestRateMode": {
+						"type": "number",
+						"format": "double"
+					},
+					"referralCode": {
+						"type": "number",
+						"format": "double"
+					},
+					"onBehalfOf": {
+						"type": "string"
+					},
+					"receiverAddress": {
+						"type": "string"
+					},
+					"assets": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"amounts": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"modes": {
+						"items": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "array"
+					},
+					"params": {
+						"type": "string"
+					},
+					"rateMode": {
+						"type": "number",
+						"format": "double"
+					},
+					"useAsCollateral": {
+						"type": "boolean"
+					},
+					"collateralAsset": {
+						"type": "string"
+					},
+					"debtAsset": {
+						"type": "string"
+					},
+					"user": {
+						"type": "string"
+					},
+					"debtToCover": {
+						"type": "string"
+					},
+					"receiveAToken": {
+						"type": "boolean"
+					},
+					"inputTokens": {
+						"items": {
+							"$ref": "#/components/schemas/TokenAmount"
+						},
+						"type": "array"
+					},
+					"outputTokens": {
+						"items": {
+							"$ref": "#/components/schemas/TokenProportion"
+						},
+						"type": "array"
+					},
+					"slippageLimitPercent": {
+						"type": "number",
+						"format": "double"
+					},
+					"minHealthFactor": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
+					},
+					"premiums": {
+						"anyOf": [
+							{
+								"items": {
+									"type": "string"
+								},
+								"type": "array"
+							},
+							{
+								"items": {
+									"type": "number",
+									"format": "double"
+								},
+								"type": "array"
+							}
+						]
+					},
+					"initiator": {
+						"type": "string"
+					},
+					"role": {
+						"type": "string"
+					},
+					"account": {
+						"type": "string"
+					},
+					"initialDeposit": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
+					},
+					"borrowAmount": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
+					},
+					"lock_duration": {
+						"type": "string"
+					},
+					"spender": {
+						"type": "string"
+					},
+					"operator": {
+						"type": "string"
+					},
+					"tokenId": {
+						"type": "string"
+					},
+					"lock_value": {
+						"type": "string"
+					},
+					"delegatee": {
+						"type": "string"
+					},
+					"expiry": {
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UserPointHistoryData": {
+				"properties": {
+					"bias": {
+						"type": "string"
+					},
+					"slope": {
+						"type": "string"
+					},
+					"ts": {
+						"type": "string"
+					},
+					"blk": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"bias",
+					"slope",
+					"ts",
+					"blk"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"VeTheNFTAPIResponse_UserPointHistoryData_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/UserPointHistoryData"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"VeTheNftVoterAPIResponse_string_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"VeTheNftVoterAPIResponse_boolean_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"VeTheNftVoterTransaction": {
+				"properties": {
+					"data": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"to": {
+						"type": "string"
+					},
+					"from": {
+						"type": "string"
+					},
+					"gasPrice": {
+						"type": "string"
+					},
+					"gasLimit": {
+						"type": "string"
+					},
+					"maxPriorityFeePerGas": {
+						"type": "string"
+					},
+					"maxFeePerGas": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "number",
+						"format": "double"
+					},
+					"type": {
+						"type": "number",
+						"format": "double"
+					},
+					"chainId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"data",
+					"value",
+					"to",
+					"from",
+					"nonce",
+					"chainId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"VeTheNftVoterExecuteFunctionResult": {
+				"properties": {
+					"broadcasted": {
+						"$ref": "#/components/schemas/BroadCastRawTransactionResponse"
+					},
+					"message": {
+						"type": "string"
+					},
+					"success": {
+						"type": "boolean"
+					},
+					"user_op": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/Transaction"
+					},
+					"params": {
+						"items": {},
+						"type": "array"
+					},
+					"function": {
+						"type": "string"
+					},
+					"transaction": {
+						"$ref": "#/components/schemas/VeTheNftVoterTransaction"
+					}
+				},
+				"required": [
+					"params",
+					"function",
+					"transaction"
+				],
+				"type": "object"
+			},
+			"VeTheNftVoterAPIResponse_VeTheNftVoterExecuteFunctionResult_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/VeTheNftVoterExecuteFunctionResult"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"VeTheNftVoterInputBody": {
+				"properties": {
+					"to": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"gasLimit": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "string"
+					},
+					"gas": {
+						"type": "string"
+					},
+					"gasPrice": {
+						"type": "string"
+					},
+					"maxFeePerGas": {
+						"type": "string"
+					},
+					"maxPriorityFeePerGas": {
+						"type": "string"
+					},
+					"chain_id": {
+						"type": "string"
+					},
+					"encoding": {
+						"type": "string"
+					},
+					"type": {
+						"type": "number",
+						"format": "double"
+					},
+					"accessList": {
+						"items": {
+							"$ref": "#/components/schemas/AccessTuple"
+						},
+						"type": "array"
+					},
+					"blobGas": {
+						"type": "string"
+					},
+					"blobGasFeeCap": {
+						"type": "string"
+					},
+					"blobHashes": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"dryrun": {
+						"type": "boolean"
+					},
+					"input": {
+						"type": "string"
+					},
+					"EOA": {
+						"type": "boolean"
+					},
+					"contract_address": {
+						"type": "string"
+					},
+					"token_id": {
+						"type": "string"
+					},
+					"token_ids": {
+						"type": "string"
+					},
+					"approved": {
+						"type": "boolean"
+					},
+					"broadcast": {
+						"type": "boolean"
+					},
+					"alwaysIncrementNonce": {
+						"type": "boolean"
+					},
+					"asset": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "string"
+					},
+					"interestRateMode": {
+						"type": "number",
+						"format": "double"
+					},
+					"referralCode": {
+						"type": "number",
+						"format": "double"
+					},
+					"onBehalfOf": {
+						"type": "string"
+					},
+					"receiverAddress": {
+						"type": "string"
+					},
+					"assets": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"amounts": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"modes": {
+						"items": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "array"
+					},
+					"params": {
+						"type": "string"
+					},
+					"rateMode": {
+						"type": "number",
+						"format": "double"
+					},
+					"useAsCollateral": {
+						"type": "boolean"
+					},
+					"collateralAsset": {
+						"type": "string"
+					},
+					"debtAsset": {
+						"type": "string"
+					},
+					"user": {
+						"type": "string"
+					},
+					"debtToCover": {
+						"type": "string"
+					},
+					"receiveAToken": {
+						"type": "boolean"
+					},
+					"inputTokens": {
+						"items": {
+							"$ref": "#/components/schemas/TokenAmount"
+						},
+						"type": "array"
+					},
+					"outputTokens": {
+						"items": {
+							"$ref": "#/components/schemas/TokenProportion"
+						},
+						"type": "array"
+					},
+					"slippageLimitPercent": {
+						"type": "number",
+						"format": "double"
+					},
+					"minHealthFactor": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
+					},
+					"premiums": {
+						"anyOf": [
+							{
+								"items": {
+									"type": "string"
+								},
+								"type": "array"
+							},
+							{
+								"items": {
+									"type": "number",
+									"format": "double"
+								},
+								"type": "array"
+							}
+						]
+					},
+					"initiator": {
+						"type": "string"
+					},
+					"role": {
+						"type": "string"
+					},
+					"account": {
+						"type": "string"
+					},
+					"initialDeposit": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
+					},
+					"borrowAmount": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						]
+					},
+					"pool": {
+						"type": "string"
+					},
+					"gauge": {
+						"type": "string"
+					},
+					"weights": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"pool_vote": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"gauge_type": {
+						"type": "string"
+					},
+					"bribes": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"tokens": {
+						"items": {
+							"items": {
+								"type": "string"
+							},
+							"type": "array"
+						},
+						"type": "array"
+					},
+					"fees": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"gauges": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
 					}
 				},
 				"type": "object",
@@ -10165,6 +11754,442 @@
 						}
 					}
 				}
+			}
+		},
+		"/aave/v3/incentives/fullReservesIncentiveData": {
+			"get": {
+				"operationId": "GetFullReservesIncentiveData",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AAVEv3UiIncentiveDataProviderAPIResponse_FullReservesIncentiveData_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"AAVE v3 UI Incentive Data Provider"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "contract_address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chain_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "provider",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "user",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/aave/v3/incentives/reservesIncentivesData": {
+			"get": {
+				"operationId": "GetReservesIncentivesData",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AAVEv3UiIncentiveDataProviderAPIResponse_AggregatedReserveIncentiveData-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"AAVE v3 UI Incentive Data Provider"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "contract_address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chain_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "provider",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/aave/v3/incentives/userReservesIncentivesData": {
+			"get": {
+				"operationId": "GetUserReservesIncentivesData",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AAVEv3UiIncentiveDataProviderAPIResponse_UserReserveIncentiveData-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"AAVE v3 UI Incentive Data Provider"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "contract_address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chain_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "provider",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "user",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/aave/v3/wallet-balance/balance-of": {
+			"get": {
+				"operationId": "BalanceOf",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AAVEv3WalletBalanceProviderAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"AAVE v3 Wallet Balance Provider"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "contract_address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chain_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "user",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "token_address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/aave/v3/wallet-balance/batch-balance-of": {
+			"get": {
+				"operationId": "BatchBalanceOf",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AAVEv3WalletBalanceProviderAPIResponse_string-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"AAVE v3 Wallet Balance Provider"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "contract_address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chain_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "users",
+						"required": true,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "tokens",
+						"required": true,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					}
+				]
+			}
+		},
+		"/aave/v3/wallet-balance/user-wallet-balances": {
+			"get": {
+				"operationId": "GetUserWalletBalances",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AAVEv3WalletBalanceProviderAPIResponse__tokens-string-Array--balances-string-Array--__"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"AAVE v3 Wallet Balance Provider"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "contract_address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chain_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "provider",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "user",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		},
 		"/accounts/{accountName}/nonce": {
@@ -16466,6 +18491,314 @@
 				}
 			}
 		},
+		"/jupiter/programIdToLabel": {
+			"get": {
+				"operationId": "GetProgramIdToLabel",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/JupiterAPIResponse_Record_string.string__"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Jupiter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/jupiter/indexedRouteMap": {
+			"get": {
+				"operationId": "GetIndexedRouteMap",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/JupiterAPIResponse_any_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Jupiter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "onlyDirectRoutes",
+						"required": false,
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				]
+			}
+		},
+		"/jupiter/tokens": {
+			"get": {
+				"operationId": "GetTokens",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/JupiterAPIResponse_string-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Jupiter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/jupiter/{accountName}/quote": {
+			"post": {
+				"operationId": "GetQuote",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/JupiterAPIResponse_JupiterExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Jupiter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Omit_JupiterInputBody.accountName_"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/jupiter/{accountName}/swap": {
+			"post": {
+				"operationId": "Swap",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/JupiterAPIResponse_JupiterExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Jupiter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Omit_JupiterInputBody.accountName_"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/jupiter/{accountName}/swapInstructions": {
+			"post": {
+				"operationId": "GetSwapInstructions",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/JupiterAPIResponse_JupiterExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Jupiter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Omit_JupiterInputBody.accountName_"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/lending-pool/flash-loan-premium": {
 			"get": {
 				"operationId": "getFlashLoanPremiumTotal",
@@ -21024,6 +23357,124 @@
 				}
 			}
 		},
+		"/odos/{accountName}/get-zap-quote": {
+			"post": {
+				"operationId": "GetZapQuote",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OdosAPIResponse_OdosExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Odos"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/OdosSwapInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/odos/{accountName}/zap": {
+			"post": {
+				"operationId": "Zap",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OdosAPIResponse_OdosExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Odos"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/OdosSwapInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/odos/assemble-transaction": {
 			"post": {
 				"operationId": "AssembleTransaction",
@@ -22824,6 +25275,395 @@
 				]
 			}
 		},
+		"/thena/data/fusions": {
+			"get": {
+				"operationId": "GetFusions",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ThenaAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Thena"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thena/data/fusions/{address}": {
+			"get": {
+				"operationId": "GetFusionByAddress",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ThenaAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Thena"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thena/data/fusions/type/{type}": {
+			"get": {
+				"operationId": "GetFusionsByType",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ThenaAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Thena"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "type",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thena/data/fusions/top-apr": {
+			"get": {
+				"operationId": "GetTopAPRFusions",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ThenaAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Thena"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/thena/data/tvl": {
+			"get": {
+				"operationId": "GetTotalValueLocked",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ThenaAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Thena"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thena/data/tokens/top": {
+			"get": {
+				"operationId": "GetTopTokens",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ThenaAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Thena"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/thena/data/pairs/top": {
+			"get": {
+				"operationId": "GetTopPairs",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ThenaAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Thena"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/thena/data/vote-distribution": {
+			"get": {
+				"operationId": "CalculateOptimalVoteDistribution",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ThenaAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Thena"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "totalVotes",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "maxFusions",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
 		"/thorswap/quote": {
 			"get": {
 				"operationId": "GetQuote",
@@ -23528,6 +26368,3681 @@
 						}
 					}
 				]
+			}
+		},
+		"/thena/nft/{account}/balanceOf": {
+			"get": {
+				"operationId": "GetBalanceOf",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thena/nft/{tokenId}/ownerOf": {
+			"get": {
+				"operationId": "GetOwnerOf",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "tokenId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thena/nft/{tokenId}/tokenURI": {
+			"get": {
+				"operationId": "GetTokenURI",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "tokenId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thena/nft/{tokenId}/getApproved": {
+			"get": {
+				"operationId": "GetApproved",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "tokenId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thena/nft/{owner}/isApprovedForAll": {
+			"get": {
+				"operationId": "IsApprovedForAll",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_boolean_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "owner",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "operator",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thena/nft/{tokenId}/balanceOfNFT": {
+			"get": {
+				"operationId": "GetBalanceOfNFT",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "tokenId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thena/nft/totalSupply": {
+			"get": {
+				"operationId": "GetTotalSupply",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thena/nft/{tokenId}/locked": {
+			"get": {
+				"operationId": "GetLocked",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_LockedData_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "tokenId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thena/nft/{tokenId}/lockedEnd": {
+			"get": {
+				"operationId": "GetLockedEnd",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "tokenId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thena/nft/{address}/createLock": {
+			"post": {
+				"operationId": "CreateLock",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_VeNFTExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeNFTInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/nft/{address}/createLockFor": {
+			"post": {
+				"operationId": "CreateLockFor",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_VeNFTExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeNFTInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/nft/{address}/increaseLockAmount": {
+			"post": {
+				"operationId": "IncreaseLockAmount",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_VeNFTExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeNFTInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/nft/{address}/increaseUnlockTime": {
+			"post": {
+				"operationId": "IncreaseUnlockTime",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_VeNFTExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeNFTInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/nft/{address}/withdraw": {
+			"post": {
+				"operationId": "Withdraw",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_VeNFTExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeNFTInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/nft/{address}/approve": {
+			"post": {
+				"operationId": "Approve",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_VeNFTExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeNFTInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/nft/{address}/setApprovalForAll": {
+			"post": {
+				"operationId": "SetApprovalForAll",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_VeNFTExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeNFTInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/nft/{address}/transferFrom": {
+			"post": {
+				"operationId": "TransferFrom",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_VeNFTExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeNFTInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/nft/{address}/safeTransferFrom": {
+			"post": {
+				"operationId": "SafeTransferFrom",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_VeNFTExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeNFTInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/nft/{address}/merge": {
+			"post": {
+				"operationId": "Merge",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_VeNFTExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeNFTInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/nft/{address}/split": {
+			"post": {
+				"operationId": "Split",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_VeNFTExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeNFTInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/nft/{address}/voting": {
+			"post": {
+				"operationId": "Voting",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_VeNFTExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeNFTInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/nft/{address}/abstain": {
+			"post": {
+				"operationId": "Abstain",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_VeNFTExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeNFTInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/nft/{address}/attach": {
+			"post": {
+				"operationId": "Attach",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_VeNFTExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeNFTInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/nft/{address}/detach": {
+			"post": {
+				"operationId": "Detach",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_VeNFTExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeNFTInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/nft/{address}/depositFor": {
+			"post": {
+				"operationId": "DepositFor",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_VeNFTExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeNFTInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/nft/{address}/checkpoint": {
+			"post": {
+				"operationId": "Checkpoint",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_VeNFTExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeNFTInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/nft/{address}/delegate": {
+			"post": {
+				"operationId": "Delegate",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_VeNFTExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeNFTInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/nft/{address}/delegateBySig": {
+			"post": {
+				"operationId": "DelegateBySig",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_VeNFTExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeNFTInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/nft/{tokenId}/getLastUserSlope": {
+			"get": {
+				"operationId": "GetLastUserSlope",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "tokenId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thena/nft/{tokenId}/userPointHistory": {
+			"get": {
+				"operationId": "GetUserPointHistory",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_UserPointHistoryData_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "tokenId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "loc",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thena/nft/{tokenId}/userPointHistoryTS": {
+			"get": {
+				"operationId": "GetUserPointHistoryTS",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "tokenId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "idx",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thena/nft/{tokenId}/balanceOfAtNFT": {
+			"get": {
+				"operationId": "GetBalanceOfAtNFT",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "tokenId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "block",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thena/nft/totalSupplyAt": {
+			"get": {
+				"operationId": "GetTotalSupplyAt",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "block",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thena/nft/totalSupplyAtT": {
+			"get": {
+				"operationId": "GetTotalSupplyAtT",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "t",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thena/nft/{account}/getPastVotes": {
+			"get": {
+				"operationId": "GetPastVotes",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "timestamp",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thena/nft/getPastTotalSupply": {
+			"get": {
+				"operationId": "GetPastTotalSupply",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "timestamp",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thena/nft/{account}/getVotes": {
+			"get": {
+				"operationId": "GetVotes",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thena/nft/{delegator}/delegates": {
+			"get": {
+				"operationId": "GetDelegates",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNFTAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNFT"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "delegator",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thena/voter/totalWeight": {
+			"get": {
+				"operationId": "GetTotalWeight",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNftVoterAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNftVoter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thena/voter/weights": {
+			"get": {
+				"operationId": "GetWeights",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNftVoterAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNftVoter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "pool",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thena/voter/isGauge": {
+			"get": {
+				"operationId": "IsGauge",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNftVoterAPIResponse_boolean_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNftVoter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "gauge",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thena/voter/{address}/vote": {
+			"post": {
+				"operationId": "Vote",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNftVoterAPIResponse_VeTheNftVoterExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNftVoter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeTheNftVoterInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/voter/{address}/reset": {
+			"post": {
+				"operationId": "Reset",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNftVoterAPIResponse_VeTheNftVoterExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNftVoter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeTheNftVoterInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/voter/{address}/poke": {
+			"post": {
+				"operationId": "Poke",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNftVoterAPIResponse_VeTheNftVoterExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNftVoter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeTheNftVoterInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/voter/{address}/createGauge": {
+			"post": {
+				"operationId": "CreateGauge",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNftVoterAPIResponse_VeTheNftVoterExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNftVoter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeTheNftVoterInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/voter/{address}/voteWithOptimalDistribution": {
+			"post": {
+				"operationId": "VoteWithOptimalDistribution",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNftVoterAPIResponse_VeTheNftVoterExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNftVoter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"allOf": [
+									{
+										"$ref": "#/components/schemas/VeTheNftVoterInputBody"
+									},
+									{
+										"properties": {
+											"maxFusions": {
+												"type": "number",
+												"format": "double"
+											},
+											"totalVotes": {
+												"type": "number",
+												"format": "double"
+											}
+										},
+										"required": [
+											"totalVotes"
+										],
+										"type": "object"
+									}
+								]
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/voter/isWhitelisted": {
+			"get": {
+				"operationId": "IsWhitelisted",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNftVoterAPIResponse_boolean_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNftVoter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "tokenAddress",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thena/voter/lastVoted": {
+			"get": {
+				"operationId": "LastVoted",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNftVoterAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNftVoter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "tokenId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thena/voter/poolVoteLength": {
+			"get": {
+				"operationId": "PoolVoteLength",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNftVoterAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNftVoter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "tokenId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/thena/voter/{address}/attachTokenToGauge": {
+			"post": {
+				"operationId": "AttachTokenToGauge",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNftVoterAPIResponse_VeTheNftVoterExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNftVoter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeTheNftVoterInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/voter/{address}/detachTokenFromGauge": {
+			"post": {
+				"operationId": "DetachTokenFromGauge",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNftVoterAPIResponse_VeTheNftVoterExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNftVoter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeTheNftVoterInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/voter/{address}/killGauge": {
+			"post": {
+				"operationId": "KillGauge",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNftVoterAPIResponse_VeTheNftVoterExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNftVoter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeTheNftVoterInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/voter/{address}/reviveGauge": {
+			"post": {
+				"operationId": "ReviveGauge",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNftVoterAPIResponse_VeTheNftVoterExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNftVoter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeTheNftVoterInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/voter/{address}/notifyRewardAmount": {
+			"post": {
+				"operationId": "NotifyRewardAmount",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNftVoterAPIResponse_VeTheNftVoterExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNftVoter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeTheNftVoterInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/voter/{address}/distribute": {
+			"post": {
+				"operationId": "Distribute",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNftVoterAPIResponse_VeTheNftVoterExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNftVoter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeTheNftVoterInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/voter/{address}/claimBribes": {
+			"post": {
+				"operationId": "ClaimBribes",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNftVoterAPIResponse_VeTheNftVoterExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNftVoter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeTheNftVoterInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/voter/{address}/claimFees": {
+			"post": {
+				"operationId": "ClaimFees",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNftVoterAPIResponse_VeTheNftVoterExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNftVoter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeTheNftVoterInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/voter/{address}/claimRewards": {
+			"post": {
+				"operationId": "ClaimRewards",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNftVoterAPIResponse_VeTheNftVoterExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNftVoter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeTheNftVoterInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/thena/voter/{address}/whitelist": {
+			"post": {
+				"operationId": "Whitelist",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/VeTheNftVoterAPIResponse_VeTheNftVoterExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"VeTheNftVoter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/VeTheNftVoterInputBody"
+							}
+						}
+					}
+				}
 			}
 		}
 	},

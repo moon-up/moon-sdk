@@ -16,8 +16,8 @@ import {
   GetChainsData,
   GetChainsParams1OptionalChainTypesEnum,
   GetConnectionsData,
-  GetQuoteData,
-  GetQuoteParams1OrderEnum,
+  GetQuoteParams2OrderEnum,
+  GetQuoteResult,
   GetToolsData,
   GetstatusData,
   PostQuoteData,
@@ -123,7 +123,7 @@ export namespace Lifi {
       fromChain: string;
       fromToken: string;
       integrator?: string;
-      order?: GetQuoteParams1OrderEnum;
+      order?: GetQuoteParams2OrderEnum;
       preferBridges?: string[];
       preferExchanges?: string[];
       referrer?: string;
@@ -135,7 +135,7 @@ export namespace Lifi {
     };
     export type RequestBody = never;
     export type RequestHeaders = {};
-    export type ResponseBody = GetQuoteData;
+    export type ResponseBody = GetQuoteResult;
   }
 
   /**

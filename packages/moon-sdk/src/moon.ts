@@ -22,6 +22,7 @@ import {
   Erc721,
   HttpClient,
   InputBody,
+  Jupiter,
   LendingPool,
   Leverager,
   Lifi,
@@ -32,6 +33,7 @@ import {
   Onramper,
   Ripple,
   Solana,
+  Thena,
   Thorswap,
   TransactionData,
   Tron,
@@ -142,6 +144,8 @@ export class MoonSDK extends EventEmitter {
   private ThorswapSDK: Thorswap;
   private AaveSDK: Aave;
   private MultiCallSDK: Multicall;
+  private ThenaSDK: Thena;
+  private JupiterSDK: Jupiter;
   private DataSDK: Data;
   isAuthenticated = false;
   private config: MoonSDKConfig;
@@ -253,6 +257,8 @@ export class MoonSDK extends EventEmitter {
     this.MultiCallSDK = new Multicall(this.http);
     this.AaveSDK = new Aave(this.http);
     this.DataSDK = new Data(this.http);
+    this.ThenaSDK = new Thena(this.http);
+    this.JupiterSDK = new Jupiter(this.http);
 
     this.connect();
   }
@@ -415,6 +421,14 @@ export class MoonSDK extends EventEmitter {
   }
   public getDataSDK(): Data {
     return this.DataSDK;
+  }
+
+  public getThenaSDK(): Thena {
+    return this.ThenaSDK;
+  }
+
+  public getJupiterSDK(): Jupiter {
+    return this.JupiterSDK;
   }
 
   /**
