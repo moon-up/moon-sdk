@@ -11,7 +11,7 @@
 
 import {
   BalanceOfBatchData,
-  BalanceOfData,
+  BalanceOfResult,
   Erc1155Request,
   IsApprovedForAllData,
   SafeBatchTransferFromData,
@@ -36,7 +36,7 @@ export namespace Erc1155 {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = BalanceOfData;
+    export type ResponseBody = BalanceOfResult;
   }
 
   /**

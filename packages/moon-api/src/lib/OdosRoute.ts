@@ -18,13 +18,15 @@ import {
   GetExecutorAddressData,
   GetExecutorAddressParams1VersionEnum,
   GetLiquiditySourcesData,
-  GetQuoteResult,
+  GetQuoteOutput,
   GetRouterAddressData,
   GetRouterAddressParams1VersionEnum,
   GetSupportedChainsData,
   GetSupportedTokensData,
+  GetZapQuoteData,
   OdosSwapInputBody,
-  SwapData,
+  SwapResult,
+  ZapData,
 } from './data-contracts';
 
 export namespace Odos {
@@ -143,7 +145,7 @@ export namespace Odos {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetQuoteResult;
+    export type ResponseBody = GetQuoteOutput;
   }
 
   /**
@@ -207,6 +209,25 @@ export namespace Odos {
   /**
    * No description
    * @tags Odos
+   * @name GetZapQuote
+   * @request POST:/odos/{accountName}/get-zap-quote
+   * @secure
+   */
+  export namespace GetZapQuote {
+    export type RequestParams = {
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = OdosSwapInputBody;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = GetZapQuoteData;
+  }
+
+  /**
+   * No description
+   * @tags Odos
    * @name Swap
    * @request POST:/odos/{accountName}/swap
    * @secure
@@ -220,6 +241,25 @@ export namespace Odos {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = SwapData;
+    export type ResponseBody = SwapResult;
+  }
+
+  /**
+   * No description
+   * @tags Odos
+   * @name Zap
+   * @request POST:/odos/{accountName}/zap
+   * @secure
+   */
+  export namespace Zap {
+    export type RequestParams = {
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = OdosSwapInputBody;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = ZapData;
   }
 }

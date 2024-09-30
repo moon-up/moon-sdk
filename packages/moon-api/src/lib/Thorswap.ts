@@ -12,14 +12,14 @@
 import {
   GetGasPriceData,
   GetGasPriceParams,
-  GetQuoteOutput,
-  GetQuoteParams3,
+  GetQuoteParams4,
+  GetQuoteResult1,
   GetSupportedChainsParams1,
   GetSupportedChainsResult,
   GetSupportedProvidersData,
   GetSupportedProvidersParams,
-  SwapBody,
-  SwapResult,
+  SwapInput,
+  SwapOutput,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
@@ -55,8 +55,8 @@ export class Thorswap<SecurityDataType = unknown> {
    * @request GET:/thorswap/quote
    * @secure
    */
-  getQuote = (query: GetQuoteParams3, params: RequestParams = {}) =>
-    this.http.request<GetQuoteOutput, any>({
+  getQuote = (query: GetQuoteParams4, params: RequestParams = {}) =>
+    this.http.request<GetQuoteResult1, any>({
       path: `/thorswap/quote`,
       method: 'GET',
       query: query,
@@ -112,8 +112,8 @@ export class Thorswap<SecurityDataType = unknown> {
    * @request POST:/thorswap/swap
    * @secure
    */
-  swap = (data: SwapBody, params: RequestParams = {}) =>
-    this.http.request<SwapResult, any>({
+  swap = (data: SwapInput, params: RequestParams = {}) =>
+    this.http.request<SwapOutput, any>({
       path: `/thorswap/swap`,
       method: 'POST',
       body: data,

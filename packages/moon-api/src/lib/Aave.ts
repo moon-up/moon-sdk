@@ -12,6 +12,10 @@
 import {
   AAVEv3RewardsInputBody,
   AavePoolInputBody,
+  BalanceOfData,
+  BalanceOfParams,
+  BatchBalanceOfData,
+  BatchBalanceOfParams,
   BorrowData,
   ClaimAllRewardsData,
   ClaimAllRewardsOnBehalfData,
@@ -35,6 +39,8 @@ import {
   GetAllReservesTokensParams,
   GetDebtCeilingData,
   GetDebtCeilingParams,
+  GetFullReservesIncentiveDataData,
+  GetFullReservesIncentiveDataParams,
   GetMarketIdData,
   GetMarketIdParams,
   GetPoolConfiguratorData,
@@ -45,14 +51,20 @@ import {
   GetPriceOracleParams,
   GetReserveDataData,
   GetReserveDataParams,
+  GetReservesIncentivesDataData,
+  GetReservesIncentivesDataParams,
   GetRewardsByAssetData,
   GetRewardsByAssetParams,
   GetRewardsDataData,
   GetRewardsDataParams,
   GetUserAccountDataData,
   GetUserAccountDataParams,
+  GetUserReservesIncentivesDataData,
+  GetUserReservesIncentivesDataParams,
   GetUserRewardsData,
   GetUserRewardsParams,
+  GetUserWalletBalancesData,
+  GetUserWalletBalancesParams,
   LiquidationCallData,
   PoolAddressProviderInputBody,
   RepayData,
@@ -75,6 +87,40 @@ export class Aave<SecurityDataType = unknown> {
     this.http = http;
   }
 
+  /**
+   * No description
+   *
+   * @tags AAVE v3 Wallet Balance Provider
+   * @name BalanceOf
+   * @request GET:/aave/v3/wallet-balance/balance-of
+   * @secure
+   */
+  balanceOf = (query: BalanceOfParams, params: RequestParams = {}) =>
+    this.http.request<BalanceOfData, any>({
+      path: `/aave/v3/wallet-balance/balance-of`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags AAVE v3 Wallet Balance Provider
+   * @name BatchBalanceOf
+   * @request GET:/aave/v3/wallet-balance/batch-balance-of
+   * @secure
+   */
+  batchBalanceOf = (query: BatchBalanceOfParams, params: RequestParams = {}) =>
+    this.http.request<BatchBalanceOfData, any>({
+      path: `/aave/v3/wallet-balance/batch-balance-of`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
   /**
    * No description
    *
@@ -392,6 +438,26 @@ export class Aave<SecurityDataType = unknown> {
   /**
    * No description
    *
+   * @tags AAVE v3 UI Incentive Data Provider
+   * @name GetFullReservesIncentiveData
+   * @request GET:/aave/v3/incentives/fullReservesIncentiveData
+   * @secure
+   */
+  getFullReservesIncentiveData = (
+    query: GetFullReservesIncentiveDataParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<GetFullReservesIncentiveDataData, any>({
+      path: `/aave/v3/incentives/fullReservesIncentiveData`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
    * @tags Pool Address Provider
    * @name GetMarketId
    * @request GET:/aave/v3/poolAddressProvider/{account}/getMarketId
@@ -492,6 +558,26 @@ export class Aave<SecurityDataType = unknown> {
   /**
    * No description
    *
+   * @tags AAVE v3 UI Incentive Data Provider
+   * @name GetReservesIncentivesData
+   * @request GET:/aave/v3/incentives/reservesIncentivesData
+   * @secure
+   */
+  getReservesIncentivesData = (
+    query: GetReservesIncentivesDataParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<GetReservesIncentivesDataData, any>({
+      path: `/aave/v3/incentives/reservesIncentivesData`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
    * @tags AAVEv3Rewards
    * @name GetRewardsByAsset
    * @request GET:/aave/v3/rewards/{account}/rewardsByAsset
@@ -552,6 +638,26 @@ export class Aave<SecurityDataType = unknown> {
   /**
    * No description
    *
+   * @tags AAVE v3 UI Incentive Data Provider
+   * @name GetUserReservesIncentivesData
+   * @request GET:/aave/v3/incentives/userReservesIncentivesData
+   * @secure
+   */
+  getUserReservesIncentivesData = (
+    query: GetUserReservesIncentivesDataParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<GetUserReservesIncentivesDataData, any>({
+      path: `/aave/v3/incentives/userReservesIncentivesData`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
    * @tags AAVEv3Rewards
    * @name GetUserRewards
    * @request GET:/aave/v3/rewards/{account}/userRewards
@@ -563,6 +669,26 @@ export class Aave<SecurityDataType = unknown> {
   ) =>
     this.http.request<GetUserRewardsData, any>({
       path: `/aave/v3/rewards/${account}/userRewards`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags AAVE v3 Wallet Balance Provider
+   * @name GetUserWalletBalances
+   * @request GET:/aave/v3/wallet-balance/user-wallet-balances
+   * @secure
+   */
+  getUserWalletBalances = (
+    query: GetUserWalletBalancesParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<GetUserWalletBalancesData, any>({
+      path: `/aave/v3/wallet-balance/user-wallet-balances`,
       method: 'GET',
       query: query,
       secure: true,

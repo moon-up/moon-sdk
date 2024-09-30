@@ -12,6 +12,8 @@
 import {
   AAVEv3RewardsInputBody,
   AavePoolInputBody,
+  BalanceOfData,
+  BatchBalanceOfData,
   BorrowData,
   ClaimAllRewardsData,
   ClaimAllRewardsOnBehalfData,
@@ -27,15 +29,19 @@ import {
   GetAllATokensData,
   GetAllReservesTokensData,
   GetDebtCeilingData,
+  GetFullReservesIncentiveDataData,
   GetMarketIdData,
   GetPoolConfiguratorData,
   GetPoolData,
   GetPriceOracleData,
   GetReserveDataData,
+  GetReservesIncentivesDataData,
   GetRewardsByAssetData,
   GetRewardsDataData,
   GetUserAccountDataData,
+  GetUserReservesIncentivesDataData,
   GetUserRewardsData,
+  GetUserWalletBalancesData,
   LiquidationCallData,
   PoolAddressProviderInputBody,
   RepayData,
@@ -51,6 +57,50 @@ import {
 } from './data-contracts';
 
 export namespace Aave {
+  /**
+   * No description
+   * @tags AAVE v3 Wallet Balance Provider
+   * @name BalanceOf
+   * @request GET:/aave/v3/wallet-balance/balance-of
+   * @secure
+   */
+  export namespace BalanceOf {
+    export type RequestParams = {};
+    export type RequestQuery = {
+      chain_id: string;
+      contract_address: string;
+      token_address: string;
+      user: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = BalanceOfData;
+  }
+
+  /**
+   * No description
+   * @tags AAVE v3 Wallet Balance Provider
+   * @name BatchBalanceOf
+   * @request GET:/aave/v3/wallet-balance/batch-balance-of
+   * @secure
+   */
+  export namespace BatchBalanceOf {
+    export type RequestParams = {};
+    export type RequestQuery = {
+      chain_id: string;
+      contract_address: string;
+      tokens: string[];
+      users: string[];
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = BatchBalanceOfData;
+  }
+
   /**
    * No description
    * @tags AAVEv3 Pool
@@ -365,6 +415,28 @@ export namespace Aave {
 
   /**
    * No description
+   * @tags AAVE v3 UI Incentive Data Provider
+   * @name GetFullReservesIncentiveData
+   * @request GET:/aave/v3/incentives/fullReservesIncentiveData
+   * @secure
+   */
+  export namespace GetFullReservesIncentiveData {
+    export type RequestParams = {};
+    export type RequestQuery = {
+      chain_id: string;
+      contract_address: string;
+      provider: string;
+      user: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = GetFullReservesIncentiveDataData;
+  }
+
+  /**
+   * No description
    * @tags Pool Address Provider
    * @name GetMarketId
    * @request GET:/aave/v3/poolAddressProvider/{account}/getMarketId
@@ -476,6 +548,27 @@ export namespace Aave {
 
   /**
    * No description
+   * @tags AAVE v3 UI Incentive Data Provider
+   * @name GetReservesIncentivesData
+   * @request GET:/aave/v3/incentives/reservesIncentivesData
+   * @secure
+   */
+  export namespace GetReservesIncentivesData {
+    export type RequestParams = {};
+    export type RequestQuery = {
+      chain_id: string;
+      contract_address: string;
+      provider: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = GetReservesIncentivesDataData;
+  }
+
+  /**
+   * No description
    * @tags AAVEv3Rewards
    * @name GetRewardsByAsset
    * @request GET:/aave/v3/rewards/{account}/rewardsByAsset
@@ -546,6 +639,28 @@ export namespace Aave {
 
   /**
    * No description
+   * @tags AAVE v3 UI Incentive Data Provider
+   * @name GetUserReservesIncentivesData
+   * @request GET:/aave/v3/incentives/userReservesIncentivesData
+   * @secure
+   */
+  export namespace GetUserReservesIncentivesData {
+    export type RequestParams = {};
+    export type RequestQuery = {
+      chain_id: string;
+      contract_address: string;
+      provider: string;
+      user: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = GetUserReservesIncentivesDataData;
+  }
+
+  /**
+   * No description
    * @tags AAVEv3Rewards
    * @name GetUserRewards
    * @request GET:/aave/v3/rewards/{account}/userRewards
@@ -567,6 +682,28 @@ export namespace Aave {
       Authorization: string;
     };
     export type ResponseBody = GetUserRewardsData;
+  }
+
+  /**
+   * No description
+   * @tags AAVE v3 Wallet Balance Provider
+   * @name GetUserWalletBalances
+   * @request GET:/aave/v3/wallet-balance/user-wallet-balances
+   * @secure
+   */
+  export namespace GetUserWalletBalances {
+    export type RequestParams = {};
+    export type RequestQuery = {
+      chain_id: string;
+      contract_address: string;
+      provider: string;
+      user: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = GetUserWalletBalancesData;
   }
 
   /**

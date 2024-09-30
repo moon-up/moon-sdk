@@ -115,6 +115,45 @@ export interface AAVEv3RewardsTransaction {
   value: string;
 }
 
+export interface AAVEv3UiIncentiveDataProviderAPIResponseAggregatedReserveIncentiveDataArray {
+  data?: AggregatedReserveIncentiveData[];
+  message: string;
+  success: boolean;
+}
+
+export interface AAVEv3UiIncentiveDataProviderAPIResponseFullReservesIncentiveData {
+  data?: FullReservesIncentiveData;
+  message: string;
+  success: boolean;
+}
+
+export interface AAVEv3UiIncentiveDataProviderAPIResponseUserReserveIncentiveDataArray {
+  data?: UserReserveIncentiveData[];
+  message: string;
+  success: boolean;
+}
+
+export interface AAVEv3WalletBalanceProviderAPIResponseString {
+  data?: string;
+  message: string;
+  success: boolean;
+}
+
+export interface AAVEv3WalletBalanceProviderAPIResponseStringArray {
+  data?: string[];
+  message: string;
+  success: boolean;
+}
+
+export interface AAVEv3WalletBalanceProviderAPIResponseTokensStringArrayBalancesStringArray {
+  data?: {
+    balances: string[];
+    tokens: string[];
+  };
+  message: string;
+  success: boolean;
+}
+
 export interface AavePoolAPIResponseAavePoolExecuteFunctionResult {
   data?: AavePoolExecuteFunctionResult;
   message: string;
@@ -230,6 +269,8 @@ export interface AbiEncodeOutput {
   success: boolean;
 }
 
+export type AbstainData = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
 export interface AccessTuple {
   address: string;
   storageKeys: string[];
@@ -266,6 +307,13 @@ export interface Action {
   /** @format double */
   toChainId: number;
   toToken: TokenDetails;
+}
+
+export interface AggregatedReserveIncentiveData {
+  aIncentiveData: IncentiveData;
+  sIncentiveData: IncentiveData;
+  underlyingAsset: string;
+  vIncentiveData: IncentiveData;
 }
 
 export interface ApiResponseChainsResponse {
@@ -326,6 +374,8 @@ export type ApproveData = ERC20APIResponseERC20ExecuteFunctionResult;
 
 export type ApproveErc721Data = ERC721APIResponse;
 
+export type ApproveOutput = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
 export type ApproveResult = ERC4626APIResponse;
 
 export interface AssembleRequest {
@@ -336,6 +386,11 @@ export interface AssembleRequest {
 }
 
 export type AssembleTransactionData = OdosAPIResponseOdosExecuteFunctionResult;
+
+export type AttachData = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
+export type AttachTokenToGaugeData =
+  VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
 
 export interface BRC20TransactionInput {
   amt: string;
@@ -364,7 +419,16 @@ export interface BalanceAPIResponse {
 
 export type BalanceOfBatchData = TransactionAPIResponse;
 
-export type BalanceOfData = TransactionAPIResponse;
+export type BalanceOfData = AAVEv3WalletBalanceProviderAPIResponseString;
+
+export interface BalanceOfParams {
+  chain_id: string;
+  contract_address: string;
+  token_address: string;
+  user: string;
+}
+
+export type BalanceOfResult = TransactionAPIResponse;
 
 export interface BalanceResponse {
   balance: string;
@@ -374,6 +438,18 @@ export interface BaseCosmosAPIResponse {
   message: string;
   success: boolean;
 }
+
+export type BatchBalanceOfData =
+  AAVEv3WalletBalanceProviderAPIResponseStringArray;
+
+export interface BatchBalanceOfParams {
+  chain_id: string;
+  contract_address: string;
+  tokens: string[];
+  users: string[];
+}
+
+export type BigNumber = any;
 
 export type BigNumberJSON = string;
 
@@ -499,6 +575,15 @@ export interface BroadcastInput {
 
 export type BroadcastTxData = BroadCastRawTransactionAPIResponse;
 
+export type CalculateOptimalVoteDistributionData = ThenaAPIResponse;
+
+export interface CalculateOptimalVoteDistributionParams {
+  /** @format double */
+  maxFusions?: number;
+  /** @format double */
+  totalVotes: number;
+}
+
 export type CallWebhookData = MultiCallAPIResponse;
 
 export interface Chain {
@@ -547,6 +632,8 @@ export interface ChainsResponse {
   chains: Chain[];
 }
 
+export type CheckpointData = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
 export type ClaimAllRewardsData =
   AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
 
@@ -556,11 +643,20 @@ export type ClaimAllRewardsOnBehalfData =
 export type ClaimAllRewardsToSelfData =
   AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
 
+export type ClaimBribesData =
+  VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
+
+export type ClaimFeesData =
+  VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
+
 export type ClaimRewardsData =
   AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
 
 export type ClaimRewardsOnBehalfData =
   AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
+
+export type ClaimRewardsResult =
+  VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
 
 export type ClaimRewardsToSelfData =
   AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
@@ -701,9 +797,16 @@ export interface CreateFlowBody {
 
 export type CreateFlowData = MultiCallAPIResponseAny;
 
+export type CreateGaugeData =
+  VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
+
 export type CreateJobData = MultiCallAPIResponseString;
 
 export type CreateLitecoinAccountData = AccountAPIResponse;
+
+export type CreateLockData = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
+export type CreateLockForData = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export type CreateRippleAccountData = AccountAPIResponse;
 
@@ -735,6 +838,10 @@ export interface CryptoCurrency {
   networkDisplayName: string;
   symbol: string;
 }
+
+export type DelegateBySigData = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
+export type DelegateData = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export type DeleteAccountData = AccountAPIResponse;
 
@@ -783,8 +890,18 @@ export interface DeployInput {
 
 export type DepositData = ERC4626APIResponse;
 
+export type DepositForData = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
 export type DepositResult =
   LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
+
+export type DetachData = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
+export type DetachTokenFromGaugeData =
+  VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
+
+export type DistributeData =
+  VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
 
 export interface DogeCoinAPIResponse {
   address?: string;
@@ -1373,6 +1490,11 @@ export enum FlowNodeTypeEnum {
   UserFunction = 'userFunction',
 }
 
+export interface FullReservesIncentiveData {
+  reservesIncentiveData: AggregatedReserveIncentiveData[];
+  userReserveIncentiveData: UserReserveIncentiveData[];
+}
+
 export interface GasCost {
   amount: string;
   amountUSD: string;
@@ -1510,6 +1632,14 @@ export interface GetAllowanceParams2 {
 
 export type GetAllowanceResult = ERC4626APIResponse;
 
+export type GetApprovedData = VeTheNFTAPIResponseString;
+
+export interface GetApprovedParams {
+  address: string;
+  chainId: string;
+  tokenId: string;
+}
+
 export type GetAssetData = ERC4626APIResponse;
 
 export interface GetAssetParams {
@@ -1520,7 +1650,26 @@ export interface GetAssetParams {
 
 export type GetBalanceData = BalanceAPIResponse;
 
+export type GetBalanceOfAtNftData = VeTheNFTAPIResponseString;
+
+export interface GetBalanceOfAtNftParams {
+  address: string;
+  block: string;
+  chainId: string;
+  tokenId: string;
+}
+
 export type GetBalanceOfData = ERC20APIResponseString;
+
+export type GetBalanceOfNftData = VeTheNFTAPIResponseString;
+
+export interface GetBalanceOfNftParams {
+  address: string;
+  chainId: string;
+  tokenId: string;
+}
+
+export type GetBalanceOfOutput = VeTheNFTAPIResponseString;
 
 export interface GetBalanceOfParams {
   account: string;
@@ -1529,6 +1678,12 @@ export interface GetBalanceOfParams {
 }
 
 export interface GetBalanceOfParams2 {
+  account: string;
+  address: string;
+  chainId: string;
+}
+
+export interface GetBalanceOfParams4 {
   account: string;
   address: string;
   chainId: string;
@@ -1625,6 +1780,14 @@ export interface GetDefaultAdminRoleParams {
   chainId: string;
 }
 
+export type GetDelegatesData = VeTheNFTAPIResponseString;
+
+export interface GetDelegatesParams {
+  address: string;
+  chainId: string;
+  delegator: string;
+}
+
 export type GetDogeCoinAccountData = AccountAPIResponse;
 
 export type GetEosAccountData = AccountAPIResponse;
@@ -1705,6 +1868,22 @@ export interface GetFlashLoanPremiumTotalParams {
 
 export type GetFlowData = MultiCallAPIResponseAny;
 
+export type GetFullReservesIncentiveDataData =
+  AAVEv3UiIncentiveDataProviderAPIResponseFullReservesIncentiveData;
+
+export interface GetFullReservesIncentiveDataParams {
+  chain_id: string;
+  contract_address: string;
+  provider: string;
+  user: string;
+}
+
+export type GetFusionByAddressData = ThenaAPIResponse;
+
+export type GetFusionsByTypeData = ThenaAPIResponse;
+
+export type GetFusionsData = ThenaAPIResponse;
+
 export type GetGasPriceData = ThorSwapAPIResponseGasPrice;
 
 export interface GetGasPriceParams {
@@ -1714,11 +1893,25 @@ export interface GetGasPriceParams {
 
 export type GetHistoryEntryData = MultiCallAPIResponseHistory;
 
+export type GetIndexedRouteMapData = JupiterAPIResponseAny;
+
+export interface GetIndexedRouteMapParams {
+  onlyDirectRoutes?: boolean;
+}
+
 export type GetJobData = MultiCallAPIResponseJobs;
 
 export type GetJobHistoryData = MultiCallAPIResponseHistoryArray;
 
 export type GetJobResultData = MultiCallAPIResponseMultiCallResult;
+
+export type GetLastUserSlopeData = VeTheNFTAPIResponseString;
+
+export interface GetLastUserSlopeParams {
+  address: string;
+  chainId: string;
+  tokenId: string;
+}
 
 export type GetLendingPoolData = LeveragerAPIResponseString;
 
@@ -1742,6 +1935,22 @@ export interface GetLiquiditySourcesParams {
 }
 
 export type GetLitecoinAccountData = AccountAPIResponse;
+
+export type GetLockedData = VeTheNFTAPIResponseLockedData;
+
+export type GetLockedEndData = VeTheNFTAPIResponseString;
+
+export interface GetLockedEndParams {
+  address: string;
+  chainId: string;
+  tokenId: string;
+}
+
+export interface GetLockedParams {
+  address: string;
+  chainId: string;
+  tokenId: string;
+}
 
 export type GetMarketIdData = PoolAddressProviderAPIResponseString;
 
@@ -1821,6 +2030,31 @@ export interface GetNameParams {
 
 export type GetNonceData = NonceAPIResponse;
 
+export type GetOwnerOfData = VeTheNFTAPIResponseString;
+
+export interface GetOwnerOfParams {
+  address: string;
+  chainId: string;
+  tokenId: string;
+}
+
+export type GetPastTotalSupplyData = VeTheNFTAPIResponseString;
+
+export interface GetPastTotalSupplyParams {
+  address: string;
+  chainId: string;
+  timestamp: string;
+}
+
+export type GetPastVotesData = VeTheNFTAPIResponseString;
+
+export interface GetPastVotesParams {
+  account: string;
+  address: string;
+  chainId: string;
+  timestamp: string;
+}
+
 export type GetPoolConfiguratorData = PoolAddressProviderAPIResponseString;
 
 export interface GetPoolConfiguratorParams {
@@ -1881,11 +2115,13 @@ export interface GetPriceOracleParams {
   chainId: string;
 }
 
-export type GetQuoteData = ApiResponseQuote;
+export type GetProgramIdToLabelData = JupiterAPIResponseRecordStringString;
 
-export type GetQuoteOutput = ThorSwapAPIResponseQuote;
+export type GetQuoteData = JupiterAPIResponseJupiterExecuteFunctionResult;
 
-export interface GetQuoteParams {
+export type GetQuoteOutput = OdosAPIResponseOdosExecuteFunctionResult;
+
+export interface GetQuoteParams1 {
   allowBridges?: string[];
   allowExchanges?: string[];
   denyBridges?: string[];
@@ -1908,13 +2144,13 @@ export interface GetQuoteParams {
   toToken: string;
 }
 
-export enum GetQuoteParams1OrderEnum {
+export enum GetQuoteParams2OrderEnum {
   BEST_VALUE = 'BEST_VALUE',
   BEST_FEE = 'BEST_FEE',
   BEST_FEE_GAS = 'BEST_FEE_GAS',
 }
 
-export interface GetQuoteParams3 {
+export interface GetQuoteParams4 {
   affiliateAddress?: string;
   /** @format double */
   affiliateBasisPoints?: number;
@@ -1934,7 +2170,9 @@ export interface GetQuoteParams3 {
   slippage?: number;
 }
 
-export type GetQuoteResult = OdosAPIResponseOdosExecuteFunctionResult;
+export type GetQuoteResult = ApiResponseQuote;
+
+export type GetQuoteResult1 = ThorSwapAPIResponseQuote;
 
 export type GetReserveDataData = AavePoolAPIResponseAny;
 
@@ -1952,6 +2190,15 @@ export interface GetReserveDataParams2 {
 }
 
 export type GetReserveDataResult = LendingPoolAPIResponseAny;
+
+export type GetReservesIncentivesDataData =
+  AAVEv3UiIncentiveDataProviderAPIResponseAggregatedReserveIncentiveDataArray;
+
+export interface GetReservesIncentivesDataParams {
+  chain_id: string;
+  contract_address: string;
+  provider: string;
+}
 
 export type GetReservesListData = LendingPoolAPIResponseStringArray;
 
@@ -2043,6 +2290,9 @@ export interface GetSupportedTokensParams {
   chainId: number;
 }
 
+export type GetSwapInstructionsData =
+  JupiterAPIResponseJupiterExecuteFunctionResult;
+
 export type GetSymbolData = ERC20APIResponseString;
 
 export interface GetSymbolParams {
@@ -2051,10 +2301,41 @@ export interface GetSymbolParams {
   chainId: string;
 }
 
+export type GetTokenUriData = VeTheNFTAPIResponseString;
+
+export interface GetTokenUriParams {
+  address: string;
+  chainId: string;
+  tokenId: string;
+}
+
+export type GetTokensData = JupiterAPIResponseStringArray;
+
 export type GetToolsData = ApiResponseToolsResponse;
 
 export interface GetToolsParams {
   chains?: string;
+}
+
+export type GetTopAprFusionsData = ThenaAPIResponse;
+
+export interface GetTopAprFusionsParams {
+  /** @format double */
+  limit?: number;
+}
+
+export type GetTopPairsData = ThenaAPIResponse;
+
+export interface GetTopPairsParams {
+  /** @format double */
+  limit?: number;
+}
+
+export type GetTopTokensData = ThenaAPIResponse;
+
+export interface GetTopTokensParams {
+  /** @format double */
+  limit?: number;
 }
 
 export type GetTotalAssetsData = ERC4626APIResponse;
@@ -2065,7 +2346,25 @@ export interface GetTotalAssetsParams {
   chainId: string;
 }
 
+export type GetTotalSupplyAtData = VeTheNFTAPIResponseString;
+
+export interface GetTotalSupplyAtParams {
+  address: string;
+  block: string;
+  chainId: string;
+}
+
+export type GetTotalSupplyAtTData = VeTheNFTAPIResponseString;
+
+export interface GetTotalSupplyAtTParams {
+  address: string;
+  chainId: string;
+  t: string;
+}
+
 export type GetTotalSupplyData = ERC20APIResponseString;
+
+export type GetTotalSupplyOutput = VeTheNFTAPIResponseString;
 
 export interface GetTotalSupplyParams {
   account: string;
@@ -2079,7 +2378,21 @@ export interface GetTotalSupplyParams2 {
   chainId: string;
 }
 
+export interface GetTotalSupplyParams4 {
+  address: string;
+  chainId: string;
+}
+
 export type GetTotalSupplyResult = ERC4626APIResponse;
+
+export type GetTotalValueLockedData = ThenaAPIResponse;
+
+export type GetTotalWeightData = VeTheNftVoterAPIResponseString;
+
+export interface GetTotalWeightParams {
+  address: string;
+  chainId: string;
+}
 
 export type GetTronAccountData = AccountAPIResponse;
 
@@ -2102,6 +2415,34 @@ export type GetUserAccountDataResult = LendingPoolAPIResponseAny;
 
 export type GetUserDefinedFunctionData = MultiCallAPIResponseAny;
 
+export type GetUserPointHistoryData = VeTheNFTAPIResponseUserPointHistoryData;
+
+export interface GetUserPointHistoryParams {
+  address: string;
+  chainId: string;
+  loc: string;
+  tokenId: string;
+}
+
+export type GetUserPointHistoryTsData = VeTheNFTAPIResponseString;
+
+export interface GetUserPointHistoryTsParams {
+  address: string;
+  chainId: string;
+  idx: string;
+  tokenId: string;
+}
+
+export type GetUserReservesIncentivesDataData =
+  AAVEv3UiIncentiveDataProviderAPIResponseUserReserveIncentiveDataArray;
+
+export interface GetUserReservesIncentivesDataParams {
+  chain_id: string;
+  contract_address: string;
+  provider: string;
+  user: string;
+}
+
 export type GetUserRewardsData = AAVEv3RewardsAPIResponseString;
 
 export interface GetUserRewardsParams {
@@ -2111,6 +2452,24 @@ export interface GetUserRewardsParams {
   chainId: string;
   reward: string;
   user: string;
+}
+
+export type GetUserWalletBalancesData =
+  AAVEv3WalletBalanceProviderAPIResponseTokensStringArrayBalancesStringArray;
+
+export interface GetUserWalletBalancesParams {
+  chain_id: string;
+  contract_address: string;
+  provider: string;
+  user: string;
+}
+
+export type GetVotesData = VeTheNFTAPIResponseString;
+
+export interface GetVotesParams {
+  account: string;
+  address: string;
+  chainId: string;
 }
 
 export type GetWalletBalanceData = WalletBalanceAPIResponse;
@@ -2128,12 +2487,22 @@ export interface GetWalletHistoryParams {
   chain: string;
 }
 
+export type GetWeightsData = VeTheNftVoterAPIResponseString;
+
+export interface GetWeightsParams {
+  address: string;
+  chainId: string;
+  pool: string;
+}
+
 export type GetWethData = LeveragerAPIResponseString;
 
 export interface GetWethParams {
   address: string;
   chainId: string;
 }
+
+export type GetZapQuoteData = OdosAPIResponseOdosExecuteFunctionResult;
 
 export type GetstatusData = ApiResponseStatusResponse;
 
@@ -2165,6 +2534,18 @@ export interface History {
   user_id: string;
   wrapper: string;
 }
+
+export interface IncentiveData {
+  incentiveControllerAddress: string;
+  rewardsTokenInformation: RewardInfo[];
+  tokenAddress: string;
+}
+
+export type IncreaseLockAmountData =
+  VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
+export type IncreaseUnlockTimeData =
+  VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export interface InputBody {
   EOA?: boolean;
@@ -2228,6 +2609,23 @@ export interface InputBody {
 
 export type IsApprovedForAllData = TransactionAPIResponse;
 
+export interface IsApprovedForAllParams1 {
+  address: string;
+  chainId: string;
+  operator: string;
+  owner: string;
+}
+
+export type IsApprovedForAllResult = VeTheNFTAPIResponseBoolean;
+
+export type IsGaugeData = VeTheNftVoterAPIResponseBoolean;
+
+export interface IsGaugeParams {
+  address: string;
+  chainId: string;
+  gauge: string;
+}
+
 export type IsPausedData = LendingPoolAPIResponseBoolean;
 
 export interface IsPausedParams {
@@ -2242,6 +2640,14 @@ export interface IsPausedParams2 {
 
 export type IsPausedResult = LeveragerAPIResponseBoolean;
 
+export type IsWhitelistedData = VeTheNftVoterAPIResponseBoolean;
+
+export interface IsWhitelistedParams {
+  address: string;
+  chainId: string;
+  tokenAddress: string;
+}
+
 export interface Jobs {
   calls: Json;
   created_at: string;
@@ -2255,6 +2661,53 @@ export interface Jobs {
 }
 
 export type Json = string | number | boolean | null;
+
+export interface JupiterAPIResponseAny {
+  data?: any;
+  message: string;
+  success: boolean;
+}
+
+export interface JupiterAPIResponseJupiterExecuteFunctionResult {
+  data?: JupiterExecuteFunctionResult;
+  message: string;
+  success: boolean;
+}
+
+export interface JupiterAPIResponseRecordStringString {
+  /** Construct a type with a set of properties K of type T */
+  data?: RecordStringString;
+  message: string;
+  success: boolean;
+}
+
+export interface JupiterAPIResponseStringArray {
+  data?: string[];
+  message: string;
+  success: boolean;
+}
+
+export interface JupiterExecuteFunctionResult {
+  data?: any;
+  function: string;
+  jupiter?: any;
+  message?: string;
+  params: any[];
+  success?: boolean;
+  transaction?: any;
+  transactionHash?: string;
+}
+
+export type KillGaugeData =
+  VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
+
+export type LastVotedData = VeTheNftVoterAPIResponseString;
+
+export interface LastVotedParams {
+  address: string;
+  chainId: string;
+  tokenId: string;
+}
 
 export interface LendingPoolAPIResponseAny {
   data?: any;
@@ -2554,6 +3007,13 @@ export interface LitecoinTransactionOutput {
   transaction_hash?: string;
 }
 
+export interface LockedData {
+  amount: string;
+  end: string;
+}
+
+export type MergeData = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
 export interface Message {
   crypto: CryptoCurrency[];
   fiat: FiatCurrency[];
@@ -2668,6 +3128,9 @@ export interface NonceResponse {
   nonce: number;
 }
 
+export type NotifyRewardAmountData =
+  VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
+
 export interface OdosAPIResponseOdosExecuteFunctionResult {
   data?: OdosExecuteFunctionResult;
   message: string;
@@ -2688,32 +3151,71 @@ export interface OdosExecuteFunctionResult {
 
 export interface OdosSwapInputBody {
   EOA?: boolean;
+  accessList?: AccessTuple[];
+  account?: string;
   alwaysIncrementNonce?: boolean;
+  amount?: string;
+  amounts?: string[];
+  approved?: boolean;
+  asset?: string;
+  assets?: string[];
+  blobGas?: string;
+  blobGasFeeCap?: string;
+  blobHashes?: string[];
+  borrowAmount?: string | number;
   broadcast?: boolean;
-  chain_id: string;
+  chain_id?: string;
+  collateralAsset?: string;
   compact?: boolean;
+  contract_address?: string;
   data?: string;
+  debtAsset?: string;
+  debtToCover?: string;
   disableRFQs?: boolean;
   dryrun?: boolean;
+  encoding?: string;
   gas?: string;
-  gasPrice?: string | number;
+  gasLimit?: string;
+  gasPrice?: string;
+  initialDeposit?: string | number;
+  initiator?: string;
+  input?: string;
   inputTokens: TokenAmount[];
+  /** @format double */
+  interestRateMode?: number;
   likeAsset?: boolean;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  minHealthFactor?: string | number;
+  modes?: number[];
   nonce?: string;
+  onBehalfOf?: string;
   outputTokens: TokenProportion[];
+  params?: string;
   pathViz?: boolean;
   pathVizImage?: boolean;
   pathVizImageConfig?: PathVizImageConfig;
   poolBlacklist?: string[];
+  premiums?: string[] | number[];
+  /** @format double */
+  rateMode?: number;
+  receiveAToken?: boolean;
+  receiverAddress?: string;
   /** @format double */
   referralCode?: number;
+  role?: string;
   simple?: boolean;
   /** @format double */
   slippageLimitPercent?: number;
   sourceBlacklist?: string[];
   sourceWhitelist?: string[];
   to?: string;
-  userAddr?: string;
+  token_id?: string;
+  token_ids?: string;
+  /** @format double */
+  type?: number;
+  useAsCollateral?: boolean;
+  user?: string;
   value?: string;
 }
 
@@ -2723,11 +3225,19 @@ export interface OdosTransaction {
   from: string;
   gasLimit?: string;
   gasPrice?: string;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
   /** @format double */
   nonce: number;
   to: string;
+  /** @format double */
+  type?: number;
   value: string;
 }
+
+/** Construct a type with the properties of T except for those in type K. */
+export type OmitJupiterInputBodyAccountName =
+  PickJupiterInputBodyExcludeKeysAccountName;
 
 export type OnRamperCheckoutData = any;
 
@@ -2868,9 +3378,26 @@ export interface PaymentType {
   paymentTypeId: string;
 }
 
+/** From T, pick a set of properties whose keys are in the union K */
+export interface PickJupiterInputBodyExcludeKeysAccountName {
+  /** @format double */
+  amount: number;
+  broadcast?: boolean;
+  dryrun?: boolean;
+  /** @format double */
+  feeBps?: number;
+  inputMint: string;
+  outputMint: string;
+  /** @format double */
+  slippage?: number;
+}
+
 export interface PingResponse {
   message: string;
 }
+
+export type PokeData =
+  VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
 
 export interface PoolAddressProviderAPIResponsePoolAddressProviderExecuteFunctionResult {
   data?: PoolAddressProviderExecuteFunctionResult;
@@ -2986,6 +3513,14 @@ export interface PoolAddressProviderTransaction {
   value: string;
 }
 
+export type PoolVoteLengthData = VeTheNftVoterAPIResponseString;
+
+export interface PoolVoteLengthParams {
+  address: string;
+  chainId: string;
+  tokenId: string;
+}
+
 export interface PostQuote {
   broadcast: any;
   input: InputBody;
@@ -3043,6 +3578,9 @@ export type ReadAccountData = BitcoinCashAPIResponseAccountResponse;
 export type RecordStringAny = object;
 
 /** Construct a type with a set of properties K of type T */
+export type RecordStringString = object;
+
+/** Construct a type with a set of properties K of type T */
 export type RecordStringStringArray = object;
 
 export type RedeemData = ERC4626APIResponse;
@@ -3055,9 +3593,32 @@ export type RepayData = AavePoolAPIResponseAavePoolExecuteFunctionResult;
 export type RepayResult =
   LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
 
+export type ResetData =
+  VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
+
 export type ResolveData = EnsResolveAPIResponse;
 
+export type ReviveGaugeData =
+  VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
+
 export type RevokeRoleData = LeveragerAPIResponseLeveragerExecuteFunctionResult;
+
+export interface RewardInfo {
+  emissionEndTimestamp: BigNumber;
+  emissionPerSecond: BigNumber;
+  incentivesLastUpdateTimestamp: BigNumber;
+  /** @format double */
+  precision: number;
+  /** @format double */
+  priceFeedDecimals: number;
+  rewardOracleAddress: string;
+  rewardPriceFeed: BigNumber;
+  rewardTokenAddress: string;
+  /** @format double */
+  rewardTokenDecimals: number;
+  rewardTokenSymbol: string;
+  tokenIncentivesIndex: BigNumber;
+}
 
 export interface RippleAPIResponse {
   address?: string;
@@ -3106,6 +3667,9 @@ export type SafeTransferFromData = TransactionAPIResponse;
 
 export type SafeTransferFromErc721Data = ERC721APIResponse;
 
+export type SafeTransferFromResult =
+  VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
 export type SafeTransferFromWithDataErc721Data = ERC721APIResponse;
 
 export interface ScheduleJobBody {
@@ -3152,6 +3716,9 @@ export type SetApprovalForAllData = TransactionAPIResponse;
 
 export type SetApprovalForAllErc721Data = ERC721APIResponse;
 
+export type SetApprovalForAllResult =
+  VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
 export type SetMarketIdData =
   PoolAddressProviderAPIResponsePoolAddressProviderExecuteFunctionResult;
 
@@ -3190,6 +3757,7 @@ export type SignLitecoinTransactionData = LitecoinAPIResponse;
 export type SignLitecoinTransactionWithMemoData = LitecoinAPIResponse;
 
 export interface SignMessage {
+  chain_id?: string;
   data: string;
   encoding?: string;
   header?: boolean;
@@ -3234,6 +3802,7 @@ export type SignTransferTransactionData = CosmosTransactionAPIResponse;
 export type SignTronTransactionData = TronAPIResponse;
 
 export interface SignTypedData {
+  chain_id?: string;
   data: string;
 }
 
@@ -3269,6 +3838,8 @@ export interface SolanaTransactionOutput {
   signedTx?: string;
   transaction_hash?: string;
 }
+
+export type SplitData = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export interface StatusResponse {
   receiving: TransactionStatus;
@@ -3347,7 +3918,12 @@ export interface SupportsInterfaceParams {
   interfaceId: string;
 }
 
-export interface SwapBody {
+export type SwapBorrowRateModeData =
+  LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
+
+export type SwapData = JupiterAPIResponseJupiterExecuteFunctionResult;
+
+export interface SwapInput {
   accountName: string;
   /** @format double */
   amount: number;
@@ -3359,12 +3935,15 @@ export interface SwapBody {
   toAsset: string;
 }
 
-export type SwapBorrowRateModeData =
-  LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
+export type SwapOutput = ThorSwapAPIResponseString;
 
-export type SwapData = OdosAPIResponseOdosExecuteFunctionResult;
+export type SwapResult = OdosAPIResponseOdosExecuteFunctionResult;
 
-export type SwapResult = ThorSwapAPIResponseString;
+export interface ThenaAPIResponse {
+  data?: any;
+  message: string;
+  success: boolean;
+}
 
 export interface ThorSwapAPIResponseGasPrice {
   data?: GasPrice;
@@ -3446,15 +4025,19 @@ export interface ToolsResponse {
 }
 
 export interface Transaction {
+  broadcasted?: BroadCastRawTransactionResponse;
   data?: string | null;
+  message?: string;
   moon_scan_url?: string;
   raw_transaction?: string;
   signature?: string;
   signed_transaction?: string;
+  success?: boolean;
   transaction?: Tx;
   transaction_hash?: string;
   transactions?: TransactionData[];
   userOps?: TransactionRequest[];
+  user_op?: string;
   userop_transaction?: string;
 }
 
@@ -3551,6 +4134,8 @@ export type TransferFromData = ERC20APIResponseERC20ExecuteFunctionResult;
 
 export type TransferFromErc721Data = ERC721APIResponse;
 
+export type TransferFromOutput = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
 export type TransferFromResult = ERC4626APIResponse;
 
 export type TransferResult = ERC4626APIResponse;
@@ -3637,6 +4222,277 @@ export interface UpdateUserDefinedFunctionBody {
 
 export type UpdateUserDefinedFunctionData = MultiCallAPIResponseAny;
 
+export interface UserIncentiveData {
+  incentiveControllerAddress: string;
+  tokenAddress: string;
+  userRewardsInformation: UserRewardInfo[];
+}
+
+export interface UserPointHistoryData {
+  bias: string;
+  blk: string;
+  slope: string;
+  ts: string;
+}
+
+export interface UserReserveIncentiveData {
+  aTokenIncentivesUserData: UserIncentiveData;
+  sTokenIncentivesUserData: UserIncentiveData;
+  underlyingAsset: string;
+  vTokenIncentivesUserData: UserIncentiveData;
+}
+
+export interface UserRewardInfo {
+  /** @format double */
+  priceFeedDecimals: number;
+  rewardOracleAddress: string;
+  rewardPriceFeed: BigNumber;
+  rewardTokenAddress: string;
+  /** @format double */
+  rewardTokenDecimals: number;
+  rewardTokenSymbol: string;
+  tokenIncentivesUserIndex: BigNumber;
+  userUnclaimedRewards: BigNumber;
+}
+
+export interface VeNFTExecuteFunctionResult {
+  broadcasted?: BroadCastRawTransactionResponse;
+  data?: Transaction;
+  function: string;
+  message?: string;
+  params: any[];
+  success?: boolean;
+  transaction: VeNFTTransaction;
+  user_op?: string;
+}
+
+export interface VeNFTInputBody {
+  EOA?: boolean;
+  accessList?: AccessTuple[];
+  account?: string;
+  alwaysIncrementNonce?: boolean;
+  amount?: string;
+  amounts?: string[];
+  approved?: boolean;
+  asset?: string;
+  assets?: string[];
+  blobGas?: string;
+  blobGasFeeCap?: string;
+  blobHashes?: string[];
+  borrowAmount?: string | number;
+  broadcast?: boolean;
+  chain_id?: string;
+  collateralAsset?: string;
+  contract_address?: string;
+  data?: string;
+  debtAsset?: string;
+  debtToCover?: string;
+  delegatee?: string;
+  dryrun?: boolean;
+  encoding?: string;
+  expiry?: string;
+  gas?: string;
+  gasLimit?: string;
+  gasPrice?: string;
+  initialDeposit?: string | number;
+  initiator?: string;
+  input?: string;
+  inputTokens?: TokenAmount[];
+  /** @format double */
+  interestRateMode?: number;
+  lock_duration?: string;
+  lock_value?: string;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  minHealthFactor?: string | number;
+  modes?: number[];
+  nonce?: string;
+  onBehalfOf?: string;
+  operator?: string;
+  outputTokens?: TokenProportion[];
+  params?: string;
+  premiums?: string[] | number[];
+  /** @format double */
+  rateMode?: number;
+  receiveAToken?: boolean;
+  receiverAddress?: string;
+  /** @format double */
+  referralCode?: number;
+  role?: string;
+  /** @format double */
+  slippageLimitPercent?: number;
+  spender?: string;
+  to?: string;
+  tokenId?: string;
+  token_id?: string;
+  token_ids?: string;
+  /** @format double */
+  type?: number;
+  useAsCollateral?: boolean;
+  user?: string;
+  value?: string;
+}
+
+export interface VeNFTTransaction {
+  chainId: string;
+  data: string;
+  from: string;
+  gasLimit?: string;
+  gasPrice?: string;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  /** @format double */
+  nonce: number;
+  to: string;
+  /** @format double */
+  type?: number;
+  value: string;
+}
+
+export interface VeTheNFTAPIResponseBoolean {
+  data?: boolean;
+  message: string;
+  success: boolean;
+}
+
+export interface VeTheNFTAPIResponseLockedData {
+  data?: LockedData;
+  message: string;
+  success: boolean;
+}
+
+export interface VeTheNFTAPIResponseString {
+  data?: string;
+  message: string;
+  success: boolean;
+}
+
+export interface VeTheNFTAPIResponseUserPointHistoryData {
+  data?: UserPointHistoryData;
+  message: string;
+  success: boolean;
+}
+
+export interface VeTheNFTAPIResponseVeNFTExecuteFunctionResult {
+  data?: VeNFTExecuteFunctionResult;
+  message: string;
+  success: boolean;
+}
+
+export interface VeTheNftVoterAPIResponseBoolean {
+  data?: boolean;
+  message: string;
+  success: boolean;
+}
+
+export interface VeTheNftVoterAPIResponseString {
+  data?: string;
+  message: string;
+  success: boolean;
+}
+
+export interface VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult {
+  data?: VeTheNftVoterExecuteFunctionResult;
+  message: string;
+  success: boolean;
+}
+
+export interface VeTheNftVoterExecuteFunctionResult {
+  broadcasted?: BroadCastRawTransactionResponse;
+  data?: Transaction;
+  function: string;
+  message?: string;
+  params: any[];
+  success?: boolean;
+  transaction: VeTheNftVoterTransaction;
+  user_op?: string;
+}
+
+export interface VeTheNftVoterInputBody {
+  EOA?: boolean;
+  accessList?: AccessTuple[];
+  account?: string;
+  alwaysIncrementNonce?: boolean;
+  amount?: string;
+  amounts?: string[];
+  approved?: boolean;
+  asset?: string;
+  assets?: string[];
+  blobGas?: string;
+  blobGasFeeCap?: string;
+  blobHashes?: string[];
+  borrowAmount?: string | number;
+  bribes?: string[];
+  broadcast?: boolean;
+  chain_id?: string;
+  collateralAsset?: string;
+  contract_address?: string;
+  data?: string;
+  debtAsset?: string;
+  debtToCover?: string;
+  dryrun?: boolean;
+  encoding?: string;
+  fees?: string[];
+  gas?: string;
+  gasLimit?: string;
+  gasPrice?: string;
+  gauge?: string;
+  gauge_type?: string;
+  gauges?: string[];
+  initialDeposit?: string | number;
+  initiator?: string;
+  input?: string;
+  inputTokens?: TokenAmount[];
+  /** @format double */
+  interestRateMode?: number;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  minHealthFactor?: string | number;
+  modes?: number[];
+  nonce?: string;
+  onBehalfOf?: string;
+  outputTokens?: TokenProportion[];
+  params?: string;
+  pool?: string;
+  pool_vote?: string[];
+  premiums?: string[] | number[];
+  /** @format double */
+  rateMode?: number;
+  receiveAToken?: boolean;
+  receiverAddress?: string;
+  /** @format double */
+  referralCode?: number;
+  role?: string;
+  /** @format double */
+  slippageLimitPercent?: number;
+  to?: string;
+  token_id?: string;
+  token_ids?: string;
+  tokens?: string[][];
+  /** @format double */
+  type?: number;
+  useAsCollateral?: boolean;
+  user?: string;
+  value?: string;
+  weights?: string[];
+}
+
+export interface VeTheNftVoterTransaction {
+  chainId: string;
+  data: string;
+  from: string;
+  gasLimit?: string;
+  gasPrice?: string;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  /** @format double */
+  nonce: number;
+  to: string;
+  /** @format double */
+  type?: number;
+  value: string;
+}
+
 export enum VersionEnum {
   V2 = 'v2',
 }
@@ -3648,6 +4504,21 @@ export enum VersionEnum1 {
 export enum VersionEnum2 {
   V2 = 'v2',
 }
+
+export type VoteData =
+  VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
+
+export type VoteWithOptimalDistributionData =
+  VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
+
+export type VoteWithOptimalDistributionPayload = VeTheNftVoterInputBody & {
+  /** @format double */
+  maxFusions?: number;
+  /** @format double */
+  totalVotes: number;
+};
+
+export type VotingData = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export interface WalletBalanceAPIResponse {
   address?: string;
@@ -3665,6 +4536,13 @@ export interface WalletHistoryAPIResponse {
   success: boolean;
 }
 
+export type WhitelistData =
+  VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
+
 export type WithdrawData = AavePoolAPIResponseAavePoolExecuteFunctionResult;
 
+export type WithdrawOutput = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
 export type WithdrawResult = ERC4626APIResponse;
+
+export type ZapData = OdosAPIResponseOdosExecuteFunctionResult;

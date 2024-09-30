@@ -20,14 +20,16 @@ import {
   GetExecutorAddressParams,
   GetLiquiditySourcesData,
   GetLiquiditySourcesParams,
-  GetQuoteResult,
+  GetQuoteOutput,
   GetRouterAddressData,
   GetRouterAddressParams,
   GetSupportedChainsData,
   GetSupportedTokensData,
   GetSupportedTokensParams,
+  GetZapQuoteData,
   OdosSwapInputBody,
-  SwapData,
+  SwapResult,
+  ZapData,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
@@ -149,7 +151,7 @@ export class Odos<SecurityDataType = unknown> {
     data: OdosSwapInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetQuoteResult, any>({
+    this.http.request<GetQuoteOutput, any>({
       path: `/odos/${accountName}/get-quote`,
       method: 'POST',
       body: data,
@@ -218,6 +220,28 @@ export class Odos<SecurityDataType = unknown> {
    * No description
    *
    * @tags Odos
+   * @name GetZapQuote
+   * @request POST:/odos/{accountName}/get-zap-quote
+   * @secure
+   */
+  getZapQuote = (
+    accountName: string,
+    data: OdosSwapInputBody,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<GetZapQuoteData, any>({
+      path: `/odos/${accountName}/get-zap-quote`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Odos
    * @name Swap
    * @request POST:/odos/{accountName}/swap
    * @secure
@@ -227,8 +251,30 @@ export class Odos<SecurityDataType = unknown> {
     data: OdosSwapInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<SwapData, any>({
+    this.http.request<SwapResult, any>({
       path: `/odos/${accountName}/swap`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Odos
+   * @name Zap
+   * @request POST:/odos/{accountName}/zap
+   * @secure
+   */
+  zap = (
+    accountName: string,
+    data: OdosSwapInputBody,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<ZapData, any>({
+      path: `/odos/${accountName}/zap`,
       method: 'POST',
       body: data,
       secure: true,

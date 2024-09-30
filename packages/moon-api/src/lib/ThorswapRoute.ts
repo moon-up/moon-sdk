@@ -11,11 +11,11 @@
 
 import {
   GetGasPriceData,
-  GetQuoteOutput,
+  GetQuoteResult1,
   GetSupportedChainsResult,
   GetSupportedProvidersData,
-  SwapBody,
-  SwapResult,
+  SwapInput,
+  SwapOutput,
 } from './data-contracts';
 
 export namespace Thorswap {
@@ -71,7 +71,7 @@ export namespace Thorswap {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetQuoteOutput;
+    export type ResponseBody = GetQuoteResult1;
   }
 
   /**
@@ -124,10 +124,10 @@ export namespace Thorswap {
   export namespace Swap {
     export type RequestParams = {};
     export type RequestQuery = {};
-    export type RequestBody = SwapBody;
+    export type RequestBody = SwapInput;
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = SwapResult;
+    export type ResponseBody = SwapOutput;
   }
 }
