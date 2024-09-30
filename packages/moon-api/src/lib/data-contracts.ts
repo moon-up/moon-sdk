@@ -2119,6 +2119,8 @@ export type GetProgramIdToLabelData = JupiterAPIResponseRecordStringString;
 
 export type GetQuoteData = JupiterAPIResponseJupiterExecuteFunctionResult;
 
+export type GetQuoteData1 = ThorSwapAPIResponseQuote;
+
 export type GetQuoteOutput = OdosAPIResponseOdosExecuteFunctionResult;
 
 export interface GetQuoteParams1 {
@@ -2171,8 +2173,6 @@ export interface GetQuoteParams4 {
 }
 
 export type GetQuoteResult = ApiResponseQuote;
-
-export type GetQuoteResult1 = ThorSwapAPIResponseQuote;
 
 export type GetReserveDataData = AavePoolAPIResponseAny;
 
