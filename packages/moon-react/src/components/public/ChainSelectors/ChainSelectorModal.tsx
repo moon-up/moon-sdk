@@ -12,6 +12,9 @@ type ChainSelectorProps = {
   inputProps?: InputProps;
   listProps?: React.HTMLAttributes<HTMLDivElement>;
   listItemProps?: React.HTMLAttributes<HTMLDivElement>;
+  modalProps?: React.HTMLAttributes<HTMLDivElement>;
+  controlSelectedChain?: boolean;
+  onChange?: (e: any) => void;
 };
 
 export const ChainSelectorModal: React.FC<ChainSelectorProps> = ({
@@ -22,13 +25,22 @@ export const ChainSelectorModal: React.FC<ChainSelectorProps> = ({
   inputProps,
   listProps,
   listItemProps,
+  modalProps,
+  onChange,
+  controlSelectedChain = true,
 }) => {
   const { chains, setChain, currentChain: chain } = useMoonChain();
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedChain, setSelectedChain] = useState<Chains | undefined>();
+
+  useEffect(() => {
+    if (!selectedChain && chain) setSelectedChain(chain);
+  }, [chain, selectedChain]);
+
   useEffect(() => {
     const mainnet = chains.find((chain: Chains) => chain.chain_id === 1);
-    if (!chain && mainnet) setChain(mainnet);
+    if (!chain && mainnet && controlSelectedChain) setChain(mainnet);
   }, [chains, setChain, chain]);
 
   const sortedChains = useMemo(() => {
@@ -48,14 +60,18 @@ export const ChainSelectorModal: React.FC<ChainSelectorProps> = ({
     });
   }, [sortedChains, searchTerm]);
 
-  const toggleModal = () => {
+  const toggleModal = (e?: any) => {
+    e && e.preventDefault(); // Prevent form submission
     setIsOpen(!isOpen);
   };
 
   const handleChainSelect = (chainId: string) => {
     let selectedChain = chains.find((chain: Chains) => chain.id === chainId);
-    if (selectedChain) setChain(selectedChain);
+    if (selectedChain && controlSelectedChain) setChain(selectedChain);
+    setSelectedChain(selectedChain);
     toggleModal();
+    let fakeEvent = { target: { value: selectedChain?.chain_id } };
+    onChange && onChange(fakeEvent);
   };
 
   return (
@@ -65,9 +81,9 @@ export const ChainSelectorModal: React.FC<ChainSelectorProps> = ({
         onClick={toggleModal}
         {...buttonProps}
       >
-        {chain?.name || "Select Chain"}
+        {selectedChain?.name || "Select Chain"}
       </button>
-      <Modal isOpen={isOpen} toggleModal={toggleModal}>
+      <Modal isOpen={isOpen} toggleModal={toggleModal} modalProps={modalProps}>
         {title && (
           <h2 className="text-xl font-semibold mb-4" {...headerProps}>
             {title}
@@ -98,5 +114,3 @@ export const ChainSelectorModal: React.FC<ChainSelectorProps> = ({
     </>
   );
 };
-
-

@@ -4,6 +4,12 @@ import Input, { InputProps } from "../../Input/Input";
 import { shortenAddress } from "../../../utils/shortenAddress";
 import { Modal } from "@/components";
 
+/**
+ * Wallet Selector Modal
+ * Reusable component to select a wallet from a list of moon wallets associated with the moon account.
+ * Default behavior will set the selected moon wallet when a wallet is selected.
+ * controlSelectedWallet prop can be set to false to disable this behavior.
+ */
 type WalletSelectorProps = {
   title?: string;
   headerProps?: React.HTMLAttributes<HTMLDivElement>;
@@ -11,6 +17,10 @@ type WalletSelectorProps = {
   inputProps?: InputProps;
   listProps?: React.HTMLAttributes<HTMLDivElement>;
   listItemProps?: React.HTMLAttributes<HTMLDivElement>;
+  modalProps?: React.HTMLAttributes<HTMLDivElement>;
+  customButtonContent?: React.ReactNode;
+  onChange?: (e: any) => void;
+  controlSelectedWallet?: boolean;
 };
 
 export const WalletSelectorModal = ({
@@ -20,13 +30,29 @@ export const WalletSelectorModal = ({
   inputProps,
   listProps,
   listItemProps,
+  modalProps,
+  customButtonContent,
+  onChange,
+  controlSelectedWallet = true,
 }: WalletSelectorProps) => {
-  const { wallets, setWallet, wallet, createWallet, listWallets } = useMoonSDK();
+  const {
+    wallets,
+    setWallet,
+    wallet,
+    createWallet,
+    listWallets,
+  } = useMoonSDK();
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedWallet, setSelectedWallet] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!wallet && wallets.length > 0) setWallet(wallets[0]);
+    if (!selectedWallet && wallet) setSelectedWallet(wallet);
+  }, [wallet, selectedWallet]);
+
+  useEffect(() => {
+    if (!wallet && wallets.length > 0 && controlSelectedWallet)
+      setWallet(wallets[0]);
   }, [wallet, wallets, setWallet]);
 
   const filteredWallets = useMemo(() => {
@@ -36,30 +62,40 @@ export const WalletSelectorModal = ({
     });
   }, [wallets, searchTerm]);
 
-  const toggleModal = () => {
+  const toggleModal = (e?: any) => {
+    e && e.preventDefault(); // Prevent form submission
     setIsOpen(!isOpen);
   };
 
   const handleWalletSelect = (wallet: string) => {
-    if (wallet) setWallet(wallet);
+    if (wallet && controlSelectedWallet) setWallet(wallet);
+    setSelectedWallet(wallet);
     toggleModal();
+    let fakeEvent = { target: { value: wallet } };
+    onChange && onChange(fakeEvent);
   };
 
   const createAndRefreshWallet = async () => {
     await createWallet();
     await listWallets();
-  }
+  };
 
   return (
     <>
-      <button
-        className="bg-accent-color rounded-xl p-3 m-1 text-text-primary"
-        onClick={toggleModal}
-        {...buttonProps}
-      >
-        {shortenAddress(wallet) || "Select Wallet"}
-      </button>
-      <Modal isOpen={isOpen} toggleModal={toggleModal}>
+      {customButtonContent ? (
+        <button onClick={toggleModal} {...buttonProps}>
+          {customButtonContent}
+        </button>
+      ) : (
+        <button
+          className="bg-accent-color rounded-xl p-3 m-1 text-text-primary"
+          onClick={toggleModal}
+          {...buttonProps}
+        >
+          {shortenAddress(selectedWallet) || "Select Wallet"}
+        </button>
+      )}
+      <Modal isOpen={isOpen} toggleModal={toggleModal} modalProps={modalProps}>
         {title && (
           <h2 className="text-xl font-semibold mb-4" {...headerProps}>
             {title}

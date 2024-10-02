@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import {  useMemo, useCallback } from "react";
 import { useCoinGeckoPrices, useTokenList } from "@/utils/react-coinghecko";
 import { useMoonSDK } from "@/index";
 import { useTokenBalances } from "@/hooks/useTokenBalances";
@@ -10,19 +10,36 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 export const useMoonTokenManager = (addresses?: string[]) => {
   const { wallet, chain, session, dbAdapter } = useMoonSDK();
 
-  const [tokens, setTokens] = useState<UserToken[]>([]);
+  const tokens = useQuery({
+    queryKey: ["userSavedTokens", session?.user.id],
+    queryFn: async () => {
+      if (!session?.user?.id) throw new Error("No user found");
+      let userTokens = await dbAdapter.getTokens();
+      console.log("useTokenManager::userTokens", userTokens);
+      return userTokens;
+    },
+    retry: true,
+    retryDelay: 5000,
+  });
 
   const walletAddresses = addresses ? addresses : wallet ? [wallet] : [];
   const chainId = chain?.chain_id?.toString() || "1";
-  const tokenIds = useMemo(() => tokens.map((token) => token.coinGeckoId), [
-    tokens,
-  ]);
+  const tokenIds = useMemo(
+    () => (tokens?.data ? tokens.data.map((token) => token.coinGeckoId) : []),
+    [tokens]
+  );
   const { data: tokenPrices } = useCoinGeckoPrices(tokenIds, {}, dbAdapter);
 
   const { data: tokenList } = useTokenList();
   const queryClient = useQueryClient();
 
-  const tokenBalanceQueries = useTokenBalances(walletAddresses, tokens);
+  const tokenBalanceQueries = useTokenBalances(
+    walletAddresses,
+    tokens.data ?? []
+  );
+
+  console.log("useTokenManager::tokenBalanceQueries",walletAddresses, tokenBalanceQueries);
+
   //filter queries that have data
   let tokenBalanceQueriesFiltered = tokenBalanceQueries.filter(
     (query) => (query as any).data !== undefined
@@ -76,18 +93,6 @@ export const useMoonTokenManager = (addresses?: string[]) => {
     });
   }, [chain, gasBalanceQueries]);
 
-  useQuery({
-    queryKey: ["userSavedTokens", session?.user.id],
-    queryFn: async () => {
-      if (!session?.user?.id) throw new Error("No user found");
-      let userTokens = await dbAdapter.getTokens();
-      setTokens(userTokens);
-      return userTokens;
-    },
-    retry: true,
-    retryDelay: 5000,
-  });
-
   // useEffect(() => {
   //   if (session?.user.id) dbAdapter.getTokens().then(setTokens);
   // }, [session?.user.id]);
@@ -123,9 +128,9 @@ export const useMoonTokenManager = (addresses?: string[]) => {
   const removeToken = useCallback(
     async (address: string) => {
       await dbAdapter.removeToken(address);
-      setTokens((prevTokens) =>
-        prevTokens.filter((token) => token.address !== address)
-      );
+      await queryClient.invalidateQueries({
+        queryKey: ["userSavedTokens", session?.user.id],
+      });
     },
     [dbAdapter]
   );

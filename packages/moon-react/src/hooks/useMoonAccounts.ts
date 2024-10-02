@@ -97,13 +97,13 @@ export const useMoonAccounts = () => {
 
   const signTransaction = useCallback(
     async (payload: {
-      id: string;
+      accountName: string;
       transaction: InputBody;
     }): Promise<Transaction> => {
       return handleTransaction("signTransaction", async () => {
         const accountsSDK = getAccountsSDK();
         const response = await accountsSDK.signTransaction(
-          payload.id,
+          payload.accountName,
           payload.transaction
         );
         return response.data;

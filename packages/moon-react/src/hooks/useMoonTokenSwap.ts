@@ -2,27 +2,29 @@ import { useCallback } from "react";
 import { useMoonSDK } from "./useMoonSDK";
 import { useMoonTransaction } from "./useMoonTransaction";
 import {
+  GetRouterAddressParams,
   GetSupportedTokensParams,
   Odos,
   OdosAPIResponseOdosExecuteFunctionResult,
   OdosSwapInputBody,
-  QuoteRequestV2,
 } from "@moonup/moon-api";
 import { useQuery } from "@tanstack/react-query";
 
-export const useMoonTokenSwap = () => {
+
+export const useMoonTokenSwap = (chainId?: number) => {
   const context = useMoonSDK();
   const { handleTransaction } = useMoonTransaction();
   const { moon, chain } = context;
+  let selectedChainId = chainId || chain?.chain_id || 1;
 
   // react query to fetch supported tokens
   const supportedTokensQuery = useQuery({
-    queryKey: ["odosGetSupportedTokens", chain?.chain_id],
+    queryKey: ["odosGetSupportedTokens", selectedChainId],
     queryFn: async () => {
       const odosSDK = moon?.getOdosSDK();
       if (!odosSDK) throw new Error("Moon Lifi SDK not initialized");
       const response = await odosSDK.getSupportedTokens({
-        chainId: chain?.chain_id || 1,
+        chainId: selectedChainId,
       });
       return response.data as OdosAPIResponseOdosExecuteFunctionResult;
     },
@@ -34,6 +36,19 @@ export const useMoonTokenSwap = () => {
     if (!odosSDK) throw new Error("Moon Lifi SDK not initialized");
     return odosSDK;
   };
+
+  const getRouterAddress = useCallback(
+    async (
+      payload: GetRouterAddressParams
+    ): Promise<OdosAPIResponseOdosExecuteFunctionResult> => {
+      return handleTransaction("getRouterAddressOdos", async () => {
+        const odosSDK = getOdosSDK();
+        const response = await odosSDK.getRouterAddress(payload);
+        return response;
+      });
+    },
+    [moon]
+  );
 
   const getSupportedTokens = useCallback(
     async (
@@ -49,12 +64,16 @@ export const useMoonTokenSwap = () => {
   );
 
   const getQuoteOdos = useCallback(
-    async (
-      payload: QuoteRequestV2
-    ): Promise<OdosAPIResponseOdosExecuteFunctionResult> => {
+    async (payload: {
+      accountName: string;
+      data: OdosSwapInputBody;
+    }): Promise<OdosAPIResponseOdosExecuteFunctionResult> => {
       return handleTransaction("getQuoteLifi", async () => {
         const odosSDK = getOdosSDK();
-        const response = await odosSDK.getQuote(payload);
+        const response = await odosSDK.getQuote(
+          payload.accountName,
+          payload.data
+        );
         return response.data as OdosAPIResponseOdosExecuteFunctionResult;
       });
     },
@@ -76,6 +95,7 @@ export const useMoonTokenSwap = () => {
   );
 
   return {
+    getRouterAddress,
     getQuoteOdos,
     swapOdos,
     getSupportedTokens,

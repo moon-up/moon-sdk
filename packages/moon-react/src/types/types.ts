@@ -109,3 +109,50 @@ export interface OdosToken {
   isRebasing: boolean;
 }
 export type OdosTokenMap = Record<string, OdosToken>;
+
+export type LifiChainData = {
+  key: string;
+  chainType: string;
+  name: string;
+  coin: string;
+  id: number;
+  mainnet: boolean;
+  logoURI: string;
+  tokenlistUrl: string;
+  multicallAddress: string;
+  metamask: {
+    chainId: string;
+    blockExplorerUrls: string[];
+    chainName: string;
+    nativeCurrency: {
+      name: string;
+      symbol: string;
+      decimals: number;
+    };
+    rpcUrls: string[];
+  };
+  nativeToken: {
+    address: string;
+    chainId: number;
+    symbol: string;
+    decimals: number;
+    name: string;
+    coinKey: string;
+    logoURI: string;
+    priceUSD: string;
+  };
+  diamondAddress: string;
+};
+
+export type LiFiToken = {
+  address: string;
+  chainId: number;
+  coinKey: string;
+  decimals: number;
+  logoURI: string;
+  name: string;
+  priceUSD: string;
+  symbol: string;
+};
+
+export type LiFiTokenMap = Record<string, LiFiToken[]>;

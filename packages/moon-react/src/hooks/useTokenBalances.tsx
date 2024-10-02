@@ -1,7 +1,12 @@
 import { useQueries, UseQueryResult } from "@tanstack/react-query";
-import { useMoonErc1155, useMoonErc20, useMoonErc721 } from "@/index";
+import {
+  useMoonAccounts,
+  useMoonErc1155,
+  useMoonErc20,
+  useMoonErc721,
+} from "@/index";
 import { UserToken } from "@/components/public/TokenManager/types";
-import { ethers } from "ethers";
+import { weiStringAsFloat } from "@/utils/parse";
 
 type BalanceQueryResult = UseQueryResult<UserToken, Error>;
 
@@ -12,20 +17,29 @@ export function useTokenBalances(
   const { balanceOfErc20 } = useMoonErc20();
   const { balanceOfErc721 } = useMoonErc721();
   const { balanceOfErc1155 } = useMoonErc1155();
+  const { getBalance } = useMoonAccounts();
   const queries = wallets.flatMap((wallet) =>
     tokens.map((token) => ({
       queryKey: ["erc20TokenBalances", wallet, token.address, token.chainId],
       queryFn: async () => {
         if (!wallet) {
-          throw new Error("Wallet not found");
+          throw new Error("useTokenBalances::Wallet not found");
         }
         let res = null;
         switch (token.type) {
+          case "native":
+            res = await getBalance({
+              accountName: wallet,
+              chainId: token.chainId.toString(),
+            });
+            break;
           case "erc721":
             res = await balanceOfErc721({
-              account: wallet,
-              address: token.address,
-              chainId: token.chainId.toString(),
+              accountName: wallet,
+              transaction: {
+                chain_id: token.chainId.toString(),
+                contract_address: token.address,
+              },
             });
 
             break;
@@ -48,9 +62,24 @@ export function useTokenBalances(
             });
             break;
           default:
-            throw new Error("Unsupported token type");
+            res = await balanceOfErc20({
+              accountName: wallet,
+              transaction: {
+                chain_id: token.chainId.toString(),
+                contract_address: token.address,
+              },
+            });
+            console.warn(
+              "useTokenBalances::Unsupported token type" +
+                token.type +
+                " for token " +
+                token.address +
+                " on chain " +
+                token.chainId
+            );
         }
-        let balanceDec = ethers.utils.formatUnits(res.balance, token.decimals);
+        console.warn("useTokenBalances::res", res, token);
+        let balanceDec = weiStringAsFloat(res.balance, token.decimals);
         return {
           ...token,
           wallet: wallet,
@@ -61,7 +90,6 @@ export function useTokenBalances(
       retry: 2,
     }))
   );
-  console.log(queries);
   return useQueries({
     queries: queries,
   });

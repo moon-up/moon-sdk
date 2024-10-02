@@ -14,6 +14,8 @@ export * from './useMoonErc1155';
 export * from './useMoonBridging';
 export * from './useMoonTokenSwap';
 export * from './useMoonAaveV3';
+export * from './useMoonAaveV3';
+export * from './useMoonDataSDK';
 // export * from './useMoonEthersSkale';
 // import * as hooks from './';
 // export default hooks;

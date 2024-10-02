@@ -2,12 +2,12 @@ import { useCallback } from "react";
 import { useMoonSDK } from "./useMoonSDK";
 import { useMoonTransaction } from "./useMoonTransaction";
 import {
+  ERC20InputBody,
   Erc20,
-  InputBody,
-  RequestParams,
+  GetAllowanceParams,
   Transaction,
-  TransactionData,
 } from "@moonup/moon-api";
+import { safelyParseUnits, weiStringAsFloat } from "@/utils/parse";
 
 export const useMoonErc20 = () => {
   const context = useMoonSDK();
@@ -20,10 +20,45 @@ export const useMoonErc20 = () => {
     return erc20SDK;
   };
 
+  const approveTokenSpendIfNeeded = async (
+    owner: string,
+    spender: string,
+    tokenAddress: string,
+    amountDecimal: number,
+    chainId: string
+  ) => {
+    try {
+      const allowance = await allowanceErc20({
+        account: owner,
+        address: tokenAddress,
+        owner: owner,
+        spender: spender,
+        chainId: chainId,
+      });
+      const currAllowance = weiStringAsFloat(allowance);
+      if (currAllowance < amountDecimal) {
+        await approveErc20({
+          accountName: owner,
+          transaction: {
+            to: spender,
+            amount: safelyParseUnits(amountDecimal.toString()).toString(),
+            contract_address: tokenAddress,
+            chain_id: chainId,
+            broadcast: true,
+            value: "0",
+          },
+        });
+      }
+    } catch (error) {
+      console.error("approveTokenSpendIfNeeded: Error: ", error);
+      return error;
+    }
+  };
+
   const approveErc20 = useCallback(
     async (payload: {
       accountName: string;
-      transaction: InputBody;
+      transaction: ERC20InputBody;
     }): Promise<Transaction> => {
       return handleTransaction("approveErc20", async () => {
         const erc20SDK = getErc20SDK();
@@ -40,21 +75,13 @@ export const useMoonErc20 = () => {
   const transferErc20 = useCallback(
     async (payload: {
       accountName: string;
-      transaction: {
-        from: string;
-        to: string;
-        value: string;
-        contract_address: string;
-        chain_id: string;
-      };
-      params: RequestParams;
+      transaction: ERC20InputBody;
     }): Promise<Transaction> => {
       return handleTransaction("transferErc20", async () => {
         const erc20SDK = getErc20SDK();
         const response = await erc20SDK.transfer(
           payload.accountName,
-          payload.transaction,
-          payload.params
+          payload.transaction
         );
         return response.data;
       });
@@ -110,25 +137,10 @@ export const useMoonErc20 = () => {
   );
 
   const allowanceErc20 = useCallback(
-    async (payload: {
-      accountName: string;
-      transaction: {
-        account: string;
-        address: string;
-        chainId: string;
-        owner: string;
-        spender: string;
-      };
-    }): Promise<TransactionData> => {
+    async (payload: GetAllowanceParams): Promise<string> => {
       return handleTransaction("allowanceErc20", async () => {
         const erc20SDK = getErc20SDK();
-        const response = await erc20SDK.getAllowance({
-          account: payload.accountName,
-          chainId: payload.transaction.chainId,
-          address: payload.transaction.address,
-          spender: payload.transaction.spender,
-          owner: payload.transaction.owner,
-        });
+        const response = await erc20SDK.getAllowance(payload);
         return response.data;
       });
     },
@@ -141,5 +153,6 @@ export const useMoonErc20 = () => {
     transferFromErc20,
     balanceOfErc20,
     allowanceErc20,
+    approveTokenSpendIfNeeded,
   };
 };

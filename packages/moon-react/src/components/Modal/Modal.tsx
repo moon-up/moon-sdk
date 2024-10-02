@@ -1,8 +1,8 @@
 import React from "react";
 
-type ModalProps = {
+export type ModalProps = {
   isOpen: boolean;
-  toggleModal: () => void;
+  toggleModal: (e?:any) => void;
   children: React.ReactNode;
   overlayProps?: React.HTMLAttributes<HTMLDivElement>;
   modalProps?: React.HTMLAttributes<HTMLDivElement>;

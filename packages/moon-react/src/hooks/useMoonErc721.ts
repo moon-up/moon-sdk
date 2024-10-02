@@ -71,13 +71,19 @@ export const useMoonErc721 = () => {
 
   const balanceOfErc721 = useCallback(
     async (payload: {
-      account: string;
-      address: string;
-      chainId: string;
+      accountName: string;
+      transaction: {
+        contract_address: string;
+        chain_id: string;
+      };
     }): Promise<{ balance: string }> => {
       return handleTransaction("balanceOfErc721", async () => {
         const erc721SDK = getErc721SDK();
-        const response = await erc721SDK.getErc721BalanceOf(payload);
+        const response = await erc721SDK.getErc721BalanceOf({
+          account: payload.accountName,
+          address: payload.transaction.contract_address,
+          chainId: payload.transaction.chain_id,
+        });
         if (!response.success) {
           throw new Error(response.message);
         }

@@ -56,7 +56,8 @@ export const OdosTokenSelectorModal: React.FC<OdosTokenSelectorProps> = ({
     });
   }, [tokenData, searchTerm]);
 
-  const toggleModal = () => {
+  const toggleModal = (e?: any) => {
+    e && e.preventDefault(); // Prevent form submission
     setIsOpen(!isOpen);
   };
 
@@ -73,7 +74,8 @@ export const OdosTokenSelectorModal: React.FC<OdosTokenSelectorProps> = ({
         onClick={toggleModal}
         {...buttonProps}
       >
-        {(selectedTokenAddress && tokenData[selectedTokenAddress]?.name) || "Select Token"}
+        {(selectedTokenAddress && tokenData[selectedTokenAddress]?.name) ||
+          "Select Token"}
       </button>
       <Modal isOpen={isOpen} toggleModal={toggleModal}>
         {title && (

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useMoonSDK } from "@hooks/index";
+import { useMoonAaveV3, useMoonAccounts, useMoonSDK } from "@hooks/index";
 import { useAccount, useConnect, useSwitchChain } from "wagmi";
 import React from "react";
 import Button from "../Button/Button";
@@ -11,6 +11,9 @@ import { WalletSelectorModal } from "../public/WalletSelectors/WalletSelectorMod
 import ChatBot from "../public/ChatBot/ChatBot";
 import { UserTokenManager } from "../public/TokenManager";
 import SwapInterface from "../public/SwapInterface/SwapInterface";
+import { LifiChainSelectorModal } from "../public/LifiSelectors/LifiChainSelectorModal";
+import { LifiTokenSelectorModal } from "../public/LifiSelectors";
+import { AnyTokenSelectorModal } from "../public";
 
 function Account() {
   const { address, status } = useAccount();
@@ -36,6 +39,9 @@ function Account() {
     chatOpen,
     listChains: getChains,
   } = useMoonSDK();
+  const { deleteAccount } = useMoonAccounts();
+
+  const { getAaveV3PoolAddress } = useMoonAaveV3();
   useEffect(() => {
     listWallets();
     getChains();
@@ -67,6 +73,7 @@ function Account() {
     // console.log(uwu);
   };
 
+  const [lifiChainKey, setLifiChainKey] = React.useState<string | undefined>();
   return (
     <div className="flex flex-col items-center gap-4 p-4 bg-background-primary h-[100vh] overflow-scroll">
       <div className="bg-background-secondary w-full rounded-xl flex flex-col items-center justify-center text-text-primary p-4">
@@ -100,10 +107,18 @@ function Account() {
             {wallets.map((wallet) => (
               <div
                 key={wallet}
-                className="text-center text-xl"
+                className="text-center text-xl flex gap-4 items-center justify-center mb-1"
                 onClick={() => getBalance(wallet)}
               >
-                {wallet}
+                {wallet}{" "}
+                <Button
+                  className="bg-red-500"
+                  onClick={async () => {
+                    await deleteAccount({ id: wallet });
+                  }}
+                >
+                  Delete
+                </Button>
               </div>
             ))}
           </div>
@@ -136,6 +151,24 @@ function Account() {
           title="Chain Selector"
           inputProps={{
             label: "Select Chain",
+          }}
+        />
+      </div>
+
+      <div className="bg-background-secondary w-full rounded-xl flex flex-col items-center justify-center text-text-primary p-4">
+        <div className="text-center text-xl font-semibold">Lifi</div>
+        <p>Dropdown</p>
+        <LifiChainSelectorModal
+          onSelect={(chainId: string) => {
+            console.log(chainId);
+            setLifiChainKey(chainId);
+          }}
+        />
+        <p>Modal</p>
+        <LifiTokenSelectorModal
+          initialTokenChain={lifiChainKey}
+          onSelect={(chainId: string) => {
+            console.log(chainId);
           }}
         />
       </div>
@@ -203,7 +236,26 @@ function Account() {
         /> */}
       </div>
 
+      <div className="bg-background-secondary w-full rounded-xl flex flex-col items-center justify-center text-text-primary p-4">
+        <div className="text-center text-xl font-semibold">
+          Any Token Selector
+        </div>
+        <AnyTokenSelectorModal
+          onSelect={(tokenAddress: string) => {
+            console.log(tokenAddress);
+          }}
+        />
+      </div>
       <ChatBot />
+      <Button
+        color="infoColor"
+        onClick={async () => {
+          const res = await getAaveV3PoolAddress(wallets[0], "10");
+          console.log(res);
+        }}
+      >
+        Get AaveV3Pool
+      </Button>
       <Button
         color="infoColor"
         onClick={() => {

@@ -11,7 +11,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import {
   OdosAPIResponseOdosExecuteFunctionResult,
   OdosSwapInputBody,
-  QuoteRequestV2,
 } from "@moonup/moon-api";
 
 // interface Token {
@@ -98,7 +97,7 @@ const SwapInterface: React.FC = () => {
     let bigAmountWei = safelyParseUnits(fromAmount, fromToken.decimals);
 
     try {
-      const swapParams: QuoteRequestV2 = {
+      const swapParams: OdosSwapInputBody = {
         inputTokens: [
           {
             amount: bigAmountWei.toString(),
@@ -112,10 +111,13 @@ const SwapInterface: React.FC = () => {
           },
         ],
         slippageLimitPercent: Math.round(parseFloat(slippage) * 100),
-        chainId: chain?.chain_id || 1, // Assuming Ethereum mainnet
+        chain_id: chain?.chain_id?.toString() || "1", // Assuming Ethereum mainnet
       };
 
-      const estimateResult = await getQuoteOdos(swapParams);
+      const estimateResult = await getQuoteOdos({
+        accountName: wallet || "",
+        data: swapParams,
+      });
       setEstimate(estimateResult);
       console.log("Estimate result:", estimateResult);
       setToAmount("0");
