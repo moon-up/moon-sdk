@@ -1,5 +1,5 @@
 export type UserToken = {
-  type: "erc20" | "erc721" | "erc1155" | "native";
+  type: 'erc20' | 'erc721' | 'erc1155' | 'native' | string;
   name: string;
   symbol: string;
   coinGeckoId: string;

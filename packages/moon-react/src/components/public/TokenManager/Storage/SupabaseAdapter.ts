@@ -1,7 +1,7 @@
-import { SupabaseClient } from "@supabase/supabase-js";
-import { UserTokenDBAdapter } from ".";
-import { UserToken } from "../types";
-import { v4 as uuidv4 } from "uuid";
+import { SupabaseClient } from '@supabase/supabase-js';
+import { v4 as uuidv4 } from 'uuid';
+import { UserTokenDBAdapter } from '.';
+import { UserToken } from '../types';
 
 type DbToken = {
   id?: string;
@@ -13,6 +13,7 @@ type DbToken = {
   address: string;
   chain_id: number;
   logo_uri: string;
+  type: string;
 };
 type DbTokenPrice = {
   id: string;
@@ -32,7 +33,7 @@ export class SupabaseAdapter implements UserTokenDBAdapter {
     if (error) {
       throw new Error(error.message);
     }
-    return data?.user?.id || "";
+    return data?.user?.id || '';
   }
 
   async getOneUserDbToken(
@@ -41,25 +42,25 @@ export class SupabaseAdapter implements UserTokenDBAdapter {
     chainId: number
   ): Promise<DbToken> {
     const { data, error } = await this.supabase
-      .from("user_tokens")
-      .select("*")
-      .eq("user_id", userId)
-      .eq("address", contractAddress)
-      .eq("chain_id", chainId)
+      .from('user_tokens')
+      .select('*')
+      .eq('user_id', userId)
+      .eq('address', contractAddress)
+      .eq('chain_id', chainId)
       .limit(1);
-    console.log("getOneUserDbToken", data, error);
+    console.log('getOneUserDbToken', data, error);
 
     if (error) throw new Error(error.message);
     return data[0];
   }
 
   async getTokens(): Promise<UserToken[]> {
-    let userId = await this.getUserId();
+    const userId = await this.getUserId();
     const { data, error } = await this.supabase
-      .from("user_tokens")
-      .select("*")
-      .eq("user_id", userId);
-    console.log("getTokens", data, error);
+      .from('user_tokens')
+      .select('*')
+      .eq('user_id', userId);
+    console.log('getTokens', data, error);
 
     if (error) throw new Error(error.message);
     //convert db tokens to user tokens
@@ -72,72 +73,74 @@ export class SupabaseAdapter implements UserTokenDBAdapter {
         address: token.address,
         chainId: token.chain_id,
         icon: token.logo_uri,
+        type: token.type,
       };
     });
     return userTokens;
   }
 
   async updateToken(token: UserToken): Promise<void> {
-    let userId = await this.getUserId();
-    let existingToken = await this.getOneUserDbToken(
-      userId || "",
+    const userId = await this.getUserId();
+    const existingToken = await this.getOneUserDbToken(
+      userId || '',
       token.address,
       token.chainId
     );
     if (!existingToken) {
-      throw new Error("updateToken::Token not found");
+      throw new Error('updateToken::Token not found');
     }
     existingToken.name = token.name;
     existingToken.symbol = token.symbol;
     existingToken.coin_gecko_id = token.coinGeckoId;
     existingToken.decimals = token.decimals;
-    existingToken.logo_uri = token.icon || "";
+    existingToken.logo_uri = token.icon || '';
     existingToken.chain_id = token.chainId;
     existingToken.address = token.address;
 
-    console.log("updateToken", existingToken);
+    console.log('updateToken', existingToken);
     const { error } = await this.supabase
-      .from("user_tokens")
+      .from('user_tokens')
       .update(existingToken)
-      .eq("id", existingToken.id);
+      .eq('id', existingToken.id);
     if (error) throw new Error(error.message);
   }
 
   async addToken(token: UserToken): Promise<void> {
-    let userId = await this.getUserId();
+    const userId = await this.getUserId();
 
     const dbToken: DbToken = {
       id: uuidv4(), // Generate a new UUID
-      user_id: userId || "",
+      user_id: userId || '',
       name: token.name,
       symbol: token.symbol,
       coin_gecko_id: token.coinGeckoId,
       decimals: token.decimals,
       address: token.address,
       chain_id: token.chainId,
-      logo_uri: token.icon || "",
+      logo_uri: token.icon || '',
+      type: token.type, // Add this line
     };
-    console.log("addToken", dbToken);
-    const { error } = await this.supabase.from("user_tokens").insert(dbToken);
+    console.log('addToken', dbToken);
+    const { error } = await this.supabase.from('user_tokens').insert(dbToken);
     if (error) throw new Error(error.message);
   }
 
   async removeToken(address: string): Promise<void> {
     const { error } = await this.supabase
-      .from("user_tokens")
+      .from('user_tokens')
       .delete()
-      .eq("address", address);
+      .eq('address', address);
     if (error) throw new Error(error.message);
   }
 
   async getTokenPrice(tokenId: string): Promise<DbTokenPrice> {
     const { data, error } = await this.supabase
-      .from("cg_token_price_cache")
-      .select("*")
-      .eq("id", tokenId)
+      .from('cg_token_price_cache')
+      .select('*')
+      .eq('id', tokenId)
       .limit(1)
       .single();
-    console.log("getTokenPrice", data, error);
+    console.log('getTokenPrice', data, error);
 
     if (error) throw new Error(error.message);
     // this.tokens = data;
@@ -146,13 +149,13 @@ export class SupabaseAdapter implements UserTokenDBAdapter {
 
   async saveTokenPrice(tokenId: string, price: number): Promise<void> {
     const { error, data } = await this.supabase
-      .from("cg_token_price_cache")
+      .from('cg_token_price_cache')
       .upsert({
         id: tokenId,
         price: price,
         updated_at: new Date().toISOString(),
       });
-    console.log("saveTokenPrice", data, error);
+    console.log('saveTokenPrice', data, error);
 
     if (error) throw new Error(error.message);
   }
