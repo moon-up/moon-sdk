@@ -676,7 +676,7 @@ export class MoonSDK extends EventEmitter {
 
     const provider = 'google';
     // Correctly construct the URI with clientId as a query parameter, not as part of the path
-    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}?clientId=${this.config.clientId}`;
+    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}?client_id=${this.config.clientId}`;
     window.location.href = uri;
   }
 
