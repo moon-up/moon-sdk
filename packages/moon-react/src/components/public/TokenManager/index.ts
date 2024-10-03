@@ -1,2 +1,2 @@
-export * from './Storage'
+export * from '../../../database'
 export * from './UserTokenManager'

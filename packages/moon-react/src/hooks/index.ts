@@ -16,6 +16,7 @@ export * from './useMoonTokenSwap';
 export * from './useMoonAaveV3';
 export * from './useMoonAaveV3';
 export * from './useMoonDataSDK';
+export * from './useWalletAlias';
 // export * from './useMoonEthersSkale';
 // import * as hooks from './';
 // export default hooks;

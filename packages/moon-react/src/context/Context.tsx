@@ -1,8 +1,8 @@
-import React, { createContext, ReactNode, useEffect, useReducer } from 'react';
+import React, { createContext, ReactNode, useEffect, useReducer } from "react";
 
-import { MoonProvider } from '@moonup/ethers';
-import { MoonSDK } from '@moonup/moon-sdk';
-import { connectorsForWallets } from '@rainbow-me/rainbowkit';
+import { MoonProvider } from "@moonup/ethers";
+import { MoonSDK } from "@moonup/moon-sdk";
+import { connectorsForWallets } from "@rainbow-me/rainbowkit";
 import {
   coinbaseWallet,
   injectedWallet,
@@ -24,11 +24,9 @@ import { AuthModalConfig, TransactionResult } from "../types/types";
 import { DEFAULT_AUTH_CONFIG } from "../constants";
 import { Chains } from "@moonup/moon-sdk";
 import { supabase } from "@/supabase";
-import {
-  SupabaseAdapter,
-  UserTokenDBAdapter,
-} from "@/components/public/TokenManager";
-import getEnvVariables from '@/utils/getEnvVariables';
+
+import getEnvVariables from "@/utils/getEnvVariables";
+import { DBAdapterBase, DbWalletAlias, SupabaseAdapter } from "@/database";
 
 const walletsRainbowkit = [
   injectedWallet,
@@ -41,22 +39,23 @@ const walletsRainbowkit = [
 const connectors = connectorsForWallets(
   [
     {
-      groupName: 'Recommended',
+      groupName: "Recommended",
       wallets: walletsRainbowkit,
     },
   ],
   {
-    appName: 'My RainbowKit App',
-    projectId: 'YOUR_PROJECT_ID',
+    appName: "My RainbowKit App",
+    projectId: "YOUR_PROJECT_ID",
   }
 );
 export type State = {
   moon: MoonSDK | null;
-  dbAdapter: UserTokenDBAdapter;
+  dbAdapter: DBAdapterBase;
   authConfig: AuthModalConfig;
   session: Session | null;
   supabase: SupabaseClient | null;
   wallets: string[];
+  aliases: DbWalletAlias[];
   chains: Chains[];
   chain: Chains | null;
   ethers?: MoonProvider | null;
@@ -67,6 +66,7 @@ export type State = {
   signOut: () => Promise<void>;
   createWallet: () => Promise<void>;
   listWallets: () => Promise<void>;
+  fetchAliases: () => Promise<void>;
   setWallet: (wallet: string) => Promise<void>;
   store: Store;
   connect: (accessToken?: string, refreshToken?: string) => Promise<void>;
@@ -88,6 +88,7 @@ type Action =
   | { type: "SET_SESSION"; session: Session | null }
   | { type: "SET_SUPABASE"; supabase: SupabaseClient }
   | { type: "SET_WALLETS"; wallets: string[] }
+  | { type: "SET_ALIASES"; aliases: DbWalletAlias[] }
   | { type: "SET_ETHERS"; ethers: MoonProvider | null }
   | { type: "SET_LOADING"; loading: boolean }
   | { type: "SET_WALLET"; wallet: string }
@@ -106,23 +107,25 @@ type Action =
 // Define the reducer
 function reducer(state: State, action: Action): State {
   switch (action.type) {
-    case 'SET_MOON':
+    case "SET_MOON":
       return { ...state, moon: action.moon };
-    case 'SET_SESSION':
+    case "SET_SESSION":
       return { ...state, session: action.session };
-    case 'SET_SUPABASE':
+    case "SET_SUPABASE":
       return { ...state, supabase: action.supabase };
-    case 'SET_WALLETS':
+    case "SET_WALLETS":
       return { ...state, wallets: action.wallets };
-    case 'SET_ETHERS':
+    case "SET_ETHERS":
       return { ...state, ethers: action.ethers };
-    case 'SET_LOADING':
+    case "SET_LOADING":
       return { ...state, loading: action.loading };
-    case 'SET_WALLET':
+    case "SET_WALLET":
       return { ...state, wallet: action.wallet };
-    case 'SET_STORE':
+    case "SET_ALIASES":
+      return { ...state, aliases: action.aliases };
+    case "SET_STORE":
       return { ...state, store: action.store };
-    case 'SET_CHAINS':
+    case "SET_CHAINS":
       return { ...state, chains: action.chains };
     case "SET_CHAIN":
       return { ...state, chain: action.chain };
@@ -156,7 +159,7 @@ const moon = new MoonSDK({
 const provider = new MoonProvider({
   SDK: moon,
   chainId: 1,
-  address: '0x',
+  address: "0x",
 });
 window.moon = provider;
 
@@ -200,6 +203,7 @@ export const MoonSDKProvider: React.FC<MoonSDKProviderProps> = ({
     supabase: supabase,
     chatOpen: false,
     wallets: [],
+    aliases: [],
     chains: [],
     chain: null,
     wallet: "",
@@ -242,28 +246,32 @@ export const MoonSDKProvider: React.FC<MoonSDKProviderProps> = ({
     },
 
     signOut: async () => {
-      console.log('signOut');
-      console.log('state', state);
+      console.log("signOut");
+      console.log("state", state);
       if (state.supabase) {
         const { error } = await state.supabase.auth.signOut();
         if (error) {
-          console.error('An error occurred:', error);
+          console.error("An error occurred:", error);
         }
       }
     },
     createWallet: async () => {
       if (state.moon) {
         const wallet = await state.moon.createAccount();
-        dispatch({ type: 'SET_WALLETS', wallets: [...state.wallets, wallet] });
+        dispatch({ type: "SET_WALLETS", wallets: [...state.wallets, wallet] });
       }
     },
+    fetchAliases: async () => {
+      const aliases = await state.dbAdapter.getUserWalletAliases();
+      dispatch({ type: "SET_ALIASES", aliases });
+    },
     listWallets: async () => {
-      console.log('accounts');
-      console.log('state', state);
+      console.log("accounts");
+      console.log("state", state);
       const accounts = await state.moon?.listAccounts();
-      console.log('accounts', accounts);
+      console.log("accounts", accounts);
       dispatch({
-        type: 'SET_WALLETS',
+        type: "SET_WALLETS",
         wallets: [...state.wallets, ...(accounts || [])],
       });
     },
@@ -271,7 +279,7 @@ export const MoonSDKProvider: React.FC<MoonSDKProviderProps> = ({
       dispatch({ type: "SET_CHAT_OPEN", chatOpen: isOpen });
     },
     setWallet: async (wallet: string) => {
-      console.log('state', state);
+      console.log("state", state);
       if (!state.moon) {
         return;
       }
@@ -291,9 +299,9 @@ export const MoonSDKProvider: React.FC<MoonSDKProviderProps> = ({
     listChains: async () => {
       console.log("getChains");
       const chains = await state.moon?.getChains();
-      console.log('chains', chains);
+      console.log("chains", chains);
       dispatch({
-        type: 'SET_CHAINS',
+        type: "SET_CHAINS",
         chains: [...state.chains, ...(chains || [])],
       });
     },
@@ -339,6 +347,9 @@ export const MoonSDKProvider: React.FC<MoonSDKProviderProps> = ({
             );
             console.log("localStorage::storedWallet", storedWallet);
             console.log("localStorage::storedChain", storedChain);
+            state.fetchAliases();
+            state.listWallets();
+
             dispatch({
               type: "LOAD_FROM_STORAGE",
               wallet: storedWallet || undefined,
@@ -362,10 +373,11 @@ export const MoonSDKProvider: React.FC<MoonSDKProviderProps> = ({
     });
     announceProvider({
       info: {
-        icon: 'data:image/svg+xml,<svg width="32px" height="32px" viewBox="0 0 32 32"/>',
-        name: 'Moon',
-        rdns: 'ai.usemoon',
-        uuid: '00000000-0000-0000-0000-000000000000',
+        icon:
+          'data:image/svg+xml,<svg width="32px" height="32px" viewBox="0 0 32 32"/>',
+        name: "Moon",
+        rdns: "ai.usemoon",
+        uuid: "00000000-0000-0000-0000-000000000000",
       },
       provider: provider as EIP1193Provider,
     });

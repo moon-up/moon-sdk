@@ -1,6 +1,6 @@
 // import type { UseQueryOptions, UseQueryResult } from "react-query";
 
-import { UserTokenDBAdapter } from "@/components/public/TokenManager";
+import { DBAdapterBase } from "@/components/public/TokenManager";
 import { fetchNullable } from "./fetchNullable";
 import {
   UseQueryOptions,
@@ -73,7 +73,7 @@ export type TokenListItem = {
 
 const tryGetAllPricesFromCache = async (
   tokens: readonly string[],
-  cache: UserTokenDBAdapter
+  cache: DBAdapterBase
 ): Promise<CoinGeckoPrices<string> | null> => {
   const prices = await Promise.all(
     tokens.map(async (token) => {
@@ -106,7 +106,7 @@ const tryGetAllPricesFromCache = async (
 
 export const makeCoinGeckoPricesQuery = <T extends string>(
   tokens: readonly T[],
-  cache?: UserTokenDBAdapter
+  cache?: DBAdapterBase
 ): UseQueryOptions<
   CoinGeckoPrices<T>,
   unknown,
@@ -208,7 +208,7 @@ export const useCoinGeckoPrices = <T extends string>(
     UseQueryOptions<CoinGeckoPrices<T>, unknown, CoinGeckoPrices<T>, string[]>,
     "queryKey" | "queryFn"
   > = {},
-  cache?: UserTokenDBAdapter
+  cache?: DBAdapterBase
 ): UseQueryResult<CoinGeckoPrices<T>, unknown> => {
   return useQuery({ ...options, ...makeCoinGeckoPricesQuery(tokens, cache) });
 };

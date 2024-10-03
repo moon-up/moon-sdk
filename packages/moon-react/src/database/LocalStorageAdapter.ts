@@ -1,7 +1,7 @@
-import { UserToken } from "../types";
-import { DbTokenPrice, UserTokenDBAdapter } from "./UserTokenDBAdapter";
+import { UserToken } from "../components/public/TokenManager/types";
+import { DbTokenPrice, DBAdapterBase, DbWalletAlias } from "./DBAdapterBase";
 
-export class LocalStorageAdapter implements UserTokenDBAdapter {
+export class LocalStorageAdapter implements DBAdapterBase {
   private storageKey = "userTokens";
 
   async getTokens(): Promise<UserToken[]> {
@@ -37,5 +37,12 @@ export class LocalStorageAdapter implements UserTokenDBAdapter {
     let tokens = await this.getTokens();
     tokens = tokens.map((t) => (t.address === token.address ? token : t));
     localStorage.setItem(this.storageKey, JSON.stringify(tokens));
+  }
+  async getUserWalletAliases(): Promise<DbWalletAlias[]> {
+    throw new Error("Method not implemented.");
+  }
+  async upsertWalletAlias(alias: string, address: string): Promise<void> {
+    console.log("upsertWalletAlias", alias, address);
+    throw new Error("Method not implemented.");
   }
 }
