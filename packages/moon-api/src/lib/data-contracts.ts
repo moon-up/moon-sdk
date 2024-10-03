@@ -269,7 +269,9 @@ export interface AbiEncodeOutput {
   success: boolean;
 }
 
-export type AbstainData = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+export type AbstainData = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
+
+export type AbstainResult = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export interface AccessTuple {
   address: string;
@@ -308,6 +310,24 @@ export interface Action {
   toChainId: number;
   toToken: TokenDetails;
 }
+
+export type AddLiquidityData =
+  LynexRouterAPIResponseLynexRouterExecuteFunctionResult;
+
+export type AddLiquidityEthData =
+  LynexRouterAPIResponseLynexRouterExecuteFunctionResult;
+
+export type AddLiquidityEthOutput =
+  UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
+
+export type AddLiquidityEthResult =
+  RamsesRouterAPIResponseRamsesRouterExecuteFunctionResult;
+
+export type AddLiquidityOutput =
+  UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
+
+export type AddLiquidityResult =
+  RamsesRouterAPIResponseRamsesRouterExecuteFunctionResult;
 
 export interface AggregatedReserveIncentiveData {
   aIncentiveData: IncentiveData;
@@ -374,9 +394,16 @@ export type ApproveData = ERC20APIResponseERC20ExecuteFunctionResult;
 
 export type ApproveErc721Data = ERC721APIResponse;
 
-export type ApproveOutput = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+export type ApproveOutput = LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
+
+export type ApproveOutput1 =
+  UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
 
 export type ApproveResult = ERC4626APIResponse;
+
+export type ApproveResult1 = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
+
+export type ApproveResult2 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export interface AssembleRequest {
   pathId: string;
@@ -387,9 +414,14 @@ export interface AssembleRequest {
 
 export type AssembleTransactionData = OdosAPIResponseOdosExecuteFunctionResult;
 
-export type AttachData = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+export type AttachData = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
+
+export type AttachResult = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export type AttachTokenToGaugeData =
+  RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
+
+export type AttachTokenToGaugeResult =
   VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
 
 export interface BRC20TransactionInput {
@@ -421,11 +453,19 @@ export type BalanceOfBatchData = TransactionAPIResponse;
 
 export type BalanceOfData = AAVEv3WalletBalanceProviderAPIResponseString;
 
+export type BalanceOfOutput = UniswapV3NFTAPIResponseString;
+
 export interface BalanceOfParams {
   chain_id: string;
   contract_address: string;
   token_address: string;
   user: string;
+}
+
+export interface BalanceOfParams3 {
+  address: string;
+  chainId: string;
+  owner: string;
 }
 
 export type BalanceOfResult = TransactionAPIResponse;
@@ -437,6 +477,13 @@ export interface BalanceResponse {
 export interface BaseCosmosAPIResponse {
   message: string;
   success: boolean;
+}
+
+export type BaseUriData = UniswapV3NFTAPIResponseString;
+
+export interface BaseUriParams {
+  address: string;
+  chainId: string;
 }
 
 export type BatchBalanceOfData =
@@ -575,16 +622,36 @@ export interface BroadcastInput {
 
 export type BroadcastTxData = BroadCastRawTransactionAPIResponse;
 
-export type CalculateOptimalVoteDistributionData = ThenaAPIResponse;
+export type BurnData = LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
+
+export type BurnResult = UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
+
+export type CalculateOptimalVoteDistributionData = LynexAPIResponse;
+
+export type CalculateOptimalVoteDistributionOutput = ThenaAPIResponse;
 
 export interface CalculateOptimalVoteDistributionParams {
+  /** @format double */
+  maxPools?: number;
+  /** @format double */
+  totalVotes: number;
+}
+
+export interface CalculateOptimalVoteDistributionParams2 {
+  /** @format double */
+  maxPools?: number;
+  /** @format double */
+  totalVotes: number;
+}
+
+export interface CalculateOptimalVoteDistributionParams4 {
   /** @format double */
   maxFusions?: number;
   /** @format double */
   totalVotes: number;
 }
 
-export type CallWebhookData = MultiCallAPIResponse;
+export type CalculateOptimalVoteDistributionResult = RamsesAPIResponse;
 
 export interface Chain {
   chainType: ChainChainTypeEnum;
@@ -632,7 +699,12 @@ export interface ChainsResponse {
   chains: Chain[];
 }
 
-export type CheckpointData = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+export type CheckpointData = LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
+
+export type CheckpointDelegateeData =
+  LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
+
+export type CheckpointResult = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export type ClaimAllRewardsData =
   AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
@@ -644,10 +716,24 @@ export type ClaimAllRewardsToSelfData =
   AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
 
 export type ClaimBribesData =
+  LynexVoterAPIResponseLynexVoterExecuteFunctionResult;
+
+export type ClaimBribesOutput =
   VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
 
+export type ClaimBribesResult =
+  RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
+
+export type ClaimData = LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
+
 export type ClaimFeesData =
+  LynexVoterAPIResponseLynexVoterExecuteFunctionResult;
+
+export type ClaimFeesOutput =
   VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
+
+export type ClaimFeesResult =
+  RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
 
 export type ClaimRewardsData =
   AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
@@ -655,11 +741,19 @@ export type ClaimRewardsData =
 export type ClaimRewardsOnBehalfData =
   AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
 
+export type ClaimRewardsOutput =
+  RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
+
 export type ClaimRewardsResult =
+  LynexVoterAPIResponseLynexVoterExecuteFunctionResult;
+
+export type ClaimRewardsResult1 =
   VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
 
 export type ClaimRewardsToSelfData =
   AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
+
+export type CollectData = UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
 
 export interface Connection {
   /** @format double */
@@ -780,33 +874,57 @@ export type CreateAccountOutput = CosmosAccountAPIResponse;
 
 export type CreateAccountResult = BitcoinCashAPIResponseAccountResponse;
 
+export type CreateAndInitializePoolIfNecessaryData =
+  UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
+
 export type CreateBitcoinAccountData = AccountAPIResponse;
 
 export type CreateBrc20TransactionData = BitcoinAPIResponse;
+
+export type CreateDelegatedLockForData =
+  LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
 export type CreateDogeCoinAccountData = AccountAPIResponse;
 
 export type CreateEosAccountData = AccountAPIResponse;
 
 export interface CreateFlowBody {
-  description?: string;
+  created_at: string;
+  description: string;
   edges: FlowEdge[];
+  id: string;
   name: string;
   nodes: FlowNode[];
+  updated_at: string;
+  user_id: string;
 }
 
-export type CreateFlowData = MultiCallAPIResponseAny;
+export type CreateFlowData = MultiCallAPIResponseString;
 
 export type CreateGaugeData =
+  LynexVoterAPIResponseLynexVoterExecuteFunctionResult;
+
+export type CreateGaugeOutput =
   VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
+
+export type CreateGaugeResult =
+  RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
 
 export type CreateJobData = MultiCallAPIResponseString;
 
 export type CreateLitecoinAccountData = AccountAPIResponse;
 
-export type CreateLockData = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+export type CreateLockData = LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
-export type CreateLockForData = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+export type CreateLockForData =
+  LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
+
+export type CreateLockForResult = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
+export type CreateLockOutput = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
+export type CreateLockResult =
+  RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 
 export type CreateRippleAccountData = AccountAPIResponse;
 
@@ -816,13 +934,12 @@ export type CreateSrc20InscriptionData = BitcoinAPIResponse;
 
 export type CreateTronAccountData = AccountAPIResponse;
 
-export interface CreateUserDefinedFunctionBody {
-  description?: string;
+export type CreateUserDefinedFunctionData = MultiCallAPIResponse;
+
+export interface CreateUserDefinedFunctionPayload {
   functionBody: string;
   name: string;
 }
-
-export type CreateUserDefinedFunctionData = MultiCallAPIResponseAny;
 
 export interface CryptoCurrency {
   address: string;
@@ -839,9 +956,19 @@ export interface CryptoCurrency {
   symbol: string;
 }
 
-export type DelegateBySigData = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+export type DecreaseLiquidityData =
+  UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
 
-export type DelegateData = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+export type DelegateBySigData =
+  LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
+
+export type DelegateBySigResult = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
+export type DelegateData = LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
+
+export type DelegateOutput = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
+export type DelegateResult = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 
 export type DeleteAccountData = AccountAPIResponse;
 
@@ -857,11 +984,7 @@ export type DeleteEosAccountData = AccountAPIResponse;
 
 export type DeleteFlowData = MultiCallAPIResponse;
 
-export type DeleteHistoryEntryData = MultiCallAPIResponse;
-
 export type DeleteJobData = MultiCallAPIResponse;
-
-export type DeleteJobHistoryData = MultiCallAPIResponse;
 
 export type DeleteLitecoinAccountData = AccountAPIResponse;
 
@@ -895,13 +1018,24 @@ export type DepositForData = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 export type DepositResult =
   LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
 
-export type DetachData = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+export type DetachData = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
+
+export type DetachResult = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export type DetachTokenFromGaugeData =
+  RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
+
+export type DetachTokenFromGaugeResult =
   VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
 
 export type DistributeData =
+  LynexVoterAPIResponseLynexVoterExecuteFunctionResult;
+
+export type DistributeOutput =
   VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
+
+export type DistributeResult =
+  RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
 
 export interface DogeCoinAPIResponse {
   address?: string;
@@ -927,6 +1061,13 @@ export interface DogeCoinTransactionInput {
 export interface DogeCoinTransactionOutput {
   signedTx?: string;
   transaction_hash?: string;
+}
+
+export type DomainSeparatorData = UniswapV3NFTAPIResponseString;
+
+export interface DomainSeparatorParams {
+  address: string;
+  chainId: string;
 }
 
 export interface ERC20APIResponseERC20ExecuteFunctionResult {
@@ -1046,10 +1187,6 @@ export interface ERC721APIResponse {
   message: string;
   success: boolean;
 }
-
-export type EditHistoryEntryData = MultiCallAPIResponseHistory;
-
-export type EditJobData = MultiCallAPIResponseJobs;
 
 export type EncodeDataData = AbiEncodeOutput;
 
@@ -1390,14 +1527,23 @@ export interface EvmWalletHistoryTransactionJSON {
   value: string;
 }
 
+export type ExactInputData = UniswapV3APIResponseUniswapV3ExecuteFunctionResult;
+
+export type ExactInputSingleData =
+  UniswapV3APIResponseUniswapV3ExecuteFunctionResult;
+
+export type ExactOutputData =
+  UniswapV3APIResponseUniswapV3ExecuteFunctionResult;
+
+export type ExactOutputSingleData =
+  UniswapV3APIResponseUniswapV3ExecuteFunctionResult;
+
 export interface Exchange {
   key: string;
   logoURI: string;
   name: string;
   supportedChains: number[];
 }
-
-export type ExecuteFlowData = MultiCallAPIResponse;
 
 export type ExecuteJobData = MultiCallAPIResponse;
 
@@ -1436,6 +1582,20 @@ export type ExportSolanaAccountData = AccountAPIResponse;
 
 export type ExportTronAccountData = AccountAPIResponse;
 
+export type Factory2Data = UniswapV3APIResponseString;
+
+export interface Factory2Params {
+  address: string;
+  chainId: string;
+}
+
+export type FactoryData = UniswapV3NFTAPIResponseString;
+
+export interface FactoryParams {
+  address: string;
+  chainId: string;
+}
+
 export interface FeeCost {
   /** @format double */
   amount: number;
@@ -1464,6 +1624,19 @@ export interface FiatCurrency {
 
 export type FlashLoanData =
   LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
+
+export interface Flow {
+  created_at: string;
+  description: string | null;
+  edges: Json;
+  id: string;
+  name: string;
+  nodes: Json;
+  updated_at: string;
+  user_id: string;
+  /** @format double */
+  version: number;
+}
 
 export interface FlowEdge {
   id: string;
@@ -1632,13 +1805,84 @@ export interface GetAllowanceParams2 {
 
 export type GetAllowanceResult = ERC4626APIResponse;
 
-export type GetApprovedData = VeTheNFTAPIResponseString;
+export type GetAmountInData =
+  UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
+
+export type GetAmountOutData =
+  LynexRouterAPIResponseAmountOutStringStableBoolean;
+
+export type GetAmountOutOutput =
+  UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
+
+export interface GetAmountOutParams {
+  address: string;
+  amountIn: string;
+  chainId: string;
+  tokenIn: string;
+  tokenOut: string;
+}
+
+export interface GetAmountOutParams2 {
+  address: string;
+  amountIn: string;
+  chainId: string;
+  tokenIn: string;
+  tokenOut: string;
+}
+
+export type GetAmountOutResult =
+  RamsesRouterAPIResponseAmountOutStringStableBoolean;
+
+export type GetAmountsInData =
+  UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
+
+export type GetAmountsOutData = LynexRouterAPIResponseStringArray;
+
+export type GetAmountsOutOutput =
+  UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
+
+export interface GetAmountsOutParams {
+  address: string;
+  amountIn: string;
+  chainId: string;
+  routes: string;
+}
+
+export interface GetAmountsOutParams2 {
+  address: string;
+  amountIn: string;
+  chainId: string;
+  routes: string;
+}
+
+export type GetAmountsOutResult = RamsesRouterAPIResponseStringArray;
+
+export type GetApprovedData = LynexNFTAPIResponseString;
+
+export type GetApprovedOutput = VeTheNFTAPIResponseString;
 
 export interface GetApprovedParams {
   address: string;
   chainId: string;
   tokenId: string;
 }
+
+export interface GetApprovedParams2 {
+  address: string;
+  chainId: string;
+  /** @format double */
+  tokenId: number;
+}
+
+export interface GetApprovedParams4 {
+  address: string;
+  chainId: string;
+  tokenId: string;
+}
+
+export type GetApprovedResult = UniswapV3NFTAPIResponseString;
+
+export type GetAssetByAddressData = LynexAPIResponse;
 
 export type GetAssetData = ERC4626APIResponse;
 
@@ -1647,6 +1891,8 @@ export interface GetAssetParams {
   address: string;
   chainId: string;
 }
+
+export type GetAssetsData = LynexAPIResponse;
 
 export type GetBalanceData = BalanceAPIResponse;
 
@@ -1661,7 +1907,20 @@ export interface GetBalanceOfAtNftParams {
 
 export type GetBalanceOfData = ERC20APIResponseString;
 
-export type GetBalanceOfNftData = VeTheNFTAPIResponseString;
+export type GetBalanceOfData1 = VeTheNFTAPIResponseString;
+
+export type GetBalanceOfNftAtData = LynexNFTAPIResponseString;
+
+export interface GetBalanceOfNftAtParams {
+  address: string;
+  chainId: string;
+  timestamp: string;
+  tokenId: string;
+}
+
+export type GetBalanceOfNftData = LynexNFTAPIResponseString;
+
+export type GetBalanceOfNftOutput = VeTheNFTAPIResponseString;
 
 export interface GetBalanceOfNftParams {
   address: string;
@@ -1669,7 +1928,23 @@ export interface GetBalanceOfNftParams {
   tokenId: string;
 }
 
-export type GetBalanceOfOutput = VeTheNFTAPIResponseString;
+export interface GetBalanceOfNftParams2 {
+  address: string;
+  chainId: string;
+  tokenId: string;
+}
+
+export interface GetBalanceOfNftParams4 {
+  address: string;
+  chainId: string;
+  tokenId: string;
+}
+
+export type GetBalanceOfNftResult = RamsesNFTAPIResponseString;
+
+export type GetBalanceOfOutput = LynexNFTAPIResponseString;
+
+export type GetBalanceOfOutput1 = RamsesNFTAPIResponseString;
 
 export interface GetBalanceOfParams {
   account: string;
@@ -1684,6 +1959,18 @@ export interface GetBalanceOfParams2 {
 }
 
 export interface GetBalanceOfParams4 {
+  address: string;
+  chainId: string;
+  owner: string;
+}
+
+export interface GetBalanceOfParams6 {
+  address: string;
+  chainId: string;
+  owner: string;
+}
+
+export interface GetBalanceOfParams8 {
   account: string;
   address: string;
   chainId: string;
@@ -1780,13 +2067,30 @@ export interface GetDefaultAdminRoleParams {
   chainId: string;
 }
 
-export type GetDelegatesData = VeTheNFTAPIResponseString;
+export type GetDelegatesData = LynexNFTAPIResponseString;
+
+export type GetDelegatesOutput = VeTheNFTAPIResponseString;
 
 export interface GetDelegatesParams {
   address: string;
   chainId: string;
+  timestamp: string;
+  tokenId: string;
+}
+
+export interface GetDelegatesParams2 {
+  account: string;
+  address: string;
+  chainId: string;
+}
+
+export interface GetDelegatesParams4 {
+  address: string;
+  chainId: string;
   delegator: string;
 }
+
+export type GetDelegatesResult = RamsesNFTAPIResponseString;
 
 export type GetDogeCoinAccountData = AccountAPIResponse;
 
@@ -1859,6 +2163,29 @@ export enum GetExecutorAddressParams1VersionEnum {
   V2 = 'v2',
 }
 
+export type GetFactoryData = LynexRouterAPIResponseString;
+
+export type GetFactoryOutput =
+  UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
+
+export interface GetFactoryParams {
+  address: string;
+  chainId: string;
+}
+
+export interface GetFactoryParams2 {
+  address: string;
+  chainId: string;
+}
+
+export interface GetFactoryParams4 {
+  account: string;
+  address: string;
+  chainId: string;
+}
+
+export type GetFactoryResult = RamsesRouterAPIResponseString;
+
 export type GetFlashLoanPremiumTotalData = LendingPoolAPIResponseNumber;
 
 export interface GetFlashLoanPremiumTotalParams {
@@ -1866,7 +2193,7 @@ export interface GetFlashLoanPremiumTotalParams {
   chainId: string;
 }
 
-export type GetFlowData = MultiCallAPIResponseAny;
+export type GetFlowData = MultiCallAPIResponseFlow;
 
 export type GetFullReservesIncentiveDataData =
   AAVEv3UiIncentiveDataProviderAPIResponseFullReservesIncentiveData;
@@ -1891,19 +2218,17 @@ export interface GetGasPriceParams {
   chainId: string;
 }
 
-export type GetHistoryEntryData = MultiCallAPIResponseHistory;
-
 export type GetIndexedRouteMapData = JupiterAPIResponseAny;
 
 export interface GetIndexedRouteMapParams {
   onlyDirectRoutes?: boolean;
 }
 
+export type GetInfoData = RamsesAPIResponse;
+
 export type GetJobData = MultiCallAPIResponseJobs;
 
-export type GetJobHistoryData = MultiCallAPIResponseHistoryArray;
-
-export type GetJobResultData = MultiCallAPIResponseMultiCallResult;
+export type GetJobResultData = MultiCallAPIResponseAny;
 
 export type GetLastUserSlopeData = VeTheNFTAPIResponseString;
 
@@ -1912,6 +2237,22 @@ export interface GetLastUserSlopeParams {
   chainId: string;
   tokenId: string;
 }
+
+export type GetLastVotedData = LynexVoterAPIResponseString;
+
+export interface GetLastVotedParams {
+  address: string;
+  chainId: string;
+  voter: string;
+}
+
+export interface GetLastVotedParams2 {
+  address: string;
+  chainId: string;
+  tokenId: string;
+}
+
+export type GetLastVotedResult = RamsesVoterAPIResponseString;
 
 export type GetLendingPoolData = LeveragerAPIResponseString;
 
@@ -1936,7 +2277,15 @@ export interface GetLiquiditySourcesParams {
 
 export type GetLitecoinAccountData = AccountAPIResponse;
 
-export type GetLockedData = VeTheNFTAPIResponseLockedData;
+export type GetLockDetailsData = LynexNFTAPIResponseAny;
+
+export interface GetLockDetailsParams {
+  address: string;
+  chainId: string;
+  tokenId: string;
+}
+
+export type GetLockedData = RamsesNFTAPIResponseLockedData;
 
 export type GetLockedEndData = VeTheNFTAPIResponseString;
 
@@ -1951,6 +2300,14 @@ export interface GetLockedParams {
   chainId: string;
   tokenId: string;
 }
+
+export interface GetLockedParams2 {
+  address: string;
+  chainId: string;
+  tokenId: string;
+}
+
+export type GetLockedResult = VeTheNFTAPIResponseLockedData;
 
 export type GetMarketIdData = PoolAddressProviderAPIResponseString;
 
@@ -2028,15 +2385,45 @@ export interface GetNameParams {
   chainId: string;
 }
 
+export interface GetNameParams2 {
+  address: string;
+  chainId: string;
+}
+
+export type GetNameResult = LynexNFTAPIResponseString;
+
 export type GetNonceData = NonceAPIResponse;
 
-export type GetOwnerOfData = VeTheNFTAPIResponseString;
+export interface GetNonceParams {
+  accountName: string;
+  chainId: string;
+}
+
+export type GetNotificationsData = MultiCallAPIResponseAnyArray;
+
+export type GetOwnerOfData = LynexNFTAPIResponseString;
+
+export type GetOwnerOfOutput = VeTheNFTAPIResponseString;
 
 export interface GetOwnerOfParams {
   address: string;
   chainId: string;
   tokenId: string;
 }
+
+export interface GetOwnerOfParams2 {
+  address: string;
+  chainId: string;
+  tokenId: string;
+}
+
+export interface GetOwnerOfParams4 {
+  address: string;
+  chainId: string;
+  tokenId: string;
+}
+
+export type GetOwnerOfResult = RamsesNFTAPIResponseString;
 
 export type GetPastTotalSupplyData = VeTheNFTAPIResponseString;
 
@@ -2046,7 +2433,9 @@ export interface GetPastTotalSupplyParams {
   timestamp: string;
 }
 
-export type GetPastVotesData = VeTheNFTAPIResponseString;
+export type GetPastVotesData = LynexNFTAPIResponseString;
+
+export type GetPastVotesOutput = VeTheNFTAPIResponseString;
 
 export interface GetPastVotesParams {
   account: string;
@@ -2054,6 +2443,26 @@ export interface GetPastVotesParams {
   chainId: string;
   timestamp: string;
 }
+
+export interface GetPastVotesParams2 {
+  account: string;
+  address: string;
+  blockNumber: string;
+  chainId: string;
+}
+
+export interface GetPastVotesParams4 {
+  account: string;
+  address: string;
+  chainId: string;
+  timestamp: string;
+}
+
+export type GetPastVotesResult = RamsesNFTAPIResponseString;
+
+export type GetPoolByAddressData = LynexAPIResponse;
+
+export type GetPoolByAddressResult = RamsesAPIResponse;
 
 export type GetPoolConfiguratorData = PoolAddressProviderAPIResponseString;
 
@@ -2070,6 +2479,22 @@ export interface GetPoolParams {
   address: string;
   chainId: string;
 }
+
+export type GetPoolVoteLengthData = LynexVoterAPIResponseString;
+
+export interface GetPoolVoteLengthParams {
+  address: string;
+  chainId: string;
+  voter: string;
+}
+
+export type GetPoolsByTypeData = LynexAPIResponse;
+
+export type GetPoolsByTypeResult = RamsesAPIResponse;
+
+export type GetPoolsData = LynexAPIResponse;
+
+export type GetPoolsResult = RamsesAPIResponse;
 
 export type GetPreviewDepositData = ERC4626APIResponse;
 
@@ -2118,8 +2543,6 @@ export interface GetPriceOracleParams {
 export type GetProgramIdToLabelData = JupiterAPIResponseRecordStringString;
 
 export type GetQuoteData = JupiterAPIResponseJupiterExecuteFunctionResult;
-
-export type GetQuoteData1 = ThorSwapAPIResponseQuote;
 
 export type GetQuoteOutput = OdosAPIResponseOdosExecuteFunctionResult;
 
@@ -2174,6 +2597,8 @@ export interface GetQuoteParams4 {
 
 export type GetQuoteResult = ApiResponseQuote;
 
+export type GetQuoteResult1 = ThorSwapAPIResponseQuote;
+
 export type GetReserveDataData = AavePoolAPIResponseAny;
 
 export interface GetReserveDataParams {
@@ -2191,6 +2616,9 @@ export interface GetReserveDataParams2 {
 
 export type GetReserveDataResult = LendingPoolAPIResponseAny;
 
+export type GetReservesData =
+  RamsesRouterAPIResponseReserve03AstringReserve13Astring;
+
 export type GetReservesIncentivesDataData =
   AAVEv3UiIncentiveDataProviderAPIResponseAggregatedReserveIncentiveDataArray;
 
@@ -2205,6 +2633,14 @@ export type GetReservesListData = LendingPoolAPIResponseStringArray;
 export interface GetReservesListParams {
   address: string;
   chainId: string;
+}
+
+export interface GetReservesParams {
+  address: string;
+  chainId: string;
+  stable: boolean;
+  tokenA: string;
+  tokenB: string;
 }
 
 export type GetRewardsByAssetData = AAVEv3RewardsAPIResponseStringArray;
@@ -2248,7 +2684,7 @@ export enum GetRouterAddressParams1VersionEnum {
   V2 = 'v2',
 }
 
-export type GetScheduledJobsData = MultiCallAPIResponseScheduledJobArray;
+export type GetScheduledJobsData = MultiCallAPIResponseAnyArray;
 
 export type GetSolanaAccountData = AccountAPIResponse;
 
@@ -2301,7 +2737,33 @@ export interface GetSymbolParams {
   chainId: string;
 }
 
-export type GetTokenUriData = VeTheNFTAPIResponseString;
+export interface GetSymbolParams2 {
+  address: string;
+  chainId: string;
+}
+
+export type GetSymbolResult = LynexNFTAPIResponseString;
+
+export type GetTokenByIndexData = LynexNFTAPIResponseString;
+
+export interface GetTokenByIndexParams {
+  address: string;
+  chainId: string;
+  index: string;
+}
+
+export type GetTokenOfOwnerByIndexData = LynexNFTAPIResponseString;
+
+export interface GetTokenOfOwnerByIndexParams {
+  address: string;
+  chainId: string;
+  index: string;
+  owner: string;
+}
+
+export type GetTokenUriData = LynexNFTAPIResponseString;
+
+export type GetTokenUriOutput = VeTheNFTAPIResponseString;
 
 export interface GetTokenUriParams {
   address: string;
@@ -2309,7 +2771,23 @@ export interface GetTokenUriParams {
   tokenId: string;
 }
 
+export interface GetTokenUriParams2 {
+  address: string;
+  chainId: string;
+  tokenId: string;
+}
+
+export interface GetTokenUriParams4 {
+  address: string;
+  chainId: string;
+  tokenId: string;
+}
+
+export type GetTokenUriResult = RamsesNFTAPIResponseString;
+
 export type GetTokensData = JupiterAPIResponseStringArray;
+
+export type GetTokensResult = RamsesAPIResponse;
 
 export type GetToolsData = ApiResponseToolsResponse;
 
@@ -2323,6 +2801,20 @@ export interface GetTopAprFusionsParams {
   /** @format double */
   limit?: number;
 }
+
+export type GetTopAprPoolsData = LynexAPIResponse;
+
+export interface GetTopAprPoolsParams {
+  /** @format double */
+  limit?: number;
+}
+
+export interface GetTopAprPoolsParams2 {
+  /** @format double */
+  limit?: number;
+}
+
+export type GetTopAprPoolsResult = RamsesAPIResponse;
 
 export type GetTopPairsData = ThenaAPIResponse;
 
@@ -2346,6 +2838,13 @@ export interface GetTotalAssetsParams {
   chainId: string;
 }
 
+export type GetTotalNftsMintedData = LynexNFTAPIResponseString;
+
+export interface GetTotalNftsMintedParams {
+  address: string;
+  chainId: string;
+}
+
 export type GetTotalSupplyAtData = VeTheNFTAPIResponseString;
 
 export interface GetTotalSupplyAtParams {
@@ -2364,7 +2863,7 @@ export interface GetTotalSupplyAtTParams {
 
 export type GetTotalSupplyData = ERC20APIResponseString;
 
-export type GetTotalSupplyOutput = VeTheNFTAPIResponseString;
+export type GetTotalSupplyOutput = LynexNFTAPIResponseString;
 
 export interface GetTotalSupplyParams {
   account: string;
@@ -2383,16 +2882,48 @@ export interface GetTotalSupplyParams4 {
   chainId: string;
 }
 
+export interface GetTotalSupplyParams6 {
+  address: string;
+  chainId: string;
+}
+
+export interface GetTotalSupplyParams8 {
+  address: string;
+  chainId: string;
+}
+
 export type GetTotalSupplyResult = ERC4626APIResponse;
 
-export type GetTotalValueLockedData = ThenaAPIResponse;
+export type GetTotalSupplyResult1 = RamsesNFTAPIResponseString;
 
-export type GetTotalWeightData = VeTheNftVoterAPIResponseString;
+export type GetTotalSupplyResult2 = VeTheNFTAPIResponseString;
+
+export type GetTotalValueLockedData = LynexAPIResponse;
+
+export type GetTotalValueLockedOutput = ThenaAPIResponse;
+
+export type GetTotalValueLockedResult = RamsesAPIResponse;
+
+export type GetTotalWeightData = LynexVoterAPIResponseString;
+
+export type GetTotalWeightOutput = VeTheNftVoterAPIResponseString;
 
 export interface GetTotalWeightParams {
   address: string;
   chainId: string;
 }
+
+export interface GetTotalWeightParams2 {
+  address: string;
+  chainId: string;
+}
+
+export interface GetTotalWeightParams4 {
+  address: string;
+  chainId: string;
+}
+
+export type GetTotalWeightResult = RamsesVoterAPIResponseString;
 
 export type GetTronAccountData = AccountAPIResponse;
 
@@ -2412,8 +2943,6 @@ export interface GetUserAccountDataParams2 {
 }
 
 export type GetUserAccountDataResult = LendingPoolAPIResponseAny;
-
-export type GetUserDefinedFunctionData = MultiCallAPIResponseAny;
 
 export type GetUserPointHistoryData = VeTheNFTAPIResponseUserPointHistoryData;
 
@@ -2464,13 +2993,62 @@ export interface GetUserWalletBalancesParams {
   user: string;
 }
 
-export type GetVotesData = VeTheNFTAPIResponseString;
+export type GetVestedPayoutAtTimeData = LynexNFTAPIResponseString;
+
+export interface GetVestedPayoutAtTimeParams {
+  address: string;
+  chainId: string;
+  timestamp: string;
+  tokenId: string;
+}
+
+export type GetVestedPayoutData = LynexNFTAPIResponseString;
+
+export interface GetVestedPayoutParams {
+  address: string;
+  chainId: string;
+  tokenId: string;
+}
+
+export type GetVestingPayoutData = LynexNFTAPIResponseString;
+
+export interface GetVestingPayoutParams {
+  address: string;
+  chainId: string;
+  tokenId: string;
+}
+
+export type GetVestingPeriodData = LynexNFTAPIResponseVestingPeriodData;
+
+export interface GetVestingPeriodParams {
+  address: string;
+  chainId: string;
+  tokenId: string;
+}
+
+export type GetVotesData = LynexNFTAPIResponseString;
+
+export type GetVotesOutput = VeTheNFTAPIResponseString;
 
 export interface GetVotesParams {
   account: string;
   address: string;
   chainId: string;
 }
+
+export interface GetVotesParams2 {
+  account: string;
+  address: string;
+  chainId: string;
+}
+
+export interface GetVotesParams4 {
+  account: string;
+  address: string;
+  chainId: string;
+}
+
+export type GetVotesResult = RamsesNFTAPIResponseString;
 
 export type GetWalletBalanceData = WalletBalanceAPIResponse;
 
@@ -2487,7 +3065,9 @@ export interface GetWalletHistoryParams {
   chain: string;
 }
 
-export type GetWeightsData = VeTheNftVoterAPIResponseString;
+export type GetWeightsData = LynexVoterAPIResponseString;
+
+export type GetWeightsOutput = VeTheNftVoterAPIResponseString;
 
 export interface GetWeightsParams {
   address: string;
@@ -2495,12 +3075,48 @@ export interface GetWeightsParams {
   pool: string;
 }
 
+export interface GetWeightsParams2 {
+  address: string;
+  chainId: string;
+  pool: string;
+}
+
+export interface GetWeightsParams4 {
+  address: string;
+  chainId: string;
+  pool: string;
+}
+
+export type GetWeightsResult = RamsesVoterAPIResponseString;
+
 export type GetWethData = LeveragerAPIResponseString;
+
+export type GetWethData1 = UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
+
+export type GetWethOutput = RamsesRouterAPIResponseString;
 
 export interface GetWethParams {
   address: string;
   chainId: string;
 }
+
+export interface GetWethParams2 {
+  address: string;
+  chainId: string;
+}
+
+export interface GetWethParams4 {
+  address: string;
+  chainId: string;
+}
+
+export interface GetWethParams6 {
+  account: string;
+  address: string;
+  chainId: string;
+}
+
+export type GetWethResult = LynexRouterAPIResponseString;
 
 export type GetZapQuoteData = OdosAPIResponseOdosExecuteFunctionResult;
 
@@ -2509,6 +3125,9 @@ export type GetstatusData = ApiResponseStatusResponse;
 export interface GetstatusParams {
   txHash: string;
 }
+
+export type GlobalCheckpointData =
+  LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
 export type GrantRoleData = LeveragerAPIResponseLeveragerExecuteFunctionResult;
 
@@ -2521,31 +3140,32 @@ export interface HasRoleParams {
   role: string;
 }
 
-export interface History {
-  created_at: string;
-  error: string | null;
-  function: string;
-  id: string;
-  job_id: string;
-  params: Json;
-  result: Json | null;
-  status: string;
-  updated_at: string;
-  user_id: string;
-  wrapper: string;
-}
-
 export interface IncentiveData {
   incentiveControllerAddress: string;
   rewardsTokenInformation: RewardInfo[];
   tokenAddress: string;
 }
 
+export type IncreaseAmountData =
+  RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
+
+export type IncreaseLiquidityData =
+  UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
+
 export type IncreaseLockAmountData =
+  LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
+
+export type IncreaseLockAmountResult =
   VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export type IncreaseUnlockTimeData =
+  LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
+
+export type IncreaseUnlockTimeOutput =
   VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
+export type IncreaseUnlockTimeResult =
+  RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 
 export interface InputBody {
   EOA?: boolean;
@@ -2609,6 +3229,10 @@ export interface InputBody {
 
 export type IsApprovedForAllData = TransactionAPIResponse;
 
+export type IsApprovedForAllData1 = VeTheNFTAPIResponseBoolean;
+
+export type IsApprovedForAllOutput = UniswapV3NFTAPIResponseBoolean;
+
 export interface IsApprovedForAllParams1 {
   address: string;
   chainId: string;
@@ -2616,14 +3240,52 @@ export interface IsApprovedForAllParams1 {
   owner: string;
 }
 
-export type IsApprovedForAllResult = VeTheNFTAPIResponseBoolean;
+export interface IsApprovedForAllParams3 {
+  address: string;
+  chainId: string;
+  operator: string;
+  owner: string;
+}
 
-export type IsGaugeData = VeTheNftVoterAPIResponseBoolean;
+export interface IsApprovedForAllParams5 {
+  address: string;
+  chainId: string;
+  operator: string;
+  owner: string;
+}
+
+export type IsApprovedForAllResult = LynexNFTAPIResponseBoolean;
+
+export type IsGaugeData = LynexVoterAPIResponseBoolean;
+
+export type IsGaugeOutput = VeTheNftVoterAPIResponseBoolean;
 
 export interface IsGaugeParams {
   address: string;
   chainId: string;
   gauge: string;
+}
+
+export interface IsGaugeParams2 {
+  address: string;
+  chainId: string;
+  gauge: string;
+}
+
+export interface IsGaugeParams4 {
+  address: string;
+  chainId: string;
+  gauge: string;
+}
+
+export type IsGaugeResult = RamsesVoterAPIResponseBoolean;
+
+export type IsPairData = RamsesRouterAPIResponseBoolean;
+
+export interface IsPairParams {
+  address: string;
+  chainId: string;
+  pair: string;
 }
 
 export type IsPausedData = LendingPoolAPIResponseBoolean;
@@ -2640,18 +3302,35 @@ export interface IsPausedParams2 {
 
 export type IsPausedResult = LeveragerAPIResponseBoolean;
 
-export type IsWhitelistedData = VeTheNftVoterAPIResponseBoolean;
+export type IsWhitelistedData = LynexVoterAPIResponseBoolean;
+
+export type IsWhitelistedOutput = VeTheNftVoterAPIResponseBoolean;
 
 export interface IsWhitelistedParams {
+  address: string;
+  chainId: string;
+  token: string;
+}
+
+export interface IsWhitelistedParams2 {
+  address: string;
+  chainId: string;
+  token: string;
+}
+
+export interface IsWhitelistedParams4 {
   address: string;
   chainId: string;
   tokenAddress: string;
 }
 
+export type IsWhitelistedResult = RamsesVoterAPIResponseBoolean;
+
 export interface Jobs {
   calls: Json;
   created_at: string;
   error: Json | null;
+  flow: Json | null;
   flow_id: string | null;
   global_variables: Json | null;
   id: string;
@@ -2699,7 +3378,13 @@ export interface JupiterExecuteFunctionResult {
 }
 
 export type KillGaugeData =
+  LynexVoterAPIResponseLynexVoterExecuteFunctionResult;
+
+export type KillGaugeOutput =
   VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
+
+export type KillGaugeResult =
+  RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
 
 export type LastVotedData = VeTheNftVoterAPIResponseString;
 
@@ -2956,20 +3641,15 @@ export type ListAccountsOutput = CosmosAccountListAPIResponse;
 
 export type ListAccountsResult = BitcoinCashAPIResponseAccountResponse;
 
-export type ListAllHistoryData = MultiCallAPIResponseHistoryArray;
-
-export type ListAllJobsData = MultiCallAPIResponseJobsArray;
-
-export type ListAvailableFunctionsData =
-  MultiCallAPIResponseRecordStringStringArray;
-
 export type ListBitcoinAccountsData = AccountAPIResponse;
 
 export type ListDogeCoinAccountsData = AccountAPIResponse;
 
 export type ListEosAccountsData = AccountAPIResponse;
 
-export type ListFlowsData = MultiCallAPIResponseAnyArray;
+export type ListFlowsData = MultiCallAPIResponseFlowArray;
+
+export type ListJobsData = MultiCallAPIResponseJobsArray;
 
 export type ListLitecoinAccountsData = AccountAPIResponse;
 
@@ -3012,7 +3692,389 @@ export interface LockedData {
   end: string;
 }
 
-export type MergeData = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+export interface LynexAPIResponse {
+  data?: any;
+  message: string;
+  success: boolean;
+}
+
+export interface LynexNFTAPIResponseAny {
+  data?: any;
+  message: string;
+  success: boolean;
+}
+
+export interface LynexNFTAPIResponseBoolean {
+  data?: boolean;
+  message: string;
+  success: boolean;
+}
+
+export interface LynexNFTAPIResponseLynexNFTExecuteFunctionResult {
+  data?: LynexNFTExecuteFunctionResult;
+  message: string;
+  success: boolean;
+}
+
+export interface LynexNFTAPIResponseString {
+  data?: string;
+  message: string;
+  success: boolean;
+}
+
+export interface LynexNFTAPIResponseVestingPeriodData {
+  data?: VestingPeriodData;
+  message: string;
+  success: boolean;
+}
+
+export interface LynexNFTExecuteFunctionResult {
+  broadcasted?: BroadCastRawTransactionResponse;
+  data?: Transaction;
+  function: string;
+  message?: string;
+  params: any[];
+  success?: boolean;
+  transaction: LynexNFTTransaction;
+  user_op?: string;
+}
+
+export interface LynexNFTInputBody {
+  EOA?: boolean;
+  accessList?: AccessTuple[];
+  account?: string;
+  alwaysIncrementNonce?: boolean;
+  amount?: string;
+  amounts?: string[];
+  approved?: boolean;
+  asset?: string;
+  assets?: string[];
+  blobGas?: string;
+  blobGasFeeCap?: string;
+  blobHashes?: string[];
+  borrowAmount?: string | number;
+  broadcast?: boolean;
+  chain_id?: string;
+  collateralAsset?: string;
+  contract_address?: string;
+  data?: string;
+  debtAsset?: string;
+  debtToCover?: string;
+  delegatee?: string;
+  dryrun?: boolean;
+  encoding?: string;
+  expiry?: string;
+  gas?: string;
+  gasLimit?: string;
+  gasPrice?: string;
+  initialDeposit?: string | number;
+  initiator?: string;
+  input?: string;
+  inputTokens?: TokenAmount[];
+  /** @format double */
+  interestRateMode?: number;
+  lockDuration?: string;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  minHealthFactor?: string | number;
+  modes?: number[];
+  nonce?: string;
+  onBehalfOf?: string;
+  operator?: string;
+  outputTokens?: TokenProportion[];
+  params?: string;
+  permanent?: boolean;
+  premiums?: string[] | number[];
+  r?: string;
+  /** @format double */
+  rateMode?: number;
+  receiveAToken?: boolean;
+  receiverAddress?: string;
+  /** @format double */
+  referralCode?: number;
+  role?: string;
+  s?: string;
+  /** @format double */
+  slippageLimitPercent?: number;
+  splitWeights?: string[];
+  to?: string;
+  tokenId?: string;
+  token_id?: string;
+  token_ids?: string;
+  /** @format double */
+  type?: number;
+  useAsCollateral?: boolean;
+  user?: string;
+  v?: string;
+  value?: string;
+}
+
+export interface LynexNFTTransaction {
+  chainId: string;
+  data: string;
+  from: string;
+  gasLimit?: string;
+  gasPrice?: string;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  /** @format double */
+  nonce: number;
+  to: string;
+  /** @format double */
+  type?: number;
+  value: string;
+}
+
+export interface LynexRouterAPIResponseAmountOutStringStableBoolean {
+  data?: {
+    amountOut: string;
+    stable: boolean;
+  };
+  message: string;
+  success: boolean;
+}
+
+export interface LynexRouterAPIResponseLynexRouterExecuteFunctionResult {
+  data?: LynexRouterExecuteFunctionResult;
+  message: string;
+  success: boolean;
+}
+
+export interface LynexRouterAPIResponseString {
+  data?: string;
+  message: string;
+  success: boolean;
+}
+
+export interface LynexRouterAPIResponseStringArray {
+  data?: string[];
+  message: string;
+  success: boolean;
+}
+
+export interface LynexRouterExecuteFunctionResult {
+  broadcasted?: BroadCastRawTransactionResponse;
+  data?: Transaction;
+  function: string;
+  message?: string;
+  params: any[];
+  success?: boolean;
+  transaction: LynexRouterTransaction;
+  user_op?: string;
+}
+
+export interface LynexRouterInputBody {
+  EOA?: boolean;
+  accessList?: AccessTuple[];
+  account?: string;
+  alwaysIncrementNonce?: boolean;
+  amount?: string;
+  amountADesired: string;
+  amountAMin: string;
+  amountBDesired: string;
+  amountBMin: string;
+  amountETHMin: string;
+  amountIn: string;
+  amountOutMin: string;
+  amountTokenDesired: string;
+  amountTokenMin: string;
+  amounts?: string[];
+  approved?: boolean;
+  asset?: string;
+  assets?: string[];
+  blobGas?: string;
+  blobGasFeeCap?: string;
+  blobHashes?: string[];
+  borrowAmount?: string | number;
+  broadcast?: boolean;
+  chain_id?: string;
+  collateralAsset?: string;
+  contract_address?: string;
+  data?: string;
+  deadline: string;
+  debtAsset?: string;
+  debtToCover?: string;
+  dryrun?: boolean;
+  encoding?: string;
+  gas?: string;
+  gasLimit?: string;
+  gasPrice?: string;
+  initialDeposit?: string | number;
+  initiator?: string;
+  input?: string;
+  inputTokens?: TokenAmount[];
+  /** @format double */
+  interestRateMode?: number;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  minHealthFactor?: string | number;
+  modes?: number[];
+  nonce?: string;
+  onBehalfOf?: string;
+  outputTokens?: TokenProportion[];
+  params?: string;
+  premiums?: string[] | number[];
+  /** @format double */
+  rateMode?: number;
+  receiveAToken?: boolean;
+  receiverAddress?: string;
+  /** @format double */
+  referralCode?: number;
+  role?: string;
+  routes: any[];
+  /** @format double */
+  slippageLimitPercent?: number;
+  stable: string;
+  to?: string;
+  token: string;
+  tokenA: string;
+  tokenB: string;
+  token_id?: string;
+  token_ids?: string;
+  /** @format double */
+  type?: number;
+  useAsCollateral?: boolean;
+  user?: string;
+  value?: string;
+}
+
+export interface LynexRouterTransaction {
+  chainId: string;
+  data: string;
+  from: string;
+  gasLimit?: string;
+  gasPrice?: string;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  /** @format double */
+  nonce: number;
+  to: string;
+  /** @format double */
+  type?: number;
+  value: string;
+}
+
+export interface LynexVoterAPIResponseBoolean {
+  data?: boolean;
+  message: string;
+  success: boolean;
+}
+
+export interface LynexVoterAPIResponseLynexVoterExecuteFunctionResult {
+  data?: LynexVoterExecuteFunctionResult;
+  message: string;
+  success: boolean;
+}
+
+export interface LynexVoterAPIResponseString {
+  data?: string;
+  message: string;
+  success: boolean;
+}
+
+export interface LynexVoterExecuteFunctionResult {
+  broadcasted?: BroadCastRawTransactionResponse;
+  data?: Transaction;
+  function: string;
+  message?: string;
+  params: any[];
+  success?: boolean;
+  transaction: LynexVoterTransaction;
+  user_op?: string;
+}
+
+export interface LynexVoterInputBody {
+  EOA?: boolean;
+  accessList?: AccessTuple[];
+  account?: string;
+  alwaysIncrementNonce?: boolean;
+  amount?: string;
+  amounts?: string[];
+  approved?: boolean;
+  asset?: string;
+  assets?: string[];
+  blobGas?: string;
+  blobGasFeeCap?: string;
+  blobHashes?: string[];
+  borrowAmount?: string | number;
+  bribes?: string[];
+  broadcast?: boolean;
+  chain_id?: string;
+  collateralAsset?: string;
+  contract_address?: string;
+  data?: string;
+  debtAsset?: string;
+  debtToCover?: string;
+  dryrun?: boolean;
+  encoding?: string;
+  fees?: string[];
+  gas?: string;
+  gasLimit?: string;
+  gasPrice?: string;
+  gauge?: string;
+  gauge_type?: string;
+  gauges?: string[];
+  initialDeposit?: string | number;
+  initiator?: string;
+  input?: string;
+  inputTokens?: TokenAmount[];
+  /** @format double */
+  interestRateMode?: number;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  minHealthFactor?: string | number;
+  modes?: number[];
+  nonce?: string;
+  onBehalfOf?: string;
+  outputTokens?: TokenProportion[];
+  params?: string;
+  pool?: string;
+  pool_vote?: string[];
+  premiums?: string[] | number[];
+  /** @format double */
+  rateMode?: number;
+  receiveAToken?: boolean;
+  receiverAddress?: string;
+  /** @format double */
+  referralCode?: number;
+  role?: string;
+  /** @format double */
+  slippageLimitPercent?: number;
+  to?: string;
+  token_id?: string;
+  token_ids?: string;
+  tokens?: string[][];
+  /** @format double */
+  type?: number;
+  useAsCollateral?: boolean;
+  user?: string;
+  value?: string;
+  weights?: string[];
+}
+
+export interface LynexVoterTransaction {
+  chainId: string;
+  data: string;
+  from: string;
+  gasLimit?: string;
+  gasPrice?: string;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  /** @format double */
+  nonce: number;
+  to: string;
+  /** @format double */
+  type?: number;
+  value: string;
+}
+
+export type MarkNotificationAsReadData = MultiCallAPIResponse;
+
+export type MergeData = LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
+
+export type MergeOutput = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
+export type MergeResult = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 
 export interface Message {
   crypto: CryptoCurrency[];
@@ -3021,7 +4083,7 @@ export interface Message {
 
 export type MintData = ERC4626APIResponse;
 
-export type MonitorJobData = MultiCallAPIResponseMultiCallResult;
+export type MintResult = UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
 
 export interface MultiCallAPIResponse {
   data?: any;
@@ -3041,14 +4103,14 @@ export interface MultiCallAPIResponseAnyArray {
   success: boolean;
 }
 
-export interface MultiCallAPIResponseHistory {
-  data?: History;
+export interface MultiCallAPIResponseFlow {
+  data?: Flow;
   message: string;
   success: boolean;
 }
 
-export interface MultiCallAPIResponseHistoryArray {
-  data?: History[];
+export interface MultiCallAPIResponseFlowArray {
+  data?: Flow[];
   message: string;
   success: boolean;
 }
@@ -3061,25 +4123,6 @@ export interface MultiCallAPIResponseJobs {
 
 export interface MultiCallAPIResponseJobsArray {
   data?: Jobs[];
-  message: string;
-  success: boolean;
-}
-
-export interface MultiCallAPIResponseMultiCallResult {
-  data?: MultiCallResult;
-  message: string;
-  success: boolean;
-}
-
-export interface MultiCallAPIResponseRecordStringStringArray {
-  /** Construct a type with a set of properties K of type T */
-  data?: RecordStringStringArray;
-  message: string;
-  success: boolean;
-}
-
-export interface MultiCallAPIResponseScheduledJobArray {
-  data?: ScheduledJob[];
   message: string;
   success: boolean;
 }
@@ -3107,13 +4150,19 @@ export interface MultiCallInputBody {
   globalVariables?: RecordStringAny;
 }
 
-export interface MultiCallResult {
-  errors: string[];
-  results: any[];
-  success: boolean;
-}
-
 export type MultiSignSolanaTransactionData = SolanaAPIResponse;
+
+export type Multicall2Data = UniswapV3APIResponseUniswapV3ExecuteFunctionResult;
+
+export type MulticallData =
+  UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
+
+export type NameData = UniswapV3NFTAPIResponseString;
+
+export interface NameParams {
+  address: string;
+  chainId: string;
+}
 
 export interface NonceAPIResponse {
   address?: string;
@@ -3129,7 +4178,13 @@ export interface NonceResponse {
 }
 
 export type NotifyRewardAmountData =
+  LynexVoterAPIResponseLynexVoterExecuteFunctionResult;
+
+export type NotifyRewardAmountOutput =
   VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
+
+export type NotifyRewardAmountResult =
+  RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
 
 export interface OdosAPIResponseOdosExecuteFunctionResult {
   data?: OdosExecuteFunctionResult;
@@ -3331,32 +4386,23 @@ export enum OrderEnum1 {
   BEST_FEE_GAS = 'BEST_FEE_GAS',
 }
 
-/** Make all properties in T optional */
-export interface PartialHistory {
-  created_at?: string;
-  error?: string | null;
-  function?: string;
-  id?: string;
-  job_id?: string;
-  params?: Json;
-  result?: Json | null;
-  status?: string;
-  updated_at?: string;
-  user_id?: string;
-  wrapper?: string;
+export type OwnerOfData = UniswapV3NFTAPIResponseString;
+
+export interface OwnerOfParams {
+  address: string;
+  chainId: string;
+  /** @format double */
+  tokenId: number;
 }
 
-/** Make all properties in T optional */
-export interface PartialJobs {
-  calls?: Json;
-  created_at?: string;
-  error?: Json | null;
-  flow_id?: string | null;
-  global_variables?: Json | null;
-  id?: string;
-  status?: string;
-  updated_at?: string;
-  user_id?: string;
+export type PairForData = RamsesRouterAPIResponseString;
+
+export interface PairForParams {
+  address: string;
+  chainId: string;
+  stable: boolean;
+  tokenA: string;
+  tokenB: string;
 }
 
 export interface PathVizImageConfig {
@@ -3378,6 +4424,15 @@ export interface PaymentType {
   paymentTypeId: string;
 }
 
+export type PermitData = UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
+
+export type PermitTypehashData = UniswapV3NFTAPIResponseString;
+
+export interface PermitTypehashParams {
+  address: string;
+  chainId: string;
+}
+
 /** From T, pick a set of properties whose keys are in the union K */
 export interface PickJupiterInputBodyExcludeKeysAccountName {
   /** @format double */
@@ -3396,8 +4451,12 @@ export interface PingResponse {
   message: string;
 }
 
-export type PokeData =
+export type PokeData = LynexVoterAPIResponseLynexVoterExecuteFunctionResult;
+
+export type PokeOutput =
   VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
+
+export type PokeResult = RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
 
 export interface PoolAddressProviderAPIResponsePoolAddressProviderExecuteFunctionResult {
   data?: PoolAddressProviderExecuteFunctionResult;
@@ -3521,6 +4580,15 @@ export interface PoolVoteLengthParams {
   tokenId: string;
 }
 
+export type PositionsData = UniswapV3NFTAPIResponseAny;
+
+export interface PositionsParams {
+  address: string;
+  chainId: string;
+  /** @format double */
+  tokenId: number;
+}
+
 export interface PostQuote {
   broadcast: any;
   input: InputBody;
@@ -3570,7 +4638,458 @@ export interface Quote {
   type: string;
 }
 
+export type QuoteAddLiquidityData =
+  RamsesRouterAPIResponseAmountAStringAmountBStringLiquidityString;
+
+export interface QuoteAddLiquidityParams {
+  address: string;
+  amountADesired: string;
+  amountBDesired: string;
+  chainId: string;
+  stable: boolean;
+  tokenA: string;
+  tokenB: string;
+}
+
+export type QuoteData = UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
+
+export type QuoteRemoveLiquidityData =
+  RamsesRouterAPIResponseAmountAStringAmountBString;
+
+export interface QuoteRemoveLiquidityParams {
+  address: string;
+  chainId: string;
+  liquidity: string;
+  stable: boolean;
+  tokenA: string;
+  tokenB: string;
+}
+
 export type Quotes = Quote[];
+
+export interface RamsesAPIResponse {
+  data?: any;
+  message: string;
+  success: boolean;
+}
+
+export interface RamsesNFTAPIResponseLockedData {
+  data?: LockedData;
+  message: string;
+  success: boolean;
+}
+
+export interface RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult {
+  data?: RamsesNFTExecuteFunctionResult;
+  message: string;
+  success: boolean;
+}
+
+export interface RamsesNFTAPIResponseString {
+  data?: string;
+  message: string;
+  success: boolean;
+}
+
+export interface RamsesNFTExecuteFunctionResult {
+  broadcasted?: BroadCastRawTransactionResponse;
+  data?: Transaction;
+  function: string;
+  message?: string;
+  params: any[];
+  success?: boolean;
+  transaction: RamsesNFTTransaction;
+  user_op?: string;
+}
+
+export interface RamsesNFTInputBody {
+  EOA?: boolean;
+  _block?: string;
+  _idx?: string;
+  _proxy?: string;
+  _t?: string;
+  _team?: string;
+  accessList?: AccessTuple[];
+  account?: string;
+  alwaysIncrementNonce?: boolean;
+  amount?: string;
+  amounts?: string[];
+  approved?: boolean;
+  artProxy?: string;
+  asset?: string;
+  assets?: string[];
+  blobGas?: string;
+  blobGasFeeCap?: string;
+  blobHashes?: string[];
+  borrowAmount?: string | number;
+  broadcast?: boolean;
+  chain_id?: string;
+  collateralAsset?: string;
+  contract_address?: string;
+  data?: string;
+  debtAsset?: string;
+  debtToCover?: string;
+  delegatee?: string;
+  dryrun?: boolean;
+  encoding?: string;
+  expiry?: string;
+  from?: string;
+  gas?: string;
+  gasLimit?: string;
+  gasPrice?: string;
+  initialDeposit?: string | number;
+  initiator?: string;
+  input?: string;
+  inputTokens?: TokenAmount[];
+  /** @format double */
+  interestRateMode?: number;
+  lock_duration?: string;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  minHealthFactor?: string | number;
+  modes?: number[];
+  nonce?: string;
+  onBehalfOf?: string;
+  operator?: string;
+  outputTokens?: TokenProportion[];
+  params?: string;
+  premiums?: string[] | number[];
+  r?: string;
+  /** @format double */
+  rateMode?: number;
+  receiveAToken?: boolean;
+  receiverAddress?: string;
+  /** @format double */
+  referralCode?: number;
+  role?: string;
+  s?: string;
+  /** @format double */
+  slippageLimitPercent?: number;
+  to?: string;
+  token?: string;
+  tokenId?: string;
+  token_id?: string;
+  token_ids?: string;
+  /** @format double */
+  type?: number;
+  useAsCollateral?: boolean;
+  user?: string;
+  /** @format double */
+  v?: number;
+  value?: string;
+  voter?: string;
+}
+
+export interface RamsesNFTTransaction {
+  chainId: string;
+  data: string;
+  from: string;
+  gasLimit?: string;
+  gasPrice?: string;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  /** @format double */
+  nonce: number;
+  to: string;
+  /** @format double */
+  type?: number;
+  value: string;
+}
+
+export interface RamsesRouterAPIResponseAmountAStringAmountBString {
+  data?: {
+    amountA: string;
+    amountB: string;
+  };
+  message: string;
+  success: boolean;
+}
+
+export interface RamsesRouterAPIResponseAmountAStringAmountBStringLiquidityString {
+  data?: {
+    amountA: string;
+    amountB: string;
+    liquidity: string;
+  };
+  message: string;
+  success: boolean;
+}
+
+export interface RamsesRouterAPIResponseAmountOutStringStableBoolean {
+  data?: {
+    amountOut: string;
+    stable: boolean;
+  };
+  message: string;
+  success: boolean;
+}
+
+export interface RamsesRouterAPIResponseBoolean {
+  data?: boolean;
+  message: string;
+  success: boolean;
+}
+
+export interface RamsesRouterAPIResponseRamsesRouterExecuteFunctionResult {
+  data?: RamsesRouterExecuteFunctionResult;
+  message: string;
+  success: boolean;
+}
+
+export interface RamsesRouterAPIResponseReserve03AstringReserve13Astring {
+  data?: {
+    reserve0: string;
+    reserve1: string;
+  };
+  message: string;
+  success: boolean;
+}
+
+export interface RamsesRouterAPIResponseSortedTokens {
+  data?: SortedTokens;
+  message: string;
+  success: boolean;
+}
+
+export interface RamsesRouterAPIResponseString {
+  data?: string;
+  message: string;
+  success: boolean;
+}
+
+export interface RamsesRouterAPIResponseStringArray {
+  data?: string[];
+  message: string;
+  success: boolean;
+}
+
+export interface RamsesRouterExecuteFunctionResult {
+  broadcasted?: BroadCastRawTransactionResponse;
+  data?: Transaction;
+  function: string;
+  message?: string;
+  params: any[];
+  success?: boolean;
+  transaction: RamsesRouterTransaction;
+  user_op?: string;
+}
+
+export interface RamsesRouterInputBody {
+  EOA?: boolean;
+  accessList?: AccessTuple[];
+  account?: string;
+  alwaysIncrementNonce?: boolean;
+  amount?: string;
+  amountADesired?: string;
+  amountAMin?: string;
+  amountBDesired?: string;
+  amountBMin?: string;
+  amountETHMin?: string;
+  amountIn?: string;
+  amountOutMin?: string;
+  amountTokenDesired?: string;
+  amountTokenMin?: string;
+  amounts?: string[];
+  approveMax?: boolean;
+  approved?: boolean;
+  asset?: string;
+  assets?: string[];
+  blobGas?: string;
+  blobGasFeeCap?: string;
+  blobHashes?: string[];
+  borrowAmount?: string | number;
+  broadcast?: boolean;
+  chain_id?: string;
+  collateralAsset?: string;
+  contract_address?: string;
+  data?: string;
+  deadline?: string;
+  debtAsset?: string;
+  debtToCover?: string;
+  dryrun?: boolean;
+  encoding?: string;
+  gas?: string;
+  gasLimit?: string;
+  gasPrice?: string;
+  initialDeposit?: string | number;
+  initiator?: string;
+  input?: string;
+  inputTokens?: TokenAmount[];
+  /** @format double */
+  interestRateMode?: number;
+  liquidity?: string;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  minHealthFactor?: string | number;
+  modes?: number[];
+  nonce?: string;
+  onBehalfOf?: string;
+  outputTokens?: TokenProportion[];
+  params?: string;
+  premiums?: string[] | number[];
+  r?: string;
+  /** @format double */
+  rateMode?: number;
+  receiveAToken?: boolean;
+  receiverAddress?: string;
+  /** @format double */
+  referralCode?: number;
+  role?: string;
+  routes?: {
+    from: string;
+    stable: boolean;
+    to: string;
+  }[];
+  s?: string;
+  /** @format double */
+  slippageLimitPercent?: number;
+  stable?: boolean;
+  to?: string;
+  token?: string;
+  tokenA?: string;
+  tokenB?: string;
+  tokenFrom?: string;
+  tokenTo?: string;
+  token_id?: string;
+  token_ids?: string;
+  /** @format double */
+  type?: number;
+  useAsCollateral?: boolean;
+  user?: string;
+  /** @format double */
+  v?: number;
+  value?: string;
+}
+
+export interface RamsesRouterTransaction {
+  chainId: string;
+  data: string;
+  from: string;
+  gasLimit?: string;
+  gasPrice?: string;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  /** @format double */
+  nonce: number;
+  to: string;
+  /** @format double */
+  type?: number;
+  value: string;
+}
+
+export interface RamsesVoterAPIResponseBoolean {
+  data?: boolean;
+  message: string;
+  success: boolean;
+}
+
+export interface RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult {
+  data?: RamsesVoterExecuteFunctionResult;
+  message: string;
+  success: boolean;
+}
+
+export interface RamsesVoterAPIResponseString {
+  data?: string;
+  message: string;
+  success: boolean;
+}
+
+export interface RamsesVoterExecuteFunctionResult {
+  broadcasted?: BroadCastRawTransactionResponse;
+  data?: Transaction;
+  function: string;
+  message?: string;
+  params: any[];
+  success?: boolean;
+  transaction: RamsesVoterTransaction;
+  user_op?: string;
+}
+
+export interface RamsesVoterInputBody {
+  EOA?: boolean;
+  accessList?: AccessTuple[];
+  account?: string;
+  alwaysIncrementNonce?: boolean;
+  amount?: string;
+  amounts?: string[];
+  approved?: boolean;
+  asset?: string;
+  assets?: string[];
+  blobGas?: string;
+  blobGasFeeCap?: string;
+  blobHashes?: string[];
+  borrowAmount?: string | number;
+  bribes?: string[];
+  broadcast?: boolean;
+  chain_id?: string;
+  collateralAsset?: string;
+  contract_address?: string;
+  data?: string;
+  debtAsset?: string;
+  debtToCover?: string;
+  dryrun?: boolean;
+  encoding?: string;
+  fees?: string[];
+  gas?: string;
+  gasLimit?: string;
+  gasPrice?: string;
+  gauge?: string;
+  gauges?: string[];
+  initialDeposit?: string | number;
+  initiator?: string;
+  input?: string;
+  inputTokens?: TokenAmount[];
+  /** @format double */
+  interestRateMode?: number;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  minHealthFactor?: string | number;
+  modes?: number[];
+  nonce?: string;
+  onBehalfOf?: string;
+  outputTokens?: TokenProportion[];
+  params?: string;
+  pool?: string;
+  pool_vote?: string[];
+  premiums?: string[] | number[];
+  /** @format double */
+  rateMode?: number;
+  receiveAToken?: boolean;
+  receiverAddress?: string;
+  /** @format double */
+  referralCode?: number;
+  role?: string;
+  /** @format double */
+  slippageLimitPercent?: number;
+  to?: string;
+  token?: string;
+  token_id?: string;
+  token_ids?: string;
+  tokens?: string[][];
+  /** @format double */
+  type?: number;
+  useAsCollateral?: boolean;
+  user?: string;
+  value?: string;
+  weights?: string[];
+}
+
+export interface RamsesVoterTransaction {
+  chainId: string;
+  data: string;
+  from: string;
+  gasLimit?: string;
+  gasPrice?: string;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  /** @format double */
+  nonce: number;
+  to: string;
+  /** @format double */
+  type?: number;
+  value: string;
+}
 
 export type ReadAccountData = BitcoinCashAPIResponseAccountResponse;
 
@@ -3580,10 +5099,36 @@ export type RecordStringAny = object;
 /** Construct a type with a set of properties K of type T */
 export type RecordStringString = object;
 
-/** Construct a type with a set of properties K of type T */
-export type RecordStringStringArray = object;
-
 export type RedeemData = ERC4626APIResponse;
+
+export type RefundEth2Data = UniswapV3APIResponseUniswapV3ExecuteFunctionResult;
+
+export type RefundEthData =
+  UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
+
+export type RemoveLiquidityData =
+  RamsesRouterAPIResponseRamsesRouterExecuteFunctionResult;
+
+export type RemoveLiquidityEthData =
+  RamsesRouterAPIResponseRamsesRouterExecuteFunctionResult;
+
+export type RemoveLiquidityEthResult =
+  UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
+
+export type RemoveLiquidityEthSupportingFeeOnTransferTokensData =
+  UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
+
+export type RemoveLiquidityEthWithPermitData =
+  UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
+
+export type RemoveLiquidityEthWithPermitSupportingFeeOnTransferTokensData =
+  UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
+
+export type RemoveLiquidityResult =
+  UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
+
+export type RemoveLiquidityWithPermitData =
+  UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
 
 export type RenounceRoleData =
   LeveragerAPIResponseLeveragerExecuteFunctionResult;
@@ -3593,13 +5138,24 @@ export type RepayData = AavePoolAPIResponseAavePoolExecuteFunctionResult;
 export type RepayResult =
   LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
 
-export type ResetData =
+export type ResetData = LynexVoterAPIResponseLynexVoterExecuteFunctionResult;
+
+export type ResetOutput =
   VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
+
+export type ResetResult =
+  RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
 
 export type ResolveData = EnsResolveAPIResponse;
 
 export type ReviveGaugeData =
+  LynexVoterAPIResponseLynexVoterExecuteFunctionResult;
+
+export type ReviveGaugeOutput =
   VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
+
+export type ReviveGaugeResult =
+  RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
 
 export type RevokeRoleData = LeveragerAPIResponseLeveragerExecuteFunctionResult;
 
@@ -3667,8 +5223,11 @@ export type SafeTransferFromData = TransactionAPIResponse;
 
 export type SafeTransferFromErc721Data = ERC721APIResponse;
 
-export type SafeTransferFromResult =
+export type SafeTransferFromOutput =
   VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
+export type SafeTransferFromResult =
+  LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
 export type SafeTransferFromWithDataErc721Data = ERC721APIResponse;
 
@@ -3679,12 +5238,16 @@ export interface ScheduleJobBody {
 
 export type ScheduleJobData = MultiCallAPIResponse;
 
-export interface ScheduledJob {
-  job_id: string;
-  job_name: string;
-  schedule: string;
-  user_id: string;
-}
+export type SelfPermitAllowedData =
+  UniswapV3APIResponseUniswapV3ExecuteFunctionResult;
+
+export type SelfPermitAllowedIfNecessaryData =
+  UniswapV3APIResponseUniswapV3ExecuteFunctionResult;
+
+export type SelfPermitData = UniswapV3APIResponseUniswapV3ExecuteFunctionResult;
+
+export type SelfPermitIfNecessaryData =
+  UniswapV3APIResponseUniswapV3ExecuteFunctionResult;
 
 export interface SellQuote {
   /** @format double */
@@ -3714,10 +5277,22 @@ export type SetAddressData =
 
 export type SetApprovalForAllData = TransactionAPIResponse;
 
+export type SetApprovalForAllData1 =
+  VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
 export type SetApprovalForAllErc721Data = ERC721APIResponse;
 
+export type SetApprovalForAllOutput =
+  UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
+
 export type SetApprovalForAllResult =
-  VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+  LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
+
+export type SetClaimApprovalData =
+  LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
+
+export type SetClaimApprovalForAllData =
+  LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
 export type SetMarketIdData =
   PoolAddressProviderAPIResponsePoolAddressProviderExecuteFunctionResult;
@@ -3839,7 +5414,25 @@ export interface SolanaTransactionOutput {
   transaction_hash?: string;
 }
 
-export type SplitData = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+export type SortTokensData = RamsesRouterAPIResponseSortedTokens;
+
+export interface SortTokensParams {
+  address: string;
+  chainId: string;
+  tokenA: string;
+  tokenB: string;
+}
+
+export interface SortedTokens {
+  token0: string;
+  token1: string;
+}
+
+export type SplitData = LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
+
+export type SplitOutput = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
+export type SplitResult = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 
 export interface StatusResponse {
   receiving: TransactionStatus;
@@ -3918,10 +5511,57 @@ export interface SupportsInterfaceParams {
   interfaceId: string;
 }
 
+export interface SupportsInterfaceParams2 {
+  address: string;
+  chainId: string;
+  interfaceId: string;
+}
+
+export type SupportsInterfaceResult = UniswapV3NFTAPIResponseBoolean;
+
 export type SwapBorrowRateModeData =
   LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
 
 export type SwapData = JupiterAPIResponseJupiterExecuteFunctionResult;
+
+export type SwapEthForExactTokensData =
+  UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
+
+export type SwapExactEthForTokensData =
+  LynexRouterAPIResponseLynexRouterExecuteFunctionResult;
+
+export type SwapExactEthForTokensOutput =
+  UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
+
+export type SwapExactEthForTokensResult =
+  RamsesRouterAPIResponseRamsesRouterExecuteFunctionResult;
+
+export type SwapExactEthForTokensSupportingFeeOnTransferTokensData =
+  UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
+
+export type SwapExactTokensForEthData =
+  LynexRouterAPIResponseLynexRouterExecuteFunctionResult;
+
+export type SwapExactTokensForEthOutput =
+  UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
+
+export type SwapExactTokensForEthResult =
+  RamsesRouterAPIResponseRamsesRouterExecuteFunctionResult;
+
+export type SwapExactTokensForEthSupportingFeeOnTransferTokensData =
+  UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
+
+export type SwapExactTokensForTokensData =
+  LynexRouterAPIResponseLynexRouterExecuteFunctionResult;
+
+export type SwapExactTokensForTokensOutput =
+  UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
+
+export type SwapExactTokensForTokensResult =
+  RamsesRouterAPIResponseRamsesRouterExecuteFunctionResult;
+
+export type SwapExactTokensForTokensSupportingFeeOnTransferTokensData =
+  UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
 
 export interface SwapInput {
   accountName: string;
@@ -3938,6 +5578,28 @@ export interface SwapInput {
 export type SwapOutput = ThorSwapAPIResponseString;
 
 export type SwapResult = OdosAPIResponseOdosExecuteFunctionResult;
+
+export type SwapTokensForExactEthData =
+  UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
+
+export type SwapTokensForExactTokensData =
+  UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
+
+export type SweepToken2Data =
+  UniswapV3APIResponseUniswapV3ExecuteFunctionResult;
+
+export type SweepTokenData =
+  UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
+
+export type SweepTokenWithFeeData =
+  UniswapV3APIResponseUniswapV3ExecuteFunctionResult;
+
+export type SymbolData = UniswapV3NFTAPIResponseString;
+
+export interface SymbolParams {
+  address: string;
+  chainId: string;
+}
 
 export interface ThenaAPIResponse {
   data?: any;
@@ -3985,6 +5647,15 @@ export interface TokenAmount {
   tokenAddress: string;
 }
 
+export type TokenByIndexData = UniswapV3NFTAPIResponseString;
+
+export interface TokenByIndexParams {
+  address: string;
+  chainId: string;
+  /** @format double */
+  index: number;
+}
+
 export interface TokenDetails {
   address: string;
   /** @format double */
@@ -4009,10 +5680,29 @@ export interface TokenInfo {
 
 export type TokenInfoByChainId = Record<string, TokenInfo[]>;
 
+export type TokenOfOwnerByIndexData = UniswapV3NFTAPIResponseString;
+
+export interface TokenOfOwnerByIndexParams {
+  address: string;
+  chainId: string;
+  /** @format double */
+  index: number;
+  owner: string;
+}
+
 export interface TokenProportion {
   /** @format double */
   proportion: number;
   tokenAddress: string;
+}
+
+export type TokenUriData = UniswapV3NFTAPIResponseString;
+
+export interface TokenUriParams {
+  address: string;
+  chainId: string;
+  /** @format double */
+  tokenId: number;
 }
 
 export interface TokensResponse {
@@ -4022,6 +5712,13 @@ export interface TokensResponse {
 export interface ToolsResponse {
   bridges: Bridge[];
   exchanges: Exchange[];
+}
+
+export type TotalSupplyData = UniswapV3NFTAPIResponseString;
+
+export interface TotalSupplyParams {
+  address: string;
+  chainId: string;
 }
 
 export interface Transaction {
@@ -4132,9 +5829,18 @@ export type TransferEthData = TransactionAPIResponse;
 
 export type TransferFromData = ERC20APIResponseERC20ExecuteFunctionResult;
 
+export type TransferFromData1 =
+  UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
+
+export type TransferFromData2 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
 export type TransferFromErc721Data = ERC721APIResponse;
 
-export type TransferFromOutput = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+export type TransferFromOutput =
+  LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
+
+export type TransferFromOutput1 =
+  RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 
 export type TransferFromResult = ERC4626APIResponse;
 
@@ -4193,7 +5899,287 @@ export interface Tx {
   value?: string;
 }
 
+export interface UniswapV2APIResponseUniswapV2ExecuteFunctionResult {
+  data?: UniswapV2ExecuteFunctionResult;
+  message: string;
+  success: boolean;
+}
+
+export interface UniswapV2ExecuteFunctionResult {
+  broadcasted?: BroadCastRawTransactionResponse;
+  data?: Transaction;
+  function: string;
+  message?: string;
+  params: any[];
+  success?: boolean;
+  transaction: UniswapV2Transaction;
+  user_op?: string;
+}
+
+export interface UniswapV2InputBody {
+  EOA?: boolean;
+  accessList?: AccessTuple[];
+  account?: string;
+  alwaysIncrementNonce?: boolean;
+  amount?: string;
+  amountA?: string;
+  amountADesired?: string;
+  amountAMin?: string;
+  amountBDesired?: string;
+  amountBMin?: string;
+  amountETHMin?: string;
+  amountIn?: string;
+  amountInMax?: string;
+  amountOut?: string;
+  amountOutMin?: string;
+  amountTokenDesired?: string;
+  amountTokenMin?: string;
+  amounts?: string[];
+  approveMax?: boolean;
+  approved?: boolean;
+  asset?: string;
+  assets?: string[];
+  blobGas?: string;
+  blobGasFeeCap?: string;
+  blobHashes?: string[];
+  borrowAmount?: string | number;
+  broadcast?: boolean;
+  chain_id?: string;
+  collateralAsset?: string;
+  contract_address?: string;
+  data?: string;
+  deadline?: string;
+  debtAsset?: string;
+  debtToCover?: string;
+  dryrun?: boolean;
+  encoding?: string;
+  gas?: string;
+  gasLimit?: string;
+  gasPrice?: string;
+  initialDeposit?: string | number;
+  initiator?: string;
+  input?: string;
+  inputTokens?: TokenAmount[];
+  /** @format double */
+  interestRateMode?: number;
+  liquidity?: string;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  minHealthFactor?: string | number;
+  modes?: number[];
+  nonce?: string;
+  onBehalfOf?: string;
+  outputTokens?: TokenProportion[];
+  params?: string;
+  path?: string[];
+  premiums?: string[] | number[];
+  r?: string;
+  /** @format double */
+  rateMode?: number;
+  receiveAToken?: boolean;
+  receiverAddress?: string;
+  /** @format double */
+  referralCode?: number;
+  reserve?: string;
+  reserveA?: string;
+  reserveB?: string;
+  reserveETH?: string;
+  reserveIn?: string;
+  reserveOut?: string;
+  role?: string;
+  s?: string;
+  /** @format double */
+  slippageLimitPercent?: number;
+  to?: string;
+  token?: string;
+  tokenA?: string;
+  tokenB?: string;
+  token_id?: string;
+  token_ids?: string;
+  /** @format double */
+  type?: number;
+  useAsCollateral?: boolean;
+  user?: string;
+  /** @format double */
+  v?: number;
+  value?: string;
+}
+
+export interface UniswapV2Transaction {
+  chainId: string;
+  data: string;
+  from: string;
+  gasLimit?: string;
+  gasPrice?: string;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  /** @format double */
+  nonce: number;
+  to: string;
+  /** @format double */
+  type?: number;
+  value: string;
+}
+
+export interface UniswapV3APIResponseString {
+  data?: string;
+  message: string;
+  success: boolean;
+}
+
+export interface UniswapV3APIResponseUniswapV3ExecuteFunctionResult {
+  data?: UniswapV3ExecuteFunctionResult;
+  message: string;
+  success: boolean;
+}
+
+export interface UniswapV3ExecuteFunctionResult {
+  broadcasted?: BroadCastRawTransactionResponse;
+  data?: Transaction;
+  function: string;
+  message?: string;
+  params: any[];
+  success?: boolean;
+  transaction: UniswapV3Transaction;
+  user_op?: string;
+}
+
+export interface UniswapV3InputBody {
+  amount0Desired?: string;
+  amount0Max?: string;
+  amount0Min?: string;
+  amount1Desired?: string;
+  amount1Max?: string;
+  amount1Min?: string;
+  sqrtPriceX96?: string;
+  token0?: string;
+  token1?: string;
+  EOA?: boolean;
+  accessList?: AccessTuple[];
+  account?: string;
+  alwaysIncrementNonce?: boolean;
+  amount?: string;
+  amountMinimum?: string;
+  amounts?: string[];
+  approved?: boolean;
+  asset?: string;
+  assets?: string[];
+  blobGas?: string;
+  blobGasFeeCap?: string;
+  blobHashes?: string[];
+  borrowAmount?: string | number;
+  broadcast?: boolean;
+  chain_id?: string;
+  collateralAsset?: string;
+  contract_address?: string;
+  data?: string;
+  deadline?: string;
+  debtAsset?: string;
+  debtToCover?: string;
+  dryrun?: boolean;
+  encoding?: string;
+  /** @format double */
+  fee?: number;
+  gas?: string;
+  gasLimit?: string;
+  gasPrice?: string;
+  initialDeposit?: string | number;
+  initiator?: string;
+  input?: string;
+  inputTokens?: TokenAmount[];
+  /** @format double */
+  interestRateMode?: number;
+  liquidity?: string;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  minHealthFactor?: string | number;
+  modes?: number[];
+  nonce?: string;
+  onBehalfOf?: string;
+  operator?: string;
+  outputTokens?: TokenProportion[];
+  params?: string;
+  premiums?: string[] | number[];
+  r?: string;
+  /** @format double */
+  rateMode?: number;
+  receiveAToken?: boolean;
+  receiverAddress?: string;
+  recipient?: string;
+  /** @format double */
+  referralCode?: number;
+  role?: string;
+  s?: string;
+  /** @format double */
+  slippageLimitPercent?: number;
+  spender?: string;
+  /** @format double */
+  tickLower?: number;
+  /** @format double */
+  tickUpper?: number;
+  to?: string;
+  token?: string;
+  tokenId?: string;
+  token_id?: string;
+  token_ids?: string;
+  /** @format double */
+  type?: number;
+  useAsCollateral?: boolean;
+  user?: string;
+  /** @format double */
+  v?: number;
+  value?: string;
+}
+
+export interface UniswapV3NFTAPIResponseAny {
+  data?: any;
+  message: string;
+  success: boolean;
+}
+
+export interface UniswapV3NFTAPIResponseBoolean {
+  data?: boolean;
+  message: string;
+  success: boolean;
+}
+
+export interface UniswapV3NFTAPIResponseString {
+  data?: string;
+  message: string;
+  success: boolean;
+}
+
+export interface UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult {
+  data?: UniswapV3ExecuteFunctionResult;
+  message: string;
+  success: boolean;
+}
+
+export interface UniswapV3Transaction {
+  chainId: string;
+  data: string;
+  from: string;
+  gasLimit?: string;
+  gasPrice?: string;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  /** @format double */
+  nonce: number;
+  to: string;
+  /** @format double */
+  type?: number;
+  value: string;
+}
+
+export type UnlockPermanentData =
+  LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
+
 export type UnpauseData = LeveragerAPIResponseLeveragerExecuteFunctionResult;
+
+export type UnsafeSwapExactTokensForTokensData =
+  RamsesRouterAPIResponseRamsesRouterExecuteFunctionResult;
+
+export type UnscheduleJobData = MultiCallAPIResponse;
 
 export interface UnsignedPSBTInput {
   inputs: string;
@@ -4205,6 +6191,15 @@ export interface UnsignedPSBTOutput {
   psbt_hex: string;
 }
 
+export type UnwrapWeth92Data =
+  UniswapV3APIResponseUniswapV3ExecuteFunctionResult;
+
+export type UnwrapWeth9Data =
+  UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
+
+export type UnwrapWeth9WithFeeData =
+  UniswapV3APIResponseUniswapV3ExecuteFunctionResult;
+
 export interface UpdateFlowBody {
   description?: string;
   edges?: FlowEdge[];
@@ -4212,15 +6207,7 @@ export interface UpdateFlowBody {
   nodes?: FlowNode[];
 }
 
-export type UpdateFlowData = MultiCallAPIResponseAny;
-
-export interface UpdateUserDefinedFunctionBody {
-  description?: string;
-  functionBody?: string;
-  name?: string;
-}
-
-export type UpdateUserDefinedFunctionData = MultiCallAPIResponseAny;
+export type UpdateFlowData = MultiCallAPIResponse;
 
 export interface UserIncentiveData {
   incentiveControllerAddress: string;
@@ -4505,18 +6492,47 @@ export enum VersionEnum2 {
   V2 = 'v2',
 }
 
-export type VoteData =
+export interface VestingPeriodData {
+  end: string;
+  start: string;
+}
+
+export type VoteData = LynexVoterAPIResponseLynexVoterExecuteFunctionResult;
+
+export type VoteOutput =
   VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
+
+export type VoteResult = RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
+
+export type VoteWithOptimalDistributionBody = RamsesVoterInputBody & {
+  /** @format double */
+  maxPools?: number;
+  /** @format double */
+  totalVotes: number;
+};
 
 export type VoteWithOptimalDistributionData =
-  VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
+  LynexVoterAPIResponseLynexVoterExecuteFunctionResult;
 
-export type VoteWithOptimalDistributionPayload = VeTheNftVoterInputBody & {
+export type VoteWithOptimalDistributionInput = VeTheNftVoterInputBody & {
   /** @format double */
   maxFusions?: number;
   /** @format double */
   totalVotes: number;
 };
+
+export type VoteWithOptimalDistributionOutput =
+  VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
+
+export type VoteWithOptimalDistributionPayload = LynexVoterInputBody & {
+  /** @format double */
+  maxPools?: number;
+  /** @format double */
+  totalVotes: number;
+};
+
+export type VoteWithOptimalDistributionResult =
+  RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
 
 export type VotingData = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
@@ -4536,12 +6552,34 @@ export interface WalletHistoryAPIResponse {
   success: boolean;
 }
 
+export type Weth92Data = UniswapV3APIResponseString;
+
+export interface Weth92Params {
+  address: string;
+  chainId: string;
+}
+
+export type Weth9Data = UniswapV3NFTAPIResponseString;
+
+export interface Weth9Params {
+  address: string;
+  chainId: string;
+}
+
 export type WhitelistData =
+  LynexVoterAPIResponseLynexVoterExecuteFunctionResult;
+
+export type WhitelistOutput =
   VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
+
+export type WhitelistResult =
+  RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
 
 export type WithdrawData = AavePoolAPIResponseAavePoolExecuteFunctionResult;
 
-export type WithdrawOutput = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+export type WithdrawOutput = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
+
+export type WithdrawOutput1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export type WithdrawResult = ERC4626APIResponse;
 

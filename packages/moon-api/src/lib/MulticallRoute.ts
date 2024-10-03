@@ -10,65 +10,33 @@
  */
 
 import {
-  CallWebhookData,
   CreateFlowBody,
   CreateFlowData,
   CreateJobData,
-  CreateUserDefinedFunctionBody,
   CreateUserDefinedFunctionData,
+  CreateUserDefinedFunctionPayload,
   DeleteFlowData,
-  DeleteHistoryEntryData,
   DeleteJobData,
-  DeleteJobHistoryData,
   DeleteUserDefinedFunctionData,
-  EditHistoryEntryData,
-  EditJobData,
-  ExecuteFlowData,
   ExecuteJobData,
   GetFlowData,
-  GetHistoryEntryData,
   GetJobData,
-  GetJobHistoryData,
   GetJobResultData,
+  GetNotificationsData,
   GetScheduledJobsData,
-  GetUserDefinedFunctionData,
-  ListAllHistoryData,
-  ListAllJobsData,
-  ListAvailableFunctionsData,
   ListFlowsData,
+  ListJobsData,
   ListUserDefinedFunctionsData,
-  MonitorJobData,
+  MarkNotificationAsReadData,
   MultiCallInputBody,
-  PartialHistory,
-  PartialJobs,
   ScheduleJobBody,
   ScheduleJobData,
+  UnscheduleJobData,
   UpdateFlowBody,
   UpdateFlowData,
-  UpdateUserDefinedFunctionBody,
-  UpdateUserDefinedFunctionData,
 } from './data-contracts';
 
 export namespace Multicall {
-  /**
-   * No description
-   * @tags MultiCall
-   * @name CallWebhook
-   * @request POST:/multicall/call-webhook/{jobId}
-   * @secure
-   */
-  export namespace CallWebhook {
-    export type RequestParams = {
-      jobId: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = CallWebhookData;
-  }
-
   /**
    * No description
    * @tags MultiCall
@@ -113,7 +81,7 @@ export namespace Multicall {
   export namespace CreateUserDefinedFunction {
     export type RequestParams = {};
     export type RequestQuery = {};
-    export type RequestBody = CreateUserDefinedFunctionBody;
+    export type RequestBody = CreateUserDefinedFunctionPayload;
     export type RequestHeaders = {
       Authorization: string;
     };
@@ -142,27 +110,8 @@ export namespace Multicall {
   /**
    * No description
    * @tags MultiCall
-   * @name DeleteHistoryEntry
-   * @request DELETE:/multicall/history/{historyId}
-   * @secure
-   */
-  export namespace DeleteHistoryEntry {
-    export type RequestParams = {
-      historyId: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = DeleteHistoryEntryData;
-  }
-
-  /**
-   * No description
-   * @tags MultiCall
    * @name DeleteJob
-   * @request POST:/multicall/delete-job/{jobId}
+   * @request DELETE:/multicall/job/{jobId}
    * @secure
    */
   export namespace DeleteJob {
@@ -171,27 +120,10 @@ export namespace Multicall {
     };
     export type RequestQuery = {};
     export type RequestBody = never;
-    export type RequestHeaders = {};
-    export type ResponseBody = DeleteJobData;
-  }
-
-  /**
-   * No description
-   * @tags MultiCall
-   * @name DeleteJobHistory
-   * @request DELETE:/multicall/job/{jobId}/history
-   * @secure
-   */
-  export namespace DeleteJobHistory {
-    export type RequestParams = {
-      jobId: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = DeleteJobHistoryData;
+    export type ResponseBody = DeleteJobData;
   }
 
   /**
@@ -211,63 +143,6 @@ export namespace Multicall {
       Authorization: string;
     };
     export type ResponseBody = DeleteUserDefinedFunctionData;
-  }
-
-  /**
-   * No description
-   * @tags MultiCall
-   * @name EditHistoryEntry
-   * @request PUT:/multicall/history/{historyId}
-   * @secure
-   */
-  export namespace EditHistoryEntry {
-    export type RequestParams = {
-      historyId: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = PartialHistory;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = EditHistoryEntryData;
-  }
-
-  /**
-   * No description
-   * @tags MultiCall
-   * @name EditJob
-   * @request PUT:/multicall/job/{jobId}
-   * @secure
-   */
-  export namespace EditJob {
-    export type RequestParams = {
-      jobId: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = PartialJobs;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = EditJobData;
-  }
-
-  /**
-   * No description
-   * @tags MultiCall
-   * @name ExecuteFlow
-   * @request POST:/multicall/execute-flow/{flowId}
-   * @secure
-   */
-  export namespace ExecuteFlow {
-    export type RequestParams = {
-      flowId: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = ExecuteFlowData;
   }
 
   /**
@@ -311,25 +186,6 @@ export namespace Multicall {
   /**
    * No description
    * @tags MultiCall
-   * @name GetHistoryEntry
-   * @request GET:/multicall/history/{historyId}
-   * @secure
-   */
-  export namespace GetHistoryEntry {
-    export type RequestParams = {
-      historyId: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = GetHistoryEntryData;
-  }
-
-  /**
-   * No description
-   * @tags MultiCall
    * @name GetJob
    * @request GET:/multicall/job/{jobId}
    * @secure
@@ -344,25 +200,6 @@ export namespace Multicall {
       Authorization: string;
     };
     export type ResponseBody = GetJobData;
-  }
-
-  /**
-   * No description
-   * @tags MultiCall
-   * @name GetJobHistory
-   * @request GET:/multicall/job/{jobId}/history
-   * @secure
-   */
-  export namespace GetJobHistory {
-    export type RequestParams = {
-      jobId: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = GetJobHistoryData;
   }
 
   /**
@@ -387,6 +224,23 @@ export namespace Multicall {
   /**
    * No description
    * @tags MultiCall
+   * @name GetNotifications
+   * @request GET:/multicall/notifications
+   * @secure
+   */
+  export namespace GetNotifications {
+    export type RequestParams = {};
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = GetNotificationsData;
+  }
+
+  /**
+   * No description
+   * @tags MultiCall
    * @name GetScheduledJobs
    * @request GET:/multicall/scheduled-jobs
    * @secure
@@ -395,78 +249,10 @@ export namespace Multicall {
     export type RequestParams = {};
     export type RequestQuery = {};
     export type RequestBody = never;
-    export type RequestHeaders = {};
+    export type RequestHeaders = {
+      Authorization: string;
+    };
     export type ResponseBody = GetScheduledJobsData;
-  }
-
-  /**
-   * No description
-   * @tags MultiCall
-   * @name GetUserDefinedFunction
-   * @request GET:/multicall/user-defined-functions/{functionId}
-   * @secure
-   */
-  export namespace GetUserDefinedFunction {
-    export type RequestParams = {
-      functionId: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = GetUserDefinedFunctionData;
-  }
-
-  /**
-   * No description
-   * @tags MultiCall
-   * @name ListAllHistory
-   * @request GET:/multicall/history
-   * @secure
-   */
-  export namespace ListAllHistory {
-    export type RequestParams = {};
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = ListAllHistoryData;
-  }
-
-  /**
-   * No description
-   * @tags MultiCall
-   * @name ListAllJobs
-   * @request GET:/multicall/jobs
-   * @secure
-   */
-  export namespace ListAllJobs {
-    export type RequestParams = {};
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = ListAllJobsData;
-  }
-
-  /**
-   * No description
-   * @tags MultiCall
-   * @name ListAvailableFunctions
-   * @request GET:/multicall/available-functions
-   * @secure
-   */
-  export namespace ListAvailableFunctions {
-    export type RequestParams = {};
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = ListAvailableFunctionsData;
   }
 
   /**
@@ -489,6 +275,23 @@ export namespace Multicall {
   /**
    * No description
    * @tags MultiCall
+   * @name ListJobs
+   * @request GET:/multicall/jobs
+   * @secure
+   */
+  export namespace ListJobs {
+    export type RequestParams = {};
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = ListJobsData;
+  }
+
+  /**
+   * No description
+   * @tags MultiCall
    * @name ListUserDefinedFunctions
    * @request GET:/multicall/user-defined-functions
    * @secure
@@ -506,20 +309,20 @@ export namespace Multicall {
   /**
    * No description
    * @tags MultiCall
-   * @name MonitorJob
-   * @request POST:/multicall/monitor-job/{jobId}
+   * @name MarkNotificationAsRead
+   * @request POST:/multicall/notifications/{notificationId}/mark-as-read
    * @secure
    */
-  export namespace MonitorJob {
+  export namespace MarkNotificationAsRead {
     export type RequestParams = {
-      jobId: string;
+      notificationId: string;
     };
     export type RequestQuery = {};
     export type RequestBody = never;
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = MonitorJobData;
+    export type ResponseBody = MarkNotificationAsReadData;
   }
 
   /**
@@ -533,8 +336,29 @@ export namespace Multicall {
     export type RequestParams = {};
     export type RequestQuery = {};
     export type RequestBody = ScheduleJobBody;
-    export type RequestHeaders = {};
+    export type RequestHeaders = {
+      Authorization: string;
+    };
     export type ResponseBody = ScheduleJobData;
+  }
+
+  /**
+   * No description
+   * @tags MultiCall
+   * @name UnscheduleJob
+   * @request POST:/multicall/unschedule-job/{jobId}
+   * @secure
+   */
+  export namespace UnscheduleJob {
+    export type RequestParams = {
+      jobId: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = UnscheduleJobData;
   }
 
   /**
@@ -554,24 +378,5 @@ export namespace Multicall {
       Authorization: string;
     };
     export type ResponseBody = UpdateFlowData;
-  }
-
-  /**
-   * No description
-   * @tags MultiCall
-   * @name UpdateUserDefinedFunction
-   * @request PUT:/multicall/user-defined-functions/{functionId}
-   * @secure
-   */
-  export namespace UpdateUserDefinedFunction {
-    export type RequestParams = {
-      functionId: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = UpdateUserDefinedFunctionBody;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = UpdateUserDefinedFunctionData;
   }
 }

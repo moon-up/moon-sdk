@@ -25,6 +25,7 @@ import {
   GetBalanceData,
   GetBalanceParams,
   GetNonceData,
+  GetNonceParams,
   InputBody,
   ListAccountsData,
   SignMessage,
@@ -223,10 +224,14 @@ export class Accounts<SecurityDataType = unknown> {
    * @request GET:/accounts/{accountName}/nonce
    * @secure
    */
-  getNonce = (accountName: string, params: RequestParams = {}) =>
+  getNonce = (
+    { accountName, ...query }: GetNonceParams,
+    params: RequestParams = {}
+  ) =>
     this.http.request<GetNonceData, any>({
       path: `/accounts/${accountName}/nonce`,
       method: 'GET',
+      query: query,
       secure: true,
       format: 'json',
       ...params,

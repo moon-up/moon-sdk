@@ -216,7 +216,9 @@ export namespace Accounts {
     export type RequestParams = {
       accountName: string;
     };
-    export type RequestQuery = {};
+    export type RequestQuery = {
+      chainId: string;
+    };
     export type RequestBody = never;
     export type RequestHeaders = {
       Authorization: string;
