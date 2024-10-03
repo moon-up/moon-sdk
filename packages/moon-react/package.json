@@ -1,6 +1,6 @@
 {
     "name": "@moonup/moon-react",
-    "version": "1.0.15",
+    "version": "1.0.16",
     "license": "MIT",
     "author": "0xEwhal <ewhal@bytemasons.com>",
     "type": "commonjs",
@@ -64,7 +64,7 @@
     },
     "dependencies": {
         "@moonup/ethers": "workspace:*",
-        "@moonup/moon-api": "*",
+        "@moonup/moon-api": "workspace: *",
         "@moonup/moon-sdk": "workspace:*",
         "@moonup/viem": "workspace:*",
         "@moonup/wagmi-connector": "workspace:*",
