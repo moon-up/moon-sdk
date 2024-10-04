@@ -13,7 +13,7 @@ import {
   AbstainData,
   AddLiquidityEthResult,
   AddLiquidityResult,
-  ApproveResult1,
+  ApproveData1,
   AttachData,
   AttachTokenToGaugeData,
   CalculateOptimalVoteDistributionResult,
@@ -29,7 +29,7 @@ import {
   GetAmountOutResult,
   GetAmountsOutResult,
   GetBalanceOfNftResult,
-  GetBalanceOfOutput1,
+  GetBalanceOfResult1,
   GetDelegatesResult,
   GetFactoryResult,
   GetInfoData,
@@ -44,7 +44,7 @@ import {
   GetTokenUriResult,
   GetTokensResult,
   GetTopAprPoolsResult,
-  GetTotalSupplyResult1,
+  GetTotalSupplyData1,
   GetTotalValueLockedResult,
   GetTotalWeightResult,
   GetVotesResult,
@@ -74,7 +74,7 @@ import {
   SwapExactEthForTokensResult,
   SwapExactTokensForEthResult,
   SwapExactTokensForTokensResult,
-  TransferFromOutput1,
+  TransferFromData1,
   UnsafeSwapExactTokensForTokensData,
   VoteResult,
   VoteWithOptimalDistributionBody,
@@ -157,7 +157,7 @@ export namespace Ramses {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = ApproveResult1;
+    export type ResponseBody = ApproveData1;
   }
 
   /**
@@ -454,7 +454,7 @@ export namespace Ramses {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetBalanceOfOutput1;
+    export type ResponseBody = GetBalanceOfResult1;
   }
 
   /**
@@ -774,7 +774,7 @@ export namespace Ramses {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetTotalSupplyResult1;
+    export type ResponseBody = GetTotalSupplyData1;
   }
 
   /**
@@ -1315,7 +1315,7 @@ export namespace Ramses {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = TransferFromOutput1;
+    export type ResponseBody = TransferFromData1;
   }
 
   /**

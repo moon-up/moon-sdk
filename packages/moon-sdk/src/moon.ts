@@ -27,16 +27,20 @@ import {
   Leverager,
   Lifi,
   Litecoin,
+  Lynex,
   Transaction as MoonTransaction,
   Multicall,
   Odos,
   Onramper,
+  Polymarket,
+  Ramses,
   Ripple,
   Solana,
   Thena,
   Thorswap,
   TransactionData,
   Tron,
+  Uniswap,
 } from '@moonup/moon-api';
 import {
   PublicKeyCredentialCreationOptionsJSON,
@@ -147,6 +151,10 @@ export class MoonSDK extends EventEmitter {
   private ThenaSDK: Thena;
   private JupiterSDK: Jupiter;
   private DataSDK: Data;
+  private UniswapSDK: Uniswap;
+  private RamsesSDK: Ramses;
+  private PolymarketSDK: Polymarket;
+  private LynexSDK: Lynex;
   isAuthenticated = false;
   private config: MoonSDKConfig;
   /**
@@ -259,6 +267,10 @@ export class MoonSDK extends EventEmitter {
     this.DataSDK = new Data(this.http);
     this.ThenaSDK = new Thena(this.http);
     this.JupiterSDK = new Jupiter(this.http);
+    this.UniswapSDK = new Uniswap(this.http);
+    this.RamsesSDK = new Ramses(this.http);
+    this.PolymarketSDK = new Polymarket(this.http);
+    this.LynexSDK = new Lynex(this.http);
 
     this.connect();
   }
@@ -430,6 +442,21 @@ export class MoonSDK extends EventEmitter {
   public getJupiterSDK(): Jupiter {
     return this.JupiterSDK;
   }
+  public getUniswapSDK(): Uniswap {
+    return this.UniswapSDK;
+  }
+
+  public getRamsesSDK(): Ramses {
+    return this.RamsesSDK;
+  }
+
+  public getPolymarketSDK(): Polymarket {
+    return this.PolymarketSDK;
+  }
+
+  public getLynexSDK(): Lynex {
+    return this.LynexSDK;
+  }
 
   /**
    * Returns a list of Ethereum accounts managed by the Moon API.
@@ -530,14 +557,41 @@ export class MoonSDK extends EventEmitter {
     value: Record<string, string>
   ): Promise<string> {
     try {
-      const response = await this.getAccountsSDK().signTypedData(wallet, {
-        data: JSON.stringify({
-          domain,
-          types,
-          value,
-        }),
+      const fullTypes: Record<string, TypedDataField[]> = {
+        ...types,
+      };
+
+      if (!fullTypes.EIP712Domain) {
+        fullTypes.EIP712Domain = [
+          { name: 'name', type: 'string' },
+          { name: 'version', type: 'string' },
+          { name: 'chainId', type: 'uint256' },
+        ];
+        // Check if verifyingContract is needed
+        if (domain.verifyingContract) {
+          fullTypes.EIP712Domain.push({
+            name: 'verifyingContract',
+            type: 'address',
+          });
+        }
+      }
+
+      const data = JSON.stringify({
+        domain,
+        types: fullTypes,
+        primaryType: Object.keys(types)[0], // Assume the first key is the primary type
+        message: value,
       });
-      const signedTypedData = response?.data?.signed_message || '';
+
+      const response = await this.getAccountsSDK().signTypedData(wallet, {
+        data,
+      });
+
+      if (!response.data?.signature) {
+        throw new Error('No signature returned');
+      }
+
+      const signedTypedData = response?.data?.signature || '';
       this.emit('typedDataSigned', signedTypedData);
       return signedTypedData;
     } catch (error) {

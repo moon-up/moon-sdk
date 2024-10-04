@@ -9342,6 +9342,1345 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"PolymarketWrapperNewOrder_string_": {
+				"properties": {
+					"order": {
+						"properties": {
+							"signature": {
+								"type": "string"
+							},
+							"signatureType": {
+								"type": "number",
+								"format": "double"
+							},
+							"side": {
+								"type": "string"
+							},
+							"feeRateBps": {
+								"type": "string"
+							},
+							"nonce": {
+								"type": "string"
+							},
+							"expiration": {
+								"type": "string"
+							},
+							"takerAmount": {
+								"type": "string"
+							},
+							"makerAmount": {
+								"type": "string"
+							},
+							"tokenId": {
+								"type": "string"
+							},
+							"taker": {
+								"type": "string"
+							},
+							"signer": {
+								"type": "string"
+							},
+							"maker": {
+								"type": "string"
+							},
+							"salt": {
+								"type": "number",
+								"format": "double"
+							}
+						},
+						"required": [
+							"signature",
+							"signatureType",
+							"side",
+							"feeRateBps",
+							"nonce",
+							"expiration",
+							"takerAmount",
+							"makerAmount",
+							"tokenId",
+							"taker",
+							"signer",
+							"maker",
+							"salt"
+						],
+						"type": "object"
+					},
+					"owner": {
+						"type": "string"
+					},
+					"orderType": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"order",
+					"owner",
+					"orderType"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateOrderResponse": {
+				"properties": {
+					"order": {
+						"$ref": "#/components/schemas/PolymarketWrapperNewOrder_string_"
+					}
+				},
+				"required": [
+					"order"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PolymarketAPIResponse_CreateOrderResponse_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/CreateOrderResponse"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateOrderBody": {
+				"properties": {
+					"chain_id": {
+						"type": "string"
+					},
+					"userOrder": {
+						"properties": {
+							"taker": {
+								"type": "string"
+							},
+							"expiration": {
+								"type": "number",
+								"format": "double"
+							},
+							"nonce": {
+								"type": "number",
+								"format": "double"
+							},
+							"feeRateBps": {
+								"type": "number",
+								"format": "double"
+							},
+							"side": {
+								"type": "string"
+							},
+							"size": {
+								"type": "number",
+								"format": "double"
+							},
+							"price": {
+								"type": "number",
+								"format": "double"
+							},
+							"tokenID": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"side",
+							"size",
+							"price",
+							"tokenID"
+						],
+						"type": "object"
+					},
+					"options": {
+						"properties": {
+							"negRisk": {
+								"type": "boolean"
+							},
+							"tickSize": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"tickSize"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"chain_id",
+					"userOrder",
+					"options"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PolymarketWrapperSignedOrder": {
+				"properties": {
+					"maker": {
+						"type": "string"
+					},
+					"taker": {
+						"type": "string"
+					},
+					"tokenId": {
+						"type": "string"
+					},
+					"makerAmount": {
+						"type": "string"
+					},
+					"takerAmount": {
+						"type": "string"
+					},
+					"side": {
+						"type": "number",
+						"format": "double"
+					},
+					"expiration": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "string"
+					},
+					"feeRateBps": {
+						"type": "string"
+					},
+					"signature": {
+						"type": "string"
+					},
+					"salt": {
+						"type": "string"
+					},
+					"signer": {
+						"type": "string"
+					},
+					"signatureType": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"maker",
+					"taker",
+					"tokenId",
+					"makerAmount",
+					"takerAmount",
+					"side",
+					"expiration",
+					"nonce",
+					"feeRateBps",
+					"signature",
+					"salt",
+					"signer",
+					"signatureType"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateMarketBuyOrderResponse": {
+				"properties": {
+					"order": {
+						"$ref": "#/components/schemas/PolymarketWrapperSignedOrder"
+					}
+				},
+				"required": [
+					"order"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PolymarketAPIResponse_CreateMarketBuyOrderResponse_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/CreateMarketBuyOrderResponse"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CreateMarketBuyOrderBody": {
+				"properties": {
+					"chain_id": {
+						"type": "string"
+					},
+					"userMarketOrder": {
+						"properties": {
+							"taker": {
+								"type": "string"
+							},
+							"nonce": {
+								"type": "number",
+								"format": "double"
+							},
+							"feeRateBps": {
+								"type": "number",
+								"format": "double"
+							},
+							"amount": {
+								"type": "number",
+								"format": "double"
+							},
+							"price": {
+								"type": "number",
+								"format": "double"
+							},
+							"tokenID": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"amount",
+							"tokenID"
+						],
+						"type": "object"
+					},
+					"options": {
+						"properties": {
+							"negRisk": {
+								"type": "boolean"
+							},
+							"tickSize": {
+								"type": "string"
+							}
+						},
+						"type": "object"
+					}
+				},
+				"required": [
+					"chain_id",
+					"userMarketOrder"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PostOrderResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"orderID": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"success",
+					"orderID"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PolymarketAPIResponse_PostOrderResponse_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/PostOrderResponse"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PostOrderBody": {
+				"properties": {
+					"chain_id": {
+						"type": "string"
+					},
+					"order": {
+						"$ref": "#/components/schemas/PolymarketWrapperSignedOrder"
+					}
+				},
+				"required": [
+					"chain_id",
+					"order"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CancelOrderResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"orderID": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"success",
+					"orderID"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PolymarketAPIResponse_CancelOrderResponse_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/CancelOrderResponse"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CancelOrderBody": {
+				"properties": {
+					"chain_id": {
+						"type": "string"
+					},
+					"orderID": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"chain_id",
+					"orderID"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CancelOrdersResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"orderIDs": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"orderIDs"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PolymarketAPIResponse_CancelOrdersResponse_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/CancelOrdersResponse"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CancelOrdersBody": {
+				"properties": {
+					"chain_id": {
+						"type": "string"
+					},
+					"ordersHashes": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"chain_id",
+					"ordersHashes"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CancelMarketOrdersResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"orderIDs": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"orderIDs"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PolymarketAPIResponse_CancelMarketOrdersResponse_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/CancelMarketOrdersResponse"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CancelMarketOrdersBody": {
+				"properties": {
+					"chain_id": {
+						"type": "string"
+					},
+					"payload": {
+						"properties": {
+							"outcomeId": {
+								"type": "string"
+							},
+							"market": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"market"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"chain_id",
+					"payload"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateBalanceAllowanceResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"newAllowance": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"success",
+					"newAllowance"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PolymarketAPIResponse_UpdateBalanceAllowanceResponse_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/UpdateBalanceAllowanceResponse"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UpdateBalanceAllowanceBody": {
+				"properties": {
+					"chain_id": {
+						"type": "string"
+					},
+					"params": {
+						"properties": {
+							"token_id": {
+								"type": "string"
+							},
+							"asset_type": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"asset_type"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"chain_id",
+					"params"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"DropNotificationsResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"droppedCount": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"success",
+					"droppedCount"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PolymarketAPIResponse_DropNotificationsResponse_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/DropNotificationsResponse"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"DropNotificationsBody": {
+				"properties": {
+					"chain_id": {
+						"type": "string"
+					},
+					"params": {
+						"properties": {
+							"notification_ids": {
+								"items": {
+									"type": "string"
+								},
+								"type": "array"
+							}
+						},
+						"type": "object"
+					}
+				},
+				"required": [
+					"chain_id",
+					"params"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PaginationPayload": {
+				"properties": {
+					"limit": {
+						"type": "number",
+						"format": "double"
+					},
+					"count": {
+						"type": "number",
+						"format": "double"
+					},
+					"next_cursor": {
+						"type": "string"
+					},
+					"data": {
+						"items": {},
+						"type": "array"
+					}
+				},
+				"required": [
+					"limit",
+					"count",
+					"next_cursor",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PolymarketAPIResponse_PaginationPayload_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/PaginationPayload"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PolymarketAPIResponse_any_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApproveForPolymarketBody": {
+				"properties": {
+					"chain_id": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"chain_id"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"OrderSummary": {
+				"properties": {
+					"price": {
+						"type": "string"
+					},
+					"size": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"price",
+					"size"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"OrderBookSummary": {
+				"properties": {
+					"market": {
+						"type": "string"
+					},
+					"asset_id": {
+						"type": "string"
+					},
+					"timestamp": {
+						"type": "string"
+					},
+					"bids": {
+						"items": {
+							"$ref": "#/components/schemas/OrderSummary"
+						},
+						"type": "array"
+					},
+					"asks": {
+						"items": {
+							"$ref": "#/components/schemas/OrderSummary"
+						},
+						"type": "array"
+					},
+					"hash": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"market",
+					"asset_id",
+					"timestamp",
+					"bids",
+					"asks",
+					"hash"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PolymarketAPIResponse_OrderBookSummary_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/OrderBookSummary"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"OpenOrder": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string"
+					},
+					"owner": {
+						"type": "string"
+					},
+					"maker_address": {
+						"type": "string"
+					},
+					"market": {
+						"type": "string"
+					},
+					"asset_id": {
+						"type": "string"
+					},
+					"side": {
+						"type": "string"
+					},
+					"original_size": {
+						"type": "string"
+					},
+					"size_matched": {
+						"type": "string"
+					},
+					"price": {
+						"type": "string"
+					},
+					"associate_trades": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"outcome": {
+						"type": "string"
+					},
+					"created_at": {
+						"type": "number",
+						"format": "double"
+					},
+					"expiration": {
+						"type": "string"
+					},
+					"order_type": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"status",
+					"owner",
+					"maker_address",
+					"market",
+					"asset_id",
+					"side",
+					"original_size",
+					"size_matched",
+					"price",
+					"associate_trades",
+					"outcome",
+					"created_at",
+					"expiration",
+					"order_type"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"OpenOrdersResponse": {
+				"items": {
+					"$ref": "#/components/schemas/OpenOrder"
+				},
+				"type": "array"
+			},
+			"PolymarketAPIResponse_OpenOrdersResponse_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/OpenOrdersResponse"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PolymarketAPIResponse_OpenOrder_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/OpenOrder"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"MakerOrder": {
+				"properties": {
+					"order_id": {
+						"type": "string"
+					},
+					"owner": {
+						"type": "string"
+					},
+					"maker_address": {
+						"type": "string"
+					},
+					"matched_amount": {
+						"type": "string"
+					},
+					"price": {
+						"type": "string"
+					},
+					"fee_rate_bps": {
+						"type": "string"
+					},
+					"asset_id": {
+						"type": "string"
+					},
+					"outcome": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"order_id",
+					"owner",
+					"maker_address",
+					"matched_amount",
+					"price",
+					"fee_rate_bps",
+					"asset_id",
+					"outcome"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Trade": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"taker_order_id": {
+						"type": "string"
+					},
+					"market": {
+						"type": "string"
+					},
+					"asset_id": {
+						"type": "string"
+					},
+					"side": {
+						"anyOf": [
+							{
+								"type": "number",
+								"format": "double"
+							},
+							{
+								"type": "string"
+							}
+						]
+					},
+					"size": {
+						"type": "string"
+					},
+					"fee_rate_bps": {
+						"type": "string"
+					},
+					"price": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string"
+					},
+					"match_time": {
+						"type": "string"
+					},
+					"last_update": {
+						"type": "string"
+					},
+					"outcome": {
+						"type": "string"
+					},
+					"bucket_index": {
+						"type": "number",
+						"format": "double"
+					},
+					"owner": {
+						"type": "string"
+					},
+					"maker_address": {
+						"type": "string"
+					},
+					"maker_orders": {
+						"items": {
+							"$ref": "#/components/schemas/MakerOrder"
+						},
+						"type": "array"
+					},
+					"transaction_hash": {
+						"type": "string"
+					},
+					"trader_side": {
+						"type": "string",
+						"enum": [
+							"TAKER",
+							"MAKER"
+						]
+					}
+				},
+				"required": [
+					"id",
+					"taker_order_id",
+					"market",
+					"asset_id",
+					"side",
+					"size",
+					"fee_rate_bps",
+					"price",
+					"status",
+					"match_time",
+					"last_update",
+					"outcome",
+					"bucket_index",
+					"owner",
+					"maker_address",
+					"maker_orders",
+					"transaction_hash",
+					"trader_side"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PolymarketAPIResponse_Trade-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/Trade"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Notification": {
+				"properties": {
+					"type": {
+						"type": "number",
+						"format": "double"
+					},
+					"owner": {
+						"type": "string"
+					},
+					"payload": {}
+				},
+				"required": [
+					"type",
+					"owner",
+					"payload"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PolymarketAPIResponse_Notification-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/Notification"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BalanceAllowanceResponse": {
+				"properties": {
+					"balance": {
+						"type": "string"
+					},
+					"allowance": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"balance",
+					"allowance"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PolymarketAPIResponse_BalanceAllowanceResponse_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/BalanceAllowanceResponse"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"MarketPrice": {
+				"properties": {
+					"t": {
+						"type": "number",
+						"format": "double"
+					},
+					"p": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"t",
+					"p"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PolymarketAPIResponse_MarketPrice-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/MarketPrice"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Side": {
+				"enum": [
+					"BUY",
+					"SELL"
+				],
+				"type": "string"
+			},
+			"MarketTradeEvent": {
+				"properties": {
+					"event_type": {
+						"type": "string"
+					},
+					"market": {
+						"properties": {
+							"slug": {
+								"type": "string"
+							},
+							"icon": {
+								"type": "string"
+							},
+							"question": {
+								"type": "string"
+							},
+							"asset_id": {
+								"type": "string"
+							},
+							"condition_id": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"slug",
+							"icon",
+							"question",
+							"asset_id",
+							"condition_id"
+						],
+						"type": "object"
+					},
+					"user": {
+						"properties": {
+							"pseudonym": {
+								"type": "string"
+							},
+							"optimized_profile_picture": {
+								"type": "string"
+							},
+							"profile_picture": {
+								"type": "string"
+							},
+							"username": {
+								"type": "string"
+							},
+							"address": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"pseudonym",
+							"optimized_profile_picture",
+							"profile_picture",
+							"username",
+							"address"
+						],
+						"type": "object"
+					},
+					"side": {
+						"$ref": "#/components/schemas/Side"
+					},
+					"size": {
+						"type": "string"
+					},
+					"fee_rate_bps": {
+						"type": "string"
+					},
+					"price": {
+						"type": "string"
+					},
+					"outcome": {
+						"type": "string"
+					},
+					"outcome_index": {
+						"type": "number",
+						"format": "double"
+					},
+					"transaction_hash": {
+						"type": "string"
+					},
+					"timestamp": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"event_type",
+					"market",
+					"user",
+					"side",
+					"size",
+					"fee_rate_bps",
+					"price",
+					"outcome",
+					"outcome_index",
+					"transaction_hash",
+					"timestamp"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PolymarketAPIResponse_MarketTradeEvent-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/MarketTradeEvent"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"RamsesAPIResponse": {
 				"properties": {
 					"success": {
@@ -32314,6 +33653,1294 @@
 				},
 				"security": [],
 				"parameters": []
+			}
+		},
+		"/polymarket/{account}/createOrder": {
+			"post": {
+				"operationId": "CreateOrder",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PolymarketAPIResponse_CreateOrderResponse_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Polymarket"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateOrderBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/polymarket/{account}/createMarketBuyOrder": {
+			"post": {
+				"operationId": "CreateMarketBuyOrder",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PolymarketAPIResponse_CreateMarketBuyOrderResponse_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Polymarket"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateMarketBuyOrderBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/polymarket/{account}/postOrder": {
+			"post": {
+				"operationId": "PostOrder",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PolymarketAPIResponse_PostOrderResponse_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Polymarket"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PostOrderBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/polymarket/{account}/cancelOrder": {
+			"post": {
+				"operationId": "CancelOrder",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PolymarketAPIResponse_CancelOrderResponse_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Polymarket"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CancelOrderBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/polymarket/{account}/cancelOrders": {
+			"post": {
+				"operationId": "CancelOrders",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PolymarketAPIResponse_CancelOrdersResponse_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Polymarket"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CancelOrdersBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/polymarket/{account}/cancelMarketOrders": {
+			"post": {
+				"operationId": "CancelMarketOrders",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PolymarketAPIResponse_CancelMarketOrdersResponse_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Polymarket"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CancelMarketOrdersBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/polymarket/{account}/updateBalanceAllowance": {
+			"post": {
+				"operationId": "UpdateBalanceAllowance",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PolymarketAPIResponse_UpdateBalanceAllowanceResponse_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Polymarket"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateBalanceAllowanceBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/polymarket/{account}/dropNotifications": {
+			"post": {
+				"operationId": "DropNotifications",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PolymarketAPIResponse_DropNotificationsResponse_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Polymarket"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/DropNotificationsBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/polymarket/{account}/markets": {
+			"get": {
+				"operationId": "GetMarkets",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PolymarketAPIResponse_PaginationPayload_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Polymarket"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "nextCursor",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/polymarket/{account}/approveForPolymarket": {
+			"post": {
+				"operationId": "ApproveForPolymarket",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PolymarketAPIResponse_any_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Polymarket"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ApproveForPolymarketBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/polymarket/{account}/market/{conditionID}": {
+			"get": {
+				"operationId": "GetMarket",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PolymarketAPIResponse_any_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Polymarket"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "conditionID",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/polymarket/{account}/orderBook": {
+			"get": {
+				"operationId": "GetOrderBook",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PolymarketAPIResponse_OrderBookSummary_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Polymarket"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "tokenID",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/polymarket/{account}/openOrders": {
+			"get": {
+				"operationId": "GetOpenOrders",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PolymarketAPIResponse_OpenOrdersResponse_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Polymarket"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "marketHash",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "outcomeId",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "assetId",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "nextCursor",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/polymarket/{account}/order/{orderID}": {
+			"get": {
+				"operationId": "GetOrder",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PolymarketAPIResponse_OpenOrder_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Polymarket"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "orderID",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/polymarket/{account}/trades": {
+			"get": {
+				"operationId": "GetTrades",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PolymarketAPIResponse_Trade-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Polymarket"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "id",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "maker_address",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "market",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "asset_id",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "before",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "after",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "nextCursor",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/polymarket/{account}/notifications": {
+			"get": {
+				"operationId": "GetNotifications",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PolymarketAPIResponse_Notification-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Polymarket"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/polymarket/{account}/balanceAllowance": {
+			"get": {
+				"operationId": "GetBalanceAllowance",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PolymarketAPIResponse_BalanceAllowanceResponse_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Polymarket"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "asset_type",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "token_id",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/polymarket/{account}/pricesHistory": {
+			"get": {
+				"operationId": "GetPricesHistory",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PolymarketAPIResponse_MarketPrice-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Polymarket"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "market",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "startTs",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "endTs",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "fidelity",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "interval",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/polymarket/{account}/marketTradeEvents/{conditionID}": {
+			"get": {
+				"operationId": "GetMarketTradeEvents",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PolymarketAPIResponse_MarketTradeEvent-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Polymarket"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "conditionID",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		},
 		"/ramses/data/pools": {

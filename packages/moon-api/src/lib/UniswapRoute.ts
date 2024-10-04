@@ -12,7 +12,7 @@
 import {
   AddLiquidityEthOutput,
   AddLiquidityOutput,
-  ApproveOutput1,
+  ApproveData2,
   BalanceOfOutput,
   BaseUriData,
   BurnResult,
@@ -32,7 +32,7 @@ import {
   GetAmountsOutOutput,
   GetApprovedResult,
   GetFactoryOutput,
-  GetWethData1,
+  GetWethResult1,
   IncreaseLiquidityData,
   IsApprovedForAllOutput,
   MintResult,
@@ -75,7 +75,7 @@ import {
   TokenOfOwnerByIndexData,
   TokenUriData,
   TotalSupplyData,
-  TransferFromData1,
+  TransferFromOutput1,
   UniswapV2InputBody,
   UniswapV3InputBody,
   UnwrapWeth92Data,
@@ -140,7 +140,7 @@ export namespace Uniswap {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = ApproveOutput1;
+    export type ResponseBody = ApproveData2;
   }
 
   /**
@@ -537,7 +537,7 @@ export namespace Uniswap {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetWethData1;
+    export type ResponseBody = GetWethResult1;
   }
 
   /**
@@ -1390,7 +1390,7 @@ export namespace Uniswap {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = TransferFromData1;
+    export type ResponseBody = TransferFromOutput1;
   }
 
   /**

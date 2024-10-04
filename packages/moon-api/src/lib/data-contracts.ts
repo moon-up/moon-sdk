@@ -392,18 +392,24 @@ export interface ApiResponseToolsResponse {
 
 export type ApproveData = ERC20APIResponseERC20ExecuteFunctionResult;
 
+export type ApproveData1 = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
+
+export type ApproveData2 =
+  UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
+
 export type ApproveErc721Data = ERC721APIResponse;
+
+export interface ApproveForPolymarketBody {
+  chain_id: string;
+}
+
+export type ApproveForPolymarketData = PolymarketAPIResponseAny;
 
 export type ApproveOutput = LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
-export type ApproveOutput1 =
-  UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
-
 export type ApproveResult = ERC4626APIResponse;
 
-export type ApproveResult1 = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
-
-export type ApproveResult2 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+export type ApproveResult1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export interface AssembleRequest {
   pathId: string;
@@ -447,6 +453,11 @@ export interface BalanceAPIResponse {
   data?: BalanceResponse;
   message: string;
   success: boolean;
+}
+
+export interface BalanceAllowanceResponse {
+  allowance: string;
+  balance: string;
 }
 
 export type BalanceOfBatchData = TransactionAPIResponse;
@@ -652,6 +663,46 @@ export interface CalculateOptimalVoteDistributionParams4 {
 }
 
 export type CalculateOptimalVoteDistributionResult = RamsesAPIResponse;
+
+export interface CancelMarketOrdersBody {
+  chain_id: string;
+  payload: {
+    market: string;
+    outcomeId?: string;
+  };
+}
+
+export type CancelMarketOrdersData =
+  PolymarketAPIResponseCancelMarketOrdersResponse;
+
+export interface CancelMarketOrdersResponse {
+  orderIDs: string[];
+  success: boolean;
+}
+
+export interface CancelOrderBody {
+  chain_id: string;
+  orderID: string;
+}
+
+export type CancelOrderData = PolymarketAPIResponseCancelOrderResponse;
+
+export interface CancelOrderResponse {
+  orderID: string;
+  success: boolean;
+}
+
+export interface CancelOrdersBody {
+  chain_id: string;
+  ordersHashes: string[];
+}
+
+export type CancelOrdersData = PolymarketAPIResponseCancelOrdersResponse;
+
+export interface CancelOrdersResponse {
+  orderIDs: string[];
+  success: boolean;
+}
 
 export interface Chain {
   chainType: ChainChainTypeEnum;
@@ -926,6 +977,62 @@ export type CreateLockOutput = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 export type CreateLockResult =
   RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 
+export interface CreateMarketBuyOrderBody {
+  chain_id: string;
+  options?: {
+    negRisk?: boolean;
+    tickSize?: string;
+  };
+  userMarketOrder: {
+    /** @format double */
+    amount: number;
+    /** @format double */
+    feeRateBps?: number;
+    /** @format double */
+    nonce?: number;
+    /** @format double */
+    price?: number;
+    taker?: string;
+    tokenID: string;
+  };
+}
+
+export type CreateMarketBuyOrderData =
+  PolymarketAPIResponseCreateMarketBuyOrderResponse;
+
+export interface CreateMarketBuyOrderResponse {
+  order: PolymarketWrapperSignedOrder;
+}
+
+export interface CreateOrderBody {
+  chain_id: string;
+  options: {
+    negRisk?: boolean;
+    tickSize: string;
+  };
+  userOrder: {
+    /** @format double */
+    expiration?: number;
+    /** @format double */
+    feeRateBps?: number;
+    /** @format double */
+    nonce?: number;
+    /** @format double */
+    price: number;
+    side: string;
+    /** @format double */
+    size: number;
+    taker?: string;
+    tokenID: string;
+  };
+}
+
+export type CreateOrderData = PolymarketAPIResponseCreateOrderResponse;
+
+export interface CreateOrderResponse {
+  order: PolymarketWrapperNewOrderString;
+}
+
 export type CreateRippleAccountData = AccountAPIResponse;
 
 export type CreateSolanaAccountData = AccountAPIResponse;
@@ -1068,6 +1175,22 @@ export type DomainSeparatorData = UniswapV3NFTAPIResponseString;
 export interface DomainSeparatorParams {
   address: string;
   chainId: string;
+}
+
+export interface DropNotificationsBody {
+  chain_id: string;
+  params: {
+    notification_ids?: string[];
+  };
+}
+
+export type DropNotificationsData =
+  PolymarketAPIResponseDropNotificationsResponse;
+
+export interface DropNotificationsResponse {
+  /** @format double */
+  droppedCount: number;
+  success: boolean;
 }
 
 export interface ERC20APIResponseERC20ExecuteFunctionResult {
@@ -1894,6 +2017,16 @@ export interface GetAssetParams {
 
 export type GetAssetsData = LynexAPIResponse;
 
+export type GetBalanceAllowanceData =
+  PolymarketAPIResponseBalanceAllowanceResponse;
+
+export interface GetBalanceAllowanceParams {
+  account: string;
+  asset_type: string;
+  chainId: string;
+  token_id?: string;
+}
+
 export type GetBalanceData = BalanceAPIResponse;
 
 export type GetBalanceOfAtNftData = VeTheNFTAPIResponseString;
@@ -1944,8 +2077,6 @@ export type GetBalanceOfNftResult = RamsesNFTAPIResponseString;
 
 export type GetBalanceOfOutput = LynexNFTAPIResponseString;
 
-export type GetBalanceOfOutput1 = RamsesNFTAPIResponseString;
-
 export interface GetBalanceOfParams {
   account: string;
   address: string;
@@ -1977,6 +2108,8 @@ export interface GetBalanceOfParams8 {
 }
 
 export type GetBalanceOfResult = ERC4626APIResponse;
+
+export type GetBalanceOfResult1 = RamsesNFTAPIResponseString;
 
 export interface GetBalanceParams {
   accountName: string;
@@ -2309,12 +2442,37 @@ export interface GetLockedParams2 {
 
 export type GetLockedResult = VeTheNFTAPIResponseLockedData;
 
+export type GetMarketData = PolymarketAPIResponseAny;
+
 export type GetMarketIdData = PoolAddressProviderAPIResponseString;
 
 export interface GetMarketIdParams {
   account: string;
   address: string;
   chainId: string;
+}
+
+export interface GetMarketParams {
+  account: string;
+  chainId: string;
+  conditionId: string;
+}
+
+export type GetMarketTradeEventsData =
+  PolymarketAPIResponseMarketTradeEventArray;
+
+export interface GetMarketTradeEventsParams {
+  account: string;
+  chainId: string;
+  conditionId: string;
+}
+
+export type GetMarketsData = PolymarketAPIResponsePaginationPayload;
+
+export interface GetMarketsParams {
+  account: string;
+  chainId: string;
+  nextCursor?: string;
 }
 
 export type GetMaxDepositData = ERC4626APIResponse;
@@ -2400,6 +2558,40 @@ export interface GetNonceParams {
 }
 
 export type GetNotificationsData = MultiCallAPIResponseAnyArray;
+
+export interface GetNotificationsParams1 {
+  account: string;
+  chainId: string;
+}
+
+export type GetNotificationsResult = PolymarketAPIResponseNotificationArray;
+
+export type GetOpenOrdersData = PolymarketAPIResponseOpenOrdersResponse;
+
+export interface GetOpenOrdersParams {
+  account: string;
+  assetId?: string;
+  chainId: string;
+  marketHash?: string;
+  nextCursor?: string;
+  outcomeId?: string;
+}
+
+export type GetOrderBookData = PolymarketAPIResponseOrderBookSummary;
+
+export interface GetOrderBookParams {
+  account: string;
+  chainId: string;
+  tokenID: string;
+}
+
+export type GetOrderData = PolymarketAPIResponseOpenOrder;
+
+export interface GetOrderParams {
+  account: string;
+  chainId: string;
+  orderId: string;
+}
 
 export type GetOwnerOfData = LynexNFTAPIResponseString;
 
@@ -2538,6 +2730,21 @@ export interface GetPriceOracleParams {
   account: string;
   address: string;
   chainId: string;
+}
+
+export type GetPricesHistoryData = PolymarketAPIResponseMarketPriceArray;
+
+export interface GetPricesHistoryParams {
+  account: string;
+  chainId: string;
+  /** @format double */
+  endTs?: number;
+  /** @format double */
+  fidelity?: number;
+  interval?: string;
+  market?: string;
+  /** @format double */
+  startTs?: number;
 }
 
 export type GetProgramIdToLabelData = JupiterAPIResponseRecordStringString;
@@ -2863,6 +3070,10 @@ export interface GetTotalSupplyAtTParams {
 
 export type GetTotalSupplyData = ERC20APIResponseString;
 
+export type GetTotalSupplyData1 = RamsesNFTAPIResponseString;
+
+export type GetTotalSupplyData2 = VeTheNFTAPIResponseString;
+
 export type GetTotalSupplyOutput = LynexNFTAPIResponseString;
 
 export interface GetTotalSupplyParams {
@@ -2894,10 +3105,6 @@ export interface GetTotalSupplyParams8 {
 
 export type GetTotalSupplyResult = ERC4626APIResponse;
 
-export type GetTotalSupplyResult1 = RamsesNFTAPIResponseString;
-
-export type GetTotalSupplyResult2 = VeTheNFTAPIResponseString;
-
 export type GetTotalValueLockedData = LynexAPIResponse;
 
 export type GetTotalValueLockedOutput = ThenaAPIResponse;
@@ -2924,6 +3131,20 @@ export interface GetTotalWeightParams4 {
 }
 
 export type GetTotalWeightResult = RamsesVoterAPIResponseString;
+
+export type GetTradesData = PolymarketAPIResponseTradeArray;
+
+export interface GetTradesParams {
+  account: string;
+  after?: string;
+  asset_id?: string;
+  before?: string;
+  chainId: string;
+  id?: string;
+  maker_address?: string;
+  market?: string;
+  nextCursor?: string;
+}
 
 export type GetTronAccountData = AccountAPIResponse;
 
@@ -3091,8 +3312,6 @@ export type GetWeightsResult = RamsesVoterAPIResponseString;
 
 export type GetWethData = LeveragerAPIResponseString;
 
-export type GetWethData1 = UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
-
 export type GetWethOutput = RamsesRouterAPIResponseString;
 
 export interface GetWethParams {
@@ -3117,6 +3336,8 @@ export interface GetWethParams6 {
 }
 
 export type GetWethResult = LynexRouterAPIResponseString;
+
+export type GetWethResult1 = UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
 
 export type GetZapQuoteData = OdosAPIResponseOdosExecuteFunctionResult;
 
@@ -3229,9 +3450,9 @@ export interface InputBody {
 
 export type IsApprovedForAllData = TransactionAPIResponse;
 
-export type IsApprovedForAllData1 = VeTheNFTAPIResponseBoolean;
-
 export type IsApprovedForAllOutput = UniswapV3NFTAPIResponseBoolean;
+
+export type IsApprovedForAllOutput1 = VeTheNFTAPIResponseBoolean;
 
 export interface IsApprovedForAllParams1 {
   address: string;
@@ -4068,7 +4289,52 @@ export interface LynexVoterTransaction {
   value: string;
 }
 
+export interface MakerOrder {
+  asset_id: string;
+  fee_rate_bps: string;
+  maker_address: string;
+  matched_amount: string;
+  order_id: string;
+  outcome: string;
+  owner: string;
+  price: string;
+}
+
 export type MarkNotificationAsReadData = MultiCallAPIResponse;
+
+export interface MarketPrice {
+  /** @format double */
+  p: number;
+  /** @format double */
+  t: number;
+}
+
+export interface MarketTradeEvent {
+  event_type: string;
+  fee_rate_bps: string;
+  market: {
+    asset_id: string;
+    condition_id: string;
+    icon: string;
+    question: string;
+    slug: string;
+  };
+  outcome: string;
+  /** @format double */
+  outcome_index: number;
+  price: string;
+  side: Side;
+  size: string;
+  timestamp: string;
+  transaction_hash: string;
+  user: {
+    address: string;
+    optimized_profile_picture: string;
+    profile_picture: string;
+    pseudonym: string;
+    username: string;
+  };
+}
 
 export type MergeData = LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
@@ -4175,6 +4441,13 @@ export interface NonceAPIResponse {
 export interface NonceResponse {
   /** @format double */
   nonce: number;
+}
+
+export interface Notification {
+  owner: string;
+  payload: any;
+  /** @format double */
+  type: number;
 }
 
 export type NotifyRewardAmountData =
@@ -4369,9 +4642,39 @@ export interface OnRamperGetSupportedPaymentTypesParams {
   type: string;
 }
 
+export interface OpenOrder {
+  asset_id: string;
+  associate_trades: string[];
+  /** @format double */
+  created_at: number;
+  expiration: string;
+  id: string;
+  maker_address: string;
+  market: string;
+  order_type: string;
+  original_size: string;
+  outcome: string;
+  owner: string;
+  price: string;
+  side: string;
+  size_matched: string;
+  status: string;
+}
+
+export type OpenOrdersResponse = OpenOrder[];
+
 export enum OptionalChainTypesEnum {
   EVM = 'EVM',
   SOL = 'SOL',
+}
+
+export interface OrderBookSummary {
+  asks: OrderSummary[];
+  asset_id: string;
+  bids: OrderSummary[];
+  hash: string;
+  market: string;
+  timestamp: string;
 }
 
 export enum OrderEnum {
@@ -4386,6 +4689,11 @@ export enum OrderEnum1 {
   BEST_FEE_GAS = 'BEST_FEE_GAS',
 }
 
+export interface OrderSummary {
+  price: string;
+  size: string;
+}
+
 export type OwnerOfData = UniswapV3NFTAPIResponseString;
 
 export interface OwnerOfParams {
@@ -4393,6 +4701,15 @@ export interface OwnerOfParams {
   chainId: string;
   /** @format double */
   tokenId: number;
+}
+
+export interface PaginationPayload {
+  /** @format double */
+  count: number;
+  data: any[];
+  /** @format double */
+  limit: number;
+  next_cursor: string;
 }
 
 export type PairForData = RamsesRouterAPIResponseString;
@@ -4457,6 +4774,154 @@ export type PokeOutput =
   VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
 
 export type PokeResult = RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
+
+export interface PolymarketAPIResponseAny {
+  data?: any;
+  message: string;
+  success: boolean;
+}
+
+export interface PolymarketAPIResponseBalanceAllowanceResponse {
+  data?: BalanceAllowanceResponse;
+  message: string;
+  success: boolean;
+}
+
+export interface PolymarketAPIResponseCancelMarketOrdersResponse {
+  data?: CancelMarketOrdersResponse;
+  message: string;
+  success: boolean;
+}
+
+export interface PolymarketAPIResponseCancelOrderResponse {
+  data?: CancelOrderResponse;
+  message: string;
+  success: boolean;
+}
+
+export interface PolymarketAPIResponseCancelOrdersResponse {
+  data?: CancelOrdersResponse;
+  message: string;
+  success: boolean;
+}
+
+export interface PolymarketAPIResponseCreateMarketBuyOrderResponse {
+  data?: CreateMarketBuyOrderResponse;
+  message: string;
+  success: boolean;
+}
+
+export interface PolymarketAPIResponseCreateOrderResponse {
+  data?: CreateOrderResponse;
+  message: string;
+  success: boolean;
+}
+
+export interface PolymarketAPIResponseDropNotificationsResponse {
+  data?: DropNotificationsResponse;
+  message: string;
+  success: boolean;
+}
+
+export interface PolymarketAPIResponseMarketPriceArray {
+  data?: MarketPrice[];
+  message: string;
+  success: boolean;
+}
+
+export interface PolymarketAPIResponseMarketTradeEventArray {
+  data?: MarketTradeEvent[];
+  message: string;
+  success: boolean;
+}
+
+export interface PolymarketAPIResponseNotificationArray {
+  data?: Notification[];
+  message: string;
+  success: boolean;
+}
+
+export interface PolymarketAPIResponseOpenOrder {
+  data?: OpenOrder;
+  message: string;
+  success: boolean;
+}
+
+export interface PolymarketAPIResponseOpenOrdersResponse {
+  data?: OpenOrdersResponse;
+  message: string;
+  success: boolean;
+}
+
+export interface PolymarketAPIResponseOrderBookSummary {
+  data?: OrderBookSummary;
+  message: string;
+  success: boolean;
+}
+
+export interface PolymarketAPIResponsePaginationPayload {
+  data?: PaginationPayload;
+  message: string;
+  success: boolean;
+}
+
+export interface PolymarketAPIResponsePostOrderResponse {
+  data?: PostOrderResponse;
+  message: string;
+  success: boolean;
+}
+
+export interface PolymarketAPIResponseTradeArray {
+  data?: Trade[];
+  message: string;
+  success: boolean;
+}
+
+export interface PolymarketAPIResponseUpdateBalanceAllowanceResponse {
+  data?: UpdateBalanceAllowanceResponse;
+  message: string;
+  success: boolean;
+}
+
+export interface PolymarketWrapperNewOrderString {
+  order: {
+    expiration: string;
+    feeRateBps: string;
+    maker: string;
+    makerAmount: string;
+    nonce: string;
+    /** @format double */
+    salt: number;
+    side: string;
+    signature: string;
+    /** @format double */
+    signatureType: number;
+    signer: string;
+    taker: string;
+    takerAmount: string;
+    tokenId: string;
+  };
+  orderType: string;
+  owner: string;
+}
+
+export interface PolymarketWrapperSignedOrder {
+  expiration: string;
+  feeRateBps: string;
+  maker: string;
+  makerAmount: string;
+  nonce: string;
+  salt: string;
+  /** @format double */
+  side: number;
+  signature: string;
+  /** @format double */
+  signatureType: number;
+  signer: string;
+  taker: string;
+  takerAmount: string;
+  tokenId: string;
+}
 
 export interface PoolAddressProviderAPIResponsePoolAddressProviderExecuteFunctionResult {
   data?: PoolAddressProviderExecuteFunctionResult;
@@ -4587,6 +5052,18 @@ export interface PositionsParams {
   chainId: string;
   /** @format double */
   tokenId: number;
+}
+
+export interface PostOrderBody {
+  chain_id: string;
+  order: PolymarketWrapperSignedOrder;
+}
+
+export type PostOrderData = PolymarketAPIResponsePostOrderResponse;
+
+export interface PostOrderResponse {
+  orderID: string;
+  success: boolean;
 }
 
 export interface PostQuote {
@@ -5277,13 +5754,13 @@ export type SetAddressData =
 
 export type SetApprovalForAllData = TransactionAPIResponse;
 
-export type SetApprovalForAllData1 =
-  VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
-
 export type SetApprovalForAllErc721Data = ERC721APIResponse;
 
 export type SetApprovalForAllOutput =
   UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
+
+export type SetApprovalForAllOutput1 =
+  VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export type SetApprovalForAllResult =
   LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
@@ -5308,6 +5785,11 @@ export type SetUserUseReserveAsCollateralData =
 
 export type SetUserUseReserveAsCollateralResult =
   LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
+
+export enum Side {
+  BUY = 'BUY',
+  SELL = 'SELL',
+}
 
 export interface SignBitcoinTransactionBody {
   inputs: string;
@@ -5721,6 +6203,33 @@ export interface TotalSupplyParams {
   chainId: string;
 }
 
+export interface Trade {
+  asset_id: string;
+  /** @format double */
+  bucket_index: number;
+  fee_rate_bps: string;
+  id: string;
+  last_update: string;
+  maker_address: string;
+  maker_orders: MakerOrder[];
+  market: string;
+  match_time: string;
+  outcome: string;
+  owner: string;
+  price: string;
+  side: number | string;
+  size: string;
+  status: string;
+  taker_order_id: string;
+  trader_side: TradeTraderSideEnum;
+  transaction_hash: string;
+}
+
+export enum TradeTraderSideEnum {
+  TAKER = 'TAKER',
+  MAKER = 'MAKER',
+}
+
 export interface Transaction {
   broadcasted?: BroadCastRawTransactionResponse;
   data?: string | null;
@@ -5830,9 +6339,7 @@ export type TransferEthData = TransactionAPIResponse;
 export type TransferFromData = ERC20APIResponseERC20ExecuteFunctionResult;
 
 export type TransferFromData1 =
-  UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
-
-export type TransferFromData2 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+  RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 
 export type TransferFromErc721Data = ERC721APIResponse;
 
@@ -5840,7 +6347,9 @@ export type TransferFromOutput =
   LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
 export type TransferFromOutput1 =
-  RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
+  UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
+
+export type TransferFromOutput2 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export type TransferFromResult = ERC4626APIResponse;
 
@@ -6199,6 +6708,22 @@ export type UnwrapWeth9Data =
 
 export type UnwrapWeth9WithFeeData =
   UniswapV3APIResponseUniswapV3ExecuteFunctionResult;
+
+export interface UpdateBalanceAllowanceBody {
+  chain_id: string;
+  params: {
+    asset_type: string;
+    token_id?: string;
+  };
+}
+
+export type UpdateBalanceAllowanceData =
+  PolymarketAPIResponseUpdateBalanceAllowanceResponse;
+
+export interface UpdateBalanceAllowanceResponse {
+  newAllowance: string;
+  success: boolean;
+}
 
 export interface UpdateFlowBody {
   description?: string;
@@ -6579,8 +7104,8 @@ export type WithdrawData = AavePoolAPIResponseAavePoolExecuteFunctionResult;
 
 export type WithdrawOutput = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 
-export type WithdrawOutput1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
-
 export type WithdrawResult = ERC4626APIResponse;
+
+export type WithdrawResult1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export type ZapData = OdosAPIResponseOdosExecuteFunctionResult;

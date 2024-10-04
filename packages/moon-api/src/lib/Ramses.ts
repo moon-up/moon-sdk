@@ -13,7 +13,7 @@ import {
   AbstainData,
   AddLiquidityEthResult,
   AddLiquidityResult,
-  ApproveResult1,
+  ApproveData1,
   AttachData,
   AttachTokenToGaugeData,
   CalculateOptimalVoteDistributionParams2,
@@ -33,8 +33,8 @@ import {
   GetAmountsOutResult,
   GetBalanceOfNftParams2,
   GetBalanceOfNftResult,
-  GetBalanceOfOutput1,
   GetBalanceOfParams6,
+  GetBalanceOfResult1,
   GetDelegatesParams2,
   GetDelegatesResult,
   GetFactoryParams2,
@@ -58,8 +58,8 @@ import {
   GetTokensResult,
   GetTopAprPoolsParams2,
   GetTopAprPoolsResult,
+  GetTotalSupplyData1,
   GetTotalSupplyParams6,
-  GetTotalSupplyResult1,
   GetTotalValueLockedResult,
   GetTotalWeightParams2,
   GetTotalWeightResult,
@@ -100,7 +100,7 @@ import {
   SwapExactEthForTokensResult,
   SwapExactTokensForEthResult,
   SwapExactTokensForTokensResult,
-  TransferFromOutput1,
+  TransferFromData1,
   UnsafeSwapExactTokensForTokensData,
   VoteResult,
   VoteWithOptimalDistributionBody,
@@ -196,7 +196,7 @@ export class Ramses<SecurityDataType = unknown> {
     data: RamsesNFTInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<ApproveResult1, any>({
+    this.http.request<ApproveData1, any>({
       path: `/ramses/nft/${address}/approve`,
       method: 'POST',
       body: data,
@@ -510,7 +510,7 @@ export class Ramses<SecurityDataType = unknown> {
    * @secure
    */
   getBalanceOf = (query: GetBalanceOfParams6, params: RequestParams = {}) =>
-    this.http.request<GetBalanceOfOutput1, any>({
+    this.http.request<GetBalanceOfResult1, any>({
       path: `/ramses/nft/balanceOf`,
       method: 'GET',
       query: query,
@@ -780,7 +780,7 @@ export class Ramses<SecurityDataType = unknown> {
    * @secure
    */
   getTotalSupply = (query: GetTotalSupplyParams6, params: RequestParams = {}) =>
-    this.http.request<GetTotalSupplyResult1, any>({
+    this.http.request<GetTotalSupplyData1, any>({
       path: `/ramses/nft/totalSupply`,
       method: 'GET',
       query: query,
@@ -1318,7 +1318,7 @@ export class Ramses<SecurityDataType = unknown> {
     data: RamsesNFTInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<TransferFromOutput1, any>({
+    this.http.request<TransferFromData1, any>({
       path: `/ramses/nft/${address}/transferFrom`,
       method: 'POST',
       body: data,
