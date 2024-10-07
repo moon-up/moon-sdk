@@ -1664,6 +1664,309 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"AAVEv3UiPoolDataProviderAPIResponse_string_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AggregatedReserveData": {
+				"properties": {
+					"underlyingAsset": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"symbol": {
+						"type": "string"
+					},
+					"decimals": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"baseLTVasCollateral": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"reserveLiquidationThreshold": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"reserveLiquidationBonus": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"reserveFactor": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"usageAsCollateralEnabled": {
+						"type": "boolean"
+					},
+					"borrowingEnabled": {
+						"type": "boolean"
+					},
+					"stableBorrowRateEnabled": {
+						"type": "boolean"
+					},
+					"isActive": {
+						"type": "boolean"
+					},
+					"isFrozen": {
+						"type": "boolean"
+					},
+					"liquidityIndex": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"variableBorrowIndex": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"liquidityRate": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"variableBorrowRate": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"stableBorrowRate": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"lastUpdateTimestamp": {
+						"type": "number",
+						"format": "double"
+					},
+					"aTokenAddress": {
+						"type": "string"
+					},
+					"stableDebtTokenAddress": {
+						"type": "string"
+					},
+					"variableDebtTokenAddress": {
+						"type": "string"
+					},
+					"interestRateStrategyAddress": {
+						"type": "string"
+					},
+					"availableLiquidity": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"totalPrincipalStableDebt": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"averageStableRate": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"stableDebtLastUpdateTimestamp": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"totalScaledVariableDebt": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"priceInMarketReferenceCurrency": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"variableRateSlope1": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"variableRateSlope2": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"stableRateSlope1": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"stableRateSlope2": {
+						"$ref": "#/components/schemas/BigNumber"
+					}
+				},
+				"required": [
+					"underlyingAsset",
+					"name",
+					"symbol",
+					"decimals",
+					"baseLTVasCollateral",
+					"reserveLiquidationThreshold",
+					"reserveLiquidationBonus",
+					"reserveFactor",
+					"usageAsCollateralEnabled",
+					"borrowingEnabled",
+					"stableBorrowRateEnabled",
+					"isActive",
+					"isFrozen",
+					"liquidityIndex",
+					"variableBorrowIndex",
+					"liquidityRate",
+					"variableBorrowRate",
+					"stableBorrowRate",
+					"lastUpdateTimestamp",
+					"aTokenAddress",
+					"stableDebtTokenAddress",
+					"variableDebtTokenAddress",
+					"interestRateStrategyAddress",
+					"availableLiquidity",
+					"totalPrincipalStableDebt",
+					"averageStableRate",
+					"stableDebtLastUpdateTimestamp",
+					"totalScaledVariableDebt",
+					"priceInMarketReferenceCurrency",
+					"variableRateSlope1",
+					"variableRateSlope2",
+					"stableRateSlope1",
+					"stableRateSlope2"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BaseCurrencyInfo": {
+				"properties": {
+					"marketReferenceCurrencyUnit": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"marketReferenceCurrencyPriceInUsd": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"networkBaseTokenPriceInUsd": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"networkBaseTokenPriceDecimals": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"marketReferenceCurrencyUnit",
+					"marketReferenceCurrencyPriceInUsd",
+					"networkBaseTokenPriceInUsd",
+					"networkBaseTokenPriceDecimals"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ReservesData": {
+				"properties": {
+					"aggregatedReserveData": {
+						"items": {
+							"$ref": "#/components/schemas/AggregatedReserveData"
+						},
+						"type": "array"
+					},
+					"baseCurrencyInfo": {
+						"$ref": "#/components/schemas/BaseCurrencyInfo"
+					}
+				},
+				"required": [
+					"aggregatedReserveData",
+					"baseCurrencyInfo"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AAVEv3UiPoolDataProviderAPIResponse_ReservesData_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/ReservesData"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AAVEv3UiPoolDataProviderAPIResponse_string-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UserReserveData": {
+				"properties": {
+					"underlyingAsset": {
+						"type": "string"
+					},
+					"scaledATokenBalance": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"usageAsCollateralEnabledOnUser": {
+						"type": "boolean"
+					},
+					"stableBorrowRate": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"scaledVariableDebt": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"principalStableDebt": {
+						"$ref": "#/components/schemas/BigNumber"
+					},
+					"stableBorrowLastUpdateTimestamp": {
+						"$ref": "#/components/schemas/BigNumber"
+					}
+				},
+				"required": [
+					"underlyingAsset",
+					"scaledATokenBalance",
+					"usageAsCollateralEnabledOnUser",
+					"stableBorrowRate",
+					"scaledVariableDebt",
+					"principalStableDebt",
+					"stableBorrowLastUpdateTimestamp"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AAVEv3UiPoolDataProviderAPIResponse_UserReserveData-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/UserReserveData"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"AAVEv3WalletBalanceProviderAPIResponse_string_": {
 				"properties": {
 					"success": {
@@ -2213,6 +2516,21 @@
 			},
 			"AccountResponse": {
 				"properties": {
+					"keys": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"address": {
+						"type": "string"
+					},
+					"private_key": {
+						"type": "string"
+					},
+					"public_key": {
+						"type": "string"
+					},
 					"data": {
 						"$ref": "#/components/schemas/AccountData"
 					}
@@ -16833,6 +17151,380 @@
 					{
 						"in": "query",
 						"name": "user",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/aave/v3/pool-data/eth-currency-unit": {
+			"get": {
+				"operationId": "GetETHCurrencyUnit",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AAVEv3UiPoolDataProviderAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"AAVE v3 UI Pool Data Provider"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "contract_address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chain_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/aave/v3/pool-data/reserves-data": {
+			"get": {
+				"operationId": "GetReservesData",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AAVEv3UiPoolDataProviderAPIResponse_ReservesData_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"AAVE v3 UI Pool Data Provider"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "contract_address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chain_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "provider",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/aave/v3/pool-data/reserves-list": {
+			"get": {
+				"operationId": "GetReservesList",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AAVEv3UiPoolDataProviderAPIResponse_string-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"AAVE v3 UI Pool Data Provider"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "contract_address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chain_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "provider",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/aave/v3/pool-data/user-reserves-data": {
+			"get": {
+				"operationId": "GetUserReservesData",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AAVEv3UiPoolDataProviderAPIResponse_UserReserveData-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"AAVE v3 UI Pool Data Provider"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "contract_address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chain_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "provider",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "user",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/aave/v3/pool-data/market-reference-currency-price-in-usd-proxy-aggregator": {
+			"get": {
+				"operationId": "GetMarketReferenceCurrencyPriceInUsdProxyAggregator",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AAVEv3UiPoolDataProviderAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"AAVE v3 UI Pool Data Provider"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "contract_address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chain_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/aave/v3/pool-data/network-base-token-price-in-usd-proxy-aggregator": {
+			"get": {
+				"operationId": "GetNetworkBaseTokenPriceInUsdProxyAggregator",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AAVEv3UiPoolDataProviderAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"AAVE v3 UI Pool Data Provider"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "contract_address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chain_id",
 						"required": true,
 						"schema": {
 							"type": "string"
@@ -48854,7 +49546,7 @@
 	},
 	"servers": [
 		{
-			"url": "https://beta.usemoon.ai/"
+			"url": "https://beta.usemoon.ai"
 		}
 	]
 }

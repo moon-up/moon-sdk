@@ -12,8 +12,8 @@
 import {
   GetGasPriceData,
   GetGasPriceParams,
+  GetQuoteOutput1,
   GetQuoteParams4,
-  GetQuoteResult1,
   GetSupportedChainsParams1,
   GetSupportedChainsResult,
   GetSupportedProvidersData,
@@ -56,7 +56,7 @@ export class Thorswap<SecurityDataType = unknown> {
    * @secure
    */
   getQuote = (query: GetQuoteParams4, params: RequestParams = {}) =>
-    this.http.request<GetQuoteResult1, any>({
+    this.http.request<GetQuoteOutput1, any>({
       path: `/thorswap/quote`,
       method: 'GET',
       query: query,

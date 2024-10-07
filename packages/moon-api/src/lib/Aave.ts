@@ -39,10 +39,16 @@ import {
   GetAllReservesTokensParams,
   GetDebtCeilingData,
   GetDebtCeilingParams,
+  GetEthCurrencyUnitData,
+  GetEthCurrencyUnitParams,
   GetFullReservesIncentiveDataData,
   GetFullReservesIncentiveDataParams,
   GetMarketIdData,
   GetMarketIdParams,
+  GetMarketReferenceCurrencyPriceInUsdProxyAggregatorData,
+  GetMarketReferenceCurrencyPriceInUsdProxyAggregatorParams,
+  GetNetworkBaseTokenPriceInUsdProxyAggregatorData,
+  GetNetworkBaseTokenPriceInUsdProxyAggregatorParams,
   GetPoolConfiguratorData,
   GetPoolConfiguratorParams,
   GetPoolData,
@@ -51,14 +57,20 @@ import {
   GetPriceOracleParams,
   GetReserveDataData,
   GetReserveDataParams,
+  GetReservesDataData,
+  GetReservesDataParams,
   GetReservesIncentivesDataData,
   GetReservesIncentivesDataParams,
+  GetReservesListData,
+  GetReservesListParams,
   GetRewardsByAssetData,
   GetRewardsByAssetParams,
   GetRewardsDataData,
   GetRewardsDataParams,
   GetUserAccountDataData,
   GetUserAccountDataParams,
+  GetUserReservesDataData,
+  GetUserReservesDataParams,
   GetUserReservesIncentivesDataData,
   GetUserReservesIncentivesDataParams,
   GetUserRewardsData,
@@ -438,6 +450,26 @@ export class Aave<SecurityDataType = unknown> {
   /**
    * No description
    *
+   * @tags AAVE v3 UI Pool Data Provider
+   * @name GetEthCurrencyUnit
+   * @request GET:/aave/v3/pool-data/eth-currency-unit
+   * @secure
+   */
+  getEthCurrencyUnit = (
+    query: GetEthCurrencyUnitParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<GetEthCurrencyUnitData, any>({
+      path: `/aave/v3/pool-data/eth-currency-unit`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
    * @tags AAVE v3 UI Incentive Data Provider
    * @name GetFullReservesIncentiveData
    * @request GET:/aave/v3/incentives/fullReservesIncentiveData
@@ -469,6 +501,49 @@ export class Aave<SecurityDataType = unknown> {
   ) =>
     this.http.request<GetMarketIdData, any>({
       path: `/aave/v3/poolAddressProvider/${account}/getMarketId`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags AAVE v3 UI Pool Data Provider
+   * @name GetMarketReferenceCurrencyPriceInUsdProxyAggregator
+   * @request GET:/aave/v3/pool-data/market-reference-currency-price-in-usd-proxy-aggregator
+   * @secure
+   */
+  getMarketReferenceCurrencyPriceInUsdProxyAggregator = (
+    query: GetMarketReferenceCurrencyPriceInUsdProxyAggregatorParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<
+      GetMarketReferenceCurrencyPriceInUsdProxyAggregatorData,
+      any
+    >({
+      path: `/aave/v3/pool-data/market-reference-currency-price-in-usd-proxy-aggregator`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags AAVE v3 UI Pool Data Provider
+   * @name GetNetworkBaseTokenPriceInUsdProxyAggregator
+   * @request GET:/aave/v3/pool-data/network-base-token-price-in-usd-proxy-aggregator
+   * @secure
+   */
+  getNetworkBaseTokenPriceInUsdProxyAggregator = (
+    query: GetNetworkBaseTokenPriceInUsdProxyAggregatorParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<GetNetworkBaseTokenPriceInUsdProxyAggregatorData, any>({
+      path: `/aave/v3/pool-data/network-base-token-price-in-usd-proxy-aggregator`,
       method: 'GET',
       query: query,
       secure: true,
@@ -558,6 +633,26 @@ export class Aave<SecurityDataType = unknown> {
   /**
    * No description
    *
+   * @tags AAVE v3 UI Pool Data Provider
+   * @name GetReservesData
+   * @request GET:/aave/v3/pool-data/reserves-data
+   * @secure
+   */
+  getReservesData = (
+    query: GetReservesDataParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<GetReservesDataData, any>({
+      path: `/aave/v3/pool-data/reserves-data`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
    * @tags AAVE v3 UI Incentive Data Provider
    * @name GetReservesIncentivesData
    * @request GET:/aave/v3/incentives/reservesIncentivesData
@@ -569,6 +664,26 @@ export class Aave<SecurityDataType = unknown> {
   ) =>
     this.http.request<GetReservesIncentivesDataData, any>({
       path: `/aave/v3/incentives/reservesIncentivesData`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags AAVE v3 UI Pool Data Provider
+   * @name GetReservesList
+   * @request GET:/aave/v3/pool-data/reserves-list
+   * @secure
+   */
+  getReservesList = (
+    query: GetReservesListParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<GetReservesListData, any>({
+      path: `/aave/v3/pool-data/reserves-list`,
       method: 'GET',
       query: query,
       secure: true,
@@ -629,6 +744,26 @@ export class Aave<SecurityDataType = unknown> {
   ) =>
     this.http.request<GetUserAccountDataData, any>({
       path: `/aave/v3/pool/${account}/getUserAccountData`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags AAVE v3 UI Pool Data Provider
+   * @name GetUserReservesData
+   * @request GET:/aave/v3/pool-data/user-reserves-data
+   * @secure
+   */
+  getUserReservesData = (
+    query: GetUserReservesDataParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<GetUserReservesDataData, any>({
+      path: `/aave/v3/pool-data/user-reserves-data`,
       method: 'GET',
       query: query,
       secure: true,

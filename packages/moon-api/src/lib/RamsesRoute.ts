@@ -29,7 +29,7 @@ import {
   GetAmountOutResult,
   GetAmountsOutResult,
   GetBalanceOfNftResult,
-  GetBalanceOfResult1,
+  GetBalanceOfOutput1,
   GetDelegatesResult,
   GetFactoryResult,
   GetInfoData,
@@ -74,7 +74,7 @@ import {
   SwapExactEthForTokensResult,
   SwapExactTokensForEthResult,
   SwapExactTokensForTokensResult,
-  TransferFromData1,
+  TransferFromResult1,
   UnsafeSwapExactTokensForTokensData,
   VoteResult,
   VoteWithOptimalDistributionBody,
@@ -454,7 +454,7 @@ export namespace Ramses {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetBalanceOfResult1;
+    export type ResponseBody = GetBalanceOfOutput1;
   }
 
   /**
@@ -1315,7 +1315,7 @@ export namespace Ramses {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = TransferFromData1;
+    export type ResponseBody = TransferFromResult1;
   }
 
   /**

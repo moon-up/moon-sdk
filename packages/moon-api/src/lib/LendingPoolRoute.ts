@@ -19,7 +19,7 @@ import {
   GetMaxNumberReservesData,
   GetMaxStableRateBorrowSizePercentData,
   GetReserveDataResult,
-  GetReservesListData,
+  GetReservesListResult,
   GetUserAccountDataResult,
   IsPausedData,
   LendingPoolInputBody,
@@ -225,7 +225,7 @@ export namespace LendingPool {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetReservesListData;
+    export type ResponseBody = GetReservesListResult;
   }
 
   /**

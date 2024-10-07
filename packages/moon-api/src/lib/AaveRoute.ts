@@ -29,16 +29,22 @@ import {
   GetAllATokensData,
   GetAllReservesTokensData,
   GetDebtCeilingData,
+  GetEthCurrencyUnitData,
   GetFullReservesIncentiveDataData,
   GetMarketIdData,
+  GetMarketReferenceCurrencyPriceInUsdProxyAggregatorData,
+  GetNetworkBaseTokenPriceInUsdProxyAggregatorData,
   GetPoolConfiguratorData,
   GetPoolData,
   GetPriceOracleData,
   GetReserveDataData,
+  GetReservesDataData,
   GetReservesIncentivesDataData,
+  GetReservesListData,
   GetRewardsByAssetData,
   GetRewardsDataData,
   GetUserAccountDataData,
+  GetUserReservesDataData,
   GetUserReservesIncentivesDataData,
   GetUserRewardsData,
   GetUserWalletBalancesData,
@@ -415,6 +421,26 @@ export namespace Aave {
 
   /**
    * No description
+   * @tags AAVE v3 UI Pool Data Provider
+   * @name GetEthCurrencyUnit
+   * @request GET:/aave/v3/pool-data/eth-currency-unit
+   * @secure
+   */
+  export namespace GetEthCurrencyUnit {
+    export type RequestParams = {};
+    export type RequestQuery = {
+      chain_id: string;
+      contract_address: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = GetEthCurrencyUnitData;
+  }
+
+  /**
+   * No description
    * @tags AAVE v3 UI Incentive Data Provider
    * @name GetFullReservesIncentiveData
    * @request GET:/aave/v3/incentives/fullReservesIncentiveData
@@ -455,6 +481,47 @@ export namespace Aave {
       Authorization: string;
     };
     export type ResponseBody = GetMarketIdData;
+  }
+
+  /**
+   * No description
+   * @tags AAVE v3 UI Pool Data Provider
+   * @name GetMarketReferenceCurrencyPriceInUsdProxyAggregator
+   * @request GET:/aave/v3/pool-data/market-reference-currency-price-in-usd-proxy-aggregator
+   * @secure
+   */
+  export namespace GetMarketReferenceCurrencyPriceInUsdProxyAggregator {
+    export type RequestParams = {};
+    export type RequestQuery = {
+      chain_id: string;
+      contract_address: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody =
+      GetMarketReferenceCurrencyPriceInUsdProxyAggregatorData;
+  }
+
+  /**
+   * No description
+   * @tags AAVE v3 UI Pool Data Provider
+   * @name GetNetworkBaseTokenPriceInUsdProxyAggregator
+   * @request GET:/aave/v3/pool-data/network-base-token-price-in-usd-proxy-aggregator
+   * @secure
+   */
+  export namespace GetNetworkBaseTokenPriceInUsdProxyAggregator {
+    export type RequestParams = {};
+    export type RequestQuery = {
+      chain_id: string;
+      contract_address: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = GetNetworkBaseTokenPriceInUsdProxyAggregatorData;
   }
 
   /**
@@ -548,6 +615,27 @@ export namespace Aave {
 
   /**
    * No description
+   * @tags AAVE v3 UI Pool Data Provider
+   * @name GetReservesData
+   * @request GET:/aave/v3/pool-data/reserves-data
+   * @secure
+   */
+  export namespace GetReservesData {
+    export type RequestParams = {};
+    export type RequestQuery = {
+      chain_id: string;
+      contract_address: string;
+      provider: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = GetReservesDataData;
+  }
+
+  /**
+   * No description
    * @tags AAVE v3 UI Incentive Data Provider
    * @name GetReservesIncentivesData
    * @request GET:/aave/v3/incentives/reservesIncentivesData
@@ -565,6 +653,27 @@ export namespace Aave {
       Authorization: string;
     };
     export type ResponseBody = GetReservesIncentivesDataData;
+  }
+
+  /**
+   * No description
+   * @tags AAVE v3 UI Pool Data Provider
+   * @name GetReservesList
+   * @request GET:/aave/v3/pool-data/reserves-list
+   * @secure
+   */
+  export namespace GetReservesList {
+    export type RequestParams = {};
+    export type RequestQuery = {
+      chain_id: string;
+      contract_address: string;
+      provider: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = GetReservesListData;
   }
 
   /**
@@ -635,6 +744,28 @@ export namespace Aave {
       Authorization: string;
     };
     export type ResponseBody = GetUserAccountDataData;
+  }
+
+  /**
+   * No description
+   * @tags AAVE v3 UI Pool Data Provider
+   * @name GetUserReservesData
+   * @request GET:/aave/v3/pool-data/user-reserves-data
+   * @secure
+   */
+  export namespace GetUserReservesData {
+    export type RequestParams = {};
+    export type RequestQuery = {
+      chain_id: string;
+      contract_address: string;
+      provider: string;
+      user: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = GetUserReservesDataData;
   }
 
   /**

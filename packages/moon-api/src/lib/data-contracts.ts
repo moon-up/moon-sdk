@@ -133,6 +133,30 @@ export interface AAVEv3UiIncentiveDataProviderAPIResponseUserReserveIncentiveDat
   success: boolean;
 }
 
+export interface AAVEv3UiPoolDataProviderAPIResponseReservesData {
+  data?: ReservesData;
+  message: string;
+  success: boolean;
+}
+
+export interface AAVEv3UiPoolDataProviderAPIResponseString {
+  data?: string;
+  message: string;
+  success: boolean;
+}
+
+export interface AAVEv3UiPoolDataProviderAPIResponseStringArray {
+  data?: string[];
+  message: string;
+  success: boolean;
+}
+
+export interface AAVEv3UiPoolDataProviderAPIResponseUserReserveDataArray {
+  data?: UserReserveData[];
+  message: string;
+  success: boolean;
+}
+
 export interface AAVEv3WalletBalanceProviderAPIResponseString {
   data?: string;
   message: string;
@@ -294,7 +318,11 @@ export interface AccountData {
 }
 
 export interface AccountResponse {
+  address?: string;
   data: AccountData;
+  keys?: string[];
+  private_key?: string;
+  public_key?: string;
 }
 
 export interface Action {
@@ -328,6 +356,43 @@ export type AddLiquidityOutput =
 
 export type AddLiquidityResult =
   RamsesRouterAPIResponseRamsesRouterExecuteFunctionResult;
+
+export interface AggregatedReserveData {
+  stableRateSlope1: BigNumber;
+  stableRateSlope2: BigNumber;
+  variableRateSlope1: BigNumber;
+  variableRateSlope2: BigNumber;
+  aTokenAddress: string;
+  availableLiquidity: BigNumber;
+  averageStableRate: BigNumber;
+  baseLTVasCollateral: BigNumber;
+  borrowingEnabled: boolean;
+  decimals: BigNumber;
+  interestRateStrategyAddress: string;
+  isActive: boolean;
+  isFrozen: boolean;
+  /** @format double */
+  lastUpdateTimestamp: number;
+  liquidityIndex: BigNumber;
+  liquidityRate: BigNumber;
+  name: string;
+  priceInMarketReferenceCurrency: BigNumber;
+  reserveFactor: BigNumber;
+  reserveLiquidationBonus: BigNumber;
+  reserveLiquidationThreshold: BigNumber;
+  stableBorrowRate: BigNumber;
+  stableBorrowRateEnabled: boolean;
+  stableDebtLastUpdateTimestamp: BigNumber;
+  stableDebtTokenAddress: string;
+  symbol: string;
+  totalPrincipalStableDebt: BigNumber;
+  totalScaledVariableDebt: BigNumber;
+  underlyingAsset: string;
+  usageAsCollateralEnabled: boolean;
+  variableBorrowIndex: BigNumber;
+  variableBorrowRate: BigNumber;
+  variableDebtTokenAddress: string;
+}
 
 export interface AggregatedReserveIncentiveData {
   aIncentiveData: IncentiveData;
@@ -394,9 +459,6 @@ export type ApproveData = ERC20APIResponseERC20ExecuteFunctionResult;
 
 export type ApproveData1 = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 
-export type ApproveData2 =
-  UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
-
 export type ApproveErc721Data = ERC721APIResponse;
 
 export interface ApproveForPolymarketBody {
@@ -406,6 +468,9 @@ export interface ApproveForPolymarketBody {
 export type ApproveForPolymarketData = PolymarketAPIResponseAny;
 
 export type ApproveOutput = LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
+
+export type ApproveOutput1 =
+  UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
 
 export type ApproveResult = ERC4626APIResponse;
 
@@ -488,6 +553,14 @@ export interface BalanceResponse {
 export interface BaseCosmosAPIResponse {
   message: string;
   success: boolean;
+}
+
+export interface BaseCurrencyInfo {
+  marketReferenceCurrencyPriceInUsd: BigNumber;
+  marketReferenceCurrencyUnit: BigNumber;
+  /** @format double */
+  networkBaseTokenPriceDecimals: number;
+  networkBaseTokenPriceInUsd: BigNumber;
 }
 
 export type BaseUriData = UniswapV3NFTAPIResponseString;
@@ -795,11 +868,11 @@ export type ClaimRewardsOnBehalfData =
 export type ClaimRewardsOutput =
   RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
 
+export type ClaimRewardsOutput1 =
+  VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
+
 export type ClaimRewardsResult =
   LynexVoterAPIResponseLynexVoterExecuteFunctionResult;
-
-export type ClaimRewardsResult1 =
-  VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
 
 export type ClaimRewardsToSelfData =
   AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
@@ -2077,6 +2150,8 @@ export type GetBalanceOfNftResult = RamsesNFTAPIResponseString;
 
 export type GetBalanceOfOutput = LynexNFTAPIResponseString;
 
+export type GetBalanceOfOutput1 = RamsesNFTAPIResponseString;
+
 export interface GetBalanceOfParams {
   account: string;
   address: string;
@@ -2108,8 +2183,6 @@ export interface GetBalanceOfParams8 {
 }
 
 export type GetBalanceOfResult = ERC4626APIResponse;
-
-export type GetBalanceOfResult1 = RamsesNFTAPIResponseString;
 
 export interface GetBalanceParams {
   accountName: string;
@@ -2282,6 +2355,13 @@ export interface GetErc721TokenUriParams {
   address: string;
   chainId: string;
   tokenId: string;
+}
+
+export type GetEthCurrencyUnitData = AAVEv3UiPoolDataProviderAPIResponseString;
+
+export interface GetEthCurrencyUnitParams {
+  chain_id: string;
+  contract_address: string;
 }
 
 export type GetExecutorAddressData = OdosAPIResponseOdosExecuteFunctionResult;
@@ -2458,6 +2538,14 @@ export interface GetMarketParams {
   conditionId: string;
 }
 
+export type GetMarketReferenceCurrencyPriceInUsdProxyAggregatorData =
+  AAVEv3UiPoolDataProviderAPIResponseString;
+
+export interface GetMarketReferenceCurrencyPriceInUsdProxyAggregatorParams {
+  chain_id: string;
+  contract_address: string;
+}
+
 export type GetMarketTradeEventsData =
   PolymarketAPIResponseMarketTradeEventArray;
 
@@ -2549,6 +2637,14 @@ export interface GetNameParams2 {
 }
 
 export type GetNameResult = LynexNFTAPIResponseString;
+
+export type GetNetworkBaseTokenPriceInUsdProxyAggregatorData =
+  AAVEv3UiPoolDataProviderAPIResponseString;
+
+export interface GetNetworkBaseTokenPriceInUsdProxyAggregatorParams {
+  chain_id: string;
+  contract_address: string;
+}
 
 export type GetNonceData = NonceAPIResponse;
 
@@ -2753,6 +2849,8 @@ export type GetQuoteData = JupiterAPIResponseJupiterExecuteFunctionResult;
 
 export type GetQuoteOutput = OdosAPIResponseOdosExecuteFunctionResult;
 
+export type GetQuoteOutput1 = ThorSwapAPIResponseQuote;
+
 export interface GetQuoteParams1 {
   allowBridges?: string[];
   allowExchanges?: string[];
@@ -2804,8 +2902,6 @@ export interface GetQuoteParams4 {
 
 export type GetQuoteResult = ApiResponseQuote;
 
-export type GetQuoteResult1 = ThorSwapAPIResponseQuote;
-
 export type GetReserveDataData = AavePoolAPIResponseAny;
 
 export interface GetReserveDataParams {
@@ -2826,6 +2922,15 @@ export type GetReserveDataResult = LendingPoolAPIResponseAny;
 export type GetReservesData =
   RamsesRouterAPIResponseReserve03AstringReserve13Astring;
 
+export type GetReservesDataData =
+  AAVEv3UiPoolDataProviderAPIResponseReservesData;
+
+export interface GetReservesDataParams {
+  chain_id: string;
+  contract_address: string;
+  provider: string;
+}
+
 export type GetReservesIncentivesDataData =
   AAVEv3UiIncentiveDataProviderAPIResponseAggregatedReserveIncentiveDataArray;
 
@@ -2835,12 +2940,21 @@ export interface GetReservesIncentivesDataParams {
   provider: string;
 }
 
-export type GetReservesListData = LendingPoolAPIResponseStringArray;
+export type GetReservesListData =
+  AAVEv3UiPoolDataProviderAPIResponseStringArray;
 
 export interface GetReservesListParams {
+  chain_id: string;
+  contract_address: string;
+  provider: string;
+}
+
+export interface GetReservesListParams2 {
   address: string;
   chainId: string;
 }
+
+export type GetReservesListResult = LendingPoolAPIResponseStringArray;
 
 export interface GetReservesParams {
   address: string;
@@ -3072,8 +3186,6 @@ export type GetTotalSupplyData = ERC20APIResponseString;
 
 export type GetTotalSupplyData1 = RamsesNFTAPIResponseString;
 
-export type GetTotalSupplyData2 = VeTheNFTAPIResponseString;
-
 export type GetTotalSupplyOutput = LynexNFTAPIResponseString;
 
 export interface GetTotalSupplyParams {
@@ -3104,6 +3216,8 @@ export interface GetTotalSupplyParams8 {
 }
 
 export type GetTotalSupplyResult = ERC4626APIResponse;
+
+export type GetTotalSupplyResult1 = VeTheNFTAPIResponseString;
 
 export type GetTotalValueLockedData = LynexAPIResponse;
 
@@ -3181,6 +3295,16 @@ export interface GetUserPointHistoryTsParams {
   chainId: string;
   idx: string;
   tokenId: string;
+}
+
+export type GetUserReservesDataData =
+  AAVEv3UiPoolDataProviderAPIResponseUserReserveDataArray;
+
+export interface GetUserReservesDataParams {
+  chain_id: string;
+  contract_address: string;
+  provider: string;
+  user: string;
 }
 
 export type GetUserReservesIncentivesDataData =
@@ -3312,6 +3436,8 @@ export type GetWeightsResult = RamsesVoterAPIResponseString;
 
 export type GetWethData = LeveragerAPIResponseString;
 
+export type GetWethData1 = UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
+
 export type GetWethOutput = RamsesRouterAPIResponseString;
 
 export interface GetWethParams {
@@ -3336,8 +3462,6 @@ export interface GetWethParams6 {
 }
 
 export type GetWethResult = LynexRouterAPIResponseString;
-
-export type GetWethResult1 = UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
 
 export type GetZapQuoteData = OdosAPIResponseOdosExecuteFunctionResult;
 
@@ -3452,8 +3576,6 @@ export type IsApprovedForAllData = TransactionAPIResponse;
 
 export type IsApprovedForAllOutput = UniswapV3NFTAPIResponseBoolean;
 
-export type IsApprovedForAllOutput1 = VeTheNFTAPIResponseBoolean;
-
 export interface IsApprovedForAllParams1 {
   address: string;
   chainId: string;
@@ -3476,6 +3598,8 @@ export interface IsApprovedForAllParams5 {
 }
 
 export type IsApprovedForAllResult = LynexNFTAPIResponseBoolean;
+
+export type IsApprovedForAllResult1 = VeTheNFTAPIResponseBoolean;
 
 export type IsGaugeData = LynexVoterAPIResponseBoolean;
 
@@ -3560,7 +3684,13 @@ export interface Jobs {
   user_id: string;
 }
 
-export type Json = string | number | boolean | null;
+export type Json =
+  | string
+  | number
+  | boolean
+  | Record<string, Json>
+  | Json[]
+  | null;
 
 export interface JupiterAPIResponseAny {
   data?: any;
@@ -5615,6 +5745,11 @@ export type RepayData = AavePoolAPIResponseAavePoolExecuteFunctionResult;
 export type RepayResult =
   LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
 
+export interface ReservesData {
+  aggregatedReserveData: AggregatedReserveData[];
+  baseCurrencyInfo: BaseCurrencyInfo;
+}
+
 export type ResetData = LynexVoterAPIResponseLynexVoterExecuteFunctionResult;
 
 export type ResetOutput =
@@ -5754,13 +5889,13 @@ export type SetAddressData =
 
 export type SetApprovalForAllData = TransactionAPIResponse;
 
+export type SetApprovalForAllData1 =
+  VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
 export type SetApprovalForAllErc721Data = ERC721APIResponse;
 
 export type SetApprovalForAllOutput =
   UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
-
-export type SetApprovalForAllOutput1 =
-  VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export type SetApprovalForAllResult =
   LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
@@ -6338,9 +6473,6 @@ export type TransferEthData = TransactionAPIResponse;
 
 export type TransferFromData = ERC20APIResponseERC20ExecuteFunctionResult;
 
-export type TransferFromData1 =
-  RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
-
 export type TransferFromErc721Data = ERC721APIResponse;
 
 export type TransferFromOutput =
@@ -6352,6 +6484,9 @@ export type TransferFromOutput1 =
 export type TransferFromOutput2 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export type TransferFromResult = ERC4626APIResponse;
+
+export type TransferFromResult1 =
+  RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 
 export type TransferResult = ERC4626APIResponse;
 
@@ -6747,6 +6882,16 @@ export interface UserPointHistoryData {
   ts: string;
 }
 
+export interface UserReserveData {
+  principalStableDebt: BigNumber;
+  scaledATokenBalance: BigNumber;
+  scaledVariableDebt: BigNumber;
+  stableBorrowLastUpdateTimestamp: BigNumber;
+  stableBorrowRate: BigNumber;
+  underlyingAsset: string;
+  usageAsCollateralEnabledOnUser: boolean;
+}
+
 export interface UserReserveIncentiveData {
   aTokenIncentivesUserData: UserIncentiveData;
   sTokenIncentivesUserData: UserIncentiveData;
@@ -7102,10 +7247,10 @@ export type WhitelistResult =
 
 export type WithdrawData = AavePoolAPIResponseAavePoolExecuteFunctionResult;
 
+export type WithdrawData1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
 export type WithdrawOutput = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 
 export type WithdrawResult = ERC4626APIResponse;
-
-export type WithdrawResult1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export type ZapData = OdosAPIResponseOdosExecuteFunctionResult;

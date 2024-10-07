@@ -25,8 +25,8 @@ import {
   GetMaxStableRateBorrowSizePercentParams,
   GetReserveDataParams2,
   GetReserveDataResult,
-  GetReservesListData,
-  GetReservesListParams,
+  GetReservesListParams2,
+  GetReservesListResult,
   GetUserAccountDataParams2,
   GetUserAccountDataResult,
   IsPausedData,
@@ -238,10 +238,10 @@ export class LendingPool<SecurityDataType = unknown> {
    * @secure
    */
   getReservesList = (
-    query: GetReservesListParams,
+    query: GetReservesListParams2,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetReservesListData, any>({
+    this.http.request<GetReservesListResult, any>({
       path: `/lending-pool/reserves-list`,
       method: 'GET',
       query: query,
