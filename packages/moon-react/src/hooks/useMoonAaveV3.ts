@@ -14,6 +14,8 @@ import {
   Aave,
   GetAllATokensParams,
   PoolAddressProviderRegistryAPIResponseAnyArray,
+  AavePoolAPIResponseAny,
+  GetReserveDataParams,
 } from "@moonup/moon-api";
 
 type NetworkConfigType = {
@@ -109,8 +111,6 @@ export const useMoonAaveV3 = () => {
   const context = useMoonSDK();
   const { handleTransaction } = useMoonTransaction();
   const { moon } = context;
-
-
 
   const getAaveSDK = useCallback((): Aave => {
     const aaveSDK = moon?.getAaveSDK();
@@ -304,9 +304,47 @@ export const useMoonAaveV3 = () => {
     async (
       payload: GetAllATokensParams
     ): Promise<PoolAddressProviderRegistryAPIResponseAnyArray> => {
-      return handleTransaction("getUserRewards", async () => {
+      return handleTransaction("getAllATokens", async () => {
         const avveSDK = getAaveSDK();
         const response = await avveSDK.getAllATokens(payload);
+        return response;
+      });
+    },
+    [moon]
+  );
+
+  const getUserAccountData = useCallback(
+    async (payload: {
+      account: string;
+      chainId: string;
+    }): Promise<AavePoolAPIResponseAny> => {
+      return handleTransaction("getUserAccountData", async () => {
+        const avveSDK = getAaveSDK();
+        const poolAdd = await getAaveV3PoolAddress(
+          payload.account,
+          payload.chainId
+        );
+        if (!poolAdd) {
+          throw new Error("Market pool Address not found");
+        }
+        const response = await avveSDK.getUserAccountData({
+          account: payload.account,
+          address: poolAdd,
+          chainId: payload.chainId,
+          user: payload.account,
+        });
+        return response;
+      });
+    },
+    [moon]
+  );
+
+  const getReserveData = useCallback(
+    async (payload: GetReserveDataParams): Promise<AavePoolAPIResponseAny> => {
+      return handleTransaction("getReserveData", async () => {
+        const avveSDK = getAaveSDK();
+
+        const response = await avveSDK.getReserveData(payload);
         return response;
       });
     },
@@ -326,6 +364,8 @@ export const useMoonAaveV3 = () => {
     getUserRewards,
     getAaveV3PoolAddress,
     getAllATokens,
+    getUserAccountData,
+    getReserveData,
     networkConfig,
   };
 };
