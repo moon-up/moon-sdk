@@ -3684,13 +3684,7 @@ export interface Jobs {
   user_id: string;
 }
 
-export type Json =
-  | string
-  | number
-  | boolean
-  | Record<string, Json>
-  | Json[]
-  | null;
+export type Json = string | number | boolean | null;
 
 export interface JupiterAPIResponseAny {
   data?: any;
