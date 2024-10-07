@@ -16,6 +16,8 @@ import {
   PoolAddressProviderRegistryAPIResponseAnyArray,
   AavePoolAPIResponseAny,
   GetReserveDataParams,
+  GetUserReservesDataParams,
+  AAVEv3UiPoolDataProviderAPIResponseUserReserveDataArray
 } from "@moonup/moon-api";
 
 type NetworkConfigType = {
@@ -351,6 +353,18 @@ export const useMoonAaveV3 = () => {
     [moon]
   );
 
+  const getUserReservesData = useCallback(
+    async (payload: GetUserReservesDataParams): Promise<AAVEv3UiPoolDataProviderAPIResponseUserReserveDataArray> => {
+      return handleTransaction("getUserReservesData", async () => {
+        const avveSDK = getAaveSDK();
+        const response = await avveSDK.getUserReservesData(payload);
+        return response;
+      });
+    },
+    [moon]
+  );
+
+
   return {
     supply,
     withdraw,
@@ -366,6 +380,7 @@ export const useMoonAaveV3 = () => {
     getAllATokens,
     getUserAccountData,
     getReserveData,
+    getUserReservesData,
     networkConfig,
   };
 };
