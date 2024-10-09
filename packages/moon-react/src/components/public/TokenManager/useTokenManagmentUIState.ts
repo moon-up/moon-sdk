@@ -73,7 +73,7 @@ export const useTokenManagmentUIState = (tokenList: TokenListItemType[] | undefi
   };
 
   const handlePlatformChange = (chainName: string) => {
-    let chain = chains.find((chain) =>
+    const chain = chains.find((chain) =>
       chain.name?.toLocaleLowerCase().includes(chainName.toLocaleLowerCase())
     );
     setNewToken((prevToken) => ({

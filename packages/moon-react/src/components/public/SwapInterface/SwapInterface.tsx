@@ -94,7 +94,7 @@ const SwapInterface: React.FC = () => {
     if (!fromToken || !toToken || !fromAmount) return;
 
     setButtonStatus("Estimating...");
-    let bigAmountWei = safelyParseUnits(fromAmount, fromToken.decimals);
+    const bigAmountWei = safelyParseUnits(fromAmount, fromToken.decimals);
 
     try {
       const swapParams: OdosSwapInputBody = {
@@ -134,7 +134,7 @@ const SwapInterface: React.FC = () => {
 
     setButtonStatus("Swapping...");
     //convert fromAmount from float to bigInt
-    let bigAmountWei = safelyParseUnits(fromAmount, fromToken.decimals);
+    const bigAmountWei = safelyParseUnits(fromAmount, fromToken.decimals);
     try {
       const swapParams: OdosSwapInputBody = {
         inputTokens: [
@@ -193,7 +193,7 @@ const SwapInterface: React.FC = () => {
   );
 
   const onSelectToken = (e: any, setter: any) => {
-    let token =
+    const token =
       tokensFilteredForChain.find((t) => t.symbol === e.target.value) || null;
     if (token?.isGasToken)
       setter({ ...token, address: converyGasTokenAddress });

@@ -66,11 +66,11 @@ export const ChainSelectorModal: React.FC<ChainSelectorProps> = ({
   };
 
   const handleChainSelect = (chainId: string) => {
-    let selectedChain = chains.find((chain: Chains) => chain.id === chainId);
+    const selectedChain = chains.find((chain: Chains) => chain.id === chainId);
     if (selectedChain && controlSelectedChain) setChain(selectedChain);
     setSelectedChain(selectedChain);
     toggleModal();
-    let fakeEvent = { target: { value: selectedChain?.chain_id } };
+    const fakeEvent = { target: { value: selectedChain?.chain_id } };
     onChange && onChange(fakeEvent);
   };
 

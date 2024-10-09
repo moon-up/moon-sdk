@@ -16,7 +16,7 @@ export const useMoonTokenSwap = (chainId?: number) => {
   const context = useMoonSDK();
   const { handleTransaction } = useMoonTransaction();
   const { moon, chain } = context;
-  let selectedChainId = chainId || chain?.chain_id || 1;
+  const selectedChainId = chainId || chain?.chain_id || 1;
 
   // react query to fetch supported tokens
   const supportedTokensQuery = useQuery({

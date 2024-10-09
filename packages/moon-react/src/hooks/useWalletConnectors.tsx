@@ -39,7 +39,7 @@ export const useWalletConnectors = () => {
   };
 
   //remove duplicate connectors
-  let uniqueConnectors = connectors.filter(
+  const uniqueConnectors = connectors.filter(
     (v: any, i: any, a: any) => a.findIndex((t: any) => t.name === v.name) === i
   );
 

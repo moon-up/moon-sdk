@@ -79,7 +79,7 @@ export function useTokenBalances(
             );
         }
         console.warn("useTokenBalances::res", res, token);
-        let balanceDec = weiStringAsFloat(res.balance, token.decimals);
+        const balanceDec = weiStringAsFloat(res.balance, token.decimals);
         return {
           ...token,
           wallet: wallet,

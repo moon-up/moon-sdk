@@ -32,7 +32,7 @@ export const ChainSelector = ({ selectProps, optionProps }: ChainSelectorProps) 
       value={chain?.id || ""}
       onChange={(e) => {
         const chainId = e.target.value;
-        let chain = chains.find((chain: any) => chain.id === chainId);
+        const chain = chains.find((chain: any) => chain.id === chainId);
         if (chain) setChain(chain);
       }}
       {...selectProps}

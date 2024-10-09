@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react';
 // import coinbase from "../../assets/coinbase.svg";
 // import metamask from "../../assets/metamask.svg";
 // import rabby from "../../assets/rabby.png";
 // import trustwallet from "../../assets/trustwallet.png";
 // import moonLogoLight from "../../assets/moon-logo-light.png";
 // import walletconnect from "../../assets/walletconnect.svg";
-import { useAccount, useConnect, useSignMessage } from "wagmi";
-import { useConnectToMoon } from "../../hooks/useConnectToMoon";
-import { IconArrowLeft, IconWallet } from "@/assets/icons";
+import { IconArrowLeft, IconWallet } from '@/assets/icons';
+import { useAccount, useConnect, useSignMessage } from 'wagmi';
+import { useConnectToMoon } from '../../hooks/useConnectToMoon';
 
 interface WalletConnectorsListProps {
   onBack: any;
@@ -17,7 +17,7 @@ export const WalletConnectorsList = ({ onBack }: WalletConnectorsListProps) => {
   const { connectors, connect } = useConnect();
   const { address } = useAccount();
   const { signMessageAsync } = useSignMessage();
-  const walletAddress = address ? address : "";
+  const walletAddress = address ? address : '';
   const { connectToMoonSiwe } = useConnectToMoon({
     address: walletAddress,
     signMessageAsync,
@@ -42,7 +42,7 @@ export const WalletConnectorsList = ({ onBack }: WalletConnectorsListProps) => {
   };
 
   //remove duplicate connectors
-  let uniqueConnectors = connectors.filter(
+  const uniqueConnectors = connectors.filter(
     (v: any, i: any, a: any) => a.findIndex((t: any) => t.name === v.name) === i
   );
 
@@ -52,12 +52,12 @@ export const WalletConnectorsList = ({ onBack }: WalletConnectorsListProps) => {
         className="pl-5 pt-5 justify-center items-center flex gap-5 absolute top-0 left-0 opacity-70 hover:opacity-100 cursor-pointer hover"
         onClick={onBack}
       >
-        <IconArrowLeft className="w-6 h-6"/>
+        <IconArrowLeft className="w-6 h-6" />
         Back
       </div>
       <div className="flex flex-col justify-center gap-5 items-center overflow-y-auto">
-      <IconWallet className="text-accent w-[40px] h-[40px]"/>
-      <p className="text-text-secondary">Connect to a wallet</p>
+        <IconWallet className="text-accent w-[40px] h-[40px]" />
+        <p className="text-text-secondary">Connect to a wallet</p>
         {uniqueConnectors &&
           uniqueConnectors.map((connector: any) => (
             <div key={connector.uid} className="flex flex-col items-center">

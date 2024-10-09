@@ -1,14 +1,13 @@
-import React from "react";
-import { useState } from "react";
-import { AuthModalConfig } from "@moon-react-types/index";
-import { useMoonSDK } from "@hooks/index";
 import {
   AuthModalContent,
   AuthModalOverlay,
-  WalletConnectorsList,
   AuthOptions,
-} from "@components/index";
-import { SignupForm } from "./components/SignupForm";
+  WalletConnectorsList,
+} from '@components/index';
+import { useMoonSDK } from '@hooks/index';
+import { AuthModalConfig } from '@moon-react-types/index';
+import React, { useState } from 'react';
+import { SignupForm } from './components/SignupForm';
 
 type AuthModalProps = {
   children: React.ReactNode;
@@ -18,23 +17,23 @@ type AuthModalProps = {
 export const AuthModal: React.FC<AuthModalProps> = ({ config, children }) => {
   const { enabled, appearance } = config;
   const [_, setConnectWallet] = useState(false);
-  const [screen, setScreen] = useState<"login" | "walletConnect" | "signup">(
-    "login"
+  const [screen, setScreen] = useState<'login' | 'walletConnect' | 'signup'>(
+    'login'
   );
   const { session } = useMoonSDK();
 
   if (!enabled) return <>{children}</>;
   if (session) return <>{children}</>;
 
-  let logoPosition = "left-8";
-  if (appearance.logo?.position == "center")
-    logoPosition = "left-[50%] transform -translate-x-1/2";
-  else if (appearance.logo?.position == "right") logoPosition = "right-8";
+  let logoPosition = 'left-8';
+  if (appearance.logo?.position == 'center')
+    logoPosition = 'left-[50%] transform -translate-x-1/2';
+  else if (appearance.logo?.position == 'right') logoPosition = 'right-8';
 
   return (
     <>
       <AuthModalOverlay onClick={() => {}} config={config} />
-      <AuthModalContent config={config} isSignup={screen == "signup"}>
+      <AuthModalContent config={config} isSignup={screen == 'signup'}>
         {config.appearance.logo?.enabled && (
           <img
             src={config.appearance.logo?.src}
@@ -44,21 +43,21 @@ export const AuthModal: React.FC<AuthModalProps> = ({ config, children }) => {
             className={`fixed top-8 ${logoPosition}`}
           />
         )}
-        {screen === "login" && (
+        {screen === 'login' && (
           <AuthOptions
             config={config}
-            onConnectWallet={() => setScreen("walletConnect")}
-            onSignupEmail={() => setScreen("signup")}
+            onConnectWallet={() => setScreen('walletConnect')}
+            onSignupEmail={() => setScreen('signup')}
           />
         )}
-        {screen === "walletConnect" && (
+        {screen === 'walletConnect' && (
           <WalletConnectorsList onBack={() => setConnectWallet(false)} />
         )}
-        {screen === "signup" && (
+        {screen === 'signup' && (
           <SignupForm
-            onCancel={() => setScreen("login")}
+            onCancel={() => setScreen('login')}
             onSuccess={() => {
-              setScreen("login")
+              setScreen('login');
             }}
             config={config}
           />

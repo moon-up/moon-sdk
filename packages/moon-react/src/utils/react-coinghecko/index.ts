@@ -7,8 +7,8 @@ import {
   UseQueryResult,
   useQuery,
 } from "@tanstack/react-query";
-var priceCallcount = 0;
-var infoCallcount = 0;
+let priceCallcount = 0;
+let infoCallcount = 0;
 /**
  * Constructs the URL to retrieve prices from CoinGecko.
  * @param tokens
@@ -80,8 +80,8 @@ const tryGetAllPricesFromCache = async (
       try {
         const price = await cache.getTokenPrice(token);
         //parse the updated at time and check if it is within the last hour
-        let updateTime = new Date(price.updated_at).getTime();
-        let currentTime = new Date().getTime();
+        const updateTime = new Date(price.updated_at).getTime();
+        const currentTime = new Date().getTime();
         if (currentTime - updateTime > 1000 * 60 * 60) {
           return { token, price: null };
         }
@@ -124,7 +124,7 @@ export const makeCoinGeckoPricesQuery = <T extends string>(
       }
       console.log("coinGeckoPrices cache", cache);
       if (cache) {
-        let cachedTokenPrices = await tryGetAllPricesFromCache(tokens, cache);
+        const cachedTokenPrices = await tryGetAllPricesFromCache(tokens, cache);
         console.log(
           "makeCoinGeckoPricesQuery cachedTokenPrices",
           cachedTokenPrices

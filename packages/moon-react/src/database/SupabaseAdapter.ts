@@ -32,7 +32,7 @@ export class SupabaseAdapter implements DBAdapterBase {
   }
 
   async getUserWalletAliases(): Promise<DbWalletAlias[]> {
-    let userId = await this.getUserId();
+    const userId = await this.getUserId();
     const { data, error } = await this.supabase
       .from("wallet_alias")
       .select("*")
@@ -48,7 +48,7 @@ export class SupabaseAdapter implements DBAdapterBase {
       address: address,
       alias: alias,
     };
-    let userId = await this.getUserId();
+    const userId = await this.getUserId();
     const { error } = await this.supabase
       .from("wallet_alias")
       .upsert({ ...dbAlias, user_id: userId });

@@ -1,19 +1,18 @@
-import { useEffect } from "react";
-import { useMoonAaveV3, useMoonAccounts, useMoonSDK } from "@hooks/index";
-import { useAccount, useConnect, useSwitchChain } from "wagmi";
-import React from "react";
-import Button from "../Button/Button";
-import { ChainSelector } from "../public/ChainSelectors/ChainSelector";
-import { ChainSelectorModal } from "../public/ChainSelectors/ChainSelectorModal";
-import { WalletSelector } from "../public/WalletSelectors/WalletSelector";
-import { WalletSelectorModal } from "../public/WalletSelectors/WalletSelectorModal";
+import { useMoonAaveV3, useMoonAccounts, useMoonSDK } from '@hooks/index';
+import React, { useEffect } from 'react';
+import { useAccount, useConnect, useSwitchChain } from 'wagmi';
+import Button from '../Button/Button';
+import { ChainSelector } from '../public/ChainSelectors/ChainSelector';
+import { ChainSelectorModal } from '../public/ChainSelectors/ChainSelectorModal';
+import { WalletSelector } from '../public/WalletSelectors/WalletSelector';
+import { WalletSelectorModal } from '../public/WalletSelectors/WalletSelectorModal';
 // load api
-import ChatBot from "../public/ChatBot/ChatBot";
-import { UserTokenManager } from "../public/TokenManager";
-import SwapInterface from "../public/SwapInterface/SwapInterface";
-import { LifiChainSelectorModal } from "../public/LifiSelectors/LifiChainSelectorModal";
-import { LifiTokenSelectorModal } from "../public/LifiSelectors";
-import { AnyTokenSelectorModal } from "../public";
+import { AnyTokenSelectorModal } from '../public';
+import ChatBot from '../public/ChatBot/ChatBot';
+import { LifiTokenSelectorModal } from '../public/LifiSelectors';
+import { LifiChainSelectorModal } from '../public/LifiSelectors/LifiChainSelectorModal';
+import SwapInterface from '../public/SwapInterface/SwapInterface';
+import { UserTokenManager } from '../public/TokenManager';
 
 function Account() {
   const { address, status } = useAccount();
@@ -29,7 +28,6 @@ function Account() {
     session,
     supabase,
     wallets,
-    ethers,
     transactionHistory,
     signOut,
     createWallet,
@@ -56,19 +54,19 @@ function Account() {
   if (!supabase) {
     return <div>Loading...</div>;
   }
-  let conveyorTx = transactionHistory.filter(
-    (tx) => tx.type === "conveyorFinanceSwap"
+  const conveyorTx = transactionHistory.filter(
+    (tx) => tx.type === 'conveyorFinanceSwap'
   );
-  console.log("Tx History", conveyorTx);
+  console.log('Tx History', conveyorTx);
   const getBalance = async (wallet: string) => {
     // moon connector
     console.log(connectors);
-    const conn = connectors.find((connector: any) => connector.name === "Moon");
+    const conn = connectors.find((connector: any) => connector.name === 'Moon');
     console.log(conn);
     setWallet(wallet);
-    console.log("wallet", wallet);
-    const kek = await ethers?.getBalance(wallet);
-    console.log(kek?.toNumber());
+    console.log('wallet', wallet);
+    // const kek = await ethers?.getBalance(wallet);
+    // console.log(kek?.toNumber());
     // const uwu = await conn?.connect({ chainId: 1, isReconnecting: true });
     // console.log(uwu);
   };
@@ -93,14 +91,14 @@ function Account() {
             <WalletSelector
               selectProps={{
                 className:
-                  "max-h-[300px] bg-accent-color rounded-xl p-3 m-1 text-text-primary",
+                  'max-h-[300px] bg-accent-color rounded-xl p-3 m-1 text-text-primary',
               }}
             />
             <p>Modal</p>
             <WalletSelectorModal
               title="Wallet Selector"
               inputProps={{
-                label: "Select Wallet",
+                label: 'Select Wallet',
               }}
             />
 
@@ -110,7 +108,7 @@ function Account() {
                 className="text-center text-xl flex gap-4 items-center justify-center mb-1"
                 onClick={() => getBalance(wallet)}
               >
-                {wallet}{" "}
+                {wallet}{' '}
                 <Button
                   className="bg-red-500"
                   onClick={async () => {
@@ -143,14 +141,14 @@ function Account() {
         <ChainSelector
           selectProps={{
             className:
-              "max-h-[300px] bg-accent-color rounded-xl p-3 m-1 text-text-primary",
+              'max-h-[300px] bg-accent-color rounded-xl p-3 m-1 text-text-primary',
           }}
         />
         <p>Modal</p>
         <ChainSelectorModal
           title="Chain Selector"
           inputProps={{
-            label: "Select Chain",
+            label: 'Select Chain',
           }}
         />
       </div>
@@ -250,7 +248,7 @@ function Account() {
       <Button
         color="infoColor"
         onClick={async () => {
-          const res = await getAaveV3PoolAddress(wallets[0], "10");
+          const res = await getAaveV3PoolAddress(wallets[0], '10');
           console.log(res);
         }}
       >

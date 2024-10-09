@@ -1,13 +1,12 @@
-import { useEffect } from "react";
-import { SocialLogins as SocialLoginsType } from "../../types/types";
-import React from "react";
 import {
   IconDiscord,
   IconGithub,
   IconGoogle,
   IconTwitter,
-} from "@/assets/icons";
-import { useMoonSDK } from "@/index";
+} from '@/assets/icons';
+import { useMoonSDK } from '@/index';
+import React, { useEffect } from 'react';
+import { SocialLogins as SocialLoginsType } from '../../types/types';
 
 interface SocialLoginsProps {
   socialLogins: SocialLoginsType;
@@ -18,30 +17,30 @@ function SocialLogins({ socialLogins }: SocialLoginsProps) {
   useEffect(() => {
     //listen for changes in the current URL and if code is present, extract it and send it to the server
     const url = new URL(window.location.href);
-    const code = url.searchParams.get("code");
+    const code = url.searchParams.get('code');
     if (code) {
-      let authType = localStorage.getItem("moon_auth_type");
-      console.log("code", code, authType);
-      if (authType === "google") {
+      const authType = localStorage.getItem('moon_auth_type');
+      console.log('code', code, authType);
+      if (authType === 'google') {
         moon
           ?.performGoogleOauthCodeExchange(code)
           .then((data) =>
             setToken(data.token.access_token, data.token.refresh_token)
           );
-      } else if (authType === "discord") {
+      } else if (authType === 'discord') {
         moon
           ?.performDiscordOauthCodeExchange(code)
           .then((data) =>
             setToken(data.token.access_token, data.token.refresh_token)
           );
       }
-      url.searchParams.delete("code");
-      window.history.replaceState({}, "", url.toString());
+      url.searchParams.delete('code');
+      window.history.replaceState({}, '', url.toString());
     }
   }, []);
 
   const setToken = async (access_token: string, refresh_token: string) => {
-    if (!supabase) return console.error("Supabase not initialized");
+    if (!supabase) return console.error('Supabase not initialized');
     await supabase.auth.setSession({
       access_token,
       refresh_token,
@@ -49,21 +48,21 @@ function SocialLogins({ socialLogins }: SocialLoginsProps) {
   };
 
   const signInDiscord = async () => {
-    if (!moon) return console.error("Moon not initialized");
-    localStorage.setItem("moon_auth_type", "discord");
+    if (!moon) return console.error('Moon not initialized');
+    localStorage.setItem('moon_auth_type', 'discord');
     await moon?.performDiscordOAuth();
   };
 
   const signInGoogle = async () => {
-    if (!moon) return console.error("Moon not initialized");
-    localStorage.setItem("moon_auth_type", "google");
+    if (!moon) return console.error('Moon not initialized');
+    localStorage.setItem('moon_auth_type', 'google');
     await moon?.performGoogleOAuth();
   };
 
   if (!socialLogins) return null;
   return (
     <>
-      {socialLogins.includes("discord") && (
+      {socialLogins.includes('discord') && (
         <div
           className="p-2 bg-accent-color w-min h-min rounded-xl border-2 border-transparent hover:border-white cursor-pointer"
           onClick={signInDiscord}
@@ -72,7 +71,7 @@ function SocialLogins({ socialLogins }: SocialLoginsProps) {
         </div>
       )}
 
-      {socialLogins.includes("github") && (
+      {socialLogins.includes('github') && (
         <div
           className="p-2 bg-gray-900 w-min h-min rounded-xl border-2 border-transparent hover:border-white cursor-pointer"
           onClick={signInGoogle}
@@ -80,7 +79,7 @@ function SocialLogins({ socialLogins }: SocialLoginsProps) {
           <IconGithub className="w-[30px] h-[30px]" />
         </div>
       )}
-      {socialLogins.includes("twitter") && (
+      {socialLogins.includes('twitter') && (
         <div
           className="p-2 bg-sky-500 w-min h-min rounded-xl border-2 border-transparent hover:border-white cursor-pointer"
           onClick={signInGoogle}
@@ -88,7 +87,7 @@ function SocialLogins({ socialLogins }: SocialLoginsProps) {
           <IconTwitter className="w-[30px] h-[30px]" />
         </div>
       )}
-      {socialLogins.includes("google") && (
+      {socialLogins.includes('google') && (
         <div
           className="p-2 bg-zinc-50 w-min h-min rounded-xl border-2 border-transparent hover:border-accent-color cursor-pointer"
           onClick={signInGoogle}

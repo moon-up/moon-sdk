@@ -1,1070 +1,614 @@
+import { BytesLike } from '@ethersproject/bytes';
+import * as MoonAPI from '@moonup/moon-api';
 import {
-  TypedDataDomain,
-  TypedDataField,
-} from '@ethersproject/abstract-signer';
-import { BytesLike, arrayify } from '@ethersproject/bytes';
-import { hashMessage } from '@ethersproject/hash';
-import {
-  Aave,
-  Accounts,
-  ApiConfig,
-  Bitcoin,
-  Bitcoincash,
-  ContentType,
-  Cosmos,
-  Data,
-  Dogecoin,
-  Ens,
-  Eos,
-  Erc1155,
-  Erc20,
-  Erc4626,
-  Erc721,
-  HttpClient,
-  InputBody,
-  Jupiter,
-  LendingPool,
-  Leverager,
-  Lifi,
-  Litecoin,
-  Lynex,
-  Transaction as MoonTransaction,
-  Multicall,
-  Odos,
-  Onramper,
-  Polymarket,
-  Ramses,
-  Ripple,
-  Solana,
-  Thena,
-  Thorswap,
-  TransactionData,
-  Tron,
-  Uniswap,
-} from '@moonup/moon-api';
-import {
+  AuthenticationResponseJSON,
   PublicKeyCredentialCreationOptionsJSON,
   PublicKeyCredentialRequestOptionsJSON,
   RegistrationResponseJSON,
 } from '@simplewebauthn/typescript-types';
-import { Session, SupabaseClient, createClient } from '@supabase/supabase-js';
+import { createClient, Session, SupabaseClient } from '@supabase/supabase-js';
+import { ethers, TypedDataDomain, TypedDataField } from 'ethers';
 import { EventEmitter } from 'events';
 import { SiweMessage } from 'siwe';
 
-import { Chains } from './types';
+import { AuthenticationError, NetworkError } from './errors';
+import { OAuth2Service } from './services';
+import { AuthService } from './services/AuthService';
+import { CacheService } from './services/CacheService';
+import { ChainService } from './services/ChainService';
+import { ConfigurationService } from './services/Configuration';
+import { EventService } from './services/EventService';
+import { MoonAPIService } from './services/MoonAPIService';
+import { ProviderService } from './services/ProviderService';
+import { SolanaService } from './services/SolanaService';
+import { TransactionService } from './services/TransactionService';
+import { Chains, MoonSDKConfig } from './types';
 
-/**
- * Configuration options for the MoonSDK class.
- * MoonSDK - A comprehensive SDK for blockchain interactions and authentication.
- *
- * This SDK provides a wide range of functionalities for interacting with various blockchain networks,
- * including Ethereum, Bitcoin, Solana, and others. It also includes authentication methods,
- * transaction signing, and integration with services like Aave, Uniswap, and Yearn.
- *
- * Key features:
- * - Multiple blockchain support (Ethereum, Bitcoin, Solana, Cosmos, EOS, etc.)
- * - Authentication methods (OAuth, magic link, email/password, passkeys)
- * - Transaction signing and sending
- * - Integration with DeFi protocols (Aave, Uniswap, Yearn)
- * - ENS support
- * - ERC20, ERC721, and ERC1155 token interactions
- * - Sign-in with Ethereum (SIWE) support
- *
- * The SDK is built on top of various APIs and uses Supabase for authentication management.
- * It extends EventEmitter to allow for event-based programming patterns.
- *
- * Usage:
- * const sdk = new MoonSDK(config);
- * await sdk.connect();
- * const accounts = await sdk.listAccounts();
- *
- * @class
- * @extends EventEmitter
- */
-export interface MoonSDKConfig {
-  /**
-   * The API key to use for authentication with the Moon API.
-   */
-  apiKey?: string;
-
-  /**
-   * An instance of the Supabase client to use for authentication with the Moon API.
-   */
-  authInstance?: SupabaseClient;
-
-  /**
-   * Configuration options for the HTTP client used by the MoonSDK class.
-   */
-  httpParams?: ApiConfig;
-
-  /**
-   * An instance of the HttpClient class to use for making HTTP requests to the Moon API.
-   */
-  httpInstance?: HttpClient;
-
-  clientId?: string;
-}
-interface User {
-  address: string | null;
-  auth: Auth | null;
-  created_at: string;
-  email: string | null;
-  id: number;
-  users: string | null;
-}
-
-interface Auth {
-  genNonce: string; // Assuming genNonce should be a string. If it's meant to hold a different type, adjust accordingly.
-  lastAuth: string; // ISO string format date
-  lastAuthStatus: 'success' | 'failed'; // Assuming only 'success' or 'failed' are valid statuses. Adjust as necessary.
-}
-
-/**
- * A class that provides an interface to interact with various blockchain networks and services using the Moon API.
- */
 export class MoonSDK extends EventEmitter {
-  private AccountsSDK: Accounts;
-  private ENSSDK: Ens;
-  private Erc20SDK: Erc20;
-  private Erc1155SDK: Erc1155;
-  private Erc721SDK: Erc721;
-  private BitcoinSDK: Bitcoin;
-  private SolanaSDK: Solana;
-  private CosmosSDK: Cosmos;
-  private EosSDK: Eos;
-  private LitecoinSDK: Litecoin;
-  private RippleSDK: Ripple;
-  private TronSDK: Tron;
-  private BitcoincashSDK: Bitcoincash;
-  private DogecoinSDK: Dogecoin;
-  private MoonAPIClient: SupabaseClient;
-  private http: HttpClient;
-  private Erc4626SDK: Erc4626;
-  private LendingPoolSDK: LendingPool;
-  private LeveragerSDK: Leverager;
-  private LifiSDK: Lifi;
-  private OdosSDK: Odos;
-  private OnramperSDK: Onramper;
-  private ThorswapSDK: Thorswap;
-  private AaveSDK: Aave;
-  private MultiCallSDK: Multicall;
-  private ThenaSDK: Thena;
-  private JupiterSDK: Jupiter;
-  private DataSDK: Data;
-  private UniswapSDK: Uniswap;
-  private RamsesSDK: Ramses;
-  private PolymarketSDK: Polymarket;
-  private LynexSDK: Lynex;
-  isAuthenticated = false;
-  private config: MoonSDKConfig;
-  /**
-   * Creates a new instance of the MoonSDK class.
-   * @param config Configuration options for the MoonSDK class.
-   */
+  public supabase: SupabaseClient;
+  private configService: ConfigurationService;
+  public auth: AuthService;
+  public cache: CacheService;
+  private chainService: ChainService;
+  private eventService: EventService;
+  private providerService: ProviderService;
+  private transactionService: TransactionService;
+  private moonAPIService: MoonAPIService;
+  private solanaService: SolanaService;
+  private oauth2Service: OAuth2Service;
+
   constructor(config?: MoonSDKConfig) {
     super();
-    this.config = config || ({} as MoonSDKConfig);
-    if (config) {
-      this.config = config;
-    }
-    if (config && config.authInstance) {
-      this.MoonAPIClient = config.authInstance;
-    }
-    if (config && config.apiKey) {
-      this.MoonAPIClient = createClient(
-        'https://api.usemoon.ai',
-        config.apiKey,
-        {}
+    this.configService = new ConfigurationService(config);
+    if (!this.configService.getConfig().authInstance) {
+      this.supabase = createClient(
+        this.configService.getConfig().supabaseUrl || '',
+        this.configService.getConfig().supabaseKey || ''
       );
     } else {
-      this.MoonAPIClient = createClient(
-        'https://api.usemoon.ai',
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzAzMTE2ODAwLAogICJleHAiOiAxODYwOTY5NjAwCn0.nA4p2oP7XNlo93VqnyOlwz_wy7pDXW3lUki1t_udpbA',
-        {}
-      );
+      this.supabase = this.configService.getConfig()
+        .authInstance as SupabaseClient;
     }
-    this.MoonAPIClient.auth.onAuthStateChange((event, session) => {
+    this.cache = new CacheService(
+      this.configService.getConfig().cacheOptions || {
+        max: 1000,
+        maxAge: 1000 * 60 * 60 * 24, // 24 hours
+      }
+    );
+    this.chainService = new ChainService(this);
+    this.eventService = new EventService();
+    this.moonAPIService = new MoonAPIService(
+      this.configService.getConfig().baseUrl
+    );
+    this.auth = new AuthService(this);
+    this.providerService = new ProviderService(this);
+    this.transactionService = new TransactionService(
+      this,
+      this.providerService
+    );
+    this.solanaService = new SolanaService(this.moonAPIService);
+    this.oauth2Service = new OAuth2Service(
+      this,
+      this.configService.getConfig().clientId || ''
+    );
+
+    this.setupAuthListeners();
+    this.setupChains();
+  }
+  public getConfig() {
+    return this.configService.getConfig();
+  }
+
+  public updateConfig(config: Partial<MoonSDKConfig>) {
+    this.configService.updateConfig(config);
+  }
+
+  public getProviderService(): ProviderService {
+    return this.providerService;
+  }
+  private setupAuthListeners() {
+    this.auth.onAuthStateChange((event, session) => {
       switch (event) {
-        case 'INITIAL_SESSION':
         case 'SIGNED_IN':
         case 'TOKEN_REFRESHED':
-          this.http.setSecurityData({
-            token: session?.access_token,
-          });
-          this.isAuthenticated = true;
-          this.emit('connected');
+          this.auth.isAuthenticated = true;
+          this.moonAPIService.setSecurityData(session?.access_token || '');
+          this.eventService.emit('connected', session);
           break;
         case 'SIGNED_OUT':
-          this.isAuthenticated = false;
-          this.http.setSecurityData({
-            token: '',
-          });
-          this.emit('disconnected');
+          this.auth.isAuthenticated = false;
+          this.moonAPIService.setSecurityData('');
+          this.eventService.emit('disconnected');
           break;
       }
     });
-
-    if (config && config.httpInstance) {
-      this.http = config.httpInstance;
-    }
-
-    if (config && config.httpParams) {
-      this.http = new HttpClient(config.httpParams);
-    } else {
-      const baseApiParams: ApiConfig = {
-        baseUrl: 'https://beta.usemoon.ai',
-        baseApiParams: {
-          secure: true,
-          type: ContentType.Json,
-          format: 'json',
-        },
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        securityWorker: async (securityData: any) => {
-          return Promise.resolve({
-            headers: {
-              Authorization: `Bearer ${securityData.token}`,
-            },
-          });
-        },
-      };
-      this.http = new HttpClient(baseApiParams);
-    }
-    this.AccountsSDK = new Accounts(this.http);
-
-    this.ENSSDK = new Ens(this.http);
-
-    this.Erc20SDK = new Erc20(this.http);
-
-    this.Erc1155SDK = new Erc1155(this.http);
-
-    this.Erc721SDK = new Erc721(this.http);
-
-    this.BitcoinSDK = new Bitcoin(this.http);
-
-    this.BitcoincashSDK = new Bitcoincash(this.http);
-
-    this.DogecoinSDK = new Dogecoin(this.http);
-
-    this.SolanaSDK = new Solana(this.http);
-    this.CosmosSDK = new Cosmos(this.http);
-
-    this.EosSDK = new Eos(this.http);
-
-    this.LitecoinSDK = new Litecoin(this.http);
-
-    this.RippleSDK = new Ripple(this.http);
-
-    this.TronSDK = new Tron(this.http);
-    this.Erc4626SDK = new Erc4626(this.http);
-    this.LendingPoolSDK = new LendingPool(this.http);
-    this.LeveragerSDK = new Leverager(this.http);
-    this.LifiSDK = new Lifi(this.http);
-    this.OdosSDK = new Odos(this.http);
-    this.OnramperSDK = new Onramper(this.http);
-    this.ThorswapSDK = new Thorswap(this.http);
-    this.MultiCallSDK = new Multicall(this.http);
-    this.AaveSDK = new Aave(this.http);
-    this.DataSDK = new Data(this.http);
-    this.ThenaSDK = new Thena(this.http);
-    this.JupiterSDK = new Jupiter(this.http);
-    this.UniswapSDK = new Uniswap(this.http);
-    this.RamsesSDK = new Ramses(this.http);
-    this.PolymarketSDK = new Polymarket(this.http);
-    this.LynexSDK = new Lynex(this.http);
-
-    this.connect();
   }
-  /**
-   * Returns the instance of the HttpClient class used by the MoonSDK class.
-   */
-  public getHttpClient(): HttpClient {
-    return this.http;
+  public getSolanaService(): SolanaService {
+    return this.solanaService;
   }
-  public async connect(
-    accessToken?: string,
-    refreshToken?: string
-  ): Promise<void> {
+
+  public async setupChains() {
+    await this.chainService.getChains();
+  }
+  async connect(accessToken?: string, refreshToken?: string): Promise<void> {
     try {
-      if (accessToken && refreshToken) {
-        this.MoonAPIClient.auth.setSession({
-          access_token: accessToken,
-          refresh_token: refreshToken,
-        });
-        this.isAuthenticated = true;
-        this.emit('connected');
+      await this.auth.connect(accessToken, refreshToken);
+    } catch (error) {
+      this.eventService.emit('error', { method: 'connect', error });
+      if (error instanceof AuthenticationError) {
+        throw error;
       } else {
-        const { data, error } = await this.MoonAPIClient.auth.getSession();
-        if (data) {
-          this.http.setSecurityData({
-            token: data.session?.access_token,
-          });
-          this.isAuthenticated = true;
-          this.emit('connected');
-        }
-        if (error) {
-          this.isAuthenticated = false;
-          throw new Error(error.message);
-        }
+        throw new AuthenticationError(`Failed to connect: ${error}`);
       }
+    }
+  }
+  async getChains(): Promise<Chains[]> {
+    return this.chainService.getChains();
+  }
+
+  public getChainService(): ChainService {
+    return this.chainService;
+  }
+  async disconnect(): Promise<void> {
+    try {
+      await this.auth.logout();
     } catch (error) {
-      this.emit('error', error);
-      throw error;
+      this.eventService.emit('error', { method: 'disconnect', error });
+      throw new AuthenticationError(`Failed to disconnect: ${error}`);
     }
   }
 
-  public async disconnect(): Promise<void> {
+  async listAccounts(): Promise<string[]> {
     try {
-      this.MoonAPIClient.auth.signOut();
-      this.isAuthenticated = false;
-      this.http.setSecurityData({
-        token: '',
-      });
-      this.emit('disconnected');
-    } catch (error) {
-      this.emit('error', error);
-      throw error;
-    }
-  }
-
-  public getMoonAuth(): SupabaseClient {
-    return this.MoonAPIClient;
-  }
-  public async getUserSession(): Promise<Session | null> {
-    try {
-      const { data, error } = await this.MoonAPIClient.auth.getSession();
-      if (error) {
-        throw new Error(error.message);
-      }
-      return data?.session || null;
-    } catch (error) {
-      this.emit('error', error);
-      throw error;
-    }
-  }
-
-  public getSolanaSDK(): Solana {
-    return this.SolanaSDK;
-  }
-
-  public getBitcoinSDK(): Bitcoin {
-    return this.BitcoinSDK;
-  }
-
-  public getCosmosSDK(): Cosmos {
-    return this.CosmosSDK;
-  }
-
-  public getEosSDK(): Eos {
-    return this.EosSDK;
-  }
-
-  public getLitecoinSDK(): Litecoin {
-    return this.LitecoinSDK;
-  }
-
-  public getRippleSDK(): Ripple {
-    return this.RippleSDK;
-  }
-
-  public getTronSDK(): Tron {
-    return this.TronSDK;
-  }
-
-  public getBitcoincashSDK(): Bitcoincash {
-    return this.BitcoincashSDK;
-  }
-
-  public getDogecoinSDK(): Dogecoin {
-    return this.DogecoinSDK;
-  }
-
-  public getAccountsSDK(): Accounts {
-    return this.AccountsSDK;
-  }
-  public getENSSDK(): Ens {
-    return this.ENSSDK;
-  }
-
-  public getErc20SDK(): Erc20 {
-    return this.Erc20SDK;
-  }
-
-  public getErc1155SDK(): Erc1155 {
-    return this.Erc1155SDK;
-  }
-
-  public getErc721SDK(): Erc721 {
-    return this.Erc721SDK;
-  }
-  public getErc4626SDK(): Erc4626 {
-    return this.Erc4626SDK;
-  }
-
-  public getLendingPoolSDK(): LendingPool {
-    return this.LendingPoolSDK;
-  }
-
-  public getLeveragerSDK(): Leverager {
-    return this.LeveragerSDK;
-  }
-
-  public getLifiSDK(): Lifi {
-    return this.LifiSDK;
-  }
-
-  public getOdosSDK(): Odos {
-    return this.OdosSDK;
-  }
-
-  public getOnramperSDK(): Onramper {
-    return this.OnramperSDK;
-  }
-
-  public getThorswapSDK(): Thorswap {
-    return this.ThorswapSDK;
-  }
-
-  public getAaveSDK(): Aave {
-    return this.AaveSDK;
-  }
-
-  public getMultiCallSDK(): Multicall {
-    return this.MultiCallSDK;
-  }
-  public getDataSDK(): Data {
-    return this.DataSDK;
-  }
-
-  public getThenaSDK(): Thena {
-    return this.ThenaSDK;
-  }
-
-  public getJupiterSDK(): Jupiter {
-    return this.JupiterSDK;
-  }
-  public getUniswapSDK(): Uniswap {
-    return this.UniswapSDK;
-  }
-
-  public getRamsesSDK(): Ramses {
-    return this.RamsesSDK;
-  }
-
-  public getPolymarketSDK(): Polymarket {
-    return this.PolymarketSDK;
-  }
-
-  public getLynexSDK(): Lynex {
-    return this.LynexSDK;
-  }
-
-  /**
-   * Returns a list of Ethereum accounts managed by the Moon API.
-   */
-  public async listAccounts(): Promise<string[]> {
-    try {
-      const response = await this.getAccountsSDK().listAccounts();
-      const accounts = response.data?.data.keys || [];
-      this.emit('accountsListed', accounts);
+      const accounts = await this.moonAPIService.listAccounts();
+      this.eventService.emit('accountsListed', accounts);
       return accounts;
     } catch (error) {
-      this.emit('error', error);
-      throw error;
+      this.eventService.emit('error', { method: 'listAccounts', error });
+      throw new NetworkError(`Failed to list accounts: ${error}`);
     }
   }
-  /**
-   * Creates a new Ethereum account and returns its address.
-   */
-  public async createAccount(): Promise<string> {
+
+  async createAccount(): Promise<string> {
     try {
-      const response = await this.getAccountsSDK().createAccount({});
-      const account = response.data?.data.address || '';
-      this.emit('accountCreated', account);
+      const account = await this.moonAPIService.createAccount();
+      this.eventService.emit('accountCreated', account);
       return account;
     } catch (error) {
-      this.emit('error', error);
-      throw error;
+      this.eventService.emit('error', { method: 'createAccount', error });
+      throw new NetworkError(`Failed to create account: ${error}`);
     }
   }
 
-  /**
-   * Converts a MoonTransaction object to an array of TransactionData objects.
-   * @param tx The MoonTransaction object to convert.
-   */
-  public moonTransactionResponseToTransactions(
-    tx: MoonTransaction
-  ): TransactionData[] {
-    return tx.transactions || [];
-  }
-
-  /**
-   * Signs a transaction using the private key of the specified Ethereum account.
-   * @param wallet The address of the Ethereum account to use for signing the transaction.
-   * @param transaction The transaction to sign.
-   */
-  public async SignTransaction(
-    wallet: string,
-    transaction: InputBody
-  ): Promise<string> {
+  async signTransaction(wallet: string, transaction: any): Promise<string> {
     try {
-      const response = await this.getAccountsSDK().signTransaction(
+      const signedTransaction = await this.moonAPIService.signTransaction(
         wallet,
         transaction
       );
-      const signedTransaction =
-        response?.data?.transactions?.at(0)?.raw_transaction || '';
-      this.emit('transactionSigned', signedTransaction);
+      this.eventService.emit('transactionSigned', signedTransaction);
       return signedTransaction;
     } catch (error) {
-      this.emit('error', error);
-      throw error;
+      this.eventService.emit('error', { method: 'signTransaction', error });
+      throw new NetworkError(`Failed to sign transaction: ${error}`);
     }
   }
-  /**
-   * Signs a message using the private key of the specified Ethereum account.
-   * @param wallet The address of the Ethereum account to use for signing the message.
-   * @param message The message to sign.
-   */
-  public async SignMessage(
-    wallet: string,
-    message: BytesLike
-  ): Promise<string> {
+  async signMessage(wallet: string, message: BytesLike): Promise<string> {
     try {
-      const hash = new Uint8Array(arrayify(hashMessage(message)));
-      const response = await this.getAccountsSDK().signMessage(wallet, {
-        data: hash.toString(),
-        encoding: 'utf-8',
-      });
-      const signedMessage = response?.data?.signed_message || '';
-      this.emit('messageSigned', signedMessage);
-      return signedMessage;
+      const signedMessage = await this.moonAPIService
+        .getAccountsSDK()
+        .signMessage(wallet, { data: message.toString(), encoding: 'utf-8' });
+      this.eventService.emit(
+        'messageSigned',
+        signedMessage.data?.signed_message
+      );
+      return signedMessage.data?.signed_message || '';
     } catch (error) {
-      this.emit('error', error);
-      throw error;
+      this.eventService.emit('error', { method: 'signMessage', error });
+      throw new NetworkError(`Failed to sign message: ${error}`);
     }
   }
-  /**
-   * Signs a typed data object using the private key of the specified Ethereum account.
-   * @param wallet The address of the Ethereum account to use for signing the typed data object.
-   * @param domain The typed data domain object.
-   * @param types The typed data types object.
-   * @param value The typed data value object.
-   */
-  public async SignTypedData(
+
+  async signTypedData(
     wallet: string,
     domain: TypedDataDomain,
     types: Record<string, Array<TypedDataField>>,
-    value: Record<string, string>
+    value: Record<string, any>
   ): Promise<string> {
     try {
-      const fullTypes: Record<string, TypedDataField[]> = {
-        ...types,
-      };
-
-      if (!fullTypes.EIP712Domain) {
-        fullTypes.EIP712Domain = [
-          { name: 'name', type: 'string' },
-          { name: 'version', type: 'string' },
-          { name: 'chainId', type: 'uint256' },
-        ];
-        // Check if verifyingContract is needed
-        if (domain.verifyingContract) {
-          fullTypes.EIP712Domain.push({
-            name: 'verifyingContract',
-            type: 'address',
-          });
-        }
-      }
-
       const data = JSON.stringify({
         domain,
-        types: fullTypes,
-        primaryType: Object.keys(types)[0], // Assume the first key is the primary type
+        types,
+        primaryType: Object.keys(types)[0],
         message: value,
       });
-
-      const response = await this.getAccountsSDK().signTypedData(wallet, {
-        data,
-      });
-
-      if (!response.data?.signature) {
-        throw new Error('No signature returned');
-      }
-
-      const signedTypedData = response?.data?.signature || '';
-      this.emit('typedDataSigned', signedTypedData);
-      return signedTypedData;
+      const response = await this.moonAPIService
+        .getAccountsSDK()
+        .signTypedData(wallet, { data });
+      this.eventService.emit('typedDataSigned', response.data?.signature);
+      return response.data?.signature || '';
     } catch (error) {
-      this.emit('error', error);
-      throw error;
+      this.eventService.emit('error', { method: 'signTypedData', error });
+      throw new NetworkError(`Failed to sign typed data: ${error}`);
     }
   }
-  /**
-   * Sends a signed transaction to the specified blockchain network.
-   * @param wallet The address of the Ethereum account that signed the transaction.
-   * @param rawTransaction The signed transaction to send.
-   * @param chain_id The ID of the blockchain network to send the transaction to.
-   */
-  public async SendTransaction(
+
+  async sendTransaction(
     wallet: string,
     rawTransaction: string,
-    chain_id: string
+    chainId: string
   ): Promise<string> {
     try {
-      const response = await this.getAccountsSDK().broadcastTx(wallet, {
-        rawTransaction: rawTransaction,
-        chainId: chain_id,
-      });
-      const transactionHash = response.data?.data || '';
-      this.emit('transactionSent', transactionHash);
-      return transactionHash;
+      const transactionHash = await this.moonAPIService
+        .getAccountsSDK()
+        .broadcastTx(wallet, { rawTransaction, chainId });
+      this.eventService.emit('transactionSent', transactionHash.data?.data);
+      return transactionHash.data?.data || '';
     } catch (error) {
-      this.emit('error', error);
-      throw error;
+      this.eventService.emit('error', { method: 'sendTransaction', error });
+      throw new NetworkError(`Failed to send transaction: ${error}`);
     }
   }
 
-  /**
-   * Returns a list of supported blockchain networks.
-   */
-  public async getChains(): Promise<Chains[]> {
-    try {
-      const { data, error } = await this.MoonAPIClient.from('chains').select(
-        '*'
-      );
-      if (error) {
-        throw new Error(error.message);
-      }
-      this.emit('chainsFetched', data);
-      return data as Chains[];
-    } catch (error) {
-      this.emit('error', error);
-      throw error;
-    }
+  getEthereumProvider(chainId: number) {
+    return this.providerService.getEthereumProvider(chainId);
   }
 
-  /**
-   * Returns information about a specific blockchain network based on its ID.
-   * @param id The ID of the blockchain network to retrieve information about.
-   */
-  public async getChainById(id: string): Promise<Chains> {
-    try {
-      const { data, error } = await this.MoonAPIClient.from('chains')
-        .select('*')
-        .eq('chain_id', id);
-      if (error) {
-        throw new Error(error.message);
-      }
-      this.emit('chainFetched', data[0]);
-      return data[0] as Chains;
-    } catch (error) {
-      this.emit('error', error);
-      throw error;
-    }
-  }
-  public async performDiscordOAuth() {
-    if (!this.config || !this.config.clientId) {
-      throw new Error('Configuration is missing or clientId is not specified');
-    }
-    const provider = 'discord';
-    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}?clientId=${this.config.clientId}`;
-    window.location.href = uri;
+  getSolanaProvider() {
+    return this.providerService.getSolanaProvider();
   }
 
-  public async performDiscordOauthCodeExchange(code: string) {
-    const provider = 'discord';
-    // Ensure clientId is accessed correctly from this.config
-    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}/token?code=${code}`;
-
-    const response = await fetch(uri, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(
-        `Server responded with ${response.status}: ${response.statusText}`
-      );
-    }
-
-    const token = await response.json();
-    await this.connect(token.access_token, token.refresh_token);
-    return token;
-  }
-  public async performGithubOAuth() {
-    if (!this.config || !this.config.clientId) {
-      throw new Error('Configuration is missing or clientId is not specified');
-    }
-
-    const provider = 'github';
-    // Correctly construct the URI with clientId as a query parameter
-    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}?clientId=${this.config.clientId}`;
-    window.location.href = uri;
+  async estimateGas(
+    transaction: Partial<ethers.providers.TransactionRequest>
+  ): Promise<ethers.BigNumber> {
+    return this.transactionService.estimateGas(transaction);
   }
 
-  public async performGithubOauthCodeExchange(code: string) {
-    const provider = 'github';
-    // Correctly use POST method and include code in the body, not in the URL
-    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}/token?code=${code}`;
-    const response = await fetch(uri, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(
-        `Server responded with ${response.status}: ${response.statusText}`
-      );
-    }
-
-    const token = await response.json();
-    await this.connect(token.access_token, token.refresh_token);
-    return token;
-  }
-  public async performGoogleOAuth() {
-    if (!this.config || !this.config.clientId) {
-      throw new Error('Configuration is missing or clientId is not specified');
-    }
-
-    const provider = 'google';
-    // Correctly construct the URI with clientId as a query parameter, not as part of the path
-    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}?client_id=${this.config.clientId}`;
-    window.location.href = uri;
+  async getGasPrice(): Promise<ethers.BigNumber> {
+    return this.transactionService.getGasPrice();
   }
 
-  public async performGoogleOauthCodeExchange(code: string) {
-    const provider = 'google';
-    // Correctly use POST method and include code in the body, not in the URL
-    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}/token?code=${code}`;
-    const response = await fetch(uri, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(
-        `Server responded with ${response.status}: ${response.statusText}`
-      );
-    }
-
-    const token = await response.json();
-    await this.connect(token.access_token, token.refresh_token);
-    return token;
+  watchTransaction(
+    txHash: string,
+    confirmations = 1
+  ): Promise<ethers.providers.TransactionReceipt> {
+    return this.transactionService.watchTransaction(txHash, confirmations);
   }
 
-  public async performTwitterOauth() {
-    if (!this.config || !this.config.clientId) {
-      throw new Error('Configuration is missing or clientId is not specified');
-    }
-
-    const provider = 'twitter';
-    // Correctly construct the URI with clientId as a query parameter, not as part of the path
-    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}?clientId=${this.config.clientId}`;
-    window.location.href = uri;
-  }
-
-  public async performTwitterOauthCodeExchange(code: string) {
-    const provider = 'twitter';
-    // Use POST method and include code in the body instead of the URL
-    const uri = `https://beta.usemoon.ai/auth/oauth2/${provider}/${this.config.clientId}/token?code=${code}`;
-    const response = await fetch(uri, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(
-        `Server responded with ${response.status}: ${response.statusText}`
-      );
-    }
-
-    const token = await response.json();
-    await this.connect(token.access_token, token.refresh_token);
-    return token;
-  }
-
-  public async sendMagicLink(email: string, redirectTo: string) {
-    const { error } = await this.getMoonAuth().auth.signInWithOtp({
-      email: email,
-      options: {
-        emailRedirectTo: redirectTo,
-      },
-    });
-
-    if (error) throw error;
-  }
-  // Email
-
-  public async signUp(email: string, password: string) {
-    const { error } = await this.getMoonAuth().auth.signUp({
-      email,
-      password,
-    });
-    if (error) {
-      throw error;
-    }
-  }
-
-  public async signInWithPassword(email: string, password: string) {
-    const { error } = await this.getMoonAuth().auth.signInWithPassword({
-      email,
-      password,
-    });
-    if (error) {
-      throw error;
-    }
-  }
-  public async signInWithPhone(phone: string, password: string) {
-    const { error } = await this.getMoonAuth().auth.signInWithPassword({
-      phone,
-      password,
-    });
-    if (error) {
-      throw error;
-    }
-  }
-
-  public async handlePassKeyLogin(
-    email: string
-  ): Promise<PublicKeyCredentialRequestOptionsJSON> {
-    try {
-      const res = await fetch('https://dash.usemoon.ai/api/webauthn/login', {
-        method: 'POST',
-        body: JSON.stringify({ email }),
-        headers: { 'Content-Type': 'application/json' },
-      });
-      if (!res.ok) {
-        throw new Error(
-          `Server responded with ${res.status}: ${res.statusText}`
-        );
-      }
-      const data = await res.json();
-      if (!data.optionsAuth) {
-        throw new Error('optionsAuth is missing in the response');
-      }
-      return data.optionsAuth;
-    } catch (error) {
-      console.error('Failed to handle passkey login:', error);
-      throw error; // Rethrow the error after logging it
-    }
-  }
-
-  public async handlePasskeyLoginVerify(
+  async signInWithEmail(
     email: string,
-    credential: PublicKeyCredentialRequestOptionsJSON
-  ) {
-    try {
-      const res = await fetch(
-        'https://dash.usemoon.ai/api/webauthn/login/verify',
-        {
-          method: 'POST',
-          body: JSON.stringify({
-            credential, // Wrap the credential object correctly
-            email, // Use email directly
-          }),
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
-      if (!res.ok) {
-        throw new Error(
-          `Server responded with ${res.status}: ${res.statusText}`
-        );
-      }
-      const response = await res.json();
-      return response;
-    } catch (error) {
-      console.error('Error during passkey login verification:', error);
-      throw error; // Proper error handling with try-catch
-    }
+    password: string
+  ): Promise<Session | null> {
+    return this.auth.signInWithEmail(email, password);
   }
 
-  public async handleRegister(
-    email: string
-  ): Promise<PublicKeyCredentialCreationOptionsJSON> {
-    const response = await fetch(
-      'https://dash.usemoon.ai/api/webauthn/register',
-      {
-        method: 'POST',
-        body: JSON.stringify({ email }),
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
-
-    if (!response.ok) {
-      // Check if the fetch request was successful
-      throw new Error(
-        `Server responded with ${response.status}: ${response.statusText}`
-      );
-    }
-
-    const data = await response.json(); // Parse the JSON response
-    if (!data.options) {
-      // Ensure the expected data is present
-      throw new Error('options is missing in the response');
-    }
-
-    return data.options;
-  }
-
-  public async handleRegisterVerify(
+  async signUpWithEmail(
     email: string,
-    credential: RegistrationResponseJSON,
-    options: PublicKeyCredentialCreationOptionsJSON
-  ) {
-    const res = await fetch(
-      'https://dash.usemoon.ai/api/webauthn/register/verify',
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          ...credential,
-          email: email,
-          user: {
-            ...options.user,
-          },
-        }),
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
-    if (!res.ok) {
-      throw new Error(`Server responded with ${res.status}: ${res.statusText}`);
-    }
-    const response = await res.json();
-    return response;
+    password: string
+  ): Promise<Session | null> {
+    return this.auth.signUpWithEmail(email, password);
   }
 
-  public async getSIWENonce(address: string): Promise<string> {
-    const nonceResponse = await fetch(
-      `https://beta.usemoon.ai/auth/ethereum/nonce`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          address: address,
-        }),
-      }
-    );
-
-    const data = await nonceResponse.json();
-    if (!data.user || data.user.length === 0) {
-      throw new Error('User data is missing or empty');
-    }
-
-    if (!data.user[0].auth) {
-      throw new Error('Auth data is missing');
-    }
-
-    return data.user[0].auth.genNonce;
+  async signInWithOAuth(
+    provider: 'google' | 'github' | 'discord'
+  ): Promise<void> {
+    return this.auth.signInWithOAuth(provider);
   }
-  public async verifySIWESignature(
+
+  async getSIWENonce(address: string): Promise<string> {
+    return this.auth.getSIWENonce(address);
+  }
+
+  async verifySIWESignature(
     address: string,
     signedMessage: string,
     nonce: string,
     message: SiweMessage
-  ): Promise<{ token: Session }> {
+  ): Promise<Session> {
+    return this.auth.verifySIWESignature(
+      address,
+      signedMessage,
+      nonce,
+      message
+    );
+  }
+
+  async getUserSession(): Promise<Session | null> {
+    return this.auth.getUserSession();
+  }
+
+  setProvider(provider: 'moon' | 'metamask' | 'walletconnect') {
+    this.getProviderService();
+    this.eventService.emit('providerChanged', provider);
+  }
+
+  async switchChain(chainId: number): Promise<void> {
     try {
-      const response = await fetch(
-        `https://beta.usemoon.ai/auth/ethereum/login`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            address,
-            signedMessage,
-            nonce,
-            message: message.prepareMessage(),
-          }),
-        }
-      );
-
-      const responseData = await response.json();
-
-      if (!response.ok) {
-        throw new Error(responseData.error || 'Unknown error occurred');
+      const chain = await this.chainService.getChainById(chainId.toString());
+      this.chainService.setSelectedChain(chain);
+      if (this.getProviderService().getCurrentProvider() !== 'moon') {
+        await (window as any).ethereum.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: `0x${chainId.toString(16)}` }],
+        });
       }
-
-      if (
-        !responseData.token ||
-        !responseData.token.accessToken ||
-        !responseData.token.refreshToken
-      ) {
-        throw new Error('Invalid token data received');
-      }
-
-      await this.connect(
-        responseData.token.accessToken,
-        responseData.token.refreshToken
-      );
-
-      return responseData;
+      this.eventService.emit('chainSwitched', chain);
     } catch (error) {
-      console.error('Error in verifySIWESignature:', error);
-      throw error;
+      this.eventService.emit('error', {
+        method: 'switchChain',
+        error,
+        chainId,
+      });
+      throw new NetworkError(`Failed to switch chain: ${error}`);
+    }
+  }
+  async addToken(
+    address: string,
+    symbol: string,
+    decimals: number,
+    image?: string
+  ): Promise<boolean> {
+    try {
+      await (window as any).ethereum.request({
+        method: 'wallet_watchAsset',
+        params: {
+          type: 'ERC20',
+          options: { address, symbol, decimals, image },
+        },
+      });
+      this.eventService.emit('tokenAdded', {
+        address,
+        symbol,
+        decimals,
+        image,
+      });
+      return true;
+    } catch (error) {
+      this.eventService.emit('error', {
+        method: 'addToken',
+        error,
+        address,
+        symbol,
+        decimals,
+        image,
+      });
+      return false;
     }
   }
 
-  /**
-   * Creates an embedded account for a user.
-   * @param email The email address of the user.
-   * @param uuid A unique identifier for the user.
-   * @param domain The domain associated with the embedded account.
-   * @returns A Promise that resolves to a Session object.
-   */
-  public async embeddedAccount(
+  async getENSName(address: string): Promise<string | null> {
+    try {
+      const provider = await this.getEthereumProvider(
+        this.chainService.getSelectedChain()?.chain_id || 1
+      );
+      const ensName = await provider.lookupAddress(address);
+      this.eventService.emit('ensNameFetched', { address, ensName });
+      return ensName;
+    } catch (error) {
+      this.eventService.emit('error', { method: 'getENSName', error, address });
+      throw new NetworkError(`Failed to fetch ENS name: ${error}`);
+    }
+  }
+
+  async resolveENSName(ensName: string): Promise<string | null> {
+    try {
+      const provider = await this.getEthereumProvider(
+        this.chainService.getSelectedChain()?.chain_id || 1
+      );
+      const address = await provider.resolveName(ensName);
+      this.eventService.emit('ensNameResolved', { ensName, address });
+      return address;
+    } catch (error) {
+      this.eventService.emit('error', {
+        method: 'resolveENSName',
+        error,
+        ensName,
+      });
+      throw new NetworkError(`Failed to resolve ENS name: ${error}`);
+    }
+  }
+  async performDiscordOAuth(): Promise<void> {
+    return this.oauth2Service.initiateOAuth('discord');
+  }
+
+  async performDiscordOauthCodeExchange(code: string): Promise<any> {
+    return this.oauth2Service.exchangeCodeForToken('discord', code);
+  }
+
+  async performGithubOAuth(): Promise<void> {
+    return this.oauth2Service.initiateOAuth('github');
+  }
+
+  async performGithubOauthCodeExchange(code: string): Promise<any> {
+    return this.oauth2Service.exchangeCodeForToken('github', code);
+  }
+
+  async performGoogleOAuth(): Promise<void> {
+    return this.oauth2Service.initiateOAuth('google');
+  }
+
+  async performGoogleOauthCodeExchange(code: string): Promise<any> {
+    return this.oauth2Service.exchangeCodeForToken('google', code);
+  }
+
+  async performTwitterOauth(): Promise<void> {
+    return this.oauth2Service.initiateOAuth('twitter');
+  }
+
+  async performTwitterOauthCodeExchange(code: string): Promise<any> {
+    return this.oauth2Service.exchangeCodeForToken('twitter', code);
+  }
+
+  async sendMagicLink(email: string, redirectTo: string): Promise<void> {
+    return this.auth.sendMagicLink(email, redirectTo);
+  }
+
+  async signUp(email: string, password: string): Promise<Session | null> {
+    return this.auth.signUpWithEmail(email, password);
+  }
+
+  async signInWithPassword(
+    email: string,
+    password: string
+  ): Promise<Session | null> {
+    return this.auth.signInWithEmail(email, password);
+  }
+
+  async signInWithPhone(phone: string, password: string): Promise<void> {
+    return;
+  }
+  async handlePassKeyLogin(
+    email: string
+  ): Promise<PublicKeyCredentialRequestOptionsJSON> {
+    return this.auth.initiatePasskeyLogin(email);
+  }
+
+  async handlePasskeyLoginVerify(
+    email: string,
+    credential: AuthenticationResponseJSON
+  ): Promise<Session> {
+    return this.auth.completePasskeyLogin(email, credential);
+  }
+
+  async handleRegister(
+    email: string
+  ): Promise<PublicKeyCredentialCreationOptionsJSON> {
+    return this.auth.initiatePasskeyRegistration(email);
+  }
+
+  async handleRegisterVerify(
+    email: string,
+    credential: RegistrationResponseJSON,
+    options: PublicKeyCredentialCreationOptionsJSON
+  ): Promise<void> {
+    return this.auth.completePasskeyRegistration(email, credential, options);
+  }
+
+  async embeddedAccount(
     email: string,
     uuid: string,
     domain: string
   ): Promise<Session> {
-    // Get the current user session
-    const token = await this.getUserSession();
-    if (!token?.access_token) {
-      throw new Error('User session token is missing or invalid');
-    }
+    return this.auth.createEmbeddedAccount(email, uuid, domain);
+  }
 
-    try {
-      // Make a POST request to create the embedded account
-      const response = await fetch('https://beta.usemoon.ai/client', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token.access_token}`,
-        },
-        body: JSON.stringify({
-          name: email,
-          metadata: {
-            from: domain,
-            user: uuid,
-          },
-        }),
-      });
+  public getSolanaSDK(): MoonAPI.Solana {
+    return this.moonAPIService.getSolanaSDK();
+  }
 
-      // Check if the response is successful
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(
-          errorData.error || `Server responded with ${response.status}`
-        );
-      }
+  public getBitcoinSDK(): MoonAPI.Bitcoin {
+    return this.moonAPIService.getBitcoinSDK();
+  }
 
-      // Parse the response data
-      const data = await response.json();
-      if (!data.token) {
-        throw new Error('Token data is missing in the response');
-      }
+  public getCosmosSDK(): MoonAPI.Cosmos {
+    return this.moonAPIService.getCosmosSDK();
+  }
 
-      // Return the token as a Session object
-      return data.token as Session;
-    } catch (error) {
-      // Log and rethrow any errors that occur
-      console.error('Error in embeddedAccount:', error);
-      throw error;
-    }
+  public getEosSDK(): MoonAPI.Eos {
+    return this.moonAPIService.getEosSDK();
+  }
+
+  public getLitecoinSDK(): MoonAPI.Litecoin {
+    return this.moonAPIService.getLitecoinSDK();
+  }
+
+  public getRippleSDK(): MoonAPI.Ripple {
+    return this.moonAPIService.getRippleSDK();
+  }
+
+  public getTronSDK(): MoonAPI.Tron {
+    return this.moonAPIService.getTronSDK();
+  }
+
+  public getBitcoincashSDK(): MoonAPI.Bitcoincash {
+    return this.moonAPIService.getBitcoincashSDK();
+  }
+
+  public getDogecoinSDK(): MoonAPI.Dogecoin {
+    return this.moonAPIService.getDogecoinSDK();
+  }
+
+  public getAccountsSDK(): MoonAPI.Accounts {
+    return this.moonAPIService.getAccountsSDK();
+  }
+
+  public getENSSDK(): MoonAPI.Ens {
+    return this.moonAPIService.getENSSDK();
+  }
+
+  public getErc20SDK(): MoonAPI.Erc20 {
+    return this.moonAPIService.getErc20SDK();
+  }
+
+  public getErc1155SDK(): MoonAPI.Erc1155 {
+    return this.moonAPIService.getErc1155SDK();
+  }
+
+  public getErc721SDK(): MoonAPI.Erc721 {
+    return this.moonAPIService.getErc721SDK();
+  }
+
+  public getErc4626SDK(): MoonAPI.Erc4626 {
+    return this.moonAPIService.getErc4626SDK();
+  }
+
+  public getLendingPoolSDK(): MoonAPI.LendingPool {
+    return this.moonAPIService.getLendingPoolSDK();
+  }
+
+  public getLeveragerSDK(): MoonAPI.Leverager {
+    return this.moonAPIService.getLeveragerSDK();
+  }
+
+  public getLifiSDK(): MoonAPI.Lifi {
+    return this.moonAPIService.getLifiSDK();
+  }
+
+  public getOdosSDK(): MoonAPI.Odos {
+    return this.moonAPIService.getOdosSDK();
+  }
+
+  public getOnramperSDK(): MoonAPI.Onramper {
+    return this.moonAPIService.getOnramperSDK();
+  }
+
+  public getThorswapSDK(): MoonAPI.Thorswap {
+    return this.moonAPIService.getThorswapSDK();
+  }
+
+  public getAaveSDK(): MoonAPI.Aave {
+    return this.moonAPIService.getAaveSDK();
+  }
+
+  public getMultiCallSDK(): MoonAPI.Multicall {
+    return this.moonAPIService.getMultiCallSDK();
+  }
+
+  public getDataSDK(): MoonAPI.Data {
+    return this.moonAPIService.getDataSDK();
+  }
+
+  public getThenaSDK(): MoonAPI.Thena {
+    return this.moonAPIService.getThenaSDK();
+  }
+
+  public getJupiterSDK(): MoonAPI.Jupiter {
+    return this.moonAPIService.getJupiterSDK();
+  }
+
+  public getUniswapSDK(): MoonAPI.Uniswap {
+    return this.moonAPIService.getUniswapSDK();
+  }
+
+  public getRamsesSDK(): MoonAPI.Ramses {
+    return this.moonAPIService.getRamsesSDK();
+  }
+
+  public getPolymarketSDK(): MoonAPI.Polymarket {
+    return this.moonAPIService.getPolymarketSDK();
+  }
+
+  public getLynexSDK(): MoonAPI.Lynex {
+    return this.moonAPIService.getLynexSDK();
+  }
+  // Solana-specific methods
+  async getSolanaBalance(address: string): Promise<string> {
+    return this.solanaService.getBalance(address);
+  }
+
+  // Event listener methods
+  on(event: string, listener: (...args: any[]) => void): this {
+    this.eventService.on(event, listener);
+    return this;
+  }
+
+  off(event: string, listener: (...args: any[]) => void): this {
+    this.eventService.off(event, listener);
+    return this;
+  }
+
+  once(event: string, listener: (...args: any[]) => void): this {
+    this.eventService.once(event, listener);
+    return this;
   }
 }

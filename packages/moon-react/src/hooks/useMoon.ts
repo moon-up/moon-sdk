@@ -8,7 +8,7 @@ export const useMoon = () => {
   useEffect(() => {
     const sdk = new MoonSDK();
     setMoon(sdk);
-    setIsAuthenticated(sdk.isAuthenticated);
+    setIsAuthenticated(sdk.auth.isAuthenticated);
   }, []);
 
   return { moon, isAuthenticated };

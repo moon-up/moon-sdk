@@ -50,7 +50,7 @@ export const AnyTokenSelectorModal: React.FC<AnyTokenSelectorModalProps> = ({
   listProps,
   listItemProps,
 }) => {
-  let inputChainIdNumber = parseInt(initialTokenChain || "1");
+  const inputChainIdNumber = parseInt(initialTokenChain || "1");
   const { supportedTokensQuery: supportedTokensQueryLifi } = useMoonBridging();
   const { supportedTokensQuery: supportedTokensQueryOdos } = useMoonTokenSwap(
     inputChainIdNumber
@@ -97,7 +97,7 @@ export const AnyTokenSelectorModal: React.FC<AnyTokenSelectorModalProps> = ({
         ? ((supportedTokensQueryLifi.data as any).data.tokens as LiFiTokenMap)
         : ({} as LiFiTokenMap);
 
-      let lifiTokens = combineArraysFromObject<LiFiToken>(tokenDataLifi);
+      const lifiTokens = combineArraysFromObject<LiFiToken>(tokenDataLifi);
       const tokenDataLifiAsAny: AnyToken[] = lifiTokens.map(
         (token: LiFiToken) =>
           ({

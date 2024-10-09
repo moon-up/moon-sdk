@@ -86,7 +86,7 @@ export const useMoonDataSDK = () => {
         throw new Error("useMoonWalletHistory::No chain found");
       if (!chainIdToHexMapping[chain.chain_id])
         throw new Error("useMoonWalletHistory::Chain not supported");
-      let hexChain = chainIdToHexMapping[chain.chain_id].hexId;
+      const hexChain = chainIdToHexMapping[chain.chain_id].hexId;
       const response = await dataSDK.getWalletHistory({
         address: wallet || "",
         chain: hexChain,
@@ -108,7 +108,7 @@ export const useMoonDataSDK = () => {
         throw new Error("useMoonWalletHistory::No chain found");
       if (!chainIdToHexMapping[chain.chain_id])
         throw new Error("useMoonWalletHistory::Chain not supported");
-      let hexChain = chainIdToHexMapping[chain.chain_id].hexId;
+      const hexChain = chainIdToHexMapping[chain.chain_id].hexId;
       const response = await dataSDK.getWalletBalance({
         address: wallet || "",
         chain: hexChain,

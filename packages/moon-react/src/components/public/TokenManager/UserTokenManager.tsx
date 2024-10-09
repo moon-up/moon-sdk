@@ -110,7 +110,7 @@ export const UserTokenManager: React.FC = () => {
       ) {
         return false;
       }
-      let tokenType = token?.type || "erc20";
+      const tokenType = token?.type || "erc20";
       if (!activeFilters.includes(tokenType)) {
         return false;
       }

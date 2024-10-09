@@ -105,7 +105,7 @@ const ChatBot: React.FC<ChatBotProps> = ({
     setMessages([...messages, userMessage]);
 
     try {
-      let response = await fetch(
+      const response = await fetch(
         "https://api.conscience.ngrok.app/conscience/1/Cod3xV2/trigger",
         {
           method: "POST",
@@ -126,7 +126,7 @@ const ChatBot: React.FC<ChatBotProps> = ({
 
       let botMessage: ChatMessage;
       try {
-        let jsonData = JSON.parse(response.data);
+        const jsonData = JSON.parse(response.data);
         if (response.data.includes("abiFileName")) {
           botMessage = {
             id: Date.now().toString(),

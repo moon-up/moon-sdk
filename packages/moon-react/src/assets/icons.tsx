@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface SVGProps {
   className?: string;
@@ -10,7 +10,7 @@ interface SVGProps {
 export const IconClose: React.FC<SVGProps> = ({
   className,
   style,
-  fill = "currentColor",
+  fill = 'currentColor',
 }) => {
   return (
     <svg
@@ -32,7 +32,7 @@ export const IconClose: React.FC<SVGProps> = ({
 export const IconChevronRight: React.FC<SVGProps> = ({
   className,
   style,
-  fill = "currentColor",
+  fill = 'currentColor',
 }) => {
   return (
     <svg
@@ -47,9 +47,9 @@ export const IconChevronRight: React.FC<SVGProps> = ({
       <path
         d="M9 6L15 12L9 18"
         stroke={fill}
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -58,7 +58,7 @@ export const IconChevronRight: React.FC<SVGProps> = ({
 export const IconUser: React.FC<SVGProps> = ({
   className,
   style,
-  fill = "currentColor",
+  fill = 'currentColor',
 }) => {
   return (
     <svg
@@ -73,9 +73,9 @@ export const IconUser: React.FC<SVGProps> = ({
       <path
         d="M5 21C5 17.134 8.13401 14 12 14C15.866 14 19 17.134 19 21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z"
         stroke={fill}
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -84,7 +84,7 @@ export const IconUser: React.FC<SVGProps> = ({
 export const IconDiscord: React.FC<SVGProps> = ({
   className,
   style,
-  fill = "currentColor",
+  fill = 'currentColor',
 }) => {
   return (
     <svg
@@ -104,7 +104,7 @@ export const IconDiscord: React.FC<SVGProps> = ({
 export const IconGithub: React.FC<SVGProps> = ({
   className,
   style,
-  fill = "currentColor",
+  fill = 'currentColor',
 }) => {
   return (
     <svg
@@ -131,7 +131,7 @@ export const IconGithub: React.FC<SVGProps> = ({
 export const IconTwitter: React.FC<SVGProps> = ({
   className,
   style,
-  fill = "currentColor",
+  fill = 'currentColor',
 }) => {
   return (
     <svg
@@ -144,8 +144,8 @@ export const IconTwitter: React.FC<SVGProps> = ({
       style={style}
     >
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M19.7828 3.91825C20.1313 3.83565 20.3743 3.75444 20.5734 3.66915C20.8524 3.54961 21.0837 3.40641 21.4492 3.16524C21.7563 2.96255 22.1499 2.9449 22.4739 3.11928C22.7979 3.29366 23 3.6319 23 3.99986C23 5.08079 22.8653 5.96673 22.5535 6.7464C22.2911 7.40221 21.9225 7.93487 21.4816 8.41968C21.2954 11.7828 20.3219 14.4239 18.8336 16.4248C17.291 18.4987 15.2386 19.8268 13.0751 20.5706C10.9179 21.3121 8.63863 21.4778 6.5967 21.2267C4.56816 20.9773 2.69304 20.3057 1.38605 19.2892C1.02813 19.0108 0.902313 18.5264 1.07951 18.109C1.25671 17.6916 1.69256 17.4457 2.14144 17.5099C3.42741 17.6936 4.6653 17.4012 5.6832 16.9832C5.48282 16.8742 5.29389 16.7562 5.11828 16.6346C4.19075 15.9925 3.4424 15.1208 3.10557 14.4471C2.96618 14.1684 2.96474 13.8405 3.10168 13.5606C3.17232 13.4161 3.27562 13.293 3.40104 13.1991C2.04677 12.0814 1.49999 10.5355 1.49999 9.49986C1.49999 9.19192 1.64187 8.90115 1.88459 8.71165C1.98665 8.63197 2.10175 8.57392 2.22308 8.53896C2.12174 8.24222 2.0431 7.94241 1.98316 7.65216C1.71739 6.3653 1.74098 4.91284 2.02985 3.75733C2.1287 3.36191 2.45764 3.06606 2.86129 3.00952C3.26493 2.95299 3.6625 3.14709 3.86618 3.50014C4.94369 5.36782 6.93116 6.50943 8.78086 7.18568C9.6505 7.50362 10.4559 7.70622 11.0596 7.83078C11.1899 6.61019 11.5307 5.6036 12.0538 4.80411C12.7439 3.74932 13.7064 3.12525 14.74 2.84698C16.5227 2.36708 18.5008 2.91382 19.7828 3.91825ZM10.7484 9.80845C10.0633 9.67087 9.12171 9.43976 8.09412 9.06408C6.7369 8.56789 5.16088 7.79418 3.84072 6.59571C3.86435 6.81625 3.89789 7.03492 3.94183 7.24766C4.16308 8.31899 4.5742 8.91899 4.94721 9.10549C5.40342 9.3336 5.61484 9.8685 5.43787 10.3469C5.19827 10.9946 4.56809 11.0477 3.99551 10.9046C4.45603 11.595 5.28377 12.2834 6.66439 12.5135C7.14057 12.5929 7.49208 13.0011 7.49986 13.4838C7.50765 13.9665 7.16949 14.3858 6.69611 14.4805L5.82565 14.6546C5.95881 14.7703 6.103 14.8838 6.2567 14.9902C6.95362 15.4727 7.65336 15.6808 8.25746 15.5298C8.70991 15.4167 9.18047 15.6313 9.39163 16.0472C9.60278 16.463 9.49846 16.9696 9.14018 17.2681C8.49626 17.8041 7.74425 18.2342 6.99057 18.5911C6.63675 18.7587 6.24134 18.9241 5.8119 19.0697C6.14218 19.1402 6.48586 19.198 6.84078 19.2417C8.61136 19.4594 10.5821 19.3126 12.4249 18.6792C14.2614 18.0479 15.9589 16.9385 17.2289 15.2312C18.497 13.5262 19.382 11.1667 19.5007 7.96291C19.51 7.71067 19.6144 7.47129 19.7929 7.29281C20.2425 6.84316 20.6141 6.32777 20.7969 5.7143C20.477 5.81403 20.1168 5.90035 19.6878 5.98237C19.3623 6.04459 19.0272 5.94156 18.7929 5.70727C18.0284 4.94274 16.5164 4.43998 15.2599 4.77822C14.6686 4.93741 14.1311 5.28203 13.7274 5.89906C13.3153 6.52904 13 7.51045 13 8.9999C13 9.28288 12.8801 9.5526 12.6701 9.74221C12.1721 10.1917 11.334 9.92603 10.7484 9.80845Z"
         fill={fill}
       />
@@ -156,7 +156,7 @@ export const IconTwitter: React.FC<SVGProps> = ({
 export const IconGoogle: React.FC<SVGProps> = ({
   className,
   style,
-  fill = "currentColor",
+  fill = 'currentColor',
 }) => {
   return (
     <svg
@@ -169,8 +169,8 @@ export const IconGoogle: React.FC<SVGProps> = ({
       style={style}
     >
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12ZM21 12C21 16.9706 16.9706 21 12 21C11.8075 21 11.6164 20.994 11.4268 20.982L15.3516 14.1842C15.7616 13.5562 16 12.806 16 12C16 11.2714 15.8052 10.5883 15.4649 10H20.777C20.9229 10.6432 21 11.3126 21 12ZM3 12C3 16.0439 5.66703 19.4648 9.33808 20.5998L11.9938 16C10.4369 15.9976 9.08858 15.1058 8.4297 13.8055L4.5075 7.01205C3.55514 8.43975 3 10.155 3 12ZM5.88442 5.39694C7.48983 3.90934 9.63872 3 12 3C15.5337 3 18.5918 5.03656 20.0645 8H12C10.5219 8 9.23103 8.80174 8.53857 9.99407L5.88442 5.39694ZM10.2633 12.9925L10.2681 12.9897L10.1968 12.8662C10.0707 12.6041 10 12.3103 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12C14 12.361 13.9043 12.6997 13.737 12.9921L13.7321 12.9893L13.6529 13.1263C13.2928 13.6538 12.6868 14 12 14C11.2566 14 10.608 13.5945 10.2633 12.9925Z"
         fill={fill}
       />
@@ -181,7 +181,7 @@ export const IconGoogle: React.FC<SVGProps> = ({
 export const IconWallet: React.FC<SVGProps> = ({
   className,
   style,
-  fill = "currentColor",
+  fill = 'currentColor',
 }) => {
   return (
     <svg
@@ -196,9 +196,9 @@ export const IconWallet: React.FC<SVGProps> = ({
       <path
         d="M16.5008 14.1502H16.5098M19 4.00098H6.2C5.0799 4.00098 4.51984 4.00098 4.09202 4.21896C3.71569 4.41071 3.40973 4.71667 3.21799 5.093C3 5.52082 3 6.08087 3 7.20098V16.801C3 17.9211 3 18.4811 3.21799 18.909C3.40973 19.2853 3.71569 19.5912 4.09202 19.783C4.51984 20.001 5.07989 20.001 6.2 20.001H17.8C18.9201 20.001 19.4802 20.001 19.908 19.783C20.2843 19.5912 20.5903 19.2853 20.782 18.909C21 18.4811 21 17.9211 21 16.801V11.201C21 10.0809 21 9.52082 20.782 9.093C20.5903 8.71667 20.2843 8.41071 19.908 8.21896C19.4802 8.00098 18.9201 8.00098 17.8 8.00098H7M16.9508 14.1502C16.9508 14.3987 16.7493 14.6002 16.5008 14.6002C16.2523 14.6002 16.0508 14.3987 16.0508 14.1502C16.0508 13.9017 16.2523 13.7002 16.5008 13.7002C16.7493 13.7002 16.9508 13.9017 16.9508 14.1502Z"
         stroke={fill}
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -207,7 +207,7 @@ export const IconWallet: React.FC<SVGProps> = ({
 export const IconArrowLeft: React.FC<SVGProps> = ({
   className,
   style,
-  fill = "currentColor",
+  fill = 'currentColor',
 }) => {
   return (
     <svg
@@ -222,9 +222,9 @@ export const IconArrowLeft: React.FC<SVGProps> = ({
       <path
         d="M6 12H18M6 12L11 7M6 12L11 17"
         stroke={fill}
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -233,7 +233,7 @@ export const IconArrowLeft: React.FC<SVGProps> = ({
 export const IconTrash: React.FC<SVGProps> = ({
   className,
   style,
-  fill = "currentColor",
+  fill = 'currentColor',
 }) => {
   return (
     <svg
@@ -248,9 +248,9 @@ export const IconTrash: React.FC<SVGProps> = ({
       <path
         d="M18 6L17.1991 18.0129C17.129 19.065 17.0939 19.5911 16.8667 19.99C16.6666 20.3412 16.3648 20.6235 16.0011 20.7998C15.588 21 15.0607 21 14.0062 21H9.99377C8.93927 21 8.41202 21 7.99889 20.7998C7.63517 20.6235 7.33339 20.3412 7.13332 19.99C6.90607 19.5911 6.871 19.065 6.80086 18.0129L6 6M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6M14 10V17M10 10V17"
         stroke={fill}
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -259,7 +259,7 @@ export const IconTrash: React.FC<SVGProps> = ({
 export const IconDots: React.FC<SVGProps> = ({
   className,
   style,
-  fill = "currentColor",
+  fill = 'currentColor',
 }) => {
   return (
     <svg
@@ -274,9 +274,9 @@ export const IconDots: React.FC<SVGProps> = ({
       <path
         d="M12 12H12.01M12 6H12.01M12 18H12.01M13 12C13 12.5523 12.5523 13 12 13C11.4477 13 11 12.5523 11 12C11 11.4477 11.4477 11 12 11C12.5523 11 13 11.4477 13 12ZM13 18C13 18.5523 12.5523 19 12 19C11.4477 19 11 18.5523 11 18C11 17.4477 11.4477 17 12 17C12.5523 17 13 17.4477 13 18ZM13 6C13 6.55228 12.5523 7 12 7C11.4477 7 11 6.55228 11 6C11 5.44772 11.4477 5 12 5C12.5523 5 13 5.44772 13 6Z"
         stroke={fill}
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -285,7 +285,7 @@ export const IconDots: React.FC<SVGProps> = ({
 export const IconPlus: React.FC<SVGProps> = ({
   className,
   style,
-  fill = "currentColor",
+  fill = 'currentColor',
 }) => {
   return (
     <svg
@@ -300,9 +300,9 @@ export const IconPlus: React.FC<SVGProps> = ({
       <path
         d="M6 12H18M12 6V18"
         stroke={fill}
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -311,7 +311,7 @@ export const IconPlus: React.FC<SVGProps> = ({
 export const IconCopy: React.FC<SVGProps> = ({
   className,
   style,
-  fill = "currentColor",
+  fill = 'currentColor',
 }) => {
   return (
     <svg
@@ -324,8 +324,8 @@ export const IconCopy: React.FC<SVGProps> = ({
       style={style}
     >
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M15 1.25H10.9436C9.10583 1.24998 7.65019 1.24997 6.51098 1.40314C5.33856 1.56076 4.38961 1.89288 3.64124 2.64124C2.89288 3.38961 2.56076 4.33856 2.40314 5.51098C2.24997 6.65019 2.24998 8.10582 2.25 9.94357V16C2.25 17.8722 3.62205 19.424 5.41551 19.7047C5.55348 20.4687 5.81753 21.1208 6.34835 21.6517C6.95027 22.2536 7.70814 22.5125 8.60825 22.6335C9.47522 22.75 10.5775 22.75 11.9451 22.75H15.0549C16.4225 22.75 17.5248 22.75 18.3918 22.6335C19.2919 22.5125 20.0497 22.2536 20.6517 21.6517C21.2536 21.0497 21.5125 20.2919 21.6335 19.3918C21.75 18.5248 21.75 17.4225 21.75 16.0549V10.9451C21.75 9.57754 21.75 8.47522 21.6335 7.60825C21.5125 6.70814 21.2536 5.95027 20.6517 5.34835C20.1208 4.81753 19.4687 4.55348 18.7047 4.41551C18.424 2.62205 16.8722 1.25 15 1.25ZM17.1293 4.27117C16.8265 3.38623 15.9876 2.75 15 2.75H11C9.09318 2.75 7.73851 2.75159 6.71085 2.88976C5.70476 3.02502 5.12511 3.27869 4.7019 3.7019C4.27869 4.12511 4.02502 4.70476 3.88976 5.71085C3.75159 6.73851 3.75 8.09318 3.75 10V16C3.75 16.9876 4.38624 17.8265 5.27117 18.1293C5.24998 17.5194 5.24999 16.8297 5.25 16.0549V10.9451C5.24998 9.57754 5.24996 8.47522 5.36652 7.60825C5.48754 6.70814 5.74643 5.95027 6.34835 5.34835C6.95027 4.74643 7.70814 4.48754 8.60825 4.36652C9.47522 4.24996 10.5775 4.24998 11.9451 4.25H15.0549C15.8297 4.24999 16.5194 4.24998 17.1293 4.27117ZM7.40901 6.40901C7.68577 6.13225 8.07435 5.9518 8.80812 5.85315C9.56347 5.75159 10.5646 5.75 12 5.75H15C16.4354 5.75 17.4365 5.75159 18.1919 5.85315C18.9257 5.9518 19.3142 6.13225 19.591 6.40901C19.8678 6.68577 20.0482 7.07435 20.1469 7.80812C20.2484 8.56347 20.25 9.56458 20.25 11V16C20.25 17.4354 20.2484 18.4365 20.1469 19.1919C20.0482 19.9257 19.8678 20.3142 19.591 20.591C19.3142 20.8678 18.9257 21.0482 18.1919 21.1469C17.4365 21.2484 16.4354 21.25 15 21.25H12C10.5646 21.25 9.56347 21.2484 8.80812 21.1469C8.07435 21.0482 7.68577 20.8678 7.40901 20.591C7.13225 20.3142 6.9518 19.9257 6.85315 19.1919C6.75159 18.4365 6.75 17.4354 6.75 16V11C6.75 9.56458 6.75159 8.56347 6.85315 7.80812C6.9518 7.07435 7.13225 6.68577 7.40901 6.40901Z"
         fill={fill}
       />
@@ -336,7 +336,7 @@ export const IconCopy: React.FC<SVGProps> = ({
 export const IconCheck: React.FC<SVGProps> = ({
   className,
   style,
-  fill = "currentColor",
+  fill = 'currentColor',
 }) => {
   return (
     <svg
@@ -351,9 +351,9 @@ export const IconCheck: React.FC<SVGProps> = ({
       <path
         d="M4 12.6111L8.92308 17.5L20 6.5"
         stroke={fill}
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -362,7 +362,7 @@ export const IconCheck: React.FC<SVGProps> = ({
 export const IconGas: React.FC<SVGProps> = ({
   className,
   style,
-  fill = "currentColor",
+  fill = 'currentColor',
 }) => {
   return (
     <svg
@@ -377,36 +377,36 @@ export const IconGas: React.FC<SVGProps> = ({
       <path
         d="M16 22V8C16 5.17157 16 3.75736 15.1213 2.87868C14.2426 2 12.8284 2 10 2H9C6.17157 2 4.75736 2 3.87868 2.87868C3 3.75736 3 5.17157 3 8V22"
         stroke={fill}
-        stroke-width="1.5"
+        strokeWidth="1.5"
       />
       <path
         d="M11 6H8C7.05719 6 6.58579 6 6.29289 6.29289C6 6.58579 6 7.05719 6 8C6 8.94281 6 9.41421 6.29289 9.70711C6.58579 10 7.05719 10 8 10H11C11.9428 10 12.4142 10 12.7071 9.70711C13 9.41421 13 8.94281 13 8C13 7.05719 13 6.58579 12.7071 6.29289C12.4142 6 11.9428 6 11 6Z"
         stroke={fill}
-        stroke-width="1.5"
+        strokeWidth="1.5"
       />
       <path
         d="M7 17H12"
         stroke={fill}
-        stroke-width="1.5"
-        stroke-linecap="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
       />
       <path
         d="M17 22H2"
         stroke={fill}
-        stroke-width="1.5"
-        stroke-linecap="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
       />
       <path
         d="M19.5 4L20.7331 4.98647C20.8709 5.09673 20.9398 5.15186 21.0025 5.20805C21.5937 5.73807 21.9508 6.48086 21.9953 7.27364C22 7.35769 22 7.44594 22 7.62244V18.5C22 19.3284 21.3284 20 20.5 20C19.6716 20 19 19.3284 19 18.5V18.4286C19 17.6396 18.3604 17 17.5714 17H16"
         stroke={fill}
-        stroke-width="1.5"
-        stroke-linecap="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
       />
       <path
         d="M22 8H20.5C19.6716 8 19 8.67157 19 9.5V11.9189C19 12.5645 19.4131 13.1377 20.0257 13.3419L22 14"
         stroke={fill}
-        stroke-width="1.5"
-        stroke-linecap="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
       />
     </svg>
   );

@@ -14,7 +14,7 @@ export const useMoonTokenManager = (addresses?: string[]) => {
     queryKey: ["userSavedTokens", session?.user.id],
     queryFn: async () => {
       if (!session?.user?.id) throw new Error("No user found");
-      let userTokens = await dbAdapter.getTokens();
+      const userTokens = await dbAdapter.getTokens();
       console.log("useTokenManager::userTokens", userTokens);
       return userTokens;
     },
@@ -41,7 +41,7 @@ export const useMoonTokenManager = (addresses?: string[]) => {
   console.log("useTokenManager::tokenBalanceQueries",walletAddresses, tokenBalanceQueries);
 
   //filter queries that have data
-  let tokenBalanceQueriesFiltered = tokenBalanceQueries.filter(
+  const tokenBalanceQueriesFiltered = tokenBalanceQueries.filter(
     (query) => (query as any).data !== undefined
   );
 

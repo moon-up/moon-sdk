@@ -71,7 +71,7 @@ export const WalletSelectorModal = ({
     if (wallet && controlSelectedWallet) setWallet(wallet);
     setSelectedWallet(wallet);
     toggleModal();
-    let fakeEvent = { target: { value: wallet } };
+    const fakeEvent = { target: { value: wallet } };
     onChange && onChange(fakeEvent);
   };
 

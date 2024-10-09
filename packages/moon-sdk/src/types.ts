@@ -1,3 +1,48 @@
+import { ApiConfig } from '@moonup/moon-api';
+import type { SupabaseClient } from '@supabase/supabase-js';
+
+import { HttpClient } from '../../../../codex-sdk/packages/@cod3x/openapi/src/lib/http-client';
+/**
+ * Supported blockchain types in MoonSDK
+ */
+
+export type ChainType =
+  | 'ethereum'
+  | 'solana'
+  | 'bitcoin'
+  | 'cosmos'
+  | 'eos'
+  | 'litecoin'
+  | 'ripple'
+  | 'tron'
+  | 'bitcoincash'
+  | 'dogecoin';
+/**
+ * Configuration options for MoonSDK
+ *
+ */
+
+export interface MoonSDKConfig {
+  apiKey?: string;
+  authInstance?: SupabaseClient;
+  httpParams?: ApiConfig;
+  httpInstance?: HttpClient;
+  clientId?: string;
+  supabaseUrl?: string;
+  supabaseKey?: string;
+  baseUrl?: string;
+  solanaEndpoint?: string;
+  supportedChains?: any[];
+  cacheOptions?: {
+    max: number;
+    maxAge: number;
+  };
+  rateLimitOptions?: {
+    tokensPerInterval: number;
+    interval: string;
+  };
+  selectedChain?: any;
+}
 export type Json =
   | string
   | number
@@ -21,7 +66,7 @@ export interface Chains {
   name: string | null;
   native_currency: Json | null;
   network_id: number | null;
-  rpc_urls: Json | null;
+  rpc_urls: string[] | null;
   short_name: string | null;
   slip44: number | null;
   updated_at: string;
