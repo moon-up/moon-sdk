@@ -13,7 +13,7 @@ import {
   AbstainData,
   AddLiquidityEthResult,
   AddLiquidityResult,
-  ApproveData1,
+  ApproveResult1,
   AttachData,
   AttachTokenToGaugeData,
   CalculateOptimalVoteDistributionParams2,
@@ -33,8 +33,8 @@ import {
   GetAmountsOutResult,
   GetBalanceOfNftParams2,
   GetBalanceOfNftResult,
-  GetBalanceOfOutput1,
   GetBalanceOfParams6,
+  GetBalanceOfResult1,
   GetDelegatesParams2,
   GetDelegatesResult,
   GetFactoryParams2,
@@ -196,7 +196,7 @@ export class Ramses<SecurityDataType = unknown> {
     data: RamsesNFTInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<ApproveData1, any>({
+    this.http.request<ApproveResult1, any>({
       path: `/ramses/nft/${address}/approve`,
       method: 'POST',
       body: data,
@@ -510,7 +510,7 @@ export class Ramses<SecurityDataType = unknown> {
    * @secure
    */
   getBalanceOf = (query: GetBalanceOfParams6, params: RequestParams = {}) =>
-    this.http.request<GetBalanceOfOutput1, any>({
+    this.http.request<GetBalanceOfResult1, any>({
       path: `/ramses/nft/balanceOf`,
       method: 'GET',
       query: query,

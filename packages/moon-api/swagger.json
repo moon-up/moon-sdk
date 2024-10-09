@@ -4131,6 +4131,123 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"SuccessResponse%249": {
+				"items": {
+					"properties": {
+						"verified_contract": {
+							"type": "boolean",
+							"example": false
+						},
+						"possible_spam": {
+							"type": "boolean",
+							"example": false
+						},
+						"created_at": {
+							"type": "string"
+						},
+						"validated": {
+							"type": "number",
+							"format": "double"
+						},
+						"block_number": {
+							"type": "string"
+						},
+						"thumbnail": {
+							"type": "string",
+							"nullable": true
+						},
+						"logo_hash": {
+							"type": "string",
+							"nullable": true
+						},
+						"logo": {
+							"type": "string",
+							"nullable": true
+						},
+						"decimals": {
+							"type": "string",
+							"example": 18
+						},
+						"symbol": {
+							"type": "string"
+						},
+						"name": {
+							"type": "string"
+						},
+						"address_label": {
+							"type": "string",
+							"nullable": true
+						},
+						"address": {
+							"type": "string"
+						}
+					},
+					"required": [
+						"possible_spam",
+						"created_at",
+						"decimals",
+						"symbol",
+						"name",
+						"address"
+					],
+					"type": "object"
+				},
+				"type": "array"
+			},
+			"GetTokenMetadataJSONResponse": {
+				"$ref": "#/components/schemas/SuccessResponse%249"
+			},
+			"TokenMetadataAPIResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody"
+					},
+					"address": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/GetTokenMetadataJSONResponse"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"NFTsAPIResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody"
+					},
+					"address": {
+						"type": "string"
+					},
+					"data": {
+						"items": {},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"DogeCoinInput": {
 				"properties": {
 					"network": {
@@ -20153,6 +20270,123 @@
 							"application/json": {
 								"schema": {
 									"$ref": "#/components/schemas/WalletHistoryAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Data"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chain",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/data/token-metadata": {
+			"get": {
+				"operationId": "GetTokenMetadata",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/TokenMetadataAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Data"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chain",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "addresses",
+						"required": true,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					}
+				]
+			}
+		},
+		"/data/{address}/nfts": {
+			"get": {
+				"operationId": "GetNFTs",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/NFTsAPIResponse"
 								}
 							}
 						}
