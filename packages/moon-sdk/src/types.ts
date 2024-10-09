@@ -1,7 +1,6 @@
-import { ApiConfig } from '@moonup/moon-api';
+import { ApiConfig, HttpClient } from '@moonup/moon-api';
 import type { SupabaseClient } from '@supabase/supabase-js';
 
-import { HttpClient } from '../../../../codex-sdk/packages/@cod3x/openapi/src/lib/http-client';
 /**
  * Supported blockchain types in MoonSDK
  */
