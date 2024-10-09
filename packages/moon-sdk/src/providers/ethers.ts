@@ -20,6 +20,49 @@ export class MoonProvider
     super(url);
     this.moonSDK = moonSDK;
   }
+  estimateGas(
+    transaction: ethers.providers.TransactionRequest
+  ): Promise<ethers.BigNumber> {
+    return super.estimateGas(transaction);
+  }
+
+  getGasPrice(): Promise<ethers.BigNumber> {
+    return super.getGasPrice();
+  }
+
+  getBalance(
+    addressOrName: string | ethers.providers.AddressOrName,
+    blockTag?: ethers.providers.BlockTag | Promise<ethers.providers.BlockTag>
+  ): Promise<ethers.BigNumber> {
+    return super.getBalance(addressOrName, blockTag);
+  }
+  waitForTransaction(
+    transactionHash: string,
+    confirmations?: number,
+    timeout?: number
+  ): Promise<ethers.providers.TransactionReceipt> {
+    return super.waitForTransaction(transactionHash, confirmations, timeout);
+  }
+
+  lookupAddress(address: string): Promise<string> {
+    this.customAddress = address;
+    return Promise.resolve(address);
+  }
+  resolveName(address: string): Promise<string> {
+    return Promise.resolve(address);
+  }
+  on(event: unknown, listener: unknown): void {
+    throw new Error('Method not implemented.');
+  }
+  once(event: string, listener: any): void {
+    throw new Error('Method not implemented.');
+  }
+  removeListener(event: string, listener: any): void {
+    throw new Error('Method not implemented.');
+  }
+  off(event: string, listener: any): void {
+    throw new Error('Method not implemented.');
+  }
   enable(): Promise<ProviderAccounts> {
     throw new Error('Method not implemented.');
   }

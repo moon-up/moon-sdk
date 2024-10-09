@@ -63,11 +63,8 @@
         "coverage": "vitest run --coverage"
     },
     "dependencies": {
-        "@moonup/ethers": "workspace:*",
         "@moonup/moon-api": "workspace:^",
         "@moonup/moon-sdk": "workspace:*",
-        "@moonup/viem": "workspace:*",
-        "@moonup/wagmi-connector": "workspace:*",
         "@rainbow-me/rainbowkit": "^2.1.7",
         "@simplewebauthn/browser": "^10.0.0",
         "@supabase/auth-ui-react": "^0.4.7",

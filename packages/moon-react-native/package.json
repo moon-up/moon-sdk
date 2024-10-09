@@ -80,7 +80,6 @@
         "@ethersproject/properties": "^5.7.0",
         "@ethersproject/providers": "^5.7.2",
         "@ethersproject/shims": "^5.7.0",
-        "@moonup/ethers": "workspace:*",
         "@moonup/moon-api": "workspace:*",
         "@moonup/moon-sdk": "workspace:*",
         "@react-navigation/native": "^6.1.17",

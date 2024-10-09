@@ -1,3 +1,7 @@
+import {
+  TypedDataDomain,
+  TypedDataField,
+} from '@ethersproject/abstract-signer';
 import { BytesLike } from '@ethersproject/bytes';
 import * as MoonAPI from '@moonup/moon-api';
 import {
@@ -7,7 +11,7 @@ import {
   RegistrationResponseJSON,
 } from '@simplewebauthn/typescript-types';
 import { createClient, Session, SupabaseClient } from '@supabase/supabase-js';
-import { ethers, TypedDataDomain, TypedDataField } from 'ethers';
+import { ethers } from 'ethers';
 import { EventEmitter } from 'events';
 import { SiweMessage } from 'siwe';
 

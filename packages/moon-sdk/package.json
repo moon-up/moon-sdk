@@ -80,6 +80,7 @@
         "@supabase/realtime-js": "^2.10.6",
         "@supabase/storage-js": "^2.7.1",
         "@supabase/supabase-js": "^2.45.4",
+        "ethers": "5.7.2",
         "events": "^3.3.0",
         "limiter": "^2.1.0",
         "lru-cache": "^11.0.1",

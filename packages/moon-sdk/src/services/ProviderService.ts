@@ -51,9 +51,9 @@ export class ProviderService {
   }
   async createWagmiConfig(options: { connectors: CreateConnectorFn[] }) {
     const provider = await this.getEthereumProvider(1);
-    const moonWagmiConnector = this.createWagmiConnector({
-      SDK: this.sdk,
-    });
+    // const moonWagmiConnector = this.createWagmiConnector({
+    //   SDK: this.sdk,
+    // });
 
     this.wagmiConfig = createConfig({
       chains: [mainnet],
