@@ -465,6 +465,9 @@ importers:
       '@supabase/supabase-js':
         specifier: ^2.45.4
         version: 2.45.4(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      eip1193-provider:
+        specifier: ^1.0.1
+        version: 1.0.1(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       ethers:
         specifier: 5.7.2
         version: 5.7.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)
