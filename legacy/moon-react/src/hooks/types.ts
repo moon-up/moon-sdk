@@ -1,4 +1,4 @@
-import { MoonProvider } from '@moonup/ethers';
+// import { MoonProvider } from '@moonup/ethers';
 import { MoonSDK } from '@moonup/moon-sdk';
 import { ethers } from 'ethers';
 
@@ -9,7 +9,7 @@ export interface MoonSDKHook {
 }
 
 export interface MoonEthersHook {
-  moonProvider: MoonProvider | null;
+  moonProvider: null;
   moon: MoonSDK | null;
   initialize: () => Promise<void>;
   disconnect: () => Promise<void>;
@@ -23,7 +23,7 @@ export interface Transaction {
 }
 
 export interface MoonSkaleEthersHook {
-  moonProvider: MoonProvider | null;
+  moonProvider: null;
   moon: MoonSDK | null;
   initialize: () => Promise<void>;
   disconnect: () => Promise<void>;

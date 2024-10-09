@@ -9,7 +9,7 @@ export * from './useMoonDataSDK';
 export * from './useMoonErc1155';
 export * from './useMoonErc20';
 export * from './useMoonErc721';
-export * from './useMoonEthers';
+// export * from './useMoonEthers';
 export * from './useMoonSDK';
 export * from './useMoonTokenManager';
 export * from './useMoonTokenSwap';

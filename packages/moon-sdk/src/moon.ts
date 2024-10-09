@@ -62,6 +62,7 @@ export class MoonSDK extends EventEmitter {
     this.chainService = new ChainService(this);
     this.eventService = new EventService();
     this.moonAPIService = new MoonAPIService(
+      this,
       this.configService.getConfig().baseUrl
     );
     this.auth = new AuthService(this);

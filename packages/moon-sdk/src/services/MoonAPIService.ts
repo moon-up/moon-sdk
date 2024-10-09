@@ -3,11 +3,13 @@
 import * as MoonAPI from '@moonup/moon-api';
 import { HttpClient } from '@moonup/moon-api';
 
+import { MoonSDK } from '../moon';
+
 export class MoonAPIService {
   private http: HttpClient;
   private sdkInstances: { [key: string]: any } = {};
 
-  constructor(baseUrl = 'https://beta.usemoon.ai') {
+  constructor(sdk: MoonSDK, baseUrl = 'https://beta.usemoon.ai') {
     this.http = new HttpClient({
       baseUrl,
       baseApiParams: {
@@ -15,7 +17,7 @@ export class MoonAPIService {
         type: MoonAPI.ContentType.Json,
         format: 'json',
       },
-      securityWorker: async (securityData: any) => ({
+      securityWorker: (securityData: any) => ({
         headers: { Authorization: `Bearer ${securityData.token}` },
       }),
     });

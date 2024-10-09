@@ -3,7 +3,7 @@ import 'react-native-get-random-values';
 // Import the the ethers shims (**BEFORE** ethers)
 import '@ethersproject/shims';
 
-import { MoonProvider } from '@moonup/ethers';
+// import { MoonProvider } from '@moonup/ethers';
 import { MoonSDK } from '@moonup/moon-sdk';
 import { Session, User } from '@supabase/supabase-js';
 import { RequestArguments } from 'eip1193-provider';
@@ -19,7 +19,7 @@ type MoonContextProps = {
   session: Session | null;
   initialized?: boolean;
   moon: MoonSDK | null;
-  ethers: MoonProvider | null;
+  ethers: null;
   signUp: (email: string, password: string) => Promise<void>;
   signInWithPassword: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
@@ -86,10 +86,11 @@ export const MoonContextProvider = ({ children }: MoonProviderProps) => {
   const [session, setSession] = useState<Session | null>(null);
   const [initialized, setInitialized] = useState<boolean>(false);
   const moon = new MoonSDK({ authInstance: supabase });
-  const ethers = new MoonProvider({
-    SDK: moon,
-    chainId: 1,
-  });
+  const ethers = null;
+  // const ethers = new MoonProvider({
+  // SDK: moon,
+  // chainId: 1,
+  // });
   const connect = async (accessToken?: string, refreshToken?: string) => {
     if (moon) {
       await moon.connect(accessToken, refreshToken);
@@ -110,21 +111,21 @@ export const MoonContextProvider = ({ children }: MoonProviderProps) => {
   };
 
   const connectEthers = async () => {
-    if (ethers) {
-      await ethers.connect();
-    }
+    // if (ethers) {
+    // await ethers.connect();
+    // }
   };
 
   const disconnectEthers = async () => {
-    if (ethers) {
-      await ethers.disconnect();
-    }
+    // if (ethers) {
+    // await ethers.disconnect();
+    // }
   };
 
   const request = async (args: RequestArguments) => {
-    if (ethers) {
-      return await ethers.request(args);
-    }
+    // if (ethers) {
+    // return await ethers.request(args);
+    // }
     return null;
   };
   const createSessionFromUrl = async (url: string) => {

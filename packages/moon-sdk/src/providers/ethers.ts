@@ -26,32 +26,46 @@ export class MoonProvider
   }
 
   // Implement the missing methods from IEthereumProvider
-  on(event: string, listener: any): void {
-    if (event === 'connect') {
-      super.on(event, (info: ProviderInfo) => listener(info));
-    } else if (event === 'disconnect') {
-      super.on(event, (error: ProviderRpcError) => listener(error));
-    } else if (event === 'message') {
-      super.on(event, (message: ProviderMessage) => listener(message));
-    } else if (event === 'chainChanged') {
-      super.on(event, (chainId: ProviderChainId) => listener(chainId));
-    } else if (event === 'accountsChanged') {
-      super.on(event, (accounts: ProviderAccounts) => listener(accounts));
+  on(
+    eventName: ethers.providers.EventType,
+    listener: ethers.providers.Listener
+  ): this {
+    if (eventName === 'connect') {
+      super.on(eventName, (info: ProviderInfo) => listener(info));
+    } else if (eventName === 'disconnect') {
+      super.on(eventName, (error: ProviderRpcError) => listener(error));
+    } else if (eventName === 'message') {
+      super.on(eventName, (message: ProviderMessage) => listener(message));
+    } else if (eventName === 'chainChanged') {
+      super.on(eventName, (chainId: ProviderChainId) => listener(chainId));
+    } else if (eventName === 'accountsChanged') {
+      super.on(eventName, (accounts: ProviderAccounts) => listener(accounts));
     } else {
-      super.on(event, listener);
+      super.on(eventName, listener);
     }
+    return this;
+  }
+  once(
+    eventName: ethers.providers.EventType,
+    listener: ethers.providers.Listener
+  ): this {
+    super.once(eventName, listener);
+    return this;
   }
 
-  once(event: string, listener: any): void {
-    super.once(event, listener);
+  off(
+    eventName: ethers.providers.EventType,
+    listener?: ethers.providers.Listener
+  ): this {
+    super.off(eventName, listener);
+    return this;
   }
 
-  removeListener(event: string, listener: any): void {
-    super.removeListener(event, listener);
-  }
-
-  off(event: string, listener: any): void {
-    super.off(event, listener);
+  removeListener(
+    eventName: ethers.providers.EventType,
+    listener: ethers.providers.Listener
+  ): ethers.providers.Provider {
+    return super.removeListener(eventName, listener);
   }
 
   async enable(): Promise<ProviderAccounts> {
@@ -74,7 +88,7 @@ export class MoonProvider
   }
 
   getBalance(
-    addressOrName: string | ethers.providers.AddressOrName,
+    addressOrName: string | Promise<string>,
     blockTag?: ethers.providers.BlockTag | Promise<ethers.providers.BlockTag>
   ): Promise<ethers.BigNumber> {
     return super.getBalance(addressOrName, blockTag);
