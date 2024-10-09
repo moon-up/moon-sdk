@@ -1,6 +1,10 @@
 import {
   IEthereumProvider,
   ProviderAccounts,
+  ProviderChainId,
+  ProviderInfo,
+  ProviderMessage,
+  ProviderRpcError,
   RequestArguments,
 } from 'eip1193-provider';
 import { ethers } from 'ethers';
@@ -19,6 +23,45 @@ export class MoonProvider
   constructor(moonSDK: MoonSDK, url?: string) {
     super(url);
     this.moonSDK = moonSDK;
+  }
+
+  // Implement the missing methods from IEthereumProvider
+  on(event: string, listener: any): void {
+    if (event === 'connect') {
+      super.on(event, (info: ProviderInfo) => listener(info));
+    } else if (event === 'disconnect') {
+      super.on(event, (error: ProviderRpcError) => listener(error));
+    } else if (event === 'message') {
+      super.on(event, (message: ProviderMessage) => listener(message));
+    } else if (event === 'chainChanged') {
+      super.on(event, (chainId: ProviderChainId) => listener(chainId));
+    } else if (event === 'accountsChanged') {
+      super.on(event, (accounts: ProviderAccounts) => listener(accounts));
+    } else {
+      super.on(event, listener);
+    }
+  }
+
+  once(event: string, listener: any): void {
+    super.once(event, listener);
+  }
+
+  removeListener(event: string, listener: any): void {
+    super.removeListener(event, listener);
+  }
+
+  off(event: string, listener: any): void {
+    super.off(event, listener);
+  }
+
+  async enable(): Promise<ProviderAccounts> {
+    try {
+      const accounts = await this.send('eth_requestAccounts', []);
+      return accounts as ProviderAccounts;
+    } catch (error) {
+      this.moonSDK.emit('error', { method: 'MoonProvider.enable', error });
+      throw error;
+    }
   }
   estimateGas(
     transaction: ethers.providers.TransactionRequest
@@ -50,21 +93,6 @@ export class MoonProvider
   }
   resolveName(address: string): Promise<string> {
     return Promise.resolve(address);
-  }
-  on(event: unknown, listener: unknown): void {
-    throw new Error('Method not implemented.');
-  }
-  once(event: string, listener: any): void {
-    throw new Error('Method not implemented.');
-  }
-  removeListener(event: string, listener: any): void {
-    throw new Error('Method not implemented.');
-  }
-  off(event: string, listener: any): void {
-    throw new Error('Method not implemented.');
-  }
-  enable(): Promise<ProviderAccounts> {
-    throw new Error('Method not implemented.');
   }
   request(args: RequestArguments): Promise<unknown> {
     try {
