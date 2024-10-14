@@ -12,6 +12,12 @@ import {
   Transaction,
 } from '@moonup/moon-api';
 import { useCallback } from 'react';
+import {
+  useAccount,
+  useChainId,
+  useSendTransaction,
+  useSwitchChain,
+} from 'wagmi';
 
 /**
  * Custom hook to interact with ERC20 tokens using the Moon SDK.
@@ -32,6 +38,10 @@ export const useErc20 = () => {
   const context = useMoonSDK();
   const { handleTransaction } = useMoonTransaction();
   const { moon } = context;
+  const { isConnected } = useAccount();
+  const { sendTransactionAsync } = useSendTransaction();
+  const { chainId } = useChainId();
+  const { switchNetwork } = useSwitchChain();
 
   const getErc20SDK = (): Erc20 => {
     const erc20SDK = moon?.getErc20SDK();
@@ -39,6 +49,42 @@ export const useErc20 = () => {
     return erc20SDK;
   };
 
+  const prepareTransaction = (transaction: ERC20InputBody) => {
+    if (isConnected) {
+      return {
+        ...transaction,
+        broadcast: false,
+        dryrun: true,
+      };
+    }
+    return transaction;
+  };
+
+  const handleWagmiTransaction = async (transactionData: any) => {
+    if (isConnected) {
+      const { transaction } = transactionData;
+      const transactionChainId = parseInt(transaction.chainId);
+
+      // Check if the current chain matches the transaction's chain
+      if (chainId && chainId !== transactionChainId) {
+        // If not, try to switch the network
+        if (switchNetwork) {
+          await switchNetwork(transactionChainId);
+        } else {
+          throw new Error('Network switching is not supported');
+        }
+      }
+
+      // Now send the transaction
+      return await sendTransactionAsync({
+        to: transaction.to,
+        data: transaction.data,
+        value: BigInt(transaction.value),
+        chainId: transaction.chainId,
+      });
+    }
+    return transactionData;
+  };
   /**
    * Approves token spend if needed.
    *
@@ -102,14 +148,15 @@ export const useErc20 = () => {
     }): Promise<Transaction> => {
       return handleTransaction('approveErc20', async () => {
         const erc20SDK = getErc20SDK();
+        const preparedTransaction = prepareTransaction(payload.transaction);
         const response = await erc20SDK.approve(
           payload.accountName,
-          payload.transaction
+          preparedTransaction
         );
-        return response.data;
+        return handleWagmiTransaction(response.data);
       });
     },
-    [moon]
+    [moon, isConnected, sendTransactionAsync, chainId, switchNetwork]
   );
 
   /**
@@ -127,14 +174,15 @@ export const useErc20 = () => {
     }): Promise<Transaction> => {
       return handleTransaction('transferErc20', async () => {
         const erc20SDK = getErc20SDK();
+        const preparedTransaction = prepareTransaction(payload.transaction);
         const response = await erc20SDK.transfer(
           payload.accountName,
-          payload.transaction
+          preparedTransaction
         );
-        return response.data;
+        return handleWagmiTransaction(response.data);
       });
     },
-    [moon]
+    [moon, isConnected, sendTransactionAsync, chainId, switchNetwork]
   );
 
   /**
@@ -152,14 +200,15 @@ export const useErc20 = () => {
     }): Promise<Transaction> => {
       return handleTransaction('transferFromErc20', async () => {
         const erc20SDK = getErc20SDK();
+        const preparedTransaction = prepareTransaction(payload.transaction);
         const response = await erc20SDK.transferFrom(
           payload.accountName,
-          payload.transaction
+          preparedTransaction
         );
-        return response.data;
+        return handleWagmiTransaction(response.data);
       });
     },
-    [moon]
+    [moon, isConnected, sendTransactionAsync, chainId, switchNetwork]
   );
 
   /**

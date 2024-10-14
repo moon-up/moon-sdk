@@ -1,6 +1,12 @@
 import { useMoonSDK, useMoonTransaction } from '@/hooks';
 import { Erc721, InputBody, Transaction } from '@moonup/moon-api';
 import { useCallback } from 'react';
+import {
+  useAccount,
+  useChainId,
+  useSendTransaction,
+  useSwitchChain,
+} from 'wagmi';
 
 /**
  * Custom hook to interact with ERC-721 contracts using the Moon SDK.
@@ -23,13 +29,49 @@ export const useErc721 = () => {
   const context = useMoonSDK();
   const { handleTransaction } = useMoonTransaction();
   const { moon } = context;
+  const { isConnected } = useAccount();
+  const { sendTransactionAsync } = useSendTransaction();
+  const { chainId } = useChainId();
+  const { switchNetwork } = useSwitchChain();
 
   const getErc721SDK = (): Erc721 => {
     const erc721SDK = moon?.getErc721SDK();
     if (!erc721SDK) throw new Error('Moon SDK not initialized');
     return erc721SDK;
   };
+  const prepareTransaction = (transaction: InputBody) => {
+    if (isConnected) {
+      return {
+        ...transaction,
+        broadcast: false,
+        dryrun: true,
+      };
+    }
+    return transaction;
+  };
 
+  const handleWagmiTransaction = async (transactionData: any) => {
+    if (isConnected) {
+      const { transaction } = transactionData;
+      const transactionChainId = parseInt(transaction.chainId);
+
+      if (chainId && chainId !== transactionChainId) {
+        if (switchNetwork) {
+          await switchNetwork(transactionChainId);
+        } else {
+          throw new Error('Network switching is not supported');
+        }
+      }
+
+      return await sendTransactionAsync({
+        to: transaction.to,
+        data: transaction.data,
+        value: BigInt(transaction.value),
+        chainId: transaction.chainId,
+      });
+    }
+    return transactionData;
+  };
   /**
    * Approves an ERC721 transaction.
    *
@@ -45,14 +87,15 @@ export const useErc721 = () => {
     }): Promise<Transaction> => {
       return handleTransaction('approveErc721', async () => {
         const erc721SDK = getErc721SDK();
+        const preparedTransaction = prepareTransaction(payload.transaction);
         const response = await erc721SDK.approveErc721(
           payload.address,
-          payload.transaction
+          preparedTransaction
         );
-        return response.data;
+        return handleWagmiTransaction(response.data);
       });
     },
-    [moon]
+    [moon, isConnected, sendTransactionAsync, chainId, switchNetwork]
   );
 
   /**
@@ -250,14 +293,15 @@ export const useErc721 = () => {
     }): Promise<Transaction> => {
       return handleTransaction('safeTransferFromErc721', async () => {
         const erc721SDK = getErc721SDK();
+        const preparedTransaction = prepareTransaction(payload.transaction);
         const response = await erc721SDK.safeTransferFromErc721(
           payload.address,
-          payload.transaction
+          preparedTransaction
         );
-        return response.data;
+        return handleWagmiTransaction(response.data);
       });
     },
-    [moon]
+    [moon, isConnected, sendTransactionAsync, chainId, switchNetwork]
   );
 
   /**
@@ -275,14 +319,15 @@ export const useErc721 = () => {
     }): Promise<Transaction> => {
       return handleTransaction('safeTransferFromWithDataErc721', async () => {
         const erc721SDK = getErc721SDK();
+        const preparedTransaction = prepareTransaction(payload.transaction);
         const response = await erc721SDK.safeTransferFromWithDataErc721(
           payload.address,
-          payload.transaction
+          preparedTransaction
         );
-        return response.data;
+        return handleWagmiTransaction(response.data);
       });
     },
-    [moon]
+    [moon, isConnected, sendTransactionAsync, chainId, switchNetwork]
   );
 
   /**
@@ -300,16 +345,16 @@ export const useErc721 = () => {
     }): Promise<Transaction> => {
       return handleTransaction('setApprovalForAllErc721', async () => {
         const erc721SDK = getErc721SDK();
+        const preparedTransaction = prepareTransaction(payload.transaction);
         const response = await erc721SDK.setApprovalForAllErc721(
           payload.address,
-          payload.transaction
+          preparedTransaction
         );
-        return response.data;
+        return handleWagmiTransaction(response.data);
       });
     },
-    [moon]
+    [moon, isConnected, sendTransactionAsync, chainId, switchNetwork]
   );
-
   /**
    * Transfers an ERC721 token from one address to another.
    *
@@ -325,14 +370,15 @@ export const useErc721 = () => {
     }): Promise<Transaction> => {
       return handleTransaction('transferFromErc721', async () => {
         const erc721SDK = getErc721SDK();
+        const preparedTransaction = prepareTransaction(payload.transaction);
         const response = await erc721SDK.transferFromErc721(
           payload.address,
-          payload.transaction
+          preparedTransaction
         );
-        return response.data;
+        return handleWagmiTransaction(response.data);
       });
     },
-    [moon]
+    [moon, isConnected, sendTransactionAsync, chainId, switchNetwork]
   );
 
   return {
