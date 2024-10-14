@@ -15,6 +15,6 @@
     "jsx": "react",
     "noEmit": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "lib/tsup.config.cjs", "packages/moon-sdk/src/moon.ts.old"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "lib/tsup.config.cjs", "packages/moon-react/uwu"],
   "exclude": ["node_modules", "build", "dist", ".next"]
 }

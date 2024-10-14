@@ -14,8 +14,8 @@ export const IconClose: React.FC<SVGProps> = ({
 }) => {
   return (
     <svg
-      width="800px"
-      height="800px"
+      width="24px"
+      height="24px"
       viewBox="0 0 1024 1024"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
@@ -36,8 +36,8 @@ export const IconChevronRight: React.FC<SVGProps> = ({
 }) => {
   return (
     <svg
-      width="800px"
-      height="800px"
+      width="24px"
+      height="24px"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -62,8 +62,8 @@ export const IconUser: React.FC<SVGProps> = ({
 }) => {
   return (
     <svg
-      width="800px"
-      height="800px"
+      width="24px"
+      height="24px"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -89,8 +89,8 @@ export const IconDiscord: React.FC<SVGProps> = ({
   return (
     <svg
       fill={fill}
-      width="800px"
-      height="800px"
+      width="24px"
+      height="24px"
       viewBox="0 0 32 32"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
@@ -108,8 +108,8 @@ export const IconGithub: React.FC<SVGProps> = ({
 }) => {
   return (
     <svg
-      width="800px"
-      height="800px"
+      width="24px"
+      height="24px"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -135,8 +135,8 @@ export const IconTwitter: React.FC<SVGProps> = ({
 }) => {
   return (
     <svg
-      width="800px"
-      height="800px"
+      width="24px"
+      height="24px"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -160,8 +160,8 @@ export const IconGoogle: React.FC<SVGProps> = ({
 }) => {
   return (
     <svg
-      width="800px"
-      height="800px"
+      width="24px"
+      height="24px"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -185,8 +185,8 @@ export const IconWallet: React.FC<SVGProps> = ({
 }) => {
   return (
     <svg
-      width="800px"
-      height="800px"
+      width="24px"
+      height="24px"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -211,8 +211,8 @@ export const IconArrowLeft: React.FC<SVGProps> = ({
 }) => {
   return (
     <svg
-      width="800px"
-      height="800px"
+      width="24px"
+      height="24px"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -237,8 +237,8 @@ export const IconTrash: React.FC<SVGProps> = ({
 }) => {
   return (
     <svg
-      width="800px"
-      height="800px"
+      width="24px"
+      height="24px"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -263,8 +263,8 @@ export const IconDots: React.FC<SVGProps> = ({
 }) => {
   return (
     <svg
-      width="800px"
-      height="800px"
+      width="24px"
+      height="24px"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -289,8 +289,8 @@ export const IconPlus: React.FC<SVGProps> = ({
 }) => {
   return (
     <svg
-      width="800px"
-      height="800px"
+      width="24px"
+      height="24px"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -315,8 +315,8 @@ export const IconCopy: React.FC<SVGProps> = ({
 }) => {
   return (
     <svg
-      width="800px"
-      height="800px"
+      width="24px"
+      height="24px"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -340,8 +340,8 @@ export const IconCheck: React.FC<SVGProps> = ({
 }) => {
   return (
     <svg
-      width="800px"
-      height="800px"
+      width="24px"
+      height="24px"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -366,8 +366,8 @@ export const IconGas: React.FC<SVGProps> = ({
 }) => {
   return (
     <svg
-      width="800px"
-      height="800px"
+      width="24px"
+      height="24px"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

@@ -457,8 +457,9 @@ export interface ApiResponseToolsResponse {
 
 export type ApproveData = ERC20APIResponseERC20ExecuteFunctionResult;
 
-export type ApproveData1 =
-  UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
+export type ApproveData1 = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
+
+export type ApproveData2 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export type ApproveErc721Data = ERC721APIResponse;
 
@@ -470,11 +471,10 @@ export type ApproveForPolymarketData = PolymarketAPIResponseAny;
 
 export type ApproveOutput = LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
+export type ApproveOutput1 =
+  UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
+
 export type ApproveResult = ERC4626APIResponse;
-
-export type ApproveResult1 = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
-
-export type ApproveResult2 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export interface AssembleRequest {
   pathId: string;
@@ -2113,6 +2113,8 @@ export interface GetBalanceOfAtNftParams {
 
 export type GetBalanceOfData = ERC20APIResponseString;
 
+export type GetBalanceOfData1 = VeTheNFTAPIResponseString;
+
 export type GetBalanceOfNftAtData = LynexNFTAPIResponseString;
 
 export interface GetBalanceOfNftAtParams {
@@ -2148,6 +2150,8 @@ export type GetBalanceOfNftResult = RamsesNFTAPIResponseString;
 
 export type GetBalanceOfOutput = LynexNFTAPIResponseString;
 
+export type GetBalanceOfOutput1 = RamsesNFTAPIResponseString;
+
 export interface GetBalanceOfParams {
   account: string;
   address: string;
@@ -2179,10 +2183,6 @@ export interface GetBalanceOfParams8 {
 }
 
 export type GetBalanceOfResult = ERC4626APIResponse;
-
-export type GetBalanceOfResult1 = RamsesNFTAPIResponseString;
-
-export type GetBalanceOfResult2 = VeTheNFTAPIResponseString;
 
 export interface GetBalanceParams {
   accountName: string;
@@ -3200,11 +3200,9 @@ export interface GetTotalSupplyAtTParams {
 
 export type GetTotalSupplyData = ERC20APIResponseString;
 
-export type GetTotalSupplyData1 = RamsesNFTAPIResponseString;
-
-export type GetTotalSupplyData2 = VeTheNFTAPIResponseString;
-
 export type GetTotalSupplyOutput = LynexNFTAPIResponseString;
+
+export type GetTotalSupplyOutput1 = RamsesNFTAPIResponseString;
 
 export interface GetTotalSupplyParams {
   account: string;
@@ -3234,6 +3232,8 @@ export interface GetTotalSupplyParams8 {
 }
 
 export type GetTotalSupplyResult = ERC4626APIResponse;
+
+export type GetTotalSupplyResult1 = VeTheNFTAPIResponseString;
 
 export type GetTotalValueLockedData = LynexAPIResponse;
 
@@ -3590,6 +3590,8 @@ export interface InputBody {
 
 export type IsApprovedForAllData = TransactionAPIResponse;
 
+export type IsApprovedForAllData1 = VeTheNFTAPIResponseBoolean;
+
 export type IsApprovedForAllOutput = UniswapV3NFTAPIResponseBoolean;
 
 export interface IsApprovedForAllParams1 {
@@ -3614,8 +3616,6 @@ export interface IsApprovedForAllParams5 {
 }
 
 export type IsApprovedForAllResult = LynexNFTAPIResponseBoolean;
-
-export type IsApprovedForAllResult1 = VeTheNFTAPIResponseBoolean;
 
 export type IsGaugeData = LynexVoterAPIResponseBoolean;
 
@@ -5912,11 +5912,11 @@ export type SetApprovalForAllErc721Data = ERC721APIResponse;
 export type SetApprovalForAllOutput =
   UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
 
-export type SetApprovalForAllOutput1 =
-  VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
-
 export type SetApprovalForAllResult =
   LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
+
+export type SetApprovalForAllResult1 =
+  VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export type SetClaimApprovalData =
   LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
@@ -6525,12 +6525,12 @@ export type TransferFromOutput =
   LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
 export type TransferFromOutput1 =
-  UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
+  RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 
 export type TransferFromResult = ERC4626APIResponse;
 
 export type TransferFromResult1 =
-  RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
+  UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
 
 export type TransferFromResult2 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
@@ -7293,10 +7293,10 @@ export type WhitelistResult =
 
 export type WithdrawData = AavePoolAPIResponseAavePoolExecuteFunctionResult;
 
+export type WithdrawData1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
 export type WithdrawOutput = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 
 export type WithdrawResult = ERC4626APIResponse;
-
-export type WithdrawResult1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export type ZapData = OdosAPIResponseOdosExecuteFunctionResult;

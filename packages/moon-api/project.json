@@ -1,0 +1,62 @@
+{
+  "name": "@moonup/moon-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/moon-api/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsup src -- --dts-resolve",
+        "cwd": "packages/moon-api"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "eslint src/ --ext .ts,.tsx",
+        "cwd": "packages/moon-api"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "vitest",
+        "cwd": "packages/moon-api"
+      }
+    },
+    "dev": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsup src --watch",
+        "cwd": "packages/moon-api"
+      }
+    },
+    "prettier": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "prettier --check src/",
+        "cwd": "packages/moon-api"
+      }
+    },
+    "verify": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "npm run prettier",
+          "npm run lint"
+        ],
+        "parallel": true,
+        "cwd": "packages/moon-api"
+      }
+    },
+    "coverage": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "vitest run --coverage",
+        "cwd": "packages/moon-api"
+      }
+    }
+  },
+  "tags": []
+}

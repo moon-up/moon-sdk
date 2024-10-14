@@ -1,5 +1,5 @@
-import { BigNumber } from "ethers";
-import { formatUnits, parseUnits } from "ethers/lib/utils";
+import { BigNumber } from '@ethersproject/bignumber';
+import { BigNumberish, formatUnits, parseUnits } from 'ethers';
 /**
  * Convert a BigInt to an int - useful when you are 'evolve'ing a response
  */
@@ -8,20 +8,25 @@ export const weiStringAsFloat = (
   decimalPoints = 18
 ) => {
   if (!num) return 0;
-  return parseFloat(formatUnits(BigNumber.from(num), decimalPoints));
+
+  // Convert num to BigNumber if it's not already
+  const bigNum = BigNumber.isBigNumber(num) ? num : BigNumber.from(num);
+
+  // Use toString() to convert BigNumber to string, which is compatible with BigNumberish
+  return parseFloat(formatUnits(bigNum.toString(), decimalPoints));
 };
 
-export const bigNumAsInt = (num: BigNumber) => parseInt(num.toString());
+export const bigNumAsInt = (num: BigNumberish) => parseInt(num.toString());
 
-export const weiBigNumAsFloat = (num: BigNumber, decimalPoints = 18) =>
+export const weiBigNumAsFloat = (num: BigNumberish, decimalPoints = 18) =>
   parseFloat(formatUnits(num, decimalPoints));
 
 export const safelyParseUnits = (num: string, decimalPoints = 18) => {
   if (!num) {
-    return parseUnits("0", decimalPoints);
+    return parseUnits('0', decimalPoints);
   }
-  const shortenedString = num.includes(".")
-    ? num.substring(0, num.indexOf(".") + decimalPoints + 1)
+  const shortenedString = num.includes('.')
+    ? num.substring(0, num.indexOf('.') + decimalPoints + 1)
     : num;
 
   return parseUnits(shortenedString, decimalPoints);

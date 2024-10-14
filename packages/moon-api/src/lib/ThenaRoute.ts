@@ -11,7 +11,7 @@
 
 import {
   AbstainResult,
-  ApproveResult2,
+  ApproveData2,
   AttachResult,
   AttachTokenToGaugeResult,
   CalculateOptimalVoteDistributionOutput,
@@ -30,8 +30,8 @@ import {
   DistributeOutput,
   GetApprovedOutput,
   GetBalanceOfAtNftData,
+  GetBalanceOfData1,
   GetBalanceOfNftOutput,
-  GetBalanceOfResult2,
   GetDelegatesOutput,
   GetFusionByAddressData,
   GetFusionsByTypeData,
@@ -48,7 +48,7 @@ import {
   GetTopTokensData,
   GetTotalSupplyAtData,
   GetTotalSupplyAtTData,
-  GetTotalSupplyData2,
+  GetTotalSupplyResult1,
   GetTotalValueLockedOutput,
   GetTotalWeightOutput,
   GetUserPointHistoryData,
@@ -57,7 +57,7 @@ import {
   GetWeightsOutput,
   IncreaseLockAmountResult,
   IncreaseUnlockTimeOutput,
-  IsApprovedForAllResult1,
+  IsApprovedForAllData1,
   IsGaugeOutput,
   IsWhitelistedOutput,
   KillGaugeOutput,
@@ -69,7 +69,7 @@ import {
   ResetOutput,
   ReviveGaugeOutput,
   SafeTransferFromOutput,
-  SetApprovalForAllOutput1,
+  SetApprovalForAllResult1,
   SplitOutput,
   TransferFromResult2,
   VeNFTInputBody,
@@ -79,7 +79,7 @@ import {
   VoteWithOptimalDistributionOutput,
   VotingData,
   WhitelistOutput,
-  WithdrawResult1,
+  WithdrawData1,
 } from './data-contracts';
 
 export namespace Thena {
@@ -118,7 +118,7 @@ export namespace Thena {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = ApproveResult2;
+    export type ResponseBody = ApproveData2;
   }
 
   /**
@@ -469,7 +469,7 @@ export namespace Thena {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetBalanceOfResult2;
+    export type ResponseBody = GetBalanceOfData1;
   }
 
   /**
@@ -825,7 +825,7 @@ export namespace Thena {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetTotalSupplyData2;
+    export type ResponseBody = GetTotalSupplyResult1;
   }
 
   /**
@@ -1054,7 +1054,7 @@ export namespace Thena {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = IsApprovedForAllResult1;
+    export type ResponseBody = IsApprovedForAllData1;
   }
 
   /**
@@ -1290,7 +1290,7 @@ export namespace Thena {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = SetApprovalForAllOutput1;
+    export type ResponseBody = SetApprovalForAllResult1;
   }
 
   /**
@@ -1423,6 +1423,6 @@ export namespace Thena {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = WithdrawResult1;
+    export type ResponseBody = WithdrawData1;
   }
 }

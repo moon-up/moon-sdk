@@ -1,12 +1,12 @@
 // import type { UseQueryOptions, UseQueryResult } from "react-query";
 
-import { DBAdapterBase } from "@/components/public/TokenManager";
-import { fetchNullable } from "./fetchNullable";
+import { DBAdapterBase } from '@/components';
 import {
   UseQueryOptions,
   UseQueryResult,
   useQuery,
-} from "@tanstack/react-query";
+} from '@tanstack/react-query';
+import { fetchNullable } from './fetchNullable';
 let priceCallcount = 0;
 let infoCallcount = 0;
 /**
@@ -16,7 +16,7 @@ let infoCallcount = 0;
  */
 export const buildCoinGeckoPricesURL = (tokens: readonly string[]): string =>
   `https://api.coingecko.com/api/v3/simple/price?ids=${tokens.join(
-    "%2C"
+    '%2C'
   )}&vs_currencies=usd`;
 
 export const buildCoinGeckoInfoURL = (tokenId: string): string => {
@@ -44,7 +44,7 @@ export type CoinGeckoPrices<T extends string> = {
   [C in T]: number | null;
 };
 
-export type TokenInfo = {
+export type CG_TokenInfo = {
   id: string;
   name: string;
   symbol: string;
@@ -65,7 +65,7 @@ export type TokenInfo = {
   };
 };
 
-export type TokenListItem = {
+export type CG_TokenListItem = {
   id: string;
   symbol: string;
   name: string;
@@ -87,12 +87,12 @@ const tryGetAllPricesFromCache = async (
         }
         return { token, price: price.price };
       } catch (e) {
-        console.log("tryGetAllPricesFromCache error", e);
+        console.log('tryGetAllPricesFromCache error', e);
         return { token, price: null };
       }
     })
   );
-  console.log("tryGetAllPricesFromCache prices ", prices);
+  console.log('tryGetAllPricesFromCache prices ', prices);
   if (!prices.some((p) => p.price === null)) {
     const ret = {} as CoinGeckoPrices<string>;
     prices.forEach((p) => {
@@ -100,7 +100,7 @@ const tryGetAllPricesFromCache = async (
     });
     return ret;
   }
-  console.log("tryGetAllPricesFromCache returning null as some are empty ");
+  console.log('tryGetAllPricesFromCache returning null as some are empty ');
   return null;
 };
 
@@ -117,16 +117,16 @@ export const makeCoinGeckoPricesQuery = <T extends string>(
     staleTime: 1000 * 60 * 20,
     retry: true,
     retryDelay: 30000,
-    queryKey: ["coinGeckoPrices", ...tokens],
+    queryKey: ['coinGeckoPrices', ...tokens],
     queryFn: async ({ signal }) => {
       if (tokens.length === 0) {
         return createEmptyResult(tokens);
       }
-      console.log("coinGeckoPrices cache", cache);
+      console.log('coinGeckoPrices cache', cache);
       if (cache) {
         const cachedTokenPrices = await tryGetAllPricesFromCache(tokens, cache);
         console.log(
-          "makeCoinGeckoPricesQuery cachedTokenPrices",
+          'makeCoinGeckoPricesQuery cachedTokenPrices',
           cachedTokenPrices
         );
         if (cachedTokenPrices) {
@@ -135,15 +135,13 @@ export const makeCoinGeckoPricesQuery = <T extends string>(
       }
 
       const coingeckoPricesURL = buildCoinGeckoPricesURL(tokens);
-      const rawData = await fetchNullable<
-        {
-          [C in T]?: {
-            usd: number;
-          };
-        }
-      >(coingeckoPricesURL, signal);
+      const rawData = await fetchNullable<{
+        [C in T]?: {
+          usd: number;
+        };
+      }>(coingeckoPricesURL, signal);
       priceCallcount++;
-      console.log("priceCallcount", priceCallcount);
+      console.log('priceCallcount', priceCallcount);
 
       if (!rawData) {
         return createEmptyResult(tokens);
@@ -155,7 +153,7 @@ export const makeCoinGeckoPricesQuery = <T extends string>(
         ret[token] = priceInfo ? priceInfo.usd : null;
         if (cache) await cache.saveTokenPrice(token, ret[token] || 0);
       });
-      console.log("makeCoinGeckoPricesQuery cg ret", ret);
+      console.log('makeCoinGeckoPricesQuery cg ret', ret);
 
       return ret;
     },
@@ -164,17 +162,17 @@ export const makeCoinGeckoPricesQuery = <T extends string>(
 
 export const makeTokenInfoQuery = (
   tokenId: string
-): UseQueryOptions<TokenInfo | null, unknown, TokenInfo, string[]> => {
+): UseQueryOptions<CG_TokenInfo | null, unknown, CG_TokenInfo, string[]> => {
   return {
-    queryKey: ["tokenInfo", tokenId],
+    queryKey: ['tokenInfo', tokenId],
     queryFn: async ({ signal }) => {
-      if (!tokenId || tokenId === "") {
+      if (!tokenId || tokenId === '') {
         return null;
       }
       const url = buildCoinGeckoInfoURL(tokenId);
-      const rawData = await fetchNullable<TokenInfo>(url, signal);
+      const rawData = await fetchNullable<CG_TokenInfo>(url, signal);
       infoCallcount++;
-      console.log("infoCallcount", infoCallcount);
+      console.log('infoCallcount', infoCallcount);
       return rawData;
     },
     staleTime: 1000 * 60 * 30,
@@ -182,16 +180,16 @@ export const makeTokenInfoQuery = (
 };
 
 export const makeTokenListQuery = (): UseQueryOptions<
-  TokenListItem[] | null,
+  CG_TokenListItem[] | null,
   unknown,
-  TokenListItem[],
+  CG_TokenListItem[],
   string[]
 > => {
   return {
-    queryKey: ["tokenList"],
+    queryKey: ['tokenList'],
     queryFn: async ({ signal }) => {
       const url = buildCoinGeckoTokenListURL();
-      const rawData = await fetchNullable<TokenListItem[]>(url, signal);
+      const rawData = await fetchNullable<CG_TokenListItem[]>(url, signal);
       return rawData;
     },
     staleTime: 1000 * 60 * 30,
@@ -206,7 +204,7 @@ export const useCoinGeckoPrices = <T extends string>(
   tokens: readonly T[],
   options: Omit<
     UseQueryOptions<CoinGeckoPrices<T>, unknown, CoinGeckoPrices<T>, string[]>,
-    "queryKey" | "queryFn"
+    'queryKey' | 'queryFn'
   > = {},
   cache?: DBAdapterBase
 ): UseQueryResult<CoinGeckoPrices<T>, unknown> => {

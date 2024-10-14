@@ -1,4 +1,4 @@
-import { UserToken } from "../components/public/TokenManager/types";
+import { UserToken } from '@/components';
 
 export type DbTokenPrice = {
   id: string;

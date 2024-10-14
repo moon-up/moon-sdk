@@ -2,13 +2,45 @@
 
 import { MoonSDKConfig } from '../types';
 
+/**
+ * ConfigurationService class
+ *
+ * This class is responsible for managing the configuration settings for the Moon SDK.
+ * It provides methods to initialize, retrieve, and update the configuration.
+ *
+ * The configuration is stored in a private property 'config' of type MoonSDKConfig.
+ */
 export class ConfigurationService {
   private config: MoonSDKConfig;
 
+  /**
+   * Constructs a new instance of the Configuration service.
+   *
+   * @param config - A partial or undefined configuration object of type `MoonSDKConfig`.
+   *                 This configuration will be validated and set to the instance.
+   */
   constructor(config: Partial<MoonSDKConfig> | undefined) {
     this.config = this.validateConfig(config);
   }
 
+  /**
+   * Validates and merges the provided configuration with the default configuration.
+   *
+   * @param config - A partial configuration object of type `MoonSDKConfig` or undefined.
+   * @returns The merged configuration object of type `MoonSDKConfig`.
+   *
+   * @remarks
+   * If the provided `config` is undefined, the function returns the default configuration.
+   * Otherwise, it merges the provided `config` with the default configuration, giving precedence
+   * to the properties in the provided `config`.
+   *
+   * @example
+   * ```typescript
+   * const userConfig = { apiKey: 'user-api-key' };
+   * const fullConfig = validateConfig(userConfig);
+   * console.log(fullConfig.apiKey); // Output: 'user-api-key'
+   * ```
+   */
   private validateConfig(
     config: Partial<MoonSDKConfig> | undefined
   ): MoonSDKConfig {
@@ -101,10 +133,20 @@ export class ConfigurationService {
     return mergedConfig;
   }
 
+  /**
+   * Retrieves the current configuration for the Moon SDK.
+   *
+   * @returns {MoonSDKConfig} The current configuration object.
+   */
   getConfig(): MoonSDKConfig {
     return this.config;
   }
 
+  /**
+   * Updates the current configuration with the provided partial configuration.
+   *
+   * @param newConfig - A partial configuration object containing the properties to be updated.
+   */
   updateConfig(newConfig: Partial<MoonSDKConfig>): void {
     this.config = { ...this.config, ...newConfig };
   }

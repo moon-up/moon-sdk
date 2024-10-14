@@ -12,7 +12,7 @@
 import {
   AddLiquidityEthOutput,
   AddLiquidityOutput,
-  ApproveData1,
+  ApproveOutput1,
   BalanceOfOutput,
   BalanceOfParams3,
   BaseUriData,
@@ -94,7 +94,7 @@ import {
   TokenUriParams,
   TotalSupplyData,
   TotalSupplyParams,
-  TransferFromOutput1,
+  TransferFromResult1,
   UniswapV2InputBody,
   UniswapV3InputBody,
   UnwrapWeth92Data,
@@ -171,7 +171,7 @@ export class Uniswap<SecurityDataType = unknown> {
     data: UniswapV3InputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<ApproveData1, any>({
+    this.http.request<ApproveOutput1, any>({
       path: `/uniswap/v3/nft/${address}/approve`,
       method: 'POST',
       body: data,
@@ -1502,7 +1502,7 @@ export class Uniswap<SecurityDataType = unknown> {
     data: UniswapV3InputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<TransferFromOutput1, any>({
+    this.http.request<TransferFromResult1, any>({
       path: `/uniswap/v3/nft/${address}/transferFrom`,
       method: 'POST',
       body: data,

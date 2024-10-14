@@ -1,6 +1,8 @@
 import { defineConfig } from 'tsup';
 
 export default defineConfig({
+  entry: ['src', '!src/**/*.spec.*', '!src/**/*.test.*', '!src/**/*.stories.*'],
+
   target: 'es2020',
   format: ['cjs', 'esm'],
   splitting: false,
@@ -9,6 +11,5 @@ export default defineConfig({
   dts: true,
   minify: true,
   cjsInterop: true,
-  entry: ['src'],
   external: ['react', 'react-dom'],
 });

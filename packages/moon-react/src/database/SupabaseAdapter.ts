@@ -1,7 +1,7 @@
-import { SupabaseClient } from "@supabase/supabase-js";
-import { DBAdapterBase, DbTokenPrice, DbWalletAlias } from ".";
-import { UserToken } from "../components/public/TokenManager/types";
-import { v4 as uuidv4 } from "uuid";
+import { UserToken } from '@/components';
+import { SupabaseClient } from '@supabase/supabase-js';
+import { v4 as uuidv4 } from 'uuid';
+import { DBAdapterBase, DbTokenPrice, DbWalletAlias } from '.';
 
 type DbToken = {
   id?: string;
@@ -34,10 +34,10 @@ export class SupabaseAdapter implements DBAdapterBase {
   async getUserWalletAliases(): Promise<DbWalletAlias[]> {
     const userId = await this.getUserId();
     const { data, error } = await this.supabase
-      .from("wallet_alias")
-      .select("*")
-      .eq("user_id", userId);
-    console.log("getUserWalletAliases", data, error);
+      .from('wallet_alias')
+      .select('*')
+      .eq('user_id', userId);
+    console.log('getUserWalletAliases', data, error);
 
     if (error) throw new Error(error.message);
     return data;
@@ -50,10 +50,10 @@ export class SupabaseAdapter implements DBAdapterBase {
     };
     const userId = await this.getUserId();
     const { error } = await this.supabase
-      .from("wallet_alias")
+      .from('wallet_alias')
       .upsert({ ...dbAlias, user_id: userId });
     if (error) throw new Error(error.message);
-    console.log("upsertWalletAlias", dbAlias);
+    console.log('upsertWalletAlias', dbAlias);
   }
 
   async getOneUserDbToken(

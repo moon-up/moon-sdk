@@ -1,15 +1,21 @@
 {
-  // see https://www.typescriptlang.org/tsconfig to better understand tsconfigs
   "extends": "@tsconfig/vite-react/tsconfig.json",
-  "include": ["src", "types"],
-  "types": ["vitest/globals"],
+  "include": ["src", "types", "tests"],
+  "types": ["vitest/globals", "@testing-library/jest-dom"],
   "typeRoots": [],
   "outDir": "./dist",
+  "exclude": [
+    "./storybook",
+    "src/stories/***",
+    "src/**/*.stories.tsx",
+    "src/**/*.test.tsx"
+  ],
   "compilerOptions": {
     "noEmit": false,
     "jsx": "react",
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "skipLibCheck": true,
     "preserveSymlinks": true,
     "esModuleInterop": true,
     "baseUrl": ".",
@@ -21,7 +27,7 @@
       "@hooks/*": ["src/hooks/*"],
       "@moon-react-types/*": ["src/types/*"],
       "@utils/*": ["src/utils/*"],
-      "@context/*": ["src/context/*"],
+      "@context/*": ["src/context/*"]
     }
   }
 }

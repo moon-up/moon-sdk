@@ -1,6 +1,6 @@
 {
     "name": "@moonup/moon-api",
-    "version": "0.0.54",
+    "version": "0.0.55",
     "type": "commonjs",
     "main": "./dist/index.js",
     "module": "./dist/index.mjs",
@@ -24,6 +24,7 @@
         "node": ">=10"
     },
     "scripts": {
+        "generate": "pnpx swagger-typescript-api -p swagger.json -o ./src/lib --modular --route-types --unwrap-response-data --sort-types --sort-routes --enum-names-as-values --extract-request-params --extract-request-body --extract-response-body --extract-response-error --extract-enums --single-http-client",
         "analyze": "size-limit --why",
         "prepare": "tsup",
         "size": "size-limit",
@@ -75,6 +76,7 @@
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "size-limit": "^11.0.1",
+        "swagger-typescript-api": "^13.0.22",
         "tslib": "^2.6.2",
         "tsup": "^8.0.1",
         "typescript": "^5.3.3"

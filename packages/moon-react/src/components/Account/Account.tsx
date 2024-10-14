@@ -1,24 +1,27 @@
-import { useMoonAaveV3, useMoonAccounts, useMoonSDK } from '@hooks/index';
+import {
+  Button,
+  ChainSelector,
+  ChainSelectorModal,
+  WalletSelector,
+  WalletSelectorModal,
+} from '@/components';
+import { useAave, useMoonAccount, useMoonSDK } from '@/hooks';
 import React, { useEffect } from 'react';
 import { useAccount, useConnect, useSwitchChain } from 'wagmi';
-import Button from '../Button/Button';
-import { ChainSelector } from '../public/ChainSelectors/ChainSelector';
-import { ChainSelectorModal } from '../public/ChainSelectors/ChainSelectorModal';
-import { WalletSelector } from '../public/WalletSelectors/WalletSelector';
-import { WalletSelectorModal } from '../public/WalletSelectors/WalletSelectorModal';
 // load api
-import { AnyTokenSelectorModal } from '../public';
-import ChatBot from '../public/ChatBot/ChatBot';
-import { LifiTokenSelectorModal } from '../public/LifiSelectors';
-import { LifiChainSelectorModal } from '../public/LifiSelectors/LifiChainSelectorModal';
-import SwapInterface from '../public/SwapInterface/SwapInterface';
-import { UserTokenManager } from '../public/TokenManager';
+import {
+  AnyTokenSelectorModal,
+  ChatBot,
+  LifiChainSelectorModal,
+  LifiTokenSelectorModal,
+  SwapInterface,
+  UserTokenManager,
+} from '@/components';
 
-function Account() {
+export function Account() {
   const { address, status } = useAccount();
   const { connectors, connect } = useConnect();
   const { chains, switchChain } = useSwitchChain();
-  // const { switchAccount } = useSwitchAccount();
   // const { disconnect } = useDisconnect();
   // const { data: ensName } = useEnsName({ address });
   // const { data: ensAvatar } = useEnsAvatar({ name: ensName! });
@@ -37,9 +40,9 @@ function Account() {
     chatOpen,
     listChains: getChains,
   } = useMoonSDK();
-  const { deleteAccount } = useMoonAccounts();
+  const { deleteAccount } = useMoonAccount();
 
-  const { getAaveV3PoolAddress } = useMoonAaveV3();
+  const { getAaveV3PoolAddress } = useAave();
   useEffect(() => {
     listWallets();
     getChains();
@@ -112,7 +115,7 @@ function Account() {
                 <Button
                   className="bg-red-500"
                   onClick={async () => {
-                    await deleteAccount({ id: wallet });
+                    await deleteAccount(wallet);
                   }}
                 >
                   Delete

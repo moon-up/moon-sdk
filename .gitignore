@@ -18,4 +18,5 @@ coverage/
 .turbo
 
 .nx/cache
+.nx/workspace-data
 .aider*

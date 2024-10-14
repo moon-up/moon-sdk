@@ -1,6 +1,13 @@
 import { defineConfig } from 'tsup';
 
 export default defineConfig({
+  entry: [
+    'src/index.ts',
+    '!src/**/*.spec.*',
+    '!src/**/*.test.*',
+    '!src/**/*.stories.*',
+  ],
+
   target: 'es2020',
   format: ['cjs', 'esm'],
   splitting: false,
