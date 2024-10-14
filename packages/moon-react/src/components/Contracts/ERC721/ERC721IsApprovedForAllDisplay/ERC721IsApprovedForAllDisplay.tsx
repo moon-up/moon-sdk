@@ -78,3 +78,5 @@ export const ERC721IsApprovedForAllDisplay: React.FC<
     </motion.div>
   );
 };
+
+export default ERC721IsApprovedForAllDisplay;

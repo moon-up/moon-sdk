@@ -75,3 +75,5 @@ export const ERC721BalanceDisplay: React.FC<ERC721BalanceDisplayProps> = ({
     </motion.div>
   );
 };
+
+export default ERC721BalanceDisplay;

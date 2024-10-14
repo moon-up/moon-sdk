@@ -74,3 +74,5 @@ export const ERC721OwnerDisplay: React.FC<ERC721OwnerDisplayProps> = ({
     </motion.div>
   );
 };
+
+export default ERC721OwnerDisplay;

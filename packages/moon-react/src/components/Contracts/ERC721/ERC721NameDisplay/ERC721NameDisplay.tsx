@@ -64,3 +64,5 @@ export const ERC721NameDisplay: React.FC<ERC721NameDisplayProps> = ({
     </motion.div>
   );
 };
+
+export default ERC721NameDisplay;

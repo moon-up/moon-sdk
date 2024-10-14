@@ -67,3 +67,5 @@ export const ERC721SymbolDisplay: React.FC<ERC721SymbolDisplayProps> = ({
     </motion.div>
   );
 };
+
+export default ERC721SymbolDisplay;

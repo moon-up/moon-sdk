@@ -76,3 +76,5 @@ export const ERC721ApprovedDisplay: React.FC<ERC721ApprovedDisplayProps> = ({
     </motion.div>
   );
 };
+
+export default ERC721ApprovedDisplay;
