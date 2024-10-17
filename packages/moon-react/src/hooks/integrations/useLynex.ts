@@ -118,11 +118,39 @@ import {
   WhitelistData,
 } from '@moonup/moon-api';
 import { useCallback } from 'react';
+import { useAccount, useSendTransaction } from 'wagmi';
 
 export const useLynex = () => {
   const context = useMoonSDK();
   const { handleTransaction } = useMoonTransaction();
   const { moon } = context;
+  const { isConnected } = useAccount();
+  const { sendTransactionAsync } = useSendTransaction();
+
+  const prepareTransaction = (transaction: any) => {
+    if (isConnected) {
+      return {
+        ...transaction,
+        broadcast: false,
+        dryrun: true,
+      };
+    }
+    return transaction;
+  };
+
+  const handleWagmiTransaction = async (transactionData: any) => {
+    if (isConnected) {
+      const { transaction } = transactionData;
+
+      await sendTransactionAsync({
+        to: transaction.to,
+        data: transaction.data,
+        value: BigInt(transaction.value),
+        chainId: transaction.chainId,
+      });
+    }
+    return transactionData;
+  };
 
   const getLynexSDK = useCallback((): Lynex => {
     const lynexSDK = moon?.getLynexSDK();
@@ -144,10 +172,12 @@ export const useLynex = () => {
     ): Promise<AddLiquidityData> => {
       return handleTransaction('addLiquidity', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.addLiquidity(address, data);
+        const preparedData = prepareTransaction(data);
+        const response = await lynexSDK.addLiquidity(address, preparedData);
+        return handleWagmiTransaction(response);
       });
     },
-    [moon]
+    [moon, isConnected, sendTransactionAsync]
   );
 
   /**
@@ -157,6 +187,7 @@ export const useLynex = () => {
    * @param data - The input data required by the Lynex router.
    * @returns A promise that resolves to the data returned by the addLiquidityEth function of the Lynex SDK.
    */
+
   const addLiquidityEth = useCallback(
     async (
       address: string,
@@ -164,10 +195,12 @@ export const useLynex = () => {
     ): Promise<AddLiquidityEthData> => {
       return handleTransaction('addLiquidityEth', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.addLiquidityEth(address, data);
+        const preparedData = prepareTransaction(data);
+        const response = await lynexSDK.addLiquidityEth(address, preparedData);
+        return handleWagmiTransaction(response);
       });
     },
-    [moon]
+    [moon, isConnected, sendTransactionAsync]
   );
 
   /**
@@ -184,10 +217,15 @@ export const useLynex = () => {
     ): Promise<SwapExactEthForTokensData> => {
       return handleTransaction('swapExactEthForTokens', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.swapExactEthForTokens(address, data);
+        const preparedData = prepareTransaction(data);
+        const response = await lynexSDK.swapExactEthForTokens(
+          address,
+          preparedData
+        );
+        return handleWagmiTransaction(response);
       });
     },
-    [moon]
+    [moon, isConnected, sendTransactionAsync]
   );
 
   /**
@@ -204,10 +242,15 @@ export const useLynex = () => {
     ): Promise<SwapExactTokensForEthData> => {
       return handleTransaction('swapExactTokensForEth', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.swapExactTokensForEth(address, data);
+        const preparedData = prepareTransaction(data);
+        const response = await lynexSDK.swapExactTokensForEth(
+          address,
+          preparedData
+        );
+        return handleWagmiTransaction(response);
       });
     },
-    [moon]
+    [moon, isConnected, sendTransactionAsync]
   );
 
   /**
@@ -217,6 +260,7 @@ export const useLynex = () => {
    * @param data - The input data required for the Lynex router.
    * @returns A promise that resolves to the data of the swap transaction.
    */
+
   const swapExactTokensForTokens = useCallback(
     async (
       address: string,
@@ -224,10 +268,15 @@ export const useLynex = () => {
     ): Promise<SwapExactTokensForTokensData> => {
       return handleTransaction('swapExactTokensForTokens', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.swapExactTokensForTokens(address, data);
+        const preparedData = prepareTransaction(data);
+        const response = await lynexSDK.swapExactTokensForTokens(
+          address,
+          preparedData
+        );
+        return handleWagmiTransaction(response);
       });
     },
-    [moon]
+    [moon, isConnected, sendTransactionAsync]
   );
 
   /**
@@ -244,10 +293,12 @@ export const useLynex = () => {
     ): Promise<ApproveOutput> => {
       return handleTransaction('approve', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.approve(address, data);
+        const preparedData = prepareTransaction(data);
+        const response = await lynexSDK.approve(address, preparedData);
+        return handleWagmiTransaction(response);
       });
     },
-    [moon]
+    [moon, isConnected, sendTransactionAsync]
   );
 
   /**
@@ -261,7 +312,10 @@ export const useLynex = () => {
     async (address: string, data: LynexNFTInputBody): Promise<BurnData> => {
       return handleTransaction('burn', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.burn(address, data);
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.burn(address, preparedData);
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -281,7 +335,11 @@ export const useLynex = () => {
     ): Promise<CheckpointData> => {
       return handleTransaction('checkpoint', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.checkpoint(address, data);
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.checkpoint(address, preparedData);
+
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -301,7 +359,12 @@ export const useLynex = () => {
     ): Promise<CheckpointDelegateeData> => {
       return handleTransaction('checkpointDelegatee', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.checkpointDelegatee(address, data);
+        const preparedData = prepareTransaction(data);
+        const response = await lynexSDK.checkpointDelegatee(
+          address,
+          preparedData
+        );
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -318,7 +381,10 @@ export const useLynex = () => {
     async (address: string, data: LynexNFTInputBody): Promise<ClaimData> => {
       return handleTransaction('claim', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.claim(address, data);
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.claim(address, preparedData);
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -338,7 +404,14 @@ export const useLynex = () => {
     ): Promise<CreateDelegatedLockForData> => {
       return handleTransaction('createDelegatedLockFor', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.createDelegatedLockFor(address, data);
+
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.createDelegatedLockFor(
+          address,
+          preparedData
+        );
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -358,7 +431,10 @@ export const useLynex = () => {
     ): Promise<CreateLockData> => {
       return handleTransaction('createLock', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.createLock(address, data);
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.createLock(address, preparedData);
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -371,7 +447,10 @@ export const useLynex = () => {
     ): Promise<CreateLockForData> => {
       return handleTransaction('createLockFor', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.createLockFor(address, data);
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.createLockFor(address, preparedData);
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -381,7 +460,11 @@ export const useLynex = () => {
     async (address: string, data: LynexNFTInputBody): Promise<DelegateData> => {
       return handleTransaction('delegate', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.delegate(address, data);
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.delegate(address, preparedData);
+
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -394,7 +477,10 @@ export const useLynex = () => {
     ): Promise<DelegateBySigData> => {
       return handleTransaction('delegateBySig', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.delegateBySig(address, data);
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.delegateBySig(address, preparedData);
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -407,7 +493,10 @@ export const useLynex = () => {
     ): Promise<GlobalCheckpointData> => {
       return handleTransaction('globalCheckpoint', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.globalCheckpoint(address, data);
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.globalCheckpoint(address, preparedData);
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -420,7 +509,13 @@ export const useLynex = () => {
     ): Promise<IncreaseLockAmountData> => {
       return handleTransaction('increaseLockAmount', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.increaseLockAmount(address, data);
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.increaseLockAmount(
+          address,
+          preparedData
+        );
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -433,7 +528,13 @@ export const useLynex = () => {
     ): Promise<IncreaseUnlockTimeData> => {
       return handleTransaction('increaseUnlockTime', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.increaseUnlockTime(address, data);
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.increaseUnlockTime(
+          address,
+          preparedData
+        );
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -443,7 +544,11 @@ export const useLynex = () => {
     async (address: string, data: LynexNFTInputBody): Promise<MergeData> => {
       return handleTransaction('merge', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.merge(address, data);
+
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.merge(address, preparedData);
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -456,7 +561,11 @@ export const useLynex = () => {
     ): Promise<SafeTransferFromResult> => {
       return handleTransaction('safeTransferFrom', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.safeTransferFrom(address, data);
+
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.safeTransferFrom(address, preparedData);
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -469,7 +578,14 @@ export const useLynex = () => {
     ): Promise<SetApprovalForAllResult> => {
       return handleTransaction('setApprovalForAll', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.setApprovalForAll(address, data);
+
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.setApprovalForAll(
+          address,
+          preparedData
+        );
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -482,7 +598,10 @@ export const useLynex = () => {
     ): Promise<SetClaimApprovalData> => {
       return handleTransaction('setClaimApproval', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.setClaimApproval(address, data);
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.setClaimApproval(address, preparedData);
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -495,7 +614,13 @@ export const useLynex = () => {
     ): Promise<SetClaimApprovalForAllData> => {
       return handleTransaction('setClaimApprovalForAll', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.setClaimApprovalForAll(address, data);
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.setClaimApprovalForAll(
+          address,
+          preparedData
+        );
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -505,7 +630,11 @@ export const useLynex = () => {
     async (address: string, data: LynexNFTInputBody): Promise<SplitData> => {
       return handleTransaction('split', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.split(address, data);
+
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.split(address, preparedData);
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -518,7 +647,10 @@ export const useLynex = () => {
     ): Promise<TransferFromOutput> => {
       return handleTransaction('transferFrom', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.transferFrom(address, data);
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.transferFrom(address, preparedData);
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -531,7 +663,11 @@ export const useLynex = () => {
     ): Promise<UnlockPermanentData> => {
       return handleTransaction('unlockPermanent', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.unlockPermanent(address, data);
+
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.unlockPermanent(address, preparedData);
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -543,7 +679,10 @@ export const useLynex = () => {
     ): Promise<ClaimFeesData> => {
       return handleTransaction('claimFees', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.claimFees(address, data);
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.claimFees(address, preparedData);
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -557,7 +696,10 @@ export const useLynex = () => {
     ): Promise<ClaimBribesData> => {
       return handleTransaction('claimBribes', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.claimBribes(address, data);
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.claimBribes(address, preparedData);
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -570,7 +712,10 @@ export const useLynex = () => {
     ): Promise<ClaimRewardsResult> => {
       return handleTransaction('claimRewards', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.claimRewards(address, data);
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.claimRewards(address, preparedData);
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -583,7 +728,10 @@ export const useLynex = () => {
     ): Promise<CreateGaugeData> => {
       return handleTransaction('createGauge', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.createGauge(address, data);
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.createGauge(address, preparedData);
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -596,7 +744,11 @@ export const useLynex = () => {
     ): Promise<DistributeData> => {
       return handleTransaction('distribute', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.distribute(address, data);
+
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.distribute(address, preparedData);
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -609,7 +761,10 @@ export const useLynex = () => {
     ): Promise<KillGaugeData> => {
       return handleTransaction('killGauge', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.killGauge(address, data);
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.killGauge(address, preparedData);
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -622,7 +777,13 @@ export const useLynex = () => {
     ): Promise<NotifyRewardAmountData> => {
       return handleTransaction('notifyRewardAmount', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.notifyRewardAmount(address, data);
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.notifyRewardAmount(
+          address,
+          preparedData
+        );
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -632,7 +793,10 @@ export const useLynex = () => {
     async (address: string, data: LynexVoterInputBody): Promise<PokeData> => {
       return handleTransaction('poke', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.poke(address, data);
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.poke(address, preparedData);
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -642,7 +806,10 @@ export const useLynex = () => {
     async (address: string, data: LynexVoterInputBody): Promise<ResetData> => {
       return handleTransaction('reset', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.reset(address, data);
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.reset(address, preparedData);
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -655,7 +822,10 @@ export const useLynex = () => {
     ): Promise<ReviveGaugeData> => {
       return handleTransaction('reviveGauge', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.reviveGauge(address, data);
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.reviveGauge(address, preparedData);
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -665,7 +835,10 @@ export const useLynex = () => {
     async (address: string, data: LynexVoterInputBody): Promise<VoteData> => {
       return handleTransaction('vote', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.vote(address, data);
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.vote(address, preparedData);
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -678,7 +851,13 @@ export const useLynex = () => {
     ): Promise<VoteWithOptimalDistributionData> => {
       return handleTransaction('voteWithOptimalDistribution', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.voteWithOptimalDistribution(address, data);
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.voteWithOptimalDistribution(
+          address,
+          preparedData
+        );
+        return handleWagmiTransaction(response);
       });
     },
     [moon]
@@ -691,7 +870,10 @@ export const useLynex = () => {
     ): Promise<WhitelistData> => {
       return handleTransaction('whitelist', async () => {
         const lynexSDK = getLynexSDK();
-        return lynexSDK.whitelist(address, data);
+        const preparedData = prepareTransaction(data);
+
+        const response = await lynexSDK.whitelist(address, preparedData);
+        return handleWagmiTransaction(response);
       });
     },
     [moon]

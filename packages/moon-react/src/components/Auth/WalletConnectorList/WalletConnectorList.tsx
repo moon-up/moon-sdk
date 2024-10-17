@@ -1,6 +1,6 @@
 import { IconArrowLeft, IconWallet } from '@/assets/icons';
 import { useConnectToMoon } from '@/hooks';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useAccount, useConnect, useSignMessage } from 'wagmi';
 
 /**
@@ -39,14 +39,23 @@ export const WalletConnectorsList = ({ onBack }: WalletConnectorsListProps) => {
     address: walletAddress,
     signMessageAsync,
   });
+  const hasAttemptedConnection = useRef(false);
 
   useEffect(() => {
-    if (isConnected && address) {
+    if (isConnected && address && !hasAttemptedConnection.current) {
       connectToMoonSiwe();
+      hasAttemptedConnection.current = true;
     }
-  }, [isConnected, address]);
+  }, [isConnected, address, connectToMoonSiwe]);
 
   const handleConnect = async (connector: any) => {
+    if (isConnected) {
+      if (!hasAttemptedConnection.current) {
+        connectToMoonSiwe();
+        hasAttemptedConnection.current = true;
+      }
+      return;
+    }
     connect({ connector });
   };
 

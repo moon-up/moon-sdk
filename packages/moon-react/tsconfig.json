@@ -19,6 +19,9 @@
     "preserveSymlinks": true,
     "esModuleInterop": true,
     "baseUrl": ".",
+    "declaration": true,
+    "declarationDir": "./dist",
+    "emitDeclarationOnly": false,
     "paths": {
       "@/*": ["src/*"],
       "@assets/*": ["src/asset/*"],

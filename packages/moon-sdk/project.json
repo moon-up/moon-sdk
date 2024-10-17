@@ -36,16 +36,34 @@
     "verify": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": ["npm run prettier", "npm run lint"],
+        "commands": [
+          "npm run prettier",
+          "npm run lint"
+        ],
         "parallel": true,
         "cwd": "packages/moon-sdk"
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "jestConfig": "packages/moon-sdk/jest.config.ts"
+      }
+    },
+    "biome-lint": {
+      "executor": "@gitopslovers/nx-biome:biome-lint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "packages/moon-sdk/**/*.ts"
+        ],
+        "write": false,
+        "unsafe": false
       }
     }
   }

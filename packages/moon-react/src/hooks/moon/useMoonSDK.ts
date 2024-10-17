@@ -1,5 +1,5 @@
-import { MoonSDKContext, State } from '@/context/MoonProvider';
-import { useContext } from 'react';
+import { MoonAuthContext, type MoonAuthContextType } from "@/context";
+import { useContext } from "react";
 
 /**
  * Custom hook to access the MoonSDK context.
@@ -10,10 +10,10 @@ import { useContext } from 'react';
  * @returns {State} The current state of the MoonSDK context.
  * @throws {Error} If used outside of a `MoonSDKProvider`.
  */
-export const useMoonSDK = (): State => {
-  const context = useContext(MoonSDKContext);
-  if (context === undefined) {
-    throw new Error('useMoonSDK must be used within a MoonSDKProvider');
-  }
-  return context;
+export const useMoonSDK = (): MoonAuthContextType => {
+	const context = useContext(MoonAuthContext);
+	if (context === undefined) {
+		throw new Error("useMoonSDK must be used within a MoonSDKProvider");
+	}
+	return context;
 };

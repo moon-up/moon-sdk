@@ -1,7 +1,8 @@
-import { Button, Input } from '@/components';
-import { useAuth, useMoonSDK } from '@/index';
-import { AuthModalConfig } from '@/types';
-import React, { useState } from 'react';
+import { Button, Input } from "@/components";
+import { useAuth } from "@/index";
+import type { AuthModalConfig } from "@/types";
+import React, { useState } from "react";
+import { useMoonSDK } from "../../../hooks/old/useMoonSDK";
 
 /**
  * Props for the SignupForm component.
@@ -12,9 +13,9 @@ import React, { useState } from 'react';
  * @property {Function} onCancel - Callback function to be called when the signup process is cancelled.
  */
 export interface SignupFormProps {
-  config: AuthModalConfig;
-  onSuccess: any;
-  onCancel: any;
+	config: AuthModalConfig;
+	onSuccess: any;
+	onCancel: any;
 }
 
 /**
@@ -36,84 +37,84 @@ export interface SignupFormProps {
  * <SignupForm onSuccess={handleSuccess} onCancel={handleCancel} config={config} />
  */
 export const SignupForm = ({
-  onSuccess,
-  onCancel,
-  config,
+	onSuccess,
+	onCancel,
+	config,
 }: SignupFormProps) => {
-  const [isSigningUp, setSigningUp] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
-  const { authConfig } = useMoonSDK();
-  const { signUpWithEmail } = useAuth();
+	const [isSigningUp, setSigningUp] = useState(false);
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [error, setError] = useState<string | null>(null);
+	const { authConfig } = useMoonSDK();
+	const { signUpWithEmail } = useAuth();
 
-  const handleSignupEmail = async () => {
-    try {
-      setSigningUp(true);
-      const session = await signUpWithEmail(email, password);
-      if (!session) {
-        console.error('Invalid Session');
-        setError('Invalid session');
-        setSigningUp(false);
-        return;
-      }
-      onSuccess();
-      setSigningUp(false);
-    } catch (err) {
-      console.error(err);
-      setError('An error occurred');
-      setSigningUp(false);
-    }
-  };
+	const handleSignupEmail = async () => {
+		try {
+			setSigningUp(true);
+			const session = await signUpWithEmail(email, password);
+			if (!session) {
+				console.error("Invalid Session");
+				setError("Invalid session");
+				setSigningUp(false);
+				return;
+			}
+			onSuccess();
+			setSigningUp(false);
+		} catch (err) {
+			console.error(err);
+			setError("An error occurred");
+			setSigningUp(false);
+		}
+	};
 
-  if (isSigningUp)
-    return (
-      <div className="flex flex-col gap-4 items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-text-primary"></div>
-        Signing you up...
-      </div>
-    );
-  return (
-    <div
-      className={`p-${config.appearance.modal.padding} justify-center items-center flex flex-col gap-5`}
-    >
-      <Input
-        label="Email"
-        id="email"
-        type="text"
-        name="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        style={{
-          borderRadius: authConfig.appearance.input.borderRadius || '3px',
-        }}
-        placeholder={
-          config?.appearance?.input?.placeholders?.email ||
-          'eg. ILoveMoon@gmail.com'
-        }
-      />
-      <Input
-        label="Password"
-        id="password"
-        type="password"
-        name="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder={
-          config?.appearance?.input?.placeholders?.password || '******'
-        }
-      />
-      <Button onClick={handleSignupEmail} color="infoColor">
-        Sign Up
-      </Button>
-      {error && <div className="text-red-500">{error}</div>}
+	if (isSigningUp)
+		return (
+			<div className="flex flex-col gap-4 items-center justify-center">
+				<div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-text-primary"></div>
+				Signing you up...
+			</div>
+		);
+	return (
+		<div
+			className={`p-${config.appearance.modal.padding} justify-center items-center flex flex-col gap-5`}
+		>
+			<Input
+				label="Email"
+				id="email"
+				type="text"
+				name="email"
+				value={email}
+				onChange={(e) => setEmail(e.target.value)}
+				style={{
+					borderRadius: authConfig.appearance.input.borderRadius || "3px",
+				}}
+				placeholder={
+					config?.appearance?.input?.placeholders?.email ||
+					"eg. ILoveMoon@gmail.com"
+				}
+			/>
+			<Input
+				label="Password"
+				id="password"
+				type="password"
+				name="password"
+				value={password}
+				onChange={(e) => setPassword(e.target.value)}
+				placeholder={
+					config?.appearance?.input?.placeholders?.password || "******"
+				}
+			/>
+			<Button onClick={handleSignupEmail} color="infoColor">
+				Sign Up
+			</Button>
+			{error && <div className="text-red-500">{error}</div>}
 
-      <h3
-        className="text-text-secondary hover:cursor-pointer hover:underline"
-        onClick={onCancel}
-      >
-        Back to Login
-      </h3>
-    </div>
-  );
+			<h3
+				className="text-text-secondary hover:cursor-pointer hover:underline"
+				onClick={onCancel}
+			>
+				Back to Login
+			</h3>
+		</div>
+	);
 };

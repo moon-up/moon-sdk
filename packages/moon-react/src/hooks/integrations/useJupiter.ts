@@ -28,12 +28,24 @@ export const useJupiter = () => {
   const { handleTransaction } = useMoonTransaction();
   const { moon } = context;
 
+  /**
+   * Retrieves the Jupiter SDK instance from the Moon SDK.
+   *
+   * @returns {Jupiter} The initialized Jupiter SDK instance.
+   * @throws {Error} If the Jupiter SDK is not initialized.
+   */
   const getJupiterSDK = useCallback((): Jupiter => {
     const jupiterSDK = moon?.getJupiterSDK();
     if (!jupiterSDK) throw new Error('Moon jupiterSDK not initialized');
     return jupiterSDK;
   }, [moon]);
 
+  /**
+   * Fetches the indexed route map using the Jupiter SDK.
+   *
+   * @param query - The parameters required to get the indexed route map.
+   * @returns A promise that resolves to the indexed route map data.
+   */
   const getIndexedRouteMap = useCallback(
     async (
       query: GetIndexedRouteMapParams
@@ -47,6 +59,14 @@ export const useJupiter = () => {
     [moon]
   );
 
+  /**
+   * Fetches the mapping of program IDs to their corresponding labels using the Jupiter SDK.
+   *
+   * This function is memoized using `useCallback` and depends on the `moon` dependency.
+   * It handles the transaction by calling `handleTransaction` with the action name 'getProgramIdToLabel'.
+   *
+   * @returns {Promise<GetProgramIdToLabelData>} A promise that resolves to the data containing the program ID to label mapping.
+   */
   const getProgramIdToLabel =
     useCallback(async (): Promise<GetProgramIdToLabelData> => {
       return handleTransaction('getProgramIdToLabel', async () => {
@@ -56,6 +76,14 @@ export const useJupiter = () => {
       });
     }, [moon]);
 
+  /**
+   * Fetches a quote using the Jupiter SDK.
+   *
+   * @param payload - The payload containing the account name and data.
+   * @param payload.accountName - The name of the account for which to fetch the quote.
+   * @param payload.data - The data required by the Jupiter SDK to fetch the quote.
+   * @returns A promise that resolves to the quote data.
+   */
   const getQuote = useCallback(
     async (payload: {
       accountName: string;
@@ -73,6 +101,14 @@ export const useJupiter = () => {
     [moon]
   );
 
+  /**
+   * Retrieves swap instructions using the Jupiter SDK.
+   *
+   * @param payload - The payload containing the account name and data.
+   * @param payload.accountName - The name of the account.
+   * @param payload.data - The data required for the swap, excluding the account name.
+   * @returns A promise that resolves to the swap instructions data.
+   */
   const getSwapInstructions = useCallback(
     async (payload: {
       accountName: string;
@@ -90,6 +126,14 @@ export const useJupiter = () => {
     [moon]
   );
 
+  /**
+   * Fetches tokens using the Jupiter SDK.
+   *
+   * This function is memoized using `useCallback` and will only change if the `moon` dependency changes.
+   * It handles the transaction by calling the `handleTransaction` function with the action name 'getTokens'.
+   *
+   * @returns {Promise<GetTokensData>} A promise that resolves to the data containing the tokens.
+   */
   const getTokens = useCallback(async (): Promise<GetTokensData> => {
     return handleTransaction('getTokens', async () => {
       const jupiterSDK = getJupiterSDK();
@@ -98,6 +142,14 @@ export const useJupiter = () => {
     });
   }, [moon]);
 
+  /**
+   * Executes a swap transaction using the Jupiter SDK.
+   *
+   * @param payload - The payload containing the account name and data for the swap.
+   * @param payload.accountName - The name of the account initiating the swap.
+   * @param payload.data - The data required for the swap, excluding the account name.
+   * @returns A promise that resolves to the swap data.
+   */
   const swap = useCallback(
     async (payload: {
       accountName: string;

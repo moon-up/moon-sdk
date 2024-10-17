@@ -1,49 +1,60 @@
-import { useAuth } from '@/hooks';
-import { SiweMessage } from 'siwe';
+import { useAuth, useMoonSDK } from "@/hooks";
+import { useState } from "react";
+import { SiweMessage } from "siwe";
+import { useChainId } from "wagmi";
 
 export interface ConnectToMoonProps {
-  address: string;
-  signMessageAsync: any;
+	address: string;
+	signMessageAsync: any;
 }
 
 export const useConnectToMoon = ({
-  address,
-  signMessageAsync,
+	address,
+	signMessageAsync,
 }: ConnectToMoonProps) => {
-  // wagmi get chainId
+	// wagmi get chainId
+	const { connect } = useMoonSDK();
 
-  const { verifySIWESignature, getSIWENonce } = useAuth();
+	const [isLoading, setIsLoading] = useState(false);
+	const chainId = useChainId();
 
-  const connectToMoonSiwe = async () => {
-    if (!address) return;
+	const { verifySIWESignature, getSIWENonce } = useAuth();
 
-    try {
-      const nonce = await getSIWENonce(address);
-      if (!nonce) return;
-      const message = new SiweMessage({
-        domain: window.location.host,
-        address,
-        statement: 'Sign in with Ethereum to the app.',
-        uri: window.location.origin,
-        version: '1',
-        chainId: 1,
-        nonce: nonce,
-      });
-      const signedMessage = await signMessageAsync({
-        message: message.prepareMessage(),
-      });
+	const connectToMoonSiwe = async () => {
+		if (!address) return;
 
-      const session = await verifySIWESignature(
-        address,
-        signedMessage,
-        nonce,
-        message
-      );
-      if (!session) return;
-    } catch (err) {
-      console.error('An error occurred:', err);
-    }
-  };
+		setIsLoading(true);
 
-  return { connectToMoonSiwe };
+		try {
+			const nonce = await getSIWENonce(address);
+			if (!nonce) return;
+			const message = new SiweMessage({
+				domain: window.location.host,
+				address,
+				statement: "Sign in with Ethereum to the app.",
+				uri: window.location.origin,
+				version: "1",
+				chainId: chainId,
+				nonce: nonce,
+			});
+			const signedMessage = await signMessageAsync({
+				message: message.prepareMessage(),
+			});
+
+			const session = await verifySIWESignature(
+				address,
+				signedMessage,
+				nonce,
+				message,
+			);
+			if (!session) return;
+			connect(session.access_token, session.refresh_token);
+		} catch (err) {
+			console.error("An error occurred:", err);
+		} finally {
+			setIsLoading(false);
+		}
+	};
+
+	return { connectToMoonSiwe, isLoading };
 };

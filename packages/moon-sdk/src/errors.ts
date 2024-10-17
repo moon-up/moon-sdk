@@ -12,10 +12,10 @@
  * @param message - A descriptive message explaining the error.
  */
 export class MoonSDKError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = 'MoonSDKError';
-  }
+	constructor(message: string) {
+		super(message);
+		this.name = "MoonSDKError";
+	}
 }
 
 /**
@@ -42,12 +42,12 @@ export class NetworkError extends MoonSDKError {}
  * @extends {Error}
  */
 export class ChainError extends Error {
-  constructor(
-    message: string,
-    public chainName: string,
-    public method: string
-  ) {
-    super(message);
-    this.name = 'ChainError';
-  }
+	constructor(
+		message: string,
+		public chainName: string,
+		public method: string,
+	) {
+		super(message);
+		this.name = "ChainError";
+	}
 }

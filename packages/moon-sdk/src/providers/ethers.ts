@@ -1,4 +1,8 @@
-import { ProviderAccounts, RequestArguments } from 'eip1193-provider';
+import {
+  EIP1193Provider,
+  ProviderAccounts,
+  RequestArguments,
+} from 'eip1193-provider';
 import { JsonRpcProvider } from 'ethers';
 
 import { MoonSDK } from '../moon';
@@ -14,7 +18,7 @@ import { MoonSDK } from '../moon';
  * @extends JsonRpcProvider
  * @implements JsonRpcProvider
  */
-export class MoonProvider extends JsonRpcProvider implements JsonRpcProvider {
+export class MoonProvider extends JsonRpcProvider implements EIP1193Provider {
   private moonSDK: MoonSDK;
   private customAddress: string | null = null;
 

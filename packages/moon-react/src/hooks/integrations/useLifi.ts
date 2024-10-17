@@ -13,6 +13,7 @@ import {
 } from '@moonup/moon-api';
 import { useQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
+import { useAccount, useSendTransaction } from 'wagmi';
 
 /**
  * Custom hook to interact with the Moon Lifi SDK.
@@ -31,6 +32,32 @@ export const useLifi = () => {
   const context = useMoonSDK();
   const { handleTransaction } = useMoonTransaction();
   const { moon } = context;
+  const { isConnected } = useAccount();
+  const { sendTransactionAsync } = useSendTransaction();
+  const prepareTransaction = (transaction: any) => {
+    if (isConnected) {
+      return {
+        ...transaction,
+        broadcast: false,
+        dryrun: true,
+      };
+    }
+    return transaction;
+  };
+
+  const handleWagmiTransaction = async (transactionData: any) => {
+    if (isConnected) {
+      const { transaction } = transactionData;
+
+      await sendTransactionAsync({
+        to: transaction.to,
+        data: transaction.data,
+        value: BigInt(transaction.value),
+        chainId: transaction.chainId,
+      });
+    }
+    return transactionData;
+  };
 
   /**
    * Fetches the supported tokens using the Lifi SDK.
@@ -186,11 +213,12 @@ export const useLifi = () => {
     async (payload: PostQuoteParams): Promise<PostQuote> => {
       return handleTransaction('postQuoteLifi', async () => {
         const lifiSDK = getLifiSDK();
-        const response = await lifiSDK.postQuote(payload);
-        return response.data;
+        const preparedPayload = prepareTransaction(payload);
+        const response = await lifiSDK.postQuote(preparedPayload);
+        return handleWagmiTransaction(response.data);
       });
     },
-    [moon]
+    [moon, isConnected, sendTransactionAsync]
   );
 
   return {
