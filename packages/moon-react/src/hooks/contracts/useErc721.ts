@@ -1,7 +1,12 @@
 import { useMoonTransaction } from "@/hooks";
 import type { Erc721, InputBody, Transaction } from "@moonup/moon-api";
 import { useCallback } from "react";
-import { useAccount, useSendTransaction } from "wagmi";
+import {
+	useAccount,
+	useChainId,
+	useSendTransaction,
+	useSwitchChain,
+} from "wagmi";
 import { useMoonAuth } from "../../context";
 
 /**
@@ -24,8 +29,10 @@ import { useMoonAuth } from "../../context";
 export const useErc721 = () => {
 	const { handleTransaction } = useMoonTransaction();
 	const { moon } = useMoonAuth();
-	const { isConnected } = useAccount();
+	const { isConnected, address } = useAccount();
 	const { sendTransactionAsync } = useSendTransaction();
+	const { switchChain } = useSwitchChain();
+	const chainId = useChainId();
 
 	const getErc721SDK = (): Erc721 => {
 		const erc721SDK = moon?.getErc721SDK();
@@ -44,17 +51,25 @@ export const useErc721 = () => {
 	};
 
 	const handleWagmiTransaction = async (transactionData: any) => {
-		if (isConnected) {
-			const { transaction } = transactionData;
-
-			await sendTransactionAsync({
-				to: transaction.to,
-				data: transaction.data,
-				value: BigInt(transaction.value),
-				chainId: transaction.chainId,
-			});
+		try {
+			if (isConnected && address === transactionData.transaction.from) {
+				if (chainId !== Number.parseInt(transactionData.transaction.chainId)) {
+					await switchChain({
+						chainId: Number.parseInt(transactionData.transaction.chainId),
+					});
+				}
+				// Use wagmi's sendTransaction if a wagmi account is connected
+				await sendTransactionAsync({
+					to: transactionData.transaction.to,
+					data: transactionData.transaction.data,
+					value: BigInt(transactionData.transaction.value),
+					chainId: Number.parseInt(transactionData.transaction.chain_id),
+				});
+			}
+		} catch (error) {
+			console.error("handleWagmiTransaction: Error: ", error);
+			return transactionData;
 		}
-		return transactionData;
 	};
 	/**
 	 * Approves an ERC721 transaction.

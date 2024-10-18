@@ -1,873 +1,1322 @@
-import { useMoonSDK, useMoonTransaction } from '@/hooks';
+import { useMoonAuth } from "@/context";
+import { useMoonTransaction } from "@/hooks";
+import type {
+	AddLiquidityEthOutput,
+	AddLiquidityOutput,
+	ApproveOutput1,
+	BalanceOfOutput,
+	BalanceOfParams3,
+	BaseUriData,
+	BaseUriParams,
+	BurnResult,
+	CollectData,
+	CreateAndInitializePoolIfNecessaryData,
+	DecreaseLiquidityData,
+	DomainSeparatorData,
+	DomainSeparatorParams,
+	ExactInputData,
+	ExactInputSingleData,
+	ExactOutputData,
+	ExactOutputSingleData,
+	Factory2Data,
+	Factory2Params,
+	FactoryData,
+	FactoryParams,
+	GetAmountInData,
+	GetAmountOutOutput,
+	GetAmountsInData,
+	GetAmountsOutOutput,
+	GetApprovedParams2,
+	GetApprovedResult,
+	GetFactoryOutput,
+	GetFactoryParams4,
+	GetWethData1,
+	GetWethParams6,
+	IncreaseLiquidityData,
+	IsApprovedForAllOutput,
+	IsApprovedForAllParams3,
+	MintResult,
+	Multicall2Data,
+	MulticallData,
+	NameData,
+	NameParams,
+	OwnerOfData,
+	OwnerOfParams,
+	PermitData,
+	PermitTypehashData,
+	PermitTypehashParams,
+	PositionsData,
+	PositionsParams,
+	QuoteData,
+	RefundEth2Data,
+	RefundEthData,
+	RemoveLiquidityEthResult,
+	RemoveLiquidityEthSupportingFeeOnTransferTokensData,
+	RemoveLiquidityEthWithPermitData,
+	RemoveLiquidityEthWithPermitSupportingFeeOnTransferTokensData,
+	RemoveLiquidityResult,
+	RemoveLiquidityWithPermitData,
+	SelfPermitAllowedData,
+	SelfPermitAllowedIfNecessaryData,
+	SelfPermitData,
+	SelfPermitIfNecessaryData,
+	SetApprovalForAllOutput,
+	SupportsInterfaceParams2,
+	SupportsInterfaceResult,
+	SwapEthForExactTokensData,
+	SwapExactEthForTokensOutput,
+	SwapExactEthForTokensSupportingFeeOnTransferTokensData,
+	SwapExactTokensForEthOutput,
+	SwapExactTokensForEthSupportingFeeOnTransferTokensData,
+	SwapExactTokensForTokensOutput,
+	SwapExactTokensForTokensSupportingFeeOnTransferTokensData,
+	SwapTokensForExactEthData,
+	SwapTokensForExactTokensData,
+	SweepToken2Data,
+	SweepTokenData,
+	SweepTokenWithFeeData,
+	SymbolData,
+	SymbolParams,
+	TokenByIndexData,
+	TokenByIndexParams,
+	TokenOfOwnerByIndexData,
+	TokenOfOwnerByIndexParams,
+	TokenUriData,
+	TokenUriParams,
+	TotalSupplyData,
+	TotalSupplyParams,
+	TransferFromResult1,
+	UniswapV2InputBody,
+	UniswapV3InputBody,
+} from "@moonup/moon-api";
+import { useCallback } from "react";
 import {
-  AddLiquidityEthOutput,
-  AddLiquidityOutput,
-  ApproveOutput1,
-  BalanceOfOutput,
-  BalanceOfParams3,
-  BaseUriData,
-  BaseUriParams,
-  BurnResult,
-  CollectData,
-  CreateAndInitializePoolIfNecessaryData,
-  DecreaseLiquidityData,
-  DomainSeparatorData,
-  DomainSeparatorParams,
-  ExactInputData,
-  ExactInputSingleData,
-  ExactOutputData,
-  ExactOutputSingleData,
-  Factory2Data,
-  Factory2Params,
-  FactoryData,
-  FactoryParams,
-  GetAmountInData,
-  GetAmountOutOutput,
-  GetAmountsInData,
-  GetAmountsOutOutput,
-  GetApprovedParams2,
-  GetApprovedResult,
-  GetFactoryOutput,
-  GetFactoryParams4,
-  GetWethData1,
-  GetWethParams6,
-  IncreaseLiquidityData,
-  IsApprovedForAllOutput,
-  IsApprovedForAllParams3,
-  MintResult,
-  Multicall2Data,
-  MulticallData,
-  NameData,
-  NameParams,
-  OwnerOfData,
-  OwnerOfParams,
-  PermitData,
-  PermitTypehashData,
-  PermitTypehashParams,
-  PositionsData,
-  PositionsParams,
-  QuoteData,
-  RefundEth2Data,
-  RefundEthData,
-  RemoveLiquidityEthResult,
-  RemoveLiquidityEthSupportingFeeOnTransferTokensData,
-  RemoveLiquidityEthWithPermitData,
-  RemoveLiquidityEthWithPermitSupportingFeeOnTransferTokensData,
-  RemoveLiquidityResult,
-  RemoveLiquidityWithPermitData,
-  SelfPermitAllowedData,
-  SelfPermitAllowedIfNecessaryData,
-  SelfPermitData,
-  SelfPermitIfNecessaryData,
-  SetApprovalForAllOutput,
-  SupportsInterfaceParams2,
-  SupportsInterfaceResult,
-  SwapEthForExactTokensData,
-  SwapExactEthForTokensOutput,
-  SwapExactEthForTokensSupportingFeeOnTransferTokensData,
-  SwapExactTokensForEthOutput,
-  SwapExactTokensForEthSupportingFeeOnTransferTokensData,
-  SwapExactTokensForTokensOutput,
-  SwapExactTokensForTokensSupportingFeeOnTransferTokensData,
-  SwapTokensForExactEthData,
-  SwapTokensForExactTokensData,
-  SweepToken2Data,
-  SweepTokenData,
-  SweepTokenWithFeeData,
-  SymbolData,
-  SymbolParams,
-  TokenByIndexData,
-  TokenByIndexParams,
-  TokenOfOwnerByIndexData,
-  TokenOfOwnerByIndexParams,
-  TokenUriData,
-  TokenUriParams,
-  TotalSupplyData,
-  TotalSupplyParams,
-  TransferFromResult1,
-  UniswapV2InputBody,
-  UniswapV3InputBody,
-  UnwrapWeth92Data,
-  UnwrapWeth9Data,
-  UnwrapWeth9WithFeeData,
-  Weth92Data,
-  Weth92Params,
-  Weth9Data,
-  Weth9Params,
-} from '@moonup/moon-api';
-import { useCallback } from 'react';
+	useAccount,
+	useChainId,
+	useSendTransaction,
+	useSwitchChain,
+} from "wagmi";
 
 export const useUniswap = () => {
-  const context = useMoonSDK();
-  const { handleTransaction } = useMoonTransaction();
-  const { moon } = context;
-
-  const getUniswapSDK = () => {
-    const uniswapSDK = moon?.getUniswapSDK();
-    if (!uniswapSDK) throw new Error('Moon Uniswap SDK not initialized');
-    return uniswapSDK;
-  };
-
-  // UniswapV2Router methods
-  const addLiquidity = useCallback(
-    async (
-      account: string,
-      data: UniswapV2InputBody
-    ): Promise<AddLiquidityOutput> =>
-      handleTransaction('addLiquidity', () =>
-        getUniswapSDK().addLiquidity(account, data)
-      ),
-    [moon]
-  );
-
-  const addLiquidityEth = useCallback(
-    async (
-      account: string,
-      data: UniswapV2InputBody
-    ): Promise<AddLiquidityEthOutput> =>
-      handleTransaction('addLiquidityEth', () =>
-        getUniswapSDK().addLiquidityEth(account, data)
-      ),
-    [moon]
-  );
-
-  const getAmountIn = useCallback(
-    async (
-      account: string,
-      data: UniswapV2InputBody
-    ): Promise<GetAmountInData> =>
-      handleTransaction('getAmountIn', () =>
-        getUniswapSDK().getAmountIn(account, data)
-      ),
-    [moon]
-  );
-
-  const getAmountOut = useCallback(
-    async (
-      account: string,
-      data: UniswapV2InputBody
-    ): Promise<GetAmountOutOutput> =>
-      handleTransaction('getAmountOut', () =>
-        getUniswapSDK().getAmountOut(account, data)
-      ),
-    [moon]
-  );
-
-  const getAmountsIn = useCallback(
-    async (
-      account: string,
-      data: UniswapV2InputBody
-    ): Promise<GetAmountsInData> =>
-      handleTransaction('getAmountsIn', () =>
-        getUniswapSDK().getAmountsIn(account, data)
-      ),
-    [moon]
-  );
-
-  const getAmountsOut = useCallback(
-    async (
-      account: string,
-      data: UniswapV2InputBody
-    ): Promise<GetAmountsOutOutput> =>
-      handleTransaction('getAmountsOut', () =>
-        getUniswapSDK().getAmountsOut(account, data)
-      ),
-    [moon]
-  );
-
-  const getFactory = useCallback(
-    async (params: GetFactoryParams4): Promise<GetFactoryOutput> =>
-      handleTransaction('getFactory', () => getUniswapSDK().getFactory(params)),
-    [moon]
-  );
-
-  const getWeth = useCallback(
-    async (params: GetWethParams6): Promise<GetWethData1> =>
-      handleTransaction('getWeth', () => getUniswapSDK().getWeth(params)),
-    [moon]
-  );
-
-  const quote = useCallback(
-    async (account: string, data: UniswapV2InputBody): Promise<QuoteData> =>
-      handleTransaction('quote', () => getUniswapSDK().quote(account, data)),
-    [moon]
-  );
-
-  const removeLiquidity = useCallback(
-    async (
-      account: string,
-      data: UniswapV2InputBody
-    ): Promise<RemoveLiquidityResult> =>
-      handleTransaction('removeLiquidity', () =>
-        getUniswapSDK().removeLiquidity(account, data)
-      ),
-    [moon]
-  );
-
-  const removeLiquidityEth = useCallback(
-    async (
-      account: string,
-      data: UniswapV2InputBody
-    ): Promise<RemoveLiquidityEthResult> =>
-      handleTransaction('removeLiquidityEth', () =>
-        getUniswapSDK().removeLiquidityEth(account, data)
-      ),
-    [moon]
-  );
-
-  const removeLiquidityEthSupportingFeeOnTransferTokens = useCallback(
-    async (
-      account: string,
-      data: UniswapV2InputBody
-    ): Promise<RemoveLiquidityEthSupportingFeeOnTransferTokensData> =>
-      handleTransaction('removeLiquidityEthSupportingFeeOnTransferTokens', () =>
-        getUniswapSDK().removeLiquidityEthSupportingFeeOnTransferTokens(
-          account,
-          data
-        )
-      ),
-    [moon]
-  );
-
-  const removeLiquidityEthWithPermit = useCallback(
-    async (
-      account: string,
-      data: UniswapV2InputBody
-    ): Promise<RemoveLiquidityEthWithPermitData> =>
-      handleTransaction('removeLiquidityEthWithPermit', () =>
-        getUniswapSDK().removeLiquidityEthWithPermit(account, data)
-      ),
-    [moon]
-  );
-
-  const removeLiquidityEthWithPermitSupportingFeeOnTransferTokens = useCallback(
-    async (
-      account: string,
-      data: UniswapV2InputBody
-    ): Promise<RemoveLiquidityEthWithPermitSupportingFeeOnTransferTokensData> =>
-      handleTransaction(
-        'removeLiquidityEthWithPermitSupportingFeeOnTransferTokens',
-        () =>
-          getUniswapSDK().removeLiquidityEthWithPermitSupportingFeeOnTransferTokens(
-            account,
-            data
-          )
-      ),
-    [moon]
-  );
-
-  const removeLiquidityWithPermit = useCallback(
-    async (
-      account: string,
-      data: UniswapV2InputBody
-    ): Promise<RemoveLiquidityWithPermitData> =>
-      handleTransaction('removeLiquidityWithPermit', () =>
-        getUniswapSDK().removeLiquidityWithPermit(account, data)
-      ),
-    [moon]
-  );
-
-  const swapEthForExactTokens = useCallback(
-    async (
-      account: string,
-      data: UniswapV2InputBody
-    ): Promise<SwapEthForExactTokensData> =>
-      handleTransaction('swapEthForExactTokens', () =>
-        getUniswapSDK().swapEthForExactTokens(account, data)
-      ),
-    [moon]
-  );
-
-  const swapExactEthForTokens = useCallback(
-    async (
-      account: string,
-      data: UniswapV2InputBody
-    ): Promise<SwapExactEthForTokensOutput> =>
-      handleTransaction('swapExactEthForTokens', () =>
-        getUniswapSDK().swapExactEthForTokens(account, data)
-      ),
-    [moon]
-  );
-
-  const swapExactEthForTokensSupportingFeeOnTransferTokens = useCallback(
-    async (
-      account: string,
-      data: UniswapV2InputBody
-    ): Promise<SwapExactEthForTokensSupportingFeeOnTransferTokensData> =>
-      handleTransaction(
-        'swapExactEthForTokensSupportingFeeOnTransferTokens',
-        () =>
-          getUniswapSDK().swapExactEthForTokensSupportingFeeOnTransferTokens(
-            account,
-            data
-          )
-      ),
-    [moon]
-  );
-
-  const swapExactTokensForEth = useCallback(
-    async (
-      account: string,
-      data: UniswapV2InputBody
-    ): Promise<SwapExactTokensForEthOutput> =>
-      handleTransaction('swapExactTokensForEth', () =>
-        getUniswapSDK().swapExactTokensForEth(account, data)
-      ),
-    [moon]
-  );
-
-  const swapExactTokensForEthSupportingFeeOnTransferTokens = useCallback(
-    async (
-      account: string,
-      data: UniswapV2InputBody
-    ): Promise<SwapExactTokensForEthSupportingFeeOnTransferTokensData> =>
-      handleTransaction(
-        'swapExactTokensForEthSupportingFeeOnTransferTokens',
-        () =>
-          getUniswapSDK().swapExactTokensForEthSupportingFeeOnTransferTokens(
-            account,
-            data
-          )
-      ),
-    [moon]
-  );
-
-  const swapExactTokensForTokens = useCallback(
-    async (
-      account: string,
-      data: UniswapV2InputBody
-    ): Promise<SwapExactTokensForTokensOutput> =>
-      handleTransaction('swapExactTokensForTokens', () =>
-        getUniswapSDK().swapExactTokensForTokens(account, data)
-      ),
-    [moon]
-  );
-
-  const swapExactTokensForTokensSupportingFeeOnTransferTokens = useCallback(
-    async (
-      account: string,
-      data: UniswapV2InputBody
-    ): Promise<SwapExactTokensForTokensSupportingFeeOnTransferTokensData> =>
-      handleTransaction(
-        'swapExactTokensForTokensSupportingFeeOnTransferTokens',
-        () =>
-          getUniswapSDK().swapExactTokensForTokensSupportingFeeOnTransferTokens(
-            account,
-            data
-          )
-      ),
-    [moon]
-  );
-
-  const swapTokensForExactEth = useCallback(
-    async (
-      account: string,
-      data: UniswapV2InputBody
-    ): Promise<SwapTokensForExactEthData> =>
-      handleTransaction('swapTokensForExactEth', () =>
-        getUniswapSDK().swapTokensForExactEth(account, data)
-      ),
-    [moon]
-  );
-
-  const swapTokensForExactTokens = useCallback(
-    async (
-      account: string,
-      data: UniswapV2InputBody
-    ): Promise<SwapTokensForExactTokensData> =>
-      handleTransaction('swapTokensForExactTokens', () =>
-        getUniswapSDK().swapTokensForExactTokens(account, data)
-      ),
-    [moon]
-  );
-
-  // UniswapV3NFT methods
-  const approve = useCallback(
-    async (
-      address: string,
-      data: UniswapV3InputBody
-    ): Promise<ApproveOutput1> =>
-      handleTransaction('approve', () =>
-        getUniswapSDK().approve(address, data)
-      ),
-    [moon]
-  );
-
-  const balanceOf = useCallback(
-    async (query: BalanceOfParams3): Promise<BalanceOfOutput> =>
-      handleTransaction('balanceOf', () => getUniswapSDK().balanceOf(query)),
-    [moon]
-  );
-
-  const baseUri = useCallback(
-    async (query: BaseUriParams): Promise<BaseUriData> =>
-      handleTransaction('baseUri', () => getUniswapSDK().baseUri(query)),
-    [moon]
-  );
-
-  const burn = useCallback(
-    async (address: string, data: UniswapV3InputBody): Promise<BurnResult> =>
-      handleTransaction('burn', () => getUniswapSDK().burn(address, data)),
-    [moon]
-  );
-
-  const collect = useCallback(
-    async (address: string, data: UniswapV3InputBody): Promise<CollectData> =>
-      handleTransaction('collect', () =>
-        getUniswapSDK().collect(address, data)
-      ),
-    [moon]
-  );
-
-  const createAndInitializePoolIfNecessary = useCallback(
-    async (
-      address: string,
-      data: UniswapV3InputBody
-    ): Promise<CreateAndInitializePoolIfNecessaryData> =>
-      handleTransaction('createAndInitializePoolIfNecessary', () =>
-        getUniswapSDK().createAndInitializePoolIfNecessary(address, data)
-      ),
-    [moon]
-  );
-
-  const decreaseLiquidity = useCallback(
-    async (
-      address: string,
-      data: UniswapV3InputBody
-    ): Promise<DecreaseLiquidityData> =>
-      handleTransaction('decreaseLiquidity', () =>
-        getUniswapSDK().decreaseLiquidity(address, data)
-      ),
-    [moon]
-  );
-
-  const domainSeparator = useCallback(
-    async (query: DomainSeparatorParams): Promise<DomainSeparatorData> =>
-      handleTransaction('domainSeparator', () =>
-        getUniswapSDK().domainSeparator(query)
-      ),
-    [moon]
-  );
-
-  const exactInput = useCallback(
-    async (
-      address: string,
-      data: UniswapV3InputBody
-    ): Promise<ExactInputData> =>
-      handleTransaction('exactInput', () =>
-        getUniswapSDK().exactInput(address, data)
-      ),
-    [moon]
-  );
-
-  const exactInputSingle = useCallback(
-    async (
-      address: string,
-      data: UniswapV3InputBody
-    ): Promise<ExactInputSingleData> =>
-      handleTransaction('exactInputSingle', () =>
-        getUniswapSDK().exactInputSingle(address, data)
-      ),
-    [moon]
-  );
-  const exactOutput = useCallback(
-    async (
-      address: string,
-      data: UniswapV3InputBody
-    ): Promise<ExactOutputData> =>
-      handleTransaction('exactOutput', () =>
-        getUniswapSDK().exactOutput(address, data)
-      ),
-    [moon]
-  );
-
-  const exactOutputSingle = useCallback(
-    async (
-      address: string,
-      data: UniswapV3InputBody
-    ): Promise<ExactOutputSingleData> =>
-      handleTransaction('exactOutputSingle', () =>
-        getUniswapSDK().exactOutputSingle(address, data)
-      ),
-    [moon]
-  );
-
-  const factory = useCallback(
-    async (query: FactoryParams): Promise<FactoryData> =>
-      handleTransaction('factory', () => getUniswapSDK().factory(query)),
-    [moon]
-  );
-
-  const factory2 = useCallback(
-    async (query: Factory2Params): Promise<Factory2Data> =>
-      handleTransaction('factory2', () => getUniswapSDK().factory2(query)),
-    [moon]
-  );
-
-  const getApproved = useCallback(
-    async (query: GetApprovedParams2): Promise<GetApprovedResult> =>
-      handleTransaction('getApproved', () =>
-        getUniswapSDK().getApproved(query)
-      ),
-    [moon]
-  );
-
-  const increaseLiquidity = useCallback(
-    async (
-      address: string,
-      data: UniswapV3InputBody
-    ): Promise<IncreaseLiquidityData> =>
-      handleTransaction('increaseLiquidity', () =>
-        getUniswapSDK().increaseLiquidity(address, data)
-      ),
-    [moon]
-  );
-
-  const isApprovedForAll = useCallback(
-    async (query: IsApprovedForAllParams3): Promise<IsApprovedForAllOutput> =>
-      handleTransaction('isApprovedForAll', () =>
-        getUniswapSDK().isApprovedForAll(query)
-      ),
-    [moon]
-  );
-
-  const mint = useCallback(
-    async (address: string, data: UniswapV3InputBody): Promise<MintResult> =>
-      handleTransaction('mint', () => getUniswapSDK().mint(address, data)),
-    [moon]
-  );
-
-  const multicall = useCallback(
-    async (address: string, data: UniswapV3InputBody): Promise<MulticallData> =>
-      handleTransaction('multicall', () =>
-        getUniswapSDK().multicall(address, data)
-      ),
-    [moon]
-  );
-
-  const multicall2 = useCallback(
-    async (
-      address: string,
-      data: UniswapV3InputBody
-    ): Promise<Multicall2Data> =>
-      handleTransaction('multicall2', () =>
-        getUniswapSDK().multicall2(address, data)
-      ),
-    [moon]
-  );
-
-  const name = useCallback(
-    async (query: NameParams): Promise<NameData> =>
-      handleTransaction('name', () => getUniswapSDK().name(query)),
-    [moon]
-  );
-
-  const ownerOf = useCallback(
-    async (query: OwnerOfParams): Promise<OwnerOfData> =>
-      handleTransaction('ownerOf', () => getUniswapSDK().ownerOf(query)),
-    [moon]
-  );
-
-  const permit = useCallback(
-    async (address: string, data: UniswapV3InputBody): Promise<PermitData> =>
-      handleTransaction('permit', () => getUniswapSDK().permit(address, data)),
-    [moon]
-  );
-
-  const permitTypehash = useCallback(
-    async (query: PermitTypehashParams): Promise<PermitTypehashData> =>
-      handleTransaction('permitTypehash', () =>
-        getUniswapSDK().permitTypehash(query)
-      ),
-    [moon]
-  );
-
-  const positions = useCallback(
-    async (query: PositionsParams): Promise<PositionsData> =>
-      handleTransaction('positions', () => getUniswapSDK().positions(query)),
-    [moon]
-  );
-
-  const refundEth = useCallback(
-    async (address: string, data: UniswapV3InputBody): Promise<RefundEthData> =>
-      handleTransaction('refundEth', () =>
-        getUniswapSDK().refundEth(address, data)
-      ),
-    [moon]
-  );
-
-  const refundEth2 = useCallback(
-    async (
-      address: string,
-      data: UniswapV3InputBody
-    ): Promise<RefundEth2Data> =>
-      handleTransaction('refundEth2', () =>
-        getUniswapSDK().refundEth2(address, data)
-      ),
-    [moon]
-  );
-
-  const selfPermit = useCallback(
-    async (
-      address: string,
-      data: UniswapV3InputBody
-    ): Promise<SelfPermitData> =>
-      handleTransaction('selfPermit', () =>
-        getUniswapSDK().selfPermit(address, data)
-      ),
-    [moon]
-  );
-
-  const selfPermitAllowed = useCallback(
-    async (
-      address: string,
-      data: UniswapV3InputBody
-    ): Promise<SelfPermitAllowedData> =>
-      handleTransaction('selfPermitAllowed', () =>
-        getUniswapSDK().selfPermitAllowed(address, data)
-      ),
-    [moon]
-  );
-
-  const selfPermitAllowedIfNecessary = useCallback(
-    async (
-      address: string,
-      data: UniswapV3InputBody
-    ): Promise<SelfPermitAllowedIfNecessaryData> =>
-      handleTransaction('selfPermitAllowedIfNecessary', () =>
-        getUniswapSDK().selfPermitAllowedIfNecessary(address, data)
-      ),
-    [moon]
-  );
-
-  const selfPermitIfNecessary = useCallback(
-    async (
-      address: string,
-      data: UniswapV3InputBody
-    ): Promise<SelfPermitIfNecessaryData> =>
-      handleTransaction('selfPermitIfNecessary', () =>
-        getUniswapSDK().selfPermitIfNecessary(address, data)
-      ),
-    [moon]
-  );
-
-  const setApprovalForAll = useCallback(
-    async (
-      address: string,
-      data: UniswapV3InputBody
-    ): Promise<SetApprovalForAllOutput> =>
-      handleTransaction('setApprovalForAll', () =>
-        getUniswapSDK().setApprovalForAll(address, data)
-      ),
-    [moon]
-  );
-
-  const supportsInterface = useCallback(
-    async (query: SupportsInterfaceParams2): Promise<SupportsInterfaceResult> =>
-      handleTransaction('supportsInterface', () =>
-        getUniswapSDK().supportsInterface(query)
-      ),
-    [moon]
-  );
-
-  const sweepToken = useCallback(
-    async (
-      address: string,
-      data: UniswapV3InputBody
-    ): Promise<SweepTokenData> =>
-      handleTransaction('sweepToken', () =>
-        getUniswapSDK().sweepToken(address, data)
-      ),
-    [moon]
-  );
-
-  const sweepToken2 = useCallback(
-    async (
-      address: string,
-      data: UniswapV3InputBody
-    ): Promise<SweepToken2Data> =>
-      handleTransaction('sweepToken2', () =>
-        getUniswapSDK().sweepToken2(address, data)
-      ),
-    [moon]
-  );
-
-  const sweepTokenWithFee = useCallback(
-    async (
-      address: string,
-      data: UniswapV3InputBody
-    ): Promise<SweepTokenWithFeeData> =>
-      handleTransaction('sweepTokenWithFee', () =>
-        getUniswapSDK().sweepTokenWithFee(address, data)
-      ),
-    [moon]
-  );
-
-  const symbol = useCallback(
-    async (query: SymbolParams): Promise<SymbolData> =>
-      handleTransaction('symbol', () => getUniswapSDK().symbol(query)),
-    [moon]
-  );
-
-  const tokenByIndex = useCallback(
-    async (query: TokenByIndexParams): Promise<TokenByIndexData> =>
-      handleTransaction('tokenByIndex', () =>
-        getUniswapSDK().tokenByIndex(query)
-      ),
-    [moon]
-  );
-
-  const tokenOfOwnerByIndex = useCallback(
-    async (
-      query: TokenOfOwnerByIndexParams
-    ): Promise<TokenOfOwnerByIndexData> =>
-      handleTransaction('tokenOfOwnerByIndex', () =>
-        getUniswapSDK().tokenOfOwnerByIndex(query)
-      ),
-    [moon]
-  );
-
-  const tokenUri = useCallback(
-    async (query: TokenUriParams): Promise<TokenUriData> =>
-      handleTransaction('tokenUri', () => getUniswapSDK().tokenUri(query)),
-    [moon]
-  );
-
-  const totalSupply = useCallback(
-    async (query: TotalSupplyParams): Promise<TotalSupplyData> =>
-      handleTransaction('totalSupply', () =>
-        getUniswapSDK().totalSupply(query)
-      ),
-    [moon]
-  );
-
-  const transferFrom = useCallback(
-    async (
-      address: string,
-      data: UniswapV3InputBody
-    ): Promise<TransferFromResult1> =>
-      handleTransaction('transferFrom', () =>
-        getUniswapSDK().transferFrom(address, data)
-      ),
-    [moon]
-  );
-
-  const unwrapWeth9 = useCallback(
-    async (
-      address: string,
-      data: UniswapV3InputBody
-    ): Promise<UnwrapWeth9Data> =>
-      handleTransaction('unwrapWeth9', () =>
-        getUniswapSDK().unwrapWeth9(address, data)
-      ),
-    [moon]
-  );
-
-  const unwrapWeth92 = useCallback(
-    async (
-      address: string,
-      data: UniswapV3InputBody
-    ): Promise<UnwrapWeth92Data> =>
-      handleTransaction('unwrapWeth92', () =>
-        getUniswapSDK().unwrapWeth92(address, data)
-      ),
-    [moon]
-  );
-
-  const unwrapWeth9WithFee = useCallback(
-    async (
-      address: string,
-      data: UniswapV3InputBody
-    ): Promise<UnwrapWeth9WithFeeData> =>
-      handleTransaction('unwrapWeth9WithFee', () =>
-        getUniswapSDK().unwrapWeth9WithFee(address, data)
-      ),
-    [moon]
-  );
-
-  const weth9 = useCallback(
-    async (query: Weth9Params): Promise<Weth9Data> =>
-      handleTransaction('weth9', () => getUniswapSDK().weth9(query)),
-    [moon]
-  );
-
-  const weth92 = useCallback(
-    async (query: Weth92Params): Promise<Weth92Data> =>
-      handleTransaction('weth92', () => getUniswapSDK().weth92(query)),
-    [moon]
-  );
-
-  return {
-    addLiquidity,
-    addLiquidityEth,
-    approve,
-    balanceOf,
-    baseUri,
-    burn,
-    collect,
-    createAndInitializePoolIfNecessary,
-    decreaseLiquidity,
-    domainSeparator,
-    exactInput,
-    exactInputSingle,
-    exactOutput,
-    exactOutputSingle,
-    factory,
-    factory2,
-    getAmountIn,
-    getAmountOut,
-    getAmountsIn,
-    getAmountsOut,
-    getApproved,
-    getFactory,
-    getWeth,
-    increaseLiquidity,
-    isApprovedForAll,
-    mint,
-    multicall,
-    multicall2,
-    name,
-    ownerOf,
-    permit,
-    permitTypehash,
-    positions,
-    quote,
-    refundEth,
-    refundEth2,
-    removeLiquidity,
-    removeLiquidityEth,
-    removeLiquidityEthSupportingFeeOnTransferTokens,
-    removeLiquidityEthWithPermit,
-    removeLiquidityEthWithPermitSupportingFeeOnTransferTokens,
-    removeLiquidityWithPermit,
-    selfPermit,
-    selfPermitAllowed,
-    selfPermitAllowedIfNecessary,
-    selfPermitIfNecessary,
-    setApprovalForAll,
-    supportsInterface,
-    swapEthForExactTokens,
-    swapExactEthForTokens,
-    swapExactEthForTokensSupportingFeeOnTransferTokens,
-    swapExactTokensForEth,
-    swapExactTokensForEthSupportingFeeOnTransferTokens,
-    swapExactTokensForTokens,
-    swapExactTokensForTokensSupportingFeeOnTransferTokens,
-    swapTokensForExactEth,
-    swapTokensForExactTokens,
-    sweepToken,
-    sweepToken2,
-    sweepTokenWithFee,
-    symbol,
-    tokenByIndex,
-    tokenOfOwnerByIndex,
-    tokenUri,
-    totalSupply,
-    transferFrom,
-    unwrapWeth9,
-    unwrapWeth92,
-    unwrapWeth9WithFee,
-    weth9,
-    weth92,
-  };
+	const { handleTransaction } = useMoonTransaction();
+	const { moon } = useMoonAuth();
+	const { isConnected, address } = useAccount();
+	const { sendTransactionAsync } = useSendTransaction();
+	const chainId = useChainId();
+	const { switchChain } = useSwitchChain();
+
+	const getUniswapSDK = useCallback(() => {
+		const uniswapSDK = moon?.getUniswapSDK();
+		if (!uniswapSDK) throw new Error("Moon Uniswap SDK not initialized");
+		return uniswapSDK;
+	}, [moon]);
+
+	const prepareTransaction = (transaction: any) => {
+		if (isConnected) {
+			return {
+				...transaction,
+				broadcast: false,
+				dryrun: true,
+			};
+		}
+		return transaction;
+	};
+
+	const handleWagmiTransaction = async (transactionData: any) => {
+		try {
+			if (isConnected && address === transactionData.transaction.from) {
+				if (chainId !== Number.parseInt(transactionData.transaction.chainId)) {
+					await switchChain({
+						chainId: Number.parseInt(transactionData.transaction.chainId),
+					});
+				}
+				await sendTransactionAsync({
+					to: transactionData.transaction.to,
+					data: transactionData.transaction.data,
+					value: BigInt(transactionData.transaction.value),
+					chainId: Number.parseInt(transactionData.transaction.chain_id),
+				});
+			}
+		} catch (error) {
+			console.error("handleWagmiTransaction: Error: ", error);
+			return transactionData;
+		}
+	};
+
+	// UniswapV2Router methods
+	const addLiquidity = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV2InputBody;
+		}): Promise<AddLiquidityOutput> => {
+			return handleTransaction("addLiquidity", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.addLiquidity(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const addLiquidityEth = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV2InputBody;
+		}): Promise<AddLiquidityEthOutput> => {
+			return handleTransaction("addLiquidityEth", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.addLiquidityEth(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+	// UniswapV3NFT methods
+	const approve = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV3InputBody;
+		}): Promise<ApproveOutput1> => {
+			return handleTransaction("approve", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.approve(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	// UniswapV2Router methods (continued)
+	const getAmountIn = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV2InputBody;
+		}): Promise<GetAmountInData> => {
+			return handleTransaction("getAmountIn", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.getAmountIn(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const getAmountOut = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV2InputBody;
+		}): Promise<GetAmountOutOutput> => {
+			return handleTransaction("getAmountOut", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.getAmountOut(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const getAmountsIn = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV2InputBody;
+		}): Promise<GetAmountsInData> => {
+			return handleTransaction("getAmountsIn", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.getAmountsIn(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const getAmountsOut = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV2InputBody;
+		}): Promise<GetAmountsOutOutput> => {
+			return handleTransaction("getAmountsOut", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.getAmountsOut(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	// UniswapV3NFT methods (continued)
+	const balanceOf = useCallback(
+		async (payload: {
+			query: BalanceOfParams3;
+		}): Promise<BalanceOfOutput> => {
+			return handleTransaction("balanceOf", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const response = await uniswapSDK.balanceOf(payload.query);
+				return response;
+			});
+		},
+		[moon],
+	);
+
+	const baseUri = useCallback(
+		async (payload: { query: BaseUriParams }): Promise<BaseUriData> => {
+			return handleTransaction("baseUri", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const response = await uniswapSDK.baseUri(payload.query);
+				return response;
+			});
+		},
+		[moon],
+	);
+
+	const burn = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV3InputBody;
+		}): Promise<BurnResult> => {
+			return handleTransaction("burn", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.burn(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const collect = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV3InputBody;
+		}): Promise<CollectData> => {
+			return handleTransaction("collect", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.collect(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const createAndInitializePoolIfNecessary = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV3InputBody;
+		}): Promise<CreateAndInitializePoolIfNecessaryData> => {
+			return handleTransaction(
+				"createAndInitializePoolIfNecessary",
+				async () => {
+					const uniswapSDK = getUniswapSDK();
+					const preparedData = prepareTransaction(payload.data);
+					const response = await uniswapSDK.createAndInitializePoolIfNecessary(
+						payload.accountName,
+						preparedData,
+					);
+					return handleWagmiTransaction(response);
+				},
+			);
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const decreaseLiquidity = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV3InputBody;
+		}): Promise<DecreaseLiquidityData> => {
+			return handleTransaction("decreaseLiquidity", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.decreaseLiquidity(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const domainSeparator = useCallback(
+		async (payload: {
+			query: DomainSeparatorParams;
+		}): Promise<DomainSeparatorData> => {
+			return handleTransaction("domainSeparator", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const response = await uniswapSDK.domainSeparator(payload.query);
+				return response;
+			});
+		},
+		[moon],
+	);
+
+	const exactInput = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV3InputBody;
+		}): Promise<ExactInputData> => {
+			return handleTransaction("exactInput", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.exactInput(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const exactInputSingle = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV3InputBody;
+		}): Promise<ExactInputSingleData> => {
+			return handleTransaction("exactInputSingle", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.exactInputSingle(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const exactOutput = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV3InputBody;
+		}): Promise<ExactOutputData> => {
+			return handleTransaction("exactOutput", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.exactOutput(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const exactOutputSingle = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV3InputBody;
+		}): Promise<ExactOutputSingleData> => {
+			return handleTransaction("exactOutputSingle", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.exactOutputSingle(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const factory = useCallback(
+		async (payload: { query: FactoryParams }): Promise<FactoryData> => {
+			return handleTransaction("factory", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const response = await uniswapSDK.factory(payload.query);
+				return response;
+			});
+		},
+		[moon],
+	);
+
+	const factory2 = useCallback(
+		async (payload: { query: Factory2Params }): Promise<Factory2Data> => {
+			return handleTransaction("factory2", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const response = await uniswapSDK.factory2(payload.query);
+				return response;
+			});
+		},
+		[moon],
+	);
+
+	const getApproved = useCallback(
+		async (payload: {
+			query: GetApprovedParams2;
+		}): Promise<GetApprovedResult> => {
+			return handleTransaction("getApproved", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const response = await uniswapSDK.getApproved(payload.query);
+				return response;
+			});
+		},
+		[moon],
+	);
+
+	const increaseLiquidity = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV3InputBody;
+		}): Promise<IncreaseLiquidityData> => {
+			return handleTransaction("increaseLiquidity", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.increaseLiquidity(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const isApprovedForAll = useCallback(
+		async (payload: {
+			query: IsApprovedForAllParams3;
+		}): Promise<IsApprovedForAllOutput> => {
+			return handleTransaction("isApprovedForAll", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const response = await uniswapSDK.isApprovedForAll(payload.query);
+				return response;
+			});
+		},
+		[moon],
+	);
+
+	const mint = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV3InputBody;
+		}): Promise<MintResult> => {
+			return handleTransaction("mint", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.mint(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const multicall = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV3InputBody;
+		}): Promise<MulticallData> => {
+			return handleTransaction("multicall", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.multicall(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const multicall2 = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV3InputBody;
+		}): Promise<Multicall2Data> => {
+			return handleTransaction("multicall2", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.multicall2(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const name = useCallback(
+		async (payload: { query: NameParams }): Promise<NameData> => {
+			return handleTransaction("name", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const response = await uniswapSDK.name(payload.query);
+				return response;
+			});
+		},
+		[moon],
+	);
+
+	const ownerOf = useCallback(
+		async (payload: { query: OwnerOfParams }): Promise<OwnerOfData> => {
+			return handleTransaction("ownerOf", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const response = await uniswapSDK.ownerOf(payload.query);
+				return response;
+			});
+		},
+		[moon],
+	);
+
+	const permit = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV3InputBody;
+		}): Promise<PermitData> => {
+			return handleTransaction("permit", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.permit(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const permitTypehash = useCallback(
+		async (payload: {
+			query: PermitTypehashParams;
+		}): Promise<PermitTypehashData> => {
+			return handleTransaction("permitTypehash", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const response = await uniswapSDK.permitTypehash(payload.query);
+				return response;
+			});
+		},
+		[moon],
+	);
+
+	const positions = useCallback(
+		async (payload: { query: PositionsParams }): Promise<PositionsData> => {
+			return handleTransaction("positions", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const response = await uniswapSDK.positions(payload.query);
+				return response;
+			});
+		},
+		[moon],
+	);
+
+	const refundEth = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV3InputBody;
+		}): Promise<RefundEthData> => {
+			return handleTransaction("refundEth", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.refundEth(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const refundEth2 = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV3InputBody;
+		}): Promise<RefundEth2Data> => {
+			return handleTransaction("refundEth2", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.refundEth2(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const selfPermit = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV3InputBody;
+		}): Promise<SelfPermitData> => {
+			return handleTransaction("selfPermit", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.selfPermit(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const selfPermitAllowed = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV3InputBody;
+		}): Promise<SelfPermitAllowedData> => {
+			return handleTransaction("selfPermitAllowed", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.selfPermitAllowed(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const selfPermitAllowedIfNecessary = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV3InputBody;
+		}): Promise<SelfPermitAllowedIfNecessaryData> => {
+			return handleTransaction("selfPermitAllowedIfNecessary", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.selfPermitAllowedIfNecessary(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const selfPermitIfNecessary = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV3InputBody;
+		}): Promise<SelfPermitIfNecessaryData> => {
+			return handleTransaction("selfPermitIfNecessary", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.selfPermitIfNecessary(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const setApprovalForAll = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV3InputBody;
+		}): Promise<SetApprovalForAllOutput> => {
+			return handleTransaction("setApprovalForAll", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.setApprovalForAll(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const supportsInterface = useCallback(
+		async (payload: {
+			query: SupportsInterfaceParams2;
+		}): Promise<SupportsInterfaceResult> => {
+			return handleTransaction("supportsInterface", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const response = await uniswapSDK.supportsInterface(payload.query);
+				return response;
+			});
+		},
+		[moon],
+	);
+
+	const sweepToken = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV3InputBody;
+		}): Promise<SweepTokenData> => {
+			return handleTransaction("sweepToken", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.sweepToken(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const sweepToken2 = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV3InputBody;
+		}): Promise<SweepToken2Data> => {
+			return handleTransaction("sweepToken2", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.sweepToken2(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const sweepTokenWithFee = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV3InputBody;
+		}): Promise<SweepTokenWithFeeData> => {
+			return handleTransaction("sweepTokenWithFee", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.sweepTokenWithFee(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const symbol = useCallback(
+		async (payload: { query: SymbolParams }): Promise<SymbolData> => {
+			return handleTransaction("symbol", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const response = await uniswapSDK.symbol(payload.query);
+				return response;
+			});
+		},
+		[moon],
+	);
+
+	const tokenByIndex = useCallback(
+		async (payload: {
+			query: TokenByIndexParams;
+		}): Promise<TokenByIndexData> => {
+			return handleTransaction("tokenByIndex", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const response = await uniswapSDK.tokenByIndex(payload.query);
+				return response;
+			});
+		},
+		[moon],
+	);
+
+	const tokenOfOwnerByIndex = useCallback(
+		async (payload: {
+			query: TokenOfOwnerByIndexParams;
+		}): Promise<TokenOfOwnerByIndexData> => {
+			return handleTransaction("tokenOfOwnerByIndex", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const response = await uniswapSDK.tokenOfOwnerByIndex(payload.query);
+				return response;
+			});
+		},
+		[moon],
+	);
+
+	const tokenUri = useCallback(
+		async (payload: { query: TokenUriParams }): Promise<TokenUriData> => {
+			return handleTransaction("tokenUri", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const response = await uniswapSDK.tokenUri(payload.query);
+				return response;
+			});
+		},
+		[moon],
+	);
+
+	const totalSupply = useCallback(
+		async (payload: {
+			query: TotalSupplyParams;
+		}): Promise<TotalSupplyData> => {
+			return handleTransaction("totalSupply", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const response = await uniswapSDK.totalSupply(payload.query);
+				return response;
+			});
+		},
+		[moon],
+	);
+
+	const transferFrom = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV3InputBody;
+		}): Promise<TransferFromResult1> => {
+			return handleTransaction("transferFrom", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.transferFrom(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+	const getFactory = useCallback(
+		async (payload: {
+			query: GetFactoryParams4;
+		}): Promise<GetFactoryOutput> => {
+			return handleTransaction("getFactory", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const response = await uniswapSDK.getFactory(payload.query);
+				return response;
+			});
+		},
+		[moon],
+	);
+
+	const getWeth = useCallback(
+		async (payload: { query: GetWethParams6 }): Promise<GetWethData1> => {
+			return handleTransaction("getWeth", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const response = await uniswapSDK.getWeth(payload.query);
+				return response;
+			});
+		},
+		[moon],
+	);
+
+	const quote = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV2InputBody;
+		}): Promise<QuoteData> => {
+			return handleTransaction("quote", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.quote(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const removeLiquidity = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV2InputBody;
+		}): Promise<RemoveLiquidityResult> => {
+			return handleTransaction("removeLiquidity", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.removeLiquidity(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const removeLiquidityEth = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV2InputBody;
+		}): Promise<RemoveLiquidityEthResult> => {
+			return handleTransaction("removeLiquidityEth", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.removeLiquidityEth(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const removeLiquidityEthSupportingFeeOnTransferTokens = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV2InputBody;
+		}): Promise<RemoveLiquidityEthSupportingFeeOnTransferTokensData> => {
+			return handleTransaction(
+				"removeLiquidityEthSupportingFeeOnTransferTokens",
+				async () => {
+					const uniswapSDK = getUniswapSDK();
+					const preparedData = prepareTransaction(payload.data);
+					const response =
+						await uniswapSDK.removeLiquidityEthSupportingFeeOnTransferTokens(
+							payload.accountName,
+							preparedData,
+						);
+					return handleWagmiTransaction(response);
+				},
+			);
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const removeLiquidityEthWithPermit = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV2InputBody;
+		}): Promise<RemoveLiquidityEthWithPermitData> => {
+			return handleTransaction("removeLiquidityEthWithPermit", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.removeLiquidityEthWithPermit(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const removeLiquidityEthWithPermitSupportingFeeOnTransferTokens = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV2InputBody;
+		}): Promise<RemoveLiquidityEthWithPermitSupportingFeeOnTransferTokensData> => {
+			return handleTransaction(
+				"removeLiquidityEthWithPermitSupportingFeeOnTransferTokens",
+				async () => {
+					const uniswapSDK = getUniswapSDK();
+					const preparedData = prepareTransaction(payload.data);
+					const response =
+						await uniswapSDK.removeLiquidityEthWithPermitSupportingFeeOnTransferTokens(
+							payload.accountName,
+							preparedData,
+						);
+					return handleWagmiTransaction(response);
+				},
+			);
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const removeLiquidityWithPermit = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV2InputBody;
+		}): Promise<RemoveLiquidityWithPermitData> => {
+			return handleTransaction("removeLiquidityWithPermit", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.removeLiquidityWithPermit(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const swapEthForExactTokens = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV2InputBody;
+		}): Promise<SwapEthForExactTokensData> => {
+			return handleTransaction("swapEthForExactTokens", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.swapEthForExactTokens(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const swapExactEthForTokens = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV2InputBody;
+		}): Promise<SwapExactEthForTokensOutput> => {
+			return handleTransaction("swapExactEthForTokens", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.swapExactEthForTokens(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const swapExactEthForTokensSupportingFeeOnTransferTokens = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV2InputBody;
+		}): Promise<SwapExactEthForTokensSupportingFeeOnTransferTokensData> => {
+			return handleTransaction(
+				"swapExactEthForTokensSupportingFeeOnTransferTokens",
+				async () => {
+					const uniswapSDK = getUniswapSDK();
+					const preparedData = prepareTransaction(payload.data);
+					const response =
+						await uniswapSDK.swapExactEthForTokensSupportingFeeOnTransferTokens(
+							payload.accountName,
+							preparedData,
+						);
+					return handleWagmiTransaction(response);
+				},
+			);
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const swapExactTokensForEth = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV2InputBody;
+		}): Promise<SwapExactTokensForEthOutput> => {
+			return handleTransaction("swapExactTokensForEth", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.swapExactTokensForEth(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const swapExactTokensForEthSupportingFeeOnTransferTokens = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV2InputBody;
+		}): Promise<SwapExactTokensForEthSupportingFeeOnTransferTokensData> => {
+			return handleTransaction(
+				"swapExactTokensForEthSupportingFeeOnTransferTokens",
+				async () => {
+					const uniswapSDK = getUniswapSDK();
+					const preparedData = prepareTransaction(payload.data);
+					const response =
+						await uniswapSDK.swapExactTokensForEthSupportingFeeOnTransferTokens(
+							payload.accountName,
+							preparedData,
+						);
+					return handleWagmiTransaction(response);
+				},
+			);
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const swapExactTokensForTokens = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV2InputBody;
+		}): Promise<SwapExactTokensForTokensOutput> => {
+			return handleTransaction("swapExactTokensForTokens", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.swapExactTokensForTokens(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const swapExactTokensForTokensSupportingFeeOnTransferTokens = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV2InputBody;
+		}): Promise<SwapExactTokensForTokensSupportingFeeOnTransferTokensData> => {
+			return handleTransaction(
+				"swapExactTokensForTokensSupportingFeeOnTransferTokens",
+				async () => {
+					const uniswapSDK = getUniswapSDK();
+					const preparedData = prepareTransaction(payload.data);
+					const response =
+						await uniswapSDK.swapExactTokensForTokensSupportingFeeOnTransferTokens(
+							payload.accountName,
+							preparedData,
+						);
+					return handleWagmiTransaction(response);
+				},
+			);
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const swapTokensForExactEth = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV2InputBody;
+		}): Promise<SwapTokensForExactEthData> => {
+			return handleTransaction("swapTokensForExactEth", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.swapTokensForExactEth(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	const swapTokensForExactTokens = useCallback(
+		async (payload: {
+			accountName: string;
+			data: UniswapV2InputBody;
+		}): Promise<SwapTokensForExactTokensData> => {
+			return handleTransaction("swapTokensForExactTokens", async () => {
+				const uniswapSDK = getUniswapSDK();
+				const preparedData = prepareTransaction(payload.data);
+				const response = await uniswapSDK.swapTokensForExactTokens(
+					payload.accountName,
+					preparedData,
+				);
+				return handleWagmiTransaction(response);
+			});
+		},
+		[moon, isConnected, sendTransactionAsync],
+	);
+
+	return {
+		// UniswapV2Router methods
+		addLiquidity,
+		addLiquidityEth,
+		getAmountIn,
+		getAmountOut,
+		getAmountsIn,
+		getAmountsOut,
+		getFactory,
+		getWeth,
+		quote,
+		removeLiquidity,
+		removeLiquidityEth,
+		removeLiquidityEthSupportingFeeOnTransferTokens,
+		removeLiquidityEthWithPermit,
+		removeLiquidityEthWithPermitSupportingFeeOnTransferTokens,
+		removeLiquidityWithPermit,
+		swapEthForExactTokens,
+		swapExactEthForTokens,
+		swapExactEthForTokensSupportingFeeOnTransferTokens,
+		swapExactTokensForEth,
+		swapExactTokensForEthSupportingFeeOnTransferTokens,
+		swapExactTokensForTokens,
+		swapExactTokensForTokensSupportingFeeOnTransferTokens,
+		swapTokensForExactEth,
+		swapTokensForExactTokens,
+
+		// UniswapV3NFT methods
+		approve,
+		balanceOf,
+		baseUri,
+		burn,
+		collect,
+		createAndInitializePoolIfNecessary,
+		decreaseLiquidity,
+		domainSeparator,
+		exactInput,
+		exactInputSingle,
+		exactOutput,
+		exactOutputSingle,
+		factory,
+		factory2,
+		getApproved,
+		increaseLiquidity,
+		isApprovedForAll,
+		mint,
+		multicall,
+		multicall2,
+		name,
+		ownerOf,
+		permit,
+		permitTypehash,
+		positions,
+		refundEth,
+		refundEth2,
+		selfPermit,
+		selfPermitAllowed,
+		selfPermitAllowedIfNecessary,
+		selfPermitIfNecessary,
+		setApprovalForAll,
+		supportsInterface,
+		sweepToken,
+		sweepToken2,
+		sweepTokenWithFee,
+		symbol,
+		tokenByIndex,
+		tokenOfOwnerByIndex,
+		tokenUri,
+		totalSupply,
+		transferFrom,
+
+		// Utility functions
+		getUniswapSDK,
+	};
 };
+
+export default useUniswap;

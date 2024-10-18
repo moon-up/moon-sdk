@@ -1,3 +1,4 @@
+import { useMoonAuth } from "@/context";
 import { useChains, useMoonTransaction } from "@/hooks";
 import type {
 	GetRouterAddressParams,
@@ -8,8 +9,12 @@ import type {
 } from "@moonup/moon-api";
 import { useQuery } from "@tanstack/react-query";
 import { useCallback } from "react";
-import { useAccount, useSendTransaction } from "wagmi";
-import { useMoonAuth } from "../../context";
+import {
+	useAccount,
+	useChainId,
+	useSendTransaction,
+	useSwitchChain,
+} from "wagmi";
 
 /**
  * Custom hook to interact with the Odos SDK.
@@ -22,13 +27,14 @@ import { useMoonAuth } from "../../context";
  * @property {Function} getSupportedTokens - Function to get supported tokens from the Odos SDK.
  * @property {Object} supportedTokensQuery - React Query object to fetch supported tokens.
  */
-export const useOdos = (chainId?: number) => {
+export const useOdos = () => {
 	const { handleTransaction } = useMoonTransaction();
 	const { moon } = useMoonAuth();
 	const { selectedChain: chain } = useChains();
+	const chainId = useChainId();
+	const { switchChain } = useSwitchChain();
 
-	const selectedChainId = chainId || chain?.chain_id || 1;
-	const { isConnected } = useAccount();
+	const { isConnected, address } = useAccount();
 	const { sendTransactionAsync } = useSendTransaction();
 
 	const prepareTransaction = (transaction: any) => {
@@ -43,17 +49,25 @@ export const useOdos = (chainId?: number) => {
 	};
 
 	const handleWagmiTransaction = async (transactionData: any) => {
-		if (isConnected) {
-			const { transaction } = transactionData;
-
-			await sendTransactionAsync({
-				to: transaction.to,
-				data: transaction.data,
-				value: BigInt(transaction.value),
-				chainId: transaction.chainId,
-			});
+		try {
+			if (isConnected && address === transactionData.transaction.from) {
+				if (chainId !== Number.parseInt(transactionData.transaction.chainId)) {
+					await switchChain({
+						chainId: Number.parseInt(transactionData.transaction.chainId),
+					});
+				}
+				// Use wagmi's sendTransaction if a wagmi account is connected
+				await sendTransactionAsync({
+					to: transactionData.transaction.to,
+					data: transactionData.transaction.data,
+					value: BigInt(transactionData.transaction.value),
+					chainId: Number.parseInt(transactionData.transaction.chain_id),
+				});
+			}
+		} catch (error) {
+			console.error("handleWagmiTransaction: Error: ", error);
+			return transactionData;
 		}
-		return transactionData;
 	};
 
 	/**
@@ -71,12 +85,12 @@ export const useOdos = (chainId?: number) => {
 	 * @returns {OdosAPIResponseOdosExecuteFunctionResult} The response data containing the supported tokens.
 	 */
 	const supportedTokensQuery = useQuery({
-		queryKey: ["odosGetSupportedTokens", selectedChainId],
+		queryKey: ["odosGetSupportedTokens", chain],
 		queryFn: async () => {
 			const odosSDK = moon?.getOdosSDK();
 			if (!odosSDK) throw new Error("Moon Lifi SDK not initialized");
 			const response = await odosSDK.getSupportedTokens({
-				chainId: selectedChainId,
+				chainId: chain?.chain_id || 1,
 			});
 			return response.data as OdosAPIResponseOdosExecuteFunctionResult;
 		},

@@ -41,7 +41,12 @@ import type {
 	WithdrawResult,
 } from "@moonup/moon-api";
 import { useCallback } from "react";
-import { useAccount, useSendTransaction } from "wagmi";
+import {
+	useAccount,
+	useChainId,
+	useSendTransaction,
+	useSwitchChain,
+} from "wagmi";
 import { useMoonAuth } from "../../context";
 
 /**
@@ -75,8 +80,10 @@ export const useErc4626 = () => {
 	const { moon } = useMoonAuth();
 
 	const { handleTransaction } = useMoonTransaction();
-	const { isConnected } = useAccount();
+	const { isConnected, address } = useAccount();
 	const { sendTransactionAsync } = useSendTransaction();
+	const chainId = useChainId();
+	const { switchChain } = useSwitchChain();
 
 	const getErc4626SDK = (): Erc4626 => {
 		const erc4626SDK = moon?.getErc4626SDK();
@@ -115,17 +122,25 @@ export const useErc4626 = () => {
 	};
 
 	const handleWagmiTransaction = async (transactionData: any) => {
-		if (isConnected) {
-			const { transaction } = transactionData;
-
-			await sendTransactionAsync({
-				to: transaction.to,
-				data: transaction.data,
-				value: BigInt(transaction.value),
-				chainId: transaction.chainId,
-			});
+		try {
+			if (isConnected && address === transactionData.transaction.from) {
+				if (chainId !== Number.parseInt(transactionData.transaction.chainId)) {
+					await switchChain({
+						chainId: Number.parseInt(transactionData.transaction.chainId),
+					});
+				}
+				// Use wagmi's sendTransaction if a wagmi account is connected
+				await sendTransactionAsync({
+					to: transactionData.transaction.to,
+					data: transactionData.transaction.data,
+					value: BigInt(transactionData.transaction.value),
+					chainId: Number.parseInt(transactionData.transaction.chain_id),
+				});
+			}
+		} catch (error) {
+			console.error("handleWagmiTransaction: Error: ", error);
+			return transactionData;
 		}
-		return transactionData;
 	};
 
 	/**
