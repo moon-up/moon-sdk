@@ -126,6 +126,89 @@ import {
 	useSwitchChain,
 } from "wagmi";
 
+/**
+ * A custom hook that provides various functionalities for interacting with the Lynex SDK.
+ *
+ * @returns An object containing functions to interact with the Lynex SDK, including:
+ * - `addLiquidity`: Adds liquidity to the Lynex protocol.
+ * - `addLiquidityEth`: Adds liquidity to the ETH pool using the Lynex SDK.
+ * - `approve`: Approves a transaction using the Lynex SDK.
+ * - `burn`: Burns a Lynex NFT.
+ * - `calculateOptimalVoteDistribution`: Calculates the optimal vote distribution using the Lynex SDK.
+ * - `checkpoint`: Performs a checkpoint operation using the Lynex SDK.
+ * - `checkpointDelegatee`: Checkpoints a delegatee using the Lynex SDK.
+ * - `claim`: Claims an NFT using the Lynex SDK.
+ * - `claimBribes`: Claims bribes for a given address using the Lynex SDK.
+ * - `claimFees`: Claims fees for a given address using the Lynex SDK.
+ * - `claimRewards`: Claims rewards for a given address using the Lynex SDK.
+ * - `createDelegatedLockFor`: Creates a delegated lock for a given address and data.
+ * - `createGauge`: Creates a gauge using the Lynex SDK.
+ * - `createLock`: Creates a lock using the Lynex SDK.
+ * - `createLockFor`: Creates a lock for a given address using the Lynex SDK.
+ * - `delegate`: Delegates a transaction to the Lynex SDK.
+ * - `delegateBySig`: Delegates by signature using the Lynex SDK.
+ * - `distribute`: Distributes data to a specified address using the Lynex SDK.
+ * - `getAmountOut`: Retrieves the output amount for a given set of parameters using the Lynex SDK.
+ * - `getAmountsOut`: Retrieves the output amounts for a given set of input parameters using the Lynex SDK.
+ * - `getApproved`: Retrieves the approved data using the Lynex SDK.
+ * - `getAssetByAddress`: Retrieves asset information by its address using the Lynex SDK.
+ * - `getAssets`: Fetches assets using the Lynex SDK.
+ * - `getBalanceOf`: Retrieves the balance of a specified account using the Lynex SDK.
+ * - `getBalanceOfNft`: Retrieves the balance of a specific NFT using the Lynex SDK.
+ * - `getBalanceOfNftAt`: Retrieves the balance of an NFT at a specific point in time.
+ * - `getDelegates`: Fetches delegate data using the Lynex SDK.
+ * - `getFactory`: Retrieves factory data using the Lynex SDK.
+ * - `getLastVoted`: Retrieves the last voted data using the Lynex SDK.
+ * - `getLockDetails`: Retrieves lock details using the Lynex SDK.
+ * - `getName`: Retrieves the name using the Lynex SDK.
+ * - `getOwnerOf`: Retrieves the owner of a specified entity using the Lynex SDK.
+ * - `getPastVotes`: Fetches past votes using the Lynex SDK.
+ * - `getPoolByAddress`: Retrieves pool data by its address using the Lynex SDK.
+ * - `getPools`: Fetches the pool data using the Lynex SDK.
+ * - `getPoolsByType`: Fetches pools by the specified type using the Lynex SDK.
+ * - `getPoolVoteLength`: Retrieves the length of the pool vote using the Lynex SDK.
+ * - `getSymbol`: Fetches the symbol information using the Lynex SDK.
+ * - `getTokenByIndex`: Retrieves a token by its index using the Lynex SDK.
+ * - `getTokenOfOwnerByIndex`: Retrieves the token of an owner by index using the Lynex SDK.
+ * - `getTokenUri`: Retrieves the token URI using the Lynex SDK.
+ * - `getTopAprPools`: Fetches the top APR pools using the Lynex SDK.
+ * - `getTotalNftsMinted`: Retrieves the total number of NFTs minted using the Lynex SDK.
+ * - `getTotalSupply`: Retrieves the total supply using the Lynex SDK.
+ * - `getTotalValueLocked`: Retrieves the total value locked (TVL) from the Lynex SDK.
+ * - `getTotalWeight`: Retrieves the total weight using the Lynex SDK.
+ * - `getVestedPayout`: Retrieves the vested payout data using the Lynex SDK.
+ * - `getVestedPayoutAtTime`: Retrieves the vested payout at a specific time using the Lynex SDK.
+ * - `getVestingPayout`: Retrieves the vesting payout data using the Lynex SDK.
+ * - `getVestingPeriod`: Retrieves the vesting period data using the Lynex SDK.
+ * - `getVotes`: Fetches votes data using the Lynex SDK.
+ * - `getWeights`: Fetches weight data using the Lynex SDK.
+ * - `getWeth`: Retrieves WETH (Wrapped Ether) using the Lynex SDK.
+ * - `globalCheckpoint`: Executes a global checkpoint transaction using the Lynex SDK.
+ * - `increaseLockAmount`: Increases the lock amount for a given address using the Lynex SDK.
+ * - `increaseUnlockTime`: Increases the unlock time for a given address using the Lynex SDK.
+ * - `isApprovedForAll`: Checks if the given parameters are approved for all using the Lynex SDK.
+ * - `isGauge`: Determines if the given parameters correspond to a gauge using the Lynex SDK.
+ * - `isWhitelisted`: Checks if the given parameters are whitelisted using the Lynex SDK.
+ * - `killGauge`: Asynchronously kills a gauge using the Lynex SDK.
+ * - `merge`: Merges data with the specified address using the Lynex SDK.
+ * - `notifyRewardAmount`: Notifies the reward amount using the Lynex SDK.
+ * - `poke`: Pokes a specified address with the provided data using the Lynex SDK.
+ * - `reset`: Resets the Lynex voter data for a given address.
+ * - `reviveGauge`: Revives a gauge for a given address using the Lynex SDK.
+ * - `safeTransferFrom`: Safely transfers an NFT from one address to another using the Lynex SDK.
+ * - `setApprovalForAll`: Sets approval for all NFTs for a given address.
+ * - `setClaimApproval`: Sets the claim approval for a given address and data.
+ * - `setClaimApprovalForAll`: Sets claim approval for all NFTs for a given address.
+ * - `split`: Splits an NFT using the Lynex SDK.
+ * - `swapExactEthForTokens`: Executes a swap of exact ETH for tokens using the Lynex SDK.
+ * - `swapExactTokensForEth`: Swaps an exact amount of tokens for ETH using the Lynex SDK.
+ * - `swapExactTokensForTokens`: Executes a token swap transaction using the Lynex SDK.
+ * - `transferFrom`: Transfers an NFT from one address to another using the Lynex SDK.
+ * - `unlockPermanent`: Unlocks a permanent feature for a given address using the Lynex SDK.
+ * - `vote`: Asynchronously casts a vote using the Lynex SDK.
+ * - `voteWithOptimalDistribution`: Votes with optimal distribution using the Lynex SDK.
+ * - `whitelist`: Whitelists an address using the Lynex SDK.
+ */
 export const useLynex = () => {
 	const { handleTransaction } = useMoonTransaction();
 	const { moon } = useMoonAuth();
@@ -455,6 +538,26 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Creates a lock for a given address using the Lynex SDK.
+	 *
+	 * @param address - The address for which the lock is to be created.
+	 * @param data - The data required to create the lock, adhering to the LynexNFTInputBody interface.
+	 * @returns A promise that resolves to CreateLockForData.
+	 *
+	 * @remarks
+	 * This function uses the `handleTransaction` utility to manage the transaction process.
+	 * It prepares the transaction data and then calls the `createLockFor` method of the Lynex SDK.
+	 * The response is then processed using the `handleWagmiTransaction` function.
+	 *
+	 * @example
+	 * ```typescript
+	 * const address = "0x123...";
+	 * const data = { /* LynexNFTInputBody data *\/ };
+	 * const result = await createLockFor(address, data);
+	 * console.log(result);
+	 * ```
+	 */
 	const createLockFor = useCallback(
 		async (
 			address: string,
@@ -471,6 +574,19 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Delegates a transaction to the Lynex SDK.
+	 *
+	 * @param {string} address - The address to which the transaction is delegated.
+	 * @param {LynexNFTInputBody} data - The data required for the Lynex NFT transaction.
+	 * @returns {Promise<DelegateData>} - A promise that resolves to the delegate data.
+	 *
+	 * @example
+	 * const address = "0x123...";
+	 * const data = { /* LynexNFTInputBody data *\/ };
+	 * const result = await delegate(address, data);
+	 * console.log(result);
+	 */
 	const delegate = useCallback(
 		async (address: string, data: LynexNFTInputBody): Promise<DelegateData> => {
 			return handleTransaction("delegate", async () => {
@@ -485,6 +601,31 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * A hook that provides a function to delegate by signature using the Lynex SDK.
+	 *
+	 * @param address - The address to delegate to.
+	 * @param data - The data required for the Lynex NFT input body.
+	 * @returns A promise that resolves to the DelegateBySigData.
+	 *
+	 * @example
+	 * ```typescript
+	 * const { delegateBySig } = useLynex();
+	 *
+	 * const address = "0x123...";
+	 * const data = {
+	 *   // LynexNFTInputBody data
+	 * };
+	 *
+	 * delegateBySig(address, data)
+	 *   .then((result) => {
+	 *     console.log("Delegation successful:", result);
+	 *   })
+	 *   .catch((error) => {
+	 *     console.error("Delegation failed:", error);
+	 *   });
+	 * ```
+	 */
 	const delegateBySig = useCallback(
 		async (
 			address: string,
@@ -501,6 +642,20 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Executes a global checkpoint transaction using the Lynex SDK.
+	 *
+	 * @param address - The address to perform the global checkpoint on.
+	 * @param data - The data required for the Lynex NFT input body.
+	 * @returns A promise that resolves to the global checkpoint data.
+	 *
+	 * @example
+	 * ```typescript
+	 * const checkpointData = await globalCheckpoint("0x123...", {
+	 *   // LynexNFTInputBody data
+	 * });
+	 * ```
+	 */
 	const globalCheckpoint = useCallback(
 		async (
 			address: string,
@@ -517,6 +672,13 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Increases the lock amount for a given address using the Lynex SDK.
+	 *
+	 * @param address - The address for which the lock amount is to be increased.
+	 * @param data - The data required for the Lynex NFT input body.
+	 * @returns A promise that resolves to the data of the increased lock amount.
+	 */
 	const increaseLockAmount = useCallback(
 		async (
 			address: string,
@@ -536,6 +698,13 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Increases the unlock time for a given address using the Lynex SDK.
+	 *
+	 * @param address - The address for which the unlock time is to be increased.
+	 * @param data - The input data required for the Lynex NFT transaction.
+	 * @returns A promise that resolves to the data of the increased unlock time transaction.
+	 */
 	const increaseUnlockTime = useCallback(
 		async (
 			address: string,
@@ -555,6 +724,13 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Merges data with the specified address using the Lynex SDK.
+	 *
+	 * @param {string} address - The address to merge the data with.
+	 * @param {LynexNFTInputBody} data - The data to be merged.
+	 * @returns {Promise<MergeData>} - A promise that resolves to the merged data.
+	 */
 	const merge = useCallback(
 		async (address: string, data: LynexNFTInputBody): Promise<MergeData> => {
 			return handleTransaction("merge", async () => {
@@ -569,6 +745,23 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Safely transfers an NFT from one address to another using the Lynex SDK.
+	 *
+	 * @param address - The address to transfer the NFT to.
+	 * @param data - The data required for the NFT transfer.
+	 * @returns A promise that resolves to the result of the safe transfer operation.
+	 *
+	 * @example
+	 * ```typescript
+	 * const result = await safeTransferFrom("0xRecipientAddress", {
+	 *   tokenId: "123",
+	 *   from: "0xSenderAddress",
+	 *   to: "0xRecipientAddress",
+	 *   data: "0x"
+	 * });
+	 * ```
+	 */
 	const safeTransferFrom = useCallback(
 		async (
 			address: string,
@@ -586,6 +779,13 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Sets approval for all NFTs for a given address.
+	 *
+	 * @param address - The address to set approval for.
+	 * @param data - The data required for the Lynex NFT transaction.
+	 * @returns A promise that resolves to the result of the setApprovalForAll transaction.
+	 */
 	const setApprovalForAll = useCallback(
 		async (
 			address: string,
@@ -606,6 +806,20 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Sets the claim approval for a given address and data.
+	 *
+	 * @param address - The address for which the claim approval is being set.
+	 * @param data - The data required for the Lynex NFT input body.
+	 * @returns A promise that resolves to the data of the set claim approval.
+	 *
+	 * @example
+	 * ```typescript
+	 * const address = "0x123...";
+	 * const data = { /* LynexNFTInputBody data *\/ };
+	 * const result = await setClaimApproval(address, data);
+	 * ```
+	 */
 	const setClaimApproval = useCallback(
 		async (
 			address: string,
@@ -622,6 +836,13 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Sets claim approval for all NFTs for a given address.
+	 *
+	 * @param address - The address for which to set claim approval.
+	 * @param data - The data required for the Lynex NFT input body.
+	 * @returns A promise that resolves to the data of the set claim approval transaction.
+	 */
 	const setClaimApprovalForAll = useCallback(
 		async (
 			address: string,
@@ -641,6 +862,18 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Splits an NFT using the Lynex SDK.
+	 *
+	 * @param address - The address of the NFT owner.
+	 * @param data - The input data required for the Lynex NFT split operation.
+	 * @returns A promise that resolves to the split data.
+	 *
+	 * @example
+	 * ```typescript
+	 * const splitData = await split("0x123...", { tokenId: "1", amount: 2 });
+	 * ```
+	 */
 	const split = useCallback(
 		async (address: string, data: LynexNFTInputBody): Promise<SplitData> => {
 			return handleTransaction("split", async () => {
@@ -655,6 +888,20 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Transfers an NFT from one address to another using the Lynex SDK.
+	 *
+	 * @param address - The address to transfer the NFT from.
+	 * @param data - The data required for the transfer, encapsulated in a LynexNFTInputBody object.
+	 * @returns A promise that resolves to a TransferFromOutput object.
+	 *
+	 * @example
+	 * ```typescript
+	 * const address = "0x123...";
+	 * const data = { /* LynexNFTInputBody data *\/ };
+	 * const result = await transferFrom(address, data);
+	 * ```
+	 */
 	const transferFrom = useCallback(
 		async (
 			address: string,
@@ -671,6 +918,20 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Unlocks a permanent feature for a given address using the Lynex SDK.
+	 *
+	 * @param address - The address for which the permanent feature is to be unlocked.
+	 * @param data - The data required to unlock the permanent feature, conforming to the LynexNFTInputBody interface.
+	 * @returns A promise that resolves to an UnlockPermanentData object.
+	 *
+	 * @example
+	 * ```typescript
+	 * const address = "0x123...";
+	 * const data = { /* LynexNFTInputBody data *\/ };
+	 * const result = await unlockPermanent(address, data);
+	 * ```
+	 */
 	const unlockPermanent = useCallback(
 		async (
 			address: string,
@@ -687,6 +948,13 @@ export const useLynex = () => {
 		},
 		[moon],
 	);
+	/**
+	 * Claims fees for a given address using the Lynex SDK.
+	 *
+	 * @param address - The address for which to claim fees.
+	 * @param data - The input data required by the Lynex SDK to claim fees.
+	 * @returns A promise that resolves to the data returned by the claim fees transaction.
+	 */
 	const claimFees = useCallback(
 		async (
 			address: string,
@@ -703,7 +971,13 @@ export const useLynex = () => {
 		[moon],
 	);
 
-	// Voter methods
+	/**
+	 * Claims bribes for a given address using the Lynex SDK.
+	 *
+	 * @param address - The address to claim bribes for.
+	 * @param data - The input data required by the Lynex voter.
+	 * @returns A promise that resolves to the data of the claimed bribes.
+	 */
 	const claimBribes = useCallback(
 		async (
 			address: string,
@@ -720,6 +994,13 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Claims rewards for a given address using the Lynex SDK.
+	 *
+	 * @param address - The address to claim rewards for.
+	 * @param data - The input data required for the Lynex voter.
+	 * @returns A promise that resolves to the result of the claim rewards transaction.
+	 */
 	const claimRewards = useCallback(
 		async (
 			address: string,
@@ -736,6 +1017,20 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Creates a gauge using the Lynex SDK.
+	 *
+	 * @param address - The address to create the gauge for.
+	 * @param data - The data required to create the gauge, conforming to the LynexVoterInputBody interface.
+	 * @returns A promise that resolves to CreateGaugeData.
+	 *
+	 * @example
+	 * ```typescript
+	 * const address = "0x123...";
+	 * const data: LynexVoterInputBody = { /* ... *\/ };
+	 * const result = await createGauge(address, data);
+	 * ```
+	 */
 	const createGauge = useCallback(
 		async (
 			address: string,
@@ -752,6 +1047,13 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Distributes data to a specified address using the Lynex SDK.
+	 *
+	 * @param address - The address to which the data will be distributed.
+	 * @param data - The data to be distributed, formatted as a LynexVoterInputBody.
+	 * @returns A promise that resolves to the distributed data.
+	 */
 	const distribute = useCallback(
 		async (
 			address: string,
@@ -769,6 +1071,13 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Asynchronously kills a gauge using the Lynex SDK.
+	 *
+	 * @param address - The address of the gauge to be killed.
+	 * @param data - The input data required for the Lynex voter.
+	 * @returns A promise that resolves to the KillGaugeData.
+	 */
 	const killGauge = useCallback(
 		async (
 			address: string,
@@ -804,6 +1113,13 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Pokes a specified address with the provided data using the Lynex SDK.
+	 *
+	 * @param {string} address - The address to poke.
+	 * @param {LynexVoterInputBody} data - The data to send with the poke.
+	 * @returns {Promise<PokeData>} A promise that resolves to the poke data.
+	 */
 	const poke = useCallback(
 		async (address: string, data: LynexVoterInputBody): Promise<PokeData> => {
 			return handleTransaction("poke", async () => {
@@ -817,6 +1133,20 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Resets the Lynex voter data for a given address.
+	 *
+	 * @param {string} address - The address of the voter to reset.
+	 * @param {LynexVoterInputBody} data - The data to be used for the reset operation.
+	 * @returns {Promise<ResetData>} A promise that resolves to the reset data.
+	 *
+	 * @example
+	 * ```typescript
+	 * const address = "0x123...";
+	 * const data = { /* Lynex voter input body data *\/ };
+	 * const resetData = await reset(address, data);
+	 * ```
+	 */
 	const reset = useCallback(
 		async (address: string, data: LynexVoterInputBody): Promise<ResetData> => {
 			return handleTransaction("reset", async () => {
@@ -830,6 +1160,20 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Revives a gauge for a given address using the Lynex SDK.
+	 *
+	 * @param {string} address - The address for which the gauge is to be revived.
+	 * @param {LynexVoterInputBody} data - The data required to revive the gauge.
+	 * @returns {Promise<ReviveGaugeData>} - A promise that resolves to the revived gauge data.
+	 *
+	 * @example
+	 * ```typescript
+	 * const address = "0x123...";
+	 * const data = { /* LynexVoterInputBody data *\/ };
+	 * const revivedGauge = await reviveGauge(address, data);
+	 * ```
+	 */
 	const reviveGauge = useCallback(
 		async (
 			address: string,
@@ -846,6 +1190,19 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Asynchronously casts a vote using the Lynex SDK.
+	 *
+	 * @param {string} address - The address of the voter.
+	 * @param {LynexVoterInputBody} data - The data required for voting.
+	 * @returns {Promise<VoteData>} A promise that resolves to the vote data.
+	 *
+	 * @example
+	 * const voteData = await vote("0x123...", { candidateId: "abc123", amount: 10 });
+	 *
+	 * @function
+	 * @name vote
+	 */
 	const vote = useCallback(
 		async (address: string, data: LynexVoterInputBody): Promise<VoteData> => {
 			return handleTransaction("vote", async () => {
@@ -859,6 +1216,24 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * A hook that provides a function to vote with optimal distribution using the Lynex SDK.
+	 *
+	 * @param address - The address of the voter.
+	 * @param data - The payload containing the voting data.
+	 * @returns A promise that resolves to the voting result data.
+	 *
+	 * @example
+	 * ```typescript
+	 * const result = await voteWithOptimalDistribution("0x123...", {
+	 *   proposalId: "proposal-1",
+	 *   votes: [
+	 *     { option: "yes", weight: 70 },
+	 *     { option: "no", weight: 30 },
+	 *   ],
+	 * });
+	 * ```
+	 */
 	const voteWithOptimalDistribution = useCallback(
 		async (
 			address: string,
@@ -878,6 +1253,13 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Whitelists an address using the Lynex SDK.
+	 *
+	 * @param address - The address to be whitelisted.
+	 * @param data - The data required for the Lynex voter input.
+	 * @returns A promise that resolves to the whitelisted data.
+	 */
 	const whitelist = useCallback(
 		async (
 			address: string,
@@ -894,7 +1276,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
-	// Data retrieval methods
+	/**
+	 * Calculates the optimal vote distribution using the Lynex SDK.
+	 *
+	 * @param params - The parameters required to calculate the optimal vote distribution.
+	 * @returns A promise that resolves to the calculated optimal vote distribution data.
+	 */
 	const calculateOptimalVoteDistribution = useCallback(
 		async (
 			params: CalculateOptimalVoteDistributionParams,
@@ -905,6 +1292,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Retrieves the output amount for a given set of parameters using the Lynex SDK.
+	 *
+	 * @param {GetAmountOutParams} params - The parameters required to calculate the output amount.
+	 * @returns {Promise<GetAmountOutData>} A promise that resolves to the output amount data.
+	 */
 	const getAmountOut = useCallback(
 		async (params: GetAmountOutParams): Promise<GetAmountOutData> => {
 			const lynexSDK = getLynexSDK();
@@ -913,6 +1306,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Retrieves the output amounts for a given set of input parameters using the Lynex SDK.
+	 *
+	 * @param {GetAmountsOutParams} params - The parameters required to get the output amounts.
+	 * @returns {Promise<GetAmountsOutData>} A promise that resolves to the output amounts data.
+	 */
 	const getAmountsOut = useCallback(
 		async (params: GetAmountsOutParams): Promise<GetAmountsOutData> => {
 			const lynexSDK = getLynexSDK();
@@ -921,6 +1320,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Retrieves the approved data using the Lynex SDK.
+	 *
+	 * @param params - The parameters required to get the approved data.
+	 * @returns A promise that resolves to the approved data.
+	 */
 	const getApproved = useCallback(
 		async (params: GetApprovedParams): Promise<GetApprovedData> => {
 			const lynexSDK = getLynexSDK();
@@ -929,6 +1334,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Retrieves asset information by its address using the Lynex SDK.
+	 *
+	 * @param address - The address of the asset to retrieve.
+	 * @returns A promise that resolves to the asset data.
+	 */
 	const getAssetByAddress = useCallback(
 		async (address: string): Promise<GetAssetByAddressData> => {
 			const lynexSDK = getLynexSDK();
@@ -937,11 +1348,24 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Fetches assets using the Lynex SDK.
+	 *
+	 * This function is memoized using `useCallback` and will only change if the `moon` dependency changes.
+	 *
+	 * @returns {Promise<GetAssetsData>} A promise that resolves to the assets data.
+	 */
 	const getAssets = useCallback(async (): Promise<GetAssetsData> => {
 		const lynexSDK = getLynexSDK();
 		return lynexSDK.getAssets();
 	}, [moon]);
 
+	/**
+	 * Retrieves the balance of a specified account using the Lynex SDK.
+	 *
+	 * @param {GetBalanceOfParams4} params - The parameters required to get the balance.
+	 * @returns {Promise<GetBalanceOfOutput>} A promise that resolves to the balance of the specified account.
+	 */
 	const getBalanceOf = useCallback(
 		async (params: GetBalanceOfParams4): Promise<GetBalanceOfOutput> => {
 			const lynexSDK = getLynexSDK();
@@ -950,6 +1374,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Retrieves the balance of a specific NFT using the Lynex SDK.
+	 *
+	 * @param {GetBalanceOfNftParams} params - The parameters required to get the balance of the NFT.
+	 * @returns {Promise<GetBalanceOfNftData>} A promise that resolves to the balance data of the NFT.
+	 */
 	const getBalanceOfNft = useCallback(
 		async (params: GetBalanceOfNftParams): Promise<GetBalanceOfNftData> => {
 			const lynexSDK = getLynexSDK();
@@ -958,6 +1388,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Retrieves the balance of an NFT at a specific point in time.
+	 *
+	 * @param params - The parameters required to get the balance of the NFT.
+	 * @returns A promise that resolves to the balance data of the NFT.
+	 */
 	const getBalanceOfNftAt = useCallback(
 		async (params: GetBalanceOfNftAtParams): Promise<GetBalanceOfNftAtData> => {
 			const lynexSDK = getLynexSDK();
@@ -966,6 +1402,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Fetches delegate data using the Lynex SDK.
+	 *
+	 * @param params - The parameters required to fetch the delegates.
+	 * @returns A promise that resolves to the delegate data.
+	 */
 	const getDelegates = useCallback(
 		async (params: GetDelegatesParams): Promise<GetDelegatesData> => {
 			const lynexSDK = getLynexSDK();
@@ -974,6 +1416,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Retrieves factory data using the Lynex SDK.
+	 *
+	 * @param {GetFactoryParams} params - The parameters required to get the factory data.
+	 * @returns {Promise<GetFactoryData>} A promise that resolves to the factory data.
+	 */
 	const getFactory = useCallback(
 		async (params: GetFactoryParams): Promise<GetFactoryData> => {
 			const lynexSDK = getLynexSDK();
@@ -982,6 +1430,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Retrieves the last voted data using the Lynex SDK.
+	 *
+	 * @param {GetLastVotedParams} params - The parameters required to fetch the last voted data.
+	 * @returns {Promise<GetLastVotedData>} A promise that resolves to the last voted data.
+	 */
 	const getLastVoted = useCallback(
 		async (params: GetLastVotedParams): Promise<GetLastVotedData> => {
 			const lynexSDK = getLynexSDK();
@@ -990,6 +1444,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Retrieves lock details using the Lynex SDK.
+	 *
+	 * @param params - The parameters required to get lock details.
+	 * @returns A promise that resolves to the lock details data.
+	 */
 	const getLockDetails = useCallback(
 		async (params: GetLockDetailsParams): Promise<GetLockDetailsData> => {
 			const lynexSDK = getLynexSDK();
@@ -998,6 +1458,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Retrieves the name using the Lynex SDK.
+	 *
+	 * @param params - The parameters required to get the name.
+	 * @returns A promise that resolves to the result of the getName operation.
+	 */
 	const getName = useCallback(
 		async (params: GetNameParams2): Promise<GetNameResult> => {
 			const lynexSDK = getLynexSDK();
@@ -1006,6 +1472,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Retrieves the owner of a specified entity using the Lynex SDK.
+	 *
+	 * @param {GetOwnerOfParams} params - The parameters required to get the owner information.
+	 * @returns {Promise<GetOwnerOfData>} A promise that resolves to the owner data.
+	 */
 	const getOwnerOf = useCallback(
 		async (params: GetOwnerOfParams): Promise<GetOwnerOfData> => {
 			const lynexSDK = getLynexSDK();
@@ -1014,6 +1486,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Fetches past votes using the Lynex SDK.
+	 *
+	 * @param {GetPastVotesParams} params - The parameters required to fetch past votes.
+	 * @returns {Promise<GetPastVotesData>} A promise that resolves to the past votes data.
+	 */
 	const getPastVotes = useCallback(
 		async (params: GetPastVotesParams): Promise<GetPastVotesData> => {
 			const lynexSDK = getLynexSDK();
@@ -1022,6 +1500,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Retrieves pool data by its address using the Lynex SDK.
+	 *
+	 * @param address - The address of the pool to retrieve.
+	 * @returns A promise that resolves to the pool data.
+	 */
 	const getPoolByAddress = useCallback(
 		async (address: string): Promise<GetPoolByAddressData> => {
 			const lynexSDK = getLynexSDK();
@@ -1030,11 +1514,22 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Fetches the pool data using the Lynex SDK.
+	 *
+	 * @returns {Promise<GetPoolsData>} A promise that resolves to the pool data.
+	 */
 	const getPools = useCallback(async (): Promise<GetPoolsData> => {
 		const lynexSDK = getLynexSDK();
 		return lynexSDK.getPools();
 	}, [moon]);
 
+	/**
+	 * Fetches pools by the specified type using the Lynex SDK.
+	 *
+	 * @param type - The type of pools to fetch.
+	 * @returns A promise that resolves to the data of the pools of the specified type.
+	 */
 	const getPoolsByType = useCallback(
 		async (type: string): Promise<GetPoolsByTypeData> => {
 			const lynexSDK = getLynexSDK();
@@ -1043,6 +1538,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Retrieves the length of the pool vote using the Lynex SDK.
+	 *
+	 * @param {GetPoolVoteLengthParams} params - The parameters required to get the pool vote length.
+	 * @returns {Promise<GetPoolVoteLengthData>} A promise that resolves to the pool vote length data.
+	 */
 	const getPoolVoteLength = useCallback(
 		async (params: GetPoolVoteLengthParams): Promise<GetPoolVoteLengthData> => {
 			const lynexSDK = getLynexSDK();
@@ -1051,6 +1552,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Fetches the symbol information using the Lynex SDK.
+	 *
+	 * @param {GetSymbolParams2} params - The parameters required to fetch the symbol.
+	 * @returns {Promise<GetSymbolResult>} A promise that resolves to the symbol result.
+	 */
 	const getSymbol = useCallback(
 		async (params: GetSymbolParams2): Promise<GetSymbolResult> => {
 			const lynexSDK = getLynexSDK();
@@ -1059,6 +1566,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Retrieves a token by its index using the Lynex SDK.
+	 *
+	 * @param params - The parameters required to get the token by index.
+	 * @returns A promise that resolves to the token data.
+	 */
 	const getTokenByIndex = useCallback(
 		async (params: GetTokenByIndexParams): Promise<GetTokenByIndexData> => {
 			const lynexSDK = getLynexSDK();
@@ -1067,6 +1580,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Retrieves the token of an owner by index using the Lynex SDK.
+	 *
+	 * @param params - The parameters required to get the token of an owner by index.
+	 * @returns A promise that resolves to the data of the token of the owner by index.
+	 */
 	const getTokenOfOwnerByIndex = useCallback(
 		async (
 			params: GetTokenOfOwnerByIndexParams,
@@ -1077,6 +1596,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Retrieves the token URI using the Lynex SDK.
+	 *
+	 * @param {GetTokenUriParams} params - The parameters required to get the token URI.
+	 * @returns {Promise<GetTokenUriData>} A promise that resolves to the token URI data.
+	 */
 	const getTokenUri = useCallback(
 		async (params: GetTokenUriParams): Promise<GetTokenUriData> => {
 			const lynexSDK = getLynexSDK();
@@ -1085,6 +1610,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Fetches the top APR pools using the Lynex SDK.
+	 *
+	 * @param {GetTopAprPoolsParams} params - The parameters required to fetch the top APR pools.
+	 * @returns {Promise<GetTopAprPoolsData>} A promise that resolves to the data of the top APR pools.
+	 */
 	const getTopAprPools = useCallback(
 		async (params: GetTopAprPoolsParams): Promise<GetTopAprPoolsData> => {
 			const lynexSDK = getLynexSDK();
@@ -1093,6 +1624,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Retrieves the total number of NFTs minted using the Lynex SDK.
+	 *
+	 * @param params - The parameters required to get the total number of NFTs minted.
+	 * @returns A promise that resolves to the data containing the total number of NFTs minted.
+	 */
 	const getTotalNftsMinted = useCallback(
 		async (
 			params: GetTotalNftsMintedParams,
@@ -1103,6 +1640,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Retrieves the total supply using the Lynex SDK.
+	 *
+	 * @param {GetTotalSupplyParams4} params - The parameters required to get the total supply.
+	 * @returns {Promise<GetTotalSupplyOutput>} A promise that resolves to the total supply output.
+	 */
 	const getTotalSupply = useCallback(
 		async (params: GetTotalSupplyParams4): Promise<GetTotalSupplyOutput> => {
 			const lynexSDK = getLynexSDK();
@@ -1111,12 +1654,23 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Retrieves the total value locked (TVL) from the Lynex SDK.
+	 *
+	 * @returns {Promise<GetTotalValueLockedData>} A promise that resolves to the total value locked data.
+	 */
 	const getTotalValueLocked =
 		useCallback(async (): Promise<GetTotalValueLockedData> => {
 			const lynexSDK = getLynexSDK();
 			return lynexSDK.getTotalValueLocked();
 		}, [moon]);
 
+	/**
+	 * Retrieves the total weight using the Lynex SDK.
+	 *
+	 * @param {GetTotalWeightParams} params - The parameters required to get the total weight.
+	 * @returns {Promise<GetTotalWeightData>} A promise that resolves to the total weight data.
+	 */
 	const getTotalWeight = useCallback(
 		async (params: GetTotalWeightParams): Promise<GetTotalWeightData> => {
 			const lynexSDK = getLynexSDK();
@@ -1125,6 +1679,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Retrieves the vested payout data using the Lynex SDK.
+	 *
+	 * @param params - The parameters required to get the vested payout.
+	 * @returns A promise that resolves to the vested payout data.
+	 */
 	const getVestedPayout = useCallback(
 		async (params: GetVestedPayoutParams): Promise<GetVestedPayoutData> => {
 			const lynexSDK = getLynexSDK();
@@ -1133,6 +1693,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Retrieves the vested payout at a specific time using the Lynex SDK.
+	 *
+	 * @param params - The parameters required to get the vested payout at a specific time.
+	 * @returns A promise that resolves to the vested payout data.
+	 */
 	const getVestedPayoutAtTime = useCallback(
 		async (
 			params: GetVestedPayoutAtTimeParams,
@@ -1143,6 +1709,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Retrieves the vesting payout data using the Lynex SDK.
+	 *
+	 * @param {GetVestingPayoutParams} params - The parameters required to get the vesting payout.
+	 * @returns {Promise<GetVestingPayoutData>} A promise that resolves to the vesting payout data.
+	 */
 	const getVestingPayout = useCallback(
 		async (params: GetVestingPayoutParams): Promise<GetVestingPayoutData> => {
 			const lynexSDK = getLynexSDK();
@@ -1151,6 +1723,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Retrieves the vesting period data using the Lynex SDK.
+	 *
+	 * @param {GetVestingPeriodParams} params - The parameters required to get the vesting period.
+	 * @returns {Promise<GetVestingPeriodData>} A promise that resolves to the vesting period data.
+	 */
 	const getVestingPeriod = useCallback(
 		async (params: GetVestingPeriodParams): Promise<GetVestingPeriodData> => {
 			const lynexSDK = getLynexSDK();
@@ -1159,6 +1737,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Fetches votes data using the Lynex SDK.
+	 *
+	 * @param params - The parameters required to fetch the votes.
+	 * @returns A promise that resolves to the votes data.
+	 */
 	const getVotes = useCallback(
 		async (params: GetVotesParams): Promise<GetVotesData> => {
 			const lynexSDK = getLynexSDK();
@@ -1167,6 +1751,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Fetches weight data using the Lynex SDK.
+	 *
+	 * @param {GetWeightsParams} params - The parameters required to fetch the weights.
+	 * @returns {Promise<GetWeightsData>} A promise that resolves to the weight data.
+	 */
 	const getWeights = useCallback(
 		async (params: GetWeightsParams): Promise<GetWeightsData> => {
 			const lynexSDK = getLynexSDK();
@@ -1175,6 +1765,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Retrieves WETH (Wrapped Ether) using the Lynex SDK.
+	 *
+	 * @param {GetWethParams2} params - The parameters required to get WETH.
+	 * @returns {Promise<GetWethResult>} A promise that resolves to the result of the WETH retrieval.
+	 */
 	const getWeth = useCallback(
 		async (params: GetWethParams2): Promise<GetWethResult> => {
 			const lynexSDK = getLynexSDK();
@@ -1183,6 +1779,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Checks if the given parameters are approved for all using the Lynex SDK.
+	 *
+	 * @param params - The parameters required to check approval status.
+	 * @returns A promise that resolves to the result of the approval check.
+	 */
 	const isApprovedForAll = useCallback(
 		async (
 			params: IsApprovedForAllParams1,
@@ -1193,6 +1795,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Determines if the given parameters correspond to a gauge using the Lynex SDK.
+	 *
+	 * @param {IsGaugeParams} params - The parameters to check if they correspond to a gauge.
+	 * @returns {Promise<IsGaugeData>} A promise that resolves to the data indicating if the parameters correspond to a gauge.
+	 */
 	const isGauge = useCallback(
 		async (params: IsGaugeParams): Promise<IsGaugeData> => {
 			const lynexSDK = getLynexSDK();
@@ -1201,6 +1809,12 @@ export const useLynex = () => {
 		[moon],
 	);
 
+	/**
+	 * Checks if the given parameters are whitelisted using the Lynex SDK.
+	 *
+	 * @param params - The parameters to check for whitelisting.
+	 * @returns A promise that resolves to the whitelisted data.
+	 */
 	const isWhitelisted = useCallback(
 		async (params: IsWhitelistedParams): Promise<IsWhitelistedData> => {
 			const lynexSDK = getLynexSDK();

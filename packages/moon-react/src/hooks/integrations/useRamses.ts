@@ -41,6 +41,79 @@ import {
 	useSwitchChain,
 } from "wagmi";
 
+/**
+ * Custom hook to interact with the Ramses SDK.
+ *
+ * @returns {Object} An object containing various methods to interact with the Ramses SDK.
+ *
+ * @function abstain - Abstain from voting.
+ * @function addLiquidity - Add liquidity to a pool.
+ * @function addLiquidityEth - Add liquidity to a pool using ETH.
+ * @function approve - Approve a transaction.
+ * @function attach - Attach an NFT.
+ * @function attachTokenToGauge - Attach a token to a gauge.
+ * @function calculateOptimalVoteDistribution - Calculate the optimal vote distribution.
+ * @function claimBribes - Claim bribes.
+ * @function claimFees - Claim fees.
+ * @function claimRewards - Claim rewards.
+ * @function createGauge - Create a gauge.
+ * @function createLock - Create a lock.
+ * @function delegate - Delegate voting power.
+ * @function detach - Detach an NFT.
+ * @function detachTokenFromGauge - Detach a token from a gauge.
+ * @function distribute - Distribute rewards.
+ * @function getAmountOut - Get the amount out for a swap.
+ * @function getAmountsOut - Get the amounts out for a swap.
+ * @function getBalanceOf - Get the balance of a token.
+ * @function getBalanceOfNft - Get the balance of an NFT.
+ * @function getDelegates - Get the delegates.
+ * @function getFactory - Get the factory information.
+ * @function getInfo - Get general information.
+ * @function getLastVoted - Get the last voted information.
+ * @function getLocked - Get the locked tokens.
+ * @function getOwnerOf - Get the owner of a token.
+ * @function getPastVotes - Get past votes.
+ * @function getPoolByAddress - Get a pool by its address.
+ * @function getPools - Get all pools.
+ * @function getPoolsByType - Get pools by type.
+ * @function getReserves - Get the reserves of a pool.
+ * @function getTokens - Get all tokens.
+ * @function getTokenUri - Get the URI of a token.
+ * @function getTopAprPools - Get the top APR pools.
+ * @function getTotalSupply - Get the total supply of a token.
+ * @function getTotalValueLocked - Get the total value locked.
+ * @function getTotalWeight - Get the total weight.
+ * @function getVotes - Get the votes.
+ * @function getWeights - Get the weights.
+ * @function getWeth - Get the WETH token.
+ * @function increaseAmount - Increase the amount of a lock.
+ * @function increaseUnlockTime - Increase the unlock time of a lock.
+ * @function isGauge - Check if an address is a gauge.
+ * @function isPair - Check if an address is a pair.
+ * @function isWhitelisted - Check if an address is whitelisted.
+ * @function killGauge - Kill a gauge.
+ * @function merge - Merge NFTs.
+ * @function notifyRewardAmount - Notify the reward amount.
+ * @function pairFor - Get the pair for a token.
+ * @function poke - Poke a gauge.
+ * @function quoteAddLiquidity - Quote the amount of liquidity to add.
+ * @function quoteRemoveLiquidity - Quote the amount of liquidity to remove.
+ * @function removeLiquidity - Remove liquidity from a pool.
+ * @function removeLiquidityEth - Remove liquidity from a pool using ETH.
+ * @function reset - Reset a gauge.
+ * @function reviveGauge - Revive a gauge.
+ * @function sortTokens - Sort tokens.
+ * @function split - Split an NFT.
+ * @function swapExactEthForTokens - Swap exact ETH for tokens.
+ * @function swapExactTokensForEth - Swap exact tokens for ETH.
+ * @function swapExactTokensForTokens - Swap exact tokens for tokens.
+ * @function transferFrom - Transfer a token from one address to another.
+ * @function unsafeSwapExactTokensForTokens - Unsafely swap exact tokens for tokens.
+ * @function vote - Vote on a proposal.
+ * @function voteWithOptimalDistribution - Vote with optimal distribution.
+ * @function whitelist - Whitelist an address.
+ * @function withdraw - Withdraw tokens.
+ */
 export const useRamses = () => {
 	const { handleTransaction } = useMoonTransaction();
 	const { moon } = useMoonAuth();
@@ -87,6 +160,14 @@ export const useRamses = () => {
 		}
 	};
 
+	/**
+	 * Abstains from a transaction using the Ramses SDK.
+	 *
+	 * @param payload - The payload containing the address and data for the transaction.
+	 * @param payload.address - The address to abstain from.
+	 * @param payload.data - The data required for the Ramses NFT input body.
+	 * @returns A promise that resolves when the transaction is handled.
+	 */
 	const abstain = useCallback(
 		async (payload: { address: string; data: RamsesNFTInputBody }) =>
 			handleTransaction("abstain", async () => {
@@ -98,6 +179,25 @@ export const useRamses = () => {
 		[moon, isConnected, sendTransactionAsync],
 	);
 
+	/**
+	 * Adds liquidity to the Ramses protocol.
+	 *
+	 * @param payload - The payload containing the address and data for the transaction.
+	 * @param payload.address - The address to which liquidity is being added.
+	 * @param payload.data - The data required by the Ramses router for the transaction.
+	 * @returns A promise that resolves with the result of the transaction.
+	 *
+	 * @example
+	 * ```typescript
+	 * const payload = {
+	 *   address: "0x123...",
+	 *   data: {
+	 *     // RamsesRouterInputBody data
+	 *   }
+	 * };
+	 * await addLiquidity(payload);
+	 * ```
+	 */
 	const addLiquidity = useCallback(
 		async (payload: { address: string; data: RamsesRouterInputBody }) =>
 			handleTransaction("addLiquidity", async () => {
@@ -112,8 +212,25 @@ export const useRamses = () => {
 		[moon, isConnected, sendTransactionAsync],
 	);
 
-	// ... previous code ...
-
+	/**
+	 * Adds liquidity to the ETH pool using the Ramses SDK.
+	 *
+	 * @param payload - The payload containing the address and data for the transaction.
+	 * @param payload.address - The address to which liquidity is being added.
+	 * @param payload.data - The data required for the Ramses router input.
+	 * @returns A promise that resolves with the transaction response.
+	 *
+	 * @example
+	 * ```typescript
+	 * const payload = {
+	 *   address: "0x123...",
+	 *   data: {
+	 *     // RamsesRouterInputBody data
+	 *   }
+	 * };
+	 * await addLiquidityEth(payload);
+	 * ```
+	 */
 	const addLiquidityEth = useCallback(
 		async (payload: { address: string; data: RamsesRouterInputBody }) =>
 			handleTransaction("addLiquidityEth", async () => {
@@ -128,6 +245,14 @@ export const useRamses = () => {
 		[moon, isConnected, sendTransactionAsync],
 	);
 
+	/**
+	 * Approves a transaction using the Ramses SDK.
+	 *
+	 * @param payload - An object containing the address and data for the transaction.
+	 * @param payload.address - The address to approve the transaction for.
+	 * @param payload.data - The data required for the Ramses NFT input body.
+	 * @returns A promise that resolves with the result of the transaction.
+	 */
 	const approve = useCallback(
 		async (payload: { address: string; data: RamsesNFTInputBody }) =>
 			handleTransaction("approve", async () => {
@@ -139,6 +264,28 @@ export const useRamses = () => {
 		[moon, isConnected, sendTransactionAsync],
 	);
 
+	/**
+	 * Attaches a Ramses NFT to a specified address.
+	 *
+	 * @param payload - The payload containing the address and data for the Ramses NFT.
+	 * @param payload.address - The address to which the Ramses NFT will be attached.
+	 * @param payload.data - The data required for the Ramses NFT attachment.
+	 * @returns A promise that resolves with the result of the transaction.
+	 *
+	 * @remarks
+	 * This function uses the `handleTransaction` utility to manage the transaction process.
+	 * It prepares the transaction data and then calls the `attach` method from the Ramses SDK.
+	 * The response is then handled by the `handleWagmiTransaction` function.
+	 *
+	 * @example
+	 * ```typescript
+	 * const payload = {
+	 *   address: "0x123...",
+	 *   data: { /* RamsesNFTInputBody data *\/ }
+	 * };
+	 * await attach(payload);
+	 * ```
+	 */
 	const attach = useCallback(
 		async (payload: { address: string; data: RamsesNFTInputBody }) =>
 			handleTransaction("attach", async () => {

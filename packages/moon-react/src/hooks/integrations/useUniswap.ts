@@ -97,6 +97,84 @@ import {
 	useSwitchChain,
 } from "wagmi";
 
+/**
+ * Custom hook to interact with Uniswap SDK.
+ *
+ * This hook provides various methods to interact with Uniswap V2 and V3 contracts,
+ * including adding liquidity, swapping tokens, and managing NFTs.
+ *
+ * @returns {Object} An object containing methods for Uniswap V2 and V3 interactions.
+ *
+ * @method addLiquidity - Adds liquidity to a Uniswap V2 pool.
+ * @method addLiquidityEth - Adds liquidity to a Uniswap V2 pool with ETH.
+ * @method getAmountIn - Gets the input amount required for a given output amount.
+ * @method getAmountOut - Gets the output amount for a given input amount.
+ * @method getAmountsIn - Gets the input amounts required for a given output amount.
+ * @method getAmountsOut - Gets the output amounts for a given input amount.
+ * @method getFactory - Gets the address of the Uniswap V2 factory.
+ * @method getWeth - Gets the address of the WETH token.
+ * @method quote - Gets the quote for a given input amount.
+ * @method removeLiquidity - Removes liquidity from a Uniswap V2 pool.
+ * @method removeLiquidityEth - Removes liquidity from a Uniswap V2 pool with ETH.
+ * @method removeLiquidityEthSupportingFeeOnTransferTokens - Removes liquidity with fee on transfer tokens.
+ * @method removeLiquidityEthWithPermit - Removes liquidity with permit.
+ * @method removeLiquidityEthWithPermitSupportingFeeOnTransferTokens - Removes liquidity with permit and fee on transfer tokens.
+ * @method removeLiquidityWithPermit - Removes liquidity with permit.
+ * @method swapEthForExactTokens - Swaps ETH for exact tokens.
+ * @method swapExactEthForTokens - Swaps exact ETH for tokens.
+ * @method swapExactEthForTokensSupportingFeeOnTransferTokens - Swaps exact ETH for tokens with fee on transfer tokens.
+ * @method swapExactTokensForEth - Swaps exact tokens for ETH.
+ * @method swapExactTokensForEthSupportingFeeOnTransferTokens - Swaps exact tokens for ETH with fee on transfer tokens.
+ * @method swapExactTokensForTokens - Swaps exact tokens for tokens.
+ * @method swapExactTokensForTokensSupportingFeeOnTransferTokens - Swaps exact tokens for tokens with fee on transfer tokens.
+ * @method swapTokensForExactEth - Swaps tokens for exact ETH.
+ * @method swapTokensForExactTokens - Swaps tokens for exact tokens.
+ *
+ * @method approve - Approves a Uniswap V3 NFT.
+ * @method balanceOf - Gets the balance of a Uniswap V3 NFT.
+ * @method baseUri - Gets the base URI of a Uniswap V3 NFT.
+ * @method burn - Burns a Uniswap V3 NFT.
+ * @method collect - Collects fees from a Uniswap V3 position.
+ * @method createAndInitializePoolIfNecessary - Creates and initializes a Uniswap V3 pool if necessary.
+ * @method decreaseLiquidity - Decreases liquidity in a Uniswap V3 position.
+ * @method domainSeparator - Gets the domain separator for a Uniswap V3 NFT.
+ * @method exactInput - Executes an exact input swap on Uniswap V3.
+ * @method exactInputSingle - Executes an exact input single swap on Uniswap V3.
+ * @method exactOutput - Executes an exact output swap on Uniswap V3.
+ * @method exactOutputSingle - Executes an exact output single swap on Uniswap V3.
+ * @method factory - Gets the address of the Uniswap V3 factory.
+ * @method factory2 - Gets the address of the Uniswap V3 factory (alternative method).
+ * @method getApproved - Gets the approved address for a Uniswap V3 NFT.
+ * @method increaseLiquidity - Increases liquidity in a Uniswap V3 position.
+ * @method isApprovedForAll - Checks if an address is approved for all Uniswap V3 NFTs.
+ * @method mint - Mints a new Uniswap V3 NFT.
+ * @method multicall - Executes multiple calls in a single transaction on Uniswap V3.
+ * @method multicall2 - Executes multiple calls in a single transaction on Uniswap V3 (alternative method).
+ * @method name - Gets the name of a Uniswap V3 NFT.
+ * @method ownerOf - Gets the owner of a Uniswap V3 NFT.
+ * @method permit - Permits a Uniswap V3 NFT.
+ * @method permitTypehash - Gets the permit typehash for a Uniswap V3 NFT.
+ * @method positions - Gets the positions of a Uniswap V3 NFT.
+ * @method refundEth - Refunds ETH from a Uniswap V3 position.
+ * @method refundEth2 - Refunds ETH from a Uniswap V3 position (alternative method).
+ * @method selfPermit - Self permits a Uniswap V3 NFT.
+ * @method selfPermitAllowed - Self permits a Uniswap V3 NFT with allowance.
+ * @method selfPermitAllowedIfNecessary - Self permits a Uniswap V3 NFT with allowance if necessary.
+ * @method selfPermitIfNecessary - Self permits a Uniswap V3 NFT if necessary.
+ * @method setApprovalForAll - Sets approval for all Uniswap V3 NFTs.
+ * @method supportsInterface - Checks if a Uniswap V3 NFT supports a given interface.
+ * @method sweepToken - Sweeps tokens from a Uniswap V3 position.
+ * @method sweepToken2 - Sweeps tokens from a Uniswap V3 position (alternative method).
+ * @method sweepTokenWithFee - Sweeps tokens with fee from a Uniswap V3 position.
+ * @method symbol - Gets the symbol of a Uniswap V3 NFT.
+ * @method tokenByIndex - Gets a token by index from a Uniswap V3 NFT.
+ * @method tokenOfOwnerByIndex - Gets a token of owner by index from a Uniswap V3 NFT.
+ * @method tokenUri - Gets the URI of a Uniswap V3 NFT.
+ * @method totalSupply - Gets the total supply of a Uniswap V3 NFT.
+ * @method transferFrom - Transfers a Uniswap V3 NFT.
+ *
+ * @method getUniswapSDK - Gets the Uniswap SDK instance.
+ */
 export const useUniswap = () => {
 	const { handleTransaction } = useMoonTransaction();
 	const { moon } = useMoonAuth();

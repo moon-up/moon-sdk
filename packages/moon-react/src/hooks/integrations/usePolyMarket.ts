@@ -49,6 +49,33 @@ import {
 	useSwitchChain,
 } from "wagmi";
 
+/**
+ * Custom hook to interact with the Polymarket SDK.
+ *
+ * This hook provides various functions to interact with the Polymarket SDK, including
+ * approving tokens, canceling orders, creating orders, getting market data, and more.
+ *
+ * @returns An object containing functions to interact with the Polymarket SDK:
+ * - `approveForPolymarket`: Approves tokens for use in Polymarket.
+ * - `cancelMarketOrders`: Cancels all orders for a specific market.
+ * - `cancelOrder`: Cancels a specific order.
+ * - `cancelOrders`: Cancels multiple orders.
+ * - `createMarketBuyOrder`: Creates a market buy order.
+ * - `createOrder`: Creates an order.
+ * - `dropNotifications`: Drops notifications.
+ * - `getBalanceAllowance`: Gets the balance and allowance for a specific account.
+ * - `getMarket`: Gets market data.
+ * - `getMarkets`: Gets data for multiple markets.
+ * - `getMarketTradeEvents`: Gets market trade events.
+ * - `getNotifications`: Gets notifications.
+ * - `getOpenOrders`: Gets open orders.
+ * - `getOrder`: Gets a specific order.
+ * - `getOrderBook`: Gets the order book.
+ * - `getPricesHistory`: Gets price history.
+ * - `getTrades`: Gets trades.
+ * - `postOrder`: Posts an order.
+ * - `updateBalanceAllowance`: Updates balance allowance.
+ */
 export const usePolymarket = () => {
 	const { handleTransaction } = useMoonTransaction();
 	const { moon } = useMoonAuth();
@@ -94,8 +121,6 @@ export const usePolymarket = () => {
 			return transactionData;
 		}
 	};
-
-	// ... existing code ...
 
 	/**
 	 * Approves tokens for use in Polymarket.
