@@ -1,6 +1,5 @@
 import type { Theme } from "@/types";
 import type { MoonSDKConfig } from "@moonup/moon-sdk";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 // biome-ignore lint/style/useImportType: <explanation>
 import React from "react";
@@ -24,18 +23,15 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
 	authConfig = DEFAULT_AUTH_CONFIG,
 	theme,
 }) => {
-	const queryClient = new QueryClient();
 	return (
-		<QueryClientProvider client={queryClient}>
-			<ThemeProvider theme={theme}>
-				<MoonAuthProvider sdkConfig={sdkConfig}>
-					<WagmiWrapper>
-						<MoonSDKProvider authConfig={authConfig}>
-							<AuthModal config={authConfig}>{children}</AuthModal>
-						</MoonSDKProvider>
-					</WagmiWrapper>
-				</MoonAuthProvider>
-			</ThemeProvider>
-		</QueryClientProvider>
+		<ThemeProvider theme={theme}>
+			<MoonAuthProvider sdkConfig={sdkConfig}>
+				<WagmiWrapper>
+					<MoonSDKProvider authConfig={authConfig}>
+						<AuthModal config={authConfig}>{children}</AuthModal>
+					</MoonSDKProvider>
+				</WagmiWrapper>
+			</MoonAuthProvider>
+		</ThemeProvider>
 	);
 };

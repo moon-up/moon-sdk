@@ -11,7 +11,6 @@ import type {
 	AuthSession as Session,
 	SupabaseClient,
 } from "@supabase/supabase-js";
-import { useReconnect } from "wagmi";
 import type { DbWalletAlias } from "../database/DBAdapterBase";
 import { useChains, useMoonAccount } from "../hooks";
 import type { TransactionResult } from "../types/types";
@@ -149,10 +148,6 @@ export const MoonSDKProvider: React.FC<MoonSDKProviderProps> = ({
 			setDbAdapter(new SupabaseAdapter(supabaseClient));
 		}
 	}, [supabaseClient]);
-	const { reconnect } = useReconnect();
-	useEffect(() => {
-		reconnect();
-	}, [reconnect]);
 
 	// useEffect(() => {
 	// 	if (moon && isAuthenticated) {
