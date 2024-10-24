@@ -1,6 +1,6 @@
 {
   "name": "@moonup/moon-react",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "license": "MIT",
   "author": "0xEwhal <ewhal@bytemasons.com>",
   "type": "commonjs",
@@ -46,7 +46,7 @@
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "analyze": "size-limit --why",
-    "prepare": "tsup",
+    "prepare": "tsup && tsc --emitDeclarationOnly --declaration",
     "size": "size-limit",
     "start": "tsup --watch",
     "prettier": "prettier --check src/",

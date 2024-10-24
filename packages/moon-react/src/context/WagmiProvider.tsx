@@ -1,4 +1,3 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 // biome-ignore lint/style/useImportType: <explanation>
 import React from "react";
@@ -98,7 +97,7 @@ type WagmiWrapperProps = {
 };
 
 export const WagmiWrapper: React.FC<WagmiWrapperProps> = ({ children }) => {
-	const [queryClient] = React.useState(() => new QueryClient());
+	// const [queryClient] = React.useState(() => new QueryClient());
 	const [config] = React.useState(() =>
 		createConfig({
 			connectors: [
@@ -278,9 +277,5 @@ export const WagmiWrapper: React.FC<WagmiWrapperProps> = ({ children }) => {
 		});
 	}, []);
 
-	return (
-		<WagmiProvider config={config}>
-			<QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-		</WagmiProvider>
-	);
+	return <WagmiProvider config={config}>{children}</WagmiProvider>;
 };
