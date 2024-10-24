@@ -21,10 +21,9 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
 	children,
 	sdkConfig,
 	authConfig = DEFAULT_AUTH_CONFIG,
-	theme,
 }) => {
 	return (
-		<ThemeProvider theme={theme}>
+		<ThemeProvider theme={authConfig.theming}>
 			<MoonAuthProvider sdkConfig={sdkConfig}>
 				<WagmiWrapper>
 					<MoonSDKProvider authConfig={authConfig}>
