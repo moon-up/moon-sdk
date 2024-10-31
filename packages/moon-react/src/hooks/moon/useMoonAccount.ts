@@ -170,21 +170,21 @@ export const useMoonAccount = (): INetwork & {
 	 *
 	 * @returns {Promise<void>} A promise that resolves when the accounts are fetched and state is updated.
 	 */
+
 	const listAccounts = useCallback(async (): Promise<void> => {
 		try {
 			const accountList = await moon
 				.getTransactionService()
 				.listAccounts(chainType);
 			console.log("accountList", accountList);
-			const typedAccountList = accountList as any;
-			setAccounts(() => {
-				const newAccounts = [...typedAccountList.data.keys];
-				if (isConnected && address && !newAccounts.includes(address)) {
-					newAccounts.push(address);
-				}
-				console.log("newAccounts", newAccounts);
-				return newAccounts;
-			});
+
+			const updatedAccountList = [...accountList];
+
+			if (isConnected && address && !updatedAccountList.includes(address)) {
+				updatedAccountList.push(address);
+			}
+
+			setAccounts(updatedAccountList);
 		} catch (error) {
 			console.error("Error fetching accounts:", error);
 			setAccounts([]);

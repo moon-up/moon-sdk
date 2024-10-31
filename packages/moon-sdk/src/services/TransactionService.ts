@@ -240,8 +240,13 @@ export class TransactionService {
 	 * @param {ChainType} type - The type of the blockchain network.
 	 * @returns {Promise<Record<string, unknown>>} A promise that resolves to a record of accounts.
 	 */
-	async listAccounts(type: ChainType): Promise<Record<string, unknown>> {
-		return this.getNetwork(type).listAccounts();
+	async listAccounts(type: ChainType): Promise<string[]> {
+		const accounts = await this.getNetwork(type).listAccounts();
+		// check if accounts.data exists
+		if (!accounts) {
+			return [];
+		}
+		return accounts;
 	}
 	/**
 	 * Signs typed data using the specified network.

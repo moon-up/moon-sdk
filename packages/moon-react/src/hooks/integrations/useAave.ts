@@ -5,13 +5,17 @@ import type {
 	AAVEv3RewardsAPIResponseString,
 	AAVEv3RewardsAPIResponseStringArray,
 	AAVEv3RewardsInputBody,
+	AAVEv3UiIncentiveDataProviderAPIResponseFullReservesIncentiveData,
+	AAVEv3UiPoolDataProviderAPIResponseReservesData,
 	AAVEv3UiPoolDataProviderAPIResponseUserReserveDataArray,
 	Aave,
 	AavePoolAPIResponseAavePoolExecuteFunctionResult,
 	AavePoolAPIResponseAny,
 	AavePoolInputBody,
 	GetAllATokensParams,
+	GetFullReservesIncentiveDataParams,
 	GetReserveDataParams,
+	GetReservesDataParams,
 	GetRewardsByAssetParams,
 	GetRewardsDataParams,
 	GetUserReservesDataParams,
@@ -480,6 +484,32 @@ export const useAave = () => {
 		[moon],
 	);
 
+	const getReservesData = useCallback(
+		async (
+			payload: GetReservesDataParams,
+		): Promise<AAVEv3UiPoolDataProviderAPIResponseReservesData> => {
+			return handleTransaction("getReservesData", async () => {
+				const avveSDK = getAaveSDK();
+				const response = await avveSDK.getReservesData(payload);
+				return response;
+			});
+		},
+		[moon],
+	);
+
+	const getFullReservesIncentiveData = useCallback(
+		async (
+			payload: GetFullReservesIncentiveDataParams,
+		): Promise<AAVEv3UiIncentiveDataProviderAPIResponseFullReservesIncentiveData> => {
+			return handleTransaction("getFullReservesIncentiveData", async () => {
+				const avveSDK = getAaveSDK();
+				const response = await avveSDK.getFullReservesIncentiveData(payload);
+				return response;
+			});
+		},
+		[moon],
+	);
+
 	return {
 		supply,
 		withdraw,
@@ -496,6 +526,8 @@ export const useAave = () => {
 		getUserAccountData,
 		getReserveData,
 		getUserReservesData,
+		getReservesData,
+		getFullReservesIncentiveData,
 		aaveConfig,
 	};
 };

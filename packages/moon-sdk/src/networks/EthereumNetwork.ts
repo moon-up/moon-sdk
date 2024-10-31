@@ -1,8 +1,9 @@
-import { ethers, JsonRpcProvider } from 'ethers';
+import { type JsonRpcProvider, ethers } from "ethers";
 
-import { MoonSDK } from '../moon';
+import type { MoonSDK } from "../moon";
 
-import { INetwork } from './INetwork';
+import type { CreateAccountInput } from "@moonup/moon-api";
+import type { INetwork } from "./INetwork";
 
 /**
  * The `EthereumNetwork` class implements the `INetwork` interface and provides
@@ -92,212 +93,255 @@ import { INetwork } from './INetwork';
  * @returns {Promise<any>} - The deployment transaction of the contract.
  */
 export class EthereumNetwork implements INetwork {
-  private moon: MoonSDK;
+	private moon: MoonSDK;
 
-  constructor(moonSDK: MoonSDK) {
-    this.moon = moonSDK;
-  }
+	constructor(moonSDK: MoonSDK) {
+		this.moon = moonSDK;
+	}
 
-  /**
-   * Retrieves the Ethereum JSON-RPC provider for the specified chain ID.
-   *
-   * @param chainId - The ID of the Ethereum chain to get the provider for. Defaults to 1 (mainnet).
-   * @returns A promise that resolves to a JsonRpcProvider instance.
-   */
-  private async getProvider(chainId = 1): Promise<JsonRpcProvider> {
-    return this.moon.getEthereumProvider(chainId);
-  }
+	/**
+	 * Retrieves the Ethereum JSON-RPC provider for the specified chain ID.
+	 *
+	 * @param chainId - The ID of the Ethereum chain to get the provider for. Defaults to 1 (mainnet).
+	 * @returns A promise that resolves to a JsonRpcProvider instance.
+	 */
+	private async getProvider(chainId = 1): Promise<JsonRpcProvider> {
+		return this.moon.getEthereumProvider(chainId);
+	}
 
-  /**
-   * Retrieves a signer for the specified address.
-   *
-   * @param address - The address for which to retrieve the signer.
-   * @returns A promise that resolves to an `ethers.Signer` instance.
-   */
-  private async getSigner(address: string): Promise<ethers.Signer> {
-    const selectedChain =
-      this.moon.getChainService().getSelectedChain()?.chain_id || 1;
-    return this.moon.getProviderService().getMoonSigner(address, selectedChain);
-  }
+	/**
+	 * Retrieves a signer for the specified address.
+	 *
+	 * @param address - The address for which to retrieve the signer.
+	 * @returns A promise that resolves to an `ethers.Signer` instance.
+	 */
+	private async getSigner(address: string): Promise<ethers.Signer> {
+		const selectedChain =
+			this.moon.getChainService().getSelectedChain()?.chain_id || 1;
+		return this.moon.getProviderService().getMoonSigner(address, selectedChain);
+	}
 
-  /**
-   * Asynchronously creates a new account using the provided input.
-   *
-   * @param input - The input data required to create the account.
-   * @returns A promise that resolves to the data of the created account.
-   */
-  async createAccount(input: any): Promise<any> {
-    const response = await this.moon.getAccountsSDK().createAccount(input);
-    return response.data;
-  }
+	/**
+	 * Asynchronously creates a new account using the provided input.
+	 *
+	 * @param input - The input data required to create the account.
+	 * @returns A promise that resolves to the address of the created account.
+	 */
+	async createAccount(input: CreateAccountInput): Promise<string> {
+		const response = await this.moon.getAccountsSDK().createAccount(input);
+		if (response.data?.data) {
+			const address = response.data.data.address;
+			if (address) {
+				return address;
+			}
+			throw new Error("Failed to create account: address is undefined");
+		}
+		throw new Error("Failed to create account: response data is undefined");
+	}
+	/**
+	 * Deletes an account with the specified account name.
+	 *
+	 * @param accountName - The name of the account to be deleted.
+	 * @returns A promise that resolves to the response data of the delete operation.
+	 */
+	async deleteAccount(accountName: string): Promise<any> {
+		const response = await this.moon
+			.getAccountsSDK()
+			.deleteAccount(accountName);
+		if (response.data) {
+			return response.data;
+		}
+		throw new Error("Failed to export account: response data is undefined");
+	}
 
-  /**
-   * Deletes an account with the specified account name.
-   *
-   * @param accountName - The name of the account to be deleted.
-   * @returns A promise that resolves to the response data of the delete operation.
-   */
-  async deleteAccount(accountName: string): Promise<any> {
-    const response = await this.moon
-      .getAccountsSDK()
-      .deleteAccount(accountName);
-    return response.data;
-  }
+	/**
+	 * Exports the account details for the given account name.
+	 *
+	 * @param accountName - The name of the account to export.
+	 * @returns A promise that resolves to the exported account data.
+	 */
+	async exportAccount(
+		accountName: string,
+	): Promise<{ address: string; privateKey: string; publicKey: string }> {
+		const response = await this.moon
+			.getAccountsSDK()
+			.exportAccount(accountName);
+		if (response.data) {
+			return {
+				address: response.data.address,
+				privateKey: response.data.private_key,
+				publicKey: response.data.public_key,
+			};
+		}
+		throw new Error("Failed to export account: response data is undefined");
+	}
 
-  /**
-   * Exports the account details for the given account name.
-   *
-   * @param accountName - The name of the account to export.
-   * @returns A promise that resolves to the exported account data.
-   */
-  async exportAccount(accountName: string): Promise<any> {
-    const response = await this.moon
-      .getAccountsSDK()
-      .exportAccount(accountName);
-    return response.data;
-  }
+	/**
+	 * Retrieves the address for a given account name.
+	 *
+	 * @param accountName - The name of the account to retrieve the address for.
+	 * @returns A promise that resolves to the account address.
+	 */
+	async getAccount(accountName: string): Promise<string> {
+		const response = await this.moon.getAccountsSDK().getAccount(accountName);
+		if (response.data) {
+			const address = response.data.address;
+			if (address) {
+				return address;
+			}
+			throw new Error("Failed to get account: address is undefined");
+		}
+		throw new Error("Failed to get account: response data is undefined");
+	}
 
-  /**
-   * Retrieves account information for a given account name.
-   *
-   * @param accountName - The name of the account to retrieve.
-   * @returns A promise that resolves to the account information.
-   */
-  async getAccount(accountName: string): Promise<any> {
-    const response = await this.moon.getAccountsSDK().getAccount(accountName);
-    return response.data;
-  }
+	/**
+	 * Lists all accounts associated with the Ethereum network.
+	 *
+	 * @returns {Promise<string[]>} A promise that resolves to an array of account addresses.
+	 */
+	async listAccounts(): Promise<string[]> {
+		try {
+			const response = await this.moon.getAccountsSDK().listAccounts();
+			console.log(response);
 
-  /**
-   * Lists all accounts associated with the Ethereum network.
-   *
-   * @returns {Promise<any>} A promise that resolves to the data containing the list of accounts.
-   */
-  async listAccounts(): Promise<any> {
-    const response = await this.moon.getAccountsSDK().listAccounts();
-    return response.data;
-  }
+			if (response.success && response.data?.data?.keys) {
+				const keys = response.data.data.keys;
+				console.log(keys);
 
-  /**
-   * Signs a transaction for a given account.
-   *
-   * @param accountName - The name of the account to sign the transaction with.
-   * @param transaction - The transaction object to be signed.
-   * @returns A promise that resolves to an object containing the raw signed transaction.
-   */
-  async signTransaction(accountName: string, transaction: any): Promise<any> {
-    const account = await this.getAccount(accountName);
-    const signer = await this.getSigner(account.address);
-    const signedTx = await signer.signTransaction(transaction);
-    return { raw_transaction: signedTx };
-  }
+				if (
+					Array.isArray(keys) &&
+					keys.every((key) => typeof key === "string")
+				) {
+					return keys;
+				}
+			}
 
-  /**
-   * Retrieves the balance of the specified Ethereum address.
-   *
-   * @param address - The Ethereum address to query the balance for.
-   * @returns A promise that resolves to an object containing the balance as a string.
-   */
-  async getBalance(address: string): Promise<any> {
-    const provider = await this.getProvider();
-    const balance = await provider.getBalance(address);
-    return { balance: balance.toString() };
-  }
+			throw new Error("Invalid response structure");
+		} catch (error) {
+			throw new Error(`Failed to list accounts: ${error}`);
+		}
+	}
 
-  /**
-   * Retrieves a transaction by its hash.
-   *
-   * @param hash - The hash of the transaction to retrieve.
-   * @returns A promise that resolves to the transaction details.
-   */
-  async getTransaction(hash: string): Promise<any> {
-    const provider = await this.getProvider();
-    return provider.getTransaction(hash);
-  }
+	/**
+	 * Signs a transaction for a given account.
+	 *
+	 * @param accountName - The name of the account to sign the transaction with.
+	 * @param transaction - The transaction object to be signed.
+	 * @returns A promise that resolves to an object containing the raw signed transaction.
+	 */
+	async signTransaction(accountName: string, transaction: any): Promise<any> {
+		const account = await this.getAccount(accountName);
+		const signer = await this.getSigner(account);
+		const signedTx = await signer.signTransaction(transaction);
+		return { raw_transaction: signedTx };
+	}
 
-  /**
-   * Sends a transaction to the Ethereum network.
-   *
-   * @param transaction - The transaction object to be sent.
-   * @returns A promise that resolves to the transaction receipt.
-   */
-  async sendTransaction(transaction: any): Promise<any> {
-    const provider = await this.getProvider();
-    const tx = await provider.broadcastTransaction(transaction);
-    return tx.wait();
-  }
+	/**
+	 * Retrieves the balance of the specified Ethereum address.
+	 *
+	 * @param address - The Ethereum address to query the balance for.
+	 * @returns A promise that resolves to an object containing the balance as a string.
+	 */
+	async getBalance(address: string): Promise<any> {
+		const provider = await this.getProvider();
+		const balance = await provider.getBalance(address);
+		return { balance: balance.toString() };
+	}
 
-  /**
-   * Signs a message using the specified account.
-   *
-   * @param accountName - The name of the account to use for signing the message.
-   * @param message - The message to be signed.
-   * @returns A promise that resolves to the signed message.
-   */
-  async signMessage(accountName: string, message: string): Promise<any> {
-    const account = await this.getAccount(accountName);
-    const signer = await this.getSigner(account.address);
-    return signer.signMessage(message);
-  }
+	/**
+	 * Retrieves a transaction by its hash.
+	 *
+	 * @param hash - The hash of the transaction to retrieve.
+	 * @returns A promise that resolves to the transaction details.
+	 */
+	async getTransaction(hash: string): Promise<any> {
+		const provider = await this.getProvider();
+		return provider.getTransaction(hash);
+	}
 
-  /**
-   * Signs typed data using the specified account.
-   *
-   * @param accountName - The name of the account to use for signing.
-   * @param domain - The domain data for the typed data.
-   * @param types - The types definition for the typed data.
-   * @param value - The value to be signed.
-   * @returns A promise that resolves to the signed data.
-   */
-  async signTypedData(
-    accountName: string,
-    domain: any,
-    types: any,
-    value: any
-  ): Promise<any> {
-    return await this.moon.signTypedData(accountName, domain, types, value);
-  }
+	/**
+	 * Sends a transaction to the Ethereum network.
+	 *
+	 * @param transaction - The transaction object to be sent.
+	 * @returns A promise that resolves to the transaction receipt.
+	 */
+	async sendTransaction(transaction: any): Promise<any> {
+		const provider = await this.getProvider();
+		const tx = await provider.broadcastTransaction(transaction);
+		return tx.wait();
+	}
 
-  /**
-   * Estimates the gas required for a given transaction.
-   *
-   * @param transaction - The transaction object for which to estimate gas.
-   * @returns A promise that resolves to an object containing the gas estimate as a string.
-   */
-  async estimateGas(transaction: any): Promise<any> {
-    const provider = await this.getProvider();
-    const gasEstimate = await provider.estimateGas(transaction);
-    return { gas: gasEstimate.toString() };
-  }
+	/**
+	 * Signs a message using the specified account.
+	 *
+	 * @param accountName - The name of the account to use for signing the message.
+	 * @param message - The message to be signed.
+	 * @returns A promise that resolves to the signed message.
+	 */
+	async signMessage(accountName: string, message: string): Promise<any> {
+		const account = await this.getAccount(accountName);
+		const signer = await this.getSigner(account);
+		return signer.signMessage(message);
+	}
 
-  /**
-   * Retrieves the current gas price from the Ethereum network.
-   *
-   * @returns {Promise<any>} A promise that resolves to an object containing the gas price as a string.
-   */
-  async getGasPrice(): Promise<any> {
-    const provider = await this.getProvider();
-    const gasPrice = await provider.getFeeData();
-    return { gas_price: gasPrice.toString() };
-  }
+	/**
+	 * Signs typed data using the specified account.
+	 *
+	 * @param accountName - The name of the account to use for signing.
+	 * @param domain - The domain data for the typed data.
+	 * @param types - The types definition for the typed data.
+	 * @param value - The value to be signed.
+	 * @returns A promise that resolves to the signed data.
+	 */
+	async signTypedData(
+		accountName: string,
+		domain: any,
+		types: any,
+		value: any,
+	): Promise<any> {
+		return await this.moon.signTypedData(accountName, domain, types, value);
+	}
 
-  /**
-   * Deploys a smart contract to the Ethereum network.
-   *
-   * @param abi - The ABI (Application Binary Interface) of the contract.
-   * @param bytecode - The bytecode of the contract.
-   * @param signer - The signer object used to sign the transaction.
-   * @param args - Additional arguments required for the contract constructor.
-   * @returns A promise that resolves to the deployment transaction of the contract.
-   */
-  async deployContract(
-    abi: any,
-    bytecode: string,
-    signer: ethers.Signer,
-    ...args: any[]
-  ): Promise<any> {
-    const factory = new ethers.ContractFactory(abi, bytecode, signer);
-    const contract = await factory.deploy(...args);
-    return contract.deploymentTransaction();
-  }
+	/**
+	 * Estimates the gas required for a given transaction.
+	 *
+	 * @param transaction - The transaction object for which to estimate gas.
+	 * @returns A promise that resolves to an object containing the gas estimate as a string.
+	 */
+	async estimateGas(transaction: any): Promise<any> {
+		const provider = await this.getProvider();
+		const gasEstimate = await provider.estimateGas(transaction);
+		return { gas: gasEstimate.toString() };
+	}
+
+	/**
+	 * Retrieves the current gas price from the Ethereum network.
+	 *
+	 * @returns {Promise<any>} A promise that resolves to an object containing the gas price as a string.
+	 */
+	async getGasPrice(): Promise<any> {
+		const provider = await this.getProvider();
+		const gasPrice = await provider.getFeeData();
+		return { gas_price: gasPrice.toString() };
+	}
+
+	/**
+	 * Deploys a smart contract to the Ethereum network.
+	 *
+	 * @param abi - The ABI (Application Binary Interface) of the contract.
+	 * @param bytecode - The bytecode of the contract.
+	 * @param signer - The signer object used to sign the transaction.
+	 * @param args - Additional arguments required for the contract constructor.
+	 * @returns A promise that resolves to the deployment transaction of the contract.
+	 */
+	async deployContract(
+		abi: any,
+		bytecode: string,
+		signer: ethers.Signer,
+		...args: any[]
+	): Promise<any> {
+		const factory = new ethers.ContractFactory(abi, bytecode, signer);
+		const contract = await factory.deploy(...args);
+		return contract.deploymentTransaction();
+	}
 }
