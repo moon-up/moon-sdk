@@ -5,7 +5,7 @@ import {
 	WalletConnectorsList,
 } from "@/components";
 import { useMoonSDK } from "@/hooks";
-import type { AuthModalConfig } from "@moon-react-types/index";
+import type { AuthModalConfig } from "@/types";
 import React from "react";
 import { SignupForm } from "../SignUp/SignupForm";
 

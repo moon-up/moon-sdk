@@ -1,6 +1,7 @@
 // useMoon.ts
 import type { ChainType, INetwork } from "@moonup/moon-sdk";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
+import { useLocalStorage } from "usehooks-ts";
 import {
 	useAccount,
 	useChainId,
@@ -94,9 +95,12 @@ export const useMoonAccount = (): INetwork & {
 	setAccount: (account: string) => void;
 } => {
 	const { moon } = useMoonAuth();
-	const [chainType, setChainType] = useState<ChainType>("ethereum");
-	const [accounts, setAccounts] = useState<string[]>([]);
-	const [account, setAccount] = useState<string>("");
+	const [chainType, setChainType] = useLocalStorage<ChainType>(
+		"chainType",
+		"ethereum",
+	);
+	const [accounts, setAccounts] = useLocalStorage<string[]>("accounts", []);
+	const [account, setAccount] = useLocalStorage<string>("account", "");
 
 	const { address, isConnected } = useAccount();
 	const { signMessageAsync } = useSignMessage();

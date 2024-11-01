@@ -1,16 +1,16 @@
-import React from "react";
 // import { Line } from "react-chartjs-2";
-import { HistoricalPerformance } from "@/types";
+import type { HistoricalPerformance } from "@/types";
+import type React from "react";
 
 interface Props {
-  message: HistoricalPerformance;
+	message: HistoricalPerformance;
 }
 
 const HistoricalPerformanceBubble: React.FC<Props> = ({ message }) => (
-  <div>
-    <h3 className="font-bold text-lg">{message.token} Performance</h3>
-    <div className="mt-4">
-      {/* <Line
+	<div>
+		<h3 className="font-bold text-lg">{message.token} Performance</h3>
+		<div className="mt-4">
+			{/* <Line
         data={{
           labels: message.data.map((d) => d.date.toLocaleDateString()),
           datasets: [
@@ -31,8 +31,8 @@ const HistoricalPerformanceBubble: React.FC<Props> = ({ message }) => (
           },
         }}
       /> */}
-    </div>
-  </div>
+		</div>
+	</div>
 );
 
 export default HistoricalPerformanceBubble;

@@ -1,12 +1,11 @@
-import { IconChevronRight, IconWallet } from '@/assets/icons';
+import { IconChevronRight, IconWallet } from "@/assets/icons";
 import {
-  Button,
-  EmailLogin,
-  SignInAnonymously,
-  SocialLogins,
-} from '@/components';
-import { AuthModalConfig } from '@/types';
-import React from 'react';
+	Button,
+	EmailLogin,
+	SignInAnonymously,
+	SocialLogins,
+} from "@/components";
+import type { AuthModalConfig } from "@/types";
 
 /**
  * Props for the AuthOptions component.
@@ -17,9 +16,9 @@ import React from 'react';
  * @property {Function} onSignupEmail - Callback function to handle email signup.
  */
 export interface AuthOptionsProps {
-  config: AuthModalConfig;
-  onConnectWallet: any;
-  onSignupEmail: any;
+	config: AuthModalConfig;
+	onConnectWallet: any;
+	onSignupEmail: any;
 }
 
 /**
@@ -50,34 +49,34 @@ export interface AuthOptionsProps {
  * />
  */
 export const AuthOptions = ({
-  config,
-  onConnectWallet,
-  onSignupEmail,
+	config,
+	onConnectWallet,
+	onSignupEmail,
 }: AuthOptionsProps) => (
-  <div
-    className={`p-${config.appearance.modal.padding} justify-center items-center flex flex-col gap-5`}
-  >
-    <EmailLogin config={config} />
+	<div
+		className={`p-${config.appearance.modal.padding} justify-center items-center flex flex-col gap-5`}
+	>
+		<EmailLogin config={config} />
 
-    <div className="w-full border-b-[1px] border-text-secondary" />
-    {config.socialLogins && config.socialLogins.length > 0 && (
-      <div className="w-full overflow-x-scroll h-20 flex gap-4 justify-center scrollbar-hide">
-        <SocialLogins socialLogins={config.socialLogins} />
-      </div>
-    )}
-    {config.walletConnectEnabled && (
-      <Button onClick={onConnectWallet} color="successColor">
-        <IconWallet className="absolute left-5 w-[30px]" />
-        Connect Wallet
-        <IconChevronRight className="absolute right-2 w-[30px]" />
-      </Button>
-    )}
-    {config.anonymousLoginEnabled && <SignInAnonymously />}
-    <h3
-      className="text-text-secondary hover:cursor-pointer hover:underline"
-      onClick={onSignupEmail}
-    >
-      Sign Up
-    </h3>
-  </div>
+		<div className="w-full border-b-[1px] border-text-secondary" />
+		{config.socialLogins && config.socialLogins.length > 0 && (
+			<div className="w-full overflow-x-scroll h-20 flex gap-4 justify-center scrollbar-hide">
+				<SocialLogins socialLogins={config.socialLogins} />
+			</div>
+		)}
+		{config.walletConnectEnabled && (
+			<Button onClick={onConnectWallet} color="successColor">
+				<IconWallet className="absolute left-5 w-[30px]" />
+				Connect Wallet
+				<IconChevronRight className="absolute right-2 w-[30px]" />
+			</Button>
+		)}
+		{config.anonymousLoginEnabled && <SignInAnonymously />}
+		<h3
+			className="text-text-secondary hover:cursor-pointer hover:underline"
+			onClick={onSignupEmail}
+		>
+			Sign Up
+		</h3>
+	</div>
 );

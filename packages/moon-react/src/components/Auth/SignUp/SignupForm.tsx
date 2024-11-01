@@ -1,7 +1,7 @@
 import { Button, Input } from "@/components";
 import { useAuth } from "@/index";
 import type { AuthModalConfig } from "@/types";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useMoonSDK } from "../../../hooks/old/useMoonSDK";
 
 /**

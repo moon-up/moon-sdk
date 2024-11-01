@@ -10,7 +10,7 @@ import {
 	safe,
 	walletConnect,
 } from "@wagmi/connectors";
-import { createStorage, http, reconnect } from "@wagmi/core";
+import { http } from "@wagmi/core";
 import {
 	arbitrum,
 	arbitrumGoerli,
@@ -109,7 +109,6 @@ export const WagmiWrapper: React.FC<WagmiWrapperProps> = ({ children }) => {
 				safe(),
 				coinbaseWallet(),
 			],
-			storage: createStorage({ storage: window.localStorage }),
 			chains: [
 				mainnet,
 				sepolia,
@@ -272,9 +271,7 @@ export const WagmiWrapper: React.FC<WagmiWrapperProps> = ({ children }) => {
 		}),
 	);
 	React.useEffect(() => {
-		setTimeout(() => {
-			reconnect(config);
-		});
+		setTimeout(() => {});
 	}, []);
 
 	return <WagmiProvider config={config}>{children}</WagmiProvider>;

@@ -2,7 +2,6 @@ import type { MoonSDKConfig } from "@moonup/moon-sdk";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import type { ReactNode } from "react";
-// biome-ignore lint/style/useImportType: <explanation>
 import React from "react";
 import { AuthModal, DEFAULT_AUTH_CONFIG } from "..";
 import type { AuthModalConfig } from "../types/types";

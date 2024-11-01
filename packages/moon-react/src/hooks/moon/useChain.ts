@@ -2,11 +2,15 @@
 import { useMoonSDK } from "@/hooks";
 import type { Chains } from "@moonup/moon-sdk";
 import { useCallback, useEffect, useState } from "react";
+import { useLocalStorage } from "usehooks-ts";
 
 export const useChains = () => {
 	const { moon } = useMoonSDK();
-	const [chains, setChains] = useState<Chains[]>([]);
-	const [selectedChain, setSelectedChain] = useState<Chains | null>(null);
+	const [chains, setChains] = useLocalStorage<Chains[]>("moonChains", []);
+	const [selectedChain, setSelectedChain] = useLocalStorage<Chains | null>(
+		"moonSelectedChain",
+		null,
+	);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [error, setError] = useState<Error | null>(null);
 
