@@ -10,6 +10,10 @@
  */
 
 import {
+  GetNfTsData,
+  GetNfTsParams,
+  GetTokenMetadataData,
+  GetTokenMetadataParams,
   GetWalletBalanceData,
   GetWalletBalanceParams,
   GetWalletHistoryData,
@@ -24,6 +28,46 @@ export class Data<SecurityDataType = unknown> {
     this.http = http;
   }
 
+  /**
+   * No description
+   *
+   * @tags Data
+   * @name GetNfTs
+   * @request GET:/data/{address}/nfts
+   * @secure
+   */
+  getNfTs = (
+    { address, ...query }: GetNfTsParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<GetNfTsData, any>({
+      path: `/data/${address}/nfts`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Data
+   * @name GetTokenMetadata
+   * @request GET:/data/token-metadata
+   * @secure
+   */
+  getTokenMetadata = (
+    query: GetTokenMetadataParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<GetTokenMetadataData, any>({
+      path: `/data/token-metadata`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
   /**
    * No description
    *

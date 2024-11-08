@@ -1,2 +1,3 @@
-export * from "./types";
-export * from "./chat";
+export * from './chat';
+export * from './theme';
+export * from './types';

@@ -1,27 +1,35 @@
 {
-  // see https://www.typescriptlang.org/tsconfig to better understand tsconfigs
-  "extends": "@tsconfig/vite-react/tsconfig.json",
-  "include": ["src", "types"],
-  "types": ["vitest/globals"],
-  "typeRoots": [],
-  "outDir": "./dist",
-  "compilerOptions": {
-    "noEmit": false,
-    "jsx": "react",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "preserveSymlinks": true,
-    "esModuleInterop": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"],
-      "@assets/*": ["src/asset/*"],
-      "@components/*": ["src/components/*"],
-      "@public-components/*": ["src/components/public/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@moon-react-types/*": ["src/types/*"],
-      "@utils/*": ["src/utils/*"],
-      "@context/*": ["src/context/*"],
-    }
-  }
+	"extends": "@tsconfig/vite-react/tsconfig.json",
+	"types": ["vitest/globals", "@testing-library/jest-dom"],
+	"compilerOptions": {
+		"target": "es2020",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"allowJs": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"forceConsistentCasingInFileNames": true,
+		"esModuleInterop": true,
+		"module": "esnext",
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"jsx": "react-jsx",
+		"outDir": "./dist",
+		"rootDir": "./src",
+		"declaration": true,
+		"declarationDir": "./dist",
+		"paths": {
+			"@/*": ["./src/*"],
+			"@/assets": ["./src/assets"]
+		}
+	},
+	"include": ["src/**/*", "types/**/*", "tests"],
+	"exclude": [
+		"node_modules",
+		"dist",
+		"**/*.test.ts",
+		"**/*.spec.ts",
+		"**/*.stories.tsx",
+		"tests"
+	]
 }

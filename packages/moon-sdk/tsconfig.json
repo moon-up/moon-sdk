@@ -1,9 +1,10 @@
 {
   "extends": "@tsconfig/recommended/tsconfig.json",
-  "include": ["src", "types", "moon.ts.old"],
+  "include": ["src", "types"],
   "compilerOptions": {
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "preserveSymlinks": true
+    
   }
 }

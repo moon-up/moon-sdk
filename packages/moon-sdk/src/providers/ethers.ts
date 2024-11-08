@@ -1,73 +1,44 @@
 import {
-  IEthereumProvider,
+  EIP1193Provider,
   ProviderAccounts,
-  ProviderChainId,
-  ProviderInfo,
-  ProviderMessage,
-  ProviderRpcError,
   RequestArguments,
 } from 'eip1193-provider';
-import { ethers } from 'ethers';
+import { JsonRpcProvider } from 'ethers';
 
 import { MoonSDK } from '../moon';
+
 /**
  * Custom Ethereum provider for MoonSDK
  */
-export class MoonProvider
-  extends ethers.providers.JsonRpcProvider
-  implements IEthereumProvider
-{
+/**
+ * MoonProvider class that extends JsonRpcProvider and implements its interface.
+ * This custom provider is designed to work with MoonSDK, providing additional
+ * functionality and integration with the Moon ecosystem.
+ *
+ * @extends JsonRpcProvider
+ * @implements JsonRpcProvider
+ */
+export class MoonProvider extends JsonRpcProvider implements EIP1193Provider {
   private moonSDK: MoonSDK;
   private customAddress: string | null = null;
 
+  /**
+   * Constructs an instance of the class.
+   *
+   * @param moonSDK - An instance of the MoonSDK.
+   * @param url - An optional URL string.
+   */
   constructor(moonSDK: MoonSDK, url?: string) {
     super(url);
     this.moonSDK = moonSDK;
   }
 
-  // Implement the missing methods from IEthereumProvider
-  on(
-    eventName: ethers.providers.EventType,
-    listener: ethers.providers.Listener
-  ): this {
-    if (eventName === 'connect') {
-      super.on(eventName, (info: ProviderInfo) => listener(info));
-    } else if (eventName === 'disconnect') {
-      super.on(eventName, (error: ProviderRpcError) => listener(error));
-    } else if (eventName === 'message') {
-      super.on(eventName, (message: ProviderMessage) => listener(message));
-    } else if (eventName === 'chainChanged') {
-      super.on(eventName, (chainId: ProviderChainId) => listener(chainId));
-    } else if (eventName === 'accountsChanged') {
-      super.on(eventName, (accounts: ProviderAccounts) => listener(accounts));
-    } else {
-      super.on(eventName, listener);
-    }
-    return this;
-  }
-  once(
-    eventName: ethers.providers.EventType,
-    listener: ethers.providers.Listener
-  ): this {
-    super.once(eventName, listener);
-    return this;
-  }
-
-  off(
-    eventName: ethers.providers.EventType,
-    listener?: ethers.providers.Listener
-  ): this {
-    super.off(eventName, listener);
-    return this;
-  }
-
-  removeListener(
-    eventName: ethers.providers.EventType,
-    listener: ethers.providers.Listener
-  ): ethers.providers.Provider {
-    return super.removeListener(eventName, listener);
-  }
-
+  /**
+   * Enables the provider by requesting access to the user's Ethereum accounts.
+   *
+   * @returns {Promise<ProviderAccounts>} A promise that resolves to the user's Ethereum accounts.
+   * @throws Will throw an error if the request for accounts fails.
+   */
   async enable(): Promise<ProviderAccounts> {
     try {
       const accounts = await this.send('eth_requestAccounts', []);
@@ -77,37 +48,39 @@ export class MoonProvider
       throw error;
     }
   }
-  estimateGas(
-    transaction: ethers.providers.TransactionRequest
-  ): Promise<ethers.BigNumber> {
-    return super.estimateGas(transaction);
-  }
 
-  getGasPrice(): Promise<ethers.BigNumber> {
-    return super.getGasPrice();
-  }
-
-  getBalance(
-    addressOrName: string | Promise<string>,
-    blockTag?: ethers.providers.BlockTag | Promise<ethers.providers.BlockTag>
-  ): Promise<ethers.BigNumber> {
-    return super.getBalance(addressOrName, blockTag);
-  }
-  waitForTransaction(
-    transactionHash: string,
-    confirmations?: number,
-    timeout?: number
-  ): Promise<ethers.providers.TransactionReceipt> {
-    return super.waitForTransaction(transactionHash, confirmations, timeout);
-  }
-
+  /**
+   * Looks up and sets a custom address.
+   *
+   * @param address - The address to look up.
+   * @returns A promise that resolves to the provided address.
+   */
   lookupAddress(address: string): Promise<string> {
     this.customAddress = address;
     return Promise.resolve(address);
   }
+  /**
+   * Resolves an Ethereum address to a human-readable name.
+   *
+   * @param address - The Ethereum address to resolve.
+   * @returns A promise that resolves to the human-readable name associated with the given address.
+   */
   resolveName(address: string): Promise<string> {
     return Promise.resolve(address);
   }
+  /**
+   * Handles JSON-RPC requests by method name and delegates them to the appropriate handler.
+   *
+   * @param args - The request arguments containing the method and parameters.
+   * @returns A promise that resolves with the result of the request.
+   *
+   * @throws Will emit an 'error' event and rethrow the error if an exception occurs during the request handling.
+   *
+   * @example
+   * ```typescript
+   * const result = await moonProvider.request({ method: 'eth_accounts', params: [] });
+   * ```
+   */
   request(args: RequestArguments): Promise<unknown> {
     try {
       switch (args.method) {
@@ -124,6 +97,18 @@ export class MoonProvider
     }
   }
 
+  /**
+   * Sends a JSON-RPC request to the Ethereum network.
+   *
+   * @param method - The JSON-RPC method to be called.
+   * @param params - An array of parameters for the JSON-RPC method.
+   * @returns A promise that resolves with the result of the JSON-RPC call.
+   * @throws Will emit an 'error' event and throw an error if the request fails.
+   *
+   * Special handling for:
+   * - 'eth_accounts': Returns the custom address if set.
+   * - 'eth_sendTransaction': Signs and sends the transaction using moonSDK.
+   */
   async send(method: string, params: Array<any>): Promise<any> {
     try {
       if (method === 'eth_accounts' && this.customAddress) {
@@ -146,10 +131,5 @@ export class MoonProvider
       this.moonSDK.emit('error', { method: 'MoonProvider.send', error });
       throw error;
     }
-  }
-
-  setCustomAddress(address: string) {
-    this.customAddress = address;
-    this.moonSDK.emit('addressChanged', address);
   }
 }

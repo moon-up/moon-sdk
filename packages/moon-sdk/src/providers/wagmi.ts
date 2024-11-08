@@ -11,6 +11,14 @@ import { Connector, createConnector, type CreateConnectorFn } from 'wagmi';
 
 import { MoonSDK } from '../moon';
 
+/**
+ * Interface representing the options for the MoonConnector.
+ *
+ * @property {Chain[]} [chains] - An optional array of Chain objects.
+ * @property {MoonSDK} SDK - The MoonSDK instance.
+ * @property {number} chainId - The ID of the chain.
+ * @property {Connector[]} connectors - An array of Connector objects.
+ */
 export interface MoonConnectorOptions {
   chains?: Chain[];
   SDK: MoonSDK;
@@ -18,6 +26,28 @@ export interface MoonConnectorOptions {
   connectors: Connector[];
 }
 
+/**
+ * Creates a Moon Connector for the Moon SDK.
+ *
+ * @param options - The options for creating the Moon Connector.
+ * @param options.SDK - An instance of MoonSDK.
+ * @param options.chainId - The chain ID to connect to.
+ * @param options.chains - An optional array of chain configurations.
+ *
+ * @returns A function that creates a connector with the specified configuration.
+ *
+ * @throws Will throw an error if the SDK is not an instance of MoonSDK.
+ * @throws Will throw an error if the chainId is not a number.
+ *
+ * @example
+ * ```typescript
+ * const moonConnector = createMoonConnector({
+ *   SDK: new MoonSDK(),
+ *   chainId: 1,
+ *   chains: [{ id: 1, name: 'Ethereum Mainnet' }],
+ * });
+ * ```
+ */
 export function createMoonConnector(
   options: MoonConnectorOptions
 ): CreateConnectorFn {

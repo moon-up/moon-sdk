@@ -13,11 +13,31 @@ import { toAccount } from 'viem/accounts';
 
 import { MoonSDK } from '../moon';
 
+/**
+ * Options for configuring a Moon account.
+ *
+ * @property {MoonSDK} sdk - The MoonSDK instance to use.
+ * @property {string} ethereumAddress - The Ethereum address associated with the account.
+ */
 export interface MoonAccountOptions {
   sdk: MoonSDK;
   ethereumAddress: string;
 }
 
+/**
+ * Creates a Moon account with the provided options.
+ *
+ * @param options - The options required to create a Moon account.
+ * @param options.sdk - The SDK instance used for signing messages and transactions.
+ * @param options.ethereumAddress - The Ethereum address associated with the account.
+ *
+ * @returns A promise that resolves to a `LocalAccount` object.
+ *
+ * The returned `LocalAccount` object includes methods for:
+ * - `signMessage`: Signs a message using the provided SDK and Ethereum address.
+ * - `signTransaction`: Signs a transaction using the provided SDK and Ethereum address.
+ * - `signTypedData`: Signs typed data using the provided SDK and Ethereum address.
+ */
 export async function createMoonAccount(
   options: MoonAccountOptions
 ): Promise<LocalAccount> {
@@ -56,4 +76,7 @@ export async function createMoonAccount(
   }) as LocalAccount;
 }
 
+/**
+ * Represents a MoonAccount type which is the resolved type of the promise returned by the createMoonAccount function.
+ */
 export type MoonAccount = Awaited<ReturnType<typeof createMoonAccount>>;
