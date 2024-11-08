@@ -3,7 +3,7 @@ import { useMoonTransaction } from "@/hooks";
 import type {
 	AddLiquidityEthOutput,
 	AddLiquidityOutput,
-	ApproveOutput1,
+	ApproveOutput,
 	BalanceOfOutput,
 	BalanceOfParams3,
 	BaseUriData,
@@ -262,7 +262,7 @@ export const useUniswap = () => {
 		async (payload: {
 			accountName: string;
 			data: UniswapV3InputBody;
-		}): Promise<ApproveOutput1> => {
+		}): Promise<ApproveOutput> => {
 			return handleTransaction("approve", async () => {
 				const uniswapSDK = getUniswapSDK();
 				const preparedData = prepareTransaction(payload.data);

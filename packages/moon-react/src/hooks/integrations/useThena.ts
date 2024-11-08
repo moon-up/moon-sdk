@@ -1,7 +1,7 @@
 import { useMoonTransaction } from "@/hooks";
 import type {
 	AbstainResult,
-	ApproveData2,
+	ApproveData,
 	AttachResult,
 	AttachTokenToGaugeResult,
 	CalculateOptimalVoteDistributionOutput,
@@ -9,7 +9,7 @@ import type {
 	CheckpointResult,
 	ClaimBribesOutput,
 	ClaimFeesOutput,
-	ClaimRewardsData1,
+	ClaimRewardsData,
 	CreateGaugeOutput,
 	CreateLockForResult,
 	CreateLockOutput,
@@ -23,7 +23,7 @@ import type {
 	GetApprovedParams4,
 	GetBalanceOfAtNftData,
 	GetBalanceOfAtNftParams,
-	GetBalanceOfData1,
+	GetBalanceOfData,
 	GetBalanceOfNftOutput,
 	GetBalanceOfNftParams4,
 	GetBalanceOfParams8,
@@ -57,7 +57,7 @@ import type {
 	GetTotalSupplyAtTData,
 	GetTotalSupplyAtTParams,
 	GetTotalSupplyParams8,
-	GetTotalSupplyResult1,
+	GetTotalSupplyResult,
 	GetTotalValueLockedOutput,
 	GetTotalWeightOutput,
 	GetTotalWeightParams4,
@@ -71,7 +71,7 @@ import type {
 	GetWeightsParams4,
 	IncreaseLockAmountResult,
 	IncreaseUnlockTimeOutput,
-	IsApprovedForAllData1,
+	IsApprovedForAllData,
 	IsApprovedForAllParams5,
 	IsGaugeOutput,
 	IsGaugeParams4,
@@ -88,9 +88,9 @@ import type {
 	ResetOutput,
 	ReviveGaugeOutput,
 	SafeTransferFromOutput,
-	SetApprovalForAllResult1,
+	SetApprovalForAllResult,
 	SplitOutput,
-	TransferFromResult2,
+	TransferFromResult,
 	VeNFTInputBody,
 	VeTheNftVoterInputBody,
 	VoteOutput,
@@ -98,7 +98,7 @@ import type {
 	VoteWithOptimalDistributionOutput,
 	VotingData,
 	WhitelistOutput,
-	WithdrawData1,
+	WithdrawData,
 } from "@moonup/moon-api";
 import { useCallback } from "react";
 import {
@@ -166,7 +166,7 @@ export const useThena = () => {
 	);
 
 	const approve = useCallback(
-		(address: string, data: VeNFTInputBody): Promise<ApproveData2> => {
+		(address: string, data: VeNFTInputBody): Promise<ApproveData> => {
 			return handleTransaction("approve", async () => {
 				const thenaSDK = getThenaSDK();
 				const preparedData = prepareTransaction(data);
@@ -266,7 +266,7 @@ export const useThena = () => {
 		(
 			address: string,
 			data: VeTheNftVoterInputBody,
-		): Promise<ClaimRewardsData1> => {
+		): Promise<ClaimRewardsData> => {
 			return handleTransaction("claimRewards", async () => {
 				const thenaSDK = getThenaSDK();
 				const preparedData = prepareTransaction(data);
@@ -410,7 +410,7 @@ export const useThena = () => {
 	);
 
 	const getBalanceOf = useCallback(
-		(params: GetBalanceOfParams8): Promise<GetBalanceOfData1> => {
+		(params: GetBalanceOfParams8): Promise<GetBalanceOfData> => {
 			return handleTransaction("getBalanceOf", async () => {
 				const thenaSDK = getThenaSDK();
 				const response = await thenaSDK.getBalanceOf(params);
@@ -594,7 +594,7 @@ export const useThena = () => {
 	);
 
 	const getTotalSupply = useCallback(
-		(params: GetTotalSupplyParams8): Promise<GetTotalSupplyResult1> => {
+		(params: GetTotalSupplyParams8): Promise<GetTotalSupplyResult> => {
 			return handleTransaction("getTotalSupply", async () => {
 				const thenaSDK = getThenaSDK();
 				const response = await thenaSDK.getTotalSupply(params);
@@ -730,7 +730,7 @@ export const useThena = () => {
 	);
 
 	const isApprovedForAll = useCallback(
-		(params: IsApprovedForAllParams5): Promise<IsApprovedForAllData1> => {
+		(params: IsApprovedForAllParams5): Promise<IsApprovedForAllData> => {
 			return handleTransaction("isApprovedForAll", async () => {
 				const thenaSDK = getThenaSDK();
 				const response = await thenaSDK.isApprovedForAll(params);
@@ -894,7 +894,7 @@ export const useThena = () => {
 		(
 			address: string,
 			data: VeNFTInputBody,
-		): Promise<SetApprovalForAllResult1> => {
+		): Promise<SetApprovalForAllResult> => {
 			return handleTransaction("setApprovalForAll", async () => {
 				const thenaSDK = getThenaSDK();
 				const preparedData = prepareTransaction(data);
@@ -923,7 +923,7 @@ export const useThena = () => {
 	);
 
 	const transferFrom = useCallback(
-		(address: string, data: VeNFTInputBody): Promise<TransferFromResult2> => {
+		(address: string, data: VeNFTInputBody): Promise<TransferFromResult> => {
 			return handleTransaction("transferFrom", async () => {
 				const thenaSDK = getThenaSDK();
 				const preparedData = prepareTransaction(data);
@@ -997,7 +997,7 @@ export const useThena = () => {
 	);
 
 	const withdraw = useCallback(
-		(address: string, data: VeNFTInputBody): Promise<WithdrawData1> => {
+		(address: string, data: VeNFTInputBody): Promise<WithdrawData> => {
 			return handleTransaction("withdraw", async () => {
 				const thenaSDK = getThenaSDK();
 				const preparedData = prepareTransaction(data);
