@@ -1,114 +1,111 @@
 {
-    "name": "@moonup/moon-sdk",
-    "version": "2.0.1",
-    "author": "0xEwhal <ewhal@bytemasons.com>",
-    "type": "commonjs",
-    "main": "./dist/index.js",
-    "module": "./dist/index.mjs",
-    "typings": "./dist/index.d.ts",
-    "types": "./dist/index.d.ts",
-    "exports": {
-        "import": {
-            "types": "./dist/index.d.mts",
-            "default": "./dist/index.mjs"
-        },
-        "require": {
-            "types": "./dist/index.d.ts",
-            "default": "./dist/index.js"
-        }
-    },
-    "files": [
-        "dist",
-        "src"
-    ],
-    "engines": {
-        "node": ">=10"
-    },
-    "scripts": {
-        "analyze": "size-limit --why",
-        "prepare": "tsup",
-        "size": "size-limit",
-        "start": "tsup --watch",
-        "prettier": "prettier --check src/",
-        "prettier:fix": "prettier --write src/",
-        "lint": "eslint src/ --ext .ts,.tsx",
-        "lint:fix": "npm run lint --fix",
-        "verify": "run-p prettier lint",
-        "verify:fix": "npm run prettier:fix && npm run lint:fix",
-        "build": "tsup",
-        "build:fast": "tsup src",
-        "dev": "tsup src --watch",
-        "test": "vitest",
-        "test:watch": "vitest watch",
-        "coverage": "vitest run --coverage"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "tsdx lint"
-        }
-    },
-    "prettier": {
-        "printWidth": 80,
-        "semi": true,
-        "singleQuote": true,
-        "trailingComma": "es5"
-    },
-    "size-limit": [
-        {
-            "path": "dist/moon-sdk.cjs.production.min.js",
-            "limit": "10 KB"
-        },
-        {
-            "path": "dist/moon-sdk.esm.js",
-            "limit": "10 KB"
-        }
-    ],
-    "dependencies": {
-        "@ethersproject/abstract-provider": "^5.7.0",
-        "@ethersproject/abstract-signer": "^5.7.0",
-        "@ethersproject/bignumber": "^5.7.0",
-        "@ethersproject/bytes": "^5.7.0",
-        "@ethersproject/hash": "^5.7.0",
-        "@ethersproject/properties": "^5.7.0",
-        "@ethersproject/providers": "^5.7.2",
-        "@moonup/moon-api": "workspace:^",
-        "@simplewebauthn/browser": "^10.0.0",
-        "@solana/web3.js": "^1.95.3",
-        "@supabase/auth-js": "^2.65.0",
-        "@supabase/functions-js": "^2.4.3",
-        "@supabase/gotrue-js": "^2.65.0",
-        "@supabase/node-fetch": "^2.6.13",
-        "@supabase/realtime-js": "^2.10.7",
-        "@supabase/storage-js": "^2.7.1",
-        "@supabase/supabase-js": "^2.45.4",
-        "eip1193-provider": "^1.0.1",
-        "ethers": "6.13.3",
-        "events": "^3.3.0",
-        "limiter": "^2.1.0",
-        "lru-cache": "^11.0.1",
-        "mipd": "^0.0.7",
-        "siwe": "^2.3.2",
-        "typedots": "^0.0.4",
-        "userop": "0.4.0-beta.5",
-        "viem": "^2.21.21",
-        "wagmi": "^2.12.17"
-    },
-    "devDependencies": {
-        "@simplewebauthn/typescript-types": "^8.3.4",
-        "@size-limit/preset-small-lib": "^11.1.6",
-        "@tsconfig/recommended": "^1.0.7",
-        "@tsconfig/vite-react": "^3.0.2",
-        "@types/lru-cache": "^7.10.10",
-        "@types/react": "^18.3.11",
-        "@types/react-dom": "^18.3.0",
-        "@vitest/coverage-v8": "^2.1.2",
-        "happy-dom": "^15.7.4",
-        "husky": "^9.1.6",
-        "react": "^18.3.1",
-        "react-dom": "^18.3.1",
-        "size-limit": "^11.1.6",
-        "tslib": "^2.7.0",
-        "tsup": "^8.3.0",
-        "typescript": "^5.6.3"
-    }
+	"name": "@moonup/moon-sdk",
+	"version": "2.0.1",
+	"author": "0xEwhal <ewhal@bytemasons.com>",
+	"type": "commonjs",
+	"main": "./dist/index.js",
+	"module": "./dist/index.mjs",
+	"typings": "./dist/index.d.ts",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		"import": {
+			"types": "./dist/index.d.mts",
+			"default": "./dist/index.mjs"
+		},
+		"require": {
+			"types": "./dist/index.d.ts",
+			"default": "./dist/index.js"
+		}
+	},
+	"files": ["dist", "src"],
+	"engines": {
+		"node": ">=10"
+	},
+	"scripts": {
+		"analyze": "size-limit --why",
+		"prepare": "tsup",
+		"size": "size-limit",
+		"start": "tsup --watch",
+		"prettier": "prettier --check src/",
+		"prettier:fix": "prettier --write src/",
+		"lint": "eslint src/ --ext .ts,.tsx",
+		"lint:fix": "npm run lint --fix",
+		"verify": "run-p prettier lint",
+		"verify:fix": "npm run prettier:fix && npm run lint:fix",
+		"build": "tsup",
+		"build:fast": "tsup src",
+		"dev": "tsup src --watch",
+		"test": "vitest",
+		"test:watch": "vitest watch",
+		"coverage": "vitest run --coverage"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "tsdx lint"
+		}
+	},
+	"prettier": {
+		"printWidth": 80,
+		"semi": true,
+		"singleQuote": true,
+		"trailingComma": "es5"
+	},
+	"size-limit": [
+		{
+			"path": "dist/moon-sdk.cjs.production.min.js",
+			"limit": "10 KB"
+		},
+		{
+			"path": "dist/moon-sdk.esm.js",
+			"limit": "10 KB"
+		}
+	],
+	"dependencies": {
+		"@ethersproject/abstract-provider": "^5.7.0",
+		"@ethersproject/abstract-signer": "^5.7.0",
+		"@ethersproject/bignumber": "^5.7.0",
+		"@ethersproject/bytes": "^5.7.0",
+		"@ethersproject/hash": "^5.7.0",
+		"@ethersproject/properties": "^5.7.0",
+		"@ethersproject/providers": "^5.7.2",
+		"@moonup/moon-api": "workspace:^",
+		"@simplewebauthn/browser": "^10.0.0",
+		"@solana/web3.js": "^1.95.3",
+		"@supabase/auth-js": "^2.65.0",
+		"@supabase/functions-js": "^2.4.3",
+		"@supabase/gotrue-js": "^2.65.0",
+		"@supabase/node-fetch": "^2.6.13",
+		"@supabase/realtime-js": "^2.10.7",
+		"@supabase/storage-js": "^2.7.1",
+		"@supabase/supabase-js": "^2.45.4",
+		"eip1193-provider": "^1.0.1",
+		"ethers": "6.13.3",
+		"events": "^3.3.0",
+		"limiter": "^2.1.0",
+		"lru-cache": "^11.0.1",
+		"mipd": "^0.0.7",
+		"siwe": "^2.3.2",
+		"typedots": "^0.0.4",
+		"userop": "0.4.0-beta.5",
+		"viem": "^2.21.21",
+		"wagmi": "^2.12.17"
+	},
+	"devDependencies": {
+		"@simplewebauthn/typescript-types": "^8.3.4",
+		"@size-limit/preset-small-lib": "^11.1.6",
+		"@tsconfig/recommended": "^1.0.7",
+		"@tsconfig/vite-react": "^3.0.2",
+		"@types/lru-cache": "^7.10.10",
+		"@types/react": "^18.3.11",
+		"@types/react-dom": "^18.3.0",
+		"@vitest/coverage-v8": "^2.1.2",
+		"happy-dom": "^15.7.4",
+		"husky": "^9.1.6",
+		"react": "^18.3.1",
+		"react-dom": "^18.3.1",
+		"size-limit": "^11.1.6",
+		"tslib": "^2.7.0",
+		"tsup": "^8.3.0",
+		"typescript": "^5.6.3"
+	}
 }

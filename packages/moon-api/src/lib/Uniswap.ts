@@ -12,7 +12,7 @@
 import {
   AddLiquidityEthOutput,
   AddLiquidityOutput,
-  ApproveOutput1,
+  ApproveData1,
   BalanceOfOutput,
   BalanceOfParams3,
   BaseUriData,
@@ -171,7 +171,7 @@ export class Uniswap<SecurityDataType = unknown> {
     data: UniswapV3InputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<ApproveOutput1, any>({
+    this.http.request<ApproveData1, any>({
       path: `/uniswap/v3/nft/${address}/approve`,
       method: 'POST',
       body: data,
