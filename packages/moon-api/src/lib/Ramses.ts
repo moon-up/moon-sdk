@@ -58,7 +58,7 @@ import {
   GetTokensResult,
   GetTopAprPoolsParams2,
   GetTopAprPoolsResult,
-  GetTotalSupplyOutput1,
+  GetTotalSupplyData1,
   GetTotalSupplyParams6,
   GetTotalValueLockedResult,
   GetTotalWeightParams2,
@@ -100,7 +100,7 @@ import {
   SwapExactEthForTokensResult,
   SwapExactTokensForEthResult,
   SwapExactTokensForTokensResult,
-  TransferFromOutput1,
+  TransferFromResult1,
   UnsafeSwapExactTokensForTokensData,
   VoteResult,
   VoteWithOptimalDistributionBody,
@@ -780,7 +780,7 @@ export class Ramses<SecurityDataType = unknown> {
    * @secure
    */
   getTotalSupply = (query: GetTotalSupplyParams6, params: RequestParams = {}) =>
-    this.http.request<GetTotalSupplyOutput1, any>({
+    this.http.request<GetTotalSupplyData1, any>({
       path: `/ramses/nft/totalSupply`,
       method: 'GET',
       query: query,
@@ -1318,7 +1318,7 @@ export class Ramses<SecurityDataType = unknown> {
     data: RamsesNFTInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<TransferFromOutput1, any>({
+    this.http.request<TransferFromResult1, any>({
       path: `/ramses/nft/${address}/transferFrom`,
       method: 'POST',
       body: data,

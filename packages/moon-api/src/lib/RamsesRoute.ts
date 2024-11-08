@@ -44,7 +44,7 @@ import {
   GetTokenUriResult,
   GetTokensResult,
   GetTopAprPoolsResult,
-  GetTotalSupplyOutput1,
+  GetTotalSupplyData1,
   GetTotalValueLockedResult,
   GetTotalWeightResult,
   GetVotesResult,
@@ -74,7 +74,7 @@ import {
   SwapExactEthForTokensResult,
   SwapExactTokensForEthResult,
   SwapExactTokensForTokensResult,
-  TransferFromOutput1,
+  TransferFromResult1,
   UnsafeSwapExactTokensForTokensData,
   VoteResult,
   VoteWithOptimalDistributionBody,
@@ -774,7 +774,7 @@ export namespace Ramses {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetTotalSupplyOutput1;
+    export type ResponseBody = GetTotalSupplyData1;
   }
 
   /**
@@ -1315,7 +1315,7 @@ export namespace Ramses {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = TransferFromOutput1;
+    export type ResponseBody = TransferFromResult1;
   }
 
   /**

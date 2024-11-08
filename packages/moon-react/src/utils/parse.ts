@@ -1,33 +1,34 @@
-import { BigNumber } from '@ethersproject/bignumber';
-import { BigNumberish, formatUnits, parseUnits } from 'ethers';
+import { BigNumber } from "@ethersproject/bignumber";
+import { type BigNumberish, formatUnits, parseUnits } from "ethers";
 /**
  * Convert a BigInt to an int - useful when you are 'evolve'ing a response
  */
 export const weiStringAsFloat = (
-  num: string | undefined,
-  decimalPoints = 18
+	num: string | undefined,
+	decimalPoints = 18,
 ) => {
-  if (!num) return 0;
+	if (!num) return 0;
 
-  // Convert num to BigNumber if it's not already
-  const bigNum = BigNumber.isBigNumber(num) ? num : BigNumber.from(num);
+	// Convert num to BigNumber if it's not already
+	const bigNum = BigNumber.isBigNumber(num) ? num : BigNumber.from(num);
 
-  // Use toString() to convert BigNumber to string, which is compatible with BigNumberish
-  return parseFloat(formatUnits(bigNum.toString(), decimalPoints));
+	// Use toString() to convert BigNumber to string, which is compatible with BigNumberish
+	return Number.parseFloat(formatUnits(bigNum.toString(), decimalPoints));
 };
 
-export const bigNumAsInt = (num: BigNumberish) => parseInt(num.toString());
+export const bigNumAsInt = (num: BigNumberish) =>
+	Number.parseInt(num.toString());
 
 export const weiBigNumAsFloat = (num: BigNumberish, decimalPoints = 18) =>
-  parseFloat(formatUnits(num, decimalPoints));
+	Number.parseFloat(formatUnits(num, decimalPoints));
 
 export const safelyParseUnits = (num: string, decimalPoints = 18) => {
-  if (!num) {
-    return parseUnits('0', decimalPoints);
-  }
-  const shortenedString = num.includes('.')
-    ? num.substring(0, num.indexOf('.') + decimalPoints + 1)
-    : num;
+	if (!num) {
+		return parseUnits("0", decimalPoints);
+	}
+	const shortenedString = num.includes(".")
+		? num.substring(0, num.indexOf(".") + decimalPoints + 1)
+		: num;
 
-  return parseUnits(shortenedString, decimalPoints);
+	return parseUnits(shortenedString, decimalPoints);
 };
