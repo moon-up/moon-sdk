@@ -11,7 +11,7 @@
 
 import {
   GetGasPriceData,
-  GetQuoteResult1,
+  GetQuoteData1,
   GetSupportedChainsResult,
   GetSupportedProvidersData,
   SwapInput,
@@ -71,7 +71,7 @@ export namespace Thorswap {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetQuoteResult1;
+    export type ResponseBody = GetQuoteData1;
   }
 
   /**
