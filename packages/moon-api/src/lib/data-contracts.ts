@@ -33,6 +33,8 @@ export interface AAVEv3RewardsExecuteFunctionResult {
 	function: string;
 	message?: string;
 	params: any[];
+	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	simulation?: SimulateAssetChangesResponse;
 	success?: boolean;
 	transaction: AAVEv3RewardsTransaction;
 	user_op?: string;
@@ -87,6 +89,7 @@ export interface AAVEv3RewardsInputBody {
 	referralCode?: number;
 	reward?: string;
 	role?: string;
+	simulate?: boolean;
 	/** @format double */
 	slippageLimitPercent?: number;
 	to?: string;
@@ -196,6 +199,8 @@ export interface AavePoolExecuteFunctionResult {
 	function: string;
 	message?: string;
 	params: any[];
+	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	simulation?: SimulateAssetChangesResponse;
 	success?: boolean;
 	transaction: AavePoolTransaction;
 	user_op?: string;
@@ -249,6 +254,7 @@ export interface AavePoolInputBody {
 	/** @format double */
 	referralCode?: number;
 	role?: string;
+	simulate?: boolean;
 	/** @format double */
 	slippageLimitPercent?: number;
 	to?: string;
@@ -401,6 +407,20 @@ export interface AggregatedReserveIncentiveData {
 	vIncentiveData: IncentiveData;
 }
 
+export interface AllFinancials {
+	balance_sheets: BalanceSheet[];
+	cash_flow_statements: CashFlowStatement[];
+	income_statements: IncomeStatement[];
+}
+
+export interface AllFinancialsAPIResponse {
+	address?: string;
+	body?: InputBody;
+	data?: AllFinancials;
+	message: string;
+	success: boolean;
+}
+
 export interface ApiResponseChainsResponse {
 	data?: ChainsResponse;
 	message: string;
@@ -457,6 +477,11 @@ export interface ApiResponseToolsResponse {
 
 export type ApproveData = ERC20APIResponseERC20ExecuteFunctionResult;
 
+export type ApproveData1 =
+	UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
+
+export type ApproveData2 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
 export type ApproveErc721Data = ERC721APIResponse;
 
 export interface ApproveForPolymarketBody {
@@ -471,11 +496,6 @@ export type ApproveResult = ERC4626APIResponse;
 
 export type ApproveResult1 = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 
-export type ApproveResult2 =
-	UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
-
-export type ApproveResult3 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
-
 export interface AssembleRequest {
 	pathId: string;
 	receiver?: string;
@@ -484,6 +504,23 @@ export interface AssembleRequest {
 }
 
 export type AssembleTransactionData = OdosAPIResponseOdosExecuteFunctionResult;
+
+/** Generic Blockchain Asset. */
+export interface Asset {
+	/**
+	 * Optional for fungible items
+	 * @format double
+	 */
+	decimals?: number;
+	/** Optional for ENS names */
+	name?: string;
+	/** The asset's contract address */
+	tokenAddress: string;
+	/** The asset's token ID, or null if ERC-20 */
+	tokenId: string | null;
+	/** The token standard (e.g. "ERC721") for this asset */
+	tokenStandard?: TokenStandard;
+}
 
 export type AttachData = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 
@@ -494,6 +531,14 @@ export type AttachTokenToGaugeData =
 
 export type AttachTokenToGaugeResult =
 	VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
+
+export interface AvailableTickersAPIResponse {
+	address?: string;
+	body?: InputBody;
+	data?: string[];
+	message: string;
+	success: boolean;
+}
 
 export interface BRC20TransactionInput {
 	amt: string;
@@ -548,6 +593,80 @@ export type BalanceOfResult = TransactionAPIResponse;
 
 export interface BalanceResponse {
 	balance: string;
+}
+
+export interface BalanceSheet {
+	/** @format double */
+	accumulated_other_comprehensive_income: number;
+	calendar_date: string;
+	/** @format double */
+	cash_and_equivalents: number;
+	currency: string;
+	/** @format double */
+	current_assets: number;
+	/** @format double */
+	current_debt: number;
+	/** @format double */
+	current_investments: number;
+	/** @format double */
+	current_liabilities: number;
+	/** @format double */
+	deferred_revenue: number;
+	/** @format double */
+	deposit_liabilities: number;
+	/** @format double */
+	goodwill_and_intangible_assets: number;
+	/** @format double */
+	inventory: number;
+	/** @format double */
+	investments: number;
+	/** @format double */
+	non_current_assets: number;
+	/** @format double */
+	non_current_debt: number;
+	/** @format double */
+	non_current_investments: number;
+	/** @format double */
+	non_current_liabilities: number;
+	/** @format double */
+	outstanding_shares: number;
+	period: BalanceSheetPeriodEnum;
+	/** @format double */
+	property_plant_and_equipment: number;
+	report_period: string;
+	/** @format double */
+	retained_earnings: number;
+	/** @format double */
+	shareholders_equity: number;
+	/** @format double */
+	tax_assets: number;
+	/** @format double */
+	tax_liabilities: number;
+	ticker: string;
+	/** @format double */
+	total_assets: number;
+	/** @format double */
+	total_debt: number;
+	/** @format double */
+	total_liabilities: number;
+	/** @format double */
+	trade_and_non_trade_payables: number;
+	/** @format double */
+	trade_and_non_trade_receivables: number;
+}
+
+export enum BalanceSheetPeriodEnum {
+	Quarterly = "quarterly",
+	Ttm = "ttm",
+	Annual = "annual",
+}
+
+export interface BalanceSheetsAPIResponse {
+	address?: string;
+	body?: InputBody;
+	data?: BalanceSheet[];
+	message: string;
+	success: boolean;
 }
 
 export interface BaseCosmosAPIResponse {
@@ -777,6 +896,54 @@ export interface CancelOrdersResponse {
 	success: boolean;
 }
 
+export interface CashFlowStatement {
+	/** @format double */
+	business_acquisitions_and_disposals: number;
+	calendar_date: string;
+	/** @format double */
+	capital_expenditure: number;
+	/** @format double */
+	change_in_cash_and_equivalents: number;
+	currency: string;
+	/** @format double */
+	depreciation_and_amortization: number;
+	/** @format double */
+	dividends_and_other_cash_distributions: number;
+	/** @format double */
+	effect_of_exchange_rate_changes: number;
+	/** @format double */
+	investment_acquisitions_and_disposals: number;
+	/** @format double */
+	issuance_or_purchase_of_equity_shares: number;
+	/** @format double */
+	issuance_or_repayment_of_debt_securities: number;
+	/** @format double */
+	net_cash_flow_from_financing: number;
+	/** @format double */
+	net_cash_flow_from_investing: number;
+	/** @format double */
+	net_cash_flow_from_operations: number;
+	period: CashFlowStatementPeriodEnum;
+	report_period: string;
+	/** @format double */
+	share_based_compensation: number;
+	ticker: string;
+}
+
+export enum CashFlowStatementPeriodEnum {
+	Quarterly = "quarterly",
+	Ttm = "ttm",
+	Annual = "annual",
+}
+
+export interface CashFlowStatementsAPIResponse {
+	address?: string;
+	body?: InputBody;
+	data?: CashFlowStatement[];
+	message: string;
+	success: boolean;
+}
+
 export interface Chain {
 	chainType: ChainChainTypeEnum;
 	coin: string;
@@ -821,6 +988,14 @@ export enum ChainChainTypeEnum {
 
 export interface ChainsResponse {
 	chains: Chain[];
+}
+
+export interface ChartAnalysisAPIResponse {
+	address?: string;
+	body?: InputBody;
+	data?: string;
+	message: string;
+	success: boolean;
 }
 
 export type CheckpointData = LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
@@ -878,6 +1053,91 @@ export type ClaimRewardsToSelfData =
 	AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
 
 export type CollectData = UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
+
+export interface CompanyFacts {
+	cik: string;
+	is_active: boolean;
+	listing_date: string;
+	/** @format double */
+	market_cap: number;
+	name: string;
+	/** @format double */
+	number_of_employees: number;
+	sic_code: string;
+	sic_description: string;
+	ticker: string;
+	website_url: string;
+	/** @format double */
+	weighted_average_shares: number;
+}
+
+export interface CompanyFactsAPIResponse {
+	address?: string;
+	body?: InputBody;
+	data?: CompanyFacts;
+	message: string;
+	success: boolean;
+}
+
+export interface ComponentAPIResponseComponentDefinition {
+	data?: ComponentDefinition;
+	message: string;
+	success: boolean;
+}
+
+export interface ComponentAPIResponseComponentDefinitionArray {
+	data?: ComponentDefinition[];
+	message: string;
+	success: boolean;
+}
+
+export interface ComponentAPIResponseComponentMatchArray {
+	data?: ComponentMatch[];
+	message: string;
+	success: boolean;
+}
+
+export interface ComponentAPIResponsePartialComponentDefinitionArray {
+	data?: PartialComponentDefinition[];
+	message: string;
+	success: boolean;
+}
+
+export interface ComponentAPIResponseVoid {
+	data?: any;
+	message: string;
+	success: boolean;
+}
+
+export interface ComponentDefinition {
+	code: string;
+	/** @format date-time */
+	created_at?: string;
+	description: string;
+	id: string;
+	is_active?: boolean;
+	name: string;
+	/** @format date-time */
+	updated_at?: string;
+	version: string;
+	xmlTag: string;
+}
+
+export interface ComponentMatch {
+	code: string;
+	/** @format date-time */
+	created_at?: string;
+	description: string;
+	id: string;
+	is_active?: boolean;
+	name: string;
+	/** @format double */
+	similarity: number;
+	/** @format date-time */
+	updated_at?: string;
+	version: string;
+	xmlTag: string;
+}
 
 export interface Connection {
 	/** @format double */
@@ -1005,6 +1265,10 @@ export type CreateBitcoinAccountData = AccountAPIResponse;
 
 export type CreateBrc20TransactionData = BitcoinAPIResponse;
 
+export type CreateCollectionOfferData = OpenSeaAPIResponse;
+
+export type CreateComponentData = ComponentAPIResponseComponentDefinition;
+
 export type CreateDelegatedLockForData =
 	LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
@@ -1076,6 +1340,8 @@ export type CreateMarketBuyOrderData =
 export interface CreateMarketBuyOrderResponse {
 	order: PolymarketWrapperSignedOrder;
 }
+
+export type CreateOfferData = OpenSeaAPIResponse;
 
 export interface CreateOrderBody {
 	chain_id: string;
@@ -1291,6 +1557,8 @@ export interface ERC20ExecuteFunctionResult {
 	function: string;
 	message?: string;
 	params: any[];
+	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	simulation?: SimulateAssetChangesResponse;
 	success?: boolean;
 	transaction: ERC20Transaction;
 	user_op?: string;
@@ -1344,6 +1612,7 @@ export interface ERC20InputBody {
 	/** @format double */
 	referralCode?: number;
 	role?: string;
+	simulate?: boolean;
 	/** @format double */
 	slippageLimitPercent?: number;
 	to?: string;
@@ -1477,6 +1746,7 @@ export interface Erc1155Request {
 	/** @format double */
 	referralCode?: number;
 	role?: string;
+	simulate?: boolean;
 	/** @format double */
 	slippageLimitPercent?: number;
 	to?: string;
@@ -1859,6 +2129,12 @@ export enum FlowNodeTypeEnum {
 	UserFunction = "userFunction",
 }
 
+export type ForceEmbeddingData = ComponentAPIResponseVoid;
+
+export interface ForceEmbeddingPayload {
+	description: string;
+}
+
 export interface FullReservesIncentiveData {
 	reservesIncentiveData: AggregatedReserveIncentiveData[];
 	userReserveIncentiveData: UserReserveIncentiveData[];
@@ -1963,6 +2239,22 @@ export interface GetAllATokensParams {
 	account: string;
 	address: string;
 	chainId: string;
+}
+
+export type GetAllFinancialsData = AllFinancialsAPIResponse;
+
+export interface GetAllFinancialsParams {
+	cik?: string;
+	/** @format double */
+	limit?: number;
+	period: PeriodEnum4;
+	ticker: string;
+}
+
+export enum GetAllFinancialsParams1PeriodEnum {
+	Annual = "annual",
+	Quarterly = "quarterly",
+	Ttm = "ttm",
 }
 
 export type GetAllPossibleConnectionsData = ApiResponseTokenInfoByChainId;
@@ -2090,6 +2382,8 @@ export interface GetAssetParams {
 
 export type GetAssetsData = LynexAPIResponse;
 
+export type GetAvailableTickersData = AvailableTickersAPIResponse;
+
 export type GetBalanceAllowanceData =
 	PolymarketAPIResponseBalanceAllowanceResponse;
 
@@ -2112,6 +2406,8 @@ export interface GetBalanceOfAtNftParams {
 }
 
 export type GetBalanceOfData = ERC20APIResponseString;
+
+export type GetBalanceOfData1 = RamsesNFTAPIResponseString;
 
 export type GetBalanceOfNftAtData = LynexNFTAPIResponseString;
 
@@ -2148,6 +2444,8 @@ export type GetBalanceOfNftResult = RamsesNFTAPIResponseString;
 
 export type GetBalanceOfOutput = LynexNFTAPIResponseString;
 
+export type GetBalanceOfOutput1 = VeTheNFTAPIResponseString;
+
 export interface GetBalanceOfParams {
 	account: string;
 	address: string;
@@ -2180,16 +2478,44 @@ export interface GetBalanceOfParams8 {
 
 export type GetBalanceOfResult = ERC4626APIResponse;
 
-export type GetBalanceOfResult1 = RamsesNFTAPIResponseString;
-
-export type GetBalanceOfResult2 = VeTheNFTAPIResponseString;
-
 export interface GetBalanceParams {
 	accountName: string;
 	chainId: string;
 }
 
+export type GetBalanceSheetsData = BalanceSheetsAPIResponse;
+
+export interface GetBalanceSheetsParams {
+	cik?: string;
+	/** @format double */
+	limit?: number;
+	period: PeriodEnum1;
+	ticker: string;
+}
+
+export enum GetBalanceSheetsParams1PeriodEnum {
+	Annual = "annual",
+	Quarterly = "quarterly",
+	Ttm = "ttm",
+}
+
 export type GetBitcoinAccountData = AccountAPIResponse;
+
+export type GetCashFlowStatementsData = CashFlowStatementsAPIResponse;
+
+export interface GetCashFlowStatementsParams {
+	cik?: string;
+	/** @format double */
+	limit?: number;
+	period: PeriodEnum2;
+	ticker: string;
+}
+
+export enum GetCashFlowStatementsParams1PeriodEnum {
+	Annual = "annual",
+	Quarterly = "quarterly",
+	Ttm = "ttm",
+}
 
 export type GetChainsData = ApiResponseChainsResponse;
 
@@ -2201,6 +2527,40 @@ export enum GetChainsParams1OptionalChainTypesEnum {
 	EVM = "EVM",
 	SOL = "SOL",
 }
+
+export type GetChartAnalysisData = ChartAnalysisAPIResponse;
+
+/** @default "1D" */
+export enum GetChartAnalysisParamsEnum {
+	Value1D = "1D",
+	Value4H = "4H",
+	Value1H = "1H",
+}
+
+/** @default "1D" */
+export enum GetChartAnalysisParamsTimeframeEnum {
+	Value1D = "1D",
+	Value4H = "4H",
+	Value1H = "1H",
+}
+
+export type GetCollectionData = OpenSeaAPIResponse;
+
+export interface GetCollectionParams {
+	account: string;
+	/** @default "1" */
+	chainId?: string;
+	slug: string;
+}
+
+export type GetCompanyFactsData = CompanyFactsAPIResponse;
+
+export type GetComponentCapabilitiesDescriptionData =
+	ComponentAPIResponsePartialComponentDefinitionArray;
+
+export type GetComponentData = ComponentAPIResponseComponentDefinition;
+
+export type GetComponentsData = ComponentAPIResponseComponentDefinitionArray;
 
 export type GetConnectionsData = ApiResponseConnectionsResponse;
 
@@ -2431,6 +2791,22 @@ export interface GetGasPriceParams {
 	chainId: string;
 }
 
+export type GetIncomeStatementsData = IncomeStatementsAPIResponse;
+
+export interface GetIncomeStatementsParams {
+	cik?: string;
+	/** @format double */
+	limit?: number;
+	period: PeriodEnum;
+	ticker: string;
+}
+
+export enum GetIncomeStatementsParams1PeriodEnum {
+	Annual = "annual",
+	Quarterly = "quarterly",
+	Ttm = "ttm",
+}
+
 export type GetIndexedRouteMapData = JupiterAPIResponseAny;
 
 export interface GetIndexedRouteMapParams {
@@ -2438,6 +2814,14 @@ export interface GetIndexedRouteMapParams {
 }
 
 export type GetInfoData = RamsesAPIResponse;
+
+export type GetInsiderTransactionsData = InsiderTransactionsAPIResponse;
+
+export interface GetInsiderTransactionsParams {
+	/** @format double */
+	limit?: number;
+	ticker: string;
+}
 
 export type GetJobData = MultiCallAPIResponseJobs;
 
@@ -2653,6 +3037,16 @@ export interface GetNfTsParams {
 	chain: string;
 }
 
+export type GetNftData = OpenSeaAPIResponse;
+
+export interface GetNftParams {
+	account: string;
+	address: string;
+	/** @default "1" */
+	chainId?: string;
+	tokenId: string;
+}
+
 export type GetNonceData = NonceAPIResponse;
 
 export interface GetNonceParams {
@@ -2678,6 +3072,21 @@ export interface GetOpenOrdersParams {
 	marketHash?: string;
 	nextCursor?: string;
 	outcomeId?: string;
+}
+
+export type GetOptionsChainData = OptionsChainAPIResponse;
+
+export interface GetOptionsChainParams {
+	expiration_date?: string;
+	option_type?: OptionTypeEnum;
+	/** @format double */
+	strike_price?: number;
+	ticker: string;
+}
+
+export enum GetOptionsChainParams1OptionTypeEnum {
+	Call = "call",
+	Put = "put",
 }
 
 export type GetOrderBookData = PolymarketAPIResponseOrderBookSummary;
@@ -2791,6 +3200,8 @@ export type GetPoolsData = LynexAPIResponse;
 
 export type GetPoolsResult = RamsesAPIResponse;
 
+export type GetPortfolioStatusData = PortfolioAPIResponse;
+
 export type GetPreviewDepositData = ERC4626APIResponse;
 
 export interface GetPreviewDepositParams {
@@ -2835,6 +3246,10 @@ export interface GetPriceOracleParams {
 	chainId: string;
 }
 
+export type GetPriceSnapshotData = PriceSnapshotAPIResponse;
+
+export type GetPricesData = PricesAPIResponse;
+
 export type GetPricesHistoryData = PolymarketAPIResponseMarketPriceArray;
 
 export interface GetPricesHistoryParams {
@@ -2848,6 +3263,17 @@ export interface GetPricesHistoryParams {
 	market?: string;
 	/** @format double */
 	startTs?: number;
+}
+
+export interface GetPricesParams {
+	end_date: string;
+	interval: PriceInterval;
+	/** @format double */
+	interval_multiplier: number;
+	/** @format double */
+	limit?: number;
+	start_date: string;
+	ticker: string;
 }
 
 export type GetProgramIdToLabelData = JupiterAPIResponseRecordStringString;
@@ -3013,6 +3439,21 @@ export enum GetRouterAddressParams1VersionEnum {
 }
 
 export type GetScheduledJobsData = MultiCallAPIResponseAnyArray;
+
+export type GetSegmentedRevenuesData = SegmentedRevenuesAPIResponse;
+
+export interface GetSegmentedRevenuesParams {
+	cik?: string;
+	/** @format double */
+	limit?: number;
+	period: PeriodEnum3;
+	ticker: string;
+}
+
+export enum GetSegmentedRevenuesParams1PeriodEnum {
+	Annual = "annual",
+	Quarterly = "quarterly",
+}
 
 export type GetSolanaAccountData = AccountAPIResponse;
 
@@ -3313,6 +3754,22 @@ export interface GetUserPointHistoryTsParams {
 	tokenId: string;
 }
 
+export type GetUserPortfolioData = PortfolioAPIResponse;
+
+export interface GetUserPortfolioParams {
+	address: string;
+	/**
+	 * @format double
+	 * @default 1
+	 */
+	page?: number;
+	/**
+	 * @format double
+	 * @default 100
+	 */
+	pageSize?: number;
+}
+
 export type GetUserReservesDataData =
 	AAVEv3UiPoolDataProviderAPIResponseUserReserveDataArray;
 
@@ -3452,8 +3909,6 @@ export type GetWeightsResult = RamsesVoterAPIResponseString;
 
 export type GetWethData = LeveragerAPIResponseString;
 
-export type GetWethData1 = UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
-
 export type GetWethOutput = RamsesRouterAPIResponseString;
 
 export interface GetWethParams {
@@ -3478,6 +3933,8 @@ export interface GetWethParams6 {
 }
 
 export type GetWethResult = LynexRouterAPIResponseString;
+
+export type GetWethResult1 = UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
 
 export type GetZapQuoteData = OdosAPIResponseOdosExecuteFunctionResult;
 
@@ -3505,6 +3962,70 @@ export interface IncentiveData {
 	incentiveControllerAddress: string;
 	rewardsTokenInformation: RewardInfo[];
 	tokenAddress: string;
+}
+
+export interface IncomeStatement {
+	calendar_date: string;
+	/** @format double */
+	consolidated_income: number;
+	/** @format double */
+	cost_of_revenue: number;
+	currency: string;
+	/** @format double */
+	dividends_per_common_share: number;
+	/** @format double */
+	earnings_per_share: number;
+	/** @format double */
+	earnings_per_share_diluted: number;
+	/** @format double */
+	ebit: number;
+	/** @format double */
+	gross_profit: number;
+	/** @format double */
+	income_tax_expense: number;
+	/** @format double */
+	interest_expense: number;
+	/** @format double */
+	net_income: number;
+	/** @format double */
+	net_income_common_stock: number;
+	/** @format double */
+	net_income_discontinued_operations: number;
+	/** @format double */
+	net_income_non_controlling_interests: number;
+	/** @format double */
+	operating_expense: number;
+	/** @format double */
+	operating_income: number;
+	period: IncomeStatementPeriodEnum;
+	/** @format double */
+	preferred_dividends_impact: number;
+	report_period: string;
+	/** @format double */
+	research_and_development: number;
+	/** @format double */
+	revenue: number;
+	/** @format double */
+	selling_general_and_administrative_expenses: number;
+	ticker: string;
+	/** @format double */
+	weighted_average_shares: number;
+	/** @format double */
+	weighted_average_shares_diluted: number;
+}
+
+export enum IncomeStatementPeriodEnum {
+	Quarterly = "quarterly",
+	Ttm = "ttm",
+	Annual = "annual",
+}
+
+export interface IncomeStatementsAPIResponse {
+	address?: string;
+	body?: InputBody;
+	data?: IncomeStatement[];
+	message: string;
+	success: boolean;
 }
 
 export type IncreaseAmountData =
@@ -3576,6 +4097,7 @@ export interface InputBody {
 	/** @format double */
 	referralCode?: number;
 	role?: string;
+	simulate?: boolean;
 	/** @format double */
 	slippageLimitPercent?: number;
 	to?: string;
@@ -3586,6 +4108,35 @@ export interface InputBody {
 	useAsCollateral?: boolean;
 	user?: string;
 	value?: string;
+}
+
+export interface InsiderTransaction {
+	filing_date: string;
+	is_board_director: boolean;
+	issuer: string;
+	name: string;
+	security_title: string;
+	/** @format double */
+	shares_owned_after_transaction: number;
+	/** @format double */
+	shares_owned_before_transaction: number;
+	ticker: string;
+	title: string;
+	transaction_date: string;
+	/** @format double */
+	transaction_price_per_share: number;
+	/** @format double */
+	transaction_shares: number;
+	/** @format double */
+	transaction_value: number;
+}
+
+export interface InsiderTransactionsAPIResponse {
+	address?: string;
+	body?: InputBody;
+	data?: InsiderTransaction[];
+	message: string;
+	success: boolean;
 }
 
 export type IsApprovedForAllData = TransactionAPIResponse;
@@ -3798,6 +4349,8 @@ export interface LendingPoolExecuteFunctionResult {
 	function: string;
 	message?: string;
 	params: any[];
+	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	simulation?: SimulateAssetChangesResponse;
 	success?: boolean;
 	transaction: LendingPoolTransaction;
 	user_op?: string;
@@ -3851,6 +4404,7 @@ export interface LendingPoolInputBody {
 	/** @format double */
 	referralCode?: number;
 	role?: string;
+	simulate?: boolean;
 	/** @format double */
 	slippageLimitPercent?: number;
 	to?: string;
@@ -3909,6 +4463,8 @@ export interface LeveragerExecuteFunctionResult {
 	function: string;
 	message?: string;
 	params: any[];
+	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	simulation?: SimulateAssetChangesResponse;
 	success?: boolean;
 	transaction: LeveragerTransaction;
 	user_op?: string;
@@ -3962,6 +4518,7 @@ export interface LeveragerInputBody {
 	/** @format double */
 	referralCode?: number;
 	role?: string;
+	simulate?: boolean;
 	/** @format double */
 	slippageLimitPercent?: number;
 	to?: string;
@@ -3988,6 +4545,22 @@ export interface LeveragerTransaction {
 	/** @format double */
 	type?: number;
 	value: string;
+}
+
+export interface LineItemsSearchAPIResponse {
+	address?: string;
+	body?: InputBody;
+	data?: LineItemsSearchResult[];
+	message: string;
+	success: boolean;
+}
+
+export interface LineItemsSearchResult {
+	currency: string;
+	period: string;
+	report_period: string;
+	ticker: string;
+	[key: string]: any;
 }
 
 export type LiquidationCallData =
@@ -4095,6 +4668,8 @@ export interface LynexNFTExecuteFunctionResult {
 	function: string;
 	message?: string;
 	params: any[];
+	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	simulation?: SimulateAssetChangesResponse;
 	success?: boolean;
 	transaction: LynexNFTTransaction;
 	user_op?: string;
@@ -4155,6 +4730,7 @@ export interface LynexNFTInputBody {
 	referralCode?: number;
 	role?: string;
 	s?: string;
+	simulate?: boolean;
 	/** @format double */
 	slippageLimitPercent?: number;
 	splitWeights?: string[];
@@ -4219,6 +4795,8 @@ export interface LynexRouterExecuteFunctionResult {
 	function: string;
 	message?: string;
 	params: any[];
+	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	simulation?: SimulateAssetChangesResponse;
 	success?: boolean;
 	transaction: LynexRouterTransaction;
 	user_op?: string;
@@ -4283,6 +4861,7 @@ export interface LynexRouterInputBody {
 	referralCode?: number;
 	role?: string;
 	routes: any[];
+	simulate?: boolean;
 	/** @format double */
 	slippageLimitPercent?: number;
 	stable: string;
@@ -4339,6 +4918,8 @@ export interface LynexVoterExecuteFunctionResult {
 	function: string;
 	message?: string;
 	params: any[];
+	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	simulation?: SimulateAssetChangesResponse;
 	success?: boolean;
 	transaction: LynexVoterTransaction;
 	user_op?: string;
@@ -4399,6 +4980,7 @@ export interface LynexVoterInputBody {
 	/** @format double */
 	referralCode?: number;
 	role?: string;
+	simulate?: boolean;
 	/** @format double */
 	slippageLimitPercent?: number;
 	to?: string;
@@ -4681,6 +5263,7 @@ export interface OdosSwapInputBody {
 	referralCode?: number;
 	role?: string;
 	simple?: boolean;
+	simulate?: boolean;
 	/** @format double */
 	slippageLimitPercent?: number;
 	sourceBlacklist?: string[];
@@ -4710,6 +5293,9 @@ export interface OdosTransaction {
 	type?: number;
 	value: string;
 }
+
+/** Construct a type with the properties of T except for those in type K. */
+export type OmitComponentDefinitionId = PickComponentDefinitionExcludeKeysId;
 
 /** Construct a type with the properties of T except for those in type K. */
 export type OmitJupiterInputBodyAccountName =
@@ -4811,9 +5397,98 @@ export interface OpenOrder {
 
 export type OpenOrdersResponse = OpenOrder[];
 
+export interface OpenSeaAPIResponse {
+	data?: any;
+	message: string;
+	success: boolean;
+}
+
+export interface OpenSeaCollectionInputBody {
+	/** @format double */
+	amount: number;
+	broadcast?: boolean;
+	chainId?: string;
+	collectionSlug: string;
+	data?: string;
+	dryrun?: boolean;
+	gas?: string;
+	gasPrice?: string;
+	nonce?: string;
+	paymentTokenAddress?: string;
+	/** @format double */
+	quantity: number;
+	to?: string;
+	value?: string;
+}
+
+export interface OpenSeaNFTInputBody {
+	/** Generic Blockchain Asset. */
+	asset: Asset;
+	broadcast?: boolean;
+	chainId?: string;
+	data?: string;
+	dryrun?: boolean;
+	/** @format double */
+	expirationTime?: number;
+	gas?: string;
+	gasPrice?: string;
+	nonce?: string;
+	/** @format double */
+	startAmount: number;
+	to?: string;
+	value?: string;
+}
+
+export enum OptionTypeEnum {
+	Call = "call",
+	Put = "put",
+}
+
 export enum OptionalChainTypesEnum {
 	EVM = "EVM",
 	SOL = "SOL",
+}
+
+export interface OptionsChainAPIResponse {
+	address?: string;
+	body?: InputBody;
+	data?: OptionsChainItem[];
+	message: string;
+	success: boolean;
+}
+
+export interface OptionsChainItem {
+	/** @format double */
+	ask_price: number;
+	/** @format double */
+	ask_size: number;
+	/** @format double */
+	bid_price: number;
+	/** @format double */
+	bid_size: number;
+	expiration_date: string;
+	/** @format double */
+	last_trade_price: number;
+	/** @format double */
+	last_trade_size: number;
+	last_trade_time: string;
+	/** @format double */
+	last_trade_time_nanoseconds: number;
+	/** @format double */
+	open_interest: number;
+	/** @format double */
+	shares_per_contract: number;
+	/** @format double */
+	strike_price: number;
+	ticker: string;
+	type: OptionsChainItemTypeEnum;
+	/** @format double */
+	volume: number;
+}
+
+export enum OptionsChainItemTypeEnum {
+	Call = "Call",
+	Put = "Put",
 }
 
 export interface OrderBookSummary {
@@ -4870,6 +5545,21 @@ export interface PairForParams {
 	tokenB: string;
 }
 
+/** Make all properties in T optional */
+export interface PartialComponentDefinition {
+	code?: string;
+	/** @format date-time */
+	created_at?: string;
+	description?: string;
+	id?: string;
+	is_active?: boolean;
+	name?: string;
+	/** @format date-time */
+	updated_at?: string;
+	version?: string;
+	xmlTag?: string;
+}
+
 export interface PathVizImageConfig {
 	/** @format double */
 	height?: number;
@@ -4889,6 +5579,35 @@ export interface PaymentType {
 	paymentTypeId: string;
 }
 
+export enum PeriodEnum {
+	Annual = "annual",
+	Quarterly = "quarterly",
+	Ttm = "ttm",
+}
+
+export enum PeriodEnum1 {
+	Annual = "annual",
+	Quarterly = "quarterly",
+	Ttm = "ttm",
+}
+
+export enum PeriodEnum2 {
+	Annual = "annual",
+	Quarterly = "quarterly",
+	Ttm = "ttm",
+}
+
+export enum PeriodEnum3 {
+	Annual = "annual",
+	Quarterly = "quarterly",
+}
+
+export enum PeriodEnum4 {
+	Annual = "annual",
+	Quarterly = "quarterly",
+	Ttm = "ttm",
+}
+
 export type PermitData = UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
 
 export type PermitTypehashData = UniswapV3NFTAPIResponseString;
@@ -4896,6 +5615,20 @@ export type PermitTypehashData = UniswapV3NFTAPIResponseString;
 export interface PermitTypehashParams {
 	address: string;
 	chainId: string;
+}
+
+/** From T, pick a set of properties whose keys are in the union K */
+export interface PickComponentDefinitionExcludeKeysId {
+	code: string;
+	/** @format date-time */
+	created_at?: string;
+	description: string;
+	is_active?: boolean;
+	name: string;
+	/** @format date-time */
+	updated_at?: string;
+	version: string;
+	xmlTag: string;
 }
 
 /** From T, pick a set of properties whose keys are in the union K */
@@ -5089,6 +5822,8 @@ export interface PoolAddressProviderExecuteFunctionResult {
 	function: string;
 	message?: string;
 	params: any[];
+	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	simulation?: SimulateAssetChangesResponse;
 	success?: boolean;
 	transaction: PoolAddressProviderTransaction;
 	user_op?: string;
@@ -5145,6 +5880,7 @@ export interface PoolAddressProviderInputBody {
 	/** @format double */
 	referralCode?: number;
 	role?: string;
+	simulate?: boolean;
 	/** @format double */
 	slippageLimitPercent?: number;
 	to?: string;
@@ -5191,6 +5927,30 @@ export interface PoolVoteLengthParams {
 	address: string;
 	chainId: string;
 	tokenId: string;
+}
+
+export interface PortfolioAPIResponse {
+	address?: string;
+	body?: InputBody;
+	data?: {
+		address?: string;
+		jobId?: string;
+		nft_balances?: any[];
+		/** @format double */
+		page?: number;
+		/** @format double */
+		pageSize?: number;
+		pollUrl?: string;
+		reason?: string;
+		status?: string;
+		token_balances?: any[];
+		/** @format double */
+		totalNFTs?: number;
+		/** @format double */
+		totalTokens?: number;
+	};
+	message: string;
+	success: boolean;
 }
 
 export type PositionsData = UniswapV3NFTAPIResponseAny;
@@ -5252,6 +6012,65 @@ export enum PostQuoteParams1OrderEnum {
 	BEST_FEE = "BEST_FEE",
 	BEST_FEE_GAS = "BEST_FEE_GAS",
 }
+
+export interface PriceData {
+	/** @format double */
+	close: number;
+	/** @format double */
+	high: number;
+	/** @format double */
+	low: number;
+	/** @format double */
+	open: number;
+	time: string;
+	/** @format double */
+	time_milliseconds: number;
+	/** @format double */
+	volume: number;
+}
+
+export enum PriceInterval {
+	Second = "second",
+	Minute = "minute",
+	Day = "day",
+	Week = "week",
+	Month = "month",
+	Quarter = "quarter",
+	Year = "year",
+}
+
+export interface PriceSnapshot {
+	/** @format double */
+	day_change: number;
+	/** @format double */
+	day_change_percent: number;
+	/** @format double */
+	price: number;
+	ticker: string;
+	time: string;
+	/** @format double */
+	time_nanoseconds: number;
+}
+
+export interface PriceSnapshotAPIResponse {
+	address?: string;
+	body?: InputBody;
+	data?: PriceSnapshot;
+	message: string;
+	success: boolean;
+}
+
+export interface PricesAPIResponse {
+	address?: string;
+	body?: InputBody;
+	data?: PriceData[];
+	message: string;
+	success: boolean;
+}
+
+export type QueryData = any;
+
+export type QueryPayload = string;
 
 export interface Quote {
 	action: Action;
@@ -5322,6 +6141,8 @@ export interface RamsesNFTExecuteFunctionResult {
 	function: string;
 	message?: string;
 	params: any[];
+	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	simulation?: SimulateAssetChangesResponse;
 	success?: boolean;
 	transaction: RamsesNFTTransaction;
 	user_op?: string;
@@ -5388,6 +6209,7 @@ export interface RamsesNFTInputBody {
 	referralCode?: number;
 	role?: string;
 	s?: string;
+	simulate?: boolean;
 	/** @format double */
 	slippageLimitPercent?: number;
 	to?: string;
@@ -5494,6 +6316,8 @@ export interface RamsesRouterExecuteFunctionResult {
 	function: string;
 	message?: string;
 	params: any[];
+	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	simulation?: SimulateAssetChangesResponse;
 	success?: boolean;
 	transaction: RamsesRouterTransaction;
 	user_op?: string;
@@ -5566,6 +6390,7 @@ export interface RamsesRouterInputBody {
 		to: string;
 	}[];
 	s?: string;
+	simulate?: boolean;
 	/** @format double */
 	slippageLimitPercent?: number;
 	stable?: boolean;
@@ -5626,6 +6451,8 @@ export interface RamsesVoterExecuteFunctionResult {
 	function: string;
 	message?: string;
 	params: any[];
+	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	simulation?: SimulateAssetChangesResponse;
 	success?: boolean;
 	transaction: RamsesVoterTransaction;
 	user_op?: string;
@@ -5685,6 +6512,7 @@ export interface RamsesVoterInputBody {
 	/** @format double */
 	referralCode?: number;
 	role?: string;
+	simulate?: boolean;
 	/** @format double */
 	slippageLimitPercent?: number;
 	to?: string;
@@ -5719,7 +6547,10 @@ export interface RamsesVoterTransaction {
 export type ReadAccountData = BitcoinCashAPIResponseAccountResponse;
 
 /** Construct a type with a set of properties K of type T */
-export type RecordStringAny = object;
+export interface RecordStringAny {
+	/** The error message. */
+	message: string;
+}
 
 /** Construct a type with a set of properties K of type T */
 export type RecordStringString = object;
@@ -5867,6 +6698,126 @@ export interface ScheduleJobBody {
 }
 
 export type ScheduleJobData = MultiCallAPIResponse;
+
+export type SearchComponentsData = ComponentAPIResponseComponentMatchArray;
+
+export interface SearchComponentsParams {
+	limit?: string;
+	query: string;
+	threshold?: string;
+}
+
+export interface SearchFilter {
+	field: string;
+	operator: SearchFilterOperatorEnum;
+	/** @format double */
+	value: number;
+}
+
+export enum SearchFilterOperatorEnum {
+	Eq = "eq",
+	Gt = "gt",
+	Gte = "gte",
+	Lt = "lt",
+	Lte = "lte",
+}
+
+export interface SearchFinancialsAPIResponse {
+	address?: string;
+	body?: InputBody;
+	data?: SearchResult[];
+	message: string;
+	success: boolean;
+}
+
+export type SearchFinancialsByLineItemsData = LineItemsSearchAPIResponse;
+
+export interface SearchFinancialsByLineItemsPayload {
+	/** @format double */
+	limit?: number;
+	line_items: string[];
+	period?: SearchFinancialsByLineItemsPeriodEnum;
+	tickers: string[];
+}
+
+export enum SearchFinancialsByLineItemsPeriodEnum {
+	Annual = "annual",
+	Quarterly = "quarterly",
+	Ttm = "ttm",
+}
+
+export type SearchFinancialsData = SearchFinancialsAPIResponse;
+
+export interface SearchRequest {
+	currency?: SearchRequestCurrencyEnum;
+	filters: SearchFilter[];
+	/** @format double */
+	limit?: number;
+	order_by?: SearchRequestOrderByEnum;
+	period?: SearchRequestPeriodEnum;
+}
+
+export enum SearchRequestCurrencyEnum {
+	USD = "USD",
+	EUR = "EUR",
+	GBP = "GBP",
+	JPY = "JPY",
+	CHF = "CHF",
+	AUD = "AUD",
+	CAD = "CAD",
+	SEK = "SEK",
+}
+
+export enum SearchRequestOrderByEnum {
+	Ticker = "ticker",
+	ValueTicker = "-ticker",
+	ReportPeriod = "report_period",
+	ValueReportPeriod = "-report_period",
+}
+
+export enum SearchRequestPeriodEnum {
+	Annual = "annual",
+	Quarterly = "quarterly",
+	Ttm = "ttm",
+}
+
+export interface SearchResult {
+	currency: string;
+	period: string;
+	report_period: string;
+	ticker: string;
+	[key: string]: any;
+}
+
+export interface SegmentedRevenue {
+	items: SegmentedRevenueItem[];
+	period: SegmentedRevenuePeriodEnum;
+	report_period: string;
+	ticker: string;
+}
+
+export interface SegmentedRevenueItem {
+	axis: string;
+	end_period?: string;
+	key: string;
+	segment: string;
+	start_period?: string;
+	/** @format double */
+	value: number;
+}
+
+export enum SegmentedRevenuePeriodEnum {
+	Annual = "annual",
+	Quarterly = "quarterly",
+}
+
+export interface SegmentedRevenuesAPIResponse {
+	address?: string;
+	body?: InputBody;
+	data?: SegmentedRevenue[];
+	message: string;
+	success: boolean;
+}
 
 export type SelfPermitAllowedData =
 	UniswapV3APIResponseUniswapV3ExecuteFunctionResult;
@@ -6017,6 +6968,98 @@ export interface SignTypedData {
 }
 
 export type SignTypedDataData = SignMessageAPIResponse;
+
+/**
+ * Represents an asset change from a call to
+ * {@link TransactNamespace.simulateAssetChanges }.
+ */
+export interface SimulateAssetChangesChange {
+	/**
+	 * The amount as an integer string. This value is calculated by applying the
+	 * `decimals` field to the `rawAmount` field. Only available on TRANSFER
+	 * changes for NATIVE and ERC20 assets, or ERC721/ERC1155 disapprove changes
+	 * (field set to '0').
+	 */
+	amount?: string;
+	/** The type of asset from the transaction. */
+	assetType: SimulateAssetType;
+	/** The type of change from the transaction. */
+	changeType: SimulateChangeType;
+	/**
+	 * The contract address of the asset. Only applicable to ERC20, ERC721,
+	 * ERC1155, NFT and SPECIAL_NFT transactions.
+	 */
+	contractAddress?: string;
+	/**
+	 * The number of decimals used by the ERC20 token. Set to 0 for APPROVE
+	 * changes. Field is undefined if it's not defined in the contract and not
+	 * available from other sources.
+	 * @format double
+	 */
+	decimals?: number;
+	/** The from address. */
+	from: string;
+	/** URL for the logo of the asset, if available. Only applicable to ERC20 transactions. */
+	logo?: string;
+	/** The name of the asset transferred, if available. */
+	name?: string;
+	/**
+	 * The raw amount as an integer string. Only available on TRANSFER changes for
+	 * NATIVE and ERC20 assets, or ERC721/ERC1155 disapprove changes (field set to
+	 * '0').
+	 */
+	rawAmount?: string;
+	/** The symbol of the asset transferred if available. */
+	symbol?: string;
+	/** The to address. */
+	to: string;
+	/**
+	 * The token id of the asset transferred. Only applicable to ERC721,
+	 * ERC1155 and SPECIAL_NFT NFTs.
+	 */
+	tokenId?: string;
+}
+
+/**
+ * The error field returned in a {@link SimulateAssetChangesResponse} if the
+ * simulation failed.
+ */
+export interface SimulateAssetChangesError {
+	/** The error message. */
+	message: string;
+}
+
+/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+export interface SimulateAssetChangesResponse {
+	/** An array of asset changes that resulted from the transaction. */
+	changes: SimulateAssetChangesChange[];
+	/** Optional error field that is present if an error occurred. */
+	error?: SimulateAssetChangesError;
+	/**
+	 * The amount of gas used by the transaction represented as a hex string. The
+	 * field is undefined if an error occurred.
+	 */
+	gasUsed?: string;
+}
+
+/**
+ * Asset type returned when calling {@link TransactNamespace.simulateAssetChanges }.
+ * Allows you to determine if the assets approved or / and transferred are
+ * native, tokens or NFTs.
+ */
+export enum SimulateAssetType {
+	NATIVE = "NATIVE",
+	ERC20 = "ERC20",
+	ERC721 = "ERC721",
+	ERC1155 = "ERC1155",
+	SPECIAL_NFT = "SPECIAL_NFT",
+}
+
+/** Change type returned when calling {@link TransactNamespace.simulateAssetChanges }. */
+export enum SimulateChangeType {
+	APPROVE = "APPROVE",
+	TRANSFER = "TRANSFER",
+}
 
 export interface SolanaAPIResponse {
 	address?: string;
@@ -6359,6 +7402,13 @@ export interface TokenProportion {
 	tokenAddress: string;
 }
 
+/** Token standards */
+export enum TokenStandard {
+	ERC20 = "ERC20",
+	ERC721 = "ERC721",
+	ERC1155 = "ERC1155",
+}
+
 export type TokenUriData = UniswapV3NFTAPIResponseString;
 
 export interface TokenUriParams {
@@ -6419,6 +7469,8 @@ export interface Transaction {
 	raw_transaction?: string;
 	signature?: string;
 	signed_transaction?: string;
+	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	simulation?: SimulateAssetChangesResponse;
 	success?: boolean;
 	transaction?: Tx;
 	transaction_hash?: string;
@@ -6519,20 +7571,20 @@ export type TransferEthData = TransactionAPIResponse;
 
 export type TransferFromData = ERC20APIResponseERC20ExecuteFunctionResult;
 
-export type TransferFromData1 =
-	UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
+export type TransferFromData1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export type TransferFromErc721Data = ERC721APIResponse;
 
 export type TransferFromOutput =
 	LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
-export type TransferFromOutput1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+export type TransferFromOutput1 =
+	RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 
 export type TransferFromResult = ERC4626APIResponse;
 
 export type TransferFromResult1 =
-	RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
+	UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
 
 export type TransferResult = ERC4626APIResponse;
 
@@ -6601,6 +7653,8 @@ export interface UniswapV2ExecuteFunctionResult {
 	function: string;
 	message?: string;
 	params: any[];
+	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	simulation?: SimulateAssetChangesResponse;
 	success?: boolean;
 	transaction: UniswapV2Transaction;
 	user_op?: string;
@@ -6678,6 +7732,7 @@ export interface UniswapV2InputBody {
 	reserveOut?: string;
 	role?: string;
 	s?: string;
+	simulate?: boolean;
 	/** @format double */
 	slippageLimitPercent?: number;
 	to?: string;
@@ -6729,6 +7784,8 @@ export interface UniswapV3ExecuteFunctionResult {
 	function: string;
 	message?: string;
 	params: any[];
+	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	simulation?: SimulateAssetChangesResponse;
 	success?: boolean;
 	transaction: UniswapV3Transaction;
 	user_op?: string;
@@ -6800,6 +7857,7 @@ export interface UniswapV3InputBody {
 	referralCode?: number;
 	role?: string;
 	s?: string;
+	simulate?: boolean;
 	/** @format double */
 	slippageLimitPercent?: number;
 	spender?: string;
@@ -6890,6 +7948,13 @@ export type UnwrapWeth9Data =
 export type UnwrapWeth9WithFeeData =
 	UniswapV3APIResponseUniswapV3ExecuteFunctionResult;
 
+export type UnwrapWethData = OpenSeaAPIResponse;
+
+export interface UnwrapWethPayload {
+	amountInEth: string;
+	chainId: string;
+}
+
 export interface UpdateBalanceAllowanceBody {
 	chain_id: string;
 	params: {
@@ -6904,6 +7969,14 @@ export type UpdateBalanceAllowanceData =
 export interface UpdateBalanceAllowanceResponse {
 	newAllowance: string;
 	success: boolean;
+}
+
+export type UpdateComponentData = ComponentAPIResponseComponentDefinition;
+
+export type UpdateEmbeddingData = ComponentAPIResponseVoid;
+
+export interface UpdateEmbeddingPayload {
+	description: string;
 }
 
 export interface UpdateFlowBody {
@@ -6964,6 +8037,8 @@ export interface VeNFTExecuteFunctionResult {
 	function: string;
 	message?: string;
 	params: any[];
+	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	simulation?: SimulateAssetChangesResponse;
 	success?: boolean;
 	transaction: VeNFTTransaction;
 	user_op?: string;
@@ -7022,6 +8097,7 @@ export interface VeNFTInputBody {
 	/** @format double */
 	referralCode?: number;
 	role?: string;
+	simulate?: boolean;
 	/** @format double */
 	slippageLimitPercent?: number;
 	spender?: string;
@@ -7106,6 +8182,8 @@ export interface VeTheNftVoterExecuteFunctionResult {
 	function: string;
 	message?: string;
 	params: any[];
+	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	simulation?: SimulateAssetChangesResponse;
 	success?: boolean;
 	transaction: VeTheNftVoterTransaction;
 	user_op?: string;
@@ -7166,6 +8244,7 @@ export interface VeTheNftVoterInputBody {
 	/** @format double */
 	referralCode?: number;
 	role?: string;
+	simulate?: boolean;
 	/** @format double */
 	slippageLimitPercent?: number;
 	to?: string;
@@ -7298,5 +8377,12 @@ export type WithdrawOutput = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 export type WithdrawResult = ERC4626APIResponse;
 
 export type WithdrawResult1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
+export type WrapEthData = OpenSeaAPIResponse;
+
+export interface WrapEthPayload {
+	amountInEth: string;
+	chainId: string;
+}
 
 export type ZapData = OdosAPIResponseOdosExecuteFunctionResult;

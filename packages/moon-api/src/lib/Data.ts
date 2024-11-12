@@ -10,16 +10,23 @@
  */
 
 import {
+  GetChartAnalysisData,
+  GetChartAnalysisParamsEnum,
   GetNfTsData,
   GetNfTsParams,
+  GetPortfolioStatusData,
   GetTokenMetadataData,
   GetTokenMetadataParams,
+  GetUserPortfolioData,
+  GetUserPortfolioParams,
   GetWalletBalanceData,
   GetWalletBalanceParams,
   GetWalletHistoryData,
   GetWalletHistoryParams,
+  QueryData,
+  QueryPayload,
 } from './data-contracts';
-import { HttpClient, RequestParams } from './http-client';
+import { ContentType, HttpClient, RequestParams } from './http-client';
 
 export class Data<SecurityDataType = unknown> {
   http: HttpClient<SecurityDataType>;
@@ -28,6 +35,26 @@ export class Data<SecurityDataType = unknown> {
     this.http = http;
   }
 
+  /**
+   * No description
+   *
+   * @tags Data
+   * @name GetChartAnalysis
+   * @request GET:/data/analysis/{symbol}/{timeframe}
+   * @secure
+   */
+  getChartAnalysis = (
+    symbol: string,
+    timeframe: GetChartAnalysisParamsEnum,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<GetChartAnalysisData, any>({
+      path: `/data/analysis/${symbol}/${timeframe}`,
+      method: 'GET',
+      secure: true,
+      format: 'json',
+      ...params,
+    });
   /**
    * No description
    *
@@ -52,6 +79,22 @@ export class Data<SecurityDataType = unknown> {
    * No description
    *
    * @tags Data
+   * @name GetPortfolioStatus
+   * @request GET:/data/portfolio/status/{jobId}
+   * @secure
+   */
+  getPortfolioStatus = (jobId: string, params: RequestParams = {}) =>
+    this.http.request<GetPortfolioStatusData, any>({
+      path: `/data/portfolio/status/${jobId}`,
+      method: 'GET',
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Data
    * @name GetTokenMetadata
    * @request GET:/data/token-metadata
    * @secure
@@ -62,6 +105,26 @@ export class Data<SecurityDataType = unknown> {
   ) =>
     this.http.request<GetTokenMetadataData, any>({
       path: `/data/token-metadata`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Data
+   * @name GetUserPortfolio
+   * @request GET:/data/{address}/portfolio
+   * @secure
+   */
+  getUserPortfolio = (
+    { address, ...query }: GetUserPortfolioParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<GetUserPortfolioData, any>({
+      path: `/data/${address}/portfolio`,
       method: 'GET',
       query: query,
       secure: true,
@@ -105,6 +168,24 @@ export class Data<SecurityDataType = unknown> {
       method: 'GET',
       query: query,
       secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Data
+   * @name Query
+   * @request POST:/data/query
+   * @secure
+   */
+  query = (data: QueryPayload, params: RequestParams = {}) =>
+    this.http.request<QueryData, any>({
+      path: `/data/query`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
       format: 'json',
       ...params,
     });

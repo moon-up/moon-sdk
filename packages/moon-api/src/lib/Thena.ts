@@ -11,7 +11,7 @@
 
 import {
   AbstainResult,
-  ApproveResult3,
+  ApproveData2,
   AttachResult,
   AttachTokenToGaugeResult,
   CalculateOptimalVoteDistributionOutput,
@@ -35,8 +35,8 @@ import {
   GetBalanceOfAtNftParams,
   GetBalanceOfNftOutput,
   GetBalanceOfNftParams4,
+  GetBalanceOfOutput1,
   GetBalanceOfParams8,
-  GetBalanceOfResult2,
   GetDelegatesOutput,
   GetDelegatesParams4,
   GetFusionByAddressData,
@@ -100,7 +100,7 @@ import {
   SafeTransferFromOutput,
   SetApprovalForAllData1,
   SplitOutput,
-  TransferFromOutput1,
+  TransferFromData1,
   VeNFTInputBody,
   VeTheNftVoterInputBody,
   VoteOutput,
@@ -154,7 +154,7 @@ export class Thena<SecurityDataType = unknown> {
     data: VeNFTInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<ApproveResult3, any>({
+    this.http.request<ApproveData2, any>({
       path: `/thena/nft/${address}/approve`,
       method: 'POST',
       body: data,
@@ -545,7 +545,7 @@ export class Thena<SecurityDataType = unknown> {
     { account, ...query }: GetBalanceOfParams8,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetBalanceOfResult2, any>({
+    this.http.request<GetBalanceOfOutput1, any>({
       path: `/thena/nft/${account}/balanceOf`,
       method: 'GET',
       query: query,
@@ -1357,7 +1357,7 @@ export class Thena<SecurityDataType = unknown> {
     data: VeNFTInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<TransferFromOutput1, any>({
+    this.http.request<TransferFromData1, any>({
       path: `/thena/nft/${address}/transferFrom`,
       method: 'POST',
       body: data,

@@ -12,7 +12,7 @@
 import {
   AddLiquidityEthOutput,
   AddLiquidityOutput,
-  ApproveResult2,
+  ApproveData1,
   BalanceOfOutput,
   BalanceOfParams3,
   BaseUriData,
@@ -39,8 +39,8 @@ import {
   GetApprovedResult,
   GetFactoryOutput,
   GetFactoryParams4,
-  GetWethData1,
   GetWethParams6,
+  GetWethResult1,
   IncreaseLiquidityData,
   IsApprovedForAllOutput,
   IsApprovedForAllParams3,
@@ -94,7 +94,7 @@ import {
   TokenUriParams,
   TotalSupplyData,
   TotalSupplyParams,
-  TransferFromData1,
+  TransferFromResult1,
   UniswapV2InputBody,
   UniswapV3InputBody,
   UnwrapWeth92Data,
@@ -171,7 +171,7 @@ export class Uniswap<SecurityDataType = unknown> {
     data: UniswapV3InputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<ApproveResult2, any>({
+    this.http.request<ApproveData1, any>({
       path: `/uniswap/v3/nft/${address}/approve`,
       method: 'POST',
       body: data,
@@ -583,7 +583,7 @@ export class Uniswap<SecurityDataType = unknown> {
     { account, ...query }: GetWethParams6,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetWethData1, any>({
+    this.http.request<GetWethResult1, any>({
       path: `/uniswap/v2/router/${account}/WETH`,
       method: 'GET',
       query: query,
@@ -1502,7 +1502,7 @@ export class Uniswap<SecurityDataType = unknown> {
     data: UniswapV3InputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<TransferFromData1, any>({
+    this.http.request<TransferFromResult1, any>({
       path: `/uniswap/v3/nft/${address}/transferFrom`,
       method: 'POST',
       body: data,

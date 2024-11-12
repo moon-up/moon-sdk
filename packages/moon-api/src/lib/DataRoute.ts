@@ -10,13 +10,40 @@
  */
 
 import {
+  GetChartAnalysisData,
+  GetChartAnalysisParamsTimeframeEnum,
   GetNfTsData,
+  GetPortfolioStatusData,
   GetTokenMetadataData,
+  GetUserPortfolioData,
   GetWalletBalanceData,
   GetWalletHistoryData,
+  QueryData,
+  QueryPayload,
 } from './data-contracts';
 
 export namespace Data {
+  /**
+   * No description
+   * @tags Data
+   * @name GetChartAnalysis
+   * @request GET:/data/analysis/{symbol}/{timeframe}
+   * @secure
+   */
+  export namespace GetChartAnalysis {
+    export type RequestParams = {
+      symbol: string;
+      /** @default "1D" */
+      timeframe: GetChartAnalysisParamsTimeframeEnum;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = GetChartAnalysisData;
+  }
+
   /**
    * No description
    * @tags Data
@@ -41,6 +68,25 @@ export namespace Data {
   /**
    * No description
    * @tags Data
+   * @name GetPortfolioStatus
+   * @request GET:/data/portfolio/status/{jobId}
+   * @secure
+   */
+  export namespace GetPortfolioStatus {
+    export type RequestParams = {
+      jobId: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = GetPortfolioStatusData;
+  }
+
+  /**
+   * No description
+   * @tags Data
    * @name GetTokenMetadata
    * @request GET:/data/token-metadata
    * @secure
@@ -56,6 +102,36 @@ export namespace Data {
       Authorization: string;
     };
     export type ResponseBody = GetTokenMetadataData;
+  }
+
+  /**
+   * No description
+   * @tags Data
+   * @name GetUserPortfolio
+   * @request GET:/data/{address}/portfolio
+   * @secure
+   */
+  export namespace GetUserPortfolio {
+    export type RequestParams = {
+      address: string;
+    };
+    export type RequestQuery = {
+      /**
+       * @format double
+       * @default 1
+       */
+      page?: number;
+      /**
+       * @format double
+       * @default 100
+       */
+      pageSize?: number;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = GetUserPortfolioData;
   }
 
   /**
@@ -99,5 +175,22 @@ export namespace Data {
       Authorization: string;
     };
     export type ResponseBody = GetWalletHistoryData;
+  }
+
+  /**
+   * No description
+   * @tags Data
+   * @name Query
+   * @request POST:/data/query
+   * @secure
+   */
+  export namespace Query {
+    export type RequestParams = {};
+    export type RequestQuery = {};
+    export type RequestBody = QueryPayload;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = QueryData;
   }
 }

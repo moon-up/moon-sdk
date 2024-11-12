@@ -11,7 +11,7 @@
 
 import {
   AbstainResult,
-  ApproveResult3,
+  ApproveData2,
   AttachResult,
   AttachTokenToGaugeResult,
   CalculateOptimalVoteDistributionOutput,
@@ -31,7 +31,7 @@ import {
   GetApprovedOutput,
   GetBalanceOfAtNftData,
   GetBalanceOfNftOutput,
-  GetBalanceOfResult2,
+  GetBalanceOfOutput1,
   GetDelegatesOutput,
   GetFusionByAddressData,
   GetFusionsByTypeData,
@@ -71,7 +71,7 @@ import {
   SafeTransferFromOutput,
   SetApprovalForAllData1,
   SplitOutput,
-  TransferFromOutput1,
+  TransferFromData1,
   VeNFTInputBody,
   VeTheNftVoterInputBody,
   VoteOutput,
@@ -118,7 +118,7 @@ export namespace Thena {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = ApproveResult3;
+    export type ResponseBody = ApproveData2;
   }
 
   /**
@@ -469,7 +469,7 @@ export namespace Thena {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetBalanceOfResult2;
+    export type ResponseBody = GetBalanceOfOutput1;
   }
 
   /**
@@ -1328,7 +1328,7 @@ export namespace Thena {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = TransferFromOutput1;
+    export type ResponseBody = TransferFromData1;
   }
 
   /**
