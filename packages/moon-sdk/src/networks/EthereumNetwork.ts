@@ -230,10 +230,11 @@ export class EthereumNetwork implements INetwork {
 	 * @returns A promise that resolves to an object containing the raw signed transaction.
 	 */
 	async signTransaction(accountName: string, transaction: any): Promise<any> {
-		const account = await this.getAccount(accountName);
-		const signer = await this.getSigner(account);
-		const signedTx = await signer.signTransaction(transaction);
-		return { raw_transaction: signedTx };
+		return this.moon.signTransaction(accountName, transaction);
+		// const account = await this.getAccount(accountName);
+		// const signer = await this.getSigner(account);
+		// const signedTx = await signer.signTransaction(transaction);
+		// return { raw_transaction: signedTx };
 	}
 
 	/**
@@ -258,17 +259,28 @@ export class EthereumNetwork implements INetwork {
 		const provider = await this.getProvider();
 		return provider.getTransaction(hash);
 	}
+	/**
+	 * Estimates the gas required for a given transaction.
+	 *
+	 * @param transaction - The transaction object for which to estimate gas.
+	 * @returns A promise that resolves to an object containing the gas estimate as a string.
+	 */
+	async estimateGas(transaction: any): Promise<any> {
+		const provider = await this.getProvider();
+		const gasEstimate = await provider.estimateGas(transaction);
+		return gasEstimate.toString();
+	}
 
 	/**
-	 * Sends a transaction to the Ethereum network.
+	 * Sends a transaction to the Ethereum network and provides status updates.
 	 *
 	 * @param transaction - The transaction object to be sent.
-	 * @returns A promise that resolves to the transaction receipt.
+	 * @returns A promise that resolves to the final transaction receipt and emits status updates.
 	 */
 	async sendTransaction(transaction: any): Promise<any> {
 		const provider = await this.getProvider();
-		const tx = await provider.broadcastTransaction(transaction);
-		return tx.wait();
+		const tx = await this.signTransaction(transaction.from, transaction);
+		return provider.broadcastTransaction(tx.raw_transaction);
 	}
 
 	/**
@@ -300,18 +312,6 @@ export class EthereumNetwork implements INetwork {
 		value: any,
 	): Promise<any> {
 		return await this.moon.signTypedData(accountName, domain, types, value);
-	}
-
-	/**
-	 * Estimates the gas required for a given transaction.
-	 *
-	 * @param transaction - The transaction object for which to estimate gas.
-	 * @returns A promise that resolves to an object containing the gas estimate as a string.
-	 */
-	async estimateGas(transaction: any): Promise<any> {
-		const provider = await this.getProvider();
-		const gasEstimate = await provider.estimateGas(transaction);
-		return { gas: gasEstimate.toString() };
 	}
 
 	/**

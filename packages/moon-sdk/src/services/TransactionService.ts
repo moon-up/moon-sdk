@@ -274,20 +274,24 @@ export class TransactionService {
 	}
 
 	/**
-	 * Estimates the gas required for a given transaction.
+	 * Estimates the gas required for a given transaction on the specified blockchain network.
 	 *
-	 * @param transaction - A partial transaction request object.
-	 * @returns A promise that resolves to the estimated gas as a BigNumberish value.
+	 * @param type - The type of blockchain network (e.g., Ethereum, Bitcoin).
+	 * @param transaction - The transaction object for which to estimate gas.
+	 * @returns A promise that resolves to an object containing the gas estimate.
 	 */
 	async estimateGas(
+		type: ChainType,
 		transaction: Partial<TransactionRequest>,
 	): Promise<BigNumberish> {
-		const provider = await this.providerService.getEthereumProvider(
-			this.sdk.getChainService().getSelectedChain()?.network_id || 1,
-		);
-		const gas = await provider.estimateGas(transaction);
-		return gas;
+		if (type !== "ethereum") {
+			throw new Error("Gas estimation is only supported for Ethereum networks");
+		}
+
+		const network = this.getNetwork(type) as EthereumNetwork;
+		return network.estimateGas(transaction);
 	}
+
 	/**
 	 * Watches a transaction until it is mined and reaches the specified number of confirmations.
 	 *

@@ -21,6 +21,9 @@ export class CosmosNetwork implements INetwork {
 	constructor(moonSDK: MoonSDK) {
 		this.moonSDK = moonSDK;
 	}
+	estimateGas(transaction: any): Promise<any> {
+		throw new Error("Method not implemented.");
+	}
 
 	async createAccount(input: any): Promise<any> {
 		return this.moonSDK.getCosmosSDK().createAccount(input);

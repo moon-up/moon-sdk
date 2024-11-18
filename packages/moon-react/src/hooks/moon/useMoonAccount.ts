@@ -1,8 +1,10 @@
 // useMoon.ts
 import type { ChainType, INetwork } from "@moonup/moon-sdk";
+import type { TransactionRequest, TransactionResponse } from "ethers";
 import { useCallback } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import {
+	useEstimateGas as estimateGasWagmi,
 	useAccount,
 	useChainId,
 	useSendTransaction,
@@ -222,6 +224,36 @@ export const useMoonAccount = (): INetwork & {
 	);
 
 	/**
+	 * Estimates the gas required for a given transaction.
+	 *
+	 * @param transaction - The transaction object for which to estimate gas.
+	 * @returns A promise that resolves to the estimated gas as a bigint.
+	 */
+
+	const estimateGas = useCallback(
+		async (transaction: Partial<TransactionRequest>): Promise<bigint> => {
+			if (isConnected && address) {
+				// Use wagmi's estimateGas if a wagmi account is connected
+				const estimate = await estimateGasWagmi({
+					chainId: Number.parseInt(transaction.chainId as string),
+					to: transaction.to as `0x${string}`,
+					data: transaction.data as `0x${string}` | undefined,
+					value: transaction.value
+						? BigInt(transaction.value.toString())
+						: undefined,
+				});
+				return BigInt(estimate.toString());
+			}
+			// Fall back to Moon API if no wagmi account is connected
+			const response = await moon
+				.getTransactionService()
+				.estimateGas(chainType, transaction);
+			return BigInt(response.toString());
+		},
+		[moon, chainType, isConnected, address, estimateGasWagmi],
+	);
+
+	/**
 	 * Signs a transaction using either the connected wagmi account or the Moon API.
 	 *
 	 * @param {string} accountName - The name of the account to sign the transaction with.
@@ -241,7 +273,12 @@ export const useMoonAccount = (): INetwork & {
 	const signTransaction = useCallback(
 		async (accountName: string, transaction: any): Promise<any> => {
 			try {
-				if (isConnected && address === accountName) {
+				if (
+					!transaction.dryrun &&
+					!transaction.simulate &&
+					isConnected &&
+					address === accountName
+				) {
 					if (isConnected && address) {
 						if (chainId !== Number.parseInt(transaction.chain_id)) {
 							await switchChain({
@@ -278,42 +315,100 @@ export const useMoonAccount = (): INetwork & {
 	);
 
 	/**
-	 * Sends a transaction using either wagmi's sendTransaction or Moon API's sendTransaction.
+	 * Sends a transaction and provides status updates.
 	 *
 	 * @param transaction - The transaction object to be sent.
-	 * @returns A promise that resolves to the result of the transaction.
-	 *
-	 * The function first checks if a wagmi account is connected and an address is available.
-	 * If so, it uses wagmi's sendTransactionAsync to send the transaction.
-	 * If not, it falls back to using the Moon API's sendTransaction method.
-	 *
-	 * @remarks
-	 * - Ensure that `isConnected` and `address` are properly set when using wagmi's sendTransaction.
-	 * - The Moon API's sendTransaction method requires `chainType` to be specified.
+	 * @returns A promise that resolves to the final transaction receipt and emits status updates.
 	 */
 
 	const sendTransaction = useCallback(
 		async (transaction: any): Promise<any> => {
 			try {
+				let txHash: string;
+
 				if (isConnected && address) {
-					console.log("chainId", chainId);
-					console.log("transaction.chain_id", transaction.chain_id);
-					if (chainId !== transaction.chain_id) {
-						await switchChain(transaction.chainId);
+					if (chainId !== transaction.chainId) {
+						await switchChain({ chainId: transaction.chainId as number });
 					}
 					// Use wagmi's sendTransaction if a wagmi account is connected
-					return await sendTransactionAsync(transaction);
+					const tx = await sendTransactionAsync({
+						to: transaction.to as `0x${string}`,
+						data: transaction.data as `0x${string}` | undefined,
+						value: transaction.value
+							? BigInt(transaction.value.toString())
+							: undefined,
+						chainId: transaction.chainId as number | undefined,
+					});
+					txHash = tx;
+				} else {
+					// Fall back to Moon API if no wagmi account is connected
+					const tx = (await moon
+						.getTransactionService()
+						.sendTransaction(
+							chainType,
+							transaction,
+						)) as unknown as TransactionResponse;
+					txHash = tx.hash;
 				}
-				// Fall back to Moon API if no wagmi account is connected
-				return await moon
-					.getTransactionService()
-					.sendTransaction(chainType, transaction);
+
+				return new Promise((resolve, reject) => {
+					resolve({
+						status: "pending",
+						hash: txHash,
+						message: "Transaction sent. Waiting for confirmation...",
+					});
+
+					const checkStatus = setInterval(async () => {
+						try {
+							const status = await moon
+								.getTransactionService()
+								.getTransaction(chainType, txHash);
+							if (status.status === "completed") {
+								clearInterval(checkStatus);
+								resolve({
+									status: "completed",
+									hash: txHash,
+									receipt: status,
+									message: "Transaction confirmed",
+								});
+							} else if (status.status === "failed") {
+								clearInterval(checkStatus);
+								reject({
+									status: "failed",
+									hash: txHash,
+									error: status.error,
+									message: "Transaction failed",
+								});
+							}
+						} catch (error) {
+							clearInterval(checkStatus);
+							reject({
+								status: "failed",
+								hash: txHash,
+								error: error,
+								message: "Error checking transaction status",
+							});
+						}
+					}, 5000); // Check every 5 seconds
+				});
 			} catch (error) {
 				console.error("Error sending transaction:", error);
-				return error;
+				return {
+					status: "failed",
+					error: error,
+					message: "Error sending transaction",
+				};
 			}
 		},
-		[moon, chainType, isConnected, address, sendTransactionAsync],
+		[
+			moon,
+			chainType,
+			isConnected,
+			address,
+			sendTransactionAsync,
+			switchChain,
+			chainId,
+		],
 	);
 
 	/**
@@ -409,5 +504,6 @@ export const useMoonAccount = (): INetwork & {
 		sendTransaction,
 		signMessage,
 		signTypedData,
+		estimateGas,
 	};
 };

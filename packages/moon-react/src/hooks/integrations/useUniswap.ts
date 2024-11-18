@@ -30,7 +30,7 @@ import type {
 	GetApprovedResult,
 	GetFactoryOutput,
 	GetFactoryParams4,
-	GetWethData1,
+	GetWethData,
 	GetWethParams6,
 	IncreaseLiquidityData,
 	IsApprovedForAllOutput,
@@ -1003,7 +1003,7 @@ export const useUniswap = () => {
 	);
 
 	const getWeth = useCallback(
-		async (payload: { query: GetWethParams6 }): Promise<GetWethData1> => {
+		async (payload: { query: GetWethParams6 }): Promise<GetWethData> => {
 			return handleTransaction("getWeth", async () => {
 				const uniswapSDK = getUniswapSDK();
 				const response = await uniswapSDK.getWeth(payload.query);

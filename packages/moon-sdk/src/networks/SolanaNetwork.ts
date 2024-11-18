@@ -35,6 +35,9 @@ export class SolanaNetwork implements INetwork {
 	constructor(moonSDK: MoonSDK) {
 		this.moonSDK = moonSDK;
 	}
+	estimateGas(transaction: any): Promise<any> {
+		throw new Error("Method not implemented.");
+	}
 
 	/**
 	 * Creates a new Solana account using the provided input.

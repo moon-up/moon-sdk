@@ -2,22 +2,22 @@ import type { BigNumber } from "@ethersproject/bignumber";
 import type { BytesLike } from "@ethersproject/bytes";
 import type * as MoonAPI from "@moonup/moon-api";
 import type {
-  AuthenticationResponseJSON,
-  PublicKeyCredentialCreationOptionsJSON,
-  PublicKeyCredentialRequestOptionsJSON,
-  RegistrationResponseJSON,
+	AuthenticationResponseJSON,
+	PublicKeyCredentialCreationOptionsJSON,
+	PublicKeyCredentialRequestOptionsJSON,
+	RegistrationResponseJSON,
 } from "@simplewebauthn/typescript-types";
 import {
-  type Session,
-  type SupabaseClient,
-  createClient,
+	type Session,
+	type SupabaseClient,
+	createClient,
 } from "@supabase/supabase-js";
 import type {
-  BigNumberish,
-  TransactionReceipt,
-  TransactionRequest,
-  TypedDataDomain,
-  TypedDataField,
+	BigNumberish,
+	TransactionReceipt,
+	TransactionRequest,
+	TypedDataDomain,
+	TypedDataField,
 } from "ethers";
 import { EventEmitter } from "events";
 import type { SiweMessage } from "siwe";
@@ -670,7 +670,7 @@ export class MoonSDK extends EventEmitter implements IMoonSDK {
 	 * @returns A promise that resolves to the signed transaction string.
 	 * @throws {NetworkError} If the transaction signing fails.
 	 */
-	async signTransaction(wallet: string, transaction: any): Promise<string> {
+	async signTransaction(wallet: string, transaction: any): Promise<any> {
 		try {
 			const signedTransaction = await this.moonAPIService.signTransaction(
 				wallet,
@@ -795,7 +795,7 @@ export class MoonSDK extends EventEmitter implements IMoonSDK {
 	async estimateGas(
 		transaction: Partial<TransactionRequest>,
 	): Promise<BigNumberish> {
-		return this.transactionService.estimateGas(transaction);
+		return this.transactionService.estimateGas("ethereum", transaction);
 	}
 
 	/**

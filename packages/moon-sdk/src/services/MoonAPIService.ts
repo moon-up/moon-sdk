@@ -152,7 +152,7 @@ export class MoonAPIService {
 			wallet,
 			transaction,
 		);
-		return response?.data?.transactions?.at(0)?.raw_transaction || "";
+		return response?.data;
 	}
 
 	/**

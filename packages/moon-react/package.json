@@ -14,9 +14,10 @@
 			"types": "./dist/index.d.ts"
 		}
 	},
-
-	"files": ["dist", "src"],
-
+	"files": [
+		"dist",
+		"src"
+	],
 	"husky": {
 		"hooks": {
 			"pre-commit": "tsdx lint"
@@ -59,9 +60,9 @@
 		"build-storybook": "storybook build"
 	},
 	"peerDependencies": {
+		"@tanstack/react-query": "^5.0.0",
 		"react": "^18.0.0",
-		"react-dom": "^18.0.0",
-		"@tanstack/react-query": "^5.0.0"
+		"react-dom": "^18.0.0"
 	},
 	"dependencies": {
 		"@ethersproject/bignumber": "^5.7.0",
@@ -72,6 +73,7 @@
 		"@radix-ui/react-dialog": "^1.1.2",
 		"@radix-ui/react-dropdown-menu": "^2.1.2",
 		"@radix-ui/react-navigation-menu": "^1.2.1",
+		"@radix-ui/react-progress": "^1.1.0",
 		"@radix-ui/react-switch": "^1.1.1",
 		"@radix-ui/react-tabs": "^1.1.1",
 		"@radix-ui/react-toast": "^1.2.2",
@@ -150,6 +152,8 @@
 		"vite": "^5.4.8"
 	},
 	"eslintConfig": {
-		"extends": ["plugin:storybook/recommended"]
+		"extends": [
+			"plugin:storybook/recommended"
+		]
 	}
 }

@@ -20,6 +20,9 @@ export class BitcoinNetwork implements INetwork {
 	constructor(moonSDK: MoonSDK) {
 		this.moon = moonSDK;
 	}
+	estimateGas(transaction: any): Promise<any> {
+		throw new Error("Method not implemented.");
+	}
 	/**
 	 * Retrieves the balance for a given Bitcoin address.
 	 *

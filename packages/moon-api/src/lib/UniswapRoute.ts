@@ -12,7 +12,7 @@
 import {
   AddLiquidityEthOutput,
   AddLiquidityOutput,
-  ApproveData1,
+  ApproveResult1,
   BalanceOfOutput,
   BaseUriData,
   BurnResult,
@@ -75,7 +75,7 @@ import {
   TokenOfOwnerByIndexData,
   TokenUriData,
   TotalSupplyData,
-  TransferFromResult1,
+  TransferFromData1,
   UniswapV2InputBody,
   UniswapV3InputBody,
   UnwrapWeth92Data,
@@ -140,7 +140,7 @@ export namespace Uniswap {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = ApproveData1;
+    export type ResponseBody = ApproveResult1;
   }
 
   /**
@@ -1390,7 +1390,7 @@ export namespace Uniswap {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = TransferFromResult1;
+    export type ResponseBody = TransferFromData1;
   }
 
   /**

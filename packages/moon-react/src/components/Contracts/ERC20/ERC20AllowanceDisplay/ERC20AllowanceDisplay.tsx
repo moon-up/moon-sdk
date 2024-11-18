@@ -1,6 +1,6 @@
-import { useErc20 } from '@/hooks';
-import { motion } from 'framer-motion';
-import React, { useEffect, useState } from 'react';
+import { useErc20 } from "@/hooks";
+import { motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
 
 /**
  * Props for the ERC20AllowanceDisplay component.
@@ -13,11 +13,11 @@ import React, { useEffect, useState } from 'react';
  * @property {string} [className] - Optional CSS class for styling the component.
  */
 export interface ERC20AllowanceDisplayProps {
-  owner: string;
-  spender: string;
-  tokenAddress: string;
-  chainId: string;
-  className?: string;
+	owner: string;
+	spender: string;
+	tokenAddress: string;
+	chainId: string;
+	className?: string;
 }
 
 /**
@@ -35,44 +35,44 @@ export interface ERC20AllowanceDisplayProps {
  * @returns {JSX.Element} The rendered component displaying the allowance.
  */
 export const ERC20AllowanceDisplay: React.FC<ERC20AllowanceDisplayProps> = ({
-  owner,
-  spender,
-  tokenAddress,
-  chainId,
-  className = '',
+	owner,
+	spender,
+	tokenAddress,
+	chainId,
+	className = "",
 }) => {
-  const { allowanceErc20 } = useErc20();
-  const [allowance, setAllowance] = useState<string>('');
+	const { allowanceErc20 } = useErc20();
+	const [allowance, setAllowance] = useState<string>("");
 
-  useEffect(() => {
-    const fetchAllowance = async () => {
-      try {
-        const result = await allowanceErc20({
-          account: owner,
-          address: tokenAddress,
-          owner,
-          spender,
-          chainId,
-        });
-        setAllowance(result);
-      } catch (error) {
-        console.error('Failed to fetch allowance:', error);
-      }
-    };
+	useEffect(() => {
+		const fetchAllowance = async () => {
+			try {
+				const result = await allowanceErc20({
+					account: owner,
+					address: tokenAddress,
+					owner,
+					spender,
+					chainId,
+				});
+				setAllowance(result);
+			} catch (error) {
+				console.error("Failed to fetch allowance:", error);
+			}
+		};
 
-    fetchAllowance();
-  }, [owner, spender, tokenAddress, chainId]);
+		fetchAllowance();
+	}, [owner, spender, tokenAddress, chainId]);
 
-  return (
-    <motion.div
-      className={`text-lg font-semibold ${className}`}
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      Allowance: {allowance}
-    </motion.div>
-  );
+	return (
+		<motion.div
+			className={`text-lg font-semibold ${className}`}
+			initial={{ opacity: 0, y: -20 }}
+			animate={{ opacity: 1, y: 0 }}
+			transition={{ duration: 0.5 }}
+		>
+			Allowance: {allowance}
+		</motion.div>
+	);
 };
 
 export default ERC20AllowanceDisplay;

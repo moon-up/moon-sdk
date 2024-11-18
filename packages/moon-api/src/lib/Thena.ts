@@ -11,7 +11,7 @@
 
 import {
   AbstainResult,
-  ApproveData2,
+  ApproveData1,
   AttachResult,
   AttachTokenToGaugeResult,
   CalculateOptimalVoteDistributionOutput,
@@ -33,9 +33,9 @@ import {
   GetApprovedParams4,
   GetBalanceOfAtNftData,
   GetBalanceOfAtNftParams,
+  GetBalanceOfData1,
   GetBalanceOfNftOutput,
   GetBalanceOfNftParams4,
-  GetBalanceOfOutput1,
   GetBalanceOfParams8,
   GetDelegatesOutput,
   GetDelegatesParams4,
@@ -66,8 +66,8 @@ import {
   GetTotalSupplyAtParams,
   GetTotalSupplyAtTData,
   GetTotalSupplyAtTParams,
-  GetTotalSupplyData2,
   GetTotalSupplyParams8,
+  GetTotalSupplyResult1,
   GetTotalValueLockedOutput,
   GetTotalWeightOutput,
   GetTotalWeightParams4,
@@ -100,7 +100,7 @@ import {
   SafeTransferFromOutput,
   SetApprovalForAllData1,
   SplitOutput,
-  TransferFromData1,
+  TransferFromResult2,
   VeNFTInputBody,
   VeTheNftVoterInputBody,
   VoteOutput,
@@ -154,7 +154,7 @@ export class Thena<SecurityDataType = unknown> {
     data: VeNFTInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<ApproveData2, any>({
+    this.http.request<ApproveData1, any>({
       path: `/thena/nft/${address}/approve`,
       method: 'POST',
       body: data,
@@ -545,7 +545,7 @@ export class Thena<SecurityDataType = unknown> {
     { account, ...query }: GetBalanceOfParams8,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetBalanceOfOutput1, any>({
+    this.http.request<GetBalanceOfData1, any>({
       path: `/thena/nft/${account}/balanceOf`,
       method: 'GET',
       query: query,
@@ -864,7 +864,7 @@ export class Thena<SecurityDataType = unknown> {
    * @secure
    */
   getTotalSupply = (query: GetTotalSupplyParams8, params: RequestParams = {}) =>
-    this.http.request<GetTotalSupplyData2, any>({
+    this.http.request<GetTotalSupplyResult1, any>({
       path: `/thena/nft/totalSupply`,
       method: 'GET',
       query: query,
@@ -1357,7 +1357,7 @@ export class Thena<SecurityDataType = unknown> {
     data: VeNFTInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<TransferFromData1, any>({
+    this.http.request<TransferFromResult2, any>({
       path: `/thena/nft/${address}/transferFrom`,
       method: 'POST',
       body: data,
