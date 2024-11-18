@@ -1,6 +1,6 @@
 {
 	"name": "@moonup/moon-langchain",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"author": "0xEwhal <ewhal@bytemasons.com>",
 	"type": "commonjs",
 	"main": "./dist/index.js",
@@ -17,10 +17,7 @@
 			"default": "./dist/index.js"
 		}
 	},
-	"files": [
-		"dist",
-		"src"
-	],
+	"files": ["dist", "src"],
 	"engines": {
 		"node": ">=10"
 	},
