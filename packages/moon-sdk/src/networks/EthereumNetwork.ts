@@ -106,7 +106,12 @@ export class EthereumNetwork implements INetwork {
 	 * @returns A promise that resolves to a JsonRpcProvider instance.
 	 */
 	private async getProvider(chainId = 1): Promise<JsonRpcProvider> {
-		return this.moon.getEthereumProvider(chainId);
+		const selectedChain = this.moon.getChainService().getSelectedChain();
+		if (selectedChain) {
+			return this.moon.getEthereumProvider(selectedChain.chain_id || 1);
+		} else {
+			throw new Error("No chain selected");
+		}
 	}
 
 	/**

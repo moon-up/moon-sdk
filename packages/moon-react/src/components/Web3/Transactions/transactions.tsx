@@ -1,153 +1,291 @@
 import { useTheme } from "@/context";
-import { useMoonAccount } from "@/hooks";
-import type {
-	SimulateAssetChangesChange,
-	SimulateAssetChangesResponse,
-} from "@moonup/moon-api";
-import * as Dialog from "@radix-ui/react-dialog";
+import { useChains, useMoonAccount } from "@/hooks";
+import type { InputBody, SimulateAssetChangesChange } from "@moonup/moon-api";
 import * as Progress from "@radix-ui/react-progress";
+import * as Dialog from "@radix-ui/react-dialog";
+import { useQuery } from "@tanstack/react-query";
+import { formatEther, formatUnits } from "ethers";
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useState } from "react";
+import type React from "react";
+import { useEffect, useState } from "react";
+import { CheckCircleIcon, XCircleIcon } from "lucide-react";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { Tooltip } from "@/components";
+import { TooltipProvider } from "@radix-ui/react-tooltip";
 
 interface TransactionProps {
 	wallet: string;
-	transaction: any;
+	transaction: InputBody;
+	autoExecute?: boolean;
+	isModal?: boolean;
 }
 
 export const Transaction: React.FC<TransactionProps> = ({
 	wallet,
 	transaction,
+	autoExecute = false,
+	isModal = false,
 }) => {
+	const theme = useTheme();
+
+	return (
+		<TooltipProvider>
+			{isModal ? (
+				<Dialog.Root>
+					<Dialog.Trigger asChild>
+						{/* Your trigger component, e.g., a button */}
+						<button>Open Modal</button>
+					</Dialog.Trigger>
+					<Dialog.Portal>
+						<Dialog.Overlay className="fixed inset-0 bg-black/30" />
+						<Dialog.Content
+							className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-${theme.backgroundColor} p-4 rounded-lg shadow-md`}
+						>
+							{/* Render the transaction component */}
+							<TransactionContent
+								wallet={wallet}
+								transaction={transaction}
+								autoExecute={autoExecute}
+							/>
+						</Dialog.Content>
+					</Dialog.Portal>
+				</Dialog.Root>
+			) : (
+				<TransactionContent
+					wallet={wallet}
+					transaction={transaction}
+					autoExecute={autoExecute}
+				/>
+			)}
+		</TooltipProvider>
+	);
+};
+
+const TransactionContent: React.FC<
+	Pick<TransactionProps, "wallet" | "transaction" | "autoExecute">
+> = ({ wallet, transaction, autoExecute }) => {
 	const [status, setStatus] = useState<
 		"initial" | "simulating" | "ready" | "pending" | "completed" | "failed"
 	>("initial");
-	const [simulationResult, setSimulationResult] =
-		useState<SimulateAssetChangesResponse | null>(null);
 	const [txHash, setTxHash] = useState<string | null>(null);
 	const [txReceipt, setTxReceipt] = useState<any>(null);
+	const [error, setError] = useState<string | null>(null);
+	const { selectedChain } = useChains();
 
 	const theme = useTheme();
-	const { sendTransaction, signTransaction } = useMoonAccount();
+	const { sendTransaction, signTransaction, watchTransactionStatus } =
+		useMoonAccount();
+	const {
+		data: simulationResult,
+		error: simulationError,
+		refetch: simulateTransaction,
+	} = useQuery({
+		queryKey: ["simulateTransaction", transaction],
+		queryFn: async () => {
+			setStatus("simulating");
+			try {
+				const result = await signTransaction(wallet, {
+					...transaction,
+					simulate: true,
+				});
+				setStatus("ready");
+				return result;
+			} catch (error) {
+				const typedError = error as Error;
+				setError(typedError.message || "Simulation failed");
+				setStatus("failed");
+				throw error;
+			}
+		},
+		enabled: false,
+	});
 
-	React.useEffect(() => {
-		simulateTransaction();
-	}, [transaction]);
-
-	const simulateTransaction = async () => {
-		setStatus("simulating");
-		try {
-			// await estimateGas(transaction);
-			const simulationResult = await signTransaction(wallet, {
-				...transaction,
-				simulate: true,
-			});
-			console.log(simulationResult);
-			setSimulationResult(simulationResult.simulation);
-			setStatus("ready");
-		} catch (error) {
-			console.error("Simulation failed:", error);
+	useEffect(() => {
+		if (simulationError) {
 			setStatus("failed");
+			setError(simulationError.message || "Simulation failed");
 		}
-	};
-
+	}, [simulationError]);
 	const handleSign = async () => {
 		setStatus("pending");
+		setError(null);
 		try {
-			const result = await sendTransaction(transaction);
-			setTxHash(result.hash);
-			watchTransactionStatus(result);
+			const txResult = await sendTransaction({
+				...transaction,
+				from: wallet,
+			});
+			setTxHash(txResult.transaction_hash);
+			watchTransactionStatus(txResult.transaction_hash)
+				.then((result) => {
+					setTxReceipt(txResult);
+					setStatus(result.status);
+				})
+				.catch((error) => {
+					setError(error.message);
+					setStatus("failed");
+				});
 		} catch (error) {
+			const typedError = error as Error;
 			console.error("Transaction failed:", error);
+			setError(typedError.message || "Transaction failed");
 			setStatus("failed");
 		}
 	};
-
-	const watchTransactionStatus = async (txResult: any) => {
-		if (txResult.status === "pending") {
-			setTxHash(txResult.hash);
-			setStatus("pending");
-		} else if (txResult.status === "completed") {
-			setTxHash(txResult.hash);
-			setTxReceipt(txResult.receipt);
-			setStatus("completed");
-		} else if (txResult.status === "failed") {
-			setStatus("failed");
+	useEffect(() => {
+		if (autoExecute) {
+			handleSign();
+		} else {
+			simulateTransaction();
 		}
+	}, [transaction, autoExecute, simulateTransaction]);
+
+	const renderTransactionDetails = () => {
+		if (status === "simulating" || status === "pending") {
+			return (
+				<motion.div
+					className={`bg-${theme.backgroundColorSecondary} p-6 rounded-lg shadow-md mb-4`}
+					initial={{ opacity: 0, y: 10 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.3 }}
+				>
+					<div className="flex items-center justify-between mb-4">
+						<h3 className={`text-${theme.accentColor} text-2xl font-bold`}>
+							Transaction Details
+						</h3>
+						<div className="animate-pulse">
+							<div className={`bg-${theme.accentColor} h-2 w-8 rounded-full`} />
+						</div>
+					</div>
+					<p
+						className={`text-${theme.textColor} text-lg leading-relaxed text-center`}
+					>
+						Simulating transaction...
+					</p>
+				</motion.div>
+			);
+		}
+
+		if (simulationResult && simulationResult.transaction) {
+			const tx = simulationResult.transaction;
+			return (
+				<motion.div
+					className={`bg-${theme.backgroundColorSecondary} p-6 rounded-lg shadow-md mb-4`}
+					initial={{ opacity: 0, y: 10 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.3 }}
+				>
+					<h3 className={`text-${theme.accentColor} text-2xl font-bold mb-4`}>
+						Transaction Details
+					</h3>
+					<div
+						className={`grid grid-cols-2 gap-4 text-${theme.textColor} text-lg`}
+					>
+						<div className="font-semibold">To:</div>
+						<div>{tx.to}</div>
+						<div className="font-semibold">From:</div>
+						<div>{tx.from}</div>
+						<div className="font-semibold">Value:</div>
+						<div>
+							{formatEther(tx.value || "0")}{" "}
+							{tx.chainId === "137" ? "MATIC" : "ETH"}
+						</div>
+						{tx.gasLimit && (
+							<>
+								<div className="font-semibold">Gas Limit:</div>
+								<div>{tx.gasLimit}</div>
+							</>
+						)}
+						{tx.maxFeePerGas && (
+							<>
+								<div className="font-semibold">Max Fee:</div>
+								<div>{`${formatUnits(tx.maxFeePerGas, "gwei")} Gwei`}</div>
+							</>
+						)}
+						{tx.maxPriorityFeePerGas && (
+							<>
+								<div className="font-semibold">Max Priority Fee:</div>
+								<div>{`${formatUnits(tx.maxPriorityFeePerGas, "gwei")} Gwei`}</div>
+							</>
+						)}
+						<div className="font-semibold">Nonce:</div>
+						<div>{tx.nonce}</div>
+						<div className="font-semibold">Chain ID:</div>
+						<div>{tx.chainId}</div>
+						{tx.data && (
+							<>
+								<div className="font-semibold">Data:</div>
+								<div className="truncate">{tx.data}</div>
+							</>
+						)}
+						{tx.access_list?.length > 0 && (
+							<>
+								<div className="font-semibold">Access List:</div>
+								<div>{tx.access_list.join(", ")}</div>
+							</>
+						)}
+						{tx.blob_gas && (
+							<>
+								<div className="font-semibold">Blob Gas:</div>
+								<div>{tx.blob_gas}</div>
+							</>
+						)}
+						{tx.blob_gas_fee_cap && (
+							<>
+								<div className="font-semibold">Blob Gas Fee Cap:</div>
+								<div>{tx.blob_gas_fee_cap}</div>
+							</>
+						)}
+						{tx.blob_hashes?.length > 0 && (
+							<>
+								<div className="font-semibold">Blob Hashes:</div>
+								<div>{tx.blob_hashes.join(", ")}</div>
+							</>
+						)}
+					</div>
+				</motion.div>
+			);
+		}
+
+		return null;
 	};
 
-	const renderTransactionDetails = () => (
-		<div className={`bg-${theme.backgroundColor} p-4 rounded-lg shadow-md`}>
-			<h3 className={`text-${theme.accentColor} text-xl font-bold mb-2`}>
-				Transaction Details
-			</h3>
-			<ul className={`text-${theme.textColor}`}>
-				<li>To: {transaction.to}</li>
-				<li>Value: {transaction.value?.toString() ?? "N/A"} ETH</li>
-				<li>Gas Limit: {transaction.gasLimit?.toString() ?? "N/A"}</li>
-				<li>Max Fee: {transaction.maxFeePerGas?.toString() ?? "N/A"} Gwei</li>
-
-				<li>
-					Max Priority Fee:{" "}
-					{transaction.maxPriorityFeePerGas?.toString() ?? "N/A"} Gwei
-				</li>
-			</ul>
-		</div>
-	);
 	const renderAssetChanges = (changes: SimulateAssetChangesChange[]) => (
-		<div
-			className={`mt-4 bg-${theme.backgroundColor} p-4 rounded-lg shadow-md`}
+		<motion.div
+			className={`bg-${theme.backgroundColorSecondary} p-6 rounded-lg shadow-md mb-4`}
+			initial={{ opacity: 0, y: 10 }}
+			animate={{ opacity: 1, y: 0 }}
+			transition={{ duration: 0.3 }}
 		>
-			<h3 className={`text-${theme.accentColor} text-xl font-bold mb-2`}>
+			<h3 className={`text-${theme.accentColor} text-2xl font-bold mb-4`}>
 				Asset Changes
 			</h3>
-			{changes.map((change, index) => (
-				<div
-					key={index}
-					className={`mb-2 p-2 bg-${theme.backgroundColorSecondary} bg-opacity-10 rounded`}
-				>
-					<p>
-						{change.changeType} {change.assetType}
-					</p>
-					<p>From: {change.from}</p>
-					<p>To: {change.to}</p>
-					{change.amount && (
-						<p>
-							Amount: {change.amount} {change.symbol}
-						</p>
-					)}
-					{change.symbol && <p>Symbol: {change.symbol}</p>}
-					{change.name && <p>Name: {change.name}</p>}
-					{change.logo && (
+			<div className="grid grid-cols-1 gap-4">
+				{changes.map((change, index) => (
+					<motion.div
+						key={index}
+						initial={{ opacity: 0, y: 10 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ delay: index * 0.1, duration: 0.3 }}
+						className={`flex items-center p-4 bg-${theme.backgroundColor} rounded-lg shadow-md`}
+					>
 						<img
 							src={change.logo}
 							alt={`${change.name} logo`}
-							className="w-6 h-6 mt-2"
+							className="w-10 h-10 mr-4 rounded-full"
 						/>
-					)}
-				</div>
-			))}
-		</div>
-	);
-
-	const renderSimulationResult = () => (
-		<div
-			className={`bg-${theme.backgroundColor} p-4 rounded-lg shadow-md mt-4`}
-		>
-			<h3 className={`text-${theme.accentColor} text-xl font-bold mb-2`}>
-				Simulation Result
-			</h3>
-			{simulationResult?.error ? (
-				<p className="text-red-500">{simulationResult.error.message}</p>
-			) : (
-				<>
-					<p>
-						Gas Used: {Number.parseInt(simulationResult?.gasUsed || "0", 16)}
-					</p>
-					{simulationResult?.changes &&
-						renderAssetChanges(simulationResult.changes)}
-				</>
-			)}
-		</div>
+						<div className="flex-grow">
+							<p className={`text-${theme.textColor} text-lg font-semibold`}>
+								{change.changeType} {change.amount} {change.symbol}
+							</p>
+							<p className={`text-${theme.textColorSecondary} text-sm`}>
+								From: {change.from.slice(0, 6)}...{change.from.slice(-4)} → To:{" "}
+								{change.to.slice(0, 6)}...{change.to.slice(-4)}
+							</p>
+						</div>
+					</motion.div>
+				))}
+			</div>
+		</motion.div>
 	);
 
 	const renderStatusIndicator = () => (
@@ -163,98 +301,148 @@ export const Transaction: React.FC<TransactionProps> = ({
 					}}
 				/>
 			</Progress.Root>
-			<span className={`ml-2 text-${theme.textColor}`}>
-				{status === "completed"
-					? "Completed"
-					: status === "pending"
-						? "Pending"
-						: "Preparing"}
-			</span>
 		</div>
 	);
 
 	return (
 		<motion.div
-			initial={{ opacity: 0, y: 20 }}
+			className={`bg-${theme.backgroundColor} p-4 rounded-lg shadow-md`}
+			initial={{ opacity: 0, y: 10 }}
 			animate={{ opacity: 1, y: 0 }}
-			exit={{ opacity: 0, y: -20 }}
-			className={`max-w-md mx-auto bg-${theme.backgroundColor} p-6 rounded-xl shadow-lg`}
+			exit={{ opacity: 0, y: 10 }}
+			transition={{ duration: 0.3 }}
 		>
+			{error && (
+				<motion.div
+					className={`mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-md flex items-center`}
+					initial={{ opacity: 0, x: -20 }}
+					animate={{ opacity: 1, x: 0 }}
+					exit={{ opacity: 0, x: 20 }}
+					transition={{ duration: 0.3 }}
+				>
+					<XCircleIcon className="h-6 w-6 mr-2" />
+					{error}
+				</motion.div>
+			)}
 			{renderTransactionDetails()}
-			{status === "ready" && simulationResult && renderSimulationResult()}
+			{status === "ready" &&
+				simulationResult &&
+				simulationResult.simulation && (
+					<>
+						{renderAssetChanges(simulationResult.simulation.changes || [])}
+						<motion.div
+							className="mt-4 mb-2 flex justify-center"
+							initial={{ opacity: 0, x: -20 }}
+							animate={{ opacity: 1, x: 0 }}
+							transition={{ delay: 0.2, duration: 0.3 }}
+						>
+							<Tooltip content="This will execute the transaction. Make sure you have reviewed all details carefully.">
+								<p className={`text-${theme.textColor} text-center`}>
+									Review the transaction details and asset changes carefully
+									before proceeding.
+								</p>
+							</Tooltip>
+						</motion.div>
+					</>
+				)}
 			{(status === "pending" || status === "completed") &&
 				renderStatusIndicator()}
 
 			<AnimatePresence>
-				{status === "ready" && (
-					<Dialog.Root>
-						<Dialog.Trigger asChild>
-							<motion.button
-								whileHover={{ scale: 1.05 }}
-								whileTap={{ scale: 0.95 }}
-								className={`mt-4 w-full py-2 px-4 bg-${theme.accentColor} text-${theme.backgroundColor} rounded-md font-bold`}
-							>
-								Sign Transaction
-							</motion.button>
-						</Dialog.Trigger>
-						<Dialog.Portal>
-							<Dialog.Overlay className="bg-black bg-opacity-50 fixed inset-0" />
-							<Dialog.Content
-								className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-${theme.backgroundColor} p-6 rounded-xl shadow-lg`}
-							>
-								<Dialog.Title
-									className={`text-${theme.accentColor} text-xl font-bold mb-4`}
-								>
-									Confirm Transaction
-								</Dialog.Title>
-								<Dialog.Description className={`text-${theme.textColor} mb-4`}>
-									Are you sure you want to sign and send this transaction?
-								</Dialog.Description>
-								<div className="flex justify-end space-x-2">
-									<Dialog.Close asChild>
-										<motion.button
-											whileHover={{ scale: 1.05 }}
-											whileTap={{ scale: 0.95 }}
-											className={`py-2 px-4 bg-${theme.buttonColorSecondary} text-${theme.backgroundColor} rounded-md font-bold`}
-										>
-											Cancel
-										</motion.button>
-									</Dialog.Close>
-									<motion.button
-										whileHover={{ scale: 1.05 }}
-										whileTap={{ scale: 0.95 }}
-										onClick={handleSign}
-										className={`py-2 px-4 bg-${theme.accentColor} text-${theme.backgroundColor} rounded-md font-bold`}
-									>
-										Confirm
-									</motion.button>
-								</div>
-							</Dialog.Content>
-						</Dialog.Portal>
-					</Dialog.Root>
+				{status === "ready" && !autoExecute && !error && (
+					<motion.button
+						whileHover={{ scale: 1.05 }}
+						whileTap={{ scale: 0.95 }}
+						onClick={handleSign}
+						className={`mt-4 w-full py-3 px-4 bg-${theme.accentColor} text-${theme.backgroundColor} rounded-md font-bold text-lg shadow-md`}
+						initial={{ opacity: 0, y: 20 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.3 }}
+					>
+						Sign and Send Transaction
+					</motion.button>
+				)}
+
+				{status === "pending" && (
+					<motion.div
+						initial={{ opacity: 0, x: -20 }}
+						animate={{ opacity: 1, x: 0 }}
+						exit={{ opacity: 0, x: 20 }}
+						transition={{ duration: 0.3 }}
+						className={`mt-4 p-4 bg-yellow-100 border border-yellow-400 text-yellow-700 rounded-md flex items-center`}
+					>
+						<svg
+							className="animate-spin -ml-1 mr-3 h-5 w-5 text-yellow-500"
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+						>
+							<circle
+								className="opacity-25"
+								cx="12"
+								cy="12"
+								r="10"
+								stroke="currentColor"
+								strokeWidth="4"
+							/>
+							<path
+								className="opacity-75"
+								fill="currentColor"
+								d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+							/>
+						</svg>
+						Transaction is pending. Please wait...
+					</motion.div>
 				)}
 
 				{status === "completed" && txReceipt && (
 					<motion.div
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						exit={{ opacity: 0 }}
-						className={`mt-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-md`}
+						initial={{ opacity: 0, x: -20 }}
+						animate={{ opacity: 1, x: 0 }}
+						exit={{ opacity: 0, x: 20 }}
+						transition={{ duration: 0.3 }}
+						className={`mt-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-md flex items-center`}
 					>
-						<h3 className="font-bold mb-2">Transaction Completed</h3>
-						<p>Transaction Hash: {txHash}</p>
-						<p>Block Number: {txReceipt.blockNumber}</p>
-						<p>Gas Used: {txReceipt.gasUsed.toString()}</p>
+						<CheckCircleIcon className="h-6 w-6 mr-2" />
+						<div className="flex-grow">
+							<h3 className="font-bold mb-2">Transaction Completed</h3>
+							<p>
+								Transaction Hash:{" "}
+								<CopyToClipboard
+									text={txHash || ""}
+									onCopy={() => alert("Transaction hash copied to clipboard!")}
+								>
+									{selectedChain?.explorers &&
+									Array.isArray(selectedChain.explorers) &&
+									selectedChain.explorers.length > 0 ? (
+										<a
+											href={`${(selectedChain?.explorers as { url: string }[])?.[0]?.url}/tx/${txHash}`}
+											target="_blank"
+											rel="noopener noreferrer"
+										>
+											{txHash}
+										</a>
+									) : (
+										<div>{txHash}</div>
+									)}
+								</CopyToClipboard>
+							</p>
+							<p>Block Number: {txReceipt.blockNumber}</p>
+							{txReceipt.gasUsed && (
+								<p>Gas Used: {txReceipt.gasUsed.toString()}</p>
+							)}
+						</div>
 					</motion.div>
 				)}
-
 				{status === "failed" && (
 					<motion.div
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						exit={{ opacity: 0 }}
-						className={`mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-md`}
+						initial={{ opacity: 0, x: -20 }}
+						animate={{ opacity: 1, x: 0 }}
+						exit={{ opacity: 0, x: 20 }}
+						transition={{ duration: 0.3 }}
+						className={`mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-md flex items-center`}
 					>
+						<XCircleIcon className="h-6 w-6 mr-2" />
 						Transaction failed. Please try again.
 					</motion.div>
 				)}

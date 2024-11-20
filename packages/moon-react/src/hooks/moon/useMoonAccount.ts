@@ -1,6 +1,6 @@
 // useMoon.ts
 import type { ChainType, INetwork } from "@moonup/moon-sdk";
-import type { TransactionRequest, TransactionResponse } from "ethers";
+import type { TransactionRequest } from "ethers";
 import { useCallback } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import {
@@ -95,6 +95,7 @@ export const useMoonAccount = (): INetwork & {
 	accounts: string[];
 	account: string;
 	setAccount: (account: string) => void;
+	watchTransactionStatus: (txHash: string) => Promise<any>;
 } => {
 	const { moon } = useMoonAuth();
 	const [chainType, setChainType] = useLocalStorage<ChainType>(
@@ -325,13 +326,14 @@ export const useMoonAccount = (): INetwork & {
 		async (transaction: any): Promise<any> => {
 			try {
 				let txHash: string;
+				let txResponse: any;
 
-				if (isConnected && address) {
+				if (isConnected && address === transaction.from) {
 					if (chainId !== transaction.chainId) {
 						await switchChain({ chainId: transaction.chainId as number });
 					}
 					// Use wagmi's sendTransaction if a wagmi account is connected
-					const tx = await sendTransactionAsync({
+					txHash = await sendTransactionAsync({
 						to: transaction.to as `0x${string}`,
 						data: transaction.data as `0x${string}` | undefined,
 						value: transaction.value
@@ -339,58 +341,61 @@ export const useMoonAccount = (): INetwork & {
 							: undefined,
 						chainId: transaction.chainId as number | undefined,
 					});
-					txHash = tx;
 				} else {
 					// Fall back to Moon API if no wagmi account is connected
-					const tx = (await moon
+					txResponse = await moon
 						.getTransactionService()
-						.sendTransaction(
-							chainType,
-							transaction,
-						)) as unknown as TransactionResponse;
-					txHash = tx.hash;
+						.signTransaction(chainType, transaction.from, {
+							...transaction,
+							broadcast: true,
+						});
+					console.log("txResponse", txResponse);
+					txHash = txResponse.transaction_hash;
+					console.log("txHash", txHash);
 				}
+				return txResponse;
 
-				return new Promise((resolve, reject) => {
-					resolve({
-						status: "pending",
-						hash: txHash,
-						message: "Transaction sent. Waiting for confirmation...",
-					});
+				// return new Promise((resolve, reject) => {
+				// 	resolve({
+				// 		status: "pending",
+				// 		hash: txHash,
+				// 		message: "Transaction sent. Waiting for confirmation...",
+				// 		data: txResponse ? txResponse : null,
+				// 	});
 
-					const checkStatus = setInterval(async () => {
-						try {
-							const status = await moon
-								.getTransactionService()
-								.getTransaction(chainType, txHash);
-							if (status.status === "completed") {
-								clearInterval(checkStatus);
-								resolve({
-									status: "completed",
-									hash: txHash,
-									receipt: status,
-									message: "Transaction confirmed",
-								});
-							} else if (status.status === "failed") {
-								clearInterval(checkStatus);
-								reject({
-									status: "failed",
-									hash: txHash,
-									error: status.error,
-									message: "Transaction failed",
-								});
-							}
-						} catch (error) {
-							clearInterval(checkStatus);
-							reject({
-								status: "failed",
-								hash: txHash,
-								error: error,
-								message: "Error checking transaction status",
-							});
-						}
-					}, 5000); // Check every 5 seconds
-				});
+				// 	const checkStatus = setInterval(async () => {
+				// 		try {
+				// 			if (txHash) {
+				// 				const status = await moon
+				// 					.getTransactionService()
+				// 					.getTransaction(chainType, txHash);
+				// 				if (status.blockHash) {
+				// 					clearInterval(checkStatus);
+				// 					resolve({
+				// 						status: "completed",
+				// 						hash: txHash,
+				// 						receipt: status,
+				// 						message: "Transaction confirmed",
+				// 						data: txResponse ? txResponse : null,
+				// 					});
+				// 				} else if (status.status === "failed") {
+				// 					clearInterval(checkStatus);
+				// 					reject({
+				// 						status: "failed",
+				// 						hash: txHash,
+				// 						error: status.error,
+				// 						message: "Transaction failed",
+				// 						data: txResponse ? txResponse : null,
+				// 					});
+				// 				}
+				// 			} else {
+				// 				console.log("Transaction hash is null, retrying...");
+				// 			}
+				// 		} catch (error) {
+				// 			console.error("Error checking transaction status:", error);
+				// 		}
+				// 	}, 5000); // Check every 5 seconds
+				// });
 			} catch (error) {
 				console.error("Error sending transaction:", error);
 				return {
@@ -409,6 +414,40 @@ export const useMoonAccount = (): INetwork & {
 			switchChain,
 			chainId,
 		],
+	);
+
+	const watchTransactionStatus = useCallback(
+		async (txHash: string): Promise<any> => {
+			return new Promise((resolve, reject) => {
+				const checkStatus = setInterval(async () => {
+					try {
+						const status = await moon
+							.getTransactionService()
+							.getTransaction(chainType, txHash);
+						if (status.blockHash) {
+							clearInterval(checkStatus);
+							resolve({
+								status: "completed",
+								hash: txHash,
+								receipt: status,
+								message: "Transaction confirmed",
+							});
+						} else if (status.status === "failed") {
+							clearInterval(checkStatus);
+							reject({
+								status: "failed",
+								hash: txHash,
+								error: status.error,
+								message: "Transaction failed",
+							});
+						}
+					} catch (error) {
+						console.error("Error checking transaction status:", error);
+					}
+				}, 5000); // Check every 5 seconds
+			});
+		},
+		[moon, chainType],
 	);
 
 	/**
@@ -505,5 +544,6 @@ export const useMoonAccount = (): INetwork & {
 		signMessage,
 		signTypedData,
 		estimateGas,
+		watchTransactionStatus,
 	};
 };
