@@ -16,7 +16,10 @@
 			"default": "./dist/index.js"
 		}
 	},
-	"files": ["dist", "src"],
+	"files": [
+		"dist",
+		"src"
+	],
 	"engines": {
 		"node": ">=10"
 	},
@@ -79,6 +82,10 @@
 		"typescript": "^5.3.3"
 	},
 	"dependencies": {
-		"@simplewebauthn/server": "^8.3.5"
+		"@hey-api/client-fetch": "^0.4.4",
+		"@simplewebauthn/server": "^8.3.5",
+		"@tanstack/react-query": "5.60.6",
+		"nswag-portable": "13.20.0-v.17",
+		"react-query-swagger": "^15.12.3"
 	}
 }
