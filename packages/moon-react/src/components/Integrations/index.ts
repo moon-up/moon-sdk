@@ -1,2 +1,4 @@
-export * from './Lifi';
-export * from './Odos';
+export * from "./Lifi";
+export * from "./Odos";
+
+export * from "./Thorswap";

@@ -115,8 +115,8 @@ export const useThena = () => {
 	const { sendTransactionAsync } = useSendTransaction();
 	const chainId = useChainId();
 	const { switchChain } = useSwitchChain();
-	const prepareTransaction = (transaction: any) => {
-		if (isConnected) {
+	const prepareTransaction = (account: string, transaction: any) => {
+		if (isConnected && address === account) {
 			return {
 				...transaction,
 				broadcast: false,
@@ -157,7 +157,7 @@ export const useThena = () => {
 		(address: string, data: VeNFTInputBody): Promise<AbstainResult> => {
 			return handleTransaction("abstain", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 				const response = await thenaSDK.abstain(address, preparedData);
 				return handleWagmiTransaction(response.data);
 			});
@@ -169,7 +169,7 @@ export const useThena = () => {
 		(address: string, data: VeNFTInputBody): Promise<ApproveData> => {
 			return handleTransaction("approve", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 				const response = await thenaSDK.approve(address, preparedData);
 				return handleWagmiTransaction(response.data);
 			});
@@ -181,7 +181,7 @@ export const useThena = () => {
 		(address: string, data: VeNFTInputBody): Promise<AttachResult> => {
 			return handleTransaction("attach", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 				const response = await thenaSDK.attach(address, preparedData);
 				return handleWagmiTransaction(response.data);
 			});
@@ -196,7 +196,7 @@ export const useThena = () => {
 		): Promise<AttachTokenToGaugeResult> => {
 			return handleTransaction("attachTokenToGauge", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 				const response = await thenaSDK.attachTokenToGauge(
 					address,
 					preparedData,
@@ -224,7 +224,7 @@ export const useThena = () => {
 		(address: string, data: VeNFTInputBody): Promise<CheckpointResult> => {
 			return handleTransaction("checkpoint", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 				const response = await thenaSDK.checkpoint(address, preparedData);
 				return handleWagmiTransaction(response.data);
 			});
@@ -239,7 +239,7 @@ export const useThena = () => {
 		): Promise<ClaimBribesOutput> => {
 			return handleTransaction("claimBribes", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 				const response = await thenaSDK.claimBribes(address, preparedData);
 				return handleWagmiTransaction(response.data);
 			});
@@ -254,7 +254,7 @@ export const useThena = () => {
 		): Promise<ClaimFeesOutput> => {
 			return handleTransaction("claimFees", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 				const response = await thenaSDK.claimFees(address, preparedData);
 				return handleWagmiTransaction(response.data);
 			});
@@ -269,7 +269,7 @@ export const useThena = () => {
 		): Promise<ClaimRewardsData> => {
 			return handleTransaction("claimRewards", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 				const response = await thenaSDK.claimRewards(address, preparedData);
 				return handleWagmiTransaction(response.data);
 			});
@@ -284,7 +284,7 @@ export const useThena = () => {
 		): Promise<CreateGaugeOutput> => {
 			return handleTransaction("createGauge", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 				const response = await thenaSDK.createGauge(address, preparedData);
 				return handleWagmiTransaction(response.data);
 			});
@@ -296,7 +296,7 @@ export const useThena = () => {
 		(address: string, data: VeNFTInputBody): Promise<CreateLockOutput> => {
 			return handleTransaction("createLock", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 				const response = await thenaSDK.createLock(address, preparedData);
 				return handleWagmiTransaction(response.data);
 			});
@@ -308,7 +308,7 @@ export const useThena = () => {
 		(address: string, data: VeNFTInputBody): Promise<CreateLockForResult> => {
 			return handleTransaction("createLockFor", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 				const response = await thenaSDK.createLockFor(address, preparedData);
 				return handleWagmiTransaction(response.data);
 			});
@@ -320,7 +320,7 @@ export const useThena = () => {
 		(address: string, data: VeNFTInputBody): Promise<DelegateOutput> => {
 			return handleTransaction("delegate", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 				const response = await thenaSDK.delegate(address, preparedData);
 				return handleWagmiTransaction(response.data);
 			});
@@ -332,7 +332,7 @@ export const useThena = () => {
 		(address: string, data: VeNFTInputBody): Promise<DelegateBySigResult> => {
 			return handleTransaction("delegateBySig", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await thenaSDK.delegateBySig(address, preparedData);
 				return handleWagmiTransaction(response.data);
@@ -345,7 +345,7 @@ export const useThena = () => {
 		(address: string, data: VeNFTInputBody): Promise<DepositForData> => {
 			return handleTransaction("depositFor", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 				const response = await thenaSDK.depositFor(address, preparedData);
 				return handleWagmiTransaction(response.data);
 			});
@@ -357,7 +357,7 @@ export const useThena = () => {
 		(address: string, data: VeNFTInputBody): Promise<DetachResult> => {
 			return handleTransaction("detach", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 				const response = await thenaSDK.detach(address, preparedData);
 				return handleWagmiTransaction(response.data);
 			});
@@ -372,7 +372,7 @@ export const useThena = () => {
 		): Promise<DetachTokenFromGaugeResult> => {
 			return handleTransaction("detachTokenFromGauge", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 				const response = await thenaSDK.detachTokenFromGauge(
 					address,
 					preparedData,
@@ -390,7 +390,7 @@ export const useThena = () => {
 		): Promise<DistributeOutput> => {
 			return handleTransaction("distribute", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 				const response = await thenaSDK.distribute(address, preparedData);
 				return handleWagmiTransaction(response.data);
 			});
@@ -699,7 +699,7 @@ export const useThena = () => {
 		): Promise<IncreaseLockAmountResult> => {
 			return handleTransaction("increaseLockAmount", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 				const response = await thenaSDK.increaseLockAmount(
 					address,
 					preparedData,
@@ -717,7 +717,7 @@ export const useThena = () => {
 		): Promise<IncreaseUnlockTimeOutput> => {
 			return handleTransaction("increaseUnlockTime", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await thenaSDK.increaseUnlockTime(
 					address,
@@ -769,7 +769,7 @@ export const useThena = () => {
 		): Promise<KillGaugeOutput> => {
 			return handleTransaction("killGauge", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await thenaSDK.killGauge(address, preparedData);
 				return handleWagmiTransaction(response.data);
@@ -793,7 +793,7 @@ export const useThena = () => {
 		(address: string, data: VeNFTInputBody): Promise<MergeOutput> => {
 			return handleTransaction("merge", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await thenaSDK.merge(address, preparedData);
 				return handleWagmiTransaction(response.data);
@@ -809,7 +809,7 @@ export const useThena = () => {
 		): Promise<NotifyRewardAmountOutput> => {
 			return handleTransaction("notifyRewardAmount", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await thenaSDK.notifyRewardAmount(
 					address,
@@ -825,7 +825,7 @@ export const useThena = () => {
 		(address: string, data: VeTheNftVoterInputBody): Promise<PokeOutput> => {
 			return handleTransaction("poke", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await thenaSDK.poke(address, preparedData);
 				return handleWagmiTransaction(response.data);
@@ -849,7 +849,7 @@ export const useThena = () => {
 		(address: string, data: VeTheNftVoterInputBody): Promise<ResetOutput> => {
 			return handleTransaction("reset", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await thenaSDK.reset(address, preparedData);
 				return handleWagmiTransaction(response.data);
@@ -865,7 +865,7 @@ export const useThena = () => {
 		): Promise<ReviveGaugeOutput> => {
 			return handleTransaction("reviveGauge", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await thenaSDK.reviveGauge(address, preparedData);
 				return handleWagmiTransaction(response.data);
@@ -881,7 +881,7 @@ export const useThena = () => {
 		): Promise<SafeTransferFromOutput> => {
 			return handleTransaction("safeTransferFrom", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await thenaSDK.safeTransferFrom(address, preparedData);
 				return handleWagmiTransaction(response.data);
@@ -897,7 +897,7 @@ export const useThena = () => {
 		): Promise<SetApprovalForAllResult> => {
 			return handleTransaction("setApprovalForAll", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await thenaSDK.setApprovalForAll(
 					address,
@@ -913,7 +913,7 @@ export const useThena = () => {
 		(address: string, data: VeNFTInputBody): Promise<SplitOutput> => {
 			return handleTransaction("split", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await thenaSDK.split(address, preparedData);
 				return handleWagmiTransaction(response.data);
@@ -926,7 +926,7 @@ export const useThena = () => {
 		(address: string, data: VeNFTInputBody): Promise<TransferFromResult> => {
 			return handleTransaction("transferFrom", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await thenaSDK.transferFrom(address, preparedData);
 				return handleWagmiTransaction(response.data);
@@ -939,7 +939,7 @@ export const useThena = () => {
 		(address: string, data: VeTheNftVoterInputBody): Promise<VoteOutput> => {
 			return handleTransaction("vote", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await thenaSDK.vote(address, preparedData);
 				return handleWagmiTransaction(response.data);
@@ -955,7 +955,7 @@ export const useThena = () => {
 		): Promise<VoteWithOptimalDistributionOutput> => {
 			return handleTransaction("voteWithOptimalDistribution", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await thenaSDK.voteWithOptimalDistribution(
 					address,
@@ -971,7 +971,7 @@ export const useThena = () => {
 		(address: string, data: VeNFTInputBody): Promise<VotingData> => {
 			return handleTransaction("voting", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await thenaSDK.voting(address, preparedData);
 				return handleWagmiTransaction(response.data);
@@ -987,7 +987,7 @@ export const useThena = () => {
 		): Promise<WhitelistOutput> => {
 			return handleTransaction("whitelist", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await thenaSDK.whitelist(address, preparedData);
 				return handleWagmiTransaction(response.data);
@@ -1000,7 +1000,7 @@ export const useThena = () => {
 		(address: string, data: VeNFTInputBody): Promise<WithdrawData> => {
 			return handleTransaction("withdraw", async () => {
 				const thenaSDK = getThenaSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await thenaSDK.withdraw(address, preparedData);
 				return handleWagmiTransaction(response.data);

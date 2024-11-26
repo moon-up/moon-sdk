@@ -42,8 +42,8 @@ export const useLifi = () => {
 	const chainId = useChainId();
 	const { switchChain } = useSwitchChain();
 
-	const prepareTransaction = (transaction: any) => {
-		if (isConnected) {
+	const prepareTransaction = (account: string, transaction: any) => {
+		if (isConnected && address === account) {
 			return {
 				...transaction,
 				broadcast: false,
@@ -229,7 +229,10 @@ export const useLifi = () => {
 		async (payload: PostQuoteParams): Promise<PostQuote> => {
 			return handleTransaction("postQuoteLifi", async () => {
 				const lifiSDK = getLifiSDK();
-				const preparedPayload = prepareTransaction(payload);
+				const preparedPayload = prepareTransaction(
+					payload.accountName,
+					payload,
+				);
 				const response = await lifiSDK.postQuote(preparedPayload);
 				return handleWagmiTransaction(response.data);
 			});

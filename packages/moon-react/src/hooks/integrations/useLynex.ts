@@ -217,8 +217,8 @@ export const useLynex = () => {
 	const chainId = useChainId();
 	const { switchChain } = useSwitchChain();
 
-	const prepareTransaction = (transaction: any) => {
-		if (isConnected) {
+	const prepareTransaction = (account: string, transaction: any) => {
+		if (isConnected && address === account) {
 			return {
 				...transaction,
 				broadcast: false,
@@ -270,7 +270,7 @@ export const useLynex = () => {
 		): Promise<AddLiquidityData> => {
 			return handleTransaction("addLiquidity", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 				const response = await lynexSDK.addLiquidity(address, preparedData);
 				return handleWagmiTransaction(response);
 			});
@@ -293,7 +293,7 @@ export const useLynex = () => {
 		): Promise<AddLiquidityEthData> => {
 			return handleTransaction("addLiquidityEth", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 				const response = await lynexSDK.addLiquidityEth(address, preparedData);
 				return handleWagmiTransaction(response);
 			});
@@ -315,7 +315,7 @@ export const useLynex = () => {
 		): Promise<SwapExactEthForTokensData> => {
 			return handleTransaction("swapExactEthForTokens", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 				const response = await lynexSDK.swapExactEthForTokens(
 					address,
 					preparedData,
@@ -340,7 +340,7 @@ export const useLynex = () => {
 		): Promise<SwapExactTokensForEthData> => {
 			return handleTransaction("swapExactTokensForEth", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 				const response = await lynexSDK.swapExactTokensForEth(
 					address,
 					preparedData,
@@ -366,7 +366,7 @@ export const useLynex = () => {
 		): Promise<SwapExactTokensForTokensData> => {
 			return handleTransaction("swapExactTokensForTokens", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 				const response = await lynexSDK.swapExactTokensForTokens(
 					address,
 					preparedData,
@@ -391,7 +391,7 @@ export const useLynex = () => {
 		): Promise<ApproveOutput> => {
 			return handleTransaction("approve", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 				const response = await lynexSDK.approve(address, preparedData);
 				return handleWagmiTransaction(response);
 			});
@@ -410,7 +410,7 @@ export const useLynex = () => {
 		async (address: string, data: LynexNFTInputBody): Promise<BurnData> => {
 			return handleTransaction("burn", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.burn(address, preparedData);
 				return handleWagmiTransaction(response);
@@ -433,7 +433,7 @@ export const useLynex = () => {
 		): Promise<CheckpointData> => {
 			return handleTransaction("checkpoint", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.checkpoint(address, preparedData);
 
@@ -457,7 +457,7 @@ export const useLynex = () => {
 		): Promise<CheckpointDelegateeData> => {
 			return handleTransaction("checkpointDelegatee", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 				const response = await lynexSDK.checkpointDelegatee(
 					address,
 					preparedData,
@@ -479,7 +479,7 @@ export const useLynex = () => {
 		async (address: string, data: LynexNFTInputBody): Promise<ClaimData> => {
 			return handleTransaction("claim", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.claim(address, preparedData);
 				return handleWagmiTransaction(response);
@@ -503,7 +503,7 @@ export const useLynex = () => {
 			return handleTransaction("createDelegatedLockFor", async () => {
 				const lynexSDK = getLynexSDK();
 
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.createDelegatedLockFor(
 					address,
@@ -529,7 +529,7 @@ export const useLynex = () => {
 		): Promise<CreateLockData> => {
 			return handleTransaction("createLock", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.createLock(address, preparedData);
 				return handleWagmiTransaction(response);
@@ -565,7 +565,7 @@ export const useLynex = () => {
 		): Promise<CreateLockForData> => {
 			return handleTransaction("createLockFor", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.createLockFor(address, preparedData);
 				return handleWagmiTransaction(response);
@@ -591,7 +591,7 @@ export const useLynex = () => {
 		async (address: string, data: LynexNFTInputBody): Promise<DelegateData> => {
 			return handleTransaction("delegate", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.delegate(address, preparedData);
 
@@ -633,7 +633,7 @@ export const useLynex = () => {
 		): Promise<DelegateBySigData> => {
 			return handleTransaction("delegateBySig", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.delegateBySig(address, preparedData);
 				return handleWagmiTransaction(response);
@@ -663,7 +663,7 @@ export const useLynex = () => {
 		): Promise<GlobalCheckpointData> => {
 			return handleTransaction("globalCheckpoint", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.globalCheckpoint(address, preparedData);
 				return handleWagmiTransaction(response);
@@ -686,7 +686,7 @@ export const useLynex = () => {
 		): Promise<IncreaseLockAmountData> => {
 			return handleTransaction("increaseLockAmount", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.increaseLockAmount(
 					address,
@@ -712,7 +712,7 @@ export const useLynex = () => {
 		): Promise<IncreaseUnlockTimeData> => {
 			return handleTransaction("increaseUnlockTime", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.increaseUnlockTime(
 					address,
@@ -736,7 +736,7 @@ export const useLynex = () => {
 			return handleTransaction("merge", async () => {
 				const lynexSDK = getLynexSDK();
 
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.merge(address, preparedData);
 				return handleWagmiTransaction(response);
@@ -770,7 +770,7 @@ export const useLynex = () => {
 			return handleTransaction("safeTransferFrom", async () => {
 				const lynexSDK = getLynexSDK();
 
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.safeTransferFrom(address, preparedData);
 				return handleWagmiTransaction(response);
@@ -794,7 +794,7 @@ export const useLynex = () => {
 			return handleTransaction("setApprovalForAll", async () => {
 				const lynexSDK = getLynexSDK();
 
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.setApprovalForAll(
 					address,
@@ -827,7 +827,7 @@ export const useLynex = () => {
 		): Promise<SetClaimApprovalData> => {
 			return handleTransaction("setClaimApproval", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.setClaimApproval(address, preparedData);
 				return handleWagmiTransaction(response);
@@ -850,7 +850,7 @@ export const useLynex = () => {
 		): Promise<SetClaimApprovalForAllData> => {
 			return handleTransaction("setClaimApprovalForAll", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.setClaimApprovalForAll(
 					address,
@@ -879,7 +879,7 @@ export const useLynex = () => {
 			return handleTransaction("split", async () => {
 				const lynexSDK = getLynexSDK();
 
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.split(address, preparedData);
 				return handleWagmiTransaction(response);
@@ -909,7 +909,7 @@ export const useLynex = () => {
 		): Promise<TransferFromOutput> => {
 			return handleTransaction("transferFrom", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.transferFrom(address, preparedData);
 				return handleWagmiTransaction(response);
@@ -940,7 +940,7 @@ export const useLynex = () => {
 			return handleTransaction("unlockPermanent", async () => {
 				const lynexSDK = getLynexSDK();
 
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.unlockPermanent(address, preparedData);
 				return handleWagmiTransaction(response);
@@ -962,7 +962,7 @@ export const useLynex = () => {
 		): Promise<ClaimFeesData> => {
 			return handleTransaction("claimFees", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.claimFees(address, preparedData);
 				return handleWagmiTransaction(response);
@@ -985,7 +985,7 @@ export const useLynex = () => {
 		): Promise<ClaimBribesData> => {
 			return handleTransaction("claimBribes", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.claimBribes(address, preparedData);
 				return handleWagmiTransaction(response);
@@ -1008,7 +1008,7 @@ export const useLynex = () => {
 		): Promise<ClaimRewardsResult> => {
 			return handleTransaction("claimRewards", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.claimRewards(address, preparedData);
 				return handleWagmiTransaction(response);
@@ -1038,7 +1038,7 @@ export const useLynex = () => {
 		): Promise<CreateGaugeData> => {
 			return handleTransaction("createGauge", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.createGauge(address, preparedData);
 				return handleWagmiTransaction(response);
@@ -1062,7 +1062,7 @@ export const useLynex = () => {
 			return handleTransaction("distribute", async () => {
 				const lynexSDK = getLynexSDK();
 
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.distribute(address, preparedData);
 				return handleWagmiTransaction(response);
@@ -1085,7 +1085,7 @@ export const useLynex = () => {
 		): Promise<KillGaugeData> => {
 			return handleTransaction("killGauge", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.killGauge(address, preparedData);
 				return handleWagmiTransaction(response);
@@ -1101,7 +1101,7 @@ export const useLynex = () => {
 		): Promise<NotifyRewardAmountData> => {
 			return handleTransaction("notifyRewardAmount", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.notifyRewardAmount(
 					address,
@@ -1124,7 +1124,7 @@ export const useLynex = () => {
 		async (address: string, data: LynexVoterInputBody): Promise<PokeData> => {
 			return handleTransaction("poke", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.poke(address, preparedData);
 				return handleWagmiTransaction(response);
@@ -1151,7 +1151,7 @@ export const useLynex = () => {
 		async (address: string, data: LynexVoterInputBody): Promise<ResetData> => {
 			return handleTransaction("reset", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.reset(address, preparedData);
 				return handleWagmiTransaction(response);
@@ -1181,7 +1181,7 @@ export const useLynex = () => {
 		): Promise<ReviveGaugeData> => {
 			return handleTransaction("reviveGauge", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.reviveGauge(address, preparedData);
 				return handleWagmiTransaction(response);
@@ -1207,7 +1207,7 @@ export const useLynex = () => {
 		async (address: string, data: LynexVoterInputBody): Promise<VoteData> => {
 			return handleTransaction("vote", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.vote(address, preparedData);
 				return handleWagmiTransaction(response);
@@ -1241,7 +1241,7 @@ export const useLynex = () => {
 		): Promise<VoteWithOptimalDistributionData> => {
 			return handleTransaction("voteWithOptimalDistribution", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.voteWithOptimalDistribution(
 					address,
@@ -1267,7 +1267,7 @@ export const useLynex = () => {
 		): Promise<WhitelistData> => {
 			return handleTransaction("whitelist", async () => {
 				const lynexSDK = getLynexSDK();
-				const preparedData = prepareTransaction(data);
+				const preparedData = prepareTransaction(address, data);
 
 				const response = await lynexSDK.whitelist(address, preparedData);
 				return handleWagmiTransaction(response);

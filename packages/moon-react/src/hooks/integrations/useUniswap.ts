@@ -189,8 +189,8 @@ export const useUniswap = () => {
 		return uniswapSDK;
 	}, [moon]);
 
-	const prepareTransaction = (transaction: any) => {
-		if (isConnected) {
+	const prepareTransaction = (account: string, transaction: any) => {
+		if (isConnected && address === account) {
 			return {
 				...transaction,
 				broadcast: false,
@@ -229,7 +229,10 @@ export const useUniswap = () => {
 		}): Promise<AddLiquidityOutput> => {
 			return handleTransaction("addLiquidity", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.addLiquidity(
 					payload.accountName,
 					preparedData,
@@ -247,7 +250,10 @@ export const useUniswap = () => {
 		}): Promise<AddLiquidityEthOutput> => {
 			return handleTransaction("addLiquidityEth", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.addLiquidityEth(
 					payload.accountName,
 					preparedData,
@@ -265,7 +271,10 @@ export const useUniswap = () => {
 		}): Promise<ApproveOutput> => {
 			return handleTransaction("approve", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.approve(
 					payload.accountName,
 					preparedData,
@@ -284,7 +293,10 @@ export const useUniswap = () => {
 		}): Promise<GetAmountInData> => {
 			return handleTransaction("getAmountIn", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.getAmountIn(
 					payload.accountName,
 					preparedData,
@@ -302,7 +314,10 @@ export const useUniswap = () => {
 		}): Promise<GetAmountOutOutput> => {
 			return handleTransaction("getAmountOut", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.getAmountOut(
 					payload.accountName,
 					preparedData,
@@ -320,7 +335,10 @@ export const useUniswap = () => {
 		}): Promise<GetAmountsInData> => {
 			return handleTransaction("getAmountsIn", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.getAmountsIn(
 					payload.accountName,
 					preparedData,
@@ -338,7 +356,10 @@ export const useUniswap = () => {
 		}): Promise<GetAmountsOutOutput> => {
 			return handleTransaction("getAmountsOut", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.getAmountsOut(
 					payload.accountName,
 					preparedData,
@@ -381,7 +402,10 @@ export const useUniswap = () => {
 		}): Promise<BurnResult> => {
 			return handleTransaction("burn", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.burn(
 					payload.accountName,
 					preparedData,
@@ -399,7 +423,10 @@ export const useUniswap = () => {
 		}): Promise<CollectData> => {
 			return handleTransaction("collect", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.collect(
 					payload.accountName,
 					preparedData,
@@ -419,7 +446,10 @@ export const useUniswap = () => {
 				"createAndInitializePoolIfNecessary",
 				async () => {
 					const uniswapSDK = getUniswapSDK();
-					const preparedData = prepareTransaction(payload.data);
+					const preparedData = prepareTransaction(
+						payload.accountName,
+						payload.data,
+					);
 					const response = await uniswapSDK.createAndInitializePoolIfNecessary(
 						payload.accountName,
 						preparedData,
@@ -438,7 +468,10 @@ export const useUniswap = () => {
 		}): Promise<DecreaseLiquidityData> => {
 			return handleTransaction("decreaseLiquidity", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.decreaseLiquidity(
 					payload.accountName,
 					preparedData,
@@ -469,7 +502,10 @@ export const useUniswap = () => {
 		}): Promise<ExactInputData> => {
 			return handleTransaction("exactInput", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.exactInput(
 					payload.accountName,
 					preparedData,
@@ -487,7 +523,10 @@ export const useUniswap = () => {
 		}): Promise<ExactInputSingleData> => {
 			return handleTransaction("exactInputSingle", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.exactInputSingle(
 					payload.accountName,
 					preparedData,
@@ -505,7 +544,10 @@ export const useUniswap = () => {
 		}): Promise<ExactOutputData> => {
 			return handleTransaction("exactOutput", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.exactOutput(
 					payload.accountName,
 					preparedData,
@@ -523,7 +565,10 @@ export const useUniswap = () => {
 		}): Promise<ExactOutputSingleData> => {
 			return handleTransaction("exactOutputSingle", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.exactOutputSingle(
 					payload.accountName,
 					preparedData,
@@ -576,7 +621,10 @@ export const useUniswap = () => {
 		}): Promise<IncreaseLiquidityData> => {
 			return handleTransaction("increaseLiquidity", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.increaseLiquidity(
 					payload.accountName,
 					preparedData,
@@ -607,7 +655,10 @@ export const useUniswap = () => {
 		}): Promise<MintResult> => {
 			return handleTransaction("mint", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.mint(
 					payload.accountName,
 					preparedData,
@@ -625,7 +676,10 @@ export const useUniswap = () => {
 		}): Promise<MulticallData> => {
 			return handleTransaction("multicall", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.multicall(
 					payload.accountName,
 					preparedData,
@@ -643,7 +697,10 @@ export const useUniswap = () => {
 		}): Promise<Multicall2Data> => {
 			return handleTransaction("multicall2", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.multicall2(
 					payload.accountName,
 					preparedData,
@@ -683,7 +740,10 @@ export const useUniswap = () => {
 		}): Promise<PermitData> => {
 			return handleTransaction("permit", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.permit(
 					payload.accountName,
 					preparedData,
@@ -725,7 +785,10 @@ export const useUniswap = () => {
 		}): Promise<RefundEthData> => {
 			return handleTransaction("refundEth", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.refundEth(
 					payload.accountName,
 					preparedData,
@@ -743,7 +806,10 @@ export const useUniswap = () => {
 		}): Promise<RefundEth2Data> => {
 			return handleTransaction("refundEth2", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.refundEth2(
 					payload.accountName,
 					preparedData,
@@ -761,7 +827,10 @@ export const useUniswap = () => {
 		}): Promise<SelfPermitData> => {
 			return handleTransaction("selfPermit", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.selfPermit(
 					payload.accountName,
 					preparedData,
@@ -779,7 +848,10 @@ export const useUniswap = () => {
 		}): Promise<SelfPermitAllowedData> => {
 			return handleTransaction("selfPermitAllowed", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.selfPermitAllowed(
 					payload.accountName,
 					preparedData,
@@ -797,7 +869,10 @@ export const useUniswap = () => {
 		}): Promise<SelfPermitAllowedIfNecessaryData> => {
 			return handleTransaction("selfPermitAllowedIfNecessary", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.selfPermitAllowedIfNecessary(
 					payload.accountName,
 					preparedData,
@@ -815,7 +890,10 @@ export const useUniswap = () => {
 		}): Promise<SelfPermitIfNecessaryData> => {
 			return handleTransaction("selfPermitIfNecessary", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.selfPermitIfNecessary(
 					payload.accountName,
 					preparedData,
@@ -833,7 +911,10 @@ export const useUniswap = () => {
 		}): Promise<SetApprovalForAllOutput> => {
 			return handleTransaction("setApprovalForAll", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.setApprovalForAll(
 					payload.accountName,
 					preparedData,
@@ -864,7 +945,10 @@ export const useUniswap = () => {
 		}): Promise<SweepTokenData> => {
 			return handleTransaction("sweepToken", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.sweepToken(
 					payload.accountName,
 					preparedData,
@@ -882,7 +966,10 @@ export const useUniswap = () => {
 		}): Promise<SweepToken2Data> => {
 			return handleTransaction("sweepToken2", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.sweepToken2(
 					payload.accountName,
 					preparedData,
@@ -900,7 +987,10 @@ export const useUniswap = () => {
 		}): Promise<SweepTokenWithFeeData> => {
 			return handleTransaction("sweepTokenWithFee", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.sweepTokenWithFee(
 					payload.accountName,
 					preparedData,
@@ -979,7 +1069,10 @@ export const useUniswap = () => {
 		}): Promise<TransferFromResult1> => {
 			return handleTransaction("transferFrom", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.transferFrom(
 					payload.accountName,
 					preparedData,
@@ -1020,7 +1113,10 @@ export const useUniswap = () => {
 		}): Promise<QuoteData> => {
 			return handleTransaction("quote", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.quote(
 					payload.accountName,
 					preparedData,
@@ -1038,7 +1134,10 @@ export const useUniswap = () => {
 		}): Promise<RemoveLiquidityResult> => {
 			return handleTransaction("removeLiquidity", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.removeLiquidity(
 					payload.accountName,
 					preparedData,
@@ -1056,7 +1155,10 @@ export const useUniswap = () => {
 		}): Promise<RemoveLiquidityEthResult> => {
 			return handleTransaction("removeLiquidityEth", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.removeLiquidityEth(
 					payload.accountName,
 					preparedData,
@@ -1076,7 +1178,10 @@ export const useUniswap = () => {
 				"removeLiquidityEthSupportingFeeOnTransferTokens",
 				async () => {
 					const uniswapSDK = getUniswapSDK();
-					const preparedData = prepareTransaction(payload.data);
+					const preparedData = prepareTransaction(
+						payload.accountName,
+						payload.data,
+					);
 					const response =
 						await uniswapSDK.removeLiquidityEthSupportingFeeOnTransferTokens(
 							payload.accountName,
@@ -1096,7 +1201,10 @@ export const useUniswap = () => {
 		}): Promise<RemoveLiquidityEthWithPermitData> => {
 			return handleTransaction("removeLiquidityEthWithPermit", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.removeLiquidityEthWithPermit(
 					payload.accountName,
 					preparedData,
@@ -1116,7 +1224,10 @@ export const useUniswap = () => {
 				"removeLiquidityEthWithPermitSupportingFeeOnTransferTokens",
 				async () => {
 					const uniswapSDK = getUniswapSDK();
-					const preparedData = prepareTransaction(payload.data);
+					const preparedData = prepareTransaction(
+						payload.accountName,
+						payload.data,
+					);
 					const response =
 						await uniswapSDK.removeLiquidityEthWithPermitSupportingFeeOnTransferTokens(
 							payload.accountName,
@@ -1136,7 +1247,10 @@ export const useUniswap = () => {
 		}): Promise<RemoveLiquidityWithPermitData> => {
 			return handleTransaction("removeLiquidityWithPermit", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.removeLiquidityWithPermit(
 					payload.accountName,
 					preparedData,
@@ -1154,7 +1268,10 @@ export const useUniswap = () => {
 		}): Promise<SwapEthForExactTokensData> => {
 			return handleTransaction("swapEthForExactTokens", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.swapEthForExactTokens(
 					payload.accountName,
 					preparedData,
@@ -1172,7 +1289,10 @@ export const useUniswap = () => {
 		}): Promise<SwapExactEthForTokensOutput> => {
 			return handleTransaction("swapExactEthForTokens", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.swapExactEthForTokens(
 					payload.accountName,
 					preparedData,
@@ -1192,7 +1312,10 @@ export const useUniswap = () => {
 				"swapExactEthForTokensSupportingFeeOnTransferTokens",
 				async () => {
 					const uniswapSDK = getUniswapSDK();
-					const preparedData = prepareTransaction(payload.data);
+					const preparedData = prepareTransaction(
+						payload.accountName,
+						payload.data,
+					);
 					const response =
 						await uniswapSDK.swapExactEthForTokensSupportingFeeOnTransferTokens(
 							payload.accountName,
@@ -1212,7 +1335,10 @@ export const useUniswap = () => {
 		}): Promise<SwapExactTokensForEthOutput> => {
 			return handleTransaction("swapExactTokensForEth", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.swapExactTokensForEth(
 					payload.accountName,
 					preparedData,
@@ -1232,7 +1358,10 @@ export const useUniswap = () => {
 				"swapExactTokensForEthSupportingFeeOnTransferTokens",
 				async () => {
 					const uniswapSDK = getUniswapSDK();
-					const preparedData = prepareTransaction(payload.data);
+					const preparedData = prepareTransaction(
+						payload.accountName,
+						payload.data,
+					);
 					const response =
 						await uniswapSDK.swapExactTokensForEthSupportingFeeOnTransferTokens(
 							payload.accountName,
@@ -1252,7 +1381,10 @@ export const useUniswap = () => {
 		}): Promise<SwapExactTokensForTokensOutput> => {
 			return handleTransaction("swapExactTokensForTokens", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.swapExactTokensForTokens(
 					payload.accountName,
 					preparedData,
@@ -1272,7 +1404,10 @@ export const useUniswap = () => {
 				"swapExactTokensForTokensSupportingFeeOnTransferTokens",
 				async () => {
 					const uniswapSDK = getUniswapSDK();
-					const preparedData = prepareTransaction(payload.data);
+					const preparedData = prepareTransaction(
+						payload.accountName,
+						payload.data,
+					);
 					const response =
 						await uniswapSDK.swapExactTokensForTokensSupportingFeeOnTransferTokens(
 							payload.accountName,
@@ -1292,7 +1427,10 @@ export const useUniswap = () => {
 		}): Promise<SwapTokensForExactEthData> => {
 			return handleTransaction("swapTokensForExactEth", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.swapTokensForExactEth(
 					payload.accountName,
 					preparedData,
@@ -1310,7 +1448,10 @@ export const useUniswap = () => {
 		}): Promise<SwapTokensForExactTokensData> => {
 			return handleTransaction("swapTokensForExactTokens", async () => {
 				const uniswapSDK = getUniswapSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await uniswapSDK.swapTokensForExactTokens(
 					payload.accountName,
 					preparedData,

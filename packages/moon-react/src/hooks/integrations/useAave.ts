@@ -67,8 +67,8 @@ export const useAave = () => {
 		return aaveSDK;
 	}, [moon]);
 
-	const prepareTransaction = (transaction: any) => {
-		if (isConnected) {
+	const prepareTransaction = (account: string, transaction: any) => {
+		if (isConnected && address === account) {
 			return {
 				...transaction,
 				broadcast: false,
@@ -150,7 +150,10 @@ export const useAave = () => {
 		}): Promise<AavePoolAPIResponseAavePoolExecuteFunctionResult> => {
 			return handleTransaction("supply", async () => {
 				const aaveSDK = getAaveSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await aaveSDK.supply(
 					payload.accountName,
 					preparedData,
@@ -176,7 +179,10 @@ export const useAave = () => {
 		}): Promise<AavePoolAPIResponseAavePoolExecuteFunctionResult> => {
 			return handleTransaction("withdraw", async () => {
 				const avveSDK = getAaveSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await avveSDK.withdraw(
 					payload.accountName,
 					preparedData,
@@ -202,7 +208,10 @@ export const useAave = () => {
 		}): Promise<AavePoolAPIResponseAavePoolExecuteFunctionResult> => {
 			return handleTransaction("borrow", async () => {
 				const avveSDK = getAaveSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await avveSDK.borrow(
 					payload.accountName,
 					preparedData,
@@ -228,7 +237,10 @@ export const useAave = () => {
 		}): Promise<AavePoolAPIResponseAavePoolExecuteFunctionResult> => {
 			return handleTransaction("repay", async () => {
 				const avveSDK = getAaveSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await avveSDK.repay(payload.accountName, preparedData);
 				return handleWagmiTransaction(response);
 			});
@@ -251,7 +263,10 @@ export const useAave = () => {
 		}): Promise<AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult> => {
 			return handleTransaction("claimAllRewards", async () => {
 				const avveSDK = getAaveSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await avveSDK.claimAllRewards(
 					payload.accountName,
 					preparedData,
@@ -277,7 +292,10 @@ export const useAave = () => {
 		}): Promise<AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult> => {
 			return handleTransaction("claimRewardsOnBehalf", async () => {
 				const avveSDK = getAaveSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await avveSDK.claimRewardsOnBehalf(
 					payload.accountName,
 					preparedData,
@@ -303,7 +321,10 @@ export const useAave = () => {
 		}): Promise<AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult> => {
 			return handleTransaction("claimRewardsToSelf", async () => {
 				const avveSDK = getAaveSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await avveSDK.claimRewardsToSelf(
 					payload.accountName,
 					preparedData,

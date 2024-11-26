@@ -1,27 +1,22 @@
-import React, { useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import * as RadixDialog from "@radix-ui/react-dialog";
-import * as RadixSlider from "@radix-ui/react-slider";
-import * as RadixTooltip from "@radix-ui/react-tooltip";
-import {
-	FiSettings,
-	FiRefreshCw,
-	FiChevronDown,
-	FiArrowDown,
-} from "react-icons/fi";
+import { useState, useEffect, useMemo } from "react";
+import { motion } from "framer-motion";
+import { FiArrowDown } from "react-icons/fi";
 import { useTheme } from "@/context";
-import { useOdos, useMoonTokenManager } from "@/hooks";
+import { useChains, useOdos } from "@/hooks";
 import { Transaction } from "@/components/Web3/Transactions/transactions";
 import { useMoonAccount } from "@/hooks";
 import { formatUnits } from "ethers";
-
 import { Button } from "@/components";
-import { ChainSelectorModal } from "@/components/Web3/Chains/ChainSelectors/ChainSelectorModal";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient, useQuery } from "@tanstack/react-query";
 import { safelyParseUnits } from "../../../utils";
 import { useDebounceValue } from "usehooks-ts";
+import { useErc20 } from "@/hooks/contracts/useErc20";
 
-const converyGasTokenAddress = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE";
+import { SlippageSettings } from "./SlippageSettings";
+import { SwapDetails } from "./SwapDetails";
+import { TokenInput } from "./TokenInput";
+import type { InputBody } from "@moonup/moon-api";
+
 type ButtonStatus =
 	| "Estimate"
 	| "Estimating..."
@@ -29,143 +24,145 @@ type ButtonStatus =
 	| "Swap"
 	| "Insufficient Balance";
 
-interface TokenSelectorProps {
-	tokens: any[];
-	selectedToken: any;
-	onSelect: (token: any) => void;
-}
+const tokenPriceBaseUrl = "https://api.odos.xyz/pricing/token";
 
-export const TokenSelector: React.FC<TokenSelectorProps> = ({
-	tokens,
-	selectedToken,
-	onSelect,
-}) => {
-	const [isOpen, setIsOpen] = React.useState(false);
-	const [searchTerm, setSearchTerm] = React.useState("");
-	const theme = useTheme();
-
-	const filteredTokens = tokens.filter(
-		(token) =>
-			token.symbol.toLowerCase().includes(searchTerm.toLowerCase()) ||
-			token.name.toLowerCase().includes(searchTerm.toLowerCase()),
+const fetchTokenPrice = async (chainId: number, tokenAddress: string) => {
+	const response = await fetch(
+		`${tokenPriceBaseUrl}/${chainId}/${tokenAddress}`,
 	);
+	if (response.status === 200) {
+		const data = await response.json();
+		return data.price;
+	} else {
+		throw new Error("Error fetching token price");
+	}
+};
 
-	return (
-		<RadixDialog.Root open={isOpen} onOpenChange={setIsOpen}>
-			<RadixDialog.Trigger asChild>
-				<button
-					className={`flex items-center justify-between w-full p-2 rounded-md bg-${theme.backgroundColorSecondary} text-${theme.textColor}`}
-				>
-					{selectedToken ? (
-						<>
-							<div className="flex items-center">
-								<img
-									src={selectedToken.logoURI}
-									alt={selectedToken.symbol}
-									className="w-6 h-6 mr-2 rounded-full"
-								/>
-								<span>{selectedToken.symbol}</span>
-							</div>
-							<FiChevronDown />
-						</>
-					) : (
-						<span>Select token</span>
-					)}
-				</button>
-			</RadixDialog.Trigger>
+const calculatePrice = (amount: string, price: number) => {
+	return Number.parseFloat(amount) * price;
+};
 
-			<AnimatePresence>
-				{isOpen && (
-					<RadixDialog.Portal forceMount>
-						<RadixDialog.Overlay asChild>
-							<motion.div
-								className="fixed inset-0 bg-black/50"
-								initial={{ opacity: 0 }}
-								animate={{ opacity: 1 }}
-								exit={{ opacity: 0 }}
-							/>
-						</RadixDialog.Overlay>
-						<RadixDialog.Content asChild>
-							<motion.div
-								className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md p-6 rounded-lg bg-${theme.backgroundColor} shadow-xl`}
-								initial={{ opacity: 0, scale: 0.95 }}
-								animate={{ opacity: 1, scale: 1 }}
-								exit={{ opacity: 0, scale: 0.95 }}
-							>
-								<RadixDialog.Title
-									className={`text-lg font-bold mb-4 text-${theme.textColor}`}
-								>
-									Select a token
-								</RadixDialog.Title>
-								<input
-									type="text"
-									placeholder="Search tokens"
-									value={searchTerm}
-									onChange={(e) => setSearchTerm(e.target.value)}
-									className={`w-full p-2 mb-4 rounded-md bg-${theme.backgroundColorSecondary} text-${theme.textColor}`}
-								/>
-								<div className={`max-h-60 overflow-y-auto`}>
-									{filteredTokens.map((token) => (
-										<button
-											key={token.address}
-											onClick={() => {
-												onSelect(token);
-												setIsOpen(false);
-											}}
-											className={`flex items-center w-full p-2 hover:bg-${theme.backgroundColorSecondary} rounded-md`}
-										>
-											<img
-												src={token.logoURI}
-												alt={token.symbol}
-												className="w-6 h-6 mr-2 rounded-full"
-											/>
-											<span className={`text-${theme.textColor}`}>
-												{token.symbol}
-											</span>
-											<span
-												className={`ml-2 text-sm text-${theme.textColorSecondary}`}
-											>
-												{token.name}
-											</span>
-										</button>
-									))}
-								</div>
-							</motion.div>
-						</RadixDialog.Content>
-					</RadixDialog.Portal>
-				)}
-			</AnimatePresence>
-		</RadixDialog.Root>
+const formatBalance = (balance: string, decimals: number) => {
+	return formatUnits(balance, decimals);
+};
+
+const fetchBalances = async (account: string, chainId: string) => {
+	const response = await fetch(
+		`https://api.odos.xyz/balances/${account}/${chainId}`,
 	);
+	if (response.status === 200) {
+		const data = await response.json();
+		console.log(data);
+		return data.balances;
+	} else {
+		throw new Error("Error fetching balances");
+	}
+};
+
+const fetchContractInfo = async (chainId: number) => {
+	const response = await fetch(
+		`https://api.odos.xyz/info/contract-info/v2/${chainId}`,
+	);
+	if (response.status === 200) {
+		const data = await response.json();
+		return data;
+	} else {
+		throw new Error("Error fetching contract info");
+	}
 };
 
 export const OdosSwap = () => {
 	const theme = useTheme();
-	const { getQuoteOdos, swapOdos } = useOdos();
-	const { tokensWithGasToken: tokenList, chain } = useMoonTokenManager();
+	const { getQuoteOdos, swapOdos, supportedTokensQuery } = useOdos();
 	const { account } = useMoonAccount();
 	const queryClient = useQueryClient();
-
-	const [fromToken, setFromToken] = React.useState<any>(null);
-	const [toToken, setToToken] = React.useState<any>(null);
-	const [fromAmount, setFromAmount] = React.useState<string>("");
-	const [toAmount, setToAmount] = React.useState<string>("");
-	const [slippage, setSlippage] = React.useState<number>(0.5);
-	const [estimateResult, setEstimateResult] = React.useState<any>(null);
-	const [buttonStatus, setButtonStatus] =
-		React.useState<ButtonStatus>("Estimate");
+	const { selectedChain } = useChains();
+	const { approveTokenSpendIfNeeded } = useErc20();
+	const [fromToken, setFromToken] = useState<any>(null);
+	const [toToken, setToToken] = useState<any>(null);
+	const [fromAmount, setFromAmount] = useState("");
+	const [toAmount, setToAmount] = useState("");
+	const [slippage, setSlippage] = useState(0.5);
+	const [estimateResult, setEstimateResult] = useState<any>(null);
+	const [buttonStatus, setButtonStatus] = useState<ButtonStatus>("Estimate");
+	const [transactionData, setTransactionData] = useState<InputBody | null>(
+		null,
+	);
+	const [_, setError] = useState<string | null>(null);
+	const [isSwapComplete, setIsSwapComplete] = useState(false);
+	const [showTransactionDetails, setShowTransactionDetails] = useState(false);
+	const [contractInfo, setContractInfo] = useState<any>(null);
 
 	const [debouncedFromAmount] = useDebounceValue(fromAmount, 500);
+	const { data: tokensFilteredForChain = [] } = supportedTokensQuery;
 
-	const tokensFilteredForChain = tokenList.filter(
-		(token) => token.chainId === chain?.chain_id,
-	);
+	const { data: balanceData = [] } = useQuery({
+		queryKey: ["OdosSwapBalances", account, selectedChain?.chain_id],
+		queryFn: () =>
+			fetchBalances(account, selectedChain?.chain_id?.toString() || "1"),
+		enabled: !!account && !!selectedChain,
+	});
+
+	const tokensWithBalances = useMemo(() => {
+		return tokensFilteredForChain.map((token) => {
+			const balance = balanceData?.find(
+				(b: any) => b.address === token.address,
+			);
+			return {
+				...token,
+				balance: balance
+					? formatBalance(balance.balance.toString(), token.decimals)
+					: "0.00",
+			};
+		});
+	}, [tokensFilteredForChain, balanceData]);
+
+	const { data: fromTokenPrice, refetch: refetchFromTokenPrice } = useQuery({
+		queryKey: ["tokenPrice", fromToken],
+		queryFn: () =>
+			fetchTokenPrice(selectedChain?.chain_id || 1, fromToken?.address),
+		enabled: !!fromToken,
+	});
+
+	const { data: toTokenPrice, refetch: refetchToTokenPrice } = useQuery({
+		queryKey: ["tokenPrice", toToken?.address],
+		queryFn: () =>
+			fetchTokenPrice(selectedChain?.chain_id || 1, toToken?.address),
+		enabled: !!toToken,
+	});
+
+	useEffect(() => {
+		if (fromToken && toToken) {
+			refetchFromTokenPrice();
+			refetchToTokenPrice();
+		}
+	}, [fromToken, toToken, refetchFromTokenPrice, refetchToTokenPrice]);
+
+	const fromValue = calculatePrice(fromAmount, fromTokenPrice || 0);
+	const toValue = calculatePrice(toAmount, toTokenPrice || 0);
 
 	useEffect(() => {
 		if (fromToken && toToken && debouncedFromAmount) {
 			handleEstimate();
 		}
-	}, [fromToken, toToken, debouncedFromAmount, slippage]);
+	}, [
+		fromToken,
+		toToken,
+		debouncedFromAmount,
+		slippage,
+		fromTokenPrice,
+		toTokenPrice,
+	]);
+
+	useEffect(() => {
+		if (selectedChain && typeof selectedChain.chain_id === "number") {
+			fetchContractInfo(selectedChain.chain_id)
+				.then(setContractInfo)
+				.catch((error) =>
+					console.error("Error fetching contract info:", error),
+				);
+		}
+	}, [selectedChain]);
 
 	const handleEstimate = async () => {
 		if (!fromToken || !toToken || !debouncedFromAmount) return;
@@ -179,19 +176,11 @@ export const OdosSwap = () => {
 		try {
 			const swapParams = {
 				inputTokens: [
-					{
-						amount: bigAmountWei.toString(),
-						tokenAddress: fromToken.address,
-					},
+					{ amount: bigAmountWei.toString(), tokenAddress: fromToken.address },
 				],
-				outputTokens: [
-					{
-						proportion: 1,
-						tokenAddress: toToken.address,
-					},
-				],
+				outputTokens: [{ proportion: 1, tokenAddress: toToken.address }],
 				slippageLimitPercent: Math.round(slippage * 100),
-				chain_id: chain?.chain_id?.toString() || "1",
+				chain_id: selectedChain?.chain_id?.toString() || "1",
 			};
 
 			const estimateResult = await getQuoteOdos({
@@ -201,7 +190,7 @@ export const OdosSwap = () => {
 			setEstimateResult(estimateResult);
 			setToAmount(
 				estimateResult?.data
-					? formatUnits(estimateResult.data.odos.toAmount, toToken.decimals)
+					? formatUnits(estimateResult.data.outAmounts[0], toToken.decimals)
 					: "0",
 			);
 			setButtonStatus("Swap");
@@ -211,211 +200,211 @@ export const OdosSwap = () => {
 		}
 	};
 
+	useEffect(() => {
+		const interval = setInterval(() => {
+			handleEstimate();
+		}, 60000);
+		return () => clearInterval(interval);
+	}, [fromToken, toToken, debouncedFromAmount, slippage]);
+
 	const handleSwap = async () => {
-		if (!fromToken || !toToken || !fromAmount || !toAmount || !account) return;
+		if (
+			!fromToken ||
+			!toToken ||
+			!fromAmount ||
+			!toAmount ||
+			!account ||
+			!contractInfo
+		)
+			return;
 
 		setButtonStatus("Swapping...");
 		const bigAmountWei = safelyParseUnits(fromAmount, fromToken.decimals);
+
 		try {
+			// Check if fromToken is not the native token
+			if (fromToken.address !== "0x0000000000000000000000000000000000000000") {
+				await approveTokenSpendIfNeeded(
+					account,
+					contractInfo.routerAddress,
+					fromToken.address,
+					Number.parseFloat(fromAmount),
+					selectedChain?.chain_id?.toString() || "1",
+				);
+			}
+
 			const swapParams = {
 				inputTokens: [
-					{
-						amount: bigAmountWei.toString(),
-						tokenAddress: fromToken.address,
-					},
+					{ amount: bigAmountWei.toString(), tokenAddress: fromToken.address },
 				],
-				outputTokens: [
-					{
-						proportion: 1,
-						tokenAddress: toToken.address,
-					},
-				],
+				outputTokens: [{ proportion: 1, tokenAddress: toToken.address }],
 				slippageLimitPercent: Math.round(slippage * 100),
-				chain_id: chain?.chain_id?.toString() || "",
-				broadcast: true,
+				chain_id: selectedChain?.chain_id?.toString() || "1",
+				broadcast: false,
+				dryrun: true,
 			};
 
-			const result = await swapOdos({
+			const result = (await swapOdos({
 				accountName: account,
 				data: swapParams,
-			});
+			})) as any;
 			queryClient.invalidateQueries({ queryKey: ["erc20TokenBalances"] });
+			console.log(result);
 
-			console.log("Swap executed:", result);
+			setTransactionData({
+				to: result.data.transaction.to,
+				data: result.data.transaction.data,
+				value: result.data.transaction.value,
+				nonce: result.data.transaction.nonce,
+				gasLimit: result.data.transaction.gasLimit,
+				maxFeePerGas: result.data.transaction.maxFeePerGas,
+				maxPriorityFeePerGas: result.data.transaction.maxPriorityFeePerGas,
+				chain_id: selectedChain?.chain_id?.toString() || "1",
+			});
+			setShowTransactionDetails(true);
 			setButtonStatus("Estimate");
 		} catch (error) {
 			console.error("Swap failed:", error);
+			setError((error as Error)?.message || "Swap failed");
 			setButtonStatus("Swap");
 		}
 	};
 
+	const swapTokens = () => {
+		setFromToken(toToken);
+		setToToken(fromToken);
+		setFromAmount(toAmount);
+		setToAmount(fromAmount);
+	};
+	const handleSwapComplete = () => {
+		setIsSwapComplete(true);
+		setFromAmount("");
+		setToAmount("");
+		setButtonStatus("Estimate");
+		setShowTransactionDetails(false);
+	};
+	const handleError = (error: any) => {
+		console.log("transaction error called", error);
+		setError(error);
+		setButtonStatus("Estimate");
+		setTransactionData(null);
+		setShowTransactionDetails(false);
+		setEstimateResult(null);
+		setFromAmount("");
+		setToAmount("");
+		// Reset other state variables if needed
+	};
+
+	if (isSwapComplete) {
+		return (
+			<div
+				className={`w-full max-w-md mx-auto p-6 rounded-lg bg-${theme?.backgroundColor} shadow-xl text-center`}
+			>
+				<h2 className={`text-2xl font-bold mb-4 text-${theme?.textColor}`}>
+					Swap Complete!
+				</h2>
+				<p className={`text-${theme?.textColorSecondary} mb-6`}>
+					Your transaction has been successfully processed.
+				</p>
+				<Button
+					onClick={() => setIsSwapComplete(false)}
+					className={`py-3 px-6 bg-${theme?.accentColor} text-${theme?.backgroundColor} rounded-md font-bold text-lg shadow-md`}
+				>
+					Make Another Swap
+				</Button>
+			</div>
+		);
+	}
+
 	return (
 		<div
-			className={`w-full max-w-md mx-auto p-6 rounded-lg bg-${theme.backgroundColor} shadow-xl`}
+			className={`w-full max-w-md mx-auto p-6 rounded-lg bg-${theme?.backgroundColor} shadow-xl`}
 		>
-			<ChainSelectorModal
-				chainIdFilterList={[1, 56, 137, 42161, 8453, 10]}
-				buttonProps={{
-					className: `w-full bg-${theme.backgroundColorSecondary} rounded-lg p-2 mb-4 text-${theme.textColor}`,
-				}}
-			/>
+			{!showTransactionDetails && (
+				<>
+					<div className="flex justify-between items-center mb-6">
+						<h2 className={`text-2xl font-bold text-${theme?.textColor}`}>
+							Swap
+						</h2>
 
-			<div
-				className={`mb-4 p-4 rounded-md bg-${theme.backgroundColorSecondary}`}
-			>
-				<TokenSelector
-					tokens={tokensFilteredForChain}
-					selectedToken={fromToken}
-					onSelect={(token) =>
-						setFromToken(
-							token.isGasToken
-								? { ...token, address: converyGasTokenAddress }
-								: token,
-						)
-					}
-				/>
-				<input
-					type="number"
-					value={fromAmount}
-					onChange={(e) => setFromAmount(e.target.value)}
-					placeholder="0.0"
-					className={`w-full mt-2 p-2 rounded-md bg-${theme.backgroundColor} text-${theme.textColor} text-right text-2xl`}
-				/>
-				<p className={`text-sm text-${theme.textColorSecondary} mt-1`}>
-					Balance: {fromToken?.balance || 0}
-				</p>
-			</div>
+						<SlippageSettings slippage={slippage} setSlippage={setSlippage} />
+					</div>
 
-			<div className="flex justify-center my-4">
-				<button
-					onClick={() => {
-						setFromToken(toToken);
-						setToToken(fromToken);
-						setFromAmount(toAmount);
-						setToAmount(fromAmount);
-					}}
-					className={`p-2 rounded-full bg-${theme.backgroundColorSecondary} text-${theme.textColor}`}
-				>
-					<FiArrowDown />
-				</button>
-			</div>
-
-			<div
-				className={`mb-4 p-4 rounded-md bg-${theme.backgroundColorSecondary}`}
-			>
-				<TokenSelector
-					tokens={tokensFilteredForChain}
-					selectedToken={toToken}
-					onSelect={(token) =>
-						setToToken(
-							token.isGasToken
-								? { ...token, address: converyGasTokenAddress }
-								: token,
-						)
-					}
-				/>
-				<input
-					type="number"
-					value={toAmount}
-					readOnly
-					placeholder="0.0"
-					className={`w-full mt-2 p-2 rounded-md bg-${theme.backgroundColor} text-${theme.textColor} text-right text-2xl`}
-				/>
-				<p className={`text-sm text-${theme.textColorSecondary} mt-1`}>
-					Balance: {toToken?.balance || 0}
-				</p>
-			</div>
-
-			<RadixTooltip.Provider>
-				<RadixTooltip.Root>
-					<RadixTooltip.Trigger asChild>
-						<button
-							className={`p-2 rounded-full bg-${theme.backgroundColorSecondary} text-${theme.textColor} mb-4`}
-						>
-							<FiSettings />
-						</button>
-					</RadixTooltip.Trigger>
-					<RadixTooltip.Content
-						className={`p-4 rounded-md bg-${theme.backgroundColorSecondary} text-${theme.textColor} shadow-lg`}
+					<div
+						className={`mb-4 p-4 rounded-2xl bg-${theme?.backgroundColorSecondary}`}
 					>
-						<div className="mb-2">Slippage Tolerance</div>
-						<RadixSlider.Root
-							className="relative flex items-center w-48 h-5"
-							value={[slippage]}
-							onValueChange={(value) => setSlippage(value[0])}
-							max={5}
-							step={0.1}
-						>
-							<RadixSlider.Track
-								className={`relative h-1 flex-grow rounded-full bg-${theme.backgroundColor}`}
-							>
-								<RadixSlider.Range
-									className={`absolute h-full rounded-full bg-${theme.accentColor}`}
-								/>
-							</RadixSlider.Track>
-							<RadixSlider.Thumb
-								className={`block w-5 h-5 rounded-full bg-${theme.accentColor}`}
-							/>
-						</RadixSlider.Root>
-						<div className="mt-2">{slippage.toFixed(1)}%</div>
-					</RadixTooltip.Content>
-				</RadixTooltip.Root>
-			</RadixTooltip.Provider>
+						<TokenInput
+							token={fromToken}
+							amount={fromAmount}
+							setAmount={setFromAmount}
+							tokens={tokensWithBalances}
+							onSelectToken={setFromToken}
+							balance={fromToken?.balance}
+							value={fromValue}
+						/>
 
-			{estimateResult && (
-				<div
-					className={`mb-4 p-4 rounded-md bg-${theme.backgroundColorSecondary} text-${theme.textColor}`}
-				>
-					<h3 className="font-bold mb-2">Swap Details</h3>
-					<div className="flex justify-between">
-						<span>Rate</span>
-						<span>
-							1 {fromToken.symbol} ={" "}
-							{(parseFloat(toAmount) / parseFloat(fromAmount)).toFixed(6)}{" "}
-							{toToken.symbol}
-						</span>
+						<div className="flex justify-center my-4">
+							<Button
+								onClick={swapTokens}
+								className={`p-2 rounded-full bg-${theme?.backgroundColor} text-${theme?.textColor} shadow-md`}
+							>
+								<FiArrowDown />
+							</Button>
+						</div>
+
+						<TokenInput
+							token={toToken}
+							amount={toAmount}
+							setAmount={setToAmount}
+							tokens={tokensWithBalances}
+							onSelectToken={setToToken}
+							balance={toToken?.balance}
+							value={toValue}
+							readOnly
+						/>
 					</div>
-					<div className="flex justify-between">
-						<span>Minimum received</span>
-						<span>
-							{(parseFloat(toAmount) * (1 - slippage / 100)).toFixed(6)}{" "}
-							{toToken.symbol}
-						</span>
-					</div>
-				</div>
+
+					<Button
+						onClick={handleSwap}
+						disabled={buttonStatus !== "Swap"}
+						className={`w-full py-4 px-6 bg-${theme?.accentColor} text-${theme?.backgroundColor} rounded-2xl font-bold text-lg shadow-md ${
+							buttonStatus !== "Swap" ? "opacity-50 cursor-not-allowed" : ""
+						}`}
+					>
+						{buttonStatus}
+					</Button>
+					{estimateResult && (
+						<motion.div
+							initial={{ opacity: 0, height: 0 }}
+							animate={{ opacity: 1, height: "auto" }}
+							exit={{ opacity: 0, height: 0 }}
+							transition={{ duration: 0.3 }}
+							className="mt-6"
+						>
+							<SwapDetails
+								estimateResult={estimateResult}
+								fromToken={fromToken}
+								toToken={toToken}
+								fromAmount={fromAmount}
+								toAmount={toAmount}
+								slippage={slippage}
+								fromValue={fromValue}
+								toValue={toValue}
+							/>
+						</motion.div>
+					)}
+				</>
 			)}
 
-			<Button
-				onClick={handleSwap}
-				disabled={buttonStatus !== "Swap"}
-				className={`w-full py-3 px-4 bg-${theme.accentColor} text-${theme.backgroundColor} rounded-md font-bold text-lg shadow-md ${
-					buttonStatus !== "Swap" ? "opacity-50 cursor-not-allowed" : ""
-				}`}
-			>
-				{buttonStatus === "Estimating..." ? (
-					<div className="flex items-center justify-center">
-						<FiRefreshCw className="animate-spin mr-2" />
-						Fetching quote...
-					</div>
-				) : (
-					buttonStatus
-				)}
-			</Button>
-
-			{estimateResult && (
-				<div className="mt-4">
-					<Transaction
-						wallet={account}
-						transaction={{
-							to: estimateResult.to,
-							data: estimateResult.data,
-							value: estimateResult.value,
-							chain_id: chain?.chain_id?.toString() || "1",
-						}}
-						autoExecute={false}
-						isModal={true}
-					/>
-				</div>
+			{transactionData && (
+				<Transaction
+					wallet={account}
+					transaction={transactionData}
+					autoExecute={false}
+					isModal={false}
+					onSuccess={handleSwapComplete}
+					onError={handleError}
+				/>
 			)}
 		</div>
 	);

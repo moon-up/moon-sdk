@@ -127,14 +127,14 @@ export const MoonSDKProvider: React.FC<MoonSDKProviderProps> = ({
 
 	const setActiveWallet = async (newWallet: string) => {
 		setWallet(newWallet);
-		if (session?.user?.id) {
+		if (typeof window !== "undefined" && session?.user?.id) {
 			localStorage.setItem(`moon_wallet_${session.user.id}`, newWallet);
 		}
 	};
 
 	const setActiveChain = async (newChain: Chains) => {
 		setChain(newChain);
-		if (session?.user?.id) {
+		if (typeof window !== "undefined" && session?.user?.id) {
 			localStorage.setItem(
 				`moon_chain_${session.user.id}`,
 				JSON.stringify(newChain),

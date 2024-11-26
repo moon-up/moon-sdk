@@ -142,9 +142,10 @@ export const useMRP = () => {
 	const { switchChain } = useSwitchChain();
 
 	const prepareTransaction = (
+		account: string,
 		transaction: LeveragerInputBody | LendingPoolInputBody,
 	) => {
-		if (isConnected) {
+		if (isConnected && address === account) {
 			return {
 				...transaction,
 				broadcast: false,
@@ -215,7 +216,10 @@ export const useMRP = () => {
 		async (payload: { accountName: string; data: LeveragerInputBody }) => {
 			return handleTransaction("leverageErc20", async () => {
 				const leveragerSDK = getLeveragerSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 
 				const response = await leveragerSDK.leverageErc20(
 					payload.accountName,
@@ -238,7 +242,10 @@ export const useMRP = () => {
 		async (payload: { accountName: string; data: LeveragerInputBody }) => {
 			return handleTransaction("leverageNative", async () => {
 				const leveragerSDK = getLeveragerSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 
 				const response = await leveragerSDK.leverageNative(
 					payload.accountName,
@@ -279,7 +286,10 @@ export const useMRP = () => {
 		async (payload: { accountName: string; data: LeveragerInputBody }) => {
 			return handleTransaction("deleverageErc20", async () => {
 				const leveragerSDK = getLeveragerSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 
 				const response = await leveragerSDK.deleverageErc20(
 					payload.accountName,
@@ -303,7 +313,10 @@ export const useMRP = () => {
 		async (payload: { accountName: string; data: LeveragerInputBody }) => {
 			return handleTransaction("deleverageNative", async () => {
 				const leveragerSDK = getLeveragerSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 
 				const response = await leveragerSDK.deleverageNative(
 					payload.accountName,
@@ -328,7 +341,10 @@ export const useMRP = () => {
 		async (payload: { accountName: string; data: LeveragerInputBody }) => {
 			return handleTransaction("executeOperation", async () => {
 				const leveragerSDK = getLeveragerSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 
 				const response = await leveragerSDK.executeOperation(
 					payload.accountName,
@@ -436,7 +452,10 @@ export const useMRP = () => {
 		async (payload: { accountName: string; data: LeveragerInputBody }) => {
 			return handleTransaction("grantRole", async () => {
 				const leveragerSDK = getLeveragerSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 
 				const response = await leveragerSDK.grantRole(
 					payload.accountName,
@@ -502,7 +521,10 @@ export const useMRP = () => {
 		async (payload: { accountName: string; data: LeveragerInputBody }) => {
 			return handleTransaction("pause", async () => {
 				const leveragerSDK = getLeveragerSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 
 				const response = await leveragerSDK.pause(
 					payload.accountName,
@@ -526,7 +548,10 @@ export const useMRP = () => {
 		async (payload: { accountName: string; data: LeveragerInputBody }) => {
 			return handleTransaction("renounceRole", async () => {
 				const leveragerSDK = getLeveragerSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 
 				const response = await leveragerSDK.renounceRole(
 					payload.accountName,
@@ -550,7 +575,10 @@ export const useMRP = () => {
 		async (payload: { accountName: string; data: LeveragerInputBody }) => {
 			return handleTransaction("revokeRole", async () => {
 				const leveragerSDK = getLeveragerSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 
 				const response = await leveragerSDK.revokeRole(
 					payload.accountName,
@@ -585,7 +613,10 @@ export const useMRP = () => {
 		async (payload: { accountName: string; data: LeveragerInputBody }) => {
 			return handleTransaction("unpause", async () => {
 				const leveragerSDK = getLeveragerSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 
 				const response = await leveragerSDK.unpause(
 					payload.accountName,
@@ -720,7 +751,10 @@ export const useMRP = () => {
 		async (payload: { accountName: string; data: LendingPoolInputBody }) => {
 			return handleTransaction("borrow", async () => {
 				const lendingPoolSDK = getLendingPoolSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 
 				const response = await lendingPoolSDK.borrow(
 					payload.accountName,
@@ -744,7 +778,10 @@ export const useMRP = () => {
 		async (payload: { accountName: string; data: LendingPoolInputBody }) => {
 			return handleTransaction("deposit", async () => {
 				const lendingPoolSDK = getLendingPoolSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 
 				const response = await lendingPoolSDK.deposit(
 					payload.accountName,
@@ -769,7 +806,10 @@ export const useMRP = () => {
 		async (payload: { accountName: string; data: LendingPoolInputBody }) => {
 			return handleTransaction("flashLoan", async () => {
 				const lendingPoolSDK = getLendingPoolSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 
 				const response = await lendingPoolSDK.flashLoan(
 					payload.accountName,
@@ -793,7 +833,10 @@ export const useMRP = () => {
 		async (payload: { accountName: string; data: LendingPoolInputBody }) => {
 			return handleTransaction("liquidationCall", async () => {
 				const lendingPoolSDK = getLendingPoolSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 
 				const response = await lendingPoolSDK.liquidationCall(
 					payload.accountName,
@@ -817,7 +860,10 @@ export const useMRP = () => {
 		async (payload: { accountName: string; data: LendingPoolInputBody }) => {
 			return handleTransaction("repay", async () => {
 				const lendingPoolSDK = getLendingPoolSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 
 				const response = await lendingPoolSDK.repay(
 					payload.accountName,

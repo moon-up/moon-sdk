@@ -11,15 +11,40 @@ import type { Chains } from "../types";
 export class ChainService {
 	private chains: Chains[] = [];
 	private selectedChain: Chains | null = null;
-	/**
-	 * Constructs an instance of the ChainService.
-	 *
-	 * @param moon - An instance of the MoonSDK.
-	 */
+	private readonly SELECTED_CHAIN_KEY = "moonSelectedChain";
+	private readonly CHAINS_KEY = "moonChains";
+
 	constructor(private moon: MoonSDK) {
-		this.selectedChain = this.moon.getConfig().selectedChain;
+		this.loadFromLocalStorage();
 	}
 
+	private loadFromLocalStorage() {
+		if (typeof window !== "undefined" && window.localStorage) {
+			const storedSelectedChain = localStorage.getItem(this.SELECTED_CHAIN_KEY);
+			if (storedSelectedChain) {
+				this.selectedChain = JSON.parse(storedSelectedChain);
+			} else {
+				this.selectedChain = this.moon.getConfig().selectedChain;
+			}
+
+			const storedChains = localStorage.getItem(this.CHAINS_KEY);
+			if (storedChains) {
+				this.chains = JSON.parse(storedChains);
+			}
+		} else {
+			this.selectedChain = this.moon.getConfig().selectedChain;
+		}
+	}
+
+	private saveToLocalStorage() {
+		if (typeof window !== "undefined" && window.localStorage) {
+			localStorage.setItem(
+				this.SELECTED_CHAIN_KEY,
+				JSON.stringify(this.selectedChain),
+			);
+			localStorage.setItem(this.CHAINS_KEY, JSON.stringify(this.chains));
+		}
+	}
 	/**
 	 * Retrieves a chain by its ID. This method first checks the cache for the chain data.
 	 * If the data is not found in the cache, it queries the database using Supabase.
@@ -62,20 +87,13 @@ export class ChainService {
 			return this.chains;
 		}
 
-		const cacheKey = "chains";
-		const cachedChains = this.moon.cache.get(cacheKey);
-		if (cachedChains) {
-			this.chains = cachedChains as Chains[];
-			return this.chains;
-		}
-
 		const { data, error } = await this.moon.supabase.from("chains").select("*");
 		if (error) {
 			throw new Error(error.message);
 		}
 
 		this.chains = data as Chains[];
-		this.moon.cache.set(cacheKey, this.chains);
+		this.saveToLocalStorage();
 		return this.chains;
 	}
 
@@ -95,5 +113,6 @@ export class ChainService {
 	 */
 	setSelectedChain(chain: Chains): void {
 		this.selectedChain = chain;
+		this.saveToLocalStorage();
 	}
 }

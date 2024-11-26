@@ -30,15 +30,15 @@ import {
 export const useOdos = () => {
 	const { handleTransaction } = useMoonTransaction();
 	const { moon } = useMoonAuth();
-	const { selectedChain: chain } = useChains();
 	const chainId = useChainId();
 	const { switchChain } = useSwitchChain();
+	const { selectedChain } = useChains();
 
 	const { isConnected, address } = useAccount();
 	const { sendTransactionAsync } = useSendTransaction();
 
-	const prepareTransaction = (transaction: any) => {
-		if (isConnected) {
+	const prepareTransaction = (account: string, transaction: any) => {
+		if (isConnected && address === account) {
 			return {
 				...transaction,
 				broadcast: false,
@@ -85,14 +85,22 @@ export const useOdos = () => {
 	 * @returns {OdosAPIResponseOdosExecuteFunctionResult} The response data containing the supported tokens.
 	 */
 	const supportedTokensQuery = useQuery({
-		queryKey: ["odosGetSupportedTokens", chain],
+		queryKey: ["odosGetSupportedTokens", selectedChain?.chain_id],
 		queryFn: async () => {
 			const odosSDK = moon?.getOdosSDK();
 			if (!odosSDK) throw new Error("Moon Lifi SDK not initialized");
 			const response = await odosSDK.getSupportedTokens({
-				chainId: chain?.chain_id || 1,
+				chainId: selectedChain?.chain_id || 1,
 			});
-			return response.data as OdosAPIResponseOdosExecuteFunctionResult;
+			console.log("response", response);
+			const tokensFilteredForChain = (response.data as any).data.tokenMap;
+			console.log("tokensFilteredForChain", tokensFilteredForChain);
+			const kek = Object.keys(tokensFilteredForChain).map((address) => ({
+				address,
+				...tokensFilteredForChain[address],
+			}));
+			console.log("odosGetSupportedTokens", kek);
+			return kek;
 		},
 		staleTime: 1000 * 60 * 60 * 24,
 	});
@@ -142,7 +150,7 @@ export const useOdos = () => {
 			payload: GetSupportedTokensParams,
 		): Promise<OdosAPIResponseOdosExecuteFunctionResult> => {
 			return handleTransaction("getQuoteLifi", async () => {
-				const odosSDK = getOdosSDK();
+				const odosSDK = getOdosSDK() as Odos;
 				const response = await odosSDK.getSupportedTokens(payload);
 				return response.data as OdosAPIResponseOdosExecuteFunctionResult;
 			});
@@ -162,14 +170,14 @@ export const useOdos = () => {
 		async (payload: {
 			accountName: string;
 			data: OdosSwapInputBody;
-		}): Promise<OdosAPIResponseOdosExecuteFunctionResult> => {
+		}): Promise<any> => {
 			return handleTransaction("getQuoteLifi", async () => {
 				const odosSDK = getOdosSDK();
 				const response = await odosSDK.getQuote(
 					payload.accountName,
 					payload.data,
 				);
-				return response.data as OdosAPIResponseOdosExecuteFunctionResult;
+				return response.data as any;
 			});
 		},
 		[moon],
@@ -190,7 +198,10 @@ export const useOdos = () => {
 		}): Promise<OdosAPIResponseOdosExecuteFunctionResult> => {
 			return handleTransaction("getQuoteLifi", async () => {
 				const odosSDK = getOdosSDK();
-				const preparedTransaction = prepareTransaction(payload.data);
+				const preparedTransaction = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await odosSDK.swap(
 					payload.accountName,
 					preparedTransaction,

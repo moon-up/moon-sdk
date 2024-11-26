@@ -39,8 +39,8 @@ export const useErc721 = () => {
 		if (!erc721SDK) throw new Error("Moon SDK not initialized");
 		return erc721SDK;
 	};
-	const prepareTransaction = (transaction: InputBody) => {
-		if (isConnected) {
+	const prepareTransaction = (account: string, transaction: InputBody) => {
+		if (isConnected && address === account) {
 			return {
 				...transaction,
 				broadcast: false,
@@ -86,7 +86,10 @@ export const useErc721 = () => {
 		}): Promise<Transaction> => {
 			return handleTransaction("approveErc721", async () => {
 				const erc721SDK = getErc721SDK();
-				const preparedTransaction = prepareTransaction(payload.transaction);
+				const preparedTransaction = prepareTransaction(
+					payload.address,
+					payload.transaction,
+				);
 				const response = await erc721SDK.approveErc721(
 					payload.address,
 					preparedTransaction,
@@ -292,7 +295,10 @@ export const useErc721 = () => {
 		}): Promise<Transaction> => {
 			return handleTransaction("safeTransferFromErc721", async () => {
 				const erc721SDK = getErc721SDK();
-				const preparedTransaction = prepareTransaction(payload.transaction);
+				const preparedTransaction = prepareTransaction(
+					payload.address,
+					payload.transaction,
+				);
 				const response = await erc721SDK.safeTransferFromErc721(
 					payload.address,
 					preparedTransaction,
@@ -318,7 +324,10 @@ export const useErc721 = () => {
 		}): Promise<Transaction> => {
 			return handleTransaction("safeTransferFromWithDataErc721", async () => {
 				const erc721SDK = getErc721SDK();
-				const preparedTransaction = prepareTransaction(payload.transaction);
+				const preparedTransaction = prepareTransaction(
+					payload.address,
+					payload.transaction,
+				);
 				const response = await erc721SDK.safeTransferFromWithDataErc721(
 					payload.address,
 					preparedTransaction,
@@ -344,7 +353,10 @@ export const useErc721 = () => {
 		}): Promise<Transaction> => {
 			return handleTransaction("setApprovalForAllErc721", async () => {
 				const erc721SDK = getErc721SDK();
-				const preparedTransaction = prepareTransaction(payload.transaction);
+				const preparedTransaction = prepareTransaction(
+					payload.address,
+					payload.transaction,
+				);
 				const response = await erc721SDK.setApprovalForAllErc721(
 					payload.address,
 					preparedTransaction,
@@ -369,7 +381,10 @@ export const useErc721 = () => {
 		}): Promise<Transaction> => {
 			return handleTransaction("transferFromErc721", async () => {
 				const erc721SDK = getErc721SDK();
-				const preparedTransaction = prepareTransaction(payload.transaction);
+				const preparedTransaction = prepareTransaction(
+					payload.address,
+					payload.transaction,
+				);
 				const response = await erc721SDK.transferFromErc721(
 					payload.address,
 					preparedTransaction,

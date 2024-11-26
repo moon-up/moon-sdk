@@ -36,8 +36,8 @@ export const useErc1155 = () => {
 	const { switchChain } = useSwitchChain();
 	const chainId = useChainId();
 
-	const prepareTransaction = (transaction: InputBody) => {
-		if (isConnected) {
+	const prepareTransaction = (account: string, transaction: InputBody) => {
+		if (isConnected && address === account) {
 			return {
 				...transaction,
 				broadcast: false,
@@ -115,7 +115,10 @@ export const useErc1155 = () => {
 		}): Promise<Transaction> => {
 			return handleTransaction("safeTransferFromErc1155", async () => {
 				const erc1155SDK = getErc1155SDK();
-				const preparedTransaction = prepareTransaction(payload.transaction);
+				const preparedTransaction = prepareTransaction(
+					payload.accountName,
+					payload.transaction,
+				);
 				const response = await erc1155SDK.safeTransferFrom(
 					payload.accountName,
 					preparedTransaction,

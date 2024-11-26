@@ -6,3 +6,5 @@ export * from "./TransactionForm";
 export * from "./TransactionReceipt";
 export * from "./Transactions";
 export * from "./WalletSelectors";
+
+export * from "./AccountSelector";

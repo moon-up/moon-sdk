@@ -90,8 +90,8 @@ export const usePolymarket = () => {
 		return polymarketSDK;
 	}, [moon]);
 
-	const prepareTransaction = (transaction: any) => {
-		if (isConnected) {
+	const prepareTransaction = (account: string, transaction: any) => {
+		if (isConnected && address === account) {
 			return {
 				...transaction,
 				broadcast: false,
@@ -137,7 +137,10 @@ export const usePolymarket = () => {
 		}): Promise<ApproveForPolymarketData> => {
 			return handleTransaction("approveForPolymarket", async () => {
 				const polymarketSDK = getPolymarketSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await polymarketSDK.approveForPolymarket(
 					payload.accountName,
 					preparedData,
@@ -163,7 +166,10 @@ export const usePolymarket = () => {
 		}): Promise<CancelMarketOrdersData> => {
 			return handleTransaction("cancelMarketOrders", async () => {
 				const polymarketSDK = getPolymarketSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await polymarketSDK.cancelMarketOrders(
 					payload.accountName,
 					preparedData,
@@ -189,7 +195,10 @@ export const usePolymarket = () => {
 		}): Promise<CancelOrderData> => {
 			return handleTransaction("cancelOrder", async () => {
 				const polymarketSDK = getPolymarketSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await polymarketSDK.cancelOrder(
 					payload.accountName,
 					preparedData,
@@ -215,7 +224,10 @@ export const usePolymarket = () => {
 		}): Promise<CancelOrdersData> => {
 			return handleTransaction("cancelOrders", async () => {
 				const polymarketSDK = getPolymarketSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await polymarketSDK.cancelOrders(
 					payload.accountName,
 					preparedData,
@@ -241,7 +253,10 @@ export const usePolymarket = () => {
 		}): Promise<CreateMarketBuyOrderData> => {
 			return handleTransaction("createMarketBuyOrder", async () => {
 				const polymarketSDK = getPolymarketSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await polymarketSDK.createMarketBuyOrder(
 					payload.accountName,
 					preparedData,
@@ -267,7 +282,10 @@ export const usePolymarket = () => {
 		}): Promise<CreateOrderData> => {
 			return handleTransaction("createOrder", async () => {
 				const polymarketSDK = getPolymarketSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await polymarketSDK.createOrder(
 					payload.accountName,
 					preparedData,
@@ -293,7 +311,10 @@ export const usePolymarket = () => {
 		}): Promise<DropNotificationsData> => {
 			return handleTransaction("dropNotifications", async () => {
 				const polymarketSDK = getPolymarketSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await polymarketSDK.dropNotifications(
 					payload.accountName,
 					preparedData,
@@ -497,7 +518,10 @@ export const usePolymarket = () => {
 		}): Promise<PostOrderData> => {
 			return handleTransaction("postOrder", async () => {
 				const polymarketSDK = getPolymarketSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await polymarketSDK.postOrder(
 					payload.accountName,
 					preparedData,
@@ -523,7 +547,10 @@ export const usePolymarket = () => {
 		}): Promise<UpdateBalanceAllowanceData> => {
 			return handleTransaction("updateBalanceAllowance", async () => {
 				const polymarketSDK = getPolymarketSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(
+					payload.accountName,
+					payload.data,
+				);
 				const response = await polymarketSDK.updateBalanceAllowance(
 					payload.accountName,
 					preparedData,

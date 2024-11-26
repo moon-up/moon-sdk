@@ -102,7 +102,7 @@ export const useErc4626 = () => {
 		async (address: string, data: InputBody): Promise<ApproveResult> => {
 			return handleTransaction("approveErc4626", async () => {
 				const erc4626SDK = getErc4626SDK();
-				const preparedTransaction = prepareTransaction(data);
+				const preparedTransaction = prepareTransaction(address, data);
 				const response = await erc4626SDK.approve(address, preparedTransaction);
 				return handleWagmiTransaction(response.data);
 			});
@@ -110,8 +110,8 @@ export const useErc4626 = () => {
 		[moon, isConnected, sendTransactionAsync],
 	);
 
-	const prepareTransaction = (transaction: InputBody) => {
-		if (isConnected) {
+	const prepareTransaction = (account: string, transaction: InputBody) => {
+		if (isConnected && address === account) {
 			return {
 				...transaction,
 				broadcast: false,
@@ -154,7 +154,7 @@ export const useErc4626 = () => {
 		async (address: string, data: InputBody): Promise<DepositData> => {
 			return handleTransaction("depositErc4626", async () => {
 				const erc4626SDK = getErc4626SDK();
-				const preparedTransaction = prepareTransaction(data);
+				const preparedTransaction = prepareTransaction(address, data);
 				const response = await erc4626SDK.deposit(address, preparedTransaction);
 				return handleWagmiTransaction(response.data);
 			});
@@ -532,7 +532,7 @@ export const useErc4626 = () => {
 		async (address: string, data: InputBody): Promise<MintData> => {
 			return handleTransaction("mintErc4626", async () => {
 				const erc4626SDK = getErc4626SDK();
-				const preparedTransaction = prepareTransaction(data);
+				const preparedTransaction = prepareTransaction(address, data);
 				const response = await erc4626SDK.mint(address, preparedTransaction);
 				return handleWagmiTransaction(response.data);
 			});
@@ -559,7 +559,7 @@ export const useErc4626 = () => {
 		async (address: string, data: InputBody): Promise<RedeemData> => {
 			return handleTransaction("redeemErc4626", async () => {
 				const erc4626SDK = getErc4626SDK();
-				const preparedTransaction = prepareTransaction(data);
+				const preparedTransaction = prepareTransaction(address, data);
 				const response = await erc4626SDK.redeem(address, preparedTransaction);
 				return handleWagmiTransaction(response.data);
 			});
@@ -578,7 +578,7 @@ export const useErc4626 = () => {
 		async (address: string, data: InputBody): Promise<TransferResult> => {
 			return handleTransaction("transferErc4626", async () => {
 				const erc4626SDK = getErc4626SDK();
-				const preparedTransaction = prepareTransaction(data);
+				const preparedTransaction = prepareTransaction(address, data);
 				const response = await erc4626SDK.transfer(
 					address,
 					preparedTransaction,
@@ -600,7 +600,7 @@ export const useErc4626 = () => {
 		async (address: string, data: InputBody): Promise<TransferFromResult> => {
 			return handleTransaction("transferFromErc4626", async () => {
 				const erc4626SDK = getErc4626SDK();
-				const preparedTransaction = prepareTransaction(data);
+				const preparedTransaction = prepareTransaction(address, data);
 				const response = await erc4626SDK.transferFrom(
 					address,
 					preparedTransaction,
@@ -622,7 +622,7 @@ export const useErc4626 = () => {
 		async (address: string, data: InputBody): Promise<WithdrawResult> => {
 			return handleTransaction("withdrawErc4626", async () => {
 				const erc4626SDK = getErc4626SDK();
-				const preparedTransaction = prepareTransaction(data);
+				const preparedTransaction = prepareTransaction(address, data);
 				const response = await erc4626SDK.withdraw(
 					address,
 					preparedTransaction,

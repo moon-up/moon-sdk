@@ -1,7 +1,7 @@
+import React, { useMemo, useCallback } from "react";
 import type { MoonSDKConfig } from "@moonup/moon-sdk";
 import { MoonSDK } from "@moonup/moon-sdk";
 import type { Session, SupabaseClient, User } from "@supabase/supabase-js";
-import React from "react";
 import { supabase } from "../supabase";
 
 export interface MoonAuthContextType {
@@ -44,7 +44,7 @@ export const MoonAuthProvider = ({
 	sdkConfig,
 }: MoonAuthProviderProps) => {
 	const [user, setUser] = React.useState<User | null>(null);
-	const [moon, _] = React.useState<MoonSDK>(
+	const [moon] = React.useState<MoonSDK>(
 		new MoonSDK({
 			authInstance: supabase,
 			...sdkConfig,
@@ -56,10 +56,6 @@ export const MoonAuthProvider = ({
 
 	React.useEffect(() => {
 		setIsLoading(true);
-		// const moonInstance = new MoonSDK({
-		// 	authInstance: supabase,
-		// 	...sdkConfig,
-		// });
 		const { data: authListener } = supabase.auth.onAuthStateChange(
 			async (event, newSession) => {
 				console.log("Auth state change:", event, newSession);
@@ -123,44 +119,58 @@ export const MoonAuthProvider = ({
 		return () => {
 			authListener?.subscription.unsubscribe();
 		};
-	}, []);
-	const signOut = async () => {
+	}, [moon]);
+
+	const signOut = useCallback(async () => {
 		setIsLoading(true);
 		await supabase.auth.signOut();
 		setIsLoading(false);
-	};
+	}, []);
 
-	const connect = async (
-		accessToken?: string,
-		refreshToken?: string,
-	): Promise<void> => {
-		if (moon) {
-			const session = await moon.connect(accessToken, refreshToken);
-			setSession(session);
-			setIsAuthenticated(true);
-			setUser(session.user);
-		}
-	};
-	const disconnect = async (): Promise<void> => {
+	const connect = useCallback(
+		async (accessToken?: string, refreshToken?: string): Promise<void> => {
+			if (moon) {
+				const session = await moon.connect(accessToken, refreshToken);
+				setSession(session);
+				setIsAuthenticated(true);
+				setUser(session.user);
+			}
+		},
+		[moon],
+	);
+
+	const disconnect = useCallback(async (): Promise<void> => {
 		if (moon) {
 			await moon.disconnect();
 			setSession(null);
 			setIsAuthenticated(false);
 			setUser(null);
 		}
-	};
+	}, [moon]);
 
-	const value = {
-		moon,
-		session,
-		user,
-		signOut,
-		supabaseClient: supabase,
-		isAuthenticated,
-		isLoading,
-		connect,
-		disconnect,
-	};
+	const value = useMemo(
+		() => ({
+			moon,
+			session,
+			user,
+			signOut,
+			supabaseClient: supabase,
+			isAuthenticated,
+			isLoading,
+			connect,
+			disconnect,
+		}),
+		[
+			moon,
+			session,
+			user,
+			signOut,
+			isAuthenticated,
+			isLoading,
+			connect,
+			disconnect,
+		],
+	);
 
 	return (
 		<MoonAuthContext.Provider value={value}>

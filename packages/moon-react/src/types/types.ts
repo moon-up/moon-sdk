@@ -153,6 +153,55 @@ export type AuthModalConfig = {
 		fontFamily: string;
 		borderRadius: string;
 		boxShadow: string;
+		colors: {
+			primary: string;
+			secondary: string;
+			background: string;
+			surface: string;
+			text: string;
+			textSecondary: string;
+			border: string;
+			hover: string;
+			focus: string;
+			disabled: string;
+			selected: string;
+			selectedText: string;
+		};
+		typography: {
+			fontFamily: string;
+			fontSize: {
+				xs: string;
+				sm: string;
+				base: string;
+				lg: string;
+				xl: string;
+				"2xl": string;
+			};
+			fontWeight: {
+				light: string;
+				normal: string;
+				medium: string;
+				semibold: string;
+				bold: string;
+			};
+			lineHeight: {
+				tight: string;
+				normal: string;
+				relaxed: string;
+			};
+		};
+		spacing: {
+			xs: string;
+			sm: string;
+			md: string;
+			lg: string;
+			xl: string;
+		};
+		transition: {
+			fast: string;
+			normal: string;
+			slow: string;
+		};
 	};
 };
 

@@ -100,6 +100,7 @@ export const WagmiWrapper: React.FC<WagmiWrapperProps> = ({ children }) => {
 	// const [queryClient] = React.useState(() => new QueryClient());
 	const [config] = React.useState(() =>
 		createConfig({
+			ssr: true,
 			connectors: [
 				injected(),
 				metaMask(),

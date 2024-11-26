@@ -1,7 +1,7 @@
 // useChains.ts
 import { useMoonSDK } from "@/hooks";
 import type { Chains } from "@moonup/moon-sdk";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
 
 export const useChains = () => {
@@ -70,12 +70,12 @@ export const useChains = () => {
 		[chains],
 	);
 
-	useEffect(() => {
-		if (moon && chains.length > 0) {
-			const initialSelectedChain = moon.getChainService().getSelectedChain();
-			setSelectedChain(initialSelectedChain);
-		}
-	}, [moon, chains]);
+	// useEffect(() => {
+	// 	if (moon && chains.length > 0) {
+	// 		const initialSelectedChain = moon.getChainService().getSelectedChain();
+	// 		setSelectedChain(initialSelectedChain);
+	// 	}
+	// }, [moon, chains]);
 
 	return {
 		chains,

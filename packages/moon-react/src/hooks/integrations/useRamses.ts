@@ -128,8 +128,8 @@ export const useRamses = () => {
 		return ramsesSDK;
 	}, [moon]);
 
-	const prepareTransaction = (transaction: any) => {
-		if (isConnected) {
+	const prepareTransaction = (account: string, transaction: any) => {
+		if (isConnected && address === account) {
 			return {
 				...transaction,
 				broadcast: false,
@@ -172,7 +172,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesNFTInputBody }) =>
 			handleTransaction("abstain", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.abstain(payload.address, preparedData);
 				return handleWagmiTransaction(response);
 			}),
@@ -202,7 +202,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesRouterInputBody }) =>
 			handleTransaction("addLiquidity", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.addLiquidity(
 					payload.address,
 					preparedData,
@@ -235,7 +235,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesRouterInputBody }) =>
 			handleTransaction("addLiquidityEth", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.addLiquidityEth(
 					payload.address,
 					preparedData,
@@ -257,7 +257,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesNFTInputBody }) =>
 			handleTransaction("approve", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.approve(payload.address, preparedData);
 				return handleWagmiTransaction(response);
 			}),
@@ -290,7 +290,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesNFTInputBody }) =>
 			handleTransaction("attach", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.attach(payload.address, preparedData);
 				return handleWagmiTransaction(response);
 			}),
@@ -301,7 +301,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesVoterInputBody }) =>
 			handleTransaction("attachTokenToGauge", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.attachTokenToGauge(
 					payload.address,
 					preparedData,
@@ -326,7 +326,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesVoterInputBody }) =>
 			handleTransaction("claimBribes", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.claimBribes(
 					payload.address,
 					preparedData,
@@ -340,7 +340,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesVoterInputBody }) =>
 			handleTransaction("claimFees", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.claimFees(
 					payload.address,
 					preparedData,
@@ -354,7 +354,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesVoterInputBody }) =>
 			handleTransaction("claimRewards", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.claimRewards(
 					payload.address,
 					preparedData,
@@ -368,7 +368,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesVoterInputBody }) =>
 			handleTransaction("createGauge", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.createGauge(
 					payload.address,
 					preparedData,
@@ -382,7 +382,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesNFTInputBody }) =>
 			handleTransaction("createLock", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.createLock(
 					payload.address,
 					preparedData,
@@ -396,7 +396,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesNFTInputBody }) =>
 			handleTransaction("delegate", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.delegate(
 					payload.address,
 					preparedData,
@@ -410,7 +410,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesNFTInputBody }) =>
 			handleTransaction("detach", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.detach(payload.address, preparedData);
 				return handleWagmiTransaction(response);
 			}),
@@ -421,7 +421,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesVoterInputBody }) =>
 			handleTransaction("detachTokenFromGauge", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.detachTokenFromGauge(
 					payload.address,
 					preparedData,
@@ -435,7 +435,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesVoterInputBody }) =>
 			handleTransaction("distribute", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.distribute(
 					payload.address,
 					preparedData,
@@ -665,7 +665,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesNFTInputBody }) =>
 			handleTransaction("increaseAmount", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.increaseAmount(
 					payload.address,
 					preparedData,
@@ -679,7 +679,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesNFTInputBody }) =>
 			handleTransaction("increaseUnlockTime", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.increaseUnlockTime(
 					payload.address,
 					preparedData,
@@ -720,7 +720,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesVoterInputBody }) =>
 			handleTransaction("killGauge", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.killGauge(
 					payload.address,
 					preparedData,
@@ -734,7 +734,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesNFTInputBody }) =>
 			handleTransaction("merge", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.merge(payload.address, preparedData);
 				return handleWagmiTransaction(response);
 			}),
@@ -745,7 +745,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesVoterInputBody }) =>
 			handleTransaction("notifyRewardAmount", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.notifyRewardAmount(
 					payload.address,
 					preparedData,
@@ -768,7 +768,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesVoterInputBody }) =>
 			handleTransaction("poke", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.poke(payload.address, preparedData);
 				return handleWagmiTransaction(response);
 			}),
@@ -797,7 +797,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesRouterInputBody }) =>
 			handleTransaction("removeLiquidity", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.removeLiquidity(
 					payload.address,
 					preparedData,
@@ -811,7 +811,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesRouterInputBody }) =>
 			handleTransaction("removeLiquidityEth", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.removeLiquidityEth(
 					payload.address,
 					preparedData,
@@ -825,7 +825,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesVoterInputBody }) =>
 			handleTransaction("reset", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.reset(payload.address, preparedData);
 				return handleWagmiTransaction(response);
 			}),
@@ -836,7 +836,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesVoterInputBody }) =>
 			handleTransaction("reviveGauge", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.reviveGauge(
 					payload.address,
 					preparedData,
@@ -859,7 +859,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesNFTInputBody }) =>
 			handleTransaction("split", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.split(payload.address, preparedData);
 				return handleWagmiTransaction(response);
 			}),
@@ -870,7 +870,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesRouterInputBody }) =>
 			handleTransaction("swapExactEthForTokens", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.swapExactEthForTokens(
 					payload.address,
 					preparedData,
@@ -884,7 +884,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesRouterInputBody }) =>
 			handleTransaction("swapExactTokensForEth", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.swapExactTokensForEth(
 					payload.address,
 					preparedData,
@@ -898,7 +898,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesRouterInputBody }) =>
 			handleTransaction("swapExactTokensForTokens", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.swapExactTokensForTokens(
 					payload.address,
 					preparedData,
@@ -912,7 +912,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesNFTInputBody }) =>
 			handleTransaction("transferFrom", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.transferFrom(
 					payload.address,
 					preparedData,
@@ -926,7 +926,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesRouterInputBody }) =>
 			handleTransaction("unsafeSwapExactTokensForTokens", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.unsafeSwapExactTokensForTokens(
 					payload.address,
 					preparedData,
@@ -940,7 +940,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesVoterInputBody }) =>
 			handleTransaction("vote", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.vote(payload.address, preparedData);
 				return handleWagmiTransaction(response);
 			}),
@@ -954,7 +954,7 @@ export const useRamses = () => {
 		}) =>
 			handleTransaction("voteWithOptimalDistribution", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.voteWithOptimalDistribution(
 					payload.address,
 					preparedData,
@@ -968,7 +968,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesVoterInputBody }) =>
 			handleTransaction("whitelist", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.whitelist(
 					payload.address,
 					preparedData,
@@ -982,7 +982,7 @@ export const useRamses = () => {
 		async (payload: { address: string; data: RamsesNFTInputBody }) =>
 			handleTransaction("withdraw", async () => {
 				const ramsesSDK = getRamsesSDK();
-				const preparedData = prepareTransaction(payload.data);
+				const preparedData = prepareTransaction(payload.address, payload.data);
 				const response = await ramsesSDK.withdraw(
 					payload.address,
 					preparedData,

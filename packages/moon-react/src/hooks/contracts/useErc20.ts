@@ -49,8 +49,8 @@ export const useErc20 = () => {
 		return erc20SDK;
 	};
 
-	const prepareTransaction = (transaction: ERC20InputBody) => {
-		if (isConnected) {
+	const prepareTransaction = (account: string, transaction: ERC20InputBody) => {
+		if (isConnected && address === account) {
 			return {
 				...transaction,
 				broadcast: false,
@@ -145,7 +145,10 @@ export const useErc20 = () => {
 		}): Promise<Transaction> => {
 			return handleTransaction("approveErc20", async () => {
 				const erc20SDK = getErc20SDK();
-				const preparedTransaction = prepareTransaction(payload.transaction);
+				const preparedTransaction = prepareTransaction(
+					payload.accountName,
+					payload.transaction,
+				);
 				const response = await erc20SDK.approve(
 					payload.accountName,
 					preparedTransaction,
@@ -171,7 +174,10 @@ export const useErc20 = () => {
 		}): Promise<Transaction> => {
 			return handleTransaction("transferErc20", async () => {
 				const erc20SDK = getErc20SDK();
-				const preparedTransaction = prepareTransaction(payload.transaction);
+				const preparedTransaction = prepareTransaction(
+					payload.accountName,
+					payload.transaction,
+				);
 				const response = await erc20SDK.transfer(
 					payload.accountName,
 					preparedTransaction,
@@ -197,7 +203,10 @@ export const useErc20 = () => {
 		}): Promise<Transaction> => {
 			return handleTransaction("transferFromErc20", async () => {
 				const erc20SDK = getErc20SDK();
-				const preparedTransaction = prepareTransaction(payload.transaction);
+				const preparedTransaction = prepareTransaction(
+					payload.accountName,
+					payload.transaction,
+				);
 				const response = await erc20SDK.transferFrom(
 					payload.accountName,
 					preparedTransaction,

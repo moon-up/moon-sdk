@@ -7,10 +7,10 @@ import { useQuery } from "@tanstack/react-query";
 import { formatEther, formatUnits } from "ethers";
 import { AnimatePresence, motion } from "framer-motion";
 import type React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { CheckCircleIcon, XCircleIcon } from "lucide-react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { Tooltip } from "@/components";
+import { Tooltip, Button } from "@/components";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 
 interface TransactionProps {
@@ -18,6 +18,8 @@ interface TransactionProps {
 	transaction: InputBody;
 	autoExecute?: boolean;
 	isModal?: boolean;
+	onSuccess?: (receipt: any) => void;
+	onError?: (error: string) => void;
 }
 
 export const Transaction: React.FC<TransactionProps> = ({
@@ -25,27 +27,37 @@ export const Transaction: React.FC<TransactionProps> = ({
 	transaction,
 	autoExecute = false,
 	isModal = false,
+	onSuccess,
+	onError,
 }) => {
 	const theme = useTheme();
+	const [isOpen, setIsOpen] = useState(isModal);
+
+	useEffect(() => {
+		if (isModal) {
+			setIsOpen(true);
+		}
+	}, [isModal]);
 
 	return (
 		<TooltipProvider>
 			{isModal ? (
-				<Dialog.Root>
+				<Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
 					<Dialog.Trigger asChild>
 						{/* Your trigger component, e.g., a button */}
-						<button>Open Modal</button>
 					</Dialog.Trigger>
 					<Dialog.Portal>
 						<Dialog.Overlay className="fixed inset-0 bg-black/30" />
 						<Dialog.Content
-							className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-${theme.backgroundColor} p-4 rounded-lg shadow-md`}
+							className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-${theme.backgroundColor} text-${theme.textColor} p-4 rounded-lg shadow-md`}
 						>
 							{/* Render the transaction component */}
 							<TransactionContent
 								wallet={wallet}
 								transaction={transaction}
 								autoExecute={autoExecute}
+								onSuccess={onSuccess}
+								onError={onError}
 							/>
 						</Dialog.Content>
 					</Dialog.Portal>
@@ -55,6 +67,8 @@ export const Transaction: React.FC<TransactionProps> = ({
 					wallet={wallet}
 					transaction={transaction}
 					autoExecute={autoExecute}
+					onSuccess={onSuccess}
+					onError={onError}
 				/>
 			)}
 		</TooltipProvider>
@@ -62,8 +76,11 @@ export const Transaction: React.FC<TransactionProps> = ({
 };
 
 const TransactionContent: React.FC<
-	Pick<TransactionProps, "wallet" | "transaction" | "autoExecute">
-> = ({ wallet, transaction, autoExecute }) => {
+	Pick<
+		TransactionProps,
+		"wallet" | "transaction" | "autoExecute" | "onSuccess" | "onError"
+	>
+> = ({ wallet, transaction, autoExecute, onSuccess, onError }) => {
 	const [status, setStatus] = useState<
 		"initial" | "simulating" | "ready" | "pending" | "completed" | "failed"
 	>("initial");
@@ -106,7 +123,7 @@ const TransactionContent: React.FC<
 			setError(simulationError.message || "Simulation failed");
 		}
 	}, [simulationError]);
-	const handleSign = async () => {
+	const handleSign = useCallback(async () => {
 		setStatus("pending");
 		setError(null);
 		try {
@@ -119,25 +136,52 @@ const TransactionContent: React.FC<
 				.then((result) => {
 					setTxReceipt(txResult);
 					setStatus(result.status);
+					if (result.status === "completed" && onSuccess) {
+						onSuccess(txResult);
+					}
 				})
 				.catch((error) => {
 					setError(error.message);
 					setStatus("failed");
+					if (onError) {
+						onError(error.message);
+					}
 				});
 		} catch (error) {
 			const typedError = error as Error;
 			console.error("Transaction failed:", error);
 			setError(typedError.message || "Transaction failed");
 			setStatus("failed");
+			if (onError) {
+				onError(typedError.message);
+			}
 		}
-	};
+	}, [
+		transaction,
+		wallet,
+		sendTransaction,
+		watchTransactionStatus,
+		onSuccess,
+		onError,
+	]);
+
+	const handleCancel = useCallback(() => {
+		setStatus("failed");
+		setError("Transaction cancelled by user.");
+		setTxHash(null);
+		setTxReceipt(null);
+		if (onError) {
+			onError("Transaction cancelled by user.");
+		}
+	}, [txHash, onError]);
+
 	useEffect(() => {
 		if (autoExecute) {
 			handleSign();
 		} else {
 			simulateTransaction();
 		}
-	}, [transaction, autoExecute, simulateTransaction]);
+	}, [transaction, autoExecute, simulateTransaction, handleSign]);
 
 	const renderTransactionDetails = () => {
 		if (status === "simulating" || status === "pending") {
@@ -350,17 +394,38 @@ const TransactionContent: React.FC<
 
 			<AnimatePresence>
 				{status === "ready" && !autoExecute && !error && (
-					<motion.button
-						whileHover={{ scale: 1.05 }}
-						whileTap={{ scale: 0.95 }}
-						onClick={handleSign}
-						className={`mt-4 w-full py-3 px-4 bg-${theme.accentColor} text-${theme.backgroundColor} rounded-md font-bold text-lg shadow-md`}
-						initial={{ opacity: 0, y: 20 }}
-						animate={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.3 }}
-					>
-						Sign and Send Transaction
-					</motion.button>
+					<div className="flex space-x-4">
+						<motion.button
+							whileHover={{ scale: 1.05 }}
+							whileTap={{ scale: 0.95 }}
+							onClick={handleSign}
+							className={`mt-4 w-full py-3 px-4 bg-${theme.accentColor} text-${theme.backgroundColor} rounded-md font-bold text-lg shadow-md`}
+							initial={{ opacity: 0, y: 20 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.3 }}
+						>
+							Sign and Send Transaction
+						</motion.button>
+						<motion.button
+							whileHover={{ scale: 1.05 }}
+							whileTap={{ scale: 0.95 }}
+							onClick={handleCancel}
+							className={`mt-4 w-full py-3 px-4 bg-red-600 text-white rounded-md font-bold text-lg shadow-md`}
+							initial={{ opacity: 0, y: 20 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.3 }}
+						>
+							<Tooltip content="Cancel the transaction process">
+								<Button
+									onClick={handleCancel}
+									variant="outlined"
+									className="text-red-600"
+								>
+									Cancel
+								</Button>
+							</Tooltip>
+						</motion.button>
+					</div>
 				)}
 
 				{status === "pending" && (

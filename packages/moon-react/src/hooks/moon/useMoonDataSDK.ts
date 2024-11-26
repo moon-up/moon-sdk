@@ -94,7 +94,7 @@ export const useMoonDataSDK = () => {
 				address: wallet || "",
 				chain: hexChain,
 			});
-			return response as WalletHistoryAPIResponse;
+			return response.data;
 		},
 		staleTime: 1000 * 60 * 20,
 	});
@@ -116,7 +116,7 @@ export const useMoonDataSDK = () => {
 				address: wallet || "",
 				chain: hexChain,
 			});
-			return response as WalletBalanceAPIResponse;
+			return response.data;
 		},
 		staleTime: 1000 * 60 * 20,
 	});
@@ -153,10 +153,25 @@ export const useMoonDataSDK = () => {
 		[moon],
 	);
 
+	const walletNFTQuery = useQuery({
+		queryKey: ["nfts", wallet, chain?.chain_id],
+		queryFn: async () => {
+			if (!wallet || !moon) return null;
+			const response = await moon.getDataSDK().getNfTs({
+				address: wallet,
+				chain: chain?.chain_id?.toString() || "1",
+			});
+			return response.data;
+		},
+		enabled: !!wallet && !!moon,
+		staleTime: 1000 * 60 * 20,
+	});
+
 	return {
 		getWalletBalance,
 		getWalletHistory,
 		walletHistoryQuery,
 		walletBalanceQuery,
+		walletNFTQuery,
 	};
 };
