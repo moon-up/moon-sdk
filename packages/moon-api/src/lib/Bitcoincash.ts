@@ -10,20 +10,20 @@
  */
 
 import {
+  BitcoinCashBitcoinCashCreateAccountData,
+  BitcoinCashBitcoinCashDeleteAccountData,
+  BitcoinCashBitcoinCashExportAccountData,
+  BitcoinCashBitcoinCashGenerateUnsignedPsbtHexData,
+  BitcoinCashBitcoinCashGetAccountData,
+  BitcoinCashBitcoinCashSignBitcoinTransactionData,
+  BitcoinCashBitcoinCashSignBitcoinTransactionPayload,
+  BitcoinCashBitcoinCashSignPsbtWithKeyPathAndScriptPathData,
+  BitcoinCashBitcoinCashSignPsbtWithKeyPathAndScriptPathPayload,
+  BitcoinCashBitcoinCashSignTransactionData,
+  BitcoinCashBitcoinCashSignTransactionWithMemoData,
   BitcoinCashInput,
+  BitcoinCashListAccountsData,
   BitcoinCashTransactionInput,
-  CreateAccountResult,
-  DeleteAccountResult,
-  ExportAccountResult,
-  GenerateUnsignedPsbtHexResult,
-  ListAccountsResult,
-  ReadAccountData,
-  SignBitcoinTransactionBody,
-  SignBitcoinTransactionResult,
-  SignPsbtWithKeyPathAndScriptPathData,
-  SignPsbtWithKeyPathAndScriptPathPayload,
-  SignTransactionResult,
-  SignTransactionWithMemoData,
   UnsignedPSBTInput,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
@@ -36,15 +36,18 @@ export class Bitcoincash<SecurityDataType = unknown> {
   }
 
   /**
-   * No description
+   * @description Creates a new Bitcoin Cash account.
    *
    * @tags BitcoinCash
-   * @name CreateAccount
+   * @name BitcoinCashBitcoinCashCreateAccount
    * @request POST:/bitcoincash/accounts
    * @secure
    */
-  createAccount = (data: BitcoinCashInput, params: RequestParams = {}) =>
-    this.http.request<CreateAccountResult, any>({
+  bitcoinCashBitcoinCashCreateAccount = (
+    data: BitcoinCashInput,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<BitcoinCashBitcoinCashCreateAccountData, any>({
       path: `/bitcoincash/accounts`,
       method: 'POST',
       body: data,
@@ -54,15 +57,18 @@ export class Bitcoincash<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Deletes a Bitcoin Cash account.
    *
    * @tags BitcoinCash
-   * @name DeleteAccount
+   * @name BitcoinCashBitcoinCashDeleteAccount
    * @request POST:/bitcoincash/accounts/{accountName}/delete
    * @secure
    */
-  deleteAccount = (accountName: string, params: RequestParams = {}) =>
-    this.http.request<DeleteAccountResult, any>({
+  bitcoinCashBitcoinCashDeleteAccount = (
+    accountName: string,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<BitcoinCashBitcoinCashDeleteAccountData, any>({
       path: `/bitcoincash/accounts/${accountName}/delete`,
       method: 'POST',
       secure: true,
@@ -70,15 +76,18 @@ export class Bitcoincash<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Exports the account details for the specified account name.
    *
    * @tags BitcoinCash
-   * @name ExportAccount
+   * @name BitcoinCashBitcoinCashExportAccount
    * @request POST:/bitcoincash/accounts/{accountName}/export
    * @secure
    */
-  exportAccount = (accountName: string, params: RequestParams = {}) =>
-    this.http.request<ExportAccountResult, any>({
+  bitcoinCashBitcoinCashExportAccount = (
+    accountName: string,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<BitcoinCashBitcoinCashExportAccountData, any>({
       path: `/bitcoincash/accounts/${accountName}/export`,
       method: 'POST',
       secure: true,
@@ -86,19 +95,19 @@ export class Bitcoincash<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Generates an unsigned PSBT (Partially Signed Bitcoin Transaction) hex string.
    *
    * @tags BitcoinCash
-   * @name GenerateUnsignedPsbtHex
+   * @name BitcoinCashBitcoinCashGenerateUnsignedPsbtHex
    * @request POST:/bitcoincash/accounts/{accountName}/generate-unsigned-psbt
    * @secure
    */
-  generateUnsignedPsbtHex = (
+  bitcoinCashBitcoinCashGenerateUnsignedPsbtHex = (
     accountName: string,
     data: UnsignedPSBTInput,
     params: RequestParams = {}
   ) =>
-    this.http.request<GenerateUnsignedPsbtHexResult, any>({
+    this.http.request<BitcoinCashBitcoinCashGenerateUnsignedPsbtHexData, any>({
       path: `/bitcoincash/accounts/${accountName}/generate-unsigned-psbt`,
       method: 'POST',
       body: data,
@@ -108,31 +117,18 @@ export class Bitcoincash<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Reads the account information for a given account name.
    *
    * @tags BitcoinCash
-   * @name ListAccounts
-   * @request GET:/bitcoincash/accounts
-   * @secure
-   */
-  listAccounts = (params: RequestParams = {}) =>
-    this.http.request<ListAccountsResult, any>({
-      path: `/bitcoincash/accounts`,
-      method: 'GET',
-      secure: true,
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags BitcoinCash
-   * @name ReadAccount
+   * @name BitcoinCashBitcoinCashGetAccount
    * @request GET:/bitcoincash/accounts/{accountName}
    * @secure
    */
-  readAccount = (accountName: string, params: RequestParams = {}) =>
-    this.http.request<ReadAccountData, any>({
+  bitcoinCashBitcoinCashGetAccount = (
+    accountName: string,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<BitcoinCashBitcoinCashGetAccountData, any>({
       path: `/bitcoincash/accounts/${accountName}`,
       method: 'GET',
       secure: true,
@@ -140,19 +136,19 @@ export class Bitcoincash<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Signs a Bitcoin transaction for the specified account.
    *
    * @tags BitcoinCash
-   * @name SignBitcoinTransaction
+   * @name BitcoinCashBitcoinCashSignBitcoinTransaction
    * @request POST:/bitcoincash/accounts/{accountName}/sign-btc-tx
    * @secure
    */
-  signBitcoinTransaction = (
+  bitcoinCashBitcoinCashSignBitcoinTransaction = (
     accountName: string,
-    data: SignBitcoinTransactionBody,
+    data: BitcoinCashBitcoinCashSignBitcoinTransactionPayload,
     params: RequestParams = {}
   ) =>
-    this.http.request<SignBitcoinTransactionResult, any>({
+    this.http.request<BitcoinCashBitcoinCashSignBitcoinTransactionData, any>({
       path: `/bitcoincash/accounts/${accountName}/sign-btc-tx`,
       method: 'POST',
       body: data,
@@ -162,19 +158,22 @@ export class Bitcoincash<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Signs a Partially Signed Bitcoin Transaction (PSBT) using a key path and script path.
    *
    * @tags BitcoinCash
-   * @name SignPsbtWithKeyPathAndScriptPath
+   * @name BitcoinCashBitcoinCashSignPsbtWithKeyPathAndScriptPath
    * @request POST:/bitcoincash/accounts/{accountName}/sign-psbt-with-key-path-and-script-path
    * @secure
    */
-  signPsbtWithKeyPathAndScriptPath = (
+  bitcoinCashBitcoinCashSignPsbtWithKeyPathAndScriptPath = (
     accountName: string,
-    data: SignPsbtWithKeyPathAndScriptPathPayload,
+    data: BitcoinCashBitcoinCashSignPsbtWithKeyPathAndScriptPathPayload,
     params: RequestParams = {}
   ) =>
-    this.http.request<SignPsbtWithKeyPathAndScriptPathData, any>({
+    this.http.request<
+      BitcoinCashBitcoinCashSignPsbtWithKeyPathAndScriptPathData,
+      any
+    >({
       path: `/bitcoincash/accounts/${accountName}/sign-psbt-with-key-path-and-script-path`,
       method: 'POST',
       body: data,
@@ -184,19 +183,19 @@ export class Bitcoincash<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Signs a Bitcoin Cash transaction.
    *
    * @tags BitcoinCash
-   * @name SignTransaction
+   * @name BitcoinCashBitcoinCashSignTransaction
    * @request POST:/bitcoincash/accounts/{accountName}/sign-tx
    * @secure
    */
-  signTransaction = (
+  bitcoinCashBitcoinCashSignTransaction = (
     accountName: string,
     data: BitcoinCashTransactionInput,
     params: RequestParams = {}
   ) =>
-    this.http.request<SignTransactionResult, any>({
+    this.http.request<BitcoinCashBitcoinCashSignTransactionData, any>({
       path: `/bitcoincash/accounts/${accountName}/sign-tx`,
       method: 'POST',
       body: data,
@@ -206,24 +205,40 @@ export class Bitcoincash<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Signs a Bitcoin Cash transaction with a memo.
    *
    * @tags BitcoinCash
-   * @name SignTransactionWithMemo
+   * @name BitcoinCashBitcoinCashSignTransactionWithMemo
    * @request POST:/bitcoincash/accounts/{accountName}/memo-sign-tx
    * @secure
    */
-  signTransactionWithMemo = (
+  bitcoinCashBitcoinCashSignTransactionWithMemo = (
     accountName: string,
     data: BitcoinCashTransactionInput,
     params: RequestParams = {}
   ) =>
-    this.http.request<SignTransactionWithMemoData, any>({
+    this.http.request<BitcoinCashBitcoinCashSignTransactionWithMemoData, any>({
       path: `/bitcoincash/accounts/${accountName}/memo-sign-tx`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * @description Lists Bitcoin Cash accounts associated with the provided authorization token.
+   *
+   * @tags BitcoinCash
+   * @name BitcoinCashListAccounts
+   * @request GET:/bitcoincash/accounts
+   * @secure
+   */
+  bitcoinCashListAccounts = (params: RequestParams = {}) =>
+    this.http.request<BitcoinCashListAccountsData, any>({
+      path: `/bitcoincash/accounts`,
+      method: 'GET',
+      secure: true,
       format: 'json',
       ...params,
     });

@@ -10,22 +10,22 @@
  */
 
 import {
-  ApproveData,
   ERC20InputBody,
-  GetAllowanceData,
-  GetAllowanceParams,
-  GetBalanceOfData,
-  GetBalanceOfParams,
-  GetDecimalsData,
-  GetDecimalsParams,
-  GetNameData,
-  GetNameParams,
-  GetSymbolData,
-  GetSymbolParams,
-  GetTotalSupplyData,
-  GetTotalSupplyParams,
-  TransferData,
-  TransferFromData,
+  Erc20ApproveErc20TokenSpendingData,
+  Erc20GetErc20TokenAllowanceData,
+  Erc20GetErc20TokenAllowanceParams,
+  Erc20GetErc20TokenBalanceData,
+  Erc20GetErc20TokenBalanceParams,
+  Erc20GetErc20TokenDecimalsData,
+  Erc20GetErc20TokenDecimalsParams,
+  Erc20GetErc20TokenNameData,
+  Erc20GetErc20TokenNameParams,
+  Erc20GetErc20TokenSymbolData,
+  Erc20GetErc20TokenSymbolParams,
+  Erc20GetErc20TokenTotalSupplyData,
+  Erc20GetErc20TokenTotalSupplyParams,
+  Erc20TransferErc20TokenData,
+  Erc20TransferFromErc20TokenData,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
@@ -37,19 +37,19 @@ export class Erc20<SecurityDataType = unknown> {
   }
 
   /**
-   * No description
+   * @description Approves a specified address to spend tokens on behalf of the user.
    *
    * @tags ERC20
-   * @name Approve
+   * @name Erc20ApproveErc20TokenSpending
    * @request POST:/erc20/{address}/approve
    * @secure
    */
-  approve = (
+  erc20ApproveErc20TokenSpending = (
     address: string,
     data: ERC20InputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<ApproveData, any>({
+    this.http.request<Erc20ApproveErc20TokenSpendingData, any>({
       path: `/erc20/${address}/approve`,
       method: 'POST',
       body: data,
@@ -59,18 +59,18 @@ export class Erc20<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves the allowance of a specified ERC20 token for a given owner and spender.
    *
    * @tags ERC20
-   * @name GetAllowance
+   * @name Erc20GetErc20TokenAllowance
    * @request GET:/erc20/{account}/allowance
    * @secure
    */
-  getAllowance = (
-    { account, ...query }: GetAllowanceParams,
+  erc20GetErc20TokenAllowance = (
+    { account, ...query }: Erc20GetErc20TokenAllowanceParams,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetAllowanceData, any>({
+    this.http.request<Erc20GetErc20TokenAllowanceData, any>({
       path: `/erc20/${account}/allowance`,
       method: 'GET',
       query: query,
@@ -79,18 +79,18 @@ export class Erc20<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves the balance of a specified ERC20 token for a given account.
    *
    * @tags ERC20
-   * @name GetBalanceOf
+   * @name Erc20GetErc20TokenBalance
    * @request GET:/erc20/{account}/balanceOf
    * @secure
    */
-  getBalanceOf = (
-    { account, ...query }: GetBalanceOfParams,
+  erc20GetErc20TokenBalance = (
+    { account, ...query }: Erc20GetErc20TokenBalanceParams,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetBalanceOfData, any>({
+    this.http.request<Erc20GetErc20TokenBalanceData, any>({
       path: `/erc20/${account}/balanceOf`,
       method: 'GET',
       query: query,
@@ -99,18 +99,18 @@ export class Erc20<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves the number of decimals for the provided ERC20 token.
    *
    * @tags ERC20
-   * @name GetDecimals
+   * @name Erc20GetErc20TokenDecimals
    * @request GET:/erc20/{account}/decimals
    * @secure
    */
-  getDecimals = (
-    { account, ...query }: GetDecimalsParams,
+  erc20GetErc20TokenDecimals = (
+    { account, ...query }: Erc20GetErc20TokenDecimalsParams,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetDecimalsData, any>({
+    this.http.request<Erc20GetErc20TokenDecimalsData, any>({
       path: `/erc20/${account}/decimals`,
       method: 'GET',
       query: query,
@@ -119,18 +119,18 @@ export class Erc20<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves the name of an ERC20 token.
    *
    * @tags ERC20
-   * @name GetName
+   * @name Erc20GetErc20TokenName
    * @request GET:/erc20/{account}/name
    * @secure
    */
-  getName = (
-    { account, ...query }: GetNameParams,
+  erc20GetErc20TokenName = (
+    { account, ...query }: Erc20GetErc20TokenNameParams,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetNameData, any>({
+    this.http.request<Erc20GetErc20TokenNameData, any>({
       path: `/erc20/${account}/name`,
       method: 'GET',
       query: query,
@@ -139,18 +139,18 @@ export class Erc20<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves the symbol of an ERC20 token.
    *
    * @tags ERC20
-   * @name GetSymbol
+   * @name Erc20GetErc20TokenSymbol
    * @request GET:/erc20/{account}/symbol
    * @secure
    */
-  getSymbol = (
-    { account, ...query }: GetSymbolParams,
+  erc20GetErc20TokenSymbol = (
+    { account, ...query }: Erc20GetErc20TokenSymbolParams,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetSymbolData, any>({
+    this.http.request<Erc20GetErc20TokenSymbolData, any>({
       path: `/erc20/${account}/symbol`,
       method: 'GET',
       query: query,
@@ -159,18 +159,18 @@ export class Erc20<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves the total supply of an ERC20 token.
    *
    * @tags ERC20
-   * @name GetTotalSupply
+   * @name Erc20GetErc20TokenTotalSupply
    * @request GET:/erc20/{account}/totalSupply
    * @secure
    */
-  getTotalSupply = (
-    { account, ...query }: GetTotalSupplyParams,
+  erc20GetErc20TokenTotalSupply = (
+    { account, ...query }: Erc20GetErc20TokenTotalSupplyParams,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetTotalSupplyData, any>({
+    this.http.request<Erc20GetErc20TokenTotalSupplyData, any>({
       path: `/erc20/${account}/totalSupply`,
       method: 'GET',
       query: query,
@@ -179,19 +179,19 @@ export class Erc20<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Transfers ERC20 tokens to a specified address.
    *
    * @tags ERC20
-   * @name Transfer
+   * @name Erc20TransferErc20Token
    * @request POST:/erc20/{address}/transfer
    * @secure
    */
-  transfer = (
+  erc20TransferErc20Token = (
     address: string,
     data: ERC20InputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<TransferData, any>({
+    this.http.request<Erc20TransferErc20TokenData, any>({
       path: `/erc20/${address}/transfer`,
       method: 'POST',
       body: data,
@@ -201,19 +201,19 @@ export class Erc20<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Transfers tokens from one address to another.
    *
    * @tags ERC20
-   * @name TransferFrom
+   * @name Erc20TransferFromErc20Token
    * @request POST:/erc20/{address}/transferFrom
    * @secure
    */
-  transferFrom = (
+  erc20TransferFromErc20Token = (
     address: string,
     data: ERC20InputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<TransferFromData, any>({
+    this.http.request<Erc20TransferFromErc20TokenData, any>({
       path: `/erc20/${address}/transferFrom`,
       method: 'POST',
       body: data,

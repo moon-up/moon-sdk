@@ -10,13 +10,13 @@
  */
 
 import {
-  CreateTronAccountData,
-  DeleteTronAccountData,
-  ExportTronAccountData,
-  GetTronAccountData,
-  ListTronAccountsData,
-  SignTronTransactionData,
+  TronCreateTronAccountData,
+  TronDeleteTronAccountData,
+  TronExportTronAccountData,
+  TronGetTronAccountData,
   TronInput,
+  TronListTronAccountsData,
+  TronSignTronTransactionData,
   TronTransactionInput,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
@@ -29,15 +29,15 @@ export class Tron<SecurityDataType = unknown> {
   }
 
   /**
-   * No description
+   * @description Creates a new account using the provided TronInput data.
    *
    * @tags Tron
-   * @name CreateTronAccount
+   * @name TronCreateTronAccount
    * @request POST:/tron
    * @secure
    */
-  createTronAccount = (data: TronInput, params: RequestParams = {}) =>
-    this.http.request<CreateTronAccountData, any>({
+  tronCreateTronAccount = (data: TronInput, params: RequestParams = {}) =>
+    this.http.request<TronCreateTronAccountData, any>({
       path: `/tron`,
       method: 'POST',
       body: data,
@@ -47,15 +47,15 @@ export class Tron<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Deletes an account using the provided account name and authorization token.
    *
    * @tags Tron
-   * @name DeleteTronAccount
+   * @name TronDeleteTronAccount
    * @request POST:/tron/{accountName}/delete
    * @secure
    */
-  deleteTronAccount = (accountName: string, params: RequestParams = {}) =>
-    this.http.request<DeleteTronAccountData, any>({
+  tronDeleteTronAccount = (accountName: string, params: RequestParams = {}) =>
+    this.http.request<TronDeleteTronAccountData, any>({
       path: `/tron/${accountName}/delete`,
       method: 'POST',
       secure: true,
@@ -63,15 +63,15 @@ export class Tron<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Exports the account details for the specified account name.
    *
    * @tags Tron
-   * @name ExportTronAccount
+   * @name TronExportTronAccount
    * @request POST:/tron/{accountName}/export
    * @secure
    */
-  exportTronAccount = (accountName: string, params: RequestParams = {}) =>
-    this.http.request<ExportTronAccountData, any>({
+  tronExportTronAccount = (accountName: string, params: RequestParams = {}) =>
+    this.http.request<TronExportTronAccountData, any>({
       path: `/tron/${accountName}/export`,
       method: 'POST',
       secure: true,
@@ -79,15 +79,15 @@ export class Tron<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves account information from the Tron blockchain.
    *
    * @tags Tron
-   * @name GetTronAccount
+   * @name TronGetTronAccount
    * @request GET:/tron/{accountName}
    * @secure
    */
-  getTronAccount = (accountName: string, params: RequestParams = {}) =>
-    this.http.request<GetTronAccountData, any>({
+  tronGetTronAccount = (accountName: string, params: RequestParams = {}) =>
+    this.http.request<TronGetTronAccountData, any>({
       path: `/tron/${accountName}`,
       method: 'GET',
       secure: true,
@@ -95,15 +95,15 @@ export class Tron<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Lists accounts using the provided authorization token.
    *
    * @tags Tron
-   * @name ListTronAccounts
+   * @name TronListTronAccounts
    * @request GET:/tron
    * @secure
    */
-  listTronAccounts = (params: RequestParams = {}) =>
-    this.http.request<ListTronAccountsData, any>({
+  tronListTronAccounts = (params: RequestParams = {}) =>
+    this.http.request<TronListTronAccountsData, any>({
       path: `/tron`,
       method: 'GET',
       secure: true,
@@ -111,19 +111,19 @@ export class Tron<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Signs a Tron transaction using the provided account name and transaction input.
    *
    * @tags Tron
-   * @name SignTronTransaction
+   * @name TronSignTronTransaction
    * @request POST:/tron/{accountName}/sign-tx
    * @secure
    */
-  signTronTransaction = (
+  tronSignTronTransaction = (
     accountName: string,
     data: TronTransactionInput,
     params: RequestParams = {}
   ) =>
-    this.http.request<SignTronTransactionData, any>({
+    this.http.request<TronSignTronTransactionData, any>({
       path: `/tron/${accountName}/sign-tx`,
       method: 'POST',
       body: data,

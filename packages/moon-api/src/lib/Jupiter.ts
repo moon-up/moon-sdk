@@ -10,14 +10,14 @@
  */
 
 import {
-  GetIndexedRouteMapData,
-  GetIndexedRouteMapParams,
-  GetProgramIdToLabelData,
-  GetQuoteData,
-  GetSwapInstructionsData,
-  GetTokensData,
+  JupiterGetIndexedRouteMapData,
+  JupiterGetIndexedRouteMapParams,
+  JupiterGetProgramIdToLabelData,
+  JupiterGetQuoteData,
+  JupiterGetSwapInstructionsData,
+  JupiterGetTokensData,
+  JupiterSwapData,
   OmitJupiterInputBodyAccountName,
-  SwapData,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
@@ -29,18 +29,18 @@ export class Jupiter<SecurityDataType = unknown> {
   }
 
   /**
-   * No description
+   * @description Retrieves the indexed route map.
    *
    * @tags Jupiter
-   * @name GetIndexedRouteMap
+   * @name JupiterGetIndexedRouteMap
    * @request GET:/jupiter/indexedRouteMap
    * @secure
    */
-  getIndexedRouteMap = (
-    query: GetIndexedRouteMapParams,
+  jupiterGetIndexedRouteMap = (
+    query: JupiterGetIndexedRouteMapParams,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetIndexedRouteMapData, any>({
+    this.http.request<JupiterGetIndexedRouteMapData, any>({
       path: `/jupiter/indexedRouteMap`,
       method: 'GET',
       query: query,
@@ -49,15 +49,15 @@ export class Jupiter<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves the program ID to label mapping.
    *
    * @tags Jupiter
-   * @name GetProgramIdToLabel
+   * @name JupiterGetProgramIdToLabel
    * @request GET:/jupiter/programIdToLabel
    * @secure
    */
-  getProgramIdToLabel = (params: RequestParams = {}) =>
-    this.http.request<GetProgramIdToLabelData, any>({
+  jupiterGetProgramIdToLabel = (params: RequestParams = {}) =>
+    this.http.request<JupiterGetProgramIdToLabelData, any>({
       path: `/jupiter/programIdToLabel`,
       method: 'GET',
       secure: true,
@@ -65,19 +65,19 @@ export class Jupiter<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves the tokens available on the Jupiter platform.
    *
    * @tags Jupiter
-   * @name GetQuote
+   * @name JupiterGetQuote
    * @request POST:/jupiter/{accountName}/quote
    * @secure
    */
-  getQuote = (
+  jupiterGetQuote = (
     accountName: string,
     data: OmitJupiterInputBodyAccountName,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetQuoteData, any>({
+    this.http.request<JupiterGetQuoteData, any>({
       path: `/jupiter/${accountName}/quote`,
       method: 'POST',
       body: data,
@@ -87,19 +87,19 @@ export class Jupiter<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves swap instructions for a given account.
    *
    * @tags Jupiter
-   * @name GetSwapInstructions
+   * @name JupiterGetSwapInstructions
    * @request POST:/jupiter/{accountName}/swapInstructions
    * @secure
    */
-  getSwapInstructions = (
+  jupiterGetSwapInstructions = (
     accountName: string,
     data: OmitJupiterInputBodyAccountName,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetSwapInstructionsData, any>({
+    this.http.request<JupiterGetSwapInstructionsData, any>({
       path: `/jupiter/${accountName}/swapInstructions`,
       method: 'POST',
       body: data,
@@ -109,15 +109,15 @@ export class Jupiter<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves the tokens available on the Jupiter platform.
    *
    * @tags Jupiter
-   * @name GetTokens
+   * @name JupiterGetTokens
    * @request GET:/jupiter/tokens
    * @secure
    */
-  getTokens = (params: RequestParams = {}) =>
-    this.http.request<GetTokensData, any>({
+  jupiterGetTokens = (params: RequestParams = {}) =>
+    this.http.request<JupiterGetTokensData, any>({
       path: `/jupiter/tokens`,
       method: 'GET',
       secure: true,
@@ -125,19 +125,19 @@ export class Jupiter<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Handles the swap operation for a given account.
    *
    * @tags Jupiter
-   * @name Swap
+   * @name JupiterSwap
    * @request POST:/jupiter/{accountName}/swap
    * @secure
    */
-  swap = (
+  jupiterSwap = (
     accountName: string,
     data: OmitJupiterInputBodyAccountName,
     params: RequestParams = {}
   ) =>
-    this.http.request<SwapData, any>({
+    this.http.request<JupiterSwapData, any>({
       path: `/jupiter/${accountName}/swap`,
       method: 'POST',
       body: data,

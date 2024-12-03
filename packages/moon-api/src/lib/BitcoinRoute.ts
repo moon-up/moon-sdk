@@ -11,186 +11,202 @@
 
 import {
   BRC20TransactionInput,
+  BitcoinBitcoinCreateAccountData,
+  BitcoinBitcoinCreateBrc20TransactionData,
+  BitcoinBitcoinCreateSrc20InscriptionData,
+  BitcoinBitcoinDeleteAccountData,
+  BitcoinBitcoinExportAccountData,
+  BitcoinBitcoinGenerateUnsignedPsbtHexData,
+  BitcoinBitcoinGetAccountData,
+  BitcoinBitcoinSignTransactionData,
   BitcoinInput,
+  BitcoinListAccountsData,
   BitcoinTransactionInput,
-  CreateBitcoinAccountData,
-  CreateBrc20TransactionData,
-  CreateSrc20InscriptionData,
-  DeleteBitcoinAccountData,
-  ExportBitcoinAccountData,
-  GenerateUnsignedPsbtHexData,
-  GetBitcoinAccountData,
-  ListBitcoinAccountsData,
   SRC20InscriptionInput,
-  SignBitcoinTransactionData,
   UnsignedPSBTInput,
 } from './data-contracts';
 
 export namespace Bitcoin {
   /**
-   * No description
+   * @description Creates a new Bitcoin account.
    * @tags Bitcoin
-   * @name CreateBitcoinAccount
+   * @name BitcoinBitcoinCreateAccount
    * @request POST:/bitcoin
    * @secure
    */
-  export namespace CreateBitcoinAccount {
+  export namespace BitcoinBitcoinCreateAccount {
     export type RequestParams = {};
     export type RequestQuery = {};
     export type RequestBody = BitcoinInput;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = CreateBitcoinAccountData;
+    export type ResponseBody = BitcoinBitcoinCreateAccountData;
   }
 
   /**
-   * No description
+   * @description Creates a BRC20 transaction.
    * @tags Bitcoin
-   * @name CreateBrc20Transaction
+   * @name BitcoinBitcoinCreateBrc20Transaction
    * @request POST:/bitcoin/{accountName}/brc20-tx
    * @secure
    */
-  export namespace CreateBrc20Transaction {
+  export namespace BitcoinBitcoinCreateBrc20Transaction {
     export type RequestParams = {
+      /** - The name of the account for which the transaction is being created. */
       accountName: string;
     };
     export type RequestQuery = {};
     export type RequestBody = BRC20TransactionInput;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = CreateBrc20TransactionData;
+    export type ResponseBody = BitcoinBitcoinCreateBrc20TransactionData;
   }
 
   /**
-   * No description
+   * @description Creates an SRC20 inscription using the provided account name and inscription input.
    * @tags Bitcoin
-   * @name CreateSrc20Inscription
+   * @name BitcoinBitcoinCreateSrc20Inscription
    * @request POST:/bitcoin/{accountName}/src20-inscription
    * @secure
    */
-  export namespace CreateSrc20Inscription {
+  export namespace BitcoinBitcoinCreateSrc20Inscription {
     export type RequestParams = {
+      /** - The name of the account for which the inscription is being created. */
       accountName: string;
     };
     export type RequestQuery = {};
     export type RequestBody = SRC20InscriptionInput;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = CreateSrc20InscriptionData;
+    export type ResponseBody = BitcoinBitcoinCreateSrc20InscriptionData;
   }
 
   /**
-   * No description
+   * @description Deletes a Bitcoin account.
    * @tags Bitcoin
-   * @name DeleteBitcoinAccount
+   * @name BitcoinBitcoinDeleteAccount
    * @request POST:/bitcoin/{accountName}/delete
    * @secure
    */
-  export namespace DeleteBitcoinAccount {
+  export namespace BitcoinBitcoinDeleteAccount {
     export type RequestParams = {
+      /** - The name of the account to be deleted. */
       accountName: string;
     };
     export type RequestQuery = {};
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = DeleteBitcoinAccountData;
+    export type ResponseBody = BitcoinBitcoinDeleteAccountData;
   }
 
   /**
-   * No description
+   * @description Exports the account details for the specified account name.
    * @tags Bitcoin
-   * @name ExportBitcoinAccount
+   * @name BitcoinBitcoinExportAccount
    * @request POST:/bitcoin/{accountName}/export
    * @secure
    */
-  export namespace ExportBitcoinAccount {
+  export namespace BitcoinBitcoinExportAccount {
     export type RequestParams = {
+      /** - The name of the account to be exported. */
       accountName: string;
     };
     export type RequestQuery = {};
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = ExportBitcoinAccountData;
+    export type ResponseBody = BitcoinBitcoinExportAccountData;
   }
 
   /**
-   * No description
+   * @description Generates an unsigned PSBT (Partially Signed Bitcoin Transaction) hex string.
    * @tags Bitcoin
-   * @name GenerateUnsignedPsbtHex
+   * @name BitcoinBitcoinGenerateUnsignedPsbtHex
    * @request POST:/bitcoin/{accountName}/generate-unsigned-psbt
    * @secure
    */
-  export namespace GenerateUnsignedPsbtHex {
+  export namespace BitcoinBitcoinGenerateUnsignedPsbtHex {
     export type RequestParams = {
+      /** - The name of the account for which to generate the PSBT. */
       accountName: string;
     };
     export type RequestQuery = {};
     export type RequestBody = UnsignedPSBTInput;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = GenerateUnsignedPsbtHexData;
+    export type ResponseBody = BitcoinBitcoinGenerateUnsignedPsbtHexData;
   }
 
   /**
-   * No description
+   * @description Retrieves the account information for a given account name.
    * @tags Bitcoin
-   * @name GetBitcoinAccount
+   * @name BitcoinBitcoinGetAccount
    * @request GET:/bitcoin/{accountName}
    * @secure
    */
-  export namespace GetBitcoinAccount {
+  export namespace BitcoinBitcoinGetAccount {
     export type RequestParams = {
+      /** - The name of the account to retrieve. */
       accountName: string;
     };
     export type RequestQuery = {};
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = GetBitcoinAccountData;
+    export type ResponseBody = BitcoinBitcoinGetAccountData;
   }
 
   /**
-   * No description
+   * @description Signs a Bitcoin transaction using the provided account name and transaction input.
    * @tags Bitcoin
-   * @name ListBitcoinAccounts
-   * @request GET:/bitcoin
-   * @secure
-   */
-  export namespace ListBitcoinAccounts {
-    export type RequestParams = {};
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = ListBitcoinAccountsData;
-  }
-
-  /**
-   * No description
-   * @tags Bitcoin
-   * @name SignBitcoinTransaction
+   * @name BitcoinBitcoinSignTransaction
    * @request POST:/bitcoin/{accountName}/sign-tx
    * @secure
    */
-  export namespace SignBitcoinTransaction {
+  export namespace BitcoinBitcoinSignTransaction {
     export type RequestParams = {
+      /** - The name of the account to sign the transaction for. */
       accountName: string;
     };
     export type RequestQuery = {};
     export type RequestBody = BitcoinTransactionInput;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = SignBitcoinTransactionData;
+    export type ResponseBody = BitcoinBitcoinSignTransactionData;
+  }
+
+  /**
+   * @description Lists the accounts associated with the provided authorization token.
+   * @tags Bitcoin
+   * @name BitcoinListAccounts
+   * @request GET:/bitcoin
+   * @secure
+   */
+  export namespace BitcoinListAccounts {
+    export type RequestParams = {};
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token from the request header. */
+      Authorization: string;
+    };
+    export type ResponseBody = BitcoinListAccountsData;
   }
 }

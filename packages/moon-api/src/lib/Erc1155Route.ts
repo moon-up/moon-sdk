@@ -10,127 +10,139 @@
  */
 
 import {
-  BalanceOfBatchData,
-  BalanceOfResult,
+  Erc1155Erc1155BalanceOfBatchData,
+  Erc1155Erc1155BalanceOfData,
+  Erc1155Erc1155IsApprovedForAllData,
+  Erc1155Erc1155SafeBatchTransferFromData,
+  Erc1155Erc1155SafeTransferFromData,
+  Erc1155Erc1155SetApprovalForAllData,
   Erc1155Request,
-  IsApprovedForAllData,
-  SafeBatchTransferFromData,
-  SafeTransferFromData,
-  SetApprovalForAllData,
 } from './data-contracts';
 
 export namespace Erc1155 {
   /**
-   * No description
+   * @description Retrieves the balance of an ERC1155 token for a specific account.
    * @tags ERC1155
-   * @name BalanceOf
+   * @name Erc1155Erc1155BalanceOf
    * @request POST:/erc1155/{name}/balance-of
    * @secure
    */
-  export namespace BalanceOf {
+  export namespace Erc1155Erc1155BalanceOf {
     export type RequestParams = {
+      /** - The name identifier for the request */
       name: string;
     };
     export type RequestQuery = {};
     export type RequestBody = Erc1155Request;
     export type RequestHeaders = {
+      /** - The authorization token */
       Authorization: string;
     };
-    export type ResponseBody = BalanceOfResult;
+    export type ResponseBody = Erc1155Erc1155BalanceOfData;
   }
 
   /**
-   * No description
+   * @description Retrieves balances for multiple token IDs and accounts in a batch operation.
    * @tags ERC1155
-   * @name BalanceOfBatch
+   * @name Erc1155Erc1155BalanceOfBatch
    * @request POST:/erc1155/{name}/balance-of-batch
    * @secure
    */
-  export namespace BalanceOfBatch {
+  export namespace Erc1155Erc1155BalanceOfBatch {
     export type RequestParams = {
+      /** - The name identifier for the request */
       name: string;
     };
     export type RequestQuery = {};
     export type RequestBody = Erc1155Request;
     export type RequestHeaders = {
+      /** - The authorization token */
       Authorization: string;
     };
-    export type ResponseBody = BalanceOfBatchData;
+    export type ResponseBody = Erc1155Erc1155BalanceOfBatchData;
   }
 
   /**
-   * No description
+   * @description Queries if an address is approved to manage all tokens of another address.
    * @tags ERC1155
-   * @name IsApprovedForAll
+   * @name Erc1155Erc1155IsApprovedForAll
    * @request POST:/erc1155/{name}/is-approved-for-all
    * @secure
    */
-  export namespace IsApprovedForAll {
+  export namespace Erc1155Erc1155IsApprovedForAll {
     export type RequestParams = {
+      /** - The name identifier for the request */
       name: string;
     };
     export type RequestQuery = {};
     export type RequestBody = Erc1155Request;
     export type RequestHeaders = {
+      /** - The authorization token */
       Authorization: string;
     };
-    export type ResponseBody = IsApprovedForAllData;
+    export type ResponseBody = Erc1155Erc1155IsApprovedForAllData;
   }
 
   /**
-   * No description
+   * @description Safely transfers multiple tokens between addresses in a batch operation.
    * @tags ERC1155
-   * @name SafeBatchTransferFrom
+   * @name Erc1155Erc1155SafeBatchTransferFrom
    * @request POST:/erc1155/{name}/safe-batch-transfer-from
    * @secure
    */
-  export namespace SafeBatchTransferFrom {
+  export namespace Erc1155Erc1155SafeBatchTransferFrom {
     export type RequestParams = {
+      /** - The name identifier for the request */
       name: string;
     };
     export type RequestQuery = {};
     export type RequestBody = Erc1155Request;
     export type RequestHeaders = {
+      /** - The authorization token */
       Authorization: string;
     };
-    export type ResponseBody = SafeBatchTransferFromData;
+    export type ResponseBody = Erc1155Erc1155SafeBatchTransferFromData;
   }
 
   /**
-   * No description
+   * @description Safely transfers a single token between addresses.
    * @tags ERC1155
-   * @name SafeTransferFrom
+   * @name Erc1155Erc1155SafeTransferFrom
    * @request POST:/erc1155/{name}/safe-transfer-from
    * @secure
    */
-  export namespace SafeTransferFrom {
+  export namespace Erc1155Erc1155SafeTransferFrom {
     export type RequestParams = {
+      /** - The name identifier for the request */
       name: string;
     };
     export type RequestQuery = {};
     export type RequestBody = Erc1155Request;
     export type RequestHeaders = {
+      /** - The authorization token */
       Authorization: string;
     };
-    export type ResponseBody = SafeTransferFromData;
+    export type ResponseBody = Erc1155Erc1155SafeTransferFromData;
   }
 
   /**
-   * No description
+   * @description Enables or disables approval for a third party ("operator") to manage all tokens.
    * @tags ERC1155
-   * @name SetApprovalForAll
+   * @name Erc1155Erc1155SetApprovalForAll
    * @request POST:/erc1155/{name}/set-approval-for-all
    * @secure
    */
-  export namespace SetApprovalForAll {
+  export namespace Erc1155Erc1155SetApprovalForAll {
     export type RequestParams = {
+      /** - The name identifier for the request */
       name: string;
     };
     export type RequestQuery = {};
     export type RequestBody = Erc1155Request;
     export type RequestHeaders = {
+      /** - The authorization token */
       Authorization: string;
     };
-    export type ResponseBody = SetApprovalForAllData;
+    export type ResponseBody = Erc1155Erc1155SetApprovalForAllData;
   }
 }

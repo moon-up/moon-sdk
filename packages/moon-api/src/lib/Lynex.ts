@@ -12,7 +12,7 @@
 import {
   AddLiquidityData,
   AddLiquidityEthData,
-  ApproveOutput,
+  ApproveData,
   BurnData,
   CalculateOptimalVoteDistributionData,
   CalculateOptimalVoteDistributionParams,
@@ -21,7 +21,7 @@ import {
   ClaimBribesData,
   ClaimData,
   ClaimFeesData,
-  ClaimRewardsResult,
+  ClaimRewardsData,
   CreateDelegatedLockForData,
   CreateGaugeData,
   CreateLockData,
@@ -37,12 +37,12 @@ import {
   GetApprovedParams,
   GetAssetByAddressData,
   GetAssetsData,
+  GetBalanceOfData,
   GetBalanceOfNftAtData,
   GetBalanceOfNftAtParams,
   GetBalanceOfNftData,
   GetBalanceOfNftParams,
-  GetBalanceOfOutput,
-  GetBalanceOfParams4,
+  GetBalanceOfParams,
   GetDelegatesData,
   GetDelegatesParams,
   GetFactoryData,
@@ -51,8 +51,8 @@ import {
   GetLastVotedParams,
   GetLockDetailsData,
   GetLockDetailsParams,
-  GetNameParams2,
-  GetNameResult,
+  GetNameData,
+  GetNameParams,
   GetOwnerOfData,
   GetOwnerOfParams,
   GetPastVotesData,
@@ -62,8 +62,8 @@ import {
   GetPoolVoteLengthParams,
   GetPoolsByTypeData,
   GetPoolsData,
-  GetSymbolParams2,
-  GetSymbolResult,
+  GetSymbolData,
+  GetSymbolParams,
   GetTokenByIndexData,
   GetTokenByIndexParams,
   GetTokenOfOwnerByIndexData,
@@ -74,8 +74,8 @@ import {
   GetTopAprPoolsParams,
   GetTotalNftsMintedData,
   GetTotalNftsMintedParams,
-  GetTotalSupplyOutput,
-  GetTotalSupplyParams4,
+  GetTotalSupplyData,
+  GetTotalSupplyParams,
   GetTotalValueLockedData,
   GetTotalWeightData,
   GetTotalWeightParams,
@@ -91,13 +91,13 @@ import {
   GetVotesParams,
   GetWeightsData,
   GetWeightsParams,
-  GetWethParams2,
-  GetWethResult,
+  GetWethData,
+  GetWethParams,
   GlobalCheckpointData,
   IncreaseLockAmountData,
   IncreaseUnlockTimeData,
-  IsApprovedForAllParams1,
-  IsApprovedForAllResult,
+  IsApprovedForAllData,
+  IsApprovedForAllParams,
   IsGaugeData,
   IsGaugeParams,
   IsWhitelistedData,
@@ -111,15 +111,15 @@ import {
   PokeData,
   ResetData,
   ReviveGaugeData,
-  SafeTransferFromResult,
-  SetApprovalForAllResult,
+  SafeTransferFromData,
+  SetApprovalForAllData,
   SetClaimApprovalData,
   SetClaimApprovalForAllData,
   SplitData,
   SwapExactEthForTokensData,
   SwapExactTokensForEthData,
   SwapExactTokensForTokensData,
-  TransferFromOutput,
+  TransferFromData,
   UnlockPermanentData,
   VoteData,
   VoteWithOptimalDistributionData,
@@ -192,7 +192,7 @@ export class Lynex<SecurityDataType = unknown> {
     data: LynexNFTInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<ApproveOutput, any>({
+    this.http.request<ApproveData, any>({
       path: `/lynex/nft/${address}/approve`,
       method: 'POST',
       body: data,
@@ -366,7 +366,7 @@ export class Lynex<SecurityDataType = unknown> {
     data: LynexVoterInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<ClaimRewardsResult, any>({
+    this.http.request<ClaimRewardsData, any>({
       path: `/lynex/voter/${address}/claimRewards`,
       method: 'POST',
       body: data,
@@ -581,7 +581,7 @@ export class Lynex<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves an asset by its address.
    *
    * @tags Lynex
    * @name GetAssetByAddress
@@ -597,7 +597,7 @@ export class Lynex<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves the assets using the provided authorization token.
    *
    * @tags Lynex
    * @name GetAssets
@@ -620,8 +620,8 @@ export class Lynex<SecurityDataType = unknown> {
    * @request GET:/lynex/nft/balanceOf
    * @secure
    */
-  getBalanceOf = (query: GetBalanceOfParams4, params: RequestParams = {}) =>
-    this.http.request<GetBalanceOfOutput, any>({
+  getBalanceOf = (query: GetBalanceOfParams, params: RequestParams = {}) =>
+    this.http.request<GetBalanceOfData, any>({
       path: `/lynex/nft/balanceOf`,
       method: 'GET',
       query: query,
@@ -745,8 +745,8 @@ export class Lynex<SecurityDataType = unknown> {
    * @request GET:/lynex/nft/name
    * @secure
    */
-  getName = (query: GetNameParams2, params: RequestParams = {}) =>
-    this.http.request<GetNameResult, any>({
+  getName = (query: GetNameParams, params: RequestParams = {}) =>
+    this.http.request<GetNameData, any>({
       path: `/lynex/nft/name`,
       method: 'GET',
       query: query,
@@ -864,8 +864,8 @@ export class Lynex<SecurityDataType = unknown> {
    * @request GET:/lynex/nft/symbol
    * @secure
    */
-  getSymbol = (query: GetSymbolParams2, params: RequestParams = {}) =>
-    this.http.request<GetSymbolResult, any>({
+  getSymbol = (query: GetSymbolParams, params: RequestParams = {}) =>
+    this.http.request<GetSymbolData, any>({
       path: `/lynex/nft/symbol`,
       method: 'GET',
       query: query,
@@ -975,8 +975,8 @@ export class Lynex<SecurityDataType = unknown> {
    * @request GET:/lynex/nft/totalSupply
    * @secure
    */
-  getTotalSupply = (query: GetTotalSupplyParams4, params: RequestParams = {}) =>
-    this.http.request<GetTotalSupplyOutput, any>({
+  getTotalSupply = (query: GetTotalSupplyParams, params: RequestParams = {}) =>
+    this.http.request<GetTotalSupplyData, any>({
       path: `/lynex/nft/totalSupply`,
       method: 'GET',
       query: query,
@@ -1139,8 +1139,8 @@ export class Lynex<SecurityDataType = unknown> {
    * @request GET:/lynex/router/wETH
    * @secure
    */
-  getWeth = (query: GetWethParams2, params: RequestParams = {}) =>
-    this.http.request<GetWethResult, any>({
+  getWeth = (query: GetWethParams, params: RequestParams = {}) =>
+    this.http.request<GetWethData, any>({
       path: `/lynex/router/wETH`,
       method: 'GET',
       query: query,
@@ -1223,10 +1223,10 @@ export class Lynex<SecurityDataType = unknown> {
    * @secure
    */
   isApprovedForAll = (
-    query: IsApprovedForAllParams1,
+    query: IsApprovedForAllParams,
     params: RequestParams = {}
   ) =>
-    this.http.request<IsApprovedForAllResult, any>({
+    this.http.request<IsApprovedForAllData, any>({
       path: `/lynex/nft/isApprovedForAll`,
       method: 'GET',
       query: query,
@@ -1413,7 +1413,7 @@ export class Lynex<SecurityDataType = unknown> {
     data: LynexNFTInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<SafeTransferFromResult, any>({
+    this.http.request<SafeTransferFromData, any>({
       path: `/lynex/nft/${address}/safeTransferFrom`,
       method: 'POST',
       body: data,
@@ -1435,7 +1435,7 @@ export class Lynex<SecurityDataType = unknown> {
     data: LynexNFTInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<SetApprovalForAllResult, any>({
+    this.http.request<SetApprovalForAllData, any>({
       path: `/lynex/nft/${address}/setApprovalForAll`,
       method: 'POST',
       body: data,
@@ -1589,7 +1589,7 @@ export class Lynex<SecurityDataType = unknown> {
     data: LynexNFTInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<TransferFromOutput, any>({
+    this.http.request<TransferFromData, any>({
       path: `/lynex/nft/${address}/transferFrom`,
       method: 'POST',
       body: data,

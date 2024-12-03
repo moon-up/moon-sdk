@@ -10,310 +10,376 @@
  */
 
 import {
-  GetAllFinancialsData,
-  GetAllFinancialsParams1PeriodEnum,
-  GetAvailableTickersData,
-  GetBalanceSheetsData,
-  GetBalanceSheetsParams1PeriodEnum,
-  GetCashFlowStatementsData,
-  GetCashFlowStatementsParams1PeriodEnum,
-  GetCompanyFactsData,
-  GetIncomeStatementsData,
-  GetIncomeStatementsParams1PeriodEnum,
-  GetInsiderTransactionsData,
-  GetOptionsChainData,
-  GetOptionsChainParams1OptionTypeEnum,
-  GetPriceSnapshotData,
-  GetPricesData,
-  GetSegmentedRevenuesData,
-  GetSegmentedRevenuesParams1PeriodEnum,
+  FinancialDatasetsGetAllFinancialsData,
+  FinancialDatasetsGetAllFinancialsParams1PeriodEnum,
+  FinancialDatasetsGetAvailableTickersData,
+  FinancialDatasetsGetBalanceSheetsData,
+  FinancialDatasetsGetBalanceSheetsParams1PeriodEnum,
+  FinancialDatasetsGetCashFlowStatementsData,
+  FinancialDatasetsGetCashFlowStatementsParams1PeriodEnum,
+  FinancialDatasetsGetCompanyFactsData,
+  FinancialDatasetsGetIncomeStatementsData,
+  FinancialDatasetsGetIncomeStatementsParams1PeriodEnum,
+  FinancialDatasetsGetInsiderTransactionsData,
+  FinancialDatasetsGetOptionsChainData,
+  FinancialDatasetsGetOptionsChainParams1OptionTypeEnum,
+  FinancialDatasetsGetPriceSnapshotData,
+  FinancialDatasetsGetPricesData,
+  FinancialDatasetsGetSegmentedRevenuesData,
+  FinancialDatasetsGetSegmentedRevenuesParams1PeriodEnum,
+  FinancialDatasetsSearchFinancialsByLineItemsData,
+  FinancialDatasetsSearchFinancialsByLineItemsPayload,
+  FinancialDatasetsSearchFinancialsData,
   PriceInterval,
-  SearchFinancialsByLineItemsData,
-  SearchFinancialsByLineItemsPayload,
-  SearchFinancialsData,
   SearchRequest,
 } from './data-contracts';
 
 export namespace FinancialDatasets {
   /**
-   * No description
+   * @description Retrieves all financials for a given ticker symbol.
    * @tags Financial Datasets
-   * @name GetAllFinancials
+   * @name FinancialDatasetsGetAllFinancials
    * @request GET:/financial-datasets/all-financials/{ticker}
    * @secure
    */
-  export namespace GetAllFinancials {
+  export namespace FinancialDatasetsGetAllFinancials {
     export type RequestParams = {
+      /** - The ticker symbol of the company. */
       ticker: string;
     };
     export type RequestQuery = {
+      /** - The CIK number of the company. */
       cik?: string;
-      /** @format double */
+      /**
+       * - The maximum number of financials to return.
+       * @format double
+       */
       limit?: number;
-      period: GetAllFinancialsParams1PeriodEnum;
+      /** - The period type of the financials. */
+      period: FinancialDatasetsGetAllFinancialsParams1PeriodEnum;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = GetAllFinancialsData;
+    export type ResponseBody = FinancialDatasetsGetAllFinancialsData;
   }
 
   /**
-   * No description
+   * @description Retrieves the available tickers.
    * @tags Financial Datasets
-   * @name GetAvailableTickers
+   * @name FinancialDatasetsGetAvailableTickers
    * @request GET:/financial-datasets/available-tickers
    * @secure
    */
-  export namespace GetAvailableTickers {
+  export namespace FinancialDatasetsGetAvailableTickers {
     export type RequestParams = {};
     export type RequestQuery = {};
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = GetAvailableTickersData;
+    export type ResponseBody = FinancialDatasetsGetAvailableTickersData;
   }
 
   /**
-   * No description
+   * @description Retrieves the balance sheets for a given ticker symbol.
    * @tags Financial Datasets
-   * @name GetBalanceSheets
+   * @name FinancialDatasetsGetBalanceSheets
    * @request GET:/financial-datasets/balance-sheets/{ticker}
    * @secure
    */
-  export namespace GetBalanceSheets {
+  export namespace FinancialDatasetsGetBalanceSheets {
     export type RequestParams = {
+      /** - The ticker symbol of the company. */
       ticker: string;
     };
     export type RequestQuery = {
+      /** - The CIK number of the company. */
       cik?: string;
-      /** @format double */
+      /**
+       * - The maximum number of balance sheets to return.
+       * @format double
+       */
       limit?: number;
-      period: GetBalanceSheetsParams1PeriodEnum;
+      /** - The period type of the balance sheets. */
+      period: FinancialDatasetsGetBalanceSheetsParams1PeriodEnum;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = GetBalanceSheetsData;
+    export type ResponseBody = FinancialDatasetsGetBalanceSheetsData;
   }
 
   /**
-   * No description
+   * @description Retrieves the cash flow statements for a given ticker symbol.
    * @tags Financial Datasets
-   * @name GetCashFlowStatements
+   * @name FinancialDatasetsGetCashFlowStatements
    * @request GET:/financial-datasets/cash-flow-statements/{ticker}
    * @secure
    */
-  export namespace GetCashFlowStatements {
+  export namespace FinancialDatasetsGetCashFlowStatements {
     export type RequestParams = {
+      /** - The ticker symbol of the company. */
       ticker: string;
     };
     export type RequestQuery = {
+      /** - The CIK number of the company. */
       cik?: string;
-      /** @format double */
+      /**
+       * - The maximum number of cash flow statements to return.
+       * @format double
+       */
       limit?: number;
-      period: GetCashFlowStatementsParams1PeriodEnum;
+      /** - The period type of the cash flow statements. */
+      period: FinancialDatasetsGetCashFlowStatementsParams1PeriodEnum;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = GetCashFlowStatementsData;
+    export type ResponseBody = FinancialDatasetsGetCashFlowStatementsData;
   }
 
   /**
-   * No description
+   * @description Retrieves the company facts for a given ticker symbol.
    * @tags Financial Datasets
-   * @name GetCompanyFacts
+   * @name FinancialDatasetsGetCompanyFacts
    * @request GET:/financial-datasets/company-facts/{ticker}
    * @secure
    */
-  export namespace GetCompanyFacts {
+  export namespace FinancialDatasetsGetCompanyFacts {
     export type RequestParams = {
+      /** - The ticker symbol of the company. */
       ticker: string;
     };
     export type RequestQuery = {};
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = GetCompanyFactsData;
+    export type ResponseBody = FinancialDatasetsGetCompanyFactsData;
   }
 
   /**
-   * No description
+   * @description Retrieves the income statements for a given ticker symbol.
    * @tags Financial Datasets
-   * @name GetIncomeStatements
+   * @name FinancialDatasetsGetIncomeStatements
    * @request GET:/financial-datasets/income-statements/{ticker}
    * @secure
    */
-  export namespace GetIncomeStatements {
+  export namespace FinancialDatasetsGetIncomeStatements {
     export type RequestParams = {
+      /** - The ticker symbol of the company. */
       ticker: string;
     };
     export type RequestQuery = {
+      /** - The CIK number of the company. */
       cik?: string;
-      /** @format double */
+      /**
+       * - The maximum number of income statements to return.
+       * @format double
+       */
       limit?: number;
-      period: GetIncomeStatementsParams1PeriodEnum;
+      /** - The period type of the income statements. */
+      period: FinancialDatasetsGetIncomeStatementsParams1PeriodEnum;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = GetIncomeStatementsData;
+    export type ResponseBody = FinancialDatasetsGetIncomeStatementsData;
   }
 
   /**
-   * No description
+   * @description Retrieves the insider transactions for a given ticker symbol.
    * @tags Financial Datasets
-   * @name GetInsiderTransactions
+   * @name FinancialDatasetsGetInsiderTransactions
    * @request GET:/financial-datasets/insider-transactions/{ticker}
    * @secure
    */
-  export namespace GetInsiderTransactions {
+  export namespace FinancialDatasetsGetInsiderTransactions {
     export type RequestParams = {
+      /** - The ticker symbol of the company. */
       ticker: string;
     };
     export type RequestQuery = {
-      /** @format double */
+      /**
+       * - The maximum number of insider transactions to return.
+       * @format double
+       */
       limit?: number;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = GetInsiderTransactionsData;
+    export type ResponseBody = FinancialDatasetsGetInsiderTransactionsData;
   }
 
   /**
-   * No description
+   * @description Retrieves the options chain for a given ticker symbol.
    * @tags Financial Datasets
-   * @name GetOptionsChain
+   * @name FinancialDatasetsGetOptionsChain
    * @request GET:/financial-datasets/options-chain/{ticker}
    * @secure
    */
-  export namespace GetOptionsChain {
+  export namespace FinancialDatasetsGetOptionsChain {
     export type RequestParams = {
+      /** - The ticker symbol of the company. */
       ticker: string;
     };
     export type RequestQuery = {
+      /** - The expiration date of the options. */
       expiration_date?: string;
-      option_type?: GetOptionsChainParams1OptionTypeEnum;
-      /** @format double */
+      /** - The type of option (call or put). */
+      option_type?: FinancialDatasetsGetOptionsChainParams1OptionTypeEnum;
+      /**
+       * - The strike price of the options.
+       * @format double
+       */
       strike_price?: number;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = GetOptionsChainData;
+    export type ResponseBody = FinancialDatasetsGetOptionsChainData;
   }
 
   /**
-   * No description
+   * @description Retrieves the price data for a given ticker symbol.
    * @tags Financial Datasets
-   * @name GetPrices
+   * @name FinancialDatasetsGetPrices
    * @request GET:/financial-datasets/prices/{ticker}
    * @secure
    */
-  export namespace GetPrices {
+  export namespace FinancialDatasetsGetPrices {
     export type RequestParams = {
+      /** - The ticker symbol of the company. */
       ticker: string;
     };
     export type RequestQuery = {
+      /** - The end date of the price data. */
       end_date: string;
+      /** - The interval of the price data. */
       interval: PriceInterval;
-      /** @format double */
+      /**
+       * - The interval multiplier of the price data.
+       * @format double
+       */
       interval_multiplier: number;
-      /** @format double */
+      /**
+       * - The maximum number of price data to return.
+       * @format double
+       */
       limit?: number;
+      /** - The start date of the price data. */
       start_date: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = GetPricesData;
+    export type ResponseBody = FinancialDatasetsGetPricesData;
   }
 
   /**
-   * No description
+   * @description Retrieves the price snapshot for a given ticker symbol.
    * @tags Financial Datasets
-   * @name GetPriceSnapshot
+   * @name FinancialDatasetsGetPriceSnapshot
    * @request GET:/financial-datasets/price-snapshot/{ticker}
    * @secure
    */
-  export namespace GetPriceSnapshot {
+  export namespace FinancialDatasetsGetPriceSnapshot {
     export type RequestParams = {
+      /** - The ticker symbol of the company. */
       ticker: string;
     };
     export type RequestQuery = {};
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = GetPriceSnapshotData;
+    export type ResponseBody = FinancialDatasetsGetPriceSnapshotData;
   }
 
   /**
-   * No description
+   * @description Retrieves the segmented revenues for a given ticker symbol.
    * @tags Financial Datasets
-   * @name GetSegmentedRevenues
+   * @name FinancialDatasetsGetSegmentedRevenues
    * @request GET:/financial-datasets/segmented-revenues/{ticker}
    * @secure
    */
-  export namespace GetSegmentedRevenues {
+  export namespace FinancialDatasetsGetSegmentedRevenues {
     export type RequestParams = {
+      /** - The ticker symbol of the company. */
       ticker: string;
     };
     export type RequestQuery = {
+      /** - The CIK number of the company. */
       cik?: string;
-      /** @format double */
+      /**
+       * - The maximum number of segmented revenues to return.
+       * @format double
+       */
       limit?: number;
-      period: GetSegmentedRevenuesParams1PeriodEnum;
+      /** - The period type of the segmented revenues. */
+      period: FinancialDatasetsGetSegmentedRevenuesParams1PeriodEnum;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = GetSegmentedRevenuesData;
+    export type ResponseBody = FinancialDatasetsGetSegmentedRevenuesData;
   }
 
   /**
-   * No description
+   * @description Searches financials for a given search request.
    * @tags Financial Datasets
-   * @name SearchFinancials
+   * @name FinancialDatasetsSearchFinancials
    * @request POST:/financial-datasets/search-financials
    * @secure
    */
-  export namespace SearchFinancials {
+  export namespace FinancialDatasetsSearchFinancials {
     export type RequestParams = {};
     export type RequestQuery = {};
     export type RequestBody = SearchRequest;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = SearchFinancialsData;
+    export type ResponseBody = FinancialDatasetsSearchFinancialsData;
   }
 
   /**
-   * No description
+   * @description Searches financials by line items.
    * @tags Financial Datasets
-   * @name SearchFinancialsByLineItems
+   * @name FinancialDatasetsSearchFinancialsByLineItems
    * @request POST:/financial-datasets/search-line-items
    * @secure
    */
-  export namespace SearchFinancialsByLineItems {
+  export namespace FinancialDatasetsSearchFinancialsByLineItems {
     export type RequestParams = {};
     export type RequestQuery = {};
-    export type RequestBody = SearchFinancialsByLineItemsPayload;
+    export type RequestBody =
+      FinancialDatasetsSearchFinancialsByLineItemsPayload;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = SearchFinancialsByLineItemsData;
+    export type ResponseBody = FinancialDatasetsSearchFinancialsByLineItemsData;
   }
 }

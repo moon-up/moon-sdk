@@ -10,504 +10,590 @@
  */
 
 import {
-  ApproveResult,
-  DepositData,
-  GetAllowanceResult,
-  GetAssetData,
-  GetBalanceOfResult,
-  GetConvertToAssetsData,
-  GetConvertToSharesData,
-  GetMaxDepositData,
-  GetMaxMintData,
-  GetMaxRedeemData,
-  GetMaxWithdrawData,
-  GetPreviewDepositData,
-  GetPreviewMintData,
-  GetPreviewRedeemData,
-  GetPreviewWithdrawData,
-  GetTotalAssetsData,
-  GetTotalSupplyResult,
+  Erc4626ApproveErc4626Data,
+  Erc4626DepositToErc4626Data,
+  Erc4626GetErc4626AllowanceData,
+  Erc4626GetErc4626AssetData,
+  Erc4626GetErc4626BalanceOfData,
+  Erc4626GetErc4626ConvertToAssetsData,
+  Erc4626GetErc4626ConvertToSharesData,
+  Erc4626GetErc4626MaxDepositData,
+  Erc4626GetErc4626MaxMintData,
+  Erc4626GetErc4626MaxRedeemData,
+  Erc4626GetErc4626MaxWithdrawData,
+  Erc4626GetErc4626PreviewDepositData,
+  Erc4626GetErc4626PreviewMintData,
+  Erc4626GetErc4626PreviewRedeemData,
+  Erc4626GetErc4626PreviewWithdrawData,
+  Erc4626GetErc4626TotalAssetsData,
+  Erc4626GetErc4626TotalSupplyData,
+  Erc4626MintErc4626SharesData,
+  Erc4626RedeemErc4626SharesData,
+  Erc4626TransferErc4626Data,
+  Erc4626TransferFromErc4626Data,
+  Erc4626WithdrawFromErc4626Data,
   InputBody,
-  MintData,
-  RedeemData,
-  TransferFromResult,
-  TransferResult,
-  WithdrawResult,
 } from './data-contracts';
 
 export namespace Erc4626 {
   /**
-   * No description
+   * @description Approves a spender to transfer a specific amount of shares.
    * @tags ERC4626
-   * @name Approve
+   * @name Erc4626ApproveErc4626
    * @request POST:/erc4626/{address}/approve
    * @secure
    */
-  export namespace Approve {
+  export namespace Erc4626ApproveErc4626 {
     export type RequestParams = {
+      /** - The address of the spender */
       address: string;
     };
     export type RequestQuery = {};
     export type RequestBody = InputBody;
     export type RequestHeaders = {
+      /** - The authorization token */
       Authorization: string;
     };
-    export type ResponseBody = ApproveResult;
+    export type ResponseBody = Erc4626ApproveErc4626Data;
   }
 
   /**
-   * No description
+   * @description Deposits assets into the vault and mints shares to the receiver.
    * @tags ERC4626
-   * @name Deposit
+   * @name Erc4626DepositToErc4626
    * @request POST:/erc4626/{address}/deposit
    * @secure
    */
-  export namespace Deposit {
+  export namespace Erc4626DepositToErc4626 {
     export type RequestParams = {
+      /** - The address of the receiver */
       address: string;
     };
     export type RequestQuery = {};
     export type RequestBody = InputBody;
     export type RequestHeaders = {
+      /** - The authorization token */
       Authorization: string;
     };
-    export type ResponseBody = DepositData;
+    export type ResponseBody = Erc4626DepositToErc4626Data;
   }
 
   /**
-   * No description
+   * @description Gets the amount of shares that an owner has allowed a spender to use.
    * @tags ERC4626
-   * @name GetAllowance
+   * @name Erc4626GetErc4626Allowance
    * @request GET:/erc4626/{account}/allowance
    * @secure
    */
-  export namespace GetAllowance {
+  export namespace Erc4626GetErc4626Allowance {
     export type RequestParams = {
+      /** - The account making the request */
       account: string;
     };
     export type RequestQuery = {
+      /** - The ERC4626 vault contract address */
       address: string;
+      /** - The blockchain network ID */
       chainId: string;
+      /** - The address of the owner */
       owner: string;
+      /** - The address of the spender */
       spender: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token */
       Authorization: string;
     };
-    export type ResponseBody = GetAllowanceResult;
+    export type ResponseBody = Erc4626GetErc4626AllowanceData;
   }
 
   /**
-   * No description
+   * @description Retrieves the underlying asset address of the ERC4626 vault.
    * @tags ERC4626
-   * @name GetAsset
+   * @name Erc4626GetErc4626Asset
    * @request GET:/erc4626/{account}/asset
    * @secure
    */
-  export namespace GetAsset {
+  export namespace Erc4626GetErc4626Asset {
     export type RequestParams = {
+      /** - The account making the request */
       account: string;
     };
     export type RequestQuery = {
+      /** - The ERC4626 vault contract address */
       address: string;
+      /** - The blockchain network ID */
       chainId: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token */
       Authorization: string;
     };
-    export type ResponseBody = GetAssetData;
+    export type ResponseBody = Erc4626GetErc4626AssetData;
   }
 
   /**
-   * No description
+   * @description Gets the balance of shares for an account.
    * @tags ERC4626
-   * @name GetBalanceOf
+   * @name Erc4626GetErc4626BalanceOf
    * @request GET:/erc4626/{account}/balanceOf
    * @secure
    */
-  export namespace GetBalanceOf {
+  export namespace Erc4626GetErc4626BalanceOf {
     export type RequestParams = {
+      /** - The account making the request */
       account: string;
     };
     export type RequestQuery = {
+      /** - The ERC4626 vault contract address */
       address: string;
+      /** - The blockchain network ID */
       chainId: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token */
       Authorization: string;
     };
-    export type ResponseBody = GetBalanceOfResult;
+    export type ResponseBody = Erc4626GetErc4626BalanceOfData;
   }
 
   /**
-   * No description
+   * @description Calculates the amount of assets that would be withdrawn for a given amount of shares.
    * @tags ERC4626
-   * @name GetConvertToAssets
+   * @name Erc4626GetErc4626ConvertToAssets
    * @request GET:/erc4626/{account}/convertToAssets
    * @secure
    */
-  export namespace GetConvertToAssets {
+  export namespace Erc4626GetErc4626ConvertToAssets {
     export type RequestParams = {
+      /** - The account making the request */
       account: string;
     };
     export type RequestQuery = {
+      /** - The ERC4626 vault contract address */
       address: string;
+      /** - The blockchain network ID */
       chainId: string;
+      /** - The amount of shares to redeem */
       shares: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token */
       Authorization: string;
     };
-    export type ResponseBody = GetConvertToAssetsData;
+    export type ResponseBody = Erc4626GetErc4626ConvertToAssetsData;
   }
 
   /**
-   * No description
+   * @description Calculates the amount of shares that would be minted for a given amount of assets.
    * @tags ERC4626
-   * @name GetConvertToShares
+   * @name Erc4626GetErc4626ConvertToShares
    * @request GET:/erc4626/{account}/convertToShares
    * @secure
    */
-  export namespace GetConvertToShares {
+  export namespace Erc4626GetErc4626ConvertToShares {
     export type RequestParams = {
+      /** - The account making the request */
       account: string;
     };
     export type RequestQuery = {
+      /** - The ERC4626 vault contract address */
       address: string;
+      /** - The amount of assets to deposit */
       assets: string;
+      /** - The blockchain network ID */
       chainId: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token */
       Authorization: string;
     };
-    export type ResponseBody = GetConvertToSharesData;
+    export type ResponseBody = Erc4626GetErc4626ConvertToSharesData;
   }
 
   /**
-   * No description
+   * @description Returns the maximum amount of assets that can be deposited in a single transaction.
    * @tags ERC4626
-   * @name GetMaxDeposit
+   * @name Erc4626GetErc4626MaxDeposit
    * @request GET:/erc4626/{account}/maxDeposit
    * @secure
    */
-  export namespace GetMaxDeposit {
+  export namespace Erc4626GetErc4626MaxDeposit {
     export type RequestParams = {
+      /** - The account making the request */
       account: string;
     };
     export type RequestQuery = {
+      /** - The ERC4626 vault contract address */
       address: string;
+      /** - The blockchain network ID */
       chainId: string;
+      /** - The address of the receiver */
       receiver: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token */
       Authorization: string;
     };
-    export type ResponseBody = GetMaxDepositData;
+    export type ResponseBody = Erc4626GetErc4626MaxDepositData;
   }
 
   /**
-   * No description
+   * @description Returns the maximum amount of shares that can be minted in a single transaction.
    * @tags ERC4626
-   * @name GetMaxMint
+   * @name Erc4626GetErc4626MaxMint
    * @request GET:/erc4626/{account}/maxMint
    * @secure
    */
-  export namespace GetMaxMint {
+  export namespace Erc4626GetErc4626MaxMint {
     export type RequestParams = {
+      /** - The account making the request */
       account: string;
     };
     export type RequestQuery = {
+      /** - The ERC4626 vault contract address */
       address: string;
+      /** - The blockchain network ID */
       chainId: string;
+      /** - The address of the receiver */
       receiver: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token */
       Authorization: string;
     };
-    export type ResponseBody = GetMaxMintData;
+    export type ResponseBody = Erc4626GetErc4626MaxMintData;
   }
 
   /**
-   * No description
+   * @description Returns the maximum amount of shares that can be redeemed in a single transaction.
    * @tags ERC4626
-   * @name GetMaxRedeem
+   * @name Erc4626GetErc4626MaxRedeem
    * @request GET:/erc4626/{account}/maxRedeem
    * @secure
    */
-  export namespace GetMaxRedeem {
+  export namespace Erc4626GetErc4626MaxRedeem {
     export type RequestParams = {
+      /** - The account making the request */
       account: string;
     };
     export type RequestQuery = {
+      /** - The ERC4626 vault contract address */
       address: string;
+      /** - The blockchain network ID */
       chainId: string;
+      /** - The address of the owner */
       owner: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token */
       Authorization: string;
     };
-    export type ResponseBody = GetMaxRedeemData;
+    export type ResponseBody = Erc4626GetErc4626MaxRedeemData;
   }
 
   /**
-   * No description
+   * @description Returns the maximum amount of assets that can be withdrawn in a single transaction.
    * @tags ERC4626
-   * @name GetMaxWithdraw
+   * @name Erc4626GetErc4626MaxWithdraw
    * @request GET:/erc4626/{account}/maxWithdraw
    * @secure
    */
-  export namespace GetMaxWithdraw {
+  export namespace Erc4626GetErc4626MaxWithdraw {
     export type RequestParams = {
+      /** - The account making the request */
       account: string;
     };
     export type RequestQuery = {
+      /** - The ERC4626 vault contract address */
       address: string;
+      /** - The blockchain network ID */
       chainId: string;
+      /** - The address of the owner */
       owner: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token */
       Authorization: string;
     };
-    export type ResponseBody = GetMaxWithdrawData;
+    export type ResponseBody = Erc4626GetErc4626MaxWithdrawData;
   }
 
   /**
-   * No description
+   * @description Simulates the amount of shares that would be received for a deposit of assets.
    * @tags ERC4626
-   * @name GetPreviewDeposit
+   * @name Erc4626GetErc4626PreviewDeposit
    * @request GET:/erc4626/{account}/previewDeposit
    * @secure
    */
-  export namespace GetPreviewDeposit {
+  export namespace Erc4626GetErc4626PreviewDeposit {
     export type RequestParams = {
+      /** - The account making the request */
       account: string;
     };
     export type RequestQuery = {
+      /** - The ERC4626 vault contract address */
       address: string;
+      /** - The amount of assets to deposit */
       assets: string;
+      /** - The blockchain network ID */
       chainId: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token */
       Authorization: string;
     };
-    export type ResponseBody = GetPreviewDepositData;
+    export type ResponseBody = Erc4626GetErc4626PreviewDepositData;
   }
 
   /**
-   * No description
+   * @description Simulates the amount of assets needed for minting a specific amount of shares.
    * @tags ERC4626
-   * @name GetPreviewMint
+   * @name Erc4626GetErc4626PreviewMint
    * @request GET:/erc4626/{account}/previewMint
    * @secure
    */
-  export namespace GetPreviewMint {
+  export namespace Erc4626GetErc4626PreviewMint {
     export type RequestParams = {
+      /** - The account making the request */
       account: string;
     };
     export type RequestQuery = {
+      /** - The ERC4626 vault contract address */
       address: string;
+      /** - The blockchain network ID */
       chainId: string;
+      /** - The amount of shares to mint */
       shares: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token */
       Authorization: string;
     };
-    export type ResponseBody = GetPreviewMintData;
+    export type ResponseBody = Erc4626GetErc4626PreviewMintData;
   }
 
   /**
-   * No description
+   * @description Simulates the amount of assets that would be received for redeeming shares.
    * @tags ERC4626
-   * @name GetPreviewRedeem
+   * @name Erc4626GetErc4626PreviewRedeem
    * @request GET:/erc4626/{account}/previewRedeem
    * @secure
    */
-  export namespace GetPreviewRedeem {
+  export namespace Erc4626GetErc4626PreviewRedeem {
     export type RequestParams = {
+      /** - The account making the request */
       account: string;
     };
     export type RequestQuery = {
+      /** - The ERC4626 vault contract address */
       address: string;
+      /** - The blockchain network ID */
       chainId: string;
+      /** - The amount of shares to redeem */
       shares: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token */
       Authorization: string;
     };
-    export type ResponseBody = GetPreviewRedeemData;
+    export type ResponseBody = Erc4626GetErc4626PreviewRedeemData;
   }
 
   /**
-   * No description
+   * @description Simulates the amount of shares needed to withdraw a specific amount of assets.
    * @tags ERC4626
-   * @name GetPreviewWithdraw
+   * @name Erc4626GetErc4626PreviewWithdraw
    * @request GET:/erc4626/{account}/previewWithdraw
    * @secure
    */
-  export namespace GetPreviewWithdraw {
+  export namespace Erc4626GetErc4626PreviewWithdraw {
     export type RequestParams = {
+      /** - The account making the request */
       account: string;
     };
     export type RequestQuery = {
+      /** - The ERC4626 vault contract address */
       address: string;
+      /** - The amount of assets to withdraw */
       assets: string;
+      /** - The blockchain network ID */
       chainId: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token */
       Authorization: string;
     };
-    export type ResponseBody = GetPreviewWithdrawData;
+    export type ResponseBody = Erc4626GetErc4626PreviewWithdrawData;
   }
 
   /**
-   * No description
+   * @description Gets the total amount of underlying assets held by the vault.
    * @tags ERC4626
-   * @name GetTotalAssets
+   * @name Erc4626GetErc4626TotalAssets
    * @request GET:/erc4626/{account}/totalAssets
    * @secure
    */
-  export namespace GetTotalAssets {
+  export namespace Erc4626GetErc4626TotalAssets {
     export type RequestParams = {
+      /** - The account making the request */
       account: string;
     };
     export type RequestQuery = {
+      /** - The ERC4626 vault contract address */
       address: string;
+      /** - The blockchain network ID */
       chainId: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token */
       Authorization: string;
     };
-    export type ResponseBody = GetTotalAssetsData;
+    export type ResponseBody = Erc4626GetErc4626TotalAssetsData;
   }
 
   /**
-   * No description
+   * @description Gets the total supply of shares.
    * @tags ERC4626
-   * @name GetTotalSupply
+   * @name Erc4626GetErc4626TotalSupply
    * @request GET:/erc4626/{account}/totalSupply
    * @secure
    */
-  export namespace GetTotalSupply {
+  export namespace Erc4626GetErc4626TotalSupply {
     export type RequestParams = {
+      /** - The account making the request */
       account: string;
     };
     export type RequestQuery = {
+      /** - The ERC4626 vault contract address */
       address: string;
+      /** - The blockchain network ID */
       chainId: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token */
       Authorization: string;
     };
-    export type ResponseBody = GetTotalSupplyResult;
+    export type ResponseBody = Erc4626GetErc4626TotalSupplyData;
   }
 
   /**
-   * No description
+   * @description Mints shares to the receiver by depositing exact amount of assets.
    * @tags ERC4626
-   * @name Mint
+   * @name Erc4626MintErc4626Shares
    * @request POST:/erc4626/{address}/mint
    * @secure
    */
-  export namespace Mint {
+  export namespace Erc4626MintErc4626Shares {
     export type RequestParams = {
+      /** - The address of the receiver */
       address: string;
     };
     export type RequestQuery = {};
     export type RequestBody = InputBody;
     export type RequestHeaders = {
+      /** - The authorization token */
       Authorization: string;
     };
-    export type ResponseBody = MintData;
+    export type ResponseBody = Erc4626MintErc4626SharesData;
   }
 
   /**
-   * No description
+   * @description Redeems shares from owner and sends exact amount of assets to receiver.
    * @tags ERC4626
-   * @name Redeem
+   * @name Erc4626RedeemErc4626Shares
    * @request POST:/erc4626/{address}/redeem
    * @secure
    */
-  export namespace Redeem {
+  export namespace Erc4626RedeemErc4626Shares {
     export type RequestParams = {
+      /** - The address of the receiver */
       address: string;
     };
     export type RequestQuery = {};
     export type RequestBody = InputBody;
     export type RequestHeaders = {
+      /** - The authorization token */
       Authorization: string;
     };
-    export type ResponseBody = RedeemData;
+    export type ResponseBody = Erc4626RedeemErc4626SharesData;
   }
 
   /**
-   * No description
+   * @description Transfers shares to a specified address.
    * @tags ERC4626
-   * @name Transfer
+   * @name Erc4626TransferErc4626
    * @request POST:/erc4626/{address}/transfer
    * @secure
    */
-  export namespace Transfer {
+  export namespace Erc4626TransferErc4626 {
     export type RequestParams = {
+      /** - The address of the receiver */
       address: string;
     };
     export type RequestQuery = {};
     export type RequestBody = InputBody;
     export type RequestHeaders = {
+      /** - The authorization token */
       Authorization: string;
     };
-    export type ResponseBody = TransferResult;
+    export type ResponseBody = Erc4626TransferErc4626Data;
   }
 
   /**
-   * No description
+   * @description Transfers shares from one address to another.
    * @tags ERC4626
-   * @name TransferFrom
+   * @name Erc4626TransferFromErc4626
    * @request POST:/erc4626/{address}/transferFrom
    * @secure
    */
-  export namespace TransferFrom {
+  export namespace Erc4626TransferFromErc4626 {
     export type RequestParams = {
+      /** - The address of the receiver */
       address: string;
     };
     export type RequestQuery = {};
     export type RequestBody = InputBody;
     export type RequestHeaders = {
+      /** - The authorization token */
       Authorization: string;
     };
-    export type ResponseBody = TransferFromResult;
+    export type ResponseBody = Erc4626TransferFromErc4626Data;
   }
 
   /**
-   * No description
+   * @description Withdraws assets from the vault to the receiver.
    * @tags ERC4626
-   * @name Withdraw
+   * @name Erc4626WithdrawFromErc4626
    * @request POST:/erc4626/{address}/withdraw
    * @secure
    */
-  export namespace Withdraw {
+  export namespace Erc4626WithdrawFromErc4626 {
     export type RequestParams = {
+      /** - The address of the receiver */
       address: string;
     };
     export type RequestQuery = {};
     export type RequestBody = InputBody;
     export type RequestHeaders = {
+      /** - The authorization token */
       Authorization: string;
     };
-    export type ResponseBody = WithdrawResult;
+    export type ResponseBody = Erc4626WithdrawFromErc4626Data;
   }
 }

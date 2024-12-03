@@ -10,35 +10,35 @@
  */
 
 import {
-  DeleverageErc20Data,
-  DeleverageNativeData,
-  ExecuteOperationData,
-  GetAddressesProviderOutput,
-  GetAddressesProviderParams4,
-  GetDefaultAdminRoleData,
-  GetDefaultAdminRoleParams,
-  GetLendingPoolData,
-  GetLendingPoolParams,
-  GetMinHfData,
-  GetMinHfParams,
-  GetRoleAdminData,
-  GetRoleAdminParams,
-  GetWethData,
-  GetWethParams,
-  GrantRoleData,
-  HasRoleData,
-  HasRoleParams,
-  IsPausedParams2,
-  IsPausedResult,
-  LeverageErc20Data,
-  LeverageNativeData,
+  LeveragerDeleverageErc20Data,
+  LeveragerDeleverageNativeData,
+  LeveragerExecuteOperationData,
+  LeveragerGetAddressesProviderData,
+  LeveragerGetAddressesProviderParams,
+  LeveragerGetDefaultAdminRoleData,
+  LeveragerGetDefaultAdminRoleParams,
+  LeveragerGetLendingPoolData,
+  LeveragerGetLendingPoolParams,
+  LeveragerGetMinHfData,
+  LeveragerGetMinHfParams,
+  LeveragerGetRoleAdminData,
+  LeveragerGetRoleAdminParams,
+  LeveragerGetWethData,
+  LeveragerGetWethParams,
+  LeveragerGrantRoleData,
+  LeveragerHasRoleData,
+  LeveragerHasRoleParams,
   LeveragerInputBody,
-  PauseData,
-  RenounceRoleData,
-  RevokeRoleData,
-  SupportsInterfaceData,
-  SupportsInterfaceParams,
-  UnpauseData,
+  LeveragerIsPausedData,
+  LeveragerIsPausedParams,
+  LeveragerLeverageErc20Data,
+  LeveragerLeverageNativeData,
+  LeveragerPauseData,
+  LeveragerRenounceRoleData,
+  LeveragerRevokeRoleData,
+  LeveragerSupportsInterfaceData,
+  LeveragerSupportsInterfaceParams,
+  LeveragerUnpauseData,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
@@ -53,16 +53,16 @@ export class Leverager<SecurityDataType = unknown> {
    * No description
    *
    * @tags Leverager
-   * @name DeleverageErc20
+   * @name LeveragerDeleverageErc20
    * @request POST:/leverager/{accountName}/deleverage-erc20
    * @secure
    */
-  deleverageErc20 = (
+  leveragerDeleverageErc20 = (
     accountName: string,
     data: LeveragerInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<DeleverageErc20Data, any>({
+    this.http.request<LeveragerDeleverageErc20Data, any>({
       path: `/leverager/${accountName}/deleverage-erc20`,
       method: 'POST',
       body: data,
@@ -75,16 +75,16 @@ export class Leverager<SecurityDataType = unknown> {
    * No description
    *
    * @tags Leverager
-   * @name DeleverageNative
+   * @name LeveragerDeleverageNative
    * @request POST:/leverager/{accountName}/deleverage-native
    * @secure
    */
-  deleverageNative = (
+  leveragerDeleverageNative = (
     accountName: string,
     data: LeveragerInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<DeleverageNativeData, any>({
+    this.http.request<LeveragerDeleverageNativeData, any>({
       path: `/leverager/${accountName}/deleverage-native`,
       method: 'POST',
       body: data,
@@ -97,16 +97,16 @@ export class Leverager<SecurityDataType = unknown> {
    * No description
    *
    * @tags Leverager
-   * @name ExecuteOperation
+   * @name LeveragerExecuteOperation
    * @request POST:/leverager/{accountName}/execute-operation
    * @secure
    */
-  executeOperation = (
+  leveragerExecuteOperation = (
     accountName: string,
     data: LeveragerInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<ExecuteOperationData, any>({
+    this.http.request<LeveragerExecuteOperationData, any>({
       path: `/leverager/${accountName}/execute-operation`,
       method: 'POST',
       body: data,
@@ -119,15 +119,15 @@ export class Leverager<SecurityDataType = unknown> {
    * No description
    *
    * @tags Leverager
-   * @name GetAddressesProvider
+   * @name LeveragerGetAddressesProvider
    * @request GET:/leverager/addresses-provider
    * @secure
    */
-  getAddressesProvider = (
-    query: GetAddressesProviderParams4,
+  leveragerGetAddressesProvider = (
+    query: LeveragerGetAddressesProviderParams,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetAddressesProviderOutput, any>({
+    this.http.request<LeveragerGetAddressesProviderData, any>({
       path: `/leverager/addresses-provider`,
       method: 'GET',
       query: query,
@@ -139,15 +139,15 @@ export class Leverager<SecurityDataType = unknown> {
    * No description
    *
    * @tags Leverager
-   * @name GetDefaultAdminRole
+   * @name LeveragerGetDefaultAdminRole
    * @request GET:/leverager/default-admin-role
    * @secure
    */
-  getDefaultAdminRole = (
-    query: GetDefaultAdminRoleParams,
+  leveragerGetDefaultAdminRole = (
+    query: LeveragerGetDefaultAdminRoleParams,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetDefaultAdminRoleData, any>({
+    this.http.request<LeveragerGetDefaultAdminRoleData, any>({
       path: `/leverager/default-admin-role`,
       method: 'GET',
       query: query,
@@ -159,12 +159,15 @@ export class Leverager<SecurityDataType = unknown> {
    * No description
    *
    * @tags Leverager
-   * @name GetLendingPool
+   * @name LeveragerGetLendingPool
    * @request GET:/leverager/lending-pool
    * @secure
    */
-  getLendingPool = (query: GetLendingPoolParams, params: RequestParams = {}) =>
-    this.http.request<GetLendingPoolData, any>({
+  leveragerGetLendingPool = (
+    query: LeveragerGetLendingPoolParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<LeveragerGetLendingPoolData, any>({
       path: `/leverager/lending-pool`,
       method: 'GET',
       query: query,
@@ -176,12 +179,15 @@ export class Leverager<SecurityDataType = unknown> {
    * No description
    *
    * @tags Leverager
-   * @name GetMinHf
+   * @name LeveragerGetMinHf
    * @request GET:/leverager/min-hf
    * @secure
    */
-  getMinHf = (query: GetMinHfParams, params: RequestParams = {}) =>
-    this.http.request<GetMinHfData, any>({
+  leveragerGetMinHf = (
+    query: LeveragerGetMinHfParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<LeveragerGetMinHfData, any>({
       path: `/leverager/min-hf`,
       method: 'GET',
       query: query,
@@ -193,12 +199,15 @@ export class Leverager<SecurityDataType = unknown> {
    * No description
    *
    * @tags Leverager
-   * @name GetRoleAdmin
+   * @name LeveragerGetRoleAdmin
    * @request GET:/leverager/role-admin
    * @secure
    */
-  getRoleAdmin = (query: GetRoleAdminParams, params: RequestParams = {}) =>
-    this.http.request<GetRoleAdminData, any>({
+  leveragerGetRoleAdmin = (
+    query: LeveragerGetRoleAdminParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<LeveragerGetRoleAdminData, any>({
       path: `/leverager/role-admin`,
       method: 'GET',
       query: query,
@@ -210,12 +219,15 @@ export class Leverager<SecurityDataType = unknown> {
    * No description
    *
    * @tags Leverager
-   * @name GetWeth
+   * @name LeveragerGetWeth
    * @request GET:/leverager/weth
    * @secure
    */
-  getWeth = (query: GetWethParams, params: RequestParams = {}) =>
-    this.http.request<GetWethData, any>({
+  leveragerGetWeth = (
+    query: LeveragerGetWethParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<LeveragerGetWethData, any>({
       path: `/leverager/weth`,
       method: 'GET',
       query: query,
@@ -227,16 +239,16 @@ export class Leverager<SecurityDataType = unknown> {
    * No description
    *
    * @tags Leverager
-   * @name GrantRole
+   * @name LeveragerGrantRole
    * @request POST:/leverager/{accountName}/grant-role
    * @secure
    */
-  grantRole = (
+  leveragerGrantRole = (
     accountName: string,
     data: LeveragerInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<GrantRoleData, any>({
+    this.http.request<LeveragerGrantRoleData, any>({
       path: `/leverager/${accountName}/grant-role`,
       method: 'POST',
       body: data,
@@ -249,12 +261,15 @@ export class Leverager<SecurityDataType = unknown> {
    * No description
    *
    * @tags Leverager
-   * @name HasRole
+   * @name LeveragerHasRole
    * @request GET:/leverager/has-role
    * @secure
    */
-  hasRole = (query: HasRoleParams, params: RequestParams = {}) =>
-    this.http.request<HasRoleData, any>({
+  leveragerHasRole = (
+    query: LeveragerHasRoleParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<LeveragerHasRoleData, any>({
       path: `/leverager/has-role`,
       method: 'GET',
       query: query,
@@ -266,12 +281,15 @@ export class Leverager<SecurityDataType = unknown> {
    * No description
    *
    * @tags Leverager
-   * @name IsPaused
+   * @name LeveragerIsPaused
    * @request GET:/leverager/paused
    * @secure
    */
-  isPaused = (query: IsPausedParams2, params: RequestParams = {}) =>
-    this.http.request<IsPausedResult, any>({
+  leveragerIsPaused = (
+    query: LeveragerIsPausedParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<LeveragerIsPausedData, any>({
       path: `/leverager/paused`,
       method: 'GET',
       query: query,
@@ -283,16 +301,16 @@ export class Leverager<SecurityDataType = unknown> {
    * No description
    *
    * @tags Leverager
-   * @name LeverageErc20
+   * @name LeveragerLeverageErc20
    * @request POST:/leverager/{accountName}/leverage-erc20
    * @secure
    */
-  leverageErc20 = (
+  leveragerLeverageErc20 = (
     accountName: string,
     data: LeveragerInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<LeverageErc20Data, any>({
+    this.http.request<LeveragerLeverageErc20Data, any>({
       path: `/leverager/${accountName}/leverage-erc20`,
       method: 'POST',
       body: data,
@@ -305,16 +323,16 @@ export class Leverager<SecurityDataType = unknown> {
    * No description
    *
    * @tags Leverager
-   * @name LeverageNative
+   * @name LeveragerLeverageNative
    * @request POST:/leverager/{accountName}/leverage-native
    * @secure
    */
-  leverageNative = (
+  leveragerLeverageNative = (
     accountName: string,
     data: LeveragerInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<LeverageNativeData, any>({
+    this.http.request<LeveragerLeverageNativeData, any>({
       path: `/leverager/${accountName}/leverage-native`,
       method: 'POST',
       body: data,
@@ -327,16 +345,16 @@ export class Leverager<SecurityDataType = unknown> {
    * No description
    *
    * @tags Leverager
-   * @name Pause
+   * @name LeveragerPause
    * @request POST:/leverager/{accountName}/pause
    * @secure
    */
-  pause = (
+  leveragerPause = (
     accountName: string,
     data: LeveragerInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<PauseData, any>({
+    this.http.request<LeveragerPauseData, any>({
       path: `/leverager/${accountName}/pause`,
       method: 'POST',
       body: data,
@@ -349,16 +367,16 @@ export class Leverager<SecurityDataType = unknown> {
    * No description
    *
    * @tags Leverager
-   * @name RenounceRole
+   * @name LeveragerRenounceRole
    * @request POST:/leverager/{accountName}/renounce-role
    * @secure
    */
-  renounceRole = (
+  leveragerRenounceRole = (
     accountName: string,
     data: LeveragerInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<RenounceRoleData, any>({
+    this.http.request<LeveragerRenounceRoleData, any>({
       path: `/leverager/${accountName}/renounce-role`,
       method: 'POST',
       body: data,
@@ -371,16 +389,16 @@ export class Leverager<SecurityDataType = unknown> {
    * No description
    *
    * @tags Leverager
-   * @name RevokeRole
+   * @name LeveragerRevokeRole
    * @request POST:/leverager/{accountName}/revoke-role
    * @secure
    */
-  revokeRole = (
+  leveragerRevokeRole = (
     accountName: string,
     data: LeveragerInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<RevokeRoleData, any>({
+    this.http.request<LeveragerRevokeRoleData, any>({
       path: `/leverager/${accountName}/revoke-role`,
       method: 'POST',
       body: data,
@@ -393,15 +411,15 @@ export class Leverager<SecurityDataType = unknown> {
    * No description
    *
    * @tags Leverager
-   * @name SupportsInterface
+   * @name LeveragerSupportsInterface
    * @request GET:/leverager/supports-interface
    * @secure
    */
-  supportsInterface = (
-    query: SupportsInterfaceParams,
+  leveragerSupportsInterface = (
+    query: LeveragerSupportsInterfaceParams,
     params: RequestParams = {}
   ) =>
-    this.http.request<SupportsInterfaceData, any>({
+    this.http.request<LeveragerSupportsInterfaceData, any>({
       path: `/leverager/supports-interface`,
       method: 'GET',
       query: query,
@@ -413,16 +431,16 @@ export class Leverager<SecurityDataType = unknown> {
    * No description
    *
    * @tags Leverager
-   * @name Unpause
+   * @name LeveragerUnpause
    * @request POST:/leverager/{accountName}/unpause
    * @secure
    */
-  unpause = (
+  leveragerUnpause = (
     accountName: string,
     data: LeveragerInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<UnpauseData, any>({
+    this.http.request<LeveragerUnpauseData, any>({
       path: `/leverager/${accountName}/unpause`,
       method: 'POST',
       body: data,

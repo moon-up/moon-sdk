@@ -10,338 +10,381 @@
  */
 
 import {
-  BorrowResult,
-  DepositResult,
-  FlashLoanData,
-  GetAddressesProviderResult,
-  GetFlashLoanPremiumTotalData,
-  GetLendingPoolRevisionData,
-  GetMaxNumberReservesData,
-  GetMaxStableRateBorrowSizePercentData,
-  GetReserveDataResult,
-  GetReservesListResult,
-  GetUserAccountDataResult,
-  IsPausedData,
+  LendingPoolBorrowData,
+  LendingPoolDepositData,
+  LendingPoolFlashLoanData,
+  LendingPoolGetAddressesProviderData,
+  LendingPoolGetFlashLoanPremiumTotalData,
+  LendingPoolGetLendingPoolRevisionData,
+  LendingPoolGetMaxNumberReservesData,
+  LendingPoolGetMaxStableRateBorrowSizePercentData,
+  LendingPoolGetReserveDataData,
+  LendingPoolGetReservesListData,
+  LendingPoolGetUserAccountDataData,
   LendingPoolInputBody,
-  LiquidationCallResult,
-  RepayResult,
-  SetUserUseReserveAsCollateralResult,
-  SwapBorrowRateModeData,
+  LendingPoolIsPausedData,
+  LendingPoolLiquidationCallData,
+  LendingPoolRepayData,
+  LendingPoolSetUserUseReserveAsCollateralData,
+  LendingPoolSwapBorrowRateModeData,
 } from './data-contracts';
 
 export namespace LendingPool {
   /**
-   * No description
+   * @description Handles the borrowing process from the lending pool.
    * @tags LendingPool
-   * @name Borrow
+   * @name LendingPoolBorrow
    * @request POST:/lending-pool/{accountName}/borrow
    * @secure
    */
-  export namespace Borrow {
+  export namespace LendingPoolBorrow {
     export type RequestParams = {
+      /** - The name of the account requesting the borrow. */
       accountName: string;
     };
     export type RequestQuery = {};
     export type RequestBody = LendingPoolInputBody;
     export type RequestHeaders = {
+      /** - The authorization token for the request. */
       Authorization: string;
     };
-    export type ResponseBody = BorrowResult;
+    export type ResponseBody = LendingPoolBorrowData;
   }
 
   /**
-   * No description
+   * @description Handles the deposit operation for a lending pool.
    * @tags LendingPool
-   * @name Deposit
+   * @name LendingPoolDeposit
    * @request POST:/lending-pool/{accountName}/deposit
    * @secure
    */
-  export namespace Deposit {
+  export namespace LendingPoolDeposit {
     export type RequestParams = {
+      /** - The name of the account making the deposit. */
       accountName: string;
     };
     export type RequestQuery = {};
     export type RequestBody = LendingPoolInputBody;
     export type RequestHeaders = {
+      /** - The authorization token for the request. */
       Authorization: string;
     };
-    export type ResponseBody = DepositResult;
+    export type ResponseBody = LendingPoolDepositData;
   }
 
   /**
-   * No description
+   * @description Executes a flash loan operation on the lending pool.
    * @tags LendingPool
-   * @name FlashLoan
+   * @name LendingPoolFlashLoan
    * @request POST:/lending-pool/{accountName}/flash-loan
    * @secure
    */
-  export namespace FlashLoan {
+  export namespace LendingPoolFlashLoan {
     export type RequestParams = {
+      /** - The name of the account requesting the flash loan. */
       accountName: string;
     };
     export type RequestQuery = {};
     export type RequestBody = LendingPoolInputBody;
     export type RequestHeaders = {
+      /** - The authorization token for the request. */
       Authorization: string;
     };
-    export type ResponseBody = FlashLoanData;
+    export type ResponseBody = LendingPoolFlashLoanData;
   }
 
   /**
-   * No description
+   * @description Retrieves the addresses provider from the lending pool instance.
    * @tags LendingPool
-   * @name GetAddressesProvider
+   * @name LendingPoolGetAddressesProvider
    * @request GET:/lending-pool/addresses-provider
    * @secure
    */
-  export namespace GetAddressesProvider {
+  export namespace LendingPoolGetAddressesProvider {
     export type RequestParams = {};
     export type RequestQuery = {
+      /** - The address query parameter. */
       address: string;
+      /** - The chain ID query parameter. */
       chainId: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = GetAddressesProviderResult;
+    export type ResponseBody = LendingPoolGetAddressesProviderData;
   }
 
   /**
-   * No description
+   * @description Retrieves the total flash loan premium for a given lending pool.
    * @tags LendingPool
-   * @name GetFlashLoanPremiumTotal
+   * @name LendingPoolGetFlashLoanPremiumTotal
    * @request GET:/lending-pool/flash-loan-premium
    * @secure
    */
-  export namespace GetFlashLoanPremiumTotal {
+  export namespace LendingPoolGetFlashLoanPremiumTotal {
     export type RequestParams = {};
     export type RequestQuery = {
+      /** - The address of the lending pool. */
       address: string;
+      /** - The chain ID of the blockchain network. */
       chainId: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = GetFlashLoanPremiumTotalData;
+    export type ResponseBody = LendingPoolGetFlashLoanPremiumTotalData;
   }
 
   /**
-   * No description
+   * @description Retrieves the revision number of a lending pool.
    * @tags LendingPool
-   * @name GetLendingPoolRevision
+   * @name LendingPoolGetLendingPoolRevision
    * @request GET:/lending-pool/revision
    * @secure
    */
-  export namespace GetLendingPoolRevision {
+  export namespace LendingPoolGetLendingPoolRevision {
     export type RequestParams = {};
     export type RequestQuery = {
+      /** - The address of the lending pool. */
       address: string;
+      /** - The chain ID where the lending pool is located. */
       chainId: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = GetLendingPoolRevisionData;
+    export type ResponseBody = LendingPoolGetLendingPoolRevisionData;
   }
 
   /**
-   * No description
+   * @description Retrieves the maximum number of reserves from the lending pool.
    * @tags LendingPool
-   * @name GetMaxNumberReserves
+   * @name LendingPoolGetMaxNumberReserves
    * @request GET:/lending-pool/max-reserves
    * @secure
    */
-  export namespace GetMaxNumberReserves {
+  export namespace LendingPoolGetMaxNumberReserves {
     export type RequestParams = {};
     export type RequestQuery = {
+      /** - The address of the lending pool. */
       address: string;
+      /** - The chain ID where the lending pool is located. */
       chainId: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = GetMaxNumberReservesData;
+    export type ResponseBody = LendingPoolGetMaxNumberReservesData;
   }
 
   /**
-   * No description
+   * @description Retrieves the maximum stable rate borrow size percentage from the lending pool.
    * @tags LendingPool
-   * @name GetMaxStableRateBorrowSizePercent
+   * @name LendingPoolGetMaxStableRateBorrowSizePercent
    * @request GET:/lending-pool/max-stable-rate-borrow-size-percent
    * @secure
    */
-  export namespace GetMaxStableRateBorrowSizePercent {
+  export namespace LendingPoolGetMaxStableRateBorrowSizePercent {
     export type RequestParams = {};
     export type RequestQuery = {
+      /** - The address of the lending pool. */
       address: string;
+      /** - The chain ID of the blockchain network. */
       chainId: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token for the request. */
       Authorization: string;
     };
-    export type ResponseBody = GetMaxStableRateBorrowSizePercentData;
+    export type ResponseBody = LendingPoolGetMaxStableRateBorrowSizePercentData;
   }
 
   /**
-   * No description
+   * @description Retrieves reserve data for a specific asset from the lending pool.
    * @tags LendingPool
-   * @name GetReserveData
+   * @name LendingPoolGetReserveData
    * @request GET:/lending-pool/reserve-data
    * @secure
    */
-  export namespace GetReserveData {
+  export namespace LendingPoolGetReserveData {
     export type RequestParams = {};
     export type RequestQuery = {
+      /** - The address of the lending pool. */
       address: string;
+      /** - The asset for which to retrieve reserve data. */
       asset: string;
+      /** - The chain ID of the blockchain network. */
       chainId: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = GetReserveDataResult;
+    export type ResponseBody = LendingPoolGetReserveDataData;
   }
 
   /**
-   * No description
+   * @description Retrieves the list of reserves from the lending pool.
    * @tags LendingPool
-   * @name GetReservesList
+   * @name LendingPoolGetReservesList
    * @request GET:/lending-pool/reserves-list
    * @secure
    */
-  export namespace GetReservesList {
+  export namespace LendingPoolGetReservesList {
     export type RequestParams = {};
     export type RequestQuery = {
+      /** - The address of the lending pool. */
       address: string;
+      /** - The chain ID of the blockchain network. */
       chainId: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = GetReservesListResult;
+    export type ResponseBody = LendingPoolGetReservesListData;
   }
 
   /**
-   * No description
+   * @description Retrieves user account data from the lending pool.
    * @tags LendingPool
-   * @name GetUserAccountData
+   * @name LendingPoolGetUserAccountData
    * @request GET:/lending-pool/user-account-data
    * @secure
    */
-  export namespace GetUserAccountData {
+  export namespace LendingPoolGetUserAccountData {
     export type RequestParams = {};
     export type RequestQuery = {
+      /** - The address of the lending pool. */
       address: string;
+      /** - The chain ID of the blockchain network. */
       chainId: string;
+      /** - The user address for which to retrieve account data. */
       user: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = GetUserAccountDataResult;
+    export type ResponseBody = LendingPoolGetUserAccountDataData;
   }
 
   /**
-   * No description
+   * @description Checks if the lending pool is paused.
    * @tags LendingPool
-   * @name IsPaused
+   * @name LendingPoolIsPaused
    * @request GET:/lending-pool/paused
    * @secure
    */
-  export namespace IsPaused {
+  export namespace LendingPoolIsPaused {
     export type RequestParams = {};
     export type RequestQuery = {
+      /** - The address of the lending pool from the query parameters. */
       address: string;
+      /** - The chain ID of the lending pool from the query parameters. */
       chainId: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = IsPausedData;
+    export type ResponseBody = LendingPoolIsPausedData;
   }
 
   /**
-   * No description
+   * @description Handles the liquidation call for a lending pool.
    * @tags LendingPool
-   * @name LiquidationCall
+   * @name LendingPoolLiquidationCall
    * @request POST:/lending-pool/{accountName}/liquidation-call
    * @secure
    */
-  export namespace LiquidationCall {
+  export namespace LendingPoolLiquidationCall {
     export type RequestParams = {
+      /** - The name of the account to be liquidated. */
       accountName: string;
     };
     export type RequestQuery = {};
     export type RequestBody = LendingPoolInputBody;
     export type RequestHeaders = {
+      /** - The authorization token for the request. */
       Authorization: string;
     };
-    export type ResponseBody = LiquidationCallResult;
+    export type ResponseBody = LendingPoolLiquidationCallData;
   }
 
   /**
-   * No description
+   * @description Repays a loan in the lending pool.
    * @tags LendingPool
-   * @name Repay
+   * @name LendingPoolRepay
    * @request POST:/lending-pool/{accountName}/repay
    * @secure
    */
-  export namespace Repay {
+  export namespace LendingPoolRepay {
     export type RequestParams = {
+      /** - The name of the account to repay the loan for. */
       accountName: string;
     };
     export type RequestQuery = {};
     export type RequestBody = LendingPoolInputBody;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = RepayResult;
+    export type ResponseBody = LendingPoolRepayData;
   }
 
   /**
-   * No description
+   * @description Sets the user's reserve as collateral.
    * @tags LendingPool
-   * @name SetUserUseReserveAsCollateral
+   * @name LendingPoolSetUserUseReserveAsCollateral
    * @request POST:/lending-pool/{accountName}/set-user-use-reserve-as-collateral
    * @secure
    */
-  export namespace SetUserUseReserveAsCollateral {
+  export namespace LendingPoolSetUserUseReserveAsCollateral {
     export type RequestParams = {
+      /** - The name of the user's account. */
       accountName: string;
     };
     export type RequestQuery = {};
     export type RequestBody = LendingPoolInputBody;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = SetUserUseReserveAsCollateralResult;
+    export type ResponseBody = LendingPoolSetUserUseReserveAsCollateralData;
   }
 
   /**
-   * No description
+   * @description Swaps the borrow rate mode for a given account in the lending pool.
    * @tags LendingPool
-   * @name SwapBorrowRateMode
+   * @name LendingPoolSwapBorrowRateMode
    * @request POST:/lending-pool/{accountName}/swap-borrow-rate-mode
    * @secure
    */
-  export namespace SwapBorrowRateMode {
+  export namespace LendingPoolSwapBorrowRateMode {
     export type RequestParams = {
+      /** - The name of the account for which the borrow rate mode is to be swapped. */
       accountName: string;
     };
     export type RequestQuery = {};
     export type RequestBody = LendingPoolInputBody;
     export type RequestHeaders = {
+      /** - The authorization token for the request. */
       Authorization: string;
     };
-    export type ResponseBody = SwapBorrowRateModeData;
+    export type ResponseBody = LendingPoolSwapBorrowRateModeData;
   }
 }

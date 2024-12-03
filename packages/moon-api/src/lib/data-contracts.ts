@@ -9,293 +9,965 @@
  * ---------------------------------------------------------------
  */
 
+/** Represents the structure of the API response for AAVE v3 rewards. */
 export interface AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult {
+	/** The data returned by the API, if any. */
 	data?: AAVEv3RewardsExecuteFunctionResult;
+	/** A message providing additional information about the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Represents the structure of the API response for AAVE v3 rewards. */
 export interface AAVEv3RewardsAPIResponseString {
+	/** The data returned by the API, if any. */
 	data?: string;
+	/** A message providing additional information about the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Represents the structure of the API response for AAVE v3 rewards. */
 export interface AAVEv3RewardsAPIResponseStringArray {
+	/** The data returned by the API, if any. */
 	data?: string[];
+	/** A message providing additional information about the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Represents the result of executing a function in the AAVE v3 rewards wrapper. */
 export interface AAVEv3RewardsExecuteFunctionResult {
+	/** Optional response from broadcasting the raw transaction. */
 	broadcasted?: BroadCastRawTransactionResponse;
+	/** Optional transaction data. */
 	data?: Transaction;
+	/** The name of the executed function. */
 	function: string;
+	/** Optional message providing additional information about the execution result. */
 	message?: string;
+	/** The parameters passed to the executed function. */
 	params: any[];
-	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	/** Optional response from simulating asset changes. */
 	simulation?: SimulateAssetChangesResponse;
+	/** Optional flag indicating whether the function execution was successful. */
 	success?: boolean;
+	/** The transaction details of the executed function. */
 	transaction: AAVEv3RewardsTransaction;
+	/** Optional user operation identifier. */
 	user_op?: string;
 }
 
+/** Interface representing the input body for AAVE v3 rewards. */
 export interface AAVEv3RewardsInputBody {
+	/** Flag to indicate if the transaction is from an externally owned account. */
 	EOA?: boolean;
+	/** The access list for the transaction. */
 	accessList?: AccessTuple[];
+	/** The account involved in the transaction. */
 	account?: string;
+	/** Flag to indicate if the nonce should always be incremented. */
 	alwaysIncrementNonce?: boolean;
+	/** The amount of tokens. */
 	amount?: string;
+	/** The amounts involved in the transaction. */
 	amounts?: string[];
+	/** Whether the transaction is approved. */
 	approved?: boolean;
+	/** The asset involved in the transaction. */
 	asset?: string;
+	/** The list of asset addresses. */
 	assets?: string[];
+	/** The gas for blob transactions. */
 	blobGas?: string;
+	/** The gas fee cap for blob transactions. */
 	blobGasFeeCap?: string;
+	/** The hashes for blob transactions. */
 	blobHashes?: string[];
+	/** The borrow amount. */
 	borrowAmount?: string | number;
+	/** Flag to indicate if the transaction should be broadcasted. */
 	broadcast?: boolean;
+	/** The chain ID. */
 	chain_id?: string;
+	/** The collateral asset. */
 	collateralAsset?: string;
+	/** The address of the contract. */
 	contract_address?: string;
+	/** The data to be sent with the transaction. */
 	data?: string;
+	/** The debt asset. */
 	debtAsset?: string;
+	/** The debt to cover. */
 	debtToCover?: string;
+	/** Flag to indicate if the transaction is a dry run. */
 	dryrun?: boolean;
+	/** The encoding type. */
 	encoding?: string;
+	/** The gas limit for the transaction. */
 	gas?: string;
+	/** The gas limit for the transaction. */
 	gasLimit?: string;
+	/** The gas price for the transaction. */
 	gasPrice?: string;
+	/** The initial deposit. */
 	initialDeposit?: string | number;
+	/** The initiator of the transaction. */
 	initiator?: string;
+	/** The input data. */
 	input?: string;
+	/** The input tokens. */
 	inputTokens?: TokenAmount[];
-	/** @format double */
+	/**
+	 * The interest rate mode.
+	 * @format double
+	 */
 	interestRateMode?: number;
+	/** The maximum fee per gas. */
 	maxFeePerGas?: string;
+	/** The maximum priority fee per gas. */
 	maxPriorityFeePerGas?: string;
+	/** The minimum health factor. */
 	minHealthFactor?: string | number;
+	/** The modes of the transaction. */
 	modes?: number[];
+	/** The transaction nonce. */
 	nonce?: string;
+	/** The address on behalf of which the transaction is made. */
 	onBehalfOf?: string;
+	/** The output tokens. */
 	outputTokens?: TokenProportion[];
+	/** Additional parameters. */
 	params?: string;
+	/** The premiums. */
 	premiums?: string[] | number[];
-	/** @format double */
+	/**
+	 * The rate mode.
+	 * @format double
+	 */
 	rateMode?: number;
+	/** Whether to receive a token. */
 	receiveAToken?: boolean;
+	/** The receiver address. */
 	receiverAddress?: string;
-	/** @format double */
+	/**
+	 * The referral code.
+	 * @format double
+	 */
 	referralCode?: number;
+	/** The reward address. */
 	reward?: string;
+	/** The role of the user. */
 	role?: string;
+	/** Whether to simulate the transaction. */
 	simulate?: boolean;
-	/** @format double */
+	/**
+	 * The slippage limit percentage.
+	 * @format double
+	 */
 	slippageLimitPercent?: number;
+	/** The recipient address. */
 	to?: string;
+	/** The token ID. */
 	token_id?: string;
+	/** The token IDs. */
 	token_ids?: string;
-	/** @format double */
+	/**
+	 * The type of transaction.
+	 * @format double
+	 */
 	type?: number;
+	/** Whether to use as collateral. */
 	useAsCollateral?: boolean;
+	/** The user address. */
 	user?: string;
+	/** The value of the transaction. */
 	value?: string;
 }
 
+/** Represents a transaction for AAVE v3 rewards. */
 export interface AAVEv3RewardsTransaction {
+	/** The chain ID of the network where the transaction is sent. */
 	chainId: string;
+	/** The data payload of the transaction. */
 	data: string;
+	/** The sender address of the transaction. */
 	from: string;
+	/**
+	 * The gas limit for the transaction.
+	 * Optional.
+	 */
 	gasLimit?: string;
+	/**
+	 * The gas price for the transaction, in wei.
+	 * Optional.
+	 */
 	gasPrice?: string;
+	/**
+	 * The maximum fee per gas for the transaction, in wei.
+	 * Optional.
+	 */
 	maxFeePerGas?: string;
+	/**
+	 * The maximum priority fee per gas for the transaction, in wei.
+	 * Optional.
+	 */
 	maxPriorityFeePerGas?: string;
-	/** @format double */
+	/**
+	 * The nonce of the transaction.
+	 * @format double
+	 */
 	nonce: number;
+	/** The recipient address of the transaction. */
 	to: string;
-	/** @format double */
+	/**
+	 * The type of the transaction.
+	 * Optional.
+	 * @format double
+	 */
 	type?: number;
+	/** The value to be transferred in the transaction, in wei. */
 	value: string;
 }
 
+/** Represents the structure of the API response from the AAVE v3 UI Incentive Data Provider. */
 export interface AAVEv3UiIncentiveDataProviderAPIResponseAggregatedReserveIncentiveDataArray {
+	/** The data returned by the API, if any. */
 	data?: AggregatedReserveIncentiveData[];
+	/** A message providing additional information about the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Represents the structure of the API response from the AAVE v3 UI Incentive Data Provider. */
 export interface AAVEv3UiIncentiveDataProviderAPIResponseFullReservesIncentiveData {
+	/** The data returned by the API, if any. */
 	data?: FullReservesIncentiveData;
+	/** A message providing additional information about the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Represents the structure of the API response from the AAVE v3 UI Incentive Data Provider. */
 export interface AAVEv3UiIncentiveDataProviderAPIResponseUserReserveIncentiveDataArray {
+	/** The data returned by the API, if any. */
 	data?: UserReserveIncentiveData[];
+	/** A message providing additional information about the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Interface representing the API response from AAVE v3 UI Pool Data Provider. */
 export interface AAVEv3UiPoolDataProviderAPIResponseReservesData {
+	/** The data returned by the API call, if any. */
 	data?: ReservesData;
+	/** A message providing additional information about the API call. */
 	message: string;
+	/** Indicates whether the API call was successful. */
 	success: boolean;
 }
 
+/** Interface representing the API response from AAVE v3 UI Pool Data Provider. */
 export interface AAVEv3UiPoolDataProviderAPIResponseString {
+	/** The data returned by the API call, if any. */
 	data?: string;
+	/** A message providing additional information about the API call. */
 	message: string;
+	/** Indicates whether the API call was successful. */
 	success: boolean;
 }
 
+/** Interface representing the API response from AAVE v3 UI Pool Data Provider. */
 export interface AAVEv3UiPoolDataProviderAPIResponseStringArray {
+	/** The data returned by the API call, if any. */
 	data?: string[];
+	/** A message providing additional information about the API call. */
 	message: string;
+	/** Indicates whether the API call was successful. */
 	success: boolean;
 }
 
+/** Interface representing the API response from AAVE v3 UI Pool Data Provider. */
 export interface AAVEv3UiPoolDataProviderAPIResponseUserReserveDataArray {
+	/** The data returned by the API call, if any. */
 	data?: UserReserveData[];
+	/** A message providing additional information about the API call. */
 	message: string;
+	/** Indicates whether the API call was successful. */
 	success: boolean;
 }
 
+/** Represents the response from the AAVE v3 Wallet Balance Provider API. */
 export interface AAVEv3WalletBalanceProviderAPIResponseString {
+	/** The data returned by the API call, if any. */
 	data?: string;
+	/** A message providing additional information about the API call. */
 	message: string;
+	/** Indicates whether the API call was successful. */
 	success: boolean;
 }
 
+/** Represents the response from the AAVE v3 Wallet Balance Provider API. */
 export interface AAVEv3WalletBalanceProviderAPIResponseStringArray {
+	/** The data returned by the API call, if any. */
 	data?: string[];
+	/** A message providing additional information about the API call. */
 	message: string;
+	/** Indicates whether the API call was successful. */
 	success: boolean;
 }
 
+/** Represents the response from the AAVE v3 Wallet Balance Provider API. */
 export interface AAVEv3WalletBalanceProviderAPIResponseTokensStringArrayBalancesStringArray {
+	/** The data returned by the API call, if any. */
 	data?: {
 		balances: string[];
 		tokens: string[];
 	};
+	/** A message providing additional information about the API call. */
 	message: string;
+	/** Indicates whether the API call was successful. */
 	success: boolean;
 }
 
+export type AavEv3IncentiveDataProviderGetFullReservesDataData =
+	AAVEv3UiIncentiveDataProviderAPIResponseFullReservesIncentiveData;
+
+export interface AavEv3IncentiveDataProviderGetFullReservesDataParams {
+	/** - Chain ID to target */
+	chain_id: string;
+	/** - Address of the incentive data provider contract */
+	contract_address: string;
+	/** - Address of the pool address provider */
+	provider: string;
+	/** - Address of the user to get incentive data for */
+	user: string;
+}
+
+export type AavEv3IncentiveDataProviderGetReservesDataData =
+	AAVEv3UiIncentiveDataProviderAPIResponseAggregatedReserveIncentiveDataArray;
+
+export interface AavEv3IncentiveDataProviderGetReservesDataParams {
+	/** - Chain ID to target */
+	chain_id: string;
+	/** - Address of the incentive data provider contract */
+	contract_address: string;
+	/** - Address of the pool address provider */
+	provider: string;
+}
+
+export type AavEv3IncentiveDataProviderGetUserReservesDataData =
+	AAVEv3UiIncentiveDataProviderAPIResponseUserReserveIncentiveDataArray;
+
+export interface AavEv3IncentiveDataProviderGetUserReservesDataParams {
+	/** - Chain ID to target */
+	chain_id: string;
+	/** - Address of the incentive data provider contract */
+	contract_address: string;
+	/** - Address of the pool address provider */
+	provider: string;
+	/** - Address of the user to get incentive data for */
+	user: string;
+}
+
+export type AavEv3RewardsClaimAllRewardsData =
+	AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
+
+export type AavEv3RewardsClaimAllRewardsOnBehalfData =
+	AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
+
+export type AavEv3RewardsClaimAllRewardsToSelfData =
+	AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
+
+export type AavEv3RewardsClaimRewardsData =
+	AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
+
+export type AavEv3RewardsClaimRewardsOnBehalfData =
+	AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
+
+export type AavEv3RewardsClaimRewardsToSelfData =
+	AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
+
+export type AavEv3RewardsGetRewardsByAssetData =
+	AAVEv3RewardsAPIResponseStringArray;
+
+export interface AavEv3RewardsGetRewardsByAssetParams {
+	/** - Account identifier for the request */
+	account: string;
+	/** - Contract address */
+	address: string;
+	/** - Asset address to query rewards for */
+	asset: string;
+	/** - Chain ID to target */
+	chainId: string;
+}
+
+export type AavEv3RewardsGetRewardsDataData =
+	AAVEv3RewardsAPIResponseStringArray;
+
+export interface AavEv3RewardsGetRewardsDataParams {
+	/** - Account identifier for the request */
+	account: string;
+	/** - Contract address */
+	address: string;
+	/** - Asset address to get rewards data for */
+	asset: string;
+	/** - Chain ID to target */
+	chainId: string;
+	/** - Reward token address */
+	reward: string;
+}
+
+export type AavEv3RewardsGetUserRewardsData = AAVEv3RewardsAPIResponseString;
+
+export interface AavEv3RewardsGetUserRewardsParams {
+	/** - Account identifier for the request */
+	account: string;
+	/** - Contract address */
+	address: string;
+	/** - Array of asset addresses to check rewards for */
+	assets: string[];
+	/** - Chain ID to target */
+	chainId: string;
+	/** - Reward token address */
+	reward: string;
+	/** - User address to check rewards for */
+	user: string;
+}
+
+/** Represents the structure of the response from the Aave Pool API. */
 export interface AavePoolAPIResponseAavePoolExecuteFunctionResult {
+	/** The data returned by the API, if any. */
 	data?: AavePoolExecuteFunctionResult;
+	/** A message providing additional information about the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Represents the structure of the response from the Aave Pool API. */
 export interface AavePoolAPIResponseAny {
+	/** The data returned by the API, if any. */
 	data?: any;
+	/** A message providing additional information about the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Represents the result of executing a function on the Aave pool. */
 export interface AavePoolExecuteFunctionResult {
+	/** Optional response indicating whether the transaction was broadcasted. */
 	broadcasted?: BroadCastRawTransactionResponse;
+	/** Optional data related to the transaction. */
 	data?: Transaction;
+	/** The name of the function that was executed. */
 	function: string;
+	/** Optional message providing additional information about the execution. */
 	message?: string;
+	/** The parameters passed to the function. */
 	params: any[];
-	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	/** Optional response from simulating asset changes. */
 	simulation?: SimulateAssetChangesResponse;
+	/** Indicates whether the function execution was successful. */
 	success?: boolean;
+	/** The transaction associated with the function execution. */
 	transaction: AavePoolTransaction;
+	/** Optional user operation identifier. */
 	user_op?: string;
 }
 
+/**
+ * Interface representing the input body for Aave pool transactions.
+ * Extends the InputBody interface.
+ */
 export interface AavePoolInputBody {
+	/** Indicates if the transaction is from an externally owned account. */
 	EOA?: boolean;
+	/** The access list for the transaction. */
 	accessList?: AccessTuple[];
+	/** The account involved in the transaction. */
 	account?: string;
+	/** Indicates if the nonce should always be incremented. */
 	alwaysIncrementNonce?: boolean;
+	/** The amount involved in the transaction. */
 	amount?: string;
+	/** The amounts involved in the transaction. */
 	amounts?: string[];
+	/** Whether the transaction is approved. */
 	approved?: boolean;
+	/** The asset involved in the transaction. */
 	asset?: string;
+	/** The assets involved in the transaction. */
 	assets?: string[];
+	/** The gas for blob transactions. */
 	blobGas?: string;
+	/** The gas fee cap for blob transactions. */
 	blobGasFeeCap?: string;
+	/** The hashes for blob transactions. */
 	blobHashes?: string[];
+	/** The borrow amount. */
 	borrowAmount?: string | number;
+	/** Indicates if the transaction should be broadcasted. */
 	broadcast?: boolean;
+	/** The chain ID. */
 	chain_id?: string;
+	/** The collateral asset. */
 	collateralAsset?: string;
+	/** The contract address involved in the transaction. */
 	contract_address?: string;
+	/** The data payload for the transaction. */
 	data?: string;
+	/** The debt asset. */
 	debtAsset?: string;
+	/** The debt to cover. */
 	debtToCover?: string;
+	/** Indicates if the transaction is a dry run. */
 	dryrun?: boolean;
+	/** The encoding type. */
 	encoding?: string;
+	/** The gas limit for the transaction. */
 	gas?: string;
+	/** The gas limit for the transaction. */
 	gasLimit?: string;
+	/** The gas price for the transaction. */
 	gasPrice?: string;
+	/** The initial deposit. */
 	initialDeposit?: string | number;
+	/** The initiator of the transaction. */
 	initiator?: string;
+	/** The input data. */
 	input?: string;
+	/** The input tokens. */
 	inputTokens?: TokenAmount[];
-	/** @format double */
+	/**
+	 * The interest rate mode for the transaction.
+	 * @format double
+	 */
 	interestRateMode?: number;
+	/** The maximum fee per gas. */
 	maxFeePerGas?: string;
+	/** The maximum priority fee per gas. */
 	maxPriorityFeePerGas?: string;
+	/** The minimum health factor. */
 	minHealthFactor?: string | number;
+	/** The modes of the transaction. */
 	modes?: number[];
+	/** The nonce for the transaction. */
 	nonce?: string;
+	/** The address on behalf of which the transaction is made. */
 	onBehalfOf?: string;
+	/** The output tokens. */
 	outputTokens?: TokenProportion[];
+	/** Additional parameters. */
 	params?: string;
+	/** The premiums. */
 	premiums?: string[] | number[];
-	/** @format double */
+	/**
+	 * The rate mode.
+	 * @format double
+	 */
 	rateMode?: number;
+	/** Indicates if the AToken should be received. */
 	receiveAToken?: boolean;
+	/** The receiver address. */
 	receiverAddress?: string;
-	/** @format double */
+	/**
+	 * The referral code for the transaction.
+	 * @format double
+	 */
 	referralCode?: number;
+	/** The role of the user. */
 	role?: string;
+	/** Indicates if the transaction should be simulated. */
 	simulate?: boolean;
-	/** @format double */
+	/**
+	 * The slippage limit percentage.
+	 * @format double
+	 */
 	slippageLimitPercent?: number;
+	/** The recipient address. */
 	to?: string;
+	/** The token ID. */
 	token_id?: string;
+	/** The token IDs. */
 	token_ids?: string;
-	/** @format double */
+	/**
+	 * The type of transaction.
+	 * @format double
+	 */
 	type?: number;
+	/** Indicates if the asset should be used as collateral. */
 	useAsCollateral?: boolean;
+	/** The user involved in the transaction. */
 	user?: string;
+	/** The value of the transaction. */
 	value?: string;
 }
 
+/** Represents a transaction in the Aave V3 Pool. */
 export interface AavePoolTransaction {
+	/** The chain ID of the transaction. */
 	chainId: string;
+	/** The data associated with the transaction. */
 	data: string;
+	/** The address of the sender. */
 	from: string;
+	/** The gas limit for the transaction (optional). */
 	gasLimit?: string;
+	/** The gas price for the transaction (optional). */
 	gasPrice?: string;
+	/** The maximum fee per gas for the transaction (optional). */
 	maxFeePerGas?: string;
+	/** The maximum priority fee per gas for the transaction (optional). */
 	maxPriorityFeePerGas?: string;
-	/** @format double */
+	/**
+	 * The nonce of the transaction.
+	 * @format double
+	 */
 	nonce: number;
+	/** The address of the recipient. */
 	to: string;
-	/** @format double */
+	/**
+	 * The type of the transaction (optional).
+	 * @format double
+	 */
 	type?: number;
+	/** The value of the transaction. */
 	value: string;
 }
 
+export type AaveV3UiPoolDataProviderEthCurrencyUnitData =
+	AAVEv3UiPoolDataProviderAPIResponseString;
+
+export interface AaveV3UiPoolDataProviderEthCurrencyUnitParams {
+	/** - The chain ID to query. */
+	chain_id: string;
+	/** - The contract address to query. */
+	contract_address: string;
+}
+
+export type AaveV3UiPoolDataProviderMarketReferenceCurrencyPriceInUsdProxyAggregatorData =
+	AAVEv3UiPoolDataProviderAPIResponseString;
+
+export interface AaveV3UiPoolDataProviderMarketReferenceCurrencyPriceInUsdProxyAggregatorParams {
+	/** - The chain ID to query. */
+	chain_id: string;
+	/** - The contract address to query. */
+	contract_address: string;
+}
+
+export type AaveV3UiPoolDataProviderNetworkBaseTokenPriceInUsdProxyAggregatorData =
+	AAVEv3UiPoolDataProviderAPIResponseString;
+
+export interface AaveV3UiPoolDataProviderNetworkBaseTokenPriceInUsdProxyAggregatorParams {
+	/** - The chain ID to query. */
+	chain_id: string;
+	/** - The contract address to query. */
+	contract_address: string;
+}
+
+export type AaveV3UiPoolDataProviderReservesListData =
+	AAVEv3UiPoolDataProviderAPIResponseStringArray;
+
+export interface AaveV3UiPoolDataProviderReservesListParams {
+	/** - The chain ID to query. */
+	chain_id: string;
+	/** - The contract address to query. */
+	contract_address: string;
+	/** - The provider to use for querying the reserves list. */
+	provider: string;
+}
+
+export type AaveV3UiPoolDataProviderUserReservesDataData =
+	AAVEv3UiPoolDataProviderAPIResponseUserReserveDataArray;
+
+export interface AaveV3UiPoolDataProviderUserReservesDataParams {
+	/** - The chain ID where the contract is deployed. */
+	chain_id: string;
+	/** - The contract address of the AAVE v3 UI Pool Data Provider. */
+	contract_address: string;
+	/** - The provider address. */
+	provider: string;
+	/** - The user address whose reserve data is to be fetched. */
+	user: string;
+}
+
+export type AaveV3WalletBalanceOfData =
+	AAVEv3WalletBalanceProviderAPIResponseString;
+
+export interface AaveV3WalletBalanceOfParams {
+	/** - The ID of the blockchain network. */
+	chain_id: string;
+	/** - The address of the contract to query. */
+	contract_address: string;
+	/** - The address of the token to query the balance for. */
+	token_address: string;
+	/** - The address of the user whose balance is being queried. */
+	user: string;
+}
+
+export type AaveV3WalletBatchBalanceOfData =
+	AAVEv3WalletBalanceProviderAPIResponseStringArray;
+
+export interface AaveV3WalletBatchBalanceOfParams {
+	/** - The ID of the blockchain network. */
+	chain_id: string;
+	/** - The address of the contract. */
+	contract_address: string;
+	/** - An array of token addresses to retrieve balances for. */
+	tokens: string[];
+	/** - An array of user addresses to retrieve balances for. */
+	users: string[];
+}
+
+export type AaveV3WalletUserWalletBalancesData =
+	AAVEv3WalletBalanceProviderAPIResponseTokensStringArrayBalancesStringArray;
+
+export interface AaveV3WalletUserWalletBalancesParams {
+	/** - The chain ID to query. */
+	chain_id: string;
+	/** - The contract address to query. */
+	contract_address: string;
+	/** - The provider to use for querying balances. */
+	provider: string;
+	/** - The user address to query balances for. */
+	user: string;
+}
+
+export type Aavev3PoolAddressProviderGetAclAdminData =
+	PoolAddressProviderAPIResponseString;
+
+export interface Aavev3PoolAddressProviderGetAclAdminParams {
+	/** - The account address to query. */
+	account: string;
+	/** - The address of the pool address provider. */
+	address: string;
+	/** - The chain ID of the blockchain network. */
+	chainId: string;
+}
+
+export type Aavev3PoolAddressProviderGetAclManagerData =
+	PoolAddressProviderAPIResponseString;
+
+export interface Aavev3PoolAddressProviderGetAclManagerParams {
+	/** - The account path parameter. */
+	account: string;
+	/** - The address query parameter. */
+	address: string;
+	/** - The chain ID query parameter. */
+	chainId: string;
+}
+
+export type Aavev3PoolAddressProviderGetAddressData =
+	PoolAddressProviderAPIResponseString;
+
+export interface Aavev3PoolAddressProviderGetAddressParams {
+	/** - The account path parameter. */
+	account: string;
+	/** - The address from the query parameters. */
+	address: string;
+	/** - The chain ID from the query parameters. */
+	chainId: string;
+	/** - The ID from the query parameters. */
+	id: string;
+}
+
+export type Aavev3PoolAddressProviderGetMarketIdData =
+	PoolAddressProviderAPIResponseString;
+
+export interface Aavev3PoolAddressProviderGetMarketIdParams {
+	/** - The account path parameter. */
+	account: string;
+	/** - The address from the query parameters. */
+	address: string;
+	/** - The chain ID from the query parameters. */
+	chainId: string;
+}
+
+export type Aavev3PoolAddressProviderGetPoolConfiguratorData =
+	PoolAddressProviderAPIResponseString;
+
+export interface Aavev3PoolAddressProviderGetPoolConfiguratorParams {
+	/** - The account identifier. */
+	account: string;
+	/** - The address of the pool. */
+	address: string;
+	/** - The chain identifier. */
+	chainId: string;
+}
+
+export type Aavev3PoolAddressProviderGetPoolData =
+	PoolAddressProviderAPIResponseString;
+
+export interface Aavev3PoolAddressProviderGetPoolParams {
+	/** - The account identifier. */
+	account: string;
+	/** - The address to query. */
+	address: string;
+	/** - The blockchain network identifier. */
+	chainId: string;
+}
+
+export type Aavev3PoolAddressProviderGetPriceOracleData =
+	PoolAddressProviderAPIResponseString;
+
+export interface Aavev3PoolAddressProviderGetPriceOracleParams {
+	/** - The account identifier. */
+	account: string;
+	/** - The address of the pool address provider. */
+	address: string;
+	/** - The blockchain chain identifier. */
+	chainId: string;
+}
+
+export type Aavev3PoolAddressProviderRegistryGetATokenTotalSupplyData =
+	PoolAddressProviderRegistryAPIResponseString;
+
+export interface Aavev3PoolAddressProviderRegistryGetATokenTotalSupplyParams {
+	/** - The account address. */
+	account: string;
+	/** - The address of the pool address provider registry. */
+	address: string;
+	/** - The asset for which to get the total supply. */
+	asset: string;
+	/** - The chain ID. */
+	chainId: string;
+}
+
+export type Aavev3PoolAddressProviderRegistryGetAddressesProviderData =
+	PoolAddressProviderRegistryAPIResponseString;
+
+export interface Aavev3PoolAddressProviderRegistryGetAddressesProviderParams {
+	/** - The account identifier. */
+	account: string;
+	/** - The address of the registry. */
+	address: string;
+	/** - The blockchain chain identifier. */
+	chainId: string;
+}
+
+export type Aavev3PoolAddressProviderRegistryGetAllATokensData =
+	PoolAddressProviderRegistryAPIResponseAnyArray;
+
+export interface Aavev3PoolAddressProviderRegistryGetAllATokensParams {
+	/** - The account identifier. */
+	account: string;
+	/** - The address to query. */
+	address: string;
+	/** - The blockchain chain identifier. */
+	chainId: string;
+}
+
+export type Aavev3PoolAddressProviderRegistryGetDebtCeilingData =
+	PoolAddressProviderRegistryAPIResponseString;
+
+export interface Aavev3PoolAddressProviderRegistryGetDebtCeilingParams {
+	/** - The account identifier. */
+	account: string;
+	/** - The address of the Pool Address Provider Registry. */
+	address: string;
+	/** - The asset for which to retrieve the debt ceiling. */
+	asset: string;
+	/** - The blockchain chain identifier. */
+	chainId: string;
+}
+
+export type Aavev3PoolAddressProviderSetAclAdminData =
+	PoolAddressProviderAPIResponsePoolAddressProviderExecuteFunctionResult;
+
+export type Aavev3PoolAddressProviderSetAclManagerData =
+	PoolAddressProviderAPIResponsePoolAddressProviderExecuteFunctionResult;
+
+export type Aavev3PoolAddressProviderSetAddressData =
+	PoolAddressProviderAPIResponsePoolAddressProviderExecuteFunctionResult;
+
+export type Aavev3PoolAddressProviderSetMarketIdData =
+	PoolAddressProviderAPIResponsePoolAddressProviderExecuteFunctionResult;
+
+export type Aavev3PoolAddressProviderSetPoolConfiguratorImplData =
+	PoolAddressProviderAPIResponsePoolAddressProviderExecuteFunctionResult;
+
+export type Aavev3PoolAddressProviderSetPoolImplData =
+	PoolAddressProviderAPIResponsePoolAddressProviderExecuteFunctionResult;
+
+export type Aavev3PoolBorrowData =
+	AavePoolAPIResponseAavePoolExecuteFunctionResult;
+
+export type Aavev3PoolGetReserveDataData = AavePoolAPIResponseAny;
+
+export interface Aavev3PoolGetReserveDataParams {
+	/** - The account identifier. */
+	account: string;
+	/** - The address of the Aave pool. */
+	address: string;
+	/** - The asset for which to retrieve reserve data. */
+	asset: string;
+	/** - The blockchain chain ID. */
+	chainId: string;
+}
+
+export type Aavev3PoolGetUserAccountDataData = AavePoolAPIResponseAny;
+
+export interface Aavev3PoolGetUserAccountDataParams {
+	/** - The account identifier from the path. */
+	account: string;
+	/** - The address from the query parameters. */
+	address: string;
+	/** - The chain ID from the query parameters. */
+	chainId: string;
+	/** - The user identifier from the query parameters. */
+	user: string;
+}
+
+export type Aavev3PoolLiquidationCallData =
+	AavePoolAPIResponseAavePoolExecuteFunctionResult;
+
+export type Aavev3PoolRepayData =
+	AavePoolAPIResponseAavePoolExecuteFunctionResult;
+
+export type Aavev3PoolSetUserUseReserveAsCollateralData =
+	AavePoolAPIResponseAavePoolExecuteFunctionResult;
+
+export type Aavev3PoolSupplyData =
+	AavePoolAPIResponseAavePoolExecuteFunctionResult;
+
+export type Aavev3PoolWithdrawData =
+	AavePoolAPIResponseAavePoolExecuteFunctionResult;
+
+/** Interface representing the input required for ABI encoding. */
 export interface AbiEncodeInput {
+	/** The ABI (Application Binary Interface) definition. */
 	abi: any;
+	/** The name of the function to be called. */
 	functionName: string;
+	/** The parameters to be passed to the function. */
 	params: any[];
 }
 
+/**
+ * Interface representing the output of an ABI encoding operation.
+ * Extends the BaseAPIResponse interface.
+ */
 export interface AbiEncodeOutput {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** Optional data object containing the encoded string. */
 	data?: {
+		/** The encoded string resulting from the ABI encoding operation. */
 		encoded: string;
 	};
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
 
@@ -303,33 +975,110 @@ export type AbstainData = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 
 export type AbstainResult = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
+/** Represents a tuple containing access information. */
 export interface AccessTuple {
+	/** The address associated with the access tuple. */
 	address: string;
+	/** An array of storage keys related to the address. */
 	storageKeys: string[];
 }
 
+/**
+ * Interface representing the response from the Account API.
+ * Extends the BaseAPIResponse to include additional data specific to account responses.
+ */
 export interface AccountAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The account response data. */
 	data?: AccountResponse;
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
 
+/** Represents the data associated with an account. */
 export interface AccountData {
+	/** An optional address of the account. */
 	address?: string;
+	/** An optional array of keys associated with the account. */
 	keys?: string[];
+	/** An optional private key of the account. */
 	private_key?: string;
+	/** An optional public key of the account. */
 	public_key?: string;
 }
 
+/** Represents the response structure for an account. */
 export interface AccountResponse {
+	/** Optional address of the account. */
 	address?: string;
+	/** Data associated with the account. */
 	data: AccountData;
+	/** Optional array of keys associated with the account. */
 	keys?: string[];
+	/** Optional private key of the account. */
 	private_key?: string;
+	/** Optional public key of the account. */
 	public_key?: string;
 }
+
+export type AccountsBroadcastEthreeumTransactionData =
+	BroadCastRawTransactionAPIResponse;
+
+export type AccountsCreateEthereumAccountData = AccountAPIResponse;
+
+export type AccountsDeleteEthereumAccountData = AccountAPIResponse;
+
+export type AccountsDeployContractData = TransactionAPIResponse;
+
+export type AccountsEncodeAbiDataData = AbiEncodeOutput;
+
+export type AccountsEstimateGasData = TransactionAPIResponse;
+
+export type AccountsEthereumGetNativeBalanceData = BalanceAPIResponse;
+
+export interface AccountsEthereumGetNativeBalanceParams {
+	/** - The name of the account to retrieve the balance for. */
+	accountName: string;
+	/** - The ID of the blockchain network. */
+	chainId: string;
+}
+
+export type AccountsEthereumGetNonceData = NonceAPIResponse;
+
+export interface AccountsEthereumGetNonceParams {
+	/** - The name of the account to retrieve the nonce for. */
+	accountName: string;
+	/** - The ID of the blockchain network. */
+	chainId: string;
+}
+
+export type AccountsExportEthreumAccountData = ExportAccountAPIResponse;
+
+export type AccountsGetEthreumAccountData = AccountAPIResponse;
+
+export type AccountsListEthereumAccountsData = AccountAPIResponse;
+
+export type AccountsSignEthereumTransactionData = TransactionAPIResponse;
+
+export type AccountsSignEthereumTypedDataData = SignMessageAPIResponse;
+
+export type AccountsSignEthreumMessageData = SignMessageAPIResponse;
+
+export type AccountsSuggestGasPriceData = TransactionAPIResponse;
+
+export interface AccountsSuggestGasPriceParams {
+	/** - The name of the account for which to suggest the gas price. */
+	accountName: string;
+	/** - The ID of the blockchain network. */
+	chainId: string;
+}
+
+export type AccountsTransferEthData = TransactionAPIResponse;
 
 export interface Action {
 	fromAddress: string;
@@ -363,123 +1112,181 @@ export type AddLiquidityOutput =
 export type AddLiquidityResult =
 	RamsesRouterAPIResponseRamsesRouterExecuteFunctionResult;
 
+/** Interface representing the aggregated reserve data for a specific asset. */
 export interface AggregatedReserveData {
+	/** The first slope of the stable rate. */
 	stableRateSlope1: BigNumber;
+	/** The second slope of the stable rate. */
 	stableRateSlope2: BigNumber;
+	/** The first slope of the variable rate. */
 	variableRateSlope1: BigNumber;
+	/** The second slope of the variable rate. */
 	variableRateSlope2: BigNumber;
+	/** The address of the aToken associated with the asset. */
 	aTokenAddress: string;
+	/** The available liquidity of the asset. */
 	availableLiquidity: BigNumber;
+	/** The average stable rate of the asset. */
 	averageStableRate: BigNumber;
+	/** The loan-to-value ratio used as collateral. */
 	baseLTVasCollateral: BigNumber;
+	/** Indicates if borrowing is enabled for the asset. */
 	borrowingEnabled: boolean;
+	/** The number of decimals of the asset. */
 	decimals: BigNumber;
+	/** The address of the interest rate strategy contract. */
 	interestRateStrategyAddress: string;
+	/** Indicates if the asset is active. */
 	isActive: boolean;
+	/** Indicates if the asset is frozen. */
 	isFrozen: boolean;
-	/** @format double */
+	/**
+	 * The timestamp of the last update.
+	 * @format double
+	 */
 	lastUpdateTimestamp: number;
+	/** The liquidity index of the asset. */
 	liquidityIndex: BigNumber;
+	/** The liquidity rate of the asset. */
 	liquidityRate: BigNumber;
+	/** The name of the asset. */
 	name: string;
+	/** The price of the asset in the market reference currency. */
 	priceInMarketReferenceCurrency: BigNumber;
+	/** The reserve factor of the asset. */
 	reserveFactor: BigNumber;
+	/** The bonus applied upon liquidation. */
 	reserveLiquidationBonus: BigNumber;
+	/** The threshold at which the asset will be liquidated. */
 	reserveLiquidationThreshold: BigNumber;
+	/** The stable borrow rate of the asset. */
 	stableBorrowRate: BigNumber;
+	/** Indicates if stable borrow rate is enabled for the asset. */
 	stableBorrowRateEnabled: boolean;
+	/** The timestamp of the last update of the stable debt. */
 	stableDebtLastUpdateTimestamp: BigNumber;
+	/** The address of the stable debt token associated with the asset. */
 	stableDebtTokenAddress: string;
+	/** The symbol of the asset. */
 	symbol: string;
+	/** The total principal stable debt of the asset. */
 	totalPrincipalStableDebt: BigNumber;
+	/** The total scaled variable debt of the asset. */
 	totalScaledVariableDebt: BigNumber;
+	/** The address of the underlying asset. */
 	underlyingAsset: string;
+	/** Indicates if the asset can be used as collateral. */
 	usageAsCollateralEnabled: boolean;
+	/** The variable borrow index of the asset. */
 	variableBorrowIndex: BigNumber;
+	/** The variable borrow rate of the asset. */
 	variableBorrowRate: BigNumber;
+	/** The address of the variable debt token associated with the asset. */
 	variableDebtTokenAddress: string;
 }
 
+/** Interface representing the aggregated reserve incentive data. */
 export interface AggregatedReserveIncentiveData {
+	/** The incentive data for the aToken. */
 	aIncentiveData: IncentiveData;
+	/** The incentive data for the stable debt token. */
 	sIncentiveData: IncentiveData;
+	/** The address of the underlying asset. */
 	underlyingAsset: string;
+	/** The incentive data for the variable debt token. */
 	vIncentiveData: IncentiveData;
 }
 
+/** Represents a collection of financial statements. */
 export interface AllFinancials {
+	/** An array of balance sheets. */
 	balance_sheets: BalanceSheet[];
+	/** An array of cash flow statements. */
 	cash_flow_statements: CashFlowStatement[];
+	/** An array of income statements. */
 	income_statements: IncomeStatement[];
 }
 
+/** Represents the response of the `getAllFinancials` endpoint. */
 export interface AllFinancialsAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The all financials data. */
 	data?: AllFinancials;
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
 
+/** Represents a standard API response. */
 export interface ApiResponseChainsResponse {
 	data?: ChainsResponse;
 	message: string;
 	success: boolean;
 }
 
+/** Represents a standard API response. */
 export interface ApiResponseConnectionsResponse {
 	data?: ConnectionsResponse;
 	message: string;
 	success: boolean;
 }
 
+/** Represents a standard API response. */
 export interface ApiResponsePostQuote {
+	/** Interface representing the structure of a post quote. */
 	data?: PostQuote;
 	message: string;
 	success: boolean;
 }
 
+/** Represents a standard API response. */
 export interface ApiResponseQuote {
 	data?: Quote;
 	message: string;
 	success: boolean;
 }
 
+/** Represents a standard API response. */
 export interface ApiResponseStatusResponse {
 	data?: StatusResponse;
 	message: string;
 	success: boolean;
 }
 
+/** Represents a standard API response. */
 export interface ApiResponseTokenDetails {
 	data?: TokenDetails;
 	message: string;
 	success: boolean;
 }
 
+/** Represents a standard API response. */
 export interface ApiResponseTokenInfoByChainId {
+	/** Interface representing token information by chain ID. */
 	data?: TokenInfoByChainId;
 	message: string;
 	success: boolean;
 }
 
+/** Represents a standard API response. */
 export interface ApiResponseTokensResponse {
 	data?: TokensResponse;
 	message: string;
 	success: boolean;
 }
 
+/** Represents a standard API response. */
 export interface ApiResponseToolsResponse {
 	data?: ToolsResponse;
 	message: string;
 	success: boolean;
 }
 
-export type ApproveData = ERC20APIResponseERC20ExecuteFunctionResult;
-
-export type ApproveData1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
-
-export type ApproveErc721Data = ERC721APIResponse;
+export type ApproveData = LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
 export interface ApproveForPolymarketBody {
 	chain_id: string;
@@ -487,23 +1294,24 @@ export interface ApproveForPolymarketBody {
 
 export type ApproveForPolymarketData = PolymarketAPIResponseAny;
 
-export type ApproveOutput = LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
-
-export type ApproveOutput1 = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
-
-export type ApproveResult = ERC4626APIResponse;
-
-export type ApproveResult1 =
+export type ApproveOutput =
 	UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
 
+export type ApproveResult = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
+
+export type ApproveResult1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
+/** Represents a request to assemble a specific path for a user. */
 export interface AssembleRequest {
+	/** The ID of the path to be assembled. */
 	pathId: string;
+	/** The address of the receiver, if any. */
 	receiver?: string;
+	/** Whether to simulate the transaction. */
 	simulate?: boolean;
+	/** The address of the user making the request. */
 	userAddr: string;
 }
-
-export type AssembleTransactionData = OdosAPIResponseOdosExecuteFunctionResult;
 
 /** Generic Blockchain Asset. */
 export interface Asset {
@@ -532,36 +1340,65 @@ export type AttachTokenToGaugeData =
 export type AttachTokenToGaugeResult =
 	VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
 
+/** Represents the response of the `getAvailableTickers` endpoint. */
 export interface AvailableTickersAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The available tickers. */
 	data?: string[];
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
 
+/** Represents an input for a BRC20 transaction. */
 export interface BRC20TransactionInput {
+	/** The amount of tokens involved in the transaction. */
 	amt: string;
+	/** The address to which any change is being sent. */
 	change_address: string;
+	/** The amount of the input being used. */
 	input_amount: string;
+	/** The transaction ID of the input being used. */
 	input_txid: string;
-	/** @format double */
+	/**
+	 * The output index of the input being used.
+	 * @format double
+	 */
 	input_vout: number;
+	/** The network on which the transaction is taking place. */
 	network: string;
+	/** The operation type of the transaction. */
 	op: string;
+	/** The address to which the output is being sent. */
 	output_address: string;
+	/** The ticker symbol of the token involved in the transaction. */
 	tick: string;
 }
 
+/** Represents an output of a BRC20 transaction. */
 export interface BRC20TransactionOutput {
+	/** The signed transaction. */
 	transaction: string;
 }
 
+/**
+ * Represents the response from the Balance API.
+ * Extends the BaseAPIResponse to include additional data specific to balance information.
+ */
 export interface BalanceAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The data associated with the balance response. */
 	data?: BalanceResponse;
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
 
@@ -570,115 +1407,204 @@ export interface BalanceAllowanceResponse {
 	balance: string;
 }
 
-export type BalanceOfBatchData = TransactionAPIResponse;
-
-export type BalanceOfData = AAVEv3WalletBalanceProviderAPIResponseString;
-
-export type BalanceOfOutput = UniswapV3NFTAPIResponseString;
+export type BalanceOfData = UniswapV3NFTAPIResponseString;
 
 export interface BalanceOfParams {
-	chain_id: string;
-	contract_address: string;
-	token_address: string;
-	user: string;
-}
-
-export interface BalanceOfParams3 {
 	address: string;
 	chainId: string;
 	owner: string;
 }
 
-export type BalanceOfResult = TransactionAPIResponse;
-
 export interface BalanceResponse {
+	/** The balance of the account. */
 	balance: string;
 }
 
+/** Represents a balance sheet for a financial entity. */
 export interface BalanceSheet {
-	/** @format double */
+	/**
+	 * The accumulated other comprehensive income of the company.
+	 * @format double
+	 */
 	accumulated_other_comprehensive_income: number;
+	/** The date of the balance sheet in the calendar. */
 	calendar_date: string;
-	/** @format double */
+	/**
+	 * The cash and cash equivalents of the company.
+	 * @format double
+	 */
 	cash_and_equivalents: number;
+	/** The currency in which the balance sheet values are denominated. */
 	currency: string;
-	/** @format double */
+	/**
+	 * The current assets of the company.
+	 * @format double
+	 */
 	current_assets: number;
-	/** @format double */
+	/**
+	 * The current debt of the company.
+	 * @format double
+	 */
 	current_debt: number;
-	/** @format double */
+	/**
+	 * The current investments of the company.
+	 * @format double
+	 */
 	current_investments: number;
-	/** @format double */
+	/**
+	 * The current liabilities of the company.
+	 * @format double
+	 */
 	current_liabilities: number;
-	/** @format double */
+	/**
+	 * The deferred revenue of the company.
+	 * @format double
+	 */
 	deferred_revenue: number;
-	/** @format double */
+	/**
+	 * The deposit liabilities of the company.
+	 * @format double
+	 */
 	deposit_liabilities: number;
-	/** @format double */
+	/**
+	 * The goodwill and intangible assets of the company.
+	 * @format double
+	 */
 	goodwill_and_intangible_assets: number;
-	/** @format double */
+	/**
+	 * The inventory of the company.
+	 * @format double
+	 */
 	inventory: number;
-	/** @format double */
+	/**
+	 * The total investments of the company.
+	 * @format double
+	 */
 	investments: number;
-	/** @format double */
+	/**
+	 * The non-current assets of the company.
+	 * @format double
+	 */
 	non_current_assets: number;
-	/** @format double */
+	/**
+	 * The non-current debt of the company.
+	 * @format double
+	 */
 	non_current_debt: number;
-	/** @format double */
+	/**
+	 * The non-current investments of the company.
+	 * @format double
+	 */
 	non_current_investments: number;
-	/** @format double */
+	/**
+	 * The non-current liabilities of the company.
+	 * @format double
+	 */
 	non_current_liabilities: number;
-	/** @format double */
+	/**
+	 * The number of outstanding shares of the company.
+	 * @format double
+	 */
 	outstanding_shares: number;
+	/** The period type of the balance sheet, which can be "quarterly", "ttm" (trailing twelve months), or "annual". */
 	period: BalanceSheetPeriodEnum;
-	/** @format double */
+	/**
+	 * The property, plant, and equipment of the company.
+	 * @format double
+	 */
 	property_plant_and_equipment: number;
+	/** The reporting period of the balance sheet. */
 	report_period: string;
-	/** @format double */
+	/**
+	 * The retained earnings of the company.
+	 * @format double
+	 */
 	retained_earnings: number;
-	/** @format double */
+	/**
+	 * The shareholders' equity of the company.
+	 * @format double
+	 */
 	shareholders_equity: number;
-	/** @format double */
+	/**
+	 * The tax assets of the company.
+	 * @format double
+	 */
 	tax_assets: number;
-	/** @format double */
+	/**
+	 * The tax liabilities of the company.
+	 * @format double
+	 */
 	tax_liabilities: number;
+	/** The stock ticker symbol of the company. */
 	ticker: string;
-	/** @format double */
+	/**
+	 * The total assets of the company.
+	 * @format double
+	 */
 	total_assets: number;
-	/** @format double */
+	/**
+	 * The total debt of the company.
+	 * @format double
+	 */
 	total_debt: number;
-	/** @format double */
+	/**
+	 * The total liabilities of the company.
+	 * @format double
+	 */
 	total_liabilities: number;
-	/** @format double */
+	/**
+	 * The trade and non-trade payables of the company.
+	 * @format double
+	 */
 	trade_and_non_trade_payables: number;
-	/** @format double */
+	/**
+	 * The trade and non-trade receivables of the company.
+	 * @format double
+	 */
 	trade_and_non_trade_receivables: number;
 }
 
+/** The period type of the balance sheet, which can be "quarterly", "ttm" (trailing twelve months), or "annual". */
 export enum BalanceSheetPeriodEnum {
 	Quarterly = "quarterly",
 	Ttm = "ttm",
 	Annual = "annual",
 }
 
+/** Represents the response of the `getBalanceSheets` endpoint. */
 export interface BalanceSheetsAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The balance sheet data. */
 	data?: BalanceSheet[];
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
 
+/** Represents the base structure of a response from the Cosmos API. */
 export interface BaseCosmosAPIResponse {
+	/** A message providing additional information about the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Interface representing the base currency information. */
 export interface BaseCurrencyInfo {
+	/** The price of the market reference currency in USD. */
 	marketReferenceCurrencyPriceInUsd: BigNumber;
+	/** The unit of the market reference currency. */
 	marketReferenceCurrencyUnit: BigNumber;
-	/** @format double */
+	/**
+	 * The number of decimals of the network base token price.
+	 * @format double
+	 */
 	networkBaseTokenPriceDecimals: number;
+	/** The price of the network base token in USD. */
 	networkBaseTokenPriceInUsd: BigNumber;
 }
 
@@ -687,16 +1613,6 @@ export type BaseUriData = UniswapV3NFTAPIResponseString;
 export interface BaseUriParams {
 	address: string;
 	chainId: string;
-}
-
-export type BatchBalanceOfData =
-	AAVEv3WalletBalanceProviderAPIResponseStringArray;
-
-export interface BatchBalanceOfParams {
-	chain_id: string;
-	contract_address: string;
-	tokens: string[];
-	users: string[];
 }
 
 export type BigNumber = any;
@@ -713,13 +1629,31 @@ export interface BitcoinAPIResponse {
 	success: boolean;
 }
 
+export type BitcoinBitcoinCreateAccountData = AccountAPIResponse;
+
+export type BitcoinBitcoinCreateBrc20TransactionData = BitcoinAPIResponse;
+
+export type BitcoinBitcoinCreateSrc20InscriptionData = BitcoinAPIResponse;
+
+export type BitcoinBitcoinDeleteAccountData = AccountAPIResponse;
+
+export type BitcoinBitcoinExportAccountData = AccountAPIResponse;
+
+export type BitcoinBitcoinGenerateUnsignedPsbtHexData = BitcoinAPIResponse;
+
+export type BitcoinBitcoinGetAccountData = AccountAPIResponse;
+
+export type BitcoinBitcoinSignTransactionData = BitcoinAPIResponse;
+
 export interface BitcoinCashAPIResponseAccountResponse {
+	/** Represents the response structure for an account. */
 	data?: AccountResponse;
 	message: string;
 	success: boolean;
 }
 
 export interface BitcoinCashAPIResponseBitcoinCashTransactionOutput {
+	/** Represents the output of a Bitcoin Cash transaction. */
 	data?: BitcoinCashTransactionOutput;
 	message: string;
 	success: boolean;
@@ -749,46 +1683,111 @@ export interface BitcoinCashAPIResponseSignedTxString {
 	success: boolean;
 }
 
+export type BitcoinCashBitcoinCashCreateAccountData =
+	BitcoinCashAPIResponseAccountResponse;
+
+export type BitcoinCashBitcoinCashDeleteAccountData =
+	BitcoinCashAPIResponseAccountResponse;
+
+export type BitcoinCashBitcoinCashExportAccountData =
+	BitcoinCashAPIResponseAccountResponse;
+
+export type BitcoinCashBitcoinCashGenerateUnsignedPsbtHexData =
+	BitcoinCashAPIResponsePsbtHexString;
+
+export type BitcoinCashBitcoinCashGetAccountData =
+	BitcoinCashAPIResponseAccountResponse;
+
+export type BitcoinCashBitcoinCashSignBitcoinTransactionData =
+	BitcoinCashAPIResponseSignedTxString;
+
+/** - The request body containing the network, inputs, and outputs. */
+export interface BitcoinCashBitcoinCashSignBitcoinTransactionPayload {
+	inputs: string;
+	network: string;
+	outputs: string;
+}
+
+export type BitcoinCashBitcoinCashSignPsbtWithKeyPathAndScriptPathData =
+	BitcoinCashAPIResponseSignedPsbtHexString;
+
+/** - The request body containing the network and PSBT in hexadecimal format. */
+export interface BitcoinCashBitcoinCashSignPsbtWithKeyPathAndScriptPathPayload {
+	network: string;
+	psbt_hex: string;
+}
+
+export type BitcoinCashBitcoinCashSignTransactionData =
+	BitcoinCashAPIResponseBitcoinCashTransactionOutput;
+
+export type BitcoinCashBitcoinCashSignTransactionWithMemoData =
+	BitcoinCashAPIResponseBitcoinCashTransactionOutput;
+
+/** Represents the input data required for Bitcoin Cash transactions. */
 export interface BitcoinCashInput {
+	/** The network on which the transaction is taking place. */
 	network?: string;
+	/** The private key of the account. */
 	private_key?: string;
 }
 
+export type BitcoinCashListAccountsData = BitcoinCashAPIResponseAccountResponse;
+
+/** Represents an input for a Bitcoin Cash transaction. */
 export interface BitcoinCashTransactionInput {
+	/** Indicates whether to compress the public key. */
 	compress?: boolean;
+	/** The network on which the transaction is taking place. */
 	network?: string;
+	/** The recipient address of the transaction. */
 	to?: string;
-	/** @format double */
+	/**
+	 * The amount to be sent.
+	 * @format double
+	 */
 	value?: number;
 }
 
+/** Represents the output of a Bitcoin Cash transaction. */
 export interface BitcoinCashTransactionOutput {
+	/** The signed transaction. */
 	signedTx?: string;
+	/** The transaction hash. */
 	transaction_hash?: string;
 }
 
+/** Represents the input data required for Bitcoin transactions. */
 export interface BitcoinInput {
+	/** The network on which the transaction is taking place. */
 	network?: string;
+	/** The private key of the account. */
 	private_key?: string;
 }
 
+export type BitcoinListAccountsData = AccountAPIResponse;
+
+/** Represents an input for a Bitcoin transaction. */
 export interface BitcoinTransactionInput {
+	/** Indicates whether to compress the public key. */
 	compress?: boolean;
+	/** The network on which the transaction is taking place. */
 	network?: string;
+	/** The recipient address. */
 	to?: string;
-	/** @format double */
+	/**
+	 * The amount to be sent.
+	 * @format double
+	 */
 	value?: number;
 }
 
+/** Represents the output of a Bitcoin transaction. */
 export interface BitcoinTransactionOutput {
+	/** The signed transaction. */
 	signedTx?: string;
+	/** The transaction hash. */
 	transaction_hash?: string;
 }
-
-export type BorrowData = AavePoolAPIResponseAavePoolExecuteFunctionResult;
-
-export type BorrowResult =
-	LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
 
 export interface Bridge {
 	key: string;
@@ -805,25 +1804,35 @@ export interface BridgeSupportedChain {
 }
 
 export interface BroadCastRawTransactionAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The data associated with the broadcast raw transaction response. */
 	data?: BroadCastRawTransactionResponse;
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
 
+/** Represents the response from broadcasting a raw transaction. */
 export interface BroadCastRawTransactionResponse {
+	/** The transaction hash. */
 	data: string;
+	/** The message associated with the transaction. */
 	message: string;
+	/** Indicates whether the transaction was successful. */
 	success: boolean;
 }
 
+/** Represents the input required to broadcast a transaction. */
 export interface BroadcastInput {
+	/** The chain ID of the blockchain network. */
 	chainId: string;
+	/** The signed transaction to be broadcasted. */
 	rawTransaction: string;
 }
-
-export type BroadcastTxData = BroadCastRawTransactionAPIResponse;
 
 export type BurnData = LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
@@ -896,51 +1905,109 @@ export interface CancelOrdersResponse {
 	success: boolean;
 }
 
+/** Represents a cash flow statement for a specific financial period. */
 export interface CashFlowStatement {
-	/** @format double */
+	/**
+	 * Cash flow from business acquisitions and disposals.
+	 * @format double
+	 */
 	business_acquisitions_and_disposals: number;
+	/** The calendar date of the cash flow statement. */
 	calendar_date: string;
-	/** @format double */
+	/**
+	 * Capital expenditures.
+	 * @format double
+	 */
 	capital_expenditure: number;
-	/** @format double */
+	/**
+	 * Change in cash and cash equivalents.
+	 * @format double
+	 */
 	change_in_cash_and_equivalents: number;
+	/** The currency in which the cash flow amounts are denominated. */
 	currency: string;
-	/** @format double */
+	/**
+	 * Depreciation and amortization expenses.
+	 * @format double
+	 */
 	depreciation_and_amortization: number;
-	/** @format double */
+	/**
+	 * Cash flow from dividends and other cash distributions.
+	 * @format double
+	 */
 	dividends_and_other_cash_distributions: number;
-	/** @format double */
+	/**
+	 * Effect of exchange rate changes on cash and cash equivalents.
+	 * @format double
+	 */
 	effect_of_exchange_rate_changes: number;
-	/** @format double */
+	/**
+	 * Cash flow from investment acquisitions and disposals.
+	 * @format double
+	 */
 	investment_acquisitions_and_disposals: number;
-	/** @format double */
+	/**
+	 * Cash flow from issuance or purchase of equity shares.
+	 * @format double
+	 */
 	issuance_or_purchase_of_equity_shares: number;
-	/** @format double */
+	/**
+	 * Cash flow from issuance or repayment of debt securities.
+	 * @format double
+	 */
 	issuance_or_repayment_of_debt_securities: number;
-	/** @format double */
+	/**
+	 * Net cash flow from financing activities.
+	 * @format double
+	 */
 	net_cash_flow_from_financing: number;
-	/** @format double */
+	/**
+	 * Net cash flow from investing activities.
+	 * @format double
+	 */
 	net_cash_flow_from_investing: number;
-	/** @format double */
+	/**
+	 * Net cash flow from operating activities.
+	 * @format double
+	 */
 	net_cash_flow_from_operations: number;
+	/**
+	 * The period type of the cash flow statement.
+	 * Can be "quarterly", "ttm" (trailing twelve months), or "annual".
+	 */
 	period: CashFlowStatementPeriodEnum;
+	/** The reporting period of the cash flow statement. */
 	report_period: string;
-	/** @format double */
+	/**
+	 * Share-based compensation expenses.
+	 * @format double
+	 */
 	share_based_compensation: number;
+	/** The ticker symbol of the company. */
 	ticker: string;
 }
 
+/**
+ * The period type of the cash flow statement.
+ * Can be "quarterly", "ttm" (trailing twelve months), or "annual".
+ */
 export enum CashFlowStatementPeriodEnum {
 	Quarterly = "quarterly",
 	Ttm = "ttm",
 	Annual = "annual",
 }
 
+/** Represents the response of the `getCashFlowStatements` endpoint. */
 export interface CashFlowStatementsAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The cash flow statement data. */
 	data?: CashFlowStatement[];
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
 
@@ -990,12 +2057,37 @@ export interface ChainsResponse {
 	chains: Chain[];
 }
 
+/** Represents the response from the Chart Analysis API. */
 export interface ChartAnalysisAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The analysis data returned by the API. */
 	data?: string;
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
+}
+
+export type ChartsGetChartAnalysisData = ChartAnalysisAPIResponse;
+
+/** @default "1D" */
+export enum ChartsGetChartAnalysisParamsEnum {
+	Value1D = "1D",
+	Value4H = "4H",
+	Value1H = "1H",
+}
+
+/**
+ * - The timeframe for the chart analysis. Defaults to "1D". Can be "1D", "4H", or "1H".
+ * @default "1D"
+ */
+export enum ChartsGetChartAnalysisParamsTimeframeEnum {
+	Value1D = "1D",
+	Value4H = "4H",
+	Value1H = "1H",
 }
 
 export type CheckpointData = LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
@@ -1004,15 +2096,6 @@ export type CheckpointDelegateeData =
 	LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
 export type CheckpointResult = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
-
-export type ClaimAllRewardsData =
-	AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
-
-export type ClaimAllRewardsOnBehalfData =
-	AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
-
-export type ClaimAllRewardsToSelfData =
-	AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
 
 export type ClaimBribesData =
 	LynexVoterAPIResponseLynexVoterExecuteFunctionResult;
@@ -1035,108 +2118,225 @@ export type ClaimFeesResult =
 	RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
 
 export type ClaimRewardsData =
-	AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
-
-export type ClaimRewardsOnBehalfData =
-	AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
-
-export type ClaimRewardsOutput =
-	RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
-
-export type ClaimRewardsResult =
 	LynexVoterAPIResponseLynexVoterExecuteFunctionResult;
 
-export type ClaimRewardsResult1 =
+export type ClaimRewardsOutput =
 	VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult;
 
-export type ClaimRewardsToSelfData =
-	AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult;
+export type ClaimRewardsResult =
+	RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
 
 export type CollectData = UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
 
+/** Represents the financial and general information of a company. */
 export interface CompanyFacts {
+	/** The Central Index Key (CIK) assigned by the SEC. */
 	cik: string;
+	/** Indicates whether the company is currently active. */
 	is_active: boolean;
+	/** The date when the company was listed. */
 	listing_date: string;
-	/** @format double */
+	/**
+	 * The market capitalization of the company.
+	 * @format double
+	 */
 	market_cap: number;
+	/** The name of the company. */
 	name: string;
-	/** @format double */
+	/**
+	 * The number of employees working for the company.
+	 * @format double
+	 */
 	number_of_employees: number;
+	/** The Standard Industrial Classification (SIC) code of the company. */
 	sic_code: string;
+	/** The description of the SIC code. */
 	sic_description: string;
+	/** The stock ticker symbol of the company. */
 	ticker: string;
+	/** The website URL of the company. */
 	website_url: string;
-	/** @format double */
+	/**
+	 * The weighted average number of shares outstanding.
+	 * @format double
+	 */
 	weighted_average_shares: number;
 }
 
+/** Represents the response of the `getCompanyFacts` endpoint. */
 export interface CompanyFactsAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The company facts data. */
 	data?: CompanyFacts;
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
 
+/** Represents the structure of an API response for a component. */
 export interface ComponentAPIResponseComponentDefinition {
+	/** The data returned by the API, if any. */
 	data?: ComponentDefinition;
+	/** A message providing additional information about the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Represents the structure of an API response for a component. */
 export interface ComponentAPIResponseComponentDefinitionArray {
+	/** The data returned by the API, if any. */
 	data?: ComponentDefinition[];
+	/** A message providing additional information about the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Represents the structure of an API response for a component. */
 export interface ComponentAPIResponseComponentMatchArray {
+	/** The data returned by the API, if any. */
 	data?: ComponentMatch[];
+	/** A message providing additional information about the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Represents the structure of an API response for a component. */
 export interface ComponentAPIResponsePartialComponentDefinitionArray {
+	/** The data returned by the API, if any. */
 	data?: PartialComponentDefinition[];
+	/** A message providing additional information about the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Represents the structure of an API response for a component. */
 export interface ComponentAPIResponseVoid {
+	/** The data returned by the API, if any. */
 	data?: any;
+	/** A message providing additional information about the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Represents the definition of a component. */
 export interface ComponentDefinition {
+	/** The code of the component. */
 	code: string;
-	/** @format date-time */
+	/**
+	 * The date and time when the component was created.
+	 * Optional.
+	 * @format date-time
+	 */
 	created_at?: string;
+	/** A brief description of the component. */
 	description: string;
+	/** The unique identifier of the component. */
 	id: string;
+	/**
+	 * Indicates whether the component is active.
+	 * Optional.
+	 */
 	is_active?: boolean;
+	/** The name of the component. */
 	name: string;
-	/** @format date-time */
+	/**
+	 * The date and time when the component was last updated.
+	 * Optional.
+	 * @format date-time
+	 */
 	updated_at?: string;
+	/** The version of the component. */
 	version: string;
+	/** The XML tag associated with the component. */
 	xmlTag: string;
 }
 
+/** Represents a component match that extends the ComponentDefinition interface. */
 export interface ComponentMatch {
+	/** The code of the component. */
 	code: string;
-	/** @format date-time */
+	/**
+	 * The date and time when the component was created.
+	 * Optional.
+	 * @format date-time
+	 */
 	created_at?: string;
+	/** A brief description of the component. */
 	description: string;
+	/** The unique identifier of the component. */
 	id: string;
+	/**
+	 * Indicates whether the component is active.
+	 * Optional.
+	 */
 	is_active?: boolean;
+	/** The name of the component. */
 	name: string;
-	/** @format double */
+	/**
+	 * The similarity score of the component match.
+	 * @format double
+	 */
 	similarity: number;
-	/** @format date-time */
+	/**
+	 * The date and time when the component was last updated.
+	 * Optional.
+	 * @format date-time
+	 */
 	updated_at?: string;
+	/** The version of the component. */
 	version: string;
+	/** The XML tag associated with the component. */
 	xmlTag: string;
+}
+
+export type ComponentsCreateComponentData =
+	ComponentAPIResponseComponentDefinition;
+
+export type ComponentsForceEmbeddingData = ComponentAPIResponseVoid;
+
+/** - The request body containing the description. */
+export interface ComponentsForceEmbeddingPayload {
+	description: string;
+}
+
+export type ComponentsGetComponentCapabilitiesDescriptionData =
+	ComponentAPIResponsePartialComponentDefinitionArray;
+
+export type ComponentsGetComponentData =
+	ComponentAPIResponseComponentDefinition;
+
+export type ComponentsGetComponentsData =
+	ComponentAPIResponseComponentDefinitionArray;
+
+export type ComponentsSearchComponentsData =
+	ComponentAPIResponseComponentMatchArray;
+
+export interface ComponentsSearchComponentsParams {
+	/** - The maximum number of results to return. */
+	limit?: string;
+	/** - The query to search for. */
+	query: string;
+	/** - The similarity threshold for the search. */
+	threshold?: string;
+}
+
+export type ComponentsUpdateComponentData =
+	ComponentAPIResponseComponentDefinition;
+
+export type ComponentsUpdateEmbeddingData = ComponentAPIResponseVoid;
+
+/** - The request body containing the description. */
+export interface ComponentsUpdateEmbeddingPayload {
+	description: string;
 }
 
 export interface Connection {
@@ -1152,127 +2352,218 @@ export interface ConnectionsResponse {
 	connections: Connection[];
 }
 
+/** Represents a Cosmos account with an address and a public key. */
 export interface CosmosAccount {
+	/** Account name. */
 	address: string;
+	/** Public key of the account. */
 	pubkey: string;
 }
 
+/** Represents the response from the Cosmos Account API. */
 export interface CosmosAccountAPIResponse {
+	/** The data returned by the API, if any. */
 	data?: CosmosAccountResponse;
+	/** A message providing additional information about the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Represents the response from the Cosmos Account List API. */
 export interface CosmosAccountListAPIResponse {
+	/** The data returned by the API, if any. */
 	data?: CosmosAccountListResponse;
+	/** A message providing additional information about the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Represents the response structure for a list of Cosmos accounts. */
 export interface CosmosAccountListResponse {
+	/** The list of Cosmos accounts. */
 	data: {
 		keys: CosmosAccount[];
 	};
 }
 
+/** Represents the response structure for a Cosmos account. */
 export interface CosmosAccountResponse {
+	/** The Cosmos account address. */
 	data: {
 		address: string;
 	};
 }
 
-export interface CosmosIBCTransferInput {
-	/** @format double */
-	accountNumber: number;
-	amount: string;
-	chainId: string;
-	denom: string;
-	feeAmount: string;
-	feeDenom: string;
-	fromAddress: string;
-	/** @format double */
-	gasLimit: number;
-	memo: string;
-	/** @format double */
-	sequence: number;
-	sourceChannel: string;
-	sourcePort: string;
-	/** @format double */
-	timeoutHeight: number;
-	/** @format double */
-	timeoutTimestamp: number;
-	toAddress: string;
-}
+export type CosmosCosmosCreateAccountData = CosmosAccountAPIResponse;
 
-export interface CosmosSignMessageInput {
-	message: string;
-}
-
-export interface CosmosSignedMessageAPIResponse {
-	data?: CosmosSignedMessageResponse;
-	message: string;
-	success: boolean;
-}
-
-export interface CosmosSignedMessageResponse {
-	signedMessage: string;
-}
-
-export interface CosmosTransactionAPIResponse {
-	data?: CosmosTransactionResponse;
-	message: string;
-	success: boolean;
-}
-
-export interface CosmosTransactionResponse {
-	signedTx: string;
-	txHash: string;
-}
-
-export interface CosmosTransferInput {
-	/** @format double */
-	accountNumber: number;
-	amount: string;
-	chainId: string;
-	denom: string;
-	feeAmount: string;
-	feeDenom: string;
-	fromAddress: string;
-	/** @format double */
-	gasLimit: number;
-	memo: string;
-	/** @format double */
-	sequence: number;
-	/** @format double */
-	timeoutHeight: number;
-	toAddress: string;
-}
-
-export type CreateAccountData = AccountAPIResponse;
-
-export interface CreateAccountInput {
+/** - The request body containing optional network information. */
+export interface CosmosCosmosCreateAccountPayload {
 	network?: string;
 }
 
-export type CreateAccountOutput = CosmosAccountAPIResponse;
+export type CosmosCosmosDeleteAccountData = BaseCosmosAPIResponse;
 
-export type CreateAccountResult = BitcoinCashAPIResponseAccountResponse;
+export type CosmosCosmosExportAccountData = BaseCosmosAPIResponse;
+
+export type CosmosCosmosGetAccountData = CosmosAccountAPIResponse;
+
+export type CosmosCosmosListAccountsData = CosmosAccountListAPIResponse;
+
+export type CosmosCosmosSignIbcTransferTransactionData =
+	CosmosTransactionAPIResponse;
+
+export type CosmosCosmosSignMessageData = CosmosSignedMessageAPIResponse;
+
+export type CosmosCosmosSignTransferTransactionData =
+	CosmosTransactionAPIResponse;
+
+/**
+ * Interface representing the input required for an IBC (Inter-Blockchain Communication) transfer in the Cosmos network.
+ * Extends the `CosmosTransferInput` interface to include additional properties specific to IBC transfers.
+ */
+export interface CosmosIBCTransferInput {
+	/**
+	 * The account number of the account initiating the transfer.
+	 * @format double
+	 */
+	accountNumber: number;
+	/** The amount of tokens to be transferred. */
+	amount: string;
+	/** The ID of the blockchain chain. */
+	chainId: string;
+	/** The denomination of the tokens to be transferred. */
+	denom: string;
+	/** The amount of the fee to be paid for the transfer. */
+	feeAmount: string;
+	/** The denomination of the fee to be paid for the transfer. */
+	feeDenom: string;
+	/** The address from which the transfer is initiated. */
+	fromAddress: string;
+	/**
+	 * The gas limit for the transfer transaction.
+	 * @format double
+	 */
+	gasLimit: number;
+	/** An optional memo to include with the transfer. */
+	memo: string;
+	/**
+	 * The sequence number of the account initiating the transfer.
+	 * @format double
+	 */
+	sequence: number;
+	/** The source channel for the IBC transfer. */
+	sourceChannel: string;
+	/** The source port for the IBC transfer. */
+	sourcePort: string;
+	/**
+	 * The timeout height for the transfer transaction.
+	 * @format double
+	 */
+	timeoutHeight: number;
+	/**
+	 * The timeout timestamp for the IBC transfer, specified in nanoseconds.
+	 * @format double
+	 */
+	timeoutTimestamp: number;
+	/** The address to which the transfer is sent. */
+	toAddress: string;
+}
+
+/** Represents the input required for signing a message in the Cosmos ecosystem. */
+export interface CosmosSignMessageInput {
+	/** The address of the account signing the message. */
+	message: string;
+}
+
+/** Represents the response from the Cosmos Signed Message API. */
+export interface CosmosSignedMessageAPIResponse {
+	/** The data returned by the API, if any. */
+	data?: CosmosSignedMessageResponse;
+	/** A message providing additional information about the API response. */
+	message: string;
+	/** Indicates whether the API request was successful. */
+	success: boolean;
+}
+
+/** Represents the response containing a signed message from the Cosmos blockchain. */
+export interface CosmosSignedMessageResponse {
+	/** The signed message. */
+	signedMessage: string;
+}
+
+/** Represents the response from the Cosmos Transaction API. */
+export interface CosmosTransactionAPIResponse {
+	/** The data returned by the API, if any. */
+	data?: CosmosTransactionResponse;
+	/** A message providing additional information about the API response. */
+	message: string;
+	/** Indicates whether the API request was successful. */
+	success: boolean;
+}
+
+/** Represents the response of a Cosmos transaction. */
+export interface CosmosTransactionResponse {
+	/** The signed transaction. */
+	signedTx: string;
+	/** The transaction hash. */
+	txHash: string;
+}
+
+/** Represents the input required for a Cosmos blockchain transfer. */
+export interface CosmosTransferInput {
+	/**
+	 * The account number of the account initiating the transfer.
+	 * @format double
+	 */
+	accountNumber: number;
+	/** The amount of tokens to be transferred. */
+	amount: string;
+	/** The ID of the blockchain chain. */
+	chainId: string;
+	/** The denomination of the tokens to be transferred. */
+	denom: string;
+	/** The amount of the fee to be paid for the transfer. */
+	feeAmount: string;
+	/** The denomination of the fee to be paid for the transfer. */
+	feeDenom: string;
+	/** The address from which the transfer is initiated. */
+	fromAddress: string;
+	/**
+	 * The gas limit for the transfer transaction.
+	 * @format double
+	 */
+	gasLimit: number;
+	/** An optional memo to include with the transfer. */
+	memo: string;
+	/**
+	 * The sequence number of the account initiating the transfer.
+	 * @format double
+	 */
+	sequence: number;
+	/**
+	 * The timeout height for the transfer transaction.
+	 * @format double
+	 */
+	timeoutHeight: number;
+	/** The address to which the transfer is sent. */
+	toAddress: string;
+}
+
+/** Interface representing the input required to create an account. */
+export interface CreateAccountInput {
+	/** An optional private key for the account. */
+	private_key?: string;
+}
 
 export type CreateAndInitializePoolIfNecessaryData =
 	UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
 
-export type CreateBitcoinAccountData = AccountAPIResponse;
-
-export type CreateBrc20TransactionData = BitcoinAPIResponse;
-
 export type CreateCollectionOfferData = OpenSeaAPIResponse;
-
-export type CreateComponentData = ComponentAPIResponseComponentDefinition;
 
 export type CreateDelegatedLockForData =
 	LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
-
-export type CreateDogeCoinAccountData = AccountAPIResponse;
 
 export type CreateEosAccountData = AccountAPIResponse;
 
@@ -1299,8 +2590,6 @@ export type CreateGaugeResult =
 	RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
 
 export type CreateJobData = MultiCallAPIResponseString;
-
-export type CreateLitecoinAccountData = AccountAPIResponse;
 
 export type CreateLockData = LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
@@ -1376,10 +2665,6 @@ export type CreateRippleAccountData = AccountAPIResponse;
 
 export type CreateSolanaAccountData = AccountAPIResponse;
 
-export type CreateSrc20InscriptionData = BitcoinAPIResponse;
-
-export type CreateTronAccountData = AccountAPIResponse;
-
 export type CreateUserDefinedFunctionData = MultiCallAPIResponse;
 
 export interface CreateUserDefinedFunctionPayload {
@@ -1388,18 +2673,94 @@ export interface CreateUserDefinedFunctionPayload {
 }
 
 export interface CryptoCurrency {
+	/** The address of the cryptocurrency on the network. */
 	address: string;
-	/** @format double */
+	/**
+	 * The chain ID of the network.
+	 * @format double
+	 */
 	chainId: number;
+	/** The code of the cryptocurrency (e.g., BTC, ETH). */
 	code: string;
-	/** @format double */
+	/**
+	 * The number of decimal places the cryptocurrency supports.
+	 * @format double
+	 */
 	decimals: number;
+	/** The URL or path to the icon representing the cryptocurrency. */
 	icon: string;
+	/** The unique identifier of the cryptocurrency. */
 	id: string;
+	/** The name of the cryptocurrency. */
 	name: string;
+	/** The network on which the cryptocurrency operates. */
 	network: string;
+	/** The display name of the network. */
 	networkDisplayName: string;
+	/** The symbol of the cryptocurrency (e.g., ₿, Ξ). */
 	symbol: string;
+}
+
+export type DataExecuteCustomSupabaseQueryData = any;
+
+/** - The query string to be executed. */
+export type DataExecuteCustomSupabaseQueryPayload = string;
+
+export type DataGetPortfolioFetchStatusData = PortfolioAPIResponse;
+
+export type DataGetTokensMetadataData = TokenMetadataAPIResponse;
+
+export interface DataGetTokensMetadataParams {
+	/** - An array of token addresses to fetch metadata for. */
+	addresses: string[];
+	/** - The blockchain network identifier. */
+	chain: string;
+}
+
+export type DataGetUserWalletPortfolioData = PortfolioAPIResponse;
+
+export interface DataGetUserWalletPortfolioParams {
+	/** - The wallet address of the user. */
+	address: string;
+	/**
+	 * - The page number for pagination (default is 1).
+	 * @format double
+	 * @default 1
+	 */
+	page?: number;
+	/**
+	 * - The number of items per page for pagination (default is 100).
+	 * @format double
+	 * @default 100
+	 */
+	pageSize?: number;
+}
+
+export type DataGetWalletNfTsData = NFTsAPIResponse;
+
+export interface DataGetWalletNfTsParams {
+	address: string;
+	chain: string;
+}
+
+export type DataGetWalletTokenBalancesData = WalletBalanceAPIResponse;
+
+export interface DataGetWalletTokenBalancesParams {
+	/** - The wallet address to retrieve the balance for. */
+	address: string;
+	/** - The blockchain network to query. */
+	chain: string;
+	/** - Optional flag to exclude native currency from the balance. */
+	excludeNative?: boolean;
+}
+
+export type DataGetWalletTransactionHistoryData = WalletHistoryAPIResponse;
+
+export interface DataGetWalletTransactionHistoryParams {
+	/** - The wallet address to retrieve history for. */
+	address: string;
+	/** - The blockchain chain to retrieve history from. */
+	chain: string;
 }
 
 export type DecreaseLiquidityData =
@@ -1416,53 +2777,31 @@ export type DelegateOutput = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export type DelegateResult = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 
-export type DeleteAccountData = AccountAPIResponse;
-
-export type DeleteAccountOutput = BaseCosmosAPIResponse;
-
-export type DeleteAccountResult = BitcoinCashAPIResponseAccountResponse;
-
-export type DeleteBitcoinAccountData = AccountAPIResponse;
-
-export type DeleteDogeCoinAccountData = AccountAPIResponse;
-
 export type DeleteEosAccountData = AccountAPIResponse;
 
 export type DeleteFlowData = MultiCallAPIResponse;
 
 export type DeleteJobData = MultiCallAPIResponse;
 
-export type DeleteLitecoinAccountData = AccountAPIResponse;
-
 export type DeleteRippleAccountData = AccountAPIResponse;
 
 export type DeleteSolanaAccountData = AccountAPIResponse;
 
-export type DeleteTronAccountData = AccountAPIResponse;
-
 export type DeleteUserDefinedFunctionData = MultiCallAPIResponse;
 
-export type DeleverageErc20Data =
-	LeveragerAPIResponseLeveragerExecuteFunctionResult;
-
-export type DeleverageNativeData =
-	LeveragerAPIResponseLeveragerExecuteFunctionResult;
-
-export type DeployContractData = TransactionAPIResponse;
-
+/** Interface representing the input required for deploying a contract. */
 export interface DeployInput {
+	/** The ABI (Application Binary Interface) of the contract. */
 	abi: string;
+	/** The bytecode of the contract. */
 	bytecode: string;
+	/** The chain ID. */
 	chain_id?: string;
+	/** Optional constructor arguments for the contract. */
 	constructor_args?: string;
 }
 
-export type DepositData = ERC4626APIResponse;
-
 export type DepositForData = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
-
-export type DepositResult =
-	LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
 
 export type DetachData = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 
@@ -1483,31 +2822,67 @@ export type DistributeOutput =
 export type DistributeResult =
 	RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
 
+/**
+ * Interface representing the response from the DogeCoin API.
+ * Extends the BaseAPIResponse interface.
+ */
 export interface DogeCoinAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The data associated with the DogeCoin transaction output. */
 	data?: DogeCoinTransactionOutput;
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
 
+/** Represents the input required for DogeCoin transactions. */
 export interface DogeCoinInput {
+	/** The network on which the transaction is taking place. */
 	network?: string;
+	/** The private key of the account. */
 	private_key?: string;
 }
 
+export type DogeCoinListAccountsData = AccountAPIResponse;
+
+/** Represents an input for a DogeCoin transaction. */
 export interface DogeCoinTransactionInput {
+	/** Indicates whether to compress the public key. */
 	compress?: boolean;
+	/** The network on which the transaction is taking place. */
 	network?: string;
+	/** The recipient address of the transaction. */
 	to?: string;
-	/** @format double */
+	/**
+	 * The amount to be sent.
+	 * @format double
+	 */
 	value?: number;
 }
 
+/** Represents the output of a DogeCoin transaction. */
 export interface DogeCoinTransactionOutput {
+	/** The signed transaction. */
 	signedTx?: string;
+	/** The transaction hash. */
 	transaction_hash?: string;
 }
+
+export type DogecoinDogeCoinCreateNewAccountData = AccountAPIResponse;
+
+export type DogecoinDogeCoinDeleteAccountData = AccountAPIResponse;
+
+export type DogecoinDogeCoinExportAccountDetailsData = AccountAPIResponse;
+
+export type DogecoinDogeCoinGetAccountDetailsData = AccountAPIResponse;
+
+export type DogecoinDogeCoinSignTransactionData = DogeCoinAPIResponse;
+
+export type DogecoinDogeCoinSignTransactionWithMemoData = DogeCoinAPIResponse;
 
 export type DomainSeparatorData = UniswapV3NFTAPIResponseString;
 
@@ -1532,232 +2907,860 @@ export interface DropNotificationsResponse {
 	success: boolean;
 }
 
-export interface ERC20APIResponseERC20ExecuteFunctionResult {
-	data?: ERC20ExecuteFunctionResult;
-	message: string;
-	success: boolean;
-}
-
-export interface ERC20APIResponseNumber {
-	/** @format double */
-	data?: number;
-	message: string;
-	success: boolean;
-}
-
-export interface ERC20APIResponseString {
-	data?: string;
-	message: string;
-	success: boolean;
-}
-
-export interface ERC20ExecuteFunctionResult {
-	broadcasted?: BroadCastRawTransactionResponse;
-	data?: Transaction;
-	function: string;
-	message?: string;
-	params: any[];
-	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
-	simulation?: SimulateAssetChangesResponse;
-	success?: boolean;
-	transaction: ERC20Transaction;
-	user_op?: string;
-}
-
-export interface ERC20InputBody {
-	EOA?: boolean;
-	accessList?: AccessTuple[];
-	account?: string;
-	alwaysIncrementNonce?: boolean;
-	amount?: string;
-	amounts?: string[];
-	approved?: boolean;
-	asset?: string;
-	assets?: string[];
-	blobGas?: string;
-	blobGasFeeCap?: string;
-	blobHashes?: string[];
-	borrowAmount?: string | number;
-	broadcast?: boolean;
-	chain_id?: string;
-	collateralAsset?: string;
-	contract_address?: string;
-	data?: string;
-	debtAsset?: string;
-	debtToCover?: string;
-	dryrun?: boolean;
-	encoding?: string;
-	gas?: string;
-	gasLimit?: string;
-	gasPrice?: string;
-	initialDeposit?: string | number;
-	initiator?: string;
-	input?: string;
-	inputTokens?: TokenAmount[];
-	/** @format double */
-	interestRateMode?: number;
-	maxFeePerGas?: string;
-	maxPriorityFeePerGas?: string;
-	minHealthFactor?: string | number;
-	modes?: number[];
-	nonce?: string;
-	onBehalfOf?: string;
-	outputTokens?: TokenProportion[];
-	params?: string;
-	premiums?: string[] | number[];
-	/** @format double */
-	rateMode?: number;
-	receiveAToken?: boolean;
-	receiverAddress?: string;
-	/** @format double */
-	referralCode?: number;
-	role?: string;
-	simulate?: boolean;
-	/** @format double */
-	slippageLimitPercent?: number;
-	to?: string;
-	token_id?: string;
-	token_ids?: string;
-	/** @format double */
-	type?: number;
-	useAsCollateral?: boolean;
-	user?: string;
-	value?: string;
-}
-
-export interface ERC20Transaction {
-	chainId: string;
-	data: string;
-	from: string;
-	gasLimit?: string;
-	gasPrice?: string;
-	maxFeePerGas?: string;
-	maxPriorityFeePerGas?: string;
-	/** @format double */
-	nonce: number;
-	to: string;
-	/** @format double */
-	type?: number;
-	value: string;
-}
-
-export interface ERC4626APIResponse {
-	data?: any;
-	message: string;
-	success: boolean;
-}
-
-export interface ERC721APIResponse {
-	data?: any;
-	message: string;
-	success: boolean;
-}
-
-export type EncodeDataData = AbiEncodeOutput;
-
-export interface EnsResolveAPIResponse {
+export interface ENSReverseResolveAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
-	data?: EnsResolveResponse;
+	/** The ENS reverse resolve response data. */
+	data?: ENSReverseResolveResponse;
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
 
-export interface EnsResolveInput {
+/** Interface representing the input required for ENS reverse resolution. */
+export interface ENSReverseResolveInput {
+	/** The blockchain address to be reverse resolved. */
+	address: string;
+	/** The identifier of the blockchain network. */
 	chain_id: string;
+}
+
+/** Represents the response from an ENS reverse resolution. */
+export interface ENSReverseResolveResponse {
+	/** The domain name resolved from the ENS reverse lookup. */
 	domain: string;
 }
 
-export interface EnsResolveResponse {
-	address: string;
-}
-
-export interface EosAPIResponse {
-	address?: string;
-	body?: InputBody;
-	data?: EosTransactionOutput;
+/** Interface representing the structure of an API response for ERC20 operations. */
+export interface ERC20APIResponseERC20ExecuteFunctionResult {
+	/** Optional data payload returned by the API. */
+	data?: ERC20ExecuteFunctionResult;
+	/** A message providing additional information about the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Interface representing the structure of an API response for ERC20 operations. */
+export interface ERC20APIResponseNumber {
+	/**
+	 * Optional data payload returned by the API.
+	 * @format double
+	 */
+	data?: number;
+	/** A message providing additional information about the API response. */
+	message: string;
+	/** Indicates whether the API request was successful. */
+	success: boolean;
+}
+
+/** Interface representing the structure of an API response for ERC20 operations. */
+export interface ERC20APIResponseString {
+	/** Optional data payload returned by the API. */
+	data?: string;
+	/** A message providing additional information about the API response. */
+	message: string;
+	/** Indicates whether the API request was successful. */
+	success: boolean;
+}
+
+/** Represents the result of executing an ERC20 function. */
+export interface ERC20ExecuteFunctionResult {
+	/** Optional response indicating whether the transaction was broadcasted. */
+	broadcasted?: BroadCastRawTransactionResponse;
+	/** Optional transaction data. */
+	data?: Transaction;
+	/** The name of the executed function */
+	function: string;
+	/** Optional message providing additional information about the execution. */
+	message?: string;
+	/** The parameters passed to the function. */
+	params: any[];
+	/** Optional response from simulating asset changes. */
+	simulation?: SimulateAssetChangesResponse;
+	/** Indicates whether the execution was successful. */
+	success?: boolean;
+	/** The transaction details. */
+	transaction: ERC20Transaction;
+	/** Optional user operation identifier. */
+	user_op?: string;
+}
+
+/** Interface representing the input body for an ERC20 transaction. */
+export interface ERC20InputBody {
+	/** Flag to indicate if the transaction is from an externally owned account. */
+	EOA?: boolean;
+	/** The access list for the transaction. */
+	accessList?: AccessTuple[];
+	/** The account involved in the transaction. */
+	account?: string;
+	/** Flag to indicate if the nonce should always be incremented. */
+	alwaysIncrementNonce?: boolean;
+	/** The amount of ERC20 tokens to transfer. */
+	amount?: string;
+	/** The amounts involved in the transaction. */
+	amounts?: string[];
+	/** Whether the transaction is approved. */
+	approved?: boolean;
+	/** The asset involved in the transaction. */
+	asset?: string;
+	/** The assets involved in the transaction. */
+	assets?: string[];
+	/** The gas for blob transactions. */
+	blobGas?: string;
+	/** The gas fee cap for blob transactions. */
+	blobGasFeeCap?: string;
+	/** The hashes for blob transactions. */
+	blobHashes?: string[];
+	/** The borrow amount. */
+	borrowAmount?: string | number;
+	/** Flag to indicate if the transaction should be broadcasted. */
+	broadcast?: boolean;
+	/** The chain ID. */
+	chain_id?: string;
+	/** The collateral asset. */
+	collateralAsset?: string;
+	/** The address of the ERC20 contract. */
+	contract_address?: string;
+	/** Additional data to include in the transaction. */
+	data?: string;
+	/** The debt asset. */
+	debtAsset?: string;
+	/** The debt to cover. */
+	debtToCover?: string;
+	/** Flag to indicate if the transaction should be a dry run. */
+	dryrun?: boolean;
+	/** The encoding type. */
+	encoding?: string;
+	/** The gas limit for the transaction. */
+	gas?: string;
+	/** The gas limit for the transaction. */
+	gasLimit?: string;
+	/** The gas price for the transaction. */
+	gasPrice?: string;
+	/** The initial deposit. */
+	initialDeposit?: string | number;
+	/** The initiator of the transaction. */
+	initiator?: string;
+	/** The input data. */
+	input?: string;
+	/** The input tokens. */
+	inputTokens?: TokenAmount[];
+	/**
+	 * The interest rate mode.
+	 * @format double
+	 */
+	interestRateMode?: number;
+	/** The maximum fee per gas. */
+	maxFeePerGas?: string;
+	/** The maximum priority fee per gas. */
+	maxPriorityFeePerGas?: string;
+	/** The minimum health factor. */
+	minHealthFactor?: string | number;
+	/** The modes of the transaction. */
+	modes?: number[];
+	/** The nonce to use for the transaction. */
+	nonce?: string;
+	/** The address on behalf of which the transaction is made. */
+	onBehalfOf?: string;
+	/** The output tokens. */
+	outputTokens?: TokenProportion[];
+	/** Additional parameters. */
+	params?: string;
+	/** The premiums. */
+	premiums?: string[] | number[];
+	/**
+	 * The rate mode.
+	 * @format double
+	 */
+	rateMode?: number;
+	/** Whether to receive a token. */
+	receiveAToken?: boolean;
+	/** The receiver address. */
+	receiverAddress?: string;
+	/**
+	 * The referral code.
+	 * @format double
+	 */
+	referralCode?: number;
+	/** The role of the user. */
+	role?: string;
+	/** Flag to indicate if the transaction should be simulated. */
+	simulate?: boolean;
+	/**
+	 * The slippage limit percentage.
+	 * @format double
+	 */
+	slippageLimitPercent?: number;
+	/** The recipient address of the ERC20 token transfer. */
+	to?: string;
+	/** The token ID. */
+	token_id?: string;
+	/** The token IDs. */
+	token_ids?: string;
+	/**
+	 * The type of transaction.
+	 * @format double
+	 */
+	type?: number;
+	/** Whether to use as collateral. */
+	useAsCollateral?: boolean;
+	/** The user involved in the transaction. */
+	user?: string;
+	/** The value of the transaction in wei. */
+	value?: string;
+}
+
+/** Represents an ERC-20 token transaction. */
+export interface ERC20Transaction {
+	/** The chain ID of the network where the transaction is sent. */
+	chainId: string;
+	/** The data payload of the transaction. */
+	data: string;
+	/** The sender address of the transaction. */
+	from: string;
+	/**
+	 * The gas limit for the transaction.
+	 * Optional.
+	 */
+	gasLimit?: string;
+	/**
+	 * The gas price for the transaction, in wei.
+	 * Optional.
+	 */
+	gasPrice?: string;
+	/**
+	 * The maximum fee per gas for EIP-1559 transactions, in wei.
+	 * Optional.
+	 */
+	maxFeePerGas?: string;
+	/**
+	 * The maximum priority fee per gas for EIP-1559 transactions, in wei.
+	 * Optional.
+	 */
+	maxPriorityFeePerGas?: string;
+	/**
+	 * The nonce of the transaction.
+	 * @format double
+	 */
+	nonce: number;
+	/** The recipient address of the transaction. */
+	to: string;
+	/**
+	 * The type of the transaction.
+	 * Optional.
+	 * @format double
+	 */
+	type?: number;
+	/** The value to be transferred in the transaction, in wei. */
+	value: string;
+}
+
+/** Interface representing the structure of the API response for ERC4626. */
+export interface ERC4626APIResponse {
+	/** Optional data returned by the API. */
+	data?: any;
+	/** Provides a message related to the API response. */
+	message: string;
+	/** Indicates whether the API request was successful. */
+	success: boolean;
+}
+
+/** Interface representing the structure of the response from the ERC721 API. */
+export interface ERC721APIResponse {
+	/** Optional data returned by the API. */
+	data?: any;
+	/** A message providing additional information about the API response. */
+	message: string;
+	/** Indicates whether the API request was successful. */
+	success: boolean;
+}
+
+/**
+ * Interface representing the response from the ENS resolve API.
+ * Extends the BaseAPIResponse interface.
+ */
+export interface EnsResolveAPIResponse {
+	/** The address associated with the operation. */
+	address?: string;
+	/** The data associated with the operation. */
+	body?: InputBody;
+	/** The ENS resolve response data. */
+	data?: EnsResolveResponse;
+	/** The message associated with the operation. */
+	message: string;
+	/** The success status of the operation. */
+	success: boolean;
+}
+
+export type EnsResolveData = EnsResolveAPIResponse;
+
+/** Represents the input required to resolve an ENS (Ethereum Name Service) domain. */
+export interface EnsResolveInput {
+	/** The chain ID of the blockchain network. */
+	chain_id: string;
+	/** The domain to be resolved. */
+	domain: string;
+}
+
+/** Represents the response from an ENS (Ethereum Name Service) resolve operation. */
+export interface EnsResolveResponse {
+	/** The address associated with the domain. */
+	address: string;
+}
+
+export type EnsReverseResolveData = ENSReverseResolveAPIResponse;
+
+export interface EosAPIResponse {
+	/** The address associated with the operation. */
+	address?: string;
+	/** The data associated with the operation. */
+	body?: InputBody;
+	/** The data associated with the Eos response. */
+	data?: EosTransactionOutput;
+	/** The message associated with the operation. */
+	message: string;
+	/** The success status of the operation. */
+	success: boolean;
+}
+
+/** Represents the input data required for EOS operations. */
 export interface EosInput {
+	/** The network on which the transaction is taking place. */
 	network?: string;
+	/** The private key of the account. */
 	private_key?: string;
 }
 
+/** Represents an input for an EOS transaction. */
 export interface EosTransactionInput {
+	/** Indicates whether to compress the public key. */
 	compress?: boolean;
+	/** The network on which the transaction is taking place. */
 	network?: string;
+	/** The recipient address of the transaction. */
 	to?: string;
-	/** @format double */
+	/**
+	 * The amount to be sent.
+	 * @format double
+	 */
 	value?: number;
 }
 
+/** Represents the output of an EOS transaction. */
 export interface EosTransactionOutput {
+	/** The signed transaction. */
 	signedTx?: string;
+	/** The transaction hash. */
 	transaction_hash?: string;
 }
 
+export type Erc1155Erc1155BalanceOfBatchData = TransactionAPIResponse;
+
+export type Erc1155Erc1155BalanceOfData = TransactionAPIResponse;
+
+export type Erc1155Erc1155IsApprovedForAllData = TransactionAPIResponse;
+
+export type Erc1155Erc1155SafeBatchTransferFromData = TransactionAPIResponse;
+
+export type Erc1155Erc1155SafeTransferFromData = TransactionAPIResponse;
+
+export type Erc1155Erc1155SetApprovalForAllData = TransactionAPIResponse;
+
+/** Interface representing a request for ERC-1155 token operations. */
 export interface Erc1155Request {
+	/** Whether the transaction is from an externally owned account. */
 	EOA?: boolean;
+	/** The access list for the transaction. */
 	accessList?: AccessTuple[];
+	/** The account involved in the transaction. */
 	account?: string;
+	/** Whether to always increment the nonce. */
 	alwaysIncrementNonce?: boolean;
+	/** The amount involved in the transaction. */
 	amount?: string;
+	/** The amounts involved in the transaction. */
 	amounts?: string[];
+	/** Optional. Indicates whether the tokens are approved. */
 	approved?: boolean;
+	/** The asset involved in the transaction. */
 	asset?: string;
+	/** The assets involved in the transaction. */
 	assets?: string[];
+	/** The gas for blob transactions. */
 	blobGas?: string;
+	/** The gas fee cap for blob transactions. */
 	blobGasFeeCap?: string;
+	/** The hashes for blob transactions. */
 	blobHashes?: string[];
+	/** The borrow amount. */
 	borrowAmount?: string | number;
+	/** Whether to broadcast the transaction. */
 	broadcast?: boolean;
+	/** The chain ID. */
 	chain_id?: string;
+	/** The collateral asset. */
 	collateralAsset?: string;
+	/** The contract address. */
 	contract_address?: string;
+	/** The data to be sent. */
 	data?: string;
+	/** The debt asset. */
 	debtAsset?: string;
+	/** The debt to cover. */
 	debtToCover?: string;
+	/** Whether to perform a dry run. */
 	dryrun?: boolean;
+	/** The encoding type. */
 	encoding?: string;
+	/** The gas for the transaction. */
 	gas?: string;
+	/** The gas limit for the transaction. */
 	gasLimit?: string;
+	/** The gas price for the transaction. */
 	gasPrice?: string;
+	/** The initial deposit. */
 	initialDeposit?: string | number;
+	/** The initiator of the transaction. */
 	initiator?: string;
+	/** The input data. */
 	input?: string;
+	/** The input tokens. */
 	inputTokens?: TokenAmount[];
-	/** @format double */
+	/**
+	 * The interest rate mode.
+	 * @format double
+	 */
 	interestRateMode?: number;
+	/** The maximum fee per gas. */
 	maxFeePerGas?: string;
+	/** The maximum priority fee per gas. */
 	maxPriorityFeePerGas?: string;
+	/** The minimum health factor. */
 	minHealthFactor?: string | number;
+	/** The modes of the transaction. */
 	modes?: number[];
+	/** The nonce for the transaction. */
 	nonce?: string;
+	/** The address on behalf of which the transaction is made. */
 	onBehalfOf?: string;
+	/** The output tokens. */
 	outputTokens?: TokenProportion[];
+	/** Additional parameters. */
 	params?: string;
+	/** The premiums. */
 	premiums?: string[] | number[];
-	/** @format double */
+	/**
+	 * The rate mode.
+	 * @format double
+	 */
 	rateMode?: number;
+	/** Whether to receive a token. */
 	receiveAToken?: boolean;
+	/** The receiver address. */
 	receiverAddress?: string;
-	/** @format double */
+	/**
+	 * The referral code.
+	 * @format double
+	 */
 	referralCode?: number;
+	/** The role of the user. */
 	role?: string;
+	/** Whether to simulate the transaction. */
 	simulate?: boolean;
-	/** @format double */
+	/**
+	 * The slippage limit percentage.
+	 * @format double
+	 */
 	slippageLimitPercent?: number;
+	/** The recipient address. */
 	to?: string;
+	/** The token ID. */
 	token_id?: string;
+	/** Optional. A comma-separated list of token IDs. */
 	token_ids?: string;
-	/** @format double */
+	/**
+	 * The type of transaction.
+	 * @format double
+	 */
 	type?: number;
+	/** Whether to use as collateral. */
 	useAsCollateral?: boolean;
+	/** The user involved in the transaction. */
 	user?: string;
+	/** The value to be sent. */
 	value?: string;
 }
+
+export type Erc20ApproveErc20TokenSpendingData =
+	ERC20APIResponseERC20ExecuteFunctionResult;
+
+export type Erc20GetErc20TokenAllowanceData = ERC20APIResponseString;
+
+export interface Erc20GetErc20TokenAllowanceParams {
+	/** - The account address making the request. */
+	account: string;
+	/** - The contract address of the ERC20 token. */
+	address: string;
+	/** - The ID of the blockchain network. */
+	chainId: string;
+	/** - The address of the token owner. */
+	owner: string;
+	/** - The address of the spender. */
+	spender: string;
+}
+
+export type Erc20GetErc20TokenBalanceData = ERC20APIResponseString;
+
+export interface Erc20GetErc20TokenBalanceParams {
+	/** - The address of the account to retrieve the balance for. */
+	account: string;
+	/** - The address of the ERC20 token contract. */
+	address: string;
+	/** - The ID of the blockchain network. */
+	chainId: string;
+}
+
+export type Erc20GetErc20TokenDecimalsData = ERC20APIResponseNumber;
+
+export interface Erc20GetErc20TokenDecimalsParams {
+	/** - The account address for the ERC20 token. */
+	account: string;
+	/** - The contract address for the ERC20 token. */
+	address: string;
+	/** - The chain ID for the ERC20 token. */
+	chainId: string;
+}
+
+export type Erc20GetErc20TokenNameData = ERC20APIResponseString;
+
+export interface Erc20GetErc20TokenNameParams {
+	/** - The account address. */
+	account: string;
+	/** - The ERC20 token contract address. */
+	address: string;
+	/** - The blockchain chain ID. */
+	chainId: string;
+}
+
+export type Erc20GetErc20TokenSymbolData = ERC20APIResponseString;
+
+export interface Erc20GetErc20TokenSymbolParams {
+	/** - The account address. */
+	account: string;
+	/** - The address of the ERC20 token contract. */
+	address: string;
+	/** - The ID of the blockchain network. */
+	chainId: string;
+}
+
+export type Erc20GetErc20TokenTotalSupplyData = ERC20APIResponseString;
+
+export interface Erc20GetErc20TokenTotalSupplyParams {
+	/** - The account address. */
+	account: string;
+	/** - The ERC20 token contract address. */
+	address: string;
+	/** - The blockchain chain ID. */
+	chainId: string;
+}
+
+export type Erc20TransferErc20TokenData =
+	ERC20APIResponseERC20ExecuteFunctionResult;
+
+export type Erc20TransferFromErc20TokenData =
+	ERC20APIResponseERC20ExecuteFunctionResult;
+
+export type Erc4626ApproveErc4626Data = ERC4626APIResponse;
+
+export type Erc4626DepositToErc4626Data = ERC4626APIResponse;
+
+export type Erc4626GetErc4626AllowanceData = ERC4626APIResponse;
+
+export interface Erc4626GetErc4626AllowanceParams {
+	/** - The account making the request */
+	account: string;
+	/** - The ERC4626 vault contract address */
+	address: string;
+	/** - The blockchain network ID */
+	chainId: string;
+	/** - The address of the owner */
+	owner: string;
+	/** - The address of the spender */
+	spender: string;
+}
+
+export type Erc4626GetErc4626AssetData = ERC4626APIResponse;
+
+export interface Erc4626GetErc4626AssetParams {
+	/** - The account making the request */
+	account: string;
+	/** - The ERC4626 vault contract address */
+	address: string;
+	/** - The blockchain network ID */
+	chainId: string;
+}
+
+export type Erc4626GetErc4626BalanceOfData = ERC4626APIResponse;
+
+export interface Erc4626GetErc4626BalanceOfParams {
+	/** - The account making the request */
+	account: string;
+	/** - The ERC4626 vault contract address */
+	address: string;
+	/** - The blockchain network ID */
+	chainId: string;
+}
+
+export type Erc4626GetErc4626ConvertToAssetsData = ERC4626APIResponse;
+
+export interface Erc4626GetErc4626ConvertToAssetsParams {
+	/** - The account making the request */
+	account: string;
+	/** - The ERC4626 vault contract address */
+	address: string;
+	/** - The blockchain network ID */
+	chainId: string;
+	/** - The amount of shares to redeem */
+	shares: string;
+}
+
+export type Erc4626GetErc4626ConvertToSharesData = ERC4626APIResponse;
+
+export interface Erc4626GetErc4626ConvertToSharesParams {
+	/** - The account making the request */
+	account: string;
+	/** - The ERC4626 vault contract address */
+	address: string;
+	/** - The amount of assets to deposit */
+	assets: string;
+	/** - The blockchain network ID */
+	chainId: string;
+}
+
+export type Erc4626GetErc4626MaxDepositData = ERC4626APIResponse;
+
+export interface Erc4626GetErc4626MaxDepositParams {
+	/** - The account making the request */
+	account: string;
+	/** - The ERC4626 vault contract address */
+	address: string;
+	/** - The blockchain network ID */
+	chainId: string;
+	/** - The address of the receiver */
+	receiver: string;
+}
+
+export type Erc4626GetErc4626MaxMintData = ERC4626APIResponse;
+
+export interface Erc4626GetErc4626MaxMintParams {
+	/** - The account making the request */
+	account: string;
+	/** - The ERC4626 vault contract address */
+	address: string;
+	/** - The blockchain network ID */
+	chainId: string;
+	/** - The address of the receiver */
+	receiver: string;
+}
+
+export type Erc4626GetErc4626MaxRedeemData = ERC4626APIResponse;
+
+export interface Erc4626GetErc4626MaxRedeemParams {
+	/** - The account making the request */
+	account: string;
+	/** - The ERC4626 vault contract address */
+	address: string;
+	/** - The blockchain network ID */
+	chainId: string;
+	/** - The address of the owner */
+	owner: string;
+}
+
+export type Erc4626GetErc4626MaxWithdrawData = ERC4626APIResponse;
+
+export interface Erc4626GetErc4626MaxWithdrawParams {
+	/** - The account making the request */
+	account: string;
+	/** - The ERC4626 vault contract address */
+	address: string;
+	/** - The blockchain network ID */
+	chainId: string;
+	/** - The address of the owner */
+	owner: string;
+}
+
+export type Erc4626GetErc4626PreviewDepositData = ERC4626APIResponse;
+
+export interface Erc4626GetErc4626PreviewDepositParams {
+	/** - The account making the request */
+	account: string;
+	/** - The ERC4626 vault contract address */
+	address: string;
+	/** - The amount of assets to deposit */
+	assets: string;
+	/** - The blockchain network ID */
+	chainId: string;
+}
+
+export type Erc4626GetErc4626PreviewMintData = ERC4626APIResponse;
+
+export interface Erc4626GetErc4626PreviewMintParams {
+	/** - The account making the request */
+	account: string;
+	/** - The ERC4626 vault contract address */
+	address: string;
+	/** - The blockchain network ID */
+	chainId: string;
+	/** - The amount of shares to mint */
+	shares: string;
+}
+
+export type Erc4626GetErc4626PreviewRedeemData = ERC4626APIResponse;
+
+export interface Erc4626GetErc4626PreviewRedeemParams {
+	/** - The account making the request */
+	account: string;
+	/** - The ERC4626 vault contract address */
+	address: string;
+	/** - The blockchain network ID */
+	chainId: string;
+	/** - The amount of shares to redeem */
+	shares: string;
+}
+
+export type Erc4626GetErc4626PreviewWithdrawData = ERC4626APIResponse;
+
+export interface Erc4626GetErc4626PreviewWithdrawParams {
+	/** - The account making the request */
+	account: string;
+	/** - The ERC4626 vault contract address */
+	address: string;
+	/** - The amount of assets to withdraw */
+	assets: string;
+	/** - The blockchain network ID */
+	chainId: string;
+}
+
+export type Erc4626GetErc4626TotalAssetsData = ERC4626APIResponse;
+
+export interface Erc4626GetErc4626TotalAssetsParams {
+	/** - The account making the request */
+	account: string;
+	/** - The ERC4626 vault contract address */
+	address: string;
+	/** - The blockchain network ID */
+	chainId: string;
+}
+
+export type Erc4626GetErc4626TotalSupplyData = ERC4626APIResponse;
+
+export interface Erc4626GetErc4626TotalSupplyParams {
+	/** - The account making the request */
+	account: string;
+	/** - The ERC4626 vault contract address */
+	address: string;
+	/** - The blockchain network ID */
+	chainId: string;
+}
+
+export type Erc4626MintErc4626SharesData = ERC4626APIResponse;
+
+export type Erc4626RedeemErc4626SharesData = ERC4626APIResponse;
+
+export type Erc4626TransferErc4626Data = ERC4626APIResponse;
+
+export type Erc4626TransferFromErc4626Data = ERC4626APIResponse;
+
+export type Erc4626WithdrawFromErc4626Data = ERC4626APIResponse;
+
+export type Erc721ApproveErc721Data = ERC721APIResponse;
+
+export type Erc721GetErc721ApprovedData = ERC721APIResponse;
+
+export interface Erc721GetErc721ApprovedParams {
+	/** - The address of the ERC721 contract. */
+	address: string;
+	/** - The ID of the blockchain network. */
+	chainId: string;
+	/** - The ID of the token to check approval for. */
+	tokenId: string;
+}
+
+export type Erc721GetErc721BalanceOfData = ERC721APIResponse;
+
+export interface Erc721GetErc721BalanceOfParams {
+	/** - The account address to query the balance for. */
+	account: string;
+	/** - The contract address of the ERC721 token. */
+	address: string;
+	/** - The ID of the blockchain network. */
+	chainId: string;
+}
+
+export type Erc721GetErc721IsApprovedForAllData = ERC721APIResponse;
+
+export interface Erc721GetErc721IsApprovedForAllParams {
+	/** - The address of the ERC721 contract. */
+	address: string;
+	/** - The ID of the blockchain network. */
+	chainId: string;
+	/** - The address of the operator to check for approval. */
+	operator: string;
+	/** - The address of the owner of the assets. */
+	owner: string;
+}
+
+export type Erc721GetErc721NameData = ERC721APIResponse;
+
+export interface Erc721GetErc721NameParams {
+	/** - The address of the ERC721 contract. */
+	address: string;
+	/** - The ID of the blockchain network. */
+	chainId: string;
+}
+
+export type Erc721GetErc721OwnerOfData = ERC721APIResponse;
+
+export interface Erc721GetErc721OwnerOfParams {
+	/** - The address of the ERC721 contract. */
+	address: string;
+	/** - The ID of the blockchain network. */
+	chainId: string;
+	/** - The ID of the token to query. */
+	tokenId: string;
+}
+
+export type Erc721GetErc721SymbolData = ERC721APIResponse;
+
+export interface Erc721GetErc721SymbolParams {
+	/** - The address of the ERC721 contract. */
+	address: string;
+	/** - The ID of the blockchain network. */
+	chainId: string;
+}
+
+export type Erc721GetErc721TokenUriData = ERC721APIResponse;
+
+export interface Erc721GetErc721TokenUriParams {
+	/** - The address of the ERC721 contract. */
+	address: string;
+	/** - The ID of the blockchain network. */
+	chainId: string;
+	/** - The ID of the token to retrieve the URI for. */
+	tokenId: string;
+}
+
+export type Erc721SafeTransferFromErc721Data = ERC721APIResponse;
+
+export type Erc721SafeTransferFromWithDataErc721Data = ERC721APIResponse;
+
+export type Erc721SetApprovalForAllErc721Data = ERC721APIResponse;
+
+export type Erc721TransferFromErc721Data = ERC721APIResponse;
 
 export interface Estimate {
 	approvalAddress: string;
@@ -1771,8 +3774,6 @@ export interface Estimate {
 	toAmountMin: string;
 	toAmountUSD: string;
 }
-
-export type EstimateGasData = TransactionAPIResponse;
 
 export type EvmAddressJSON = string;
 
@@ -2013,40 +4014,32 @@ export interface Exchange {
 
 export type ExecuteJobData = MultiCallAPIResponse;
 
-export type ExecuteOperationData =
-	LeveragerAPIResponseLeveragerExecuteFunctionResult;
-
+/**
+ * Interface representing the response from the Export Account API.
+ * Extends the BaseAPIResponse interface.
+ */
 export interface ExportAccountAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The data object containing account details. */
 	data?: {
 		address: string;
 		private_key: string;
 		public_key: string;
 	};
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
 
-export type ExportAccountData = ExportAccountAPIResponse;
-
-export type ExportAccountOutput = BaseCosmosAPIResponse;
-
-export type ExportAccountResult = BitcoinCashAPIResponseAccountResponse;
-
-export type ExportBitcoinAccountData = AccountAPIResponse;
-
-export type ExportDogeCoinAccountData = AccountAPIResponse;
-
 export type ExportEosAccountData = AccountAPIResponse;
-
-export type ExportLitecoinAccountData = AccountAPIResponse;
 
 export type ExportRippleAccountData = AccountAPIResponse;
 
 export type ExportSolanaAccountData = AccountAPIResponse;
-
-export type ExportTronAccountData = AccountAPIResponse;
 
 export type Factory2Data = UniswapV3APIResponseString;
 
@@ -2071,25 +4064,221 @@ export interface FeeCost {
 	token: Token;
 }
 
-export type FetchTokenDetailsData = ApiResponseTokenDetails;
-
-export interface FetchTokenDetailsParams {
-	chain: string;
-	token: string;
-}
-
-export type FetchTokensData = ApiResponseTokensResponse;
-
+/** Represents a fiat currency. */
 export interface FiatCurrency {
+	/** The code of the fiat currency (e.g., USD, EUR). */
 	code: string;
+	/** The URL or path to the icon representing the fiat currency. */
 	icon: string;
+	/** The unique identifier for the fiat currency. */
 	id: string;
+	/** The name of the fiat currency. */
 	name: string;
+	/** The symbol of the fiat currency (e.g., $, €). */
 	symbol: string;
 }
 
-export type FlashLoanData =
-	LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
+export type FinancialDatasetsGetAllFinancialsData = AllFinancialsAPIResponse;
+
+export interface FinancialDatasetsGetAllFinancialsParams {
+	/** - The CIK number of the company. */
+	cik?: string;
+	/**
+	 * - The maximum number of financials to return.
+	 * @format double
+	 */
+	limit?: number;
+	/** - The period type of the financials. */
+	period: PeriodEnum4;
+	/** - The ticker symbol of the company. */
+	ticker: string;
+}
+
+/** - The period type of the financials. */
+export enum FinancialDatasetsGetAllFinancialsParams1PeriodEnum {
+	Annual = "annual",
+	Quarterly = "quarterly",
+	Ttm = "ttm",
+}
+
+export type FinancialDatasetsGetAvailableTickersData =
+	AvailableTickersAPIResponse;
+
+export type FinancialDatasetsGetBalanceSheetsData = BalanceSheetsAPIResponse;
+
+export interface FinancialDatasetsGetBalanceSheetsParams {
+	/** - The CIK number of the company. */
+	cik?: string;
+	/**
+	 * - The maximum number of balance sheets to return.
+	 * @format double
+	 */
+	limit?: number;
+	/** - The period type of the balance sheets. */
+	period: PeriodEnum1;
+	/** - The ticker symbol of the company. */
+	ticker: string;
+}
+
+/** - The period type of the balance sheets. */
+export enum FinancialDatasetsGetBalanceSheetsParams1PeriodEnum {
+	Annual = "annual",
+	Quarterly = "quarterly",
+	Ttm = "ttm",
+}
+
+export type FinancialDatasetsGetCashFlowStatementsData =
+	CashFlowStatementsAPIResponse;
+
+export interface FinancialDatasetsGetCashFlowStatementsParams {
+	/** - The CIK number of the company. */
+	cik?: string;
+	/**
+	 * - The maximum number of cash flow statements to return.
+	 * @format double
+	 */
+	limit?: number;
+	/** - The period type of the cash flow statements. */
+	period: PeriodEnum2;
+	/** - The ticker symbol of the company. */
+	ticker: string;
+}
+
+/** - The period type of the cash flow statements. */
+export enum FinancialDatasetsGetCashFlowStatementsParams1PeriodEnum {
+	Annual = "annual",
+	Quarterly = "quarterly",
+	Ttm = "ttm",
+}
+
+export type FinancialDatasetsGetCompanyFactsData = CompanyFactsAPIResponse;
+
+export type FinancialDatasetsGetIncomeStatementsData =
+	IncomeStatementsAPIResponse;
+
+export interface FinancialDatasetsGetIncomeStatementsParams {
+	/** - The CIK number of the company. */
+	cik?: string;
+	/**
+	 * - The maximum number of income statements to return.
+	 * @format double
+	 */
+	limit?: number;
+	/** - The period type of the income statements. */
+	period: PeriodEnum;
+	/** - The ticker symbol of the company. */
+	ticker: string;
+}
+
+/** - The period type of the income statements. */
+export enum FinancialDatasetsGetIncomeStatementsParams1PeriodEnum {
+	Annual = "annual",
+	Quarterly = "quarterly",
+	Ttm = "ttm",
+}
+
+export type FinancialDatasetsGetInsiderTransactionsData =
+	InsiderTransactionsAPIResponse;
+
+export interface FinancialDatasetsGetInsiderTransactionsParams {
+	/**
+	 * - The maximum number of insider transactions to return.
+	 * @format double
+	 */
+	limit?: number;
+	/** - The ticker symbol of the company. */
+	ticker: string;
+}
+
+export type FinancialDatasetsGetOptionsChainData = OptionsChainAPIResponse;
+
+export interface FinancialDatasetsGetOptionsChainParams {
+	/** - The expiration date of the options. */
+	expiration_date?: string;
+	/** - The type of option (call or put). */
+	option_type?: OptionTypeEnum;
+	/**
+	 * - The strike price of the options.
+	 * @format double
+	 */
+	strike_price?: number;
+	/** - The ticker symbol of the company. */
+	ticker: string;
+}
+
+/** - The type of option (call or put). */
+export enum FinancialDatasetsGetOptionsChainParams1OptionTypeEnum {
+	Call = "call",
+	Put = "put",
+}
+
+export type FinancialDatasetsGetPriceSnapshotData = PriceSnapshotAPIResponse;
+
+export type FinancialDatasetsGetPricesData = PricesAPIResponse;
+
+export interface FinancialDatasetsGetPricesParams {
+	/** - The end date of the price data. */
+	end_date: string;
+	/** - The interval of the price data. */
+	interval: PriceInterval;
+	/**
+	 * - The interval multiplier of the price data.
+	 * @format double
+	 */
+	interval_multiplier: number;
+	/**
+	 * - The maximum number of price data to return.
+	 * @format double
+	 */
+	limit?: number;
+	/** - The start date of the price data. */
+	start_date: string;
+	/** - The ticker symbol of the company. */
+	ticker: string;
+}
+
+export type FinancialDatasetsGetSegmentedRevenuesData =
+	SegmentedRevenuesAPIResponse;
+
+export interface FinancialDatasetsGetSegmentedRevenuesParams {
+	/** - The CIK number of the company. */
+	cik?: string;
+	/**
+	 * - The maximum number of segmented revenues to return.
+	 * @format double
+	 */
+	limit?: number;
+	/** - The period type of the segmented revenues. */
+	period: PeriodEnum3;
+	/** - The ticker symbol of the company. */
+	ticker: string;
+}
+
+/** - The period type of the segmented revenues. */
+export enum FinancialDatasetsGetSegmentedRevenuesParams1PeriodEnum {
+	Annual = "annual",
+	Quarterly = "quarterly",
+}
+
+export type FinancialDatasetsSearchFinancialsByLineItemsData =
+	LineItemsSearchAPIResponse;
+
+/** - The search request. */
+export interface FinancialDatasetsSearchFinancialsByLineItemsPayload {
+	/** @format double */
+	limit?: number;
+	line_items: string[];
+	period?: FinancialDatasetsSearchFinancialsByLineItemsPeriodEnum;
+	tickers: string[];
+}
+
+export enum FinancialDatasetsSearchFinancialsByLineItemsPeriodEnum {
+	Annual = "annual",
+	Quarterly = "quarterly",
+	Ttm = "ttm",
+}
+
+export type FinancialDatasetsSearchFinancialsData = SearchFinancialsAPIResponse;
 
 export interface Flow {
 	created_at: string;
@@ -2129,14 +4318,11 @@ export enum FlowNodeTypeEnum {
 	UserFunction = "userFunction",
 }
 
-export type ForceEmbeddingData = ComponentAPIResponseVoid;
-
-export interface ForceEmbeddingPayload {
-	description: string;
-}
-
+/** Interface representing the full reserves incentive data. */
 export interface FullReservesIncentiveData {
+	/** The aggregated reserve incentive data. */
 	reservesIncentiveData: AggregatedReserveIncentiveData[];
+	/** The user reserve incentive data. */
 	userReserveIncentiveData: UserReserveIncentiveData[];
 }
 
@@ -2150,118 +4336,34 @@ export interface GasCost {
 	type: string;
 }
 
+/** Represents the gas price information for a specific blockchain. */
 export interface GasPrice {
-	/** @format double */
+	/**
+	 * The average gas price over the last 24 hours.
+	 * @format double
+	 */
 	average24h: number;
-	/** @format double */
+	/**
+	 * The average gas price over the last 7 days.
+	 * @format double
+	 */
 	average7d: number;
+	/** The identifier of the blockchain. */
 	chainId: string;
+	/** The historical gas prices with their respective timestamps. */
 	history: {
 		/** @format double */
 		timestamp: number;
 		/** @format double */
 		value: number;
 	}[];
-	/** @format double */
+	/**
+	 * The timestamp of the last recorded gas price.
+	 * @format double
+	 */
 	lastTimestamp: number;
+	/** The unit name of the gas price (e.g., Gwei, Wei). */
 	unitName: string;
-}
-
-export type GenerateUnsignedPsbtHexData = BitcoinAPIResponse;
-
-export type GenerateUnsignedPsbtHexResult = BitcoinCashAPIResponsePsbtHexString;
-
-export type GetATokenTotalSupplyData =
-	PoolAddressProviderRegistryAPIResponseString;
-
-export interface GetATokenTotalSupplyParams {
-	account: string;
-	address: string;
-	asset: string;
-	chainId: string;
-}
-
-export type GetAccountData = AccountAPIResponse;
-
-export type GetAccountResult = CosmosAccountAPIResponse;
-
-export type GetAclAdminData = PoolAddressProviderAPIResponseString;
-
-export interface GetAclAdminParams {
-	account: string;
-	address: string;
-	chainId: string;
-}
-
-export type GetAclManagerData = PoolAddressProviderAPIResponseString;
-
-export interface GetAclManagerParams {
-	account: string;
-	address: string;
-	chainId: string;
-}
-
-export type GetAddressData = PoolAddressProviderAPIResponseString;
-
-export interface GetAddressParams {
-	account: string;
-	address: string;
-	chainId: string;
-	id: string;
-}
-
-export type GetAddressesProviderData =
-	PoolAddressProviderRegistryAPIResponseString;
-
-export type GetAddressesProviderOutput = LeveragerAPIResponseString;
-
-export interface GetAddressesProviderParams {
-	account: string;
-	address: string;
-	chainId: string;
-}
-
-export interface GetAddressesProviderParams2 {
-	address: string;
-	chainId: string;
-}
-
-export interface GetAddressesProviderParams4 {
-	address: string;
-	chainId: string;
-}
-
-export type GetAddressesProviderResult = LendingPoolAPIResponseString;
-
-export type GetAllATokensData = PoolAddressProviderRegistryAPIResponseAnyArray;
-
-export interface GetAllATokensParams {
-	account: string;
-	address: string;
-	chainId: string;
-}
-
-export type GetAllFinancialsData = AllFinancialsAPIResponse;
-
-export interface GetAllFinancialsParams {
-	cik?: string;
-	/** @format double */
-	limit?: number;
-	period: PeriodEnum4;
-	ticker: string;
-}
-
-export enum GetAllFinancialsParams1PeriodEnum {
-	Annual = "annual",
-	Quarterly = "quarterly",
-	Ttm = "ttm",
-}
-
-export type GetAllPossibleConnectionsData = ApiResponseTokenInfoByChainId;
-
-export interface GetAllPossibleConnectionsParams {
-	toChain: string;
-	toToken: string;
 }
 
 export type GetAllReservesTokensData =
@@ -2272,26 +4374,6 @@ export interface GetAllReservesTokensParams {
 	address: string;
 	chainId: string;
 }
-
-export type GetAllowanceData = ERC20APIResponseString;
-
-export interface GetAllowanceParams {
-	account: string;
-	address: string;
-	chainId: string;
-	owner: string;
-	spender: string;
-}
-
-export interface GetAllowanceParams2 {
-	account: string;
-	address: string;
-	chainId: string;
-	owner: string;
-	spender: string;
-}
-
-export type GetAllowanceResult = ERC4626APIResponse;
 
 export type GetAmountInData =
 	UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
@@ -2372,17 +4454,7 @@ export type GetApprovedResult = UniswapV3NFTAPIResponseString;
 
 export type GetAssetByAddressData = LynexAPIResponse;
 
-export type GetAssetData = ERC4626APIResponse;
-
-export interface GetAssetParams {
-	account: string;
-	address: string;
-	chainId: string;
-}
-
 export type GetAssetsData = LynexAPIResponse;
-
-export type GetAvailableTickersData = AvailableTickersAPIResponse;
 
 export type GetBalanceAllowanceData =
 	PolymarketAPIResponseBalanceAllowanceResponse;
@@ -2394,8 +4466,6 @@ export interface GetBalanceAllowanceParams {
 	token_id?: string;
 }
 
-export type GetBalanceData = BalanceAPIResponse;
-
 export type GetBalanceOfAtNftData = VeTheNFTAPIResponseString;
 
 export interface GetBalanceOfAtNftParams {
@@ -2405,9 +4475,7 @@ export interface GetBalanceOfAtNftParams {
 	tokenId: string;
 }
 
-export type GetBalanceOfData = ERC20APIResponseString;
-
-export type GetBalanceOfData1 = VeTheNFTAPIResponseString;
+export type GetBalanceOfData = LynexNFTAPIResponseString;
 
 export type GetBalanceOfNftAtData = LynexNFTAPIResponseString;
 
@@ -2442,107 +4510,27 @@ export interface GetBalanceOfNftParams4 {
 
 export type GetBalanceOfNftResult = RamsesNFTAPIResponseString;
 
-export type GetBalanceOfOutput = LynexNFTAPIResponseString;
+export type GetBalanceOfOutput = VeTheNFTAPIResponseString;
 
 export interface GetBalanceOfParams {
-	account: string;
 	address: string;
 	chainId: string;
+	owner: string;
 }
 
 export interface GetBalanceOfParams2 {
-	account: string;
 	address: string;
 	chainId: string;
+	owner: string;
 }
 
 export interface GetBalanceOfParams4 {
-	address: string;
-	chainId: string;
-	owner: string;
-}
-
-export interface GetBalanceOfParams6 {
-	address: string;
-	chainId: string;
-	owner: string;
-}
-
-export interface GetBalanceOfParams8 {
 	account: string;
 	address: string;
 	chainId: string;
 }
 
-export type GetBalanceOfResult = ERC4626APIResponse;
-
-export type GetBalanceOfResult1 = RamsesNFTAPIResponseString;
-
-export interface GetBalanceParams {
-	accountName: string;
-	chainId: string;
-}
-
-export type GetBalanceSheetsData = BalanceSheetsAPIResponse;
-
-export interface GetBalanceSheetsParams {
-	cik?: string;
-	/** @format double */
-	limit?: number;
-	period: PeriodEnum1;
-	ticker: string;
-}
-
-export enum GetBalanceSheetsParams1PeriodEnum {
-	Annual = "annual",
-	Quarterly = "quarterly",
-	Ttm = "ttm",
-}
-
-export type GetBitcoinAccountData = AccountAPIResponse;
-
-export type GetCashFlowStatementsData = CashFlowStatementsAPIResponse;
-
-export interface GetCashFlowStatementsParams {
-	cik?: string;
-	/** @format double */
-	limit?: number;
-	period: PeriodEnum2;
-	ticker: string;
-}
-
-export enum GetCashFlowStatementsParams1PeriodEnum {
-	Annual = "annual",
-	Quarterly = "quarterly",
-	Ttm = "ttm",
-}
-
-export type GetChainsData = ApiResponseChainsResponse;
-
-export interface GetChainsParams {
-	optionalChainTypes?: OptionalChainTypesEnum;
-}
-
-export enum GetChainsParams1OptionalChainTypesEnum {
-	EVM = "EVM",
-	SOL = "SOL",
-}
-
-export type GetChartAnalysisData = ChartAnalysisAPIResponse;
-
-/** @default "1D" */
-export enum GetChartAnalysisParamsEnum {
-	Value1D = "1D",
-	Value4H = "4H",
-	Value1H = "1H",
-}
-
-/** @default "1D" */
-export enum GetChartAnalysisParamsTimeframeEnum {
-	Value1D = "1D",
-	Value4H = "4H",
-	Value1H = "1H",
-}
+export type GetBalanceOfResult = RamsesNFTAPIResponseString;
 
 export type GetCollectionData = OpenSeaAPIResponse;
 
@@ -2551,86 +4539,6 @@ export interface GetCollectionParams {
 	/** @default "1" */
 	chainId?: string;
 	slug: string;
-}
-
-export type GetCompanyFactsData = CompanyFactsAPIResponse;
-
-export type GetComponentCapabilitiesDescriptionData =
-	ComponentAPIResponsePartialComponentDefinitionArray;
-
-export type GetComponentData = ComponentAPIResponseComponentDefinition;
-
-export type GetComponentsData = ComponentAPIResponseComponentDefinitionArray;
-
-export type GetConnectionsData = ApiResponseConnectionsResponse;
-
-export interface GetConnectionsParams {
-	chainTypes?: string;
-	fromChain: string;
-	fromToken: string;
-	toChain: string;
-	toToken: string;
-}
-
-export type GetContractInfoData = OdosAPIResponseOdosExecuteFunctionResult;
-
-export interface GetContractInfoParams {
-	/** @format double */
-	chainId: number;
-	version: VersionEnum;
-}
-
-export enum GetContractInfoParams1VersionEnum {
-	V2 = "v2",
-}
-
-export type GetConvertToAssetsData = ERC4626APIResponse;
-
-export interface GetConvertToAssetsParams {
-	account: string;
-	address: string;
-	chainId: string;
-	shares: string;
-}
-
-export type GetConvertToSharesData = ERC4626APIResponse;
-
-export interface GetConvertToSharesParams {
-	account: string;
-	address: string;
-	assets: string;
-	chainId: string;
-}
-
-export type GetCurrentBlockData = OdosAPIResponseOdosExecuteFunctionResult;
-
-export interface GetCurrentBlockParams {
-	/** @format double */
-	chainId: number;
-}
-
-export type GetDebtCeilingData = PoolAddressProviderRegistryAPIResponseString;
-
-export interface GetDebtCeilingParams {
-	account: string;
-	address: string;
-	asset: string;
-	chainId: string;
-}
-
-export type GetDecimalsData = ERC20APIResponseNumber;
-
-export interface GetDecimalsParams {
-	account: string;
-	address: string;
-	chainId: string;
-}
-
-export type GetDefaultAdminRoleData = LeveragerAPIResponseString;
-
-export interface GetDefaultAdminRoleParams {
-	address: string;
-	chainId: string;
 }
 
 export type GetDelegatesData = LynexNFTAPIResponseString;
@@ -2658,88 +4566,9 @@ export interface GetDelegatesParams4 {
 
 export type GetDelegatesResult = RamsesNFTAPIResponseString;
 
-export type GetDogeCoinAccountData = AccountAPIResponse;
-
 export type GetEosAccountData = AccountAPIResponse;
 
-export type GetErc721ApprovedData = ERC721APIResponse;
-
-export interface GetErc721ApprovedParams {
-	address: string;
-	chainId: string;
-	tokenId: string;
-}
-
-export type GetErc721BalanceOfData = ERC721APIResponse;
-
-export interface GetErc721BalanceOfParams {
-	account: string;
-	address: string;
-	chainId: string;
-}
-
-export type GetErc721IsApprovedForAllData = ERC721APIResponse;
-
-export interface GetErc721IsApprovedForAllParams {
-	address: string;
-	chainId: string;
-	operator: string;
-	owner: string;
-}
-
-export type GetErc721NameData = ERC721APIResponse;
-
-export interface GetErc721NameParams {
-	address: string;
-	chainId: string;
-}
-
-export type GetErc721OwnerOfData = ERC721APIResponse;
-
-export interface GetErc721OwnerOfParams {
-	address: string;
-	chainId: string;
-	tokenId: string;
-}
-
-export type GetErc721SymbolData = ERC721APIResponse;
-
-export interface GetErc721SymbolParams {
-	address: string;
-	chainId: string;
-}
-
-export type GetErc721TokenUriData = ERC721APIResponse;
-
-export interface GetErc721TokenUriParams {
-	address: string;
-	chainId: string;
-	tokenId: string;
-}
-
-export type GetEthCurrencyUnitData = AAVEv3UiPoolDataProviderAPIResponseString;
-
-export interface GetEthCurrencyUnitParams {
-	chain_id: string;
-	contract_address: string;
-}
-
-export type GetExecutorAddressData = OdosAPIResponseOdosExecuteFunctionResult;
-
-export interface GetExecutorAddressParams {
-	/** @format double */
-	chainId: number;
-	version: VersionEnum2;
-}
-
-export enum GetExecutorAddressParams1VersionEnum {
-	V2 = "v2",
-}
-
 export type GetFactoryData = LynexRouterAPIResponseString;
-
-export type GetFactoryOutput =
-	UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
 
 export interface GetFactoryParams {
 	address: string;
@@ -2751,32 +4580,9 @@ export interface GetFactoryParams2 {
 	chainId: string;
 }
 
-export interface GetFactoryParams4 {
-	account: string;
-	address: string;
-	chainId: string;
-}
-
 export type GetFactoryResult = RamsesRouterAPIResponseString;
 
-export type GetFlashLoanPremiumTotalData = LendingPoolAPIResponseNumber;
-
-export interface GetFlashLoanPremiumTotalParams {
-	address: string;
-	chainId: string;
-}
-
 export type GetFlowData = MultiCallAPIResponseFlow;
-
-export type GetFullReservesIncentiveDataData =
-	AAVEv3UiIncentiveDataProviderAPIResponseFullReservesIncentiveData;
-
-export interface GetFullReservesIncentiveDataParams {
-	chain_id: string;
-	contract_address: string;
-	provider: string;
-	user: string;
-}
 
 export type GetFusionByAddressData = ThenaAPIResponse;
 
@@ -2791,37 +4597,7 @@ export interface GetGasPriceParams {
 	chainId: string;
 }
 
-export type GetIncomeStatementsData = IncomeStatementsAPIResponse;
-
-export interface GetIncomeStatementsParams {
-	cik?: string;
-	/** @format double */
-	limit?: number;
-	period: PeriodEnum;
-	ticker: string;
-}
-
-export enum GetIncomeStatementsParams1PeriodEnum {
-	Annual = "annual",
-	Quarterly = "quarterly",
-	Ttm = "ttm",
-}
-
-export type GetIndexedRouteMapData = JupiterAPIResponseAny;
-
-export interface GetIndexedRouteMapParams {
-	onlyDirectRoutes?: boolean;
-}
-
 export type GetInfoData = RamsesAPIResponse;
-
-export type GetInsiderTransactionsData = InsiderTransactionsAPIResponse;
-
-export interface GetInsiderTransactionsParams {
-	/** @format double */
-	limit?: number;
-	ticker: string;
-}
 
 export type GetJobData = MultiCallAPIResponseJobs;
 
@@ -2850,29 +4626,6 @@ export interface GetLastVotedParams2 {
 }
 
 export type GetLastVotedResult = RamsesVoterAPIResponseString;
-
-export type GetLendingPoolData = LeveragerAPIResponseString;
-
-export interface GetLendingPoolParams {
-	address: string;
-	chainId: string;
-}
-
-export type GetLendingPoolRevisionData = LendingPoolAPIResponseNumber;
-
-export interface GetLendingPoolRevisionParams {
-	address: string;
-	chainId: string;
-}
-
-export type GetLiquiditySourcesData = OdosAPIResponseOdosExecuteFunctionResult;
-
-export interface GetLiquiditySourcesParams {
-	/** @format double */
-	chainId: number;
-}
-
-export type GetLitecoinAccountData = AccountAPIResponse;
 
 export type GetLockDetailsData = LynexNFTAPIResponseAny;
 
@@ -2908,26 +4661,10 @@ export type GetLockedResult = VeTheNFTAPIResponseLockedData;
 
 export type GetMarketData = PolymarketAPIResponseAny;
 
-export type GetMarketIdData = PoolAddressProviderAPIResponseString;
-
-export interface GetMarketIdParams {
-	account: string;
-	address: string;
-	chainId: string;
-}
-
 export interface GetMarketParams {
 	account: string;
 	chainId: string;
 	conditionId: string;
-}
-
-export type GetMarketReferenceCurrencyPriceInUsdProxyAggregatorData =
-	AAVEv3UiPoolDataProviderAPIResponseString;
-
-export interface GetMarketReferenceCurrencyPriceInUsdProxyAggregatorParams {
-	chain_id: string;
-	contract_address: string;
 }
 
 export type GetMarketTradeEventsData =
@@ -2947,94 +4684,13 @@ export interface GetMarketsParams {
 	nextCursor?: string;
 }
 
-export type GetMaxDepositData = ERC4626APIResponse;
-
-export interface GetMaxDepositParams {
-	account: string;
-	address: string;
-	chainId: string;
-	receiver: string;
-}
-
-export type GetMaxMintData = ERC4626APIResponse;
-
-export interface GetMaxMintParams {
-	account: string;
-	address: string;
-	chainId: string;
-	receiver: string;
-}
-
-export type GetMaxNumberReservesData = LendingPoolAPIResponseNumber;
-
-export interface GetMaxNumberReservesParams {
-	address: string;
-	chainId: string;
-}
-
-export type GetMaxRedeemData = ERC4626APIResponse;
-
-export interface GetMaxRedeemParams {
-	account: string;
-	address: string;
-	chainId: string;
-	owner: string;
-}
-
-export type GetMaxStableRateBorrowSizePercentData =
-	LendingPoolAPIResponseNumber;
-
-export interface GetMaxStableRateBorrowSizePercentParams {
-	address: string;
-	chainId: string;
-}
-
-export type GetMaxWithdrawData = ERC4626APIResponse;
-
-export interface GetMaxWithdrawParams {
-	account: string;
-	address: string;
-	chainId: string;
-	owner: string;
-}
-
 export type GetMessageData = PingResponse;
 
-export type GetMinHfData = LeveragerAPIResponseString;
-
-export interface GetMinHfParams {
-	address: string;
-	chainId: string;
-}
-
-export type GetNameData = ERC20APIResponseString;
+export type GetNameData = LynexNFTAPIResponseString;
 
 export interface GetNameParams {
-	account: string;
 	address: string;
 	chainId: string;
-}
-
-export interface GetNameParams2 {
-	address: string;
-	chainId: string;
-}
-
-export type GetNameResult = LynexNFTAPIResponseString;
-
-export type GetNetworkBaseTokenPriceInUsdProxyAggregatorData =
-	AAVEv3UiPoolDataProviderAPIResponseString;
-
-export interface GetNetworkBaseTokenPriceInUsdProxyAggregatorParams {
-	chain_id: string;
-	contract_address: string;
-}
-
-export type GetNfTsData = NFTsAPIResponse;
-
-export interface GetNfTsParams {
-	address: string;
-	chain: string;
 }
 
 export type GetNftData = OpenSeaAPIResponse;
@@ -3045,13 +4701,6 @@ export interface GetNftParams {
 	/** @default "1" */
 	chainId?: string;
 	tokenId: string;
-}
-
-export type GetNonceData = NonceAPIResponse;
-
-export interface GetNonceParams {
-	accountName: string;
-	chainId: string;
 }
 
 export type GetNotificationsData = MultiCallAPIResponseAnyArray;
@@ -3072,21 +4721,6 @@ export interface GetOpenOrdersParams {
 	marketHash?: string;
 	nextCursor?: string;
 	outcomeId?: string;
-}
-
-export type GetOptionsChainData = OptionsChainAPIResponse;
-
-export interface GetOptionsChainParams {
-	expiration_date?: string;
-	option_type?: OptionTypeEnum;
-	/** @format double */
-	strike_price?: number;
-	ticker: string;
-}
-
-export enum GetOptionsChainParams1OptionTypeEnum {
-	Call = "call",
-	Put = "put",
 }
 
 export type GetOrderBookData = PolymarketAPIResponseOrderBookSummary;
@@ -3168,22 +4802,6 @@ export type GetPoolByAddressData = LynexAPIResponse;
 
 export type GetPoolByAddressResult = RamsesAPIResponse;
 
-export type GetPoolConfiguratorData = PoolAddressProviderAPIResponseString;
-
-export interface GetPoolConfiguratorParams {
-	account: string;
-	address: string;
-	chainId: string;
-}
-
-export type GetPoolData = PoolAddressProviderAPIResponseString;
-
-export interface GetPoolParams {
-	account: string;
-	address: string;
-	chainId: string;
-}
-
 export type GetPoolVoteLengthData = LynexVoterAPIResponseString;
 
 export interface GetPoolVoteLengthParams {
@@ -3200,56 +4818,6 @@ export type GetPoolsData = LynexAPIResponse;
 
 export type GetPoolsResult = RamsesAPIResponse;
 
-export type GetPortfolioStatusData = PortfolioAPIResponse;
-
-export type GetPreviewDepositData = ERC4626APIResponse;
-
-export interface GetPreviewDepositParams {
-	account: string;
-	address: string;
-	assets: string;
-	chainId: string;
-}
-
-export type GetPreviewMintData = ERC4626APIResponse;
-
-export interface GetPreviewMintParams {
-	account: string;
-	address: string;
-	chainId: string;
-	shares: string;
-}
-
-export type GetPreviewRedeemData = ERC4626APIResponse;
-
-export interface GetPreviewRedeemParams {
-	account: string;
-	address: string;
-	chainId: string;
-	shares: string;
-}
-
-export type GetPreviewWithdrawData = ERC4626APIResponse;
-
-export interface GetPreviewWithdrawParams {
-	account: string;
-	address: string;
-	assets: string;
-	chainId: string;
-}
-
-export type GetPriceOracleData = PoolAddressProviderAPIResponseString;
-
-export interface GetPriceOracleParams {
-	account: string;
-	address: string;
-	chainId: string;
-}
-
-export type GetPriceSnapshotData = PriceSnapshotAPIResponse;
-
-export type GetPricesData = PricesAPIResponse;
-
 export type GetPricesHistoryData = PolymarketAPIResponseMarketPriceArray;
 
 export interface GetPricesHistoryParams {
@@ -3265,53 +4833,9 @@ export interface GetPricesHistoryParams {
 	startTs?: number;
 }
 
-export interface GetPricesParams {
-	end_date: string;
-	interval: PriceInterval;
-	/** @format double */
-	interval_multiplier: number;
-	/** @format double */
-	limit?: number;
-	start_date: string;
-	ticker: string;
-}
+export type GetQuoteData = ThorSwapAPIResponseQuote;
 
-export type GetProgramIdToLabelData = JupiterAPIResponseRecordStringString;
-
-export type GetQuoteData = JupiterAPIResponseJupiterExecuteFunctionResult;
-
-export type GetQuoteOutput = OdosAPIResponseOdosExecuteFunctionResult;
-
-export interface GetQuoteParams1 {
-	allowBridges?: string[];
-	allowExchanges?: string[];
-	denyBridges?: string[];
-	denyExchanges?: string[];
-	/** @format double */
-	fee?: number;
-	fromAddress: string;
-	fromAmount: string;
-	fromChain: string;
-	fromToken: string;
-	integrator?: string;
-	order?: OrderEnum;
-	preferBridges?: string[];
-	preferExchanges?: string[];
-	referrer?: string;
-	/** @format double */
-	slippage?: number;
-	toAddress?: string;
-	toChain: string;
-	toToken: string;
-}
-
-export enum GetQuoteParams2OrderEnum {
-	BEST_VALUE = "BEST_VALUE",
-	BEST_FEE = "BEST_FEE",
-	BEST_FEE_GAS = "BEST_FEE_GAS",
-}
-
-export interface GetQuoteParams4 {
+export interface GetQuoteParams {
 	affiliateAddress?: string;
 	/** @format double */
 	affiliateBasisPoints?: number;
@@ -3331,27 +4855,6 @@ export interface GetQuoteParams4 {
 	slippage?: number;
 }
 
-export type GetQuoteResult = ApiResponseQuote;
-
-export type GetQuoteResult1 = ThorSwapAPIResponseQuote;
-
-export type GetReserveDataData = AavePoolAPIResponseAny;
-
-export interface GetReserveDataParams {
-	account: string;
-	address: string;
-	asset: string;
-	chainId: string;
-}
-
-export interface GetReserveDataParams2 {
-	address: string;
-	asset: string;
-	chainId: string;
-}
-
-export type GetReserveDataResult = LendingPoolAPIResponseAny;
-
 export type GetReservesData =
 	RamsesRouterAPIResponseReserve03AstringReserve13Astring;
 
@@ -3364,31 +4867,6 @@ export interface GetReservesDataParams {
 	provider: string;
 }
 
-export type GetReservesIncentivesDataData =
-	AAVEv3UiIncentiveDataProviderAPIResponseAggregatedReserveIncentiveDataArray;
-
-export interface GetReservesIncentivesDataParams {
-	chain_id: string;
-	contract_address: string;
-	provider: string;
-}
-
-export type GetReservesListData =
-	AAVEv3UiPoolDataProviderAPIResponseStringArray;
-
-export interface GetReservesListParams {
-	chain_id: string;
-	contract_address: string;
-	provider: string;
-}
-
-export interface GetReservesListParams2 {
-	address: string;
-	chainId: string;
-}
-
-export type GetReservesListResult = LendingPoolAPIResponseStringArray;
-
 export interface GetReservesParams {
 	address: string;
 	chainId: string;
@@ -3397,86 +4875,38 @@ export interface GetReservesParams {
 	tokenB: string;
 }
 
-export type GetRewardsByAssetData = AAVEv3RewardsAPIResponseStringArray;
-
-export interface GetRewardsByAssetParams {
-	account: string;
-	address: string;
-	asset: string;
-	chainId: string;
-}
-
-export type GetRewardsDataData = AAVEv3RewardsAPIResponseStringArray;
-
-export interface GetRewardsDataParams {
-	account: string;
-	address: string;
-	asset: string;
-	chainId: string;
-	reward: string;
-}
-
 export type GetRippleAccountData = AccountAPIResponse;
-
-export type GetRoleAdminData = LeveragerAPIResponseString;
-
-export interface GetRoleAdminParams {
-	address: string;
-	chainId: string;
-	role: string;
-}
-
-export type GetRouterAddressData = OdosAPIResponseOdosExecuteFunctionResult;
-
-export interface GetRouterAddressParams {
-	/** @format double */
-	chainId: number;
-	version: VersionEnum1;
-}
-
-export enum GetRouterAddressParams1VersionEnum {
-	V2 = "v2",
-}
 
 export type GetScheduledJobsData = MultiCallAPIResponseAnyArray;
 
-export type GetSegmentedRevenuesData = SegmentedRevenuesAPIResponse;
-
-export interface GetSegmentedRevenuesParams {
-	cik?: string;
-	/** @format double */
-	limit?: number;
-	period: PeriodEnum3;
-	ticker: string;
-}
-
-export enum GetSegmentedRevenuesParams1PeriodEnum {
-	Annual = "annual",
-	Quarterly = "quarterly",
-}
-
 export type GetSolanaAccountData = AccountAPIResponse;
 
-export type GetSupportedChainsData = OdosAPIResponseOdosExecuteFunctionResult;
+export type GetSupportedChainsData = ThorSwapAPIResponseStringArray;
 
-export interface GetSupportedChainsParams1 {
+export interface GetSupportedChainsParams {
 	address: string;
 	chainId: string;
 }
 
-export type GetSupportedChainsResult = ThorSwapAPIResponseStringArray;
-
+/** Represents the response from the GetSupportedOnRamps API. */
 export interface GetSupportedOnRampsResponse {
+	/** An array of supported on-ramp objects. */
 	message: {
+		/** The display name of the on-ramp. */
 		displayName: string;
+		/** The on-ramp service. */
 		icon: string;
+		/** The URL of the icon for the on-ramp. */
 		icons: {
+			/** An object containing different sizes of the PNG format of the icon. */
 			png: {
 				"160x160": string;
 				"32x32": string;
 			};
+			/** The URL of the SVG format of the icon. */
 			svg: string;
 		};
+		/** The unique identifier of the on-ramp. */
 		id: string;
 	}[];
 }
@@ -3488,30 +4918,12 @@ export interface GetSupportedProvidersParams {
 	chainId: string;
 }
 
-export type GetSupportedTokensData = OdosAPIResponseOdosExecuteFunctionResult;
-
-export interface GetSupportedTokensParams {
-	/** @format double */
-	chainId: number;
-}
-
-export type GetSwapInstructionsData =
-	JupiterAPIResponseJupiterExecuteFunctionResult;
-
-export type GetSymbolData = ERC20APIResponseString;
+export type GetSymbolData = LynexNFTAPIResponseString;
 
 export interface GetSymbolParams {
-	account: string;
 	address: string;
 	chainId: string;
 }
-
-export interface GetSymbolParams2 {
-	address: string;
-	chainId: string;
-}
-
-export type GetSymbolResult = LynexNFTAPIResponseString;
 
 export type GetTokenByIndexData = LynexNFTAPIResponseString;
 
@@ -3521,14 +4933,7 @@ export interface GetTokenByIndexParams {
 	index: string;
 }
 
-export type GetTokenMetadataData = TokenMetadataAPIResponse;
-
 export type GetTokenMetadataJSONResponse = SuccessResponse249;
-
-export interface GetTokenMetadataParams {
-	addresses: string[];
-	chain: string;
-}
 
 export type GetTokenOfOwnerByIndexData = LynexNFTAPIResponseString;
 
@@ -3563,13 +4968,12 @@ export interface GetTokenUriParams4 {
 
 export type GetTokenUriResult = RamsesNFTAPIResponseString;
 
-export type GetTokensData = JupiterAPIResponseStringArray;
-
-export type GetTokensResult = RamsesAPIResponse;
+export type GetTokensData = RamsesAPIResponse;
 
 export type GetToolsData = ApiResponseToolsResponse;
 
 export interface GetToolsParams {
+	/** - Optional query parameter specifying the chains to filter tools. */
 	chains?: string;
 }
 
@@ -3608,14 +5012,6 @@ export interface GetTopTokensParams {
 	limit?: number;
 }
 
-export type GetTotalAssetsData = ERC4626APIResponse;
-
-export interface GetTotalAssetsParams {
-	account: string;
-	address: string;
-	chainId: string;
-}
-
 export type GetTotalNftsMintedData = LynexNFTAPIResponseString;
 
 export interface GetTotalNftsMintedParams {
@@ -3639,20 +5035,16 @@ export interface GetTotalSupplyAtTParams {
 	t: string;
 }
 
-export type GetTotalSupplyData = ERC20APIResponseString;
+export type GetTotalSupplyData = LynexNFTAPIResponseString;
 
-export type GetTotalSupplyData1 = RamsesNFTAPIResponseString;
-
-export type GetTotalSupplyOutput = LynexNFTAPIResponseString;
+export type GetTotalSupplyOutput = VeTheNFTAPIResponseString;
 
 export interface GetTotalSupplyParams {
-	account: string;
 	address: string;
 	chainId: string;
 }
 
 export interface GetTotalSupplyParams2 {
-	account: string;
 	address: string;
 	chainId: string;
 }
@@ -3662,19 +5054,7 @@ export interface GetTotalSupplyParams4 {
 	chainId: string;
 }
 
-export interface GetTotalSupplyParams6 {
-	address: string;
-	chainId: string;
-}
-
-export interface GetTotalSupplyParams8 {
-	address: string;
-	chainId: string;
-}
-
-export type GetTotalSupplyResult = ERC4626APIResponse;
-
-export type GetTotalSupplyResult1 = VeTheNFTAPIResponseString;
+export type GetTotalSupplyResult = RamsesNFTAPIResponseString;
 
 export type GetTotalValueLockedData = LynexAPIResponse;
 
@@ -3717,25 +5097,6 @@ export interface GetTradesParams {
 	nextCursor?: string;
 }
 
-export type GetTronAccountData = AccountAPIResponse;
-
-export type GetUserAccountDataData = AavePoolAPIResponseAny;
-
-export interface GetUserAccountDataParams {
-	account: string;
-	address: string;
-	chainId: string;
-	user: string;
-}
-
-export interface GetUserAccountDataParams2 {
-	address: string;
-	chainId: string;
-	user: string;
-}
-
-export type GetUserAccountDataResult = LendingPoolAPIResponseAny;
-
 export type GetUserPointHistoryData = VeTheNFTAPIResponseUserPointHistoryData;
 
 export interface GetUserPointHistoryParams {
@@ -3752,63 +5113,6 @@ export interface GetUserPointHistoryTsParams {
 	chainId: string;
 	idx: string;
 	tokenId: string;
-}
-
-export type GetUserPortfolioData = PortfolioAPIResponse;
-
-export interface GetUserPortfolioParams {
-	address: string;
-	/**
-	 * @format double
-	 * @default 1
-	 */
-	page?: number;
-	/**
-	 * @format double
-	 * @default 100
-	 */
-	pageSize?: number;
-}
-
-export type GetUserReservesDataData =
-	AAVEv3UiPoolDataProviderAPIResponseUserReserveDataArray;
-
-export interface GetUserReservesDataParams {
-	chain_id: string;
-	contract_address: string;
-	provider: string;
-	user: string;
-}
-
-export type GetUserReservesIncentivesDataData =
-	AAVEv3UiIncentiveDataProviderAPIResponseUserReserveIncentiveDataArray;
-
-export interface GetUserReservesIncentivesDataParams {
-	chain_id: string;
-	contract_address: string;
-	provider: string;
-	user: string;
-}
-
-export type GetUserRewardsData = AAVEv3RewardsAPIResponseString;
-
-export interface GetUserRewardsParams {
-	account: string;
-	address: string;
-	assets: string[];
-	chainId: string;
-	reward: string;
-	user: string;
-}
-
-export type GetUserWalletBalancesData =
-	AAVEv3WalletBalanceProviderAPIResponseTokensStringArrayBalancesStringArray;
-
-export interface GetUserWalletBalancesParams {
-	chain_id: string;
-	contract_address: string;
-	provider: string;
-	user: string;
 }
 
 export type GetVestedPayoutAtTimeData = LynexNFTAPIResponseString;
@@ -3868,21 +5172,6 @@ export interface GetVotesParams4 {
 
 export type GetVotesResult = RamsesNFTAPIResponseString;
 
-export type GetWalletBalanceData = WalletBalanceAPIResponse;
-
-export interface GetWalletBalanceParams {
-	address: string;
-	chain: string;
-	excludeNative?: boolean;
-}
-
-export type GetWalletHistoryData = WalletHistoryAPIResponse;
-
-export interface GetWalletHistoryParams {
-	address: string;
-	chain: string;
-}
-
 export type GetWeightsData = LynexVoterAPIResponseString;
 
 export type GetWeightsOutput = VeTheNftVoterAPIResponseString;
@@ -3907,9 +5196,9 @@ export interface GetWeightsParams4 {
 
 export type GetWeightsResult = RamsesVoterAPIResponseString;
 
-export type GetWethData = LeveragerAPIResponseString;
+export type GetWethData = LynexRouterAPIResponseString;
 
-export type GetWethOutput = RamsesRouterAPIResponseString;
+export type GetWethOutput = UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
 
 export interface GetWethParams {
 	address: string;
@@ -3922,109 +5211,165 @@ export interface GetWethParams2 {
 }
 
 export interface GetWethParams4 {
-	address: string;
-	chainId: string;
-}
-
-export interface GetWethParams6 {
 	account: string;
 	address: string;
 	chainId: string;
 }
 
-export type GetWethResult = LynexRouterAPIResponseString;
-
-export type GetWethResult1 = UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
+export type GetWethResult = RamsesRouterAPIResponseString;
 
 export type GetZapQuoteData = OdosAPIResponseOdosExecuteFunctionResult;
-
-export type GetstatusData = ApiResponseStatusResponse;
-
-export interface GetstatusParams {
-	txHash: string;
-}
 
 export type GlobalCheckpointData =
 	LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
-export type GrantRoleData = LeveragerAPIResponseLeveragerExecuteFunctionResult;
-
-export type HasRoleData = LeveragerAPIResponseBoolean;
-
-export interface HasRoleParams {
-	account: string;
-	address: string;
-	chainId: string;
-	role: string;
-}
-
+/** Interface representing the incentive data for a token. */
 export interface IncentiveData {
+	/** The address of the incentive controller. */
 	incentiveControllerAddress: string;
+	/** An array of reward information objects. */
 	rewardsTokenInformation: RewardInfo[];
+	/** The address of the token. */
 	tokenAddress: string;
 }
 
+/** Represents an income statement for a financial entity. */
 export interface IncomeStatement {
+	/** The calendar date of the income statement. */
 	calendar_date: string;
-	/** @format double */
+	/**
+	 * The consolidated income of the company.
+	 * @format double
+	 */
 	consolidated_income: number;
-	/** @format double */
+	/**
+	 * The cost associated with generating the revenue.
+	 * @format double
+	 */
 	cost_of_revenue: number;
+	/** The currency in which the financials are reported. */
 	currency: string;
-	/** @format double */
+	/**
+	 * The dividends paid per common share.
+	 * @format double
+	 */
 	dividends_per_common_share: number;
-	/** @format double */
+	/**
+	 * The earnings per share of the company.
+	 * @format double
+	 */
 	earnings_per_share: number;
-	/** @format double */
+	/**
+	 * The diluted earnings per share of the company.
+	 * @format double
+	 */
 	earnings_per_share_diluted: number;
-	/** @format double */
+	/**
+	 * Earnings before interest and taxes.
+	 * @format double
+	 */
 	ebit: number;
-	/** @format double */
+	/**
+	 * The gross profit, calculated as revenue minus cost of revenue.
+	 * @format double
+	 */
 	gross_profit: number;
-	/** @format double */
+	/**
+	 * The income tax expense incurred by the company.
+	 * @format double
+	 */
 	income_tax_expense: number;
-	/** @format double */
+	/**
+	 * The interest expense incurred by the company.
+	 * @format double
+	 */
 	interest_expense: number;
-	/** @format double */
+	/**
+	 * The net income of the company.
+	 * @format double
+	 */
 	net_income: number;
-	/** @format double */
+	/**
+	 * The net income attributable to common stockholders.
+	 * @format double
+	 */
 	net_income_common_stock: number;
-	/** @format double */
+	/**
+	 * The net income from discontinued operations.
+	 * @format double
+	 */
 	net_income_discontinued_operations: number;
-	/** @format double */
+	/**
+	 * The net income attributable to non-controlling interests.
+	 * @format double
+	 */
 	net_income_non_controlling_interests: number;
-	/** @format double */
+	/**
+	 * The total operating expenses of the company.
+	 * @format double
+	 */
 	operating_expense: number;
-	/** @format double */
+	/**
+	 * The operating income, calculated as gross profit minus operating expenses.
+	 * @format double
+	 */
 	operating_income: number;
+	/** The period type of the income statement, which can be "quarterly", "ttm" (trailing twelve months), or "annual". */
 	period: IncomeStatementPeriodEnum;
-	/** @format double */
+	/**
+	 * The impact of preferred dividends on net income.
+	 * @format double
+	 */
 	preferred_dividends_impact: number;
+	/** The reporting period of the income statement. */
 	report_period: string;
-	/** @format double */
+	/**
+	 * The expenses related to research and development activities.
+	 * @format double
+	 */
 	research_and_development: number;
-	/** @format double */
+	/**
+	 * The total revenue generated by the company.
+	 * @format double
+	 */
 	revenue: number;
-	/** @format double */
+	/**
+	 * The expenses related to selling, general, and administrative activities.
+	 * @format double
+	 */
 	selling_general_and_administrative_expenses: number;
+	/** The ticker symbol of the company. */
 	ticker: string;
-	/** @format double */
+	/**
+	 * The weighted average number of shares outstanding.
+	 * @format double
+	 */
 	weighted_average_shares: number;
-	/** @format double */
+	/**
+	 * The weighted average number of diluted shares outstanding.
+	 * @format double
+	 */
 	weighted_average_shares_diluted: number;
 }
 
+/** The period type of the income statement, which can be "quarterly", "ttm" (trailing twelve months), or "annual". */
 export enum IncomeStatementPeriodEnum {
 	Quarterly = "quarterly",
 	Ttm = "ttm",
 	Annual = "annual",
 }
 
+/** Represents the response of the `getIncomeStatements` endpoint. */
 export interface IncomeStatementsAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The income statement data. */
 	data?: IncomeStatement[];
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
 
@@ -4049,124 +5394,216 @@ export type IncreaseUnlockTimeOutput =
 export type IncreaseUnlockTimeResult =
 	RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 
+/** Represents the body of an input request. */
 export interface InputBody {
+	/** Whether the transaction is from an externally owned account. */
 	EOA?: boolean;
+	/** The access list for the transaction. */
 	accessList?: AccessTuple[];
+	/** The account involved in the transaction. */
 	account?: string;
+	/** Whether to always increment the nonce. */
 	alwaysIncrementNonce?: boolean;
+	/** The amount involved in the transaction. */
 	amount?: string;
+	/** The amounts involved in the transaction. */
 	amounts?: string[];
+	/** Whether the transaction is approved. */
 	approved?: boolean;
+	/** The asset involved in the transaction. */
 	asset?: string;
+	/** The assets involved in the transaction. */
 	assets?: string[];
+	/** The gas for blob transactions. */
 	blobGas?: string;
+	/** The gas fee cap for blob transactions. */
 	blobGasFeeCap?: string;
+	/** The hashes for blob transactions. */
 	blobHashes?: string[];
+	/** The borrow amount. */
 	borrowAmount?: string | number;
+	/** Whether to broadcast the transaction. */
 	broadcast?: boolean;
+	/** The chain ID. */
 	chain_id?: string;
+	/** The collateral asset. */
 	collateralAsset?: string;
+	/** The contract address. */
 	contract_address?: string;
+	/** The data to be sent. */
 	data?: string;
+	/** The debt asset. */
 	debtAsset?: string;
+	/** The debt to cover. */
 	debtToCover?: string;
+	/** Whether to perform a dry run. */
 	dryrun?: boolean;
+	/** The encoding type. */
 	encoding?: string;
+	/** The gas for the transaction. */
 	gas?: string;
+	/** The gas limit for the transaction. */
 	gasLimit?: string;
+	/** The gas price for the transaction. */
 	gasPrice?: string;
+	/** The initial deposit. */
 	initialDeposit?: string | number;
+	/** The initiator of the transaction. */
 	initiator?: string;
+	/** The input data. */
 	input?: string;
+	/** The input tokens. */
 	inputTokens?: TokenAmount[];
-	/** @format double */
+	/**
+	 * The interest rate mode.
+	 * @format double
+	 */
 	interestRateMode?: number;
+	/** The maximum fee per gas. */
 	maxFeePerGas?: string;
+	/** The maximum priority fee per gas. */
 	maxPriorityFeePerGas?: string;
+	/** The minimum health factor. */
 	minHealthFactor?: string | number;
+	/** The modes of the transaction. */
 	modes?: number[];
+	/** The nonce for the transaction. */
 	nonce?: string;
+	/** The address on behalf of which the transaction is made. */
 	onBehalfOf?: string;
+	/** The output tokens. */
 	outputTokens?: TokenProportion[];
+	/** Additional parameters. */
 	params?: string;
+	/** The premiums. */
 	premiums?: string[] | number[];
-	/** @format double */
+	/**
+	 * The rate mode.
+	 * @format double
+	 */
 	rateMode?: number;
+	/** Whether to receive a token. */
 	receiveAToken?: boolean;
+	/** The receiver address. */
 	receiverAddress?: string;
-	/** @format double */
+	/**
+	 * The referral code.
+	 * @format double
+	 */
 	referralCode?: number;
+	/** The role of the user. */
 	role?: string;
+	/** Whether to simulate the transaction. */
 	simulate?: boolean;
-	/** @format double */
+	/**
+	 * The slippage limit percentage.
+	 * @format double
+	 */
 	slippageLimitPercent?: number;
+	/** The recipient address. */
 	to?: string;
+	/** The token ID. */
 	token_id?: string;
+	/** The token IDs. */
 	token_ids?: string;
-	/** @format double */
+	/**
+	 * The type of transaction.
+	 * @format double
+	 */
 	type?: number;
+	/** Whether to use as collateral. */
 	useAsCollateral?: boolean;
+	/** The user involved in the transaction. */
 	user?: string;
+	/** The value to be sent. */
 	value?: string;
 }
 
+/** Represents an insider transaction for a financial dataset. */
 export interface InsiderTransaction {
+	/** The date the transaction was filed. */
 	filing_date: string;
+	/** Indicates if the insider is a board director. */
 	is_board_director: boolean;
+	/** The issuer of the security. */
 	issuer: string;
+	/** The name of the insider. */
 	name: string;
+	/** The title of the security involved in the transaction. */
 	security_title: string;
-	/** @format double */
+	/**
+	 * The number of shares owned after the transaction.
+	 * @format double
+	 */
 	shares_owned_after_transaction: number;
-	/** @format double */
+	/**
+	 * The number of shares owned before the transaction.
+	 * @format double
+	 */
 	shares_owned_before_transaction: number;
+	/** The ticker symbol of the company. */
 	ticker: string;
+	/** The title of the insider. */
 	title: string;
+	/** The date of the transaction. */
 	transaction_date: string;
-	/** @format double */
+	/**
+	 * The price per share at which the transaction occurred.
+	 * @format double
+	 */
 	transaction_price_per_share: number;
-	/** @format double */
+	/**
+	 * The number of shares involved in the transaction.
+	 * @format double
+	 */
 	transaction_shares: number;
-	/** @format double */
+	/**
+	 * The total value of the transaction.
+	 * @format double
+	 */
 	transaction_value: number;
 }
 
+/** Represents the response of the `getInsiderTransactions` endpoint. */
 export interface InsiderTransactionsAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The insider transaction data. */
 	data?: InsiderTransaction[];
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
 
-export type IsApprovedForAllData = TransactionAPIResponse;
+export type IsApprovedForAllData = LynexNFTAPIResponseBoolean;
 
-export type IsApprovedForAllOutput = UniswapV3NFTAPIResponseBoolean;
+export type IsApprovedForAllOutput = VeTheNFTAPIResponseBoolean;
 
-export interface IsApprovedForAllParams1 {
+export interface IsApprovedForAllParams {
 	address: string;
 	chainId: string;
 	operator: string;
 	owner: string;
 }
 
-export interface IsApprovedForAllParams3 {
+export interface IsApprovedForAllParams2 {
 	address: string;
 	chainId: string;
 	operator: string;
 	owner: string;
 }
 
-export interface IsApprovedForAllParams5 {
+export interface IsApprovedForAllParams4 {
 	address: string;
 	chainId: string;
 	operator: string;
 	owner: string;
 }
 
-export type IsApprovedForAllResult = LynexNFTAPIResponseBoolean;
-
-export type IsApprovedForAllResult1 = VeTheNFTAPIResponseBoolean;
+export type IsApprovedForAllResult = UniswapV3NFTAPIResponseBoolean;
 
 export type IsGaugeData = LynexVoterAPIResponseBoolean;
 
@@ -4199,20 +5636,6 @@ export interface IsPairParams {
 	chainId: string;
 	pair: string;
 }
-
-export type IsPausedData = LendingPoolAPIResponseBoolean;
-
-export interface IsPausedParams {
-	address: string;
-	chainId: string;
-}
-
-export interface IsPausedParams2 {
-	address: string;
-	chainId: string;
-}
-
-export type IsPausedResult = LeveragerAPIResponseBoolean;
 
 export type IsWhitelistedData = LynexVoterAPIResponseBoolean;
 
@@ -4253,41 +5676,85 @@ export interface Jobs {
 
 export type Json = string | number | boolean | null;
 
+/** Represents the structure of a response from the Jupiter API. */
 export interface JupiterAPIResponseAny {
+	/** Optional data returned by the API. The type of this property is determined by the generic type parameter `T`. */
 	data?: any;
+	/** A message providing additional information about the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Represents the structure of a response from the Jupiter API. */
 export interface JupiterAPIResponseJupiterExecuteFunctionResult {
+	/** Optional data returned by the API. The type of this property is determined by the generic type parameter `T`. */
 	data?: JupiterExecuteFunctionResult;
+	/** A message providing additional information about the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Represents the structure of a response from the Jupiter API. */
 export interface JupiterAPIResponseRecordStringString {
-	/** Construct a type with a set of properties K of type T */
+	/** Optional data returned by the API. The type of this property is determined by the generic type parameter `T`. */
 	data?: RecordStringString;
+	/** A message providing additional information about the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Represents the structure of a response from the Jupiter API. */
 export interface JupiterAPIResponseStringArray {
+	/** Optional data returned by the API. The type of this property is determined by the generic type parameter `T`. */
 	data?: string[];
+	/** A message providing additional information about the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Represents the result of executing a function in the Jupiter system. */
 export interface JupiterExecuteFunctionResult {
+	/** Additional data returned by the function execution. */
 	data?: any;
+	/** The name of the function that was executed. */
 	function: string;
+	/** The Jupiter-specific data related to the execution. */
 	jupiter?: any;
+	/** A message providing additional information about the execution result. */
 	message?: string;
+	/** The parameters passed to the function. */
 	params: any[];
+	/** Indicates whether the function execution was successful. */
 	success?: boolean;
+	/** The transaction object associated with the execution. */
 	transaction?: any;
+	/** The hash of the transaction associated with the */
 	transactionHash?: string;
 }
+
+export type JupiterGetIndexedRouteMapData = JupiterAPIResponseAny;
+
+export interface JupiterGetIndexedRouteMapParams {
+	/** - A boolean value indicating whether to only include direct routes in the map. */
+	onlyDirectRoutes?: boolean;
+}
+
+export type JupiterGetProgramIdToLabelData =
+	JupiterAPIResponseRecordStringString;
+
+export type JupiterGetQuoteData =
+	JupiterAPIResponseJupiterExecuteFunctionResult;
+
+export type JupiterGetSwapInstructionsData =
+	JupiterAPIResponseJupiterExecuteFunctionResult;
+
+export type JupiterGetTokensData = JupiterAPIResponseStringArray;
+
+export type JupiterSwapData = JupiterAPIResponseJupiterExecuteFunctionResult;
 
 export type KillGaugeData =
 	LynexVoterAPIResponseLynexVoterExecuteFunctionResult;
@@ -4306,138 +5773,359 @@ export interface LastVotedParams {
 	tokenId: string;
 }
 
+/** Represents the structure of the API response for the Lending Pool. */
 export interface LendingPoolAPIResponseAny {
+	/** Contains the data returned by the API, if any. */
 	data?: any;
+	/** Provides a message related to the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Represents the structure of the API response for the Lending Pool. */
 export interface LendingPoolAPIResponseBoolean {
+	/** Contains the data returned by the API, if any. */
 	data?: boolean;
+	/** Provides a message related to the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Represents the structure of the API response for the Lending Pool. */
 export interface LendingPoolAPIResponseLendingPoolExecuteFunctionResult {
+	/** Contains the data returned by the API, if any. */
 	data?: LendingPoolExecuteFunctionResult;
+	/** Provides a message related to the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Represents the structure of the API response for the Lending Pool. */
 export interface LendingPoolAPIResponseNumber {
-	/** @format double */
+	/**
+	 * Contains the data returned by the API, if any.
+	 * @format double
+	 */
 	data?: number;
+	/** Provides a message related to the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Represents the structure of the API response for the Lending Pool. */
 export interface LendingPoolAPIResponseString {
+	/** Contains the data returned by the API, if any. */
 	data?: string;
+	/** Provides a message related to the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Represents the structure of the API response for the Lending Pool. */
 export interface LendingPoolAPIResponseStringArray {
+	/** Contains the data returned by the API, if any. */
 	data?: string[];
+	/** Provides a message related to the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+export type LendingPoolBorrowData =
+	LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
+
+export type LendingPoolDepositData =
+	LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
+
+/** Represents the result of executing a function on the lending pool. */
 export interface LendingPoolExecuteFunctionResult {
+	/** Optional response from broadcasting the raw transaction. */
 	broadcasted?: BroadCastRawTransactionResponse;
+	/** Optional transaction data. */
 	data?: Transaction;
+	/** The name of the executed function. */
 	function: string;
+	/** Optional message providing additional information about the execution result. */
 	message?: string;
+	/** The parameters passed to the executed function. */
 	params: any[];
-	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	/** Optional response from simulating asset changes. */
 	simulation?: SimulateAssetChangesResponse;
+	/** Optional flag indicating if the function execution was successful. */
 	success?: boolean;
+	/** The transaction details of the executed function. */
 	transaction: LendingPoolTransaction;
+	/** Optional user operation identifier. */
 	user_op?: string;
 }
 
+export type LendingPoolFlashLoanData =
+	LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
+
+export type LendingPoolGetAddressesProviderData = LendingPoolAPIResponseString;
+
+export interface LendingPoolGetAddressesProviderParams {
+	/** - The address query parameter. */
+	address: string;
+	/** - The chain ID query parameter. */
+	chainId: string;
+}
+
+export type LendingPoolGetFlashLoanPremiumTotalData =
+	LendingPoolAPIResponseNumber;
+
+export interface LendingPoolGetFlashLoanPremiumTotalParams {
+	/** - The address of the lending pool. */
+	address: string;
+	/** - The chain ID of the blockchain network. */
+	chainId: string;
+}
+
+export type LendingPoolGetLendingPoolRevisionData =
+	LendingPoolAPIResponseNumber;
+
+export interface LendingPoolGetLendingPoolRevisionParams {
+	/** - The address of the lending pool. */
+	address: string;
+	/** - The chain ID where the lending pool is located. */
+	chainId: string;
+}
+
+export type LendingPoolGetMaxNumberReservesData = LendingPoolAPIResponseNumber;
+
+export interface LendingPoolGetMaxNumberReservesParams {
+	/** - The address of the lending pool. */
+	address: string;
+	/** - The chain ID where the lending pool is located. */
+	chainId: string;
+}
+
+export type LendingPoolGetMaxStableRateBorrowSizePercentData =
+	LendingPoolAPIResponseNumber;
+
+export interface LendingPoolGetMaxStableRateBorrowSizePercentParams {
+	/** - The address of the lending pool. */
+	address: string;
+	/** - The chain ID of the blockchain network. */
+	chainId: string;
+}
+
+export type LendingPoolGetReserveDataData = LendingPoolAPIResponseAny;
+
+export interface LendingPoolGetReserveDataParams {
+	/** - The address of the lending pool. */
+	address: string;
+	/** - The asset for which to retrieve reserve data. */
+	asset: string;
+	/** - The chain ID of the blockchain network. */
+	chainId: string;
+}
+
+export type LendingPoolGetReservesListData = LendingPoolAPIResponseStringArray;
+
+export interface LendingPoolGetReservesListParams {
+	/** - The address of the lending pool. */
+	address: string;
+	/** - The chain ID of the blockchain network. */
+	chainId: string;
+}
+
+export type LendingPoolGetUserAccountDataData = LendingPoolAPIResponseAny;
+
+export interface LendingPoolGetUserAccountDataParams {
+	/** - The address of the lending pool. */
+	address: string;
+	/** - The chain ID of the blockchain network. */
+	chainId: string;
+	/** - The user address for which to retrieve account data. */
+	user: string;
+}
+
+/**
+ * Interface representing the input body for LendingPool operations.
+ * Extends the InputBody interface.
+ */
 export interface LendingPoolInputBody {
+	/** Flag indicating if the operation is performed by an Externally Owned Account. */
 	EOA?: boolean;
+	/** The access list for the transaction. */
 	accessList?: AccessTuple[];
+	/** The account involved in the transaction. */
 	account?: string;
+	/** Flag indicating if the nonce should always be incremented. */
 	alwaysIncrementNonce?: boolean;
+	/** The amount involved in the operation. */
 	amount?: string;
+	/** Array of amounts involved in the operation. */
 	amounts?: string[];
+	/** Whether the transaction is approved. */
 	approved?: boolean;
+	/** The asset involved in the operation. */
 	asset?: string;
+	/** Array of assets involved in the operation. */
 	assets?: string[];
+	/** The gas for blob transactions. */
 	blobGas?: string;
+	/** The gas fee cap for blob transactions. */
 	blobGasFeeCap?: string;
+	/** The hashes for blob transactions. */
 	blobHashes?: string[];
+	/** The borrow amount. */
 	borrowAmount?: string | number;
+	/** Flag indicating if the transaction should be broadcasted. */
 	broadcast?: boolean;
+	/** The chain ID. */
 	chain_id?: string;
+	/** The collateral asset. */
 	collateralAsset?: string;
+	/** The contract address involved in the operation. */
 	contract_address?: string;
+	/** Additional data for the operation. */
 	data?: string;
+	/** The debt asset. */
 	debtAsset?: string;
+	/** The debt to cover. */
 	debtToCover?: string;
+	/** Flag indicating if the operation is a dry run. */
 	dryrun?: boolean;
+	/** The encoding type. */
 	encoding?: string;
+	/** The gas for the transaction. */
 	gas?: string;
+	/** The gas limit for the transaction. */
 	gasLimit?: string;
+	/** The gas price for the transaction. */
 	gasPrice?: string;
+	/** The initial deposit. */
 	initialDeposit?: string | number;
+	/** The initiator of the transaction. */
 	initiator?: string;
+	/** The input data. */
 	input?: string;
+	/** The input tokens. */
 	inputTokens?: TokenAmount[];
-	/** @format double */
+	/**
+	 * The interest rate mode.
+	 * @format double
+	 */
 	interestRateMode?: number;
+	/** The maximum fee per gas. */
 	maxFeePerGas?: string;
+	/** The maximum priority fee per gas. */
 	maxPriorityFeePerGas?: string;
+	/** The minimum health factor. */
 	minHealthFactor?: string | number;
+	/** Array of modes involved in the operation. */
 	modes?: number[];
+	/** The nonce for the transaction */
 	nonce?: string;
+	/** The address on behalf of which the operation is performed. */
 	onBehalfOf?: string;
+	/** The output tokens. */
 	outputTokens?: TokenProportion[];
+	/** Additional parameters for the operation. */
 	params?: string;
+	/** The premiums. */
 	premiums?: string[] | number[];
-	/** @format double */
+	/**
+	 * The rate mode for the operation.
+	 * @format double
+	 */
 	rateMode?: number;
+	/** Flag indicating if AToken should be received. */
 	receiveAToken?: boolean;
+	/** The address of the receiver. */
 	receiverAddress?: string;
-	/** @format double */
+	/**
+	 * The referral code.
+	 * @format double
+	 */
 	referralCode?: number;
+	/** The role of the user. */
 	role?: string;
+	/** Flag indicating if the operation should be simulated. */
 	simulate?: boolean;
-	/** @format double */
+	/**
+	 * The slippage limit percentage.
+	 * @format double
+	 */
 	slippageLimitPercent?: number;
+	/** The address to which the operation is directed. */
 	to?: string;
+	/** The token ID. */
 	token_id?: string;
+	/** The token IDs. */
 	token_ids?: string;
-	/** @format double */
+	/**
+	 * The type of transaction.
+	 * @format double
+	 */
 	type?: number;
+	/** Flag indicating if the asset should be used as collateral. */
 	useAsCollateral?: boolean;
+	/** The user involved in the operation. */
 	user?: string;
+	/** The value involved in the operation. */
 	value?: string;
 }
 
-export interface LendingPoolTransaction {
+export type LendingPoolIsPausedData = LendingPoolAPIResponseBoolean;
+
+export interface LendingPoolIsPausedParams {
+	/** - The address of the lending pool from the query parameters. */
+	address: string;
+	/** - The chain ID of the lending pool from the query parameters. */
 	chainId: string;
-	data: string;
-	from: string;
-	gasLimit?: string;
-	gasPrice?: string;
-	maxFeePerGas?: string;
-	maxPriorityFeePerGas?: string;
-	/** @format double */
-	nonce: number;
-	to: string;
-	/** @format double */
-	type?: number;
-	value: string;
 }
 
-export type LeverageErc20Data =
-	LeveragerAPIResponseLeveragerExecuteFunctionResult;
+export type LendingPoolLiquidationCallData =
+	LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
 
-export type LeverageNativeData =
-	LeveragerAPIResponseLeveragerExecuteFunctionResult;
+export type LendingPoolRepayData =
+	LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
+
+export type LendingPoolSetUserUseReserveAsCollateralData =
+	LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
+
+export type LendingPoolSwapBorrowRateModeData =
+	LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
+
+/** Represents a transaction in the lending pool. */
+export interface LendingPoolTransaction {
+	/** The chain ID of the blockchain network. */
+	chainId: string;
+	/** The data payload of the transaction. */
+	data: string;
+	/** The sender address of the transaction. */
+	from: string;
+	/** The gas limit for the transaction (optional). */
+	gasLimit?: string;
+	/** The gas price for the transaction (optional). */
+	gasPrice?: string;
+	/** The maximum fee per gas for the transaction (optional). */
+	maxFeePerGas?: string;
+	/** The maximum priority fee per gas for the transaction (optional). */
+	maxPriorityFeePerGas?: string;
+	/**
+	 * The nonce of the transaction.
+	 * @format double
+	 */
+	nonce: number;
+	/** The recipient address of the transaction. */
+	to: string;
+	/**
+	 * The type of the transaction (optional).
+	 * @format double
+	 */
+	type?: number;
+	/** The value being transferred in the transaction. */
+	value: string;
+}
 
 export interface LeveragerAPIResponseBoolean {
 	data?: boolean;
@@ -4457,127 +6145,480 @@ export interface LeveragerAPIResponseString {
 	success: boolean;
 }
 
+export type LeveragerDeleverageErc20Data =
+	LeveragerAPIResponseLeveragerExecuteFunctionResult;
+
+export type LeveragerDeleverageNativeData =
+	LeveragerAPIResponseLeveragerExecuteFunctionResult;
+
 export interface LeveragerExecuteFunctionResult {
+	/** Optional response from broadcasting the raw transaction */
 	broadcasted?: BroadCastRawTransactionResponse;
+	/** Optional transaction data */
 	data?: Transaction;
+	/** The name of the function that was executed */
 	function: string;
+	/** Optional message providing additional information about the execution */
 	message?: string;
+	/** The parameters passed to the function */
 	params: any[];
-	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	/** Optional response from simulating asset changes */
 	simulation?: SimulateAssetChangesResponse;
+	/** Optional flag indicating if the execution was successful */
 	success?: boolean;
+	/** The transaction associated with the */
 	transaction: LeveragerTransaction;
+	/** Optional user operation identifier */
 	user_op?: string;
 }
 
+export type LeveragerExecuteOperationData =
+	LeveragerAPIResponseLeveragerExecuteFunctionResult;
+
+export type LeveragerGetAddressesProviderData = LeveragerAPIResponseString;
+
+export interface LeveragerGetAddressesProviderParams {
+	address: string;
+	chainId: string;
+}
+
+export type LeveragerGetDefaultAdminRoleData = LeveragerAPIResponseString;
+
+export interface LeveragerGetDefaultAdminRoleParams {
+	address: string;
+	chainId: string;
+}
+
+export type LeveragerGetLendingPoolData = LeveragerAPIResponseString;
+
+export interface LeveragerGetLendingPoolParams {
+	address: string;
+	chainId: string;
+}
+
+export type LeveragerGetMinHfData = LeveragerAPIResponseString;
+
+export interface LeveragerGetMinHfParams {
+	address: string;
+	chainId: string;
+}
+
+export type LeveragerGetRoleAdminData = LeveragerAPIResponseString;
+
+export interface LeveragerGetRoleAdminParams {
+	address: string;
+	chainId: string;
+	role: string;
+}
+
+export type LeveragerGetWethData = LeveragerAPIResponseString;
+
+export interface LeveragerGetWethParams {
+	address: string;
+	chainId: string;
+}
+
+export type LeveragerGrantRoleData =
+	LeveragerAPIResponseLeveragerExecuteFunctionResult;
+
+export type LeveragerHasRoleData = LeveragerAPIResponseBoolean;
+
+export interface LeveragerHasRoleParams {
+	account: string;
+	address: string;
+	chainId: string;
+	role: string;
+}
+
+/** Represents the input body for the Leverager. */
 export interface LeveragerInputBody {
+	/** Indicates if the transaction is from an externally owned account. */
 	EOA?: boolean;
+	/** The access list for the transaction. */
 	accessList?: AccessTuple[];
+	/** The account involved in the transaction. */
 	account?: string;
+	/**
+	 * Indicates if the nonce should always be incremented
+	 * for the transaction.
+	 */
 	alwaysIncrementNonce?: boolean;
+	/** The amount involved in the transaction. */
 	amount?: string;
+	/** The amounts involved in the transaction. */
 	amounts?: string[];
+	/** An array of amounts corresponding to the assets. */
+	amouts?: string[];
+	/** Whether the transaction is approved. */
 	approved?: boolean;
+	/** The asset involved in the transaction. */
 	asset?: string;
+	/** An array of assets involved in the transaction. */
 	assets?: string[];
+	/** The gas for blob transactions. */
 	blobGas?: string;
+	/** The gas fee cap for blob transactions. */
 	blobGasFeeCap?: string;
+	/** The hashes for blob transactions. */
 	blobHashes?: string[];
+	/** The amount to be borrowed. */
 	borrowAmount?: string;
+	/** Indicates if the transaction should be broadcasted. */
 	broadcast?: boolean;
+	/** The chain ID. */
 	chain_id?: string;
+	/** The collateral asset. */
 	collateralAsset?: string;
+	/** The contract address involved in the transaction. */
 	contract_address?: string;
+	/** Additional data for the transaction. */
 	data?: string;
+	/** The debt asset. */
 	debtAsset?: string;
+	/** The debt to cover. */
 	debtToCover?: string;
+	/** Indicates if the transaction is a dry run. */
 	dryrun?: boolean;
+	/** The encoding type. */
 	encoding?: string;
+	/** The gas amount for the transaction. */
 	gas?: string;
+	/** The gas limit for the transaction. */
 	gasLimit?: string;
+	/** The gas price for the transaction. */
 	gasPrice?: string;
+	/** The initial deposit amount. */
 	initialDeposit?: string;
+	/** The initiator of the transaction. */
 	initiator?: string;
+	/** The input data. */
 	input?: string;
+	/** The input tokens. */
 	inputTokens?: TokenAmount[];
-	/** @format double */
+	/**
+	 * The interest rate mode.
+	 * @format double
+	 */
 	interestRateMode?: number;
+	/** The maximum fee per gas. */
 	maxFeePerGas?: string;
+	/** The maximum priority fee per gas. */
 	maxPriorityFeePerGas?: string;
+	/** The minimum health factor required. */
 	minHealthFactor?: string;
+	/** The modes of the transaction. */
 	modes?: number[];
+	/** The nonce for the transaction. */
 	nonce?: string;
+	/** The address on behalf of which the transaction is made. */
 	onBehalfOf?: string;
+	/** The output tokens. */
 	outputTokens?: TokenProportion[];
+	/** Additional parameters for the transaction. */
 	params?: string;
+	/** An array of premiums for the transaction. */
 	premiums?: string[];
-	/** @format double */
+	/**
+	 * The rate mode.
+	 * @format double
+	 */
 	rateMode?: number;
+	/** Whether to receive a token. */
 	receiveAToken?: boolean;
+	/** The receiver address. */
 	receiverAddress?: string;
-	/** @format double */
+	/**
+	 * The referral code.
+	 * @format double
+	 */
 	referralCode?: number;
+	/**
+	 * The role of the user in the
+	 * transaction.
+	 */
 	role?: string;
+	/** Indicates if the transaction should be simulated. */
 	simulate?: boolean;
-	/** @format double */
+	/**
+	 * The slippage limit percentage.
+	 * @format double
+	 */
 	slippageLimitPercent?: number;
+	/** The recipient address. */
 	to?: string;
+	/** The token ID. */
 	token_id?: string;
+	/** The token IDs. */
 	token_ids?: string;
-	/** @format double */
+	/**
+	 * The type of transaction.
+	 * @format double
+	 */
 	type?: number;
+	/** Whether to use as collateral. */
 	useAsCollateral?: boolean;
+	/** The user involved in the transaction. */
 	user?: string;
+	/** The value of the transaction. */
 	value?: string;
 }
 
-export interface LeveragerTransaction {
+export type LeveragerIsPausedData = LeveragerAPIResponseBoolean;
+
+export interface LeveragerIsPausedParams {
+	address: string;
 	chainId: string;
+}
+
+export type LeveragerLeverageErc20Data =
+	LeveragerAPIResponseLeveragerExecuteFunctionResult;
+
+export type LeveragerLeverageNativeData =
+	LeveragerAPIResponseLeveragerExecuteFunctionResult;
+
+export type LeveragerPauseData =
+	LeveragerAPIResponseLeveragerExecuteFunctionResult;
+
+export type LeveragerRenounceRoleData =
+	LeveragerAPIResponseLeveragerExecuteFunctionResult;
+
+export type LeveragerRevokeRoleData =
+	LeveragerAPIResponseLeveragerExecuteFunctionResult;
+
+export type LeveragerSupportsInterfaceData = LeveragerAPIResponseBoolean;
+
+export interface LeveragerSupportsInterfaceParams {
+	address: string;
+	chainId: string;
+	interfaceId: string;
+}
+
+/** Represents a transaction for the Leverager. */
+export interface LeveragerTransaction {
+	/** The chain ID of the blockchain network. */
+	chainId: string;
+	/** The data payload of the transaction. */
 	data: string;
+	/** The sender address of the transaction. */
 	from: string;
+	/** The gas limit for the transaction (optional). */
 	gasLimit?: string;
+	/** The gas price for the transaction (optional). */
 	gasPrice?: string;
+	/** The maximum fee per gas for the transaction (optional). */
 	maxFeePerGas?: string;
+	/** The maximum priority fee per gas for the transaction (optional). */
 	maxPriorityFeePerGas?: string;
-	/** @format double */
+	/**
+	 * The nonce of the transaction.
+	 * @format double
+	 */
 	nonce: number;
+	/** The recipient address of the transaction. */
 	to: string;
-	/** @format double */
+	/**
+	 * The type of the transaction (optional).
+	 * @format double
+	 */
 	type?: number;
+	/** The value to be transferred in the transaction. */
 	value: string;
 }
 
+export type LeveragerUnpauseData =
+	LeveragerAPIResponseLeveragerExecuteFunctionResult;
+
+export type LifiGetAllPossibleConnectionsData = ApiResponseTokenInfoByChainId;
+
+export interface LifiGetAllPossibleConnectionsParams {
+	/** - The target chain identifier. */
+	toChain: string;
+	/** - The target token identifier. */
+	toToken: string;
+}
+
+export type LifiGetChainsData = ApiResponseChainsResponse;
+
+export interface LifiGetChainsParams {
+	/** - Optional parameter to filter chains by type ('EVM' or 'SOL'). */
+	optionalChainTypes?: OptionalChainTypesEnum;
+}
+
+/** - Optional parameter to filter chains by type ('EVM' or 'SOL'). */
+export enum LifiGetChainsParams1OptionalChainTypesEnum {
+	EVM = "EVM",
+	SOL = "SOL",
+}
+
+export type LifiGetConnectionsData = ApiResponseConnectionsResponse;
+
+export interface LifiGetConnectionsParams {
+	/** - Optional parameter to specify types of chains. */
+	chainTypes?: string;
+	/** - The source blockchain identifier. */
+	fromChain: string;
+	/** - The source token identifier. */
+	fromToken: string;
+	/** - The destination blockchain identifier. */
+	toChain: string;
+	/** - The destination token identifier. */
+	toToken: string;
+}
+
+export type LifiGetQuoteData = ApiResponseQuote;
+
+export interface LifiGetQuoteParams {
+	/** - A list of allowed bridges (optional). */
+	allowBridges?: string[];
+	/** - A list of allowed exchanges (optional). */
+	allowExchanges?: string[];
+	/** - A list of denied bridges (optional). */
+	denyBridges?: string[];
+	/** - A list of denied exchanges (optional). */
+	denyExchanges?: string[];
+	/**
+	 * - The fee amount (optional).
+	 * @format double
+	 */
+	fee?: number;
+	/** - The address of the sender on the source chain. */
+	fromAddress: string;
+	/** - The amount of the source token to swap. */
+	fromAmount: string;
+	/** - The source blockchain identifier. */
+	fromChain: string;
+	/** - The token address on the source chain. */
+	fromToken: string;
+	/** - The integrator identifier (optional). */
+	integrator?: string;
+	/** - The order preference for the quote ('BEST_VALUE', 'BEST_FEE', 'BEST_FEE_GAS') (optional). */
+	order?: OrderEnum;
+	/** - A list of preferred bridges (optional). */
+	preferBridges?: string[];
+	/** - A list of preferred exchanges (optional). */
+	preferExchanges?: string[];
+	/** - The referrer identifier (optional). */
+	referrer?: string;
+	/**
+	 * - The maximum acceptable slippage percentage (optional).
+	 * @format double
+	 */
+	slippage?: number;
+	/** - The address of the recipient on the destination chain (optional). */
+	toAddress?: string;
+	/** - The destination blockchain identifier. */
+	toChain: string;
+	/** - The token address on the destination chain. */
+	toToken: string;
+}
+
+/** - The order preference for the quote ('BEST_VALUE', 'BEST_FEE', 'BEST_FEE_GAS') (optional). */
+export enum LifiGetQuoteParams1OrderEnum {
+	BEST_VALUE = "BEST_VALUE",
+	BEST_FEE = "BEST_FEE",
+	BEST_FEE_GAS = "BEST_FEE_GAS",
+}
+
+export type LifiGetStatusData = ApiResponseStatusResponse;
+
+export interface LifiGetStatusParams {
+	/** - The hash of the transaction to retrieve the status for. */
+	txHash: string;
+}
+
+export type LifiGetTokenDetailsData = ApiResponseTokenDetails;
+
+export interface LifiGetTokenDetailsParams {
+	/** - The blockchain on which the token resides. */
+	chain: string;
+	/** - The address or symbol of the token to fetch details for. */
+	token: string;
+}
+
+export type LifiGetTokensData = ApiResponseTokensResponse;
+
+export type LifiPostQuoteData = ApiResponsePostQuote;
+
+export interface LifiPostQuoteParams {
+	/** - The name of the account requesting the quote. */
+	accountName: string;
+	/** - (Optional) The list of allowed bridges for the swap. */
+	allowBridges?: string[];
+	/** - (Optional) The list of allowed exchanges for the swap. */
+	allowExchanges?: string[];
+	/** - (Optional) The list of denied bridges for the swap. */
+	denyBridges?: string[];
+	/** - (Optional) The list of denied exchanges for the swap. */
+	denyExchanges?: string[];
+	/**
+	 * - (Optional) The fee for the swap.
+	 * @format double
+	 */
+	fee?: number;
+	/** - The address from which the token swap will originate. */
+	fromAddress: string;
+	/** - The amount of the token to be swapped from. */
+	fromAmount: string;
+	/** - The chain from which the token swap will originate. */
+	fromChain: string;
+	/** - The token to be swapped from. */
+	fromToken: string;
+	/** - (Optional) The integrator identifier. */
+	integrator?: string;
+	/** - (Optional) The order preference for the quote (BEST_VALUE, BEST_FEE, BEST_FEE_GAS). */
+	order?: OrderEnum1;
+	/** - (Optional) The list of preferred bridges for the swap. */
+	preferBridges?: string[];
+	/** - (Optional) The list of preferred exchanges for the swap. */
+	preferExchanges?: string[];
+	/** - (Optional) The referrer identifier. */
+	referrer?: string;
+	/**
+	 * - (Optional) The acceptable slippage percentage for the swap.
+	 * @format double
+	 */
+	slippage?: number;
+	/** - (Optional) The address to which the token swap will be sent. */
+	toAddress?: string;
+	/** - The chain to which the token swap will be sent. */
+	toChain: string;
+	/** - The token to be swapped to. */
+	toToken: string;
+}
+
+/** - (Optional) The order preference for the quote (BEST_VALUE, BEST_FEE, BEST_FEE_GAS). */
+export enum LifiPostQuoteParams1OrderEnum {
+	BEST_VALUE = "BEST_VALUE",
+	BEST_FEE = "BEST_FEE",
+	BEST_FEE_GAS = "BEST_FEE_GAS",
+}
+
+/** Represents the response of the `searchFinancials` endpoint. */
 export interface LineItemsSearchAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The search results. */
 	data?: LineItemsSearchResult[];
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
 
+/** Represents the result of a search for line items in financial datasets. */
 export interface LineItemsSearchResult {
+	/** The currency in which the financial data is denominated. */
 	currency: string;
+	/** The period for which the financial data is reported. */
 	period: string;
+	/** The reporting period of the financial data. */
 	report_period: string;
+	/** The stock ticker symbol. */
 	ticker: string;
 	[key: string]: any;
 }
-
-export type LiquidationCallData =
-	AavePoolAPIResponseAavePoolExecuteFunctionResult;
-
-export type LiquidationCallResult =
-	LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
-
-export type ListAccountsData = AccountAPIResponse;
-
-export type ListAccountsOutput = CosmosAccountListAPIResponse;
-
-export type ListAccountsResult = BitcoinCashAPIResponseAccountResponse;
-
-export type ListBitcoinAccountsData = AccountAPIResponse;
-
-export type ListDogeCoinAccountsData = AccountAPIResponse;
 
 export type ListEosAccountsData = AccountAPIResponse;
 
@@ -4591,33 +6632,61 @@ export type ListRippleAccountsData = AccountAPIResponse;
 
 export type ListSolanaAccountsData = AccountAPIResponse;
 
-export type ListTronAccountsData = AccountAPIResponse;
-
 export type ListUserDefinedFunctionsData = MultiCallAPIResponseAnyArray;
 
 export interface LitecoinAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The data associated with the Litecoin response. */
 	data?: LitecoinTransactionOutput;
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
 
+export type LitecoinCreateLitecoinAccountData = AccountAPIResponse;
+
+export type LitecoinDeleteLitecoinAccountData = AccountAPIResponse;
+
+export type LitecoinExportLitecoinAccountData = AccountAPIResponse;
+
+export type LitecoinGetLitecoinAccountData = AccountAPIResponse;
+
+/** Represents the input data required for a Litecoin transaction. */
 export interface LitecoinInput {
+	/** The network on which the transaction is taking place. */
 	network?: string;
+	/** The private key of the account. */
 	private_key?: string;
 }
 
+export type LitecoinSignLitecoinTransactionData = LitecoinAPIResponse;
+
+export type LitecoinSignLitecoinTransactionWithMemoData = LitecoinAPIResponse;
+
+/** Represents an input for a Litecoin transaction. */
 export interface LitecoinTransactionInput {
+	/** Indicates whether to compress the public key. */
 	compress?: boolean;
+	/** The network on which the transaction is taking place. */
 	network?: string;
+	/** The recipient address of the transaction. */
 	to?: string;
-	/** @format double */
+	/**
+	 * The amount to be sent.
+	 * @format double
+	 */
 	value?: number;
 }
 
+/** Represents the output of a Litecoin transaction. */
 export interface LitecoinTransactionOutput {
+	/** The signed transaction. */
 	signedTx?: string;
+	/** The transaction hash. */
 	transaction_hash?: string;
 }
 
@@ -4626,9 +6695,13 @@ export interface LockedData {
 	end: string;
 }
 
+/** Represents the response structure from the Lynex API. */
 export interface LynexAPIResponse {
+	/** Optional data returned by the API, if any. */
 	data?: any;
+	/** A message providing additional information about the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
@@ -4663,102 +6736,199 @@ export interface LynexNFTAPIResponseVestingPeriodData {
 }
 
 export interface LynexNFTExecuteFunctionResult {
+	/** Optional response from broadcasting the raw transaction. */
 	broadcasted?: BroadCastRawTransactionResponse;
+	/** Optional additional transaction data. */
 	data?: Transaction;
+	/** The name of the executed function. */
 	function: string;
+	/** Optional message providing additional information about the execution. */
 	message?: string;
+	/** The parameters passed to the executed function. */
 	params: any[];
-	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	/** Optional response from simulating asset changes. */
 	simulation?: SimulateAssetChangesResponse;
+	/** Optional flag indicating whether the execution was successful. */
 	success?: boolean;
+	/** The transaction details of the executed function. */
 	transaction: LynexNFTTransaction;
+	/** Optional user operation identifier. */
 	user_op?: string;
 }
 
 export interface LynexNFTInputBody {
+	/** Indicates if the transaction is from an externally owned account */
 	EOA?: boolean;
+	/** The access list for the transaction. */
 	accessList?: AccessTuple[];
+	/** The account involved in the transaction. */
 	account?: string;
+	/** Indicates if the nonce should always be incremented */
 	alwaysIncrementNonce?: boolean;
+	/** The amount to be transferred or locked */
 	amount?: string;
+	/** The amounts involved in the transaction. */
 	amounts?: string[];
+	/** Indicates if the operator is approved */
 	approved?: boolean;
+	/** The asset involved in the transaction. */
 	asset?: string;
+	/** The assets involved in the transaction. */
 	assets?: string[];
+	/** The gas for blob transactions. */
 	blobGas?: string;
+	/** The gas fee cap for blob transactions. */
 	blobGasFeeCap?: string;
+	/** The hashes for blob transactions. */
 	blobHashes?: string[];
+	/** The borrow amount. */
 	borrowAmount?: string | number;
+	/** Indicates if the transaction should be broadcasted */
 	broadcast?: boolean;
+	/** The chain ID. */
 	chain_id?: string;
+	/** The collateral asset. */
 	collateralAsset?: string;
+	/** The contract address */
 	contract_address?: string;
+	/** The data to be sent with the transaction */
 	data?: string;
+	/** The debt asset. */
 	debtAsset?: string;
+	/** The debt to cover. */
 	debtToCover?: string;
+	/** The delegatee address */
 	delegatee?: string;
+	/** Indicates if the transaction should be a dry run */
 	dryrun?: boolean;
+	/** The encoding type. */
 	encoding?: string;
+	/** The expiry time */
 	expiry?: string;
+	/** The gas limit for the transaction */
 	gas?: string;
+	/** The gas limit for the transaction */
 	gasLimit?: string;
+	/** The gas price for the transaction */
 	gasPrice?: string;
+	/** The initial deposit. */
 	initialDeposit?: string | number;
+	/** The initiator of the transaction. */
 	initiator?: string;
+	/** The input data. */
 	input?: string;
+	/** The input tokens. */
 	inputTokens?: TokenAmount[];
-	/** @format double */
+	/**
+	 * The interest rate mode.
+	 * @format double
+	 */
 	interestRateMode?: number;
+	/** The lock duration */
 	lockDuration?: string;
+	/** The maximum fee per gas. */
 	maxFeePerGas?: string;
+	/** The maximum priority fee per gas. */
 	maxPriorityFeePerGas?: string;
+	/** The minimum health factor. */
 	minHealthFactor?: string | number;
+	/** The modes of the transaction. */
 	modes?: number[];
+	/** The nonce for the transaction */
 	nonce?: string;
+	/** The address on behalf of which the transaction is made. */
 	onBehalfOf?: string;
+	/** The operator address */
 	operator?: string;
+	/** The output tokens. */
 	outputTokens?: TokenProportion[];
+	/** Additional parameters. */
 	params?: string;
+	/** Indicates if the lock is permanent */
 	permanent?: boolean;
+	/** The premiums. */
 	premiums?: string[] | number[];
+	/** The r parameter for the signature */
 	r?: string;
-	/** @format double */
+	/**
+	 * The rate mode.
+	 * @format double
+	 */
 	rateMode?: number;
+	/** Whether to receive a token. */
 	receiveAToken?: boolean;
+	/** The receiver address. */
 	receiverAddress?: string;
-	/** @format double */
+	/**
+	 * The referral code.
+	 * @format double
+	 */
 	referralCode?: number;
+	/** The role of the user. */
 	role?: string;
+	/** The s parameter for the signature */
 	s?: string;
+	/** Indicates if the transaction should be simulated */
 	simulate?: boolean;
-	/** @format double */
+	/**
+	 * The slippage limit percentage.
+	 * @format double
+	 */
 	slippageLimitPercent?: number;
+	/** The split weights */
 	splitWeights?: string[];
+	/** The recipient address */
 	to?: string;
+	/** The token ID */
 	tokenId?: string;
+	/** The token ID. */
 	token_id?: string;
+	/** The token IDs. */
 	token_ids?: string;
-	/** @format double */
+	/**
+	 * The type of transaction.
+	 * @format double
+	 */
 	type?: number;
+	/** Whether to use as collateral. */
 	useAsCollateral?: boolean;
+	/** The user involved in the transaction. */
 	user?: string;
+	/** The v parameter for the signature */
 	v?: string;
+	/** The value to be sent with the transaction */
 	value?: string;
 }
 
+/** Represents a transaction for a Lynex NFT. */
 export interface LynexNFTTransaction {
+	/** The chain ID of the blockchain network. */
 	chainId: string;
+	/** The data payload of the transaction. */
 	data: string;
+	/** The sender address of the transaction. */
 	from: string;
+	/** The gas limit for the transaction (optional). */
 	gasLimit?: string;
+	/** The gas price for the transaction (optional). */
 	gasPrice?: string;
+	/** The maximum fee per gas for the transaction (optional). */
 	maxFeePerGas?: string;
+	/** The maximum priority fee per gas for the transaction (optional). */
 	maxPriorityFeePerGas?: string;
-	/** @format double */
+	/**
+	 * The nonce of the transaction.
+	 * @format double
+	 */
 	nonce: number;
+	/** The recipient address of the transaction. */
 	to: string;
-	/** @format double */
+	/**
+	 * The type of the transaction (optional).
+	 * @format double
+	 */
 	type?: number;
+	/** The value to be transferred in the transaction. */
 	value: string;
 }
 
@@ -4790,107 +6960,210 @@ export interface LynexRouterAPIResponseStringArray {
 }
 
 export interface LynexRouterExecuteFunctionResult {
+	/** Optional response from broadcasting the raw transaction. */
 	broadcasted?: BroadCastRawTransactionResponse;
+	/** Optional additional transaction data. */
 	data?: Transaction;
+	/** The name of the executed function. */
 	function: string;
+	/** Optional message providing additional information about the execution. */
 	message?: string;
+	/** The parameters passed to the executed function. */
 	params: any[];
-	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	/** Optional response from simulating asset changes. */
 	simulation?: SimulateAssetChangesResponse;
+	/** Optional flag indicating whether the execution was successful. */
 	success?: boolean;
+	/** The transaction details. */
 	transaction: LynexRouterTransaction;
+	/** Optional user operation identifier. */
 	user_op?: string;
 }
 
+/** Represents the input body for Lynex Router functions. */
 export interface LynexRouterInputBody {
+	/** Indicates if the transaction is from an externally owned account. */
 	EOA?: boolean;
+	/** The access list for the transaction. */
 	accessList?: AccessTuple[];
+	/** The account involved in the transaction. */
 	account?: string;
+	/** Indicates if the nonce should always be incremented. */
 	alwaysIncrementNonce?: boolean;
+	/** The amount to be transferred. */
 	amount?: string;
+	/** The desired amount of token A. */
 	amountADesired: string;
+	/** The minimum amount of token A. */
 	amountAMin: string;
+	/** The desired amount of token B. */
 	amountBDesired: string;
+	/** The minimum amount of token B. */
 	amountBMin: string;
+	/** The minimum amount of ETH. */
 	amountETHMin: string;
+	/** The input amount. */
 	amountIn: string;
+	/** The minimum output amount. */
 	amountOutMin: string;
+	/** The desired amount of the token. */
 	amountTokenDesired: string;
+	/** The minimum amount of the token. */
 	amountTokenMin: string;
+	/** The amounts involved in the transaction. */
 	amounts?: string[];
+	/** Whether the transaction is approved. */
 	approved?: boolean;
+	/** The asset involved in the transaction. */
 	asset?: string;
+	/** The assets involved in the transaction. */
 	assets?: string[];
+	/** The gas for blob transactions. */
 	blobGas?: string;
+	/** The gas fee cap for blob transactions. */
 	blobGasFeeCap?: string;
+	/** The hashes for blob transactions. */
 	blobHashes?: string[];
+	/** The borrow amount. */
 	borrowAmount?: string | number;
+	/** Indicates if the transaction should be broadcasted. */
 	broadcast?: boolean;
+	/** The chain ID. */
 	chain_id?: string;
+	/** The collateral asset. */
 	collateralAsset?: string;
+	/** The contract address. */
 	contract_address?: string;
+	/** The data to be included in the transaction. */
 	data?: string;
+	/** The deadline for the transaction. */
 	deadline: string;
+	/** The debt asset. */
 	debtAsset?: string;
+	/** The debt to cover. */
 	debtToCover?: string;
+	/** Indicates if the transaction is a dry run. */
 	dryrun?: boolean;
+	/** The encoding type. */
 	encoding?: string;
+	/** The gas limit for the transaction. */
 	gas?: string;
+	/** The gas limit for the transaction. */
 	gasLimit?: string;
+	/** The gas price for the transaction. */
 	gasPrice?: string;
+	/** The initial deposit. */
 	initialDeposit?: string | number;
+	/** The initiator of the transaction. */
 	initiator?: string;
+	/** The input data. */
 	input?: string;
+	/** The input tokens. */
 	inputTokens?: TokenAmount[];
-	/** @format double */
+	/**
+	 * The interest rate mode.
+	 * @format double
+	 */
 	interestRateMode?: number;
+	/** The maximum fee per gas. */
 	maxFeePerGas?: string;
+	/** The maximum priority fee per gas. */
 	maxPriorityFeePerGas?: string;
+	/** The minimum health factor. */
 	minHealthFactor?: string | number;
+	/** The modes of the transaction. */
 	modes?: number[];
+	/** The nonce for the transaction. */
 	nonce?: string;
+	/** The address on behalf of which the transaction is made. */
 	onBehalfOf?: string;
+	/** The output tokens. */
 	outputTokens?: TokenProportion[];
+	/** Additional parameters. */
 	params?: string;
+	/** The premiums. */
 	premiums?: string[] | number[];
-	/** @format double */
+	/**
+	 * The rate mode.
+	 * @format double
+	 */
 	rateMode?: number;
+	/** Whether to receive a token. */
 	receiveAToken?: boolean;
+	/** The receiver address. */
 	receiverAddress?: string;
-	/** @format double */
+	/**
+	 * The referral code.
+	 * @format double
+	 */
 	referralCode?: number;
+	/** The role of the user. */
 	role?: string;
+	/** The routes for the transaction. */
 	routes: any[];
+	/** Indicates if the transaction should be simulated. */
 	simulate?: boolean;
-	/** @format double */
+	/**
+	 * The slippage limit percentage.
+	 * @format double
+	 */
 	slippageLimitPercent?: number;
+	/** Indicates if the liquidity is stable. */
 	stable: string;
+	/** The recipient address. */
 	to?: string;
+	/** The address of the token. */
 	token: string;
+	/** The address of token A. */
 	tokenA: string;
+	/** The address of token B. */
 	tokenB: string;
+	/** The token ID. */
 	token_id?: string;
+	/** The token IDs. */
 	token_ids?: string;
-	/** @format double */
+	/**
+	 * The type of transaction.
+	 * @format double
+	 */
 	type?: number;
+	/** Whether to use as collateral. */
 	useAsCollateral?: boolean;
+	/** The user involved in the transaction. */
 	user?: string;
+	/** The value to be transferred. */
 	value?: string;
 }
 
+/** Represents a transaction in the Lynex Router. */
 export interface LynexRouterTransaction {
+	/** The chain ID of the blockchain network. */
 	chainId: string;
+	/** The data payload of the transaction. */
 	data: string;
+	/** The sender address of the transaction. */
 	from: string;
+	/** The gas limit for the transaction (optional). */
 	gasLimit?: string;
+	/** The gas price for the transaction (optional). */
 	gasPrice?: string;
+	/** The maximum fee per gas unit for the transaction (optional). */
 	maxFeePerGas?: string;
+	/** The maximum priority fee per gas unit for the transaction (optional). */
 	maxPriorityFeePerGas?: string;
-	/** @format double */
+	/**
+	 * The nonce of the transaction.
+	 * @format double
+	 */
 	nonce: number;
+	/** The recipient address of the transaction. */
 	to: string;
-	/** @format double */
+	/**
+	 * The type of the transaction (optional).
+	 * @format double
+	 */
 	type?: number;
+	/** The value to be transferred in the transaction. */
 	value: string;
 }
 
@@ -4913,7 +7186,247 @@ export interface LynexVoterAPIResponseString {
 }
 
 export interface LynexVoterExecuteFunctionResult {
+	/** Optional response from broadcasting the raw transaction. */
 	broadcasted?: BroadCastRawTransactionResponse;
+	/** Optional transaction data. */
+	data?: Transaction;
+	/** The name of the executed function. */
+	function: string;
+	/** Optional message providing additional information about the execution result. */
+	message?: string;
+	/** The parameters passed to the executed function. */
+	params: any[];
+	/** Optional response from simulating asset changes. */
+	simulation?: SimulateAssetChangesResponse;
+	/** Optional flag indicating if the function execution was successful. */
+	success?: boolean;
+	/** The transaction details of the executed function. */
+	transaction: LynexVoterTransaction;
+	/** Optional user operation identifier. */
+	user_op?: string;
+}
+
+export interface LynexVoterInputBody {
+	/** Flag indicating if the operation is performed by an Externally Owned Account. */
+	EOA?: boolean;
+	/** The access list for the transaction. */
+	accessList?: AccessTuple[];
+	/** The account involved in the transaction. */
+	account?: string;
+	/** Flag indicating if the nonce should always be incremented. */
+	alwaysIncrementNonce?: boolean;
+	/** The amount involved in the transaction. */
+	amount?: string;
+	/** The amounts involved in the transaction. */
+	amounts?: string[];
+	/** Whether the transaction is approved. */
+	approved?: boolean;
+	/** The asset involved in the transaction. */
+	asset?: string;
+	/** The assets involved in the transaction. */
+	assets?: string[];
+	/** The gas for blob transactions. */
+	blobGas?: string;
+	/** The gas fee cap for blob transactions. */
+	blobGasFeeCap?: string;
+	/** The hashes for blob transactions. */
+	blobHashes?: string[];
+	/** The borrow amount. */
+	borrowAmount?: string | number;
+	/** The bribes involved in the operation. */
+	bribes?: string[];
+	/** Flag indicating if the transaction should be broadcasted. */
+	broadcast?: boolean;
+	/** The chain ID. */
+	chain_id?: string;
+	/** The collateral asset. */
+	collateralAsset?: string;
+	/** The contract address involved in the operation. */
+	contract_address?: string;
+	/** The data payload of the transaction. */
+	data?: string;
+	/** The debt asset. */
+	debtAsset?: string;
+	/** The debt to cover. */
+	debtToCover?: string;
+	/** Flag indicating if the operation is a dry run. */
+	dryrun?: boolean;
+	/** The encoding type. */
+	encoding?: string;
+	/** The fees involved in the operation. */
+	fees?: string[];
+	/** The gas limit for the transaction. */
+	gas?: string;
+	/** The gas limit for the transaction. */
+	gasLimit?: string;
+	/** The gas price for the transaction. */
+	gasPrice?: string;
+	/** The gauge involved in the operation. */
+	gauge?: string;
+	/** The type of the gauge. */
+	gauge_type?: string;
+	/** The gauges involved in the operation. */
+	gauges?: string[];
+	/** The initial deposit. */
+	initialDeposit?: string | number;
+	/** The initiator of the transaction. */
+	initiator?: string;
+	/** The input data. */
+	input?: string;
+	/** The input tokens. */
+	inputTokens?: TokenAmount[];
+	/**
+	 * The interest rate mode.
+	 * @format double
+	 */
+	interestRateMode?: number;
+	/** The maximum fee per gas. */
+	maxFeePerGas?: string;
+	/** The maximum priority fee per gas. */
+	maxPriorityFeePerGas?: string;
+	/** The minimum health factor. */
+	minHealthFactor?: string | number;
+	/** The modes of the transaction. */
+	modes?: number[];
+	/** The nonce of the transaction. */
+	nonce?: string;
+	/** The address on behalf of which the transaction is made. */
+	onBehalfOf?: string;
+	/** The output tokens. */
+	outputTokens?: TokenProportion[];
+	/** Additional parameters. */
+	params?: string;
+	/** The pool involved in the operation. */
+	pool?: string;
+	/** The pool votes for the transaction. */
+	pool_vote?: string[];
+	/** The premiums. */
+	premiums?: string[] | number[];
+	/**
+	 * The rate mode.
+	 * @format double
+	 */
+	rateMode?: number;
+	/** Whether to receive a token. */
+	receiveAToken?: boolean;
+	/** The receiver address. */
+	receiverAddress?: string;
+	/**
+	 * The referral code.
+	 * @format double
+	 */
+	referralCode?: number;
+	/** The role of the user. */
+	role?: string;
+	/** Flag indicating if the operation should be simulated. */
+	simulate?: boolean;
+	/**
+	 * The slippage limit percentage.
+	 * @format double
+	 */
+	slippageLimitPercent?: number;
+	/** The recipient address of the transaction. */
+	to?: string;
+	/** The token ID. */
+	token_id?: string;
+	/** The token IDs. */
+	token_ids?: string;
+	/** The tokens involved in the operation. */
+	tokens?: string[][];
+	/**
+	 * The type of transaction.
+	 * @format double
+	 */
+	type?: number;
+	/** Whether to use as collateral. */
+	useAsCollateral?: boolean;
+	/** The user involved in the transaction. */
+	user?: string;
+	/** The value being transferred in the transaction. */
+	value?: string;
+	/** The weights for the pool votes. */
+	weights?: string[];
+}
+
+/** Represents a transaction for the Lynex Voter. */
+export interface LynexVoterTransaction {
+	/** The chain ID of the network where the transaction is sent. */
+	chainId: string;
+	/** The data to be sent with the transaction. */
+	data: string;
+	/** The sender address of the transaction. */
+	from: string;
+	/** (Optional) The gas limit for the transaction. */
+	gasLimit?: string;
+	/** (Optional) The gas price for the transaction, in wei. */
+	gasPrice?: string;
+	/** (Optional) The maximum fee per gas for the transaction, in wei. */
+	maxFeePerGas?: string;
+	/** (Optional) The maximum priority fee per gas for the transaction, in wei. */
+	maxPriorityFeePerGas?: string;
+	/**
+	 * The nonce for the transaction.
+	 * @format double
+	 */
+	nonce: number;
+	/** The recipient address of the transaction. */
+	to: string;
+	/**
+	 * (Optional) The type of the transaction.
+	 * @format double
+	 */
+	type?: number;
+	/** The value to be sent with the transaction, in wei. */
+	value: string;
+}
+
+export type MakeFunTokenGetClFactoryData = MakeFunTokenHelperAPIResponseString;
+
+export interface MakeFunTokenGetClFactoryParams {
+	account: string;
+	address: string;
+	chainId: string;
+}
+
+export type MakeFunTokenGetMaxTickData = MakeFunTokenHelperAPIResponseNumber;
+
+export interface MakeFunTokenGetMaxTickParams {
+	account: string;
+	address: string;
+	chainId: string;
+}
+
+export type MakeFunTokenGetMinTickData = MakeFunTokenHelperAPIResponseNumber;
+
+export interface MakeFunTokenGetMinTickParams {
+	account: string;
+	address: string;
+	chainId: string;
+}
+
+export interface MakeFunTokenHelperAPIResponseMakeFunTokenHelperExecuteFunctionResult {
+	data?: MakeFunTokenHelperExecuteFunctionResult;
+	message: string;
+	success: boolean;
+}
+
+export interface MakeFunTokenHelperAPIResponseNumber {
+	/** @format double */
+	data?: number;
+	message: string;
+	success: boolean;
+}
+
+export interface MakeFunTokenHelperAPIResponseString {
+	data?: string;
+	message: string;
+	success: boolean;
+}
+
+export interface MakeFunTokenHelperExecuteFunctionResult {
+	/** Represents the response from broadcasting a raw transaction. */
+	broadcasted?: BroadCastRawTransactionResponse;
+	/** Represents a transaction with various optional properties. */
 	data?: Transaction;
 	function: string;
 	message?: string;
@@ -4921,81 +7434,223 @@ export interface LynexVoterExecuteFunctionResult {
 	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
 	simulation?: SimulateAssetChangesResponse;
 	success?: boolean;
-	transaction: LynexVoterTransaction;
+	transaction: MakeFunTokenHelperTransaction;
 	user_op?: string;
 }
 
-export interface LynexVoterInputBody {
+/** Interface representing the input body for the MakeFunTokenHelper function. */
+export interface MakeFunTokenHelperInputBody {
+	/**
+	 * Indicates if the transaction is from an Externally Owned Account.
+	 * @default "false"
+	 */
 	EOA?: boolean;
+	/**
+	 * Additional parameters for the transaction.
+	 * @default """"
+	 */
+	_params?: string;
+	/** The access list for the transaction. */
 	accessList?: AccessTuple[];
+	/** The account involved in the transaction. */
 	account?: string;
+	/**
+	 * Indicates if the nonce should always be incremented.
+	 * @default "false"
+	 */
 	alwaysIncrementNonce?: boolean;
+	/**
+	 * The amount of tokens to be sent.
+	 * @default """"
+	 */
 	amount?: string;
+	/** The amounts involved in the transaction. */
 	amounts?: string[];
+	/** Whether the transaction is approved. */
 	approved?: boolean;
+	/** The asset involved in the transaction. */
 	asset?: string;
+	/** The assets involved in the transaction. */
 	assets?: string[];
+	/** The gas for blob transactions. */
 	blobGas?: string;
+	/** The gas fee cap for blob transactions. */
 	blobGasFeeCap?: string;
+	/** The hashes for blob transactions. */
 	blobHashes?: string[];
+	/** The borrow amount. */
 	borrowAmount?: string | number;
-	bribes?: string[];
+	/**
+	 *
+	 * Indicates if the transaction should be broadcasted.
+	 * @default "false"
+	 */
 	broadcast?: boolean;
+	/** The chain ID. */
 	chain_id?: string;
+	/** The collateral asset. */
 	collateralAsset?: string;
+	/**
+	 * The address of the contract.
+	 * @default """"
+	 */
 	contract_address?: string;
+	/**
+	 * Additional data to be sent with the transaction.
+	 * @default """"
+	 */
 	data?: string;
+	/** The debt asset. */
 	debtAsset?: string;
+	/** The debt to cover. */
 	debtToCover?: string;
+	/**
+	 * Indicates if the transaction should be a dry run.
+	 * @default "false"
+	 */
 	dryrun?: boolean;
+	/** The encoding type. */
 	encoding?: string;
-	fees?: string[];
+	feeBPS?: number[];
+	/**
+	 * The recipients of the fees.
+	 * @default "[]"
+	 */
+	feeRecipients?: string[];
+	/**
+	 * The gas limit for the transaction.
+	 * @default """"
+	 */
 	gas?: string;
+	/**
+	 * The gas limit for the transaction.
+	 * @default """"
+	 */
 	gasLimit?: string;
+	/**
+	 * The gas price for the transaction.
+	 * @default """"
+	 */
 	gasPrice?: string;
-	gauge?: string;
-	gauge_type?: string;
-	gauges?: string[];
+	/** The initial deposit. */
 	initialDeposit?: string | number;
+	/** The initiator of the transaction. */
 	initiator?: string;
+	/** The input data. */
 	input?: string;
+	/** The input tokens. */
 	inputTokens?: TokenAmount[];
-	/** @format double */
+	/**
+	 * The interest rate mode.
+	 * @format double
+	 */
 	interestRateMode?: number;
+	/** The maximum fee per gas. */
 	maxFeePerGas?: string;
+	/** The maximum priority fee per gas. */
 	maxPriorityFeePerGas?: string;
+	maxTick?: any;
+	maxTotalSupply?: any;
+	/** The minimum health factor. */
 	minHealthFactor?: string | number;
+	/** @format double */
+	minTick?: number;
+	minTotalSupply?: any;
+	/** The modes of the transaction. */
 	modes?: number[];
+	/**
+	 * The name of the token.
+	 * @default """"
+	 */
+	name?: string;
+	/**
+	 * The nonce to be used for the transaction.
+	 * @default """"
+	 */
 	nonce?: string;
+	/** The address on behalf of which the transaction is made. */
 	onBehalfOf?: string;
+	/** The output tokens. */
 	outputTokens?: TokenProportion[];
+	/** Additional parameters. */
 	params?: string;
-	pool?: string;
-	pool_vote?: string[];
+	/** The premiums. */
 	premiums?: string[] | number[];
-	/** @format double */
+	/**
+	 * The rate mode.
+	 * @format double
+	 */
 	rateMode?: number;
+	/** Whether to receive a token. */
 	receiveAToken?: boolean;
+	/** The receiver address. */
 	receiverAddress?: string;
-	/** @format double */
+	/**
+	 * The referral code.
+	 * @format double
+	 */
 	referralCode?: number;
+	/** The role of the user. */
 	role?: string;
+	/**
+	 * The salt to be used for the transaction.
+	 * @default """"
+	 */
+	salt?: string;
+	/**
+	 * Indicates if the transaction should be simulated.
+	 * @default "false"
+	 */
 	simulate?: boolean;
-	/** @format double */
+	/**
+	 * The slippage limit percentage.
+	 * @format double
+	 */
 	slippageLimitPercent?: number;
-	to?: string;
-	token_id?: string;
-	token_ids?: string;
-	tokens?: string[][];
+	/**
+	 * The starting tick for the transaction.
+	 * @default """"
+	 */
+	startingTick?: string;
+	/**
+	 * The symbol of the token.
+	 * @default """"
+	 */
+	symbol?: string;
 	/** @format double */
+	tick?: number;
+	/**
+	 * The address to which the tokens will be sent.
+	 * @default """"
+	 */
+	to?: string;
+	/** The token ID. */
+	token_id?: string;
+	/** The token IDs. */
+	token_ids?: string;
+	/**
+	 *
+	 * The total supply of the token.
+	 * @default """"
+	 */
+	totalSupply?: string;
+	/**
+	 * The type of transaction.
+	 * @format double
+	 */
 	type?: number;
+	/** Whether to use as collateral. */
 	useAsCollateral?: boolean;
+	/** The user involved in the transaction. */
 	user?: string;
+	/**
+	 * The value associated with the transaction.
+	 * @default """"
+	 */
 	value?: string;
-	weights?: string[];
 }
 
-export interface LynexVoterTransaction {
+export interface MakeFunTokenHelperTransaction {
 	chainId: string;
 	data: string;
 	from: string;
@@ -5010,6 +7665,15 @@ export interface LynexVoterTransaction {
 	type?: number;
 	value: string;
 }
+
+export type MakeFunTokenMakeTokenData =
+	MakeFunTokenHelperAPIResponseMakeFunTokenHelperExecuteFunctionResult;
+
+export type MakeFunTokenSetSupplyLimitsData =
+	MakeFunTokenHelperAPIResponseMakeFunTokenHelperExecuteFunctionResult;
+
+export type MakeFunTokenSetTickLimitsData =
+	MakeFunTokenHelperAPIResponseMakeFunTokenHelperExecuteFunctionResult;
 
 export interface MakerOrder {
 	asset_id: string;
@@ -5065,13 +7729,13 @@ export type MergeOutput = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 export type MergeResult = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 
 export interface Message {
+	/** An array of cryptocurrency objects. */
 	crypto: CryptoCurrency[];
+	/** An array of fiat currency objects. */
 	fiat: FiatCurrency[];
 }
 
-export type MintData = ERC4626APIResponse;
-
-export type MintResult = UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
+export type MintData = UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
 
 export interface MultiCallAPIResponse {
 	data?: any;
@@ -5129,6 +7793,7 @@ export interface MultiCallInputBody {
 		params: any;
 		wrapper: string;
 	}[];
+	/** The chain ID. */
 	chain_id?: string;
 	flow?: {
 		edges: FlowEdge[];
@@ -5145,11 +7810,17 @@ export type Multicall2Data = UniswapV3APIResponseUniswapV3ExecuteFunctionResult;
 export type MulticallData =
 	UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
 
+/** Interface representing the response from the NFTs API. */
 export interface NFTsAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The NFT data. */
 	data?: any[];
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
 
@@ -5160,16 +7831,28 @@ export interface NameParams {
 	chainId: string;
 }
 
+/**
+ * Represents the response from the API that includes a nonce.
+ * Extends the BaseAPIResponse to include additional data specific to nonce responses.
+ */
 export interface NonceAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The data associated with the nonce response. */
 	data?: NonceResponse;
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
 
 export interface NonceResponse {
-	/** @format double */
+	/**
+	 * The nonce of the account.
+	 * @format double
+	 */
 	nonce: number;
 }
 
@@ -5189,108 +7872,351 @@ export type NotifyRewardAmountOutput =
 export type NotifyRewardAmountResult =
 	RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
 
+/** Represents the structure of a response from the Odos API. */
 export interface OdosAPIResponseOdosExecuteFunctionResult {
+	/** The data returned by the API, if any. */
 	data?: OdosExecuteFunctionResult;
+	/** A message providing additional information about the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+export type OdosAssembleTransactionData =
+	OdosAPIResponseOdosExecuteFunctionResult;
+
+/** Represents the result of executing an Odos function. */
 export interface OdosExecuteFunctionResult {
+	/** The broadcasted transaction details. */
 	broadcasted?: BroadCastRawTransactionResponse;
+	/** The data returned by the executed function. */
 	data?: any;
+	/** The name of the executed function. */
 	function: string;
+	/** A message providing additional information about the execution. */
 	message?: string;
+	/** The Odos data. */
 	odos?: any;
+	/** The parameters of the executed function. */
 	params: any[];
+	/** Indicates if the execution was successful. */
 	success?: boolean;
+	/** The transaction details. */
 	transaction?: OdosTransaction;
+	/** Indicates if the execution was successful. */
 	user_op?: string;
 }
 
+export type OdosGetContractInfoData = OdosAPIResponseOdosExecuteFunctionResult;
+
+export interface OdosGetContractInfoParams {
+	/**
+	 * - The chain ID for which the contract information is requested.
+	 * @format double
+	 */
+	chainId: number;
+	/** - The version of the API to use, expected to be 'v2'. */
+	version: VersionEnum;
+}
+
+/** - The version of the API to use, expected to be 'v2'. */
+export enum OdosGetContractInfoParams1VersionEnum {
+	V2 = "v2",
+}
+
+export type OdosGetCurrentBlockData = OdosAPIResponseOdosExecuteFunctionResult;
+
+export interface OdosGetCurrentBlockParams {
+	/**
+	 * - The ID of the blockchain to query.
+	 * @format double
+	 */
+	chainId: number;
+}
+
+export type OdosGetExecutorAddressData =
+	OdosAPIResponseOdosExecuteFunctionResult;
+
+export interface OdosGetExecutorAddressParams {
+	/**
+	 * - The chain ID for which the executor address is requested.
+	 * @format double
+	 */
+	chainId: number;
+	/** - The API version, expected to be 'v2'. */
+	version: VersionEnum2;
+}
+
+/** - The API version, expected to be 'v2'. */
+export enum OdosGetExecutorAddressParams1VersionEnum {
+	V2 = "v2",
+}
+
+export type OdosGetLiquiditySourcesData =
+	OdosAPIResponseOdosExecuteFunctionResult;
+
+export interface OdosGetLiquiditySourcesParams {
+	/**
+	 * - The ID of the blockchain to query for liquidity sources.
+	 * @format double
+	 */
+	chainId: number;
+}
+
+export type OdosGetQuoteData = OdosAPIResponseOdosExecuteFunctionResult;
+
+export type OdosGetRouterAddressData = OdosAPIResponseOdosExecuteFunctionResult;
+
+export interface OdosGetRouterAddressParams {
+	/**
+	 * - The ID of the blockchain network.
+	 * @format double
+	 */
+	chainId: number;
+	/** - The version of the API to use, default is 'v2'. */
+	version: VersionEnum1;
+}
+
+/** - The version of the API to use, default is 'v2'. */
+export enum OdosGetRouterAddressParams1VersionEnum {
+	V2 = "v2",
+}
+
+export type OdosGetSupportedChainsData =
+	OdosAPIResponseOdosExecuteFunctionResult;
+
+export type OdosGetSupportedTokensData =
+	OdosAPIResponseOdosExecuteFunctionResult;
+
+export interface OdosGetSupportedTokensParams {
+	/**
+	 * - The ID of the blockchain network to query.
+	 * @format double
+	 */
+	chainId: number;
+}
+
+/** Represents the input body for an Odos swap operation. */
 export interface OdosSwapInputBody {
+	/** Whether the transaction is from an externally owned account. */
 	EOA?: boolean;
+	/** The access list for the transaction. */
 	accessList?: AccessTuple[];
+	/** The account involved in the transaction. */
 	account?: string;
+	/** Whether to always increment the nonce. */
 	alwaysIncrementNonce?: boolean;
+	/** The amount involved in the transaction. */
 	amount?: string;
+	/** The amounts involved in the transaction. */
 	amounts?: string[];
+	/** Whether the transaction is approved. */
 	approved?: boolean;
+	/** The asset involved in the transaction. */
 	asset?: string;
+	/** The assets involved in the transaction. */
 	assets?: string[];
+	/** The gas for blob transactions. */
 	blobGas?: string;
+	/** The gas fee cap for blob transactions. */
 	blobGasFeeCap?: string;
+	/** The hashes for blob transactions. */
 	blobHashes?: string[];
+	/** The borrow amount. */
 	borrowAmount?: string | number;
+	/** Whether to broadcast the transaction. */
 	broadcast?: boolean;
+	/** The chain ID. */
 	chain_id?: string;
+	/** The collateral asset. */
 	collateralAsset?: string;
+	/**
+	 * Flag to enable compact mode.
+	 * Optional.
+	 */
 	compact?: boolean;
+	/** The contract address. */
 	contract_address?: string;
+	/** The data to be sent. */
 	data?: string;
+	/** The debt asset. */
 	debtAsset?: string;
+	/** The debt to cover. */
 	debtToCover?: string;
+	/**
+	 * Flag to disable RFQs (Request for Quotes).
+	 * Optional.
+	 */
 	disableRFQs?: boolean;
+	/** Whether to perform a dry run. */
 	dryrun?: boolean;
+	/** The encoding type. */
 	encoding?: string;
+	/** The gas for the transaction. */
 	gas?: string;
+	/** The gas limit for the transaction. */
 	gasLimit?: string;
+	/** The gas price for the transaction. */
 	gasPrice?: string;
+	/** The initial deposit. */
 	initialDeposit?: string | number;
+	/** The initiator of the transaction. */
 	initiator?: string;
+	/** The input data. */
 	input?: string;
+	/** An array of input tokens with their respective amounts. */
 	inputTokens: TokenAmount[];
-	/** @format double */
+	/**
+	 * The interest rate mode.
+	 * @format double
+	 */
 	interestRateMode?: number;
+	/**
+	 * Flag to indicate if the swap should be performed with like assets.
+	 * Optional.
+	 */
 	likeAsset?: boolean;
+	/** The maximum fee per gas. */
 	maxFeePerGas?: string;
+	/** The maximum priority fee per gas. */
 	maxPriorityFeePerGas?: string;
+	/** The minimum health factor. */
 	minHealthFactor?: string | number;
+	/** The modes of the transaction. */
 	modes?: number[];
+	/** The nonce for the transaction. */
 	nonce?: string;
+	/** The address on behalf of which the transaction is made. */
 	onBehalfOf?: string;
+	/** An array of output tokens with their respective proportions. */
 	outputTokens: TokenProportion[];
+	/** Additional parameters. */
 	params?: string;
+	/**
+	 * Flag to enable path visualization.
+	 * Optional.
+	 */
 	pathViz?: boolean;
+	/**
+	 * Flag to enable path visualization image generation.
+	 * Optional.
+	 */
 	pathVizImage?: boolean;
+	/**
+	 * Configuration for path visualization image generation.
+	 * Optional.
+	 */
 	pathVizImageConfig?: PathVizImageConfig;
+	/**
+	 * A list of pools to be excluded from the swap.
+	 * Optional.
+	 */
 	poolBlacklist?: string[];
+	/** The premiums. */
 	premiums?: string[] | number[];
-	/** @format double */
+	/**
+	 * The rate mode.
+	 * @format double
+	 */
 	rateMode?: number;
+	/** Whether to receive a token. */
 	receiveAToken?: boolean;
+	/** The receiver address. */
 	receiverAddress?: string;
-	/** @format double */
+	/**
+	 * Referral code for the swap.
+	 * Optional.
+	 * @format double
+	 */
 	referralCode?: number;
+	/** The role of the user. */
 	role?: string;
+	/**
+	 * Flag to enable simple mode.
+	 * Optional.
+	 */
 	simple?: boolean;
+	/** Whether to simulate the transaction. */
 	simulate?: boolean;
-	/** @format double */
+	/**
+	 * The maximum allowable slippage percentage for the swap.
+	 * Optional.
+	 * @format double
+	 */
 	slippageLimitPercent?: number;
+	/**
+	 * A list of sources to be excluded from the swap.
+	 * Optional.
+	 */
 	sourceBlacklist?: string[];
+	/**
+	 * A list of sources to be included in the swap.
+	 * Optional.
+	 */
 	sourceWhitelist?: string[];
+	/** The recipient address. */
 	to?: string;
+	/** The token ID. */
 	token_id?: string;
+	/** The token IDs. */
 	token_ids?: string;
-	/** @format double */
+	/**
+	 * The type of transaction.
+	 * @format double
+	 */
 	type?: number;
+	/** Whether to use as collateral. */
 	useAsCollateral?: boolean;
+	/** The user involved in the transaction. */
 	user?: string;
+	/** The value to be sent. */
 	value?: string;
 }
 
+export type OdosSwapTokensData = OdosAPIResponseOdosExecuteFunctionResult;
+
+/** Represents a transaction in the Odos system. */
 export interface OdosTransaction {
+	/** The chain ID of the blockchain network. */
 	chainId: string;
+	/** The data payload of the transaction. */
 	data: string;
+	/** The sender address of the transaction. */
 	from: string;
+	/**
+	 * The gas limit for the transaction.
+	 * Optional.
+	 */
 	gasLimit?: string;
+	/**
+	 * The gas price for the transaction, in wei.
+	 * Optional.
+	 */
 	gasPrice?: string;
+	/**
+	 * The maximum fee per gas for EIP-1559 transactions, in wei.
+	 * Optional.
+	 */
 	maxFeePerGas?: string;
+	/**
+	 * The maximum priority fee per gas for EIP-1559 transactions, in wei.
+	 * Optional.
+	 */
 	maxPriorityFeePerGas?: string;
-	/** @format double */
+	/**
+	 * The nonce of the transaction.
+	 * @format double
+	 */
 	nonce: number;
+	/** The recipient address of the transaction. */
 	to: string;
-	/** @format double */
+	/**
+	 * The type of the transaction.
+	 * Optional.
+	 * @format double
+	 */
 	type?: number;
+	/** The value being transferred in the transaction, in wei. */
 	value: string;
 }
 
@@ -5403,89 +8329,173 @@ export interface OpenSeaAPIResponse {
 	success: boolean;
 }
 
+/**
+ * Represents the input body for an OpenSea collection.
+ * Extends the `OpenSeaInputBody` interface.
+ */
 export interface OpenSeaCollectionInputBody {
-	/** @format double */
+	/**
+	 * The amount of the asset.
+	 * @format double
+	 */
 	amount: number;
+	/** Indicates if the transaction should be broadcasted. */
 	broadcast?: boolean;
+	/** The chain ID of the blockchain network. */
 	chainId?: string;
+	/** The slug identifier for the collection. */
 	collectionSlug: string;
+	/** The data to be sent in the transaction. */
 	data?: string;
+	/** Indicates if the transaction is a dry run. */
 	dryrun?: boolean;
+	/** The gas limit for the transaction. */
 	gas?: string;
+	/** The gas price for the transaction. */
 	gasPrice?: string;
+	/** The nonce of the transaction. */
 	nonce?: string;
+	/** The optional address of the payment token. */
 	paymentTokenAddress?: string;
-	/** @format double */
+	/**
+	 * The quantity of the asset.
+	 * @format double
+	 */
 	quantity: number;
+	/** The recipient address. */
 	to?: string;
+	/** The value to be sent in the transaction. */
 	value?: string;
 }
 
+/** Represents the input body for an OpenSea NFT transaction. */
 export interface OpenSeaNFTInputBody {
-	/** Generic Blockchain Asset. */
+	/** The asset involved in the transaction. */
 	asset: Asset;
+	/** Indicates if the transaction should be broadcasted. */
 	broadcast?: boolean;
+	/** The chain ID of the blockchain network. */
 	chainId?: string;
+	/** The data to be sent in the transaction. */
 	data?: string;
+	/** Indicates if the transaction is a dry run. */
 	dryrun?: boolean;
-	/** @format double */
+	/**
+	 * The expiration time of the offer (optional).
+	 * @format double
+	 */
 	expirationTime?: number;
+	/** The gas limit for the transaction. */
 	gas?: string;
+	/** The gas price for the transaction. */
 	gasPrice?: string;
+	/** The nonce of the transaction. */
 	nonce?: string;
-	/** @format double */
+	/**
+	 * The starting amount for the offer.
+	 * @format double
+	 */
 	startAmount: number;
+	/** The recipient address. */
 	to?: string;
+	/** The value to be sent in the transaction. */
 	value?: string;
 }
 
+/** - The type of option (call or put). */
 export enum OptionTypeEnum {
 	Call = "call",
 	Put = "put",
 }
 
+/** - Optional parameter to filter chains by type ('EVM' or 'SOL'). */
 export enum OptionalChainTypesEnum {
 	EVM = "EVM",
 	SOL = "SOL",
 }
 
+/** Represents the response of the `getOptionsChain` endpoint. */
 export interface OptionsChainAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The options chain data. */
 	data?: OptionsChainItem[];
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
 
+/** Represents an item in an options chain. */
 export interface OptionsChainItem {
-	/** @format double */
+	/**
+	 * The ask price of the option.
+	 * @format double
+	 */
 	ask_price: number;
-	/** @format double */
+	/**
+	 * The ask size of the option.
+	 * @format double
+	 */
 	ask_size: number;
-	/** @format double */
+	/**
+	 * The bid price of the option.
+	 * @format double
+	 */
 	bid_price: number;
-	/** @format double */
+	/**
+	 * The bid size of the option.
+	 * @format double
+	 */
 	bid_size: number;
+	/** The expiration date of the option in ISO 8601 format. */
 	expiration_date: string;
-	/** @format double */
+	/**
+	 * The last traded price of the option.
+	 * @format double
+	 */
 	last_trade_price: number;
-	/** @format double */
+	/**
+	 * The size of the last trade.
+	 * @format double
+	 */
 	last_trade_size: number;
+	/** The time of the last trade in ISO 8601 format. */
 	last_trade_time: string;
-	/** @format double */
+	/**
+	 * The nanoseconds part of the last trade time.
+	 * @format double
+	 */
 	last_trade_time_nanoseconds: number;
-	/** @format double */
+	/**
+	 * The open interest of the option.
+	 * @format double
+	 */
 	open_interest: number;
-	/** @format double */
+	/**
+	 * The number of shares per contract.
+	 * @format double
+	 */
 	shares_per_contract: number;
-	/** @format double */
+	/**
+	 * The strike price of the option.
+	 * @format double
+	 */
 	strike_price: number;
+	/** The ticker symbol of the underlying asset. */
 	ticker: string;
+	/** The type of option, either "Call" or "Put". */
 	type: OptionsChainItemTypeEnum;
-	/** @format double */
+	/**
+	 * The trading volume of the option.
+	 * @format double
+	 */
 	volume: number;
 }
 
+/** The type of option, either "Call" or "Put". */
 export enum OptionsChainItemTypeEnum {
 	Call = "Call",
 	Put = "Put",
@@ -5500,12 +8510,14 @@ export interface OrderBookSummary {
 	timestamp: string;
 }
 
+/** - The order preference for the quote ('BEST_VALUE', 'BEST_FEE', 'BEST_FEE_GAS') (optional). */
 export enum OrderEnum {
 	BEST_VALUE = "BEST_VALUE",
 	BEST_FEE = "BEST_FEE",
 	BEST_FEE_GAS = "BEST_FEE_GAS",
 }
 
+/** - (Optional) The order preference for the quote (BEST_VALUE, BEST_FEE, BEST_FEE_GAS). */
 export enum OrderEnum1 {
 	BEST_VALUE = "BEST_VALUE",
 	BEST_FEE = "BEST_FEE",
@@ -5547,61 +8559,96 @@ export interface PairForParams {
 
 /** Make all properties in T optional */
 export interface PartialComponentDefinition {
+	/** The code of the component. */
 	code?: string;
-	/** @format date-time */
+	/**
+	 * The date and time when the component was created.
+	 * Optional.
+	 * @format date-time
+	 */
 	created_at?: string;
+	/** A brief description of the component. */
 	description?: string;
+	/** The unique identifier of the component. */
 	id?: string;
+	/**
+	 * Indicates whether the component is active.
+	 * Optional.
+	 */
 	is_active?: boolean;
+	/** The name of the component. */
 	name?: string;
-	/** @format date-time */
+	/**
+	 * The date and time when the component was last updated.
+	 * Optional.
+	 * @format date-time
+	 */
 	updated_at?: string;
+	/** The version of the component. */
 	version?: string;
+	/** The XML tag associated with the component. */
 	xmlTag?: string;
 }
 
 export interface PathVizImageConfig {
-	/** @format double */
+	/**
+	 * The height of the path visualization image.
+	 * @format double
+	 */
 	height?: number;
+	/** The color of the text on the legend in the path visualization image. */
 	legendTextColor?: string;
+	/** The colors of the links in the path visualization image. */
 	linkColors?: string[];
+	/** The color of the nodes in the path visualization image. */
 	nodeColor?: string;
+	/** The color of the text on the nodes in the path visualization image. */
 	nodeTextColor?: string;
-	/** @format double */
+	/**
+	 * The width of the path visualization image.
+	 * @format double
+	 */
 	width?: number;
 }
 
-export type PauseData = LeveragerAPIResponseLeveragerExecuteFunctionResult;
-
+/** Represents a type of payment method. */
 export interface PaymentType {
+	/** The URL or path to the icon representing the payment type. */
 	icon: string;
+	/** The name of the payment type. */
 	name: string;
+	/** The unique identifier for the payment type. */
 	paymentTypeId: string;
 }
 
+/** - The period type of the income statements. */
 export enum PeriodEnum {
 	Annual = "annual",
 	Quarterly = "quarterly",
 	Ttm = "ttm",
 }
 
+/** - The period type of the balance sheets. */
 export enum PeriodEnum1 {
 	Annual = "annual",
 	Quarterly = "quarterly",
 	Ttm = "ttm",
 }
 
+/** - The period type of the cash flow statements. */
 export enum PeriodEnum2 {
 	Annual = "annual",
 	Quarterly = "quarterly",
 	Ttm = "ttm",
 }
 
+/** - The period type of the segmented revenues. */
 export enum PeriodEnum3 {
 	Annual = "annual",
 	Quarterly = "quarterly",
 }
 
+/** - The period type of the financials. */
 export enum PeriodEnum4 {
 	Annual = "annual",
 	Quarterly = "quarterly",
@@ -5619,29 +8666,67 @@ export interface PermitTypehashParams {
 
 /** From T, pick a set of properties whose keys are in the union K */
 export interface PickComponentDefinitionExcludeKeysId {
+	/** The code of the component. */
 	code: string;
-	/** @format date-time */
+	/**
+	 * The date and time when the component was created.
+	 * Optional.
+	 * @format date-time
+	 */
 	created_at?: string;
+	/** A brief description of the component. */
 	description: string;
+	/**
+	 * Indicates whether the component is active.
+	 * Optional.
+	 */
 	is_active?: boolean;
+	/** The name of the component. */
 	name: string;
-	/** @format date-time */
+	/**
+	 * The date and time when the component was last updated.
+	 * Optional.
+	 * @format date-time
+	 */
 	updated_at?: string;
+	/** The version of the component. */
 	version: string;
+	/** The XML tag associated with the component. */
 	xmlTag: string;
 }
 
 /** From T, pick a set of properties whose keys are in the union K */
 export interface PickJupiterInputBodyExcludeKeysAccountName {
-	/** @format double */
+	/**
+	 * The amount of input tokens to be exchanged.
+	 * @format double
+	 */
 	amount: number;
+	/**
+	 * If true, the transaction will be broadcast to the network.
+	 * Optional.
+	 */
 	broadcast?: boolean;
+	/**
+	 * If true, the transaction will be simulated but not executed.
+	 * Optional.
+	 */
 	dryrun?: boolean;
-	/** @format double */
+	/**
+	 * The fee in basis points (bps) to be applied to the transaction.
+	 * Optional.
+	 * @format double
+	 */
 	feeBps?: number;
+	/** The mint address of the input token. */
 	inputMint: string;
+	/** The mint address of the output token. */
 	outputMint: string;
-	/** @format double */
+	/**
+	 * The maximum allowable slippage for the transaction, expressed as a percentage.
+	 * Optional.
+	 * @format double
+	 */
 	slippage?: number;
 }
 
@@ -5817,7 +8902,9 @@ export interface PoolAddressProviderAPIResponseString {
 }
 
 export interface PoolAddressProviderExecuteFunctionResult {
+	/** Represents the response from broadcasting a raw transaction. */
 	broadcasted?: BroadCastRawTransactionResponse;
+	/** Represents a transaction with various optional properties. */
 	data?: Transaction;
 	function: string;
 	message?: string;
@@ -5829,79 +8916,154 @@ export interface PoolAddressProviderExecuteFunctionResult {
 	user_op?: string;
 }
 
+/**
+ * Interface representing the input body for the Pool Address Provider.
+ * Extends the InputBody interface.
+ */
 export interface PoolAddressProviderInputBody {
+	/** Whether the transaction is from an externally owned account. */
 	EOA?: boolean;
+	/** The access list for the transaction. */
 	accessList?: AccessTuple[];
+	/** The account involved in the transaction. */
 	account?: string;
+	/** Whether to always increment the nonce. */
 	alwaysIncrementNonce?: boolean;
+	/** The amount involved in the transaction. */
 	amount?: string;
+	/** The amounts involved in the transaction. */
 	amounts?: string[];
+	/** Whether the transaction is approved. */
 	approved?: boolean;
+	/** The asset involved in the transaction. */
 	asset?: string;
+	/** The assets involved in the transaction. */
 	assets?: string[];
+	/** The gas for blob transactions. */
 	blobGas?: string;
+	/** The gas fee cap for blob transactions. */
 	blobGasFeeCap?: string;
+	/** The hashes for blob transactions. */
 	blobHashes?: string[];
+	/** The borrow amount. */
 	borrowAmount?: string | number;
+	/** Whether to broadcast the transaction. */
 	broadcast?: boolean;
+	/** The chain ID. */
 	chain_id?: string;
+	/** The collateral asset. */
 	collateralAsset?: string;
+	/** The contract address. */
 	contract_address?: string;
+	/** The data to be sent. */
 	data?: string;
+	/** The debt asset. */
 	debtAsset?: string;
+	/** The debt to cover. */
 	debtToCover?: string;
+	/** Whether to perform a dry run. */
 	dryrun?: boolean;
+	/** The encoding type. */
 	encoding?: string;
+	/** The gas for the transaction. */
 	gas?: string;
+	/** The gas limit for the transaction. */
 	gasLimit?: string;
+	/** The gas price for the transaction. */
 	gasPrice?: string;
+	/** The initial deposit. */
 	initialDeposit?: string | number;
+	/** The initiator of the transaction. */
 	initiator?: string;
+	/** The input data. */
 	input?: string;
+	/** The input tokens. */
 	inputTokens?: TokenAmount[];
-	/** @format double */
+	/**
+	 * The interest rate mode.
+	 * @format double
+	 */
 	interestRateMode?: number;
+	/** The maximum fee per gas. */
 	maxFeePerGas?: string;
+	/** The maximum priority fee per gas. */
 	maxPriorityFeePerGas?: string;
+	/** The minimum health factor. */
 	minHealthFactor?: string | number;
+	/** The modes of the transaction. */
 	modes?: number[];
 	newAddress?: string;
 	newImplementationAddress?: string;
 	newMarketId?: string;
+	/** The nonce for the transaction. */
 	nonce?: string;
+	/** The address on behalf of which the transaction is made. */
 	onBehalfOf?: string;
+	/** The output tokens. */
 	outputTokens?: TokenProportion[];
+	/** Additional parameters. */
 	params?: string;
+	/** The premiums. */
 	premiums?: string[] | number[];
-	/** @format double */
+	/**
+	 * The rate mode.
+	 * @format double
+	 */
 	rateMode?: number;
+	/** Whether to receive a token. */
 	receiveAToken?: boolean;
+	/** The receiver address. */
 	receiverAddress?: string;
-	/** @format double */
+	/**
+	 * The referral code.
+	 * @format double
+	 */
 	referralCode?: number;
+	/** The role of the user. */
 	role?: string;
+	/** Whether to simulate the transaction. */
 	simulate?: boolean;
-	/** @format double */
+	/**
+	 * The slippage limit percentage.
+	 * @format double
+	 */
 	slippageLimitPercent?: number;
+	/** The recipient address. */
 	to?: string;
+	/** The token ID. */
 	token_id?: string;
+	/** The token IDs. */
 	token_ids?: string;
-	/** @format double */
+	/**
+	 * The type of transaction.
+	 * @format double
+	 */
 	type?: number;
+	/** Whether to use as collateral. */
 	useAsCollateral?: boolean;
+	/** The user involved in the transaction. */
 	user?: string;
+	/** The value to be sent. */
 	value?: string;
 }
 
+/** Represents the API response structure for the Pool Address Provider Registry. */
 export interface PoolAddressProviderRegistryAPIResponseAnyArray {
+	/** The data returned by the API, if any. */
 	data?: any[];
+	/** A message providing additional information about the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Represents the API response structure for the Pool Address Provider Registry. */
 export interface PoolAddressProviderRegistryAPIResponseString {
+	/** The data returned by the API, if any. */
 	data?: string;
+	/** A message providing additional information about the API response. */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
@@ -5929,27 +9091,55 @@ export interface PoolVoteLengthParams {
 	tokenId: string;
 }
 
+/**
+ * Interface representing the response from the Portfolio API.
+ * Extends the BaseAPIResponse interface.
+ */
 export interface PortfolioAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The data object containing portfolio details. */
 	data?: {
+		/** The address associated with the portfolio. */
 		address?: string;
+		/** The job ID associated with the request. */
 		jobId?: string;
+		/** An array of NFT balances. */
 		nft_balances?: any[];
-		/** @format double */
+		/**
+		 * The current page number.
+		 * @format double
+		 */
 		page?: number;
-		/** @format double */
+		/**
+		 * The number of items per page.
+		 * @format double
+		 */
 		pageSize?: number;
+		/** The URL to poll for updates. */
 		pollUrl?: string;
+		/** The reason for the response status. */
 		reason?: string;
+		/** The status of the response. */
 		status?: string;
+		/** An array of token balances. */
 		token_balances?: any[];
-		/** @format double */
+		/**
+		 * The total number of NFTs.
+		 * @format double
+		 */
 		totalNFTs?: number;
-		/** @format double */
+		/**
+		 * The total number of tokens.
+		 * @format double
+		 */
 		totalTokens?: number;
 	};
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
 
@@ -5974,61 +9164,55 @@ export interface PostOrderResponse {
 	success: boolean;
 }
 
+/** Interface representing the structure of a post quote. */
 export interface PostQuote {
+	/** The broadcasted transaction. */
 	broadcast: any;
+	/** The input body. */
 	input: InputBody;
+	/** The quote object. */
 	quote: Quote;
+	/** The signed transaction. */
 	signed: any;
 }
 
-export type PostQuoteData = ApiResponsePostQuote;
-
-export interface PostQuoteParams {
-	accountName: string;
-	allowBridges?: string[];
-	allowExchanges?: string[];
-	denyBridges?: string[];
-	denyExchanges?: string[];
-	/** @format double */
-	fee?: number;
-	fromAddress: string;
-	fromAmount: string;
-	fromChain: string;
-	fromToken: string;
-	integrator?: string;
-	order?: OrderEnum1;
-	preferBridges?: string[];
-	preferExchanges?: string[];
-	referrer?: string;
-	/** @format double */
-	slippage?: number;
-	toAddress?: string;
-	toChain: string;
-	toToken: string;
-}
-
-export enum PostQuoteParams1OrderEnum {
-	BEST_VALUE = "BEST_VALUE",
-	BEST_FEE = "BEST_FEE",
-	BEST_FEE_GAS = "BEST_FEE_GAS",
-}
-
+/** Represents the price data for a financial instrument. */
 export interface PriceData {
-	/** @format double */
+	/**
+	 * The closing price of the instrument.
+	 * @format double
+	 */
 	close: number;
-	/** @format double */
+	/**
+	 * The highest price of the instrument during the time period.
+	 * @format double
+	 */
 	high: number;
-	/** @format double */
+	/**
+	 * The lowest price of the instrument during the time period.
+	 * @format double
+	 */
 	low: number;
-	/** @format double */
+	/**
+	 * The opening price of the instrument.
+	 * @format double
+	 */
 	open: number;
+	/** The time of the data point in ISO 8601 format. */
 	time: string;
-	/** @format double */
+	/**
+	 * The time of the data point in milliseconds since the Unix epoch.
+	 * @format double
+	 */
 	time_milliseconds: number;
-	/** @format double */
+	/**
+	 * The trading volume of the instrument.
+	 * @format double
+	 */
 	volume: number;
 }
 
+/** Represents the price interval for historical price data. */
 export enum PriceInterval {
 	Second = "second",
 	Minute = "minute",
@@ -6039,38 +9223,61 @@ export enum PriceInterval {
 	Year = "year",
 }
 
+/** Represents a snapshot of a financial instrument's price at a specific point in time. */
 export interface PriceSnapshot {
-	/** @format double */
+	/**
+	 * The absolute change in price for the day.
+	 * @format double
+	 */
 	day_change: number;
-	/** @format double */
+	/**
+	 * The percentage change in price for the day.
+	 * @format double
+	 */
 	day_change_percent: number;
-	/** @format double */
+	/**
+	 * The stock ticker symbol of the company.
+	 * @format double
+	 */
 	price: number;
+	/** The percentage change in price for the day. */
 	ticker: string;
+	/** The opening price of the instrument. */
 	time: string;
-	/** @format double */
+	/**
+	 * The time of the snapshot in milliseconds since the Unix epoch.
+	 * @format double
+	 */
 	time_nanoseconds: number;
 }
 
+/** Represents the response of the `getPriceSnapshot` endpoint. */
 export interface PriceSnapshotAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The price snapshot data. */
 	data?: PriceSnapshot;
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
 
+/** Represents the response of the `getPrices` endpoint. */
 export interface PricesAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The price data. */
 	data?: PriceData[];
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
-
-export type QueryData = any;
-
-export type QueryPayload = string;
 
 export interface Quote {
 	action: Action;
@@ -6078,6 +9285,7 @@ export interface Quote {
 	id: string;
 	includedSteps: Step[];
 	tool: string;
+	/** Represents a request to perform a transaction. */
 	transactionRequest: TransactionRequest;
 	type: string;
 }
@@ -6109,6 +9317,7 @@ export interface QuoteRemoveLiquidityParams {
 	tokenB: string;
 }
 
+/** Represents an array of Quote objects. */
 export type Quotes = Quote[];
 
 export interface RamsesAPIResponse {
@@ -6136,7 +9345,9 @@ export interface RamsesNFTAPIResponseString {
 }
 
 export interface RamsesNFTExecuteFunctionResult {
+	/** Represents the response from broadcasting a raw transaction. */
 	broadcasted?: BroadCastRawTransactionResponse;
+	/** Represents a transaction with various optional properties. */
 	data?: Transaction;
 	function: string;
 	message?: string;
@@ -6149,80 +9360,143 @@ export interface RamsesNFTExecuteFunctionResult {
 }
 
 export interface RamsesNFTInputBody {
+	/** Whether the transaction is from an externally owned account. */
 	EOA?: boolean;
 	_block?: string;
 	_idx?: string;
 	_proxy?: string;
 	_t?: string;
 	_team?: string;
+	/** The access list for the transaction. */
 	accessList?: AccessTuple[];
+	/** The account involved in the transaction. */
 	account?: string;
+	/** Whether to always increment the nonce. */
 	alwaysIncrementNonce?: boolean;
+	/** The amount involved in the transaction. */
 	amount?: string;
+	/** The amounts involved in the transaction. */
 	amounts?: string[];
+	/** Whether the transaction is approved. */
 	approved?: boolean;
 	artProxy?: string;
+	/** The asset involved in the transaction. */
 	asset?: string;
+	/** The assets involved in the transaction. */
 	assets?: string[];
+	/** The gas for blob transactions. */
 	blobGas?: string;
+	/** The gas fee cap for blob transactions. */
 	blobGasFeeCap?: string;
+	/** The hashes for blob transactions. */
 	blobHashes?: string[];
+	/** The borrow amount. */
 	borrowAmount?: string | number;
+	/** Whether to broadcast the transaction. */
 	broadcast?: boolean;
+	/** The chain ID. */
 	chain_id?: string;
+	/** The collateral asset. */
 	collateralAsset?: string;
+	/** The contract address. */
 	contract_address?: string;
+	/** The data to be sent. */
 	data?: string;
+	/** The debt asset. */
 	debtAsset?: string;
+	/** The debt to cover. */
 	debtToCover?: string;
 	delegatee?: string;
+	/** Whether to perform a dry run. */
 	dryrun?: boolean;
+	/** The encoding type. */
 	encoding?: string;
 	expiry?: string;
 	from?: string;
+	/** The gas for the transaction. */
 	gas?: string;
+	/** The gas limit for the transaction. */
 	gasLimit?: string;
+	/** The gas price for the transaction. */
 	gasPrice?: string;
+	/** The initial deposit. */
 	initialDeposit?: string | number;
+	/** The initiator of the transaction. */
 	initiator?: string;
+	/** The input data. */
 	input?: string;
+	/** The input tokens. */
 	inputTokens?: TokenAmount[];
-	/** @format double */
+	/**
+	 * The interest rate mode.
+	 * @format double
+	 */
 	interestRateMode?: number;
 	lock_duration?: string;
+	/** The maximum fee per gas. */
 	maxFeePerGas?: string;
+	/** The maximum priority fee per gas. */
 	maxPriorityFeePerGas?: string;
+	/** The minimum health factor. */
 	minHealthFactor?: string | number;
+	/** The modes of the transaction. */
 	modes?: number[];
+	/** The nonce for the transaction. */
 	nonce?: string;
+	/** The address on behalf of which the transaction is made. */
 	onBehalfOf?: string;
 	operator?: string;
+	/** The output tokens. */
 	outputTokens?: TokenProportion[];
+	/** Additional parameters. */
 	params?: string;
+	/** The premiums. */
 	premiums?: string[] | number[];
 	r?: string;
-	/** @format double */
+	/**
+	 * The rate mode.
+	 * @format double
+	 */
 	rateMode?: number;
+	/** Whether to receive a token. */
 	receiveAToken?: boolean;
+	/** The receiver address. */
 	receiverAddress?: string;
-	/** @format double */
+	/**
+	 * The referral code.
+	 * @format double
+	 */
 	referralCode?: number;
+	/** The role of the user. */
 	role?: string;
 	s?: string;
+	/** Whether to simulate the transaction. */
 	simulate?: boolean;
-	/** @format double */
+	/**
+	 * The slippage limit percentage.
+	 * @format double
+	 */
 	slippageLimitPercent?: number;
+	/** The recipient address. */
 	to?: string;
 	token?: string;
 	tokenId?: string;
+	/** The token ID. */
 	token_id?: string;
+	/** The token IDs. */
 	token_ids?: string;
-	/** @format double */
+	/**
+	 * The type of transaction.
+	 * @format double
+	 */
 	type?: number;
+	/** Whether to use as collateral. */
 	useAsCollateral?: boolean;
+	/** The user involved in the transaction. */
 	user?: string;
 	/** @format double */
 	v?: number;
+	/** The value to be sent. */
 	value?: string;
 	voter?: string;
 }
@@ -6311,119 +9585,237 @@ export interface RamsesRouterAPIResponseStringArray {
 }
 
 export interface RamsesRouterExecuteFunctionResult {
+	/** The broadcasted transaction details. */
 	broadcasted?: BroadCastRawTransactionResponse;
+	/** The data returned by the executed function. */
 	data?: Transaction;
+	/** The name of the executed function. */
 	function: string;
+	/** A message providing additional information about the execution result. */
 	message?: string;
+	/** The parameters passed to the executed function. */
 	params: any[];
-	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	/** The simulation result of the transaction. */
 	simulation?: SimulateAssetChangesResponse;
+	/** Indicates if the execution was successful. */
 	success?: boolean;
+	/** The transaction details. */
 	transaction: RamsesRouterTransaction;
+	/** Indicates if the execution was successful. */
 	user_op?: string;
 }
 
+/**
+ * Interface representing the input body for the Ramses Router.
+ * Extends the InputBody interface.
+ */
 export interface RamsesRouterInputBody {
+	/** Whether the transaction is from an externally owned account. */
 	EOA?: boolean;
+	/** The access list for the transaction. */
 	accessList?: AccessTuple[];
+	/** The account involved in the transaction. */
 	account?: string;
+	/** Whether to always increment the nonce. */
 	alwaysIncrementNonce?: boolean;
+	/** The amount involved in the transaction. */
 	amount?: string;
+	/** The desired amount of token A. */
 	amountADesired?: string;
+	/** The minimum amount of token A. */
 	amountAMin?: string;
+	/** The desired amount of token B. */
 	amountBDesired?: string;
+	/** The minimum amount of token B. */
 	amountBMin?: string;
+	/** The minimum amount of ETH. */
 	amountETHMin?: string;
+	/** The input amount for the transaction. */
 	amountIn?: string;
+	/** The minimum output amount for the transaction. */
 	amountOutMin?: string;
+	/** The desired amount of the token. */
 	amountTokenDesired?: string;
+	/** The minimum amount of the token. */
 	amountTokenMin?: string;
+	/** The amounts of the asset. */
 	amounts?: string[];
+	/** Indicates if the maximum approval is granted. */
 	approveMax?: boolean;
+	/** Whether the transaction is approved. */
 	approved?: boolean;
+	/** The asset involved in the transaction. */
 	asset?: string;
+	/** The assets involved in the transaction. */
 	assets?: string[];
+	/** The gas for blob transactions. */
 	blobGas?: string;
+	/** The gas fee cap for blob transactions. */
 	blobGasFeeCap?: string;
+	/** The hashes for blob transactions. */
 	blobHashes?: string[];
+	/** The borrow amount. */
 	borrowAmount?: string | number;
+	/** Whether to broadcast the transaction. */
 	broadcast?: boolean;
+	/** The chain ID. */
 	chain_id?: string;
+	/** The collateral asset. */
 	collateralAsset?: string;
+	/** The contract address. */
 	contract_address?: string;
+	/** The data to be sent. */
 	data?: string;
+	/** The deadline for the transaction. */
 	deadline?: string;
+	/** The debt asset. */
 	debtAsset?: string;
+	/** The debt to cover. */
 	debtToCover?: string;
+	/** Whether to perform a dry run. */
 	dryrun?: boolean;
+	/** The encoding type. */
 	encoding?: string;
+	/** The gas for the transaction. */
 	gas?: string;
+	/** The gas limit for the transaction. */
 	gasLimit?: string;
+	/** The gas price for the transaction. */
 	gasPrice?: string;
+	/** The initial deposit. */
 	initialDeposit?: string | number;
+	/** The initiator of the transaction. */
 	initiator?: string;
+	/** The input data. */
 	input?: string;
+	/** The input tokens. */
 	inputTokens?: TokenAmount[];
-	/** @format double */
+	/**
+	 * The interest rate mode.
+	 * @format double
+	 */
 	interestRateMode?: number;
+	/** The liquidity amount. */
 	liquidity?: string;
+	/** The maximum fee per gas. */
 	maxFeePerGas?: string;
+	/** The maximum priority fee per gas. */
 	maxPriorityFeePerGas?: string;
+	/** The minimum health factor. */
 	minHealthFactor?: string | number;
+	/** The modes of the transaction. */
 	modes?: number[];
+	/** The nonce for the transaction. */
 	nonce?: string;
+	/** The address on behalf of which the transaction is made. */
 	onBehalfOf?: string;
+	/** The output tokens. */
 	outputTokens?: TokenProportion[];
+	/** Additional parameters. */
 	params?: string;
+	/** The premiums. */
 	premiums?: string[] | number[];
+	/** The r parameter for the transaction signature. */
 	r?: string;
-	/** @format double */
+	/**
+	 * The rate mode.
+	 * @format double
+	 */
 	rateMode?: number;
+	/** Whether to receive a token. */
 	receiveAToken?: boolean;
+	/** The receiver address. */
 	receiverAddress?: string;
-	/** @format double */
+	/**
+	 * The referral code.
+	 * @format double
+	 */
 	referralCode?: number;
+	/** The role of the user. */
 	role?: string;
+	/**
+	 * The routes for the asset transfer.
+	 * Each route contains the source, destination, and a flag indicating if the route is stable.
+	 */
 	routes?: {
 		from: string;
 		stable: boolean;
 		to: string;
 	}[];
+	/** The s parameter for the transaction signature. */
 	s?: string;
+	/** Indicates if the transaction is a simulation. */
 	simulate?: boolean;
-	/** @format double */
+	/**
+	 * The slippage limit percentage.
+	 * @format double
+	 */
 	slippageLimitPercent?: number;
+	/** Indicates if the transaction is stable. */
 	stable?: boolean;
+	/** The destination address. */
 	to?: string;
+	/** The token involved in the transaction. */
 	token?: string;
+	/** The first token involved in the transaction. */
 	tokenA?: string;
+	/** The second token involved in the transaction. */
 	tokenB?: string;
+	/** The source token for the transaction. */
 	tokenFrom?: string;
+	/** The destination token for the transaction. */
 	tokenTo?: string;
+	/** The token ID. */
 	token_id?: string;
+	/** The token IDs. */
 	token_ids?: string;
-	/** @format double */
+	/**
+	 * The type of transaction.
+	 * @format double
+	 */
 	type?: number;
+	/** Whether to use as collateral. */
 	useAsCollateral?: boolean;
+	/** The user involved in the transaction. */
 	user?: string;
-	/** @format double */
+	/**
+	 * The v parameter for the transaction signature.
+	 * @format double
+	 */
 	v?: number;
+	/** The value to be sent. */
 	value?: string;
 }
 
+/** Interface representing a Ramses Router transaction. */
 export interface RamsesRouterTransaction {
+	/** The chain ID for the transaction. */
 	chainId: string;
+	/** The data for the transaction. */
 	data: string;
+	/** The source address for the transaction. */
 	from: string;
+	/** (Optional) The gas limit for the transaction. */
 	gasLimit?: string;
+	/** (Optional) The gas price for the transaction. */
 	gasPrice?: string;
+	/** (Optional) The maximum fee per gas for the transaction, in wei. */
 	maxFeePerGas?: string;
+	/** (Optional) The maximum priority fee per gas for the transaction, in wei. */
 	maxPriorityFeePerGas?: string;
-	/** @format double */
+	/**
+	 * The nonce for the transaction.
+	 * @format double
+	 */
 	nonce: number;
+	/** The destination address for the transaction. */
 	to: string;
-	/** @format double */
+	/**
+	 * (Optional) The type of the transaction.
+	 * @format double
+	 */
 	type?: number;
+	/** The value for the transaction. */
 	value: string;
 }
 
@@ -6434,6 +9826,7 @@ export interface RamsesVoterAPIResponseBoolean {
 }
 
 export interface RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult {
+	/** Represents the result of executing a function on the Ramses Voter. */
 	data?: RamsesVoterExecuteFunctionResult;
 	message: string;
 	success: boolean;
@@ -6445,106 +9838,201 @@ export interface RamsesVoterAPIResponseString {
 	success: boolean;
 }
 
+/** Represents the result of executing a function on the Ramses Voter. */
 export interface RamsesVoterExecuteFunctionResult {
+	/** The broadcasted transaction data. */
 	broadcasted?: BroadCastRawTransactionResponse;
+	/** The transaction data. */
 	data?: Transaction;
+	/** The function name. */
 	function: string;
+	/** The error message. */
 	message?: string;
+	/** The function parameters. */
 	params: any[];
-	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	/** The simulation results. */
 	simulation?: SimulateAssetChangesResponse;
+	/** Indicates if the function was successful. */
 	success?: boolean;
+	/** The transaction data. */
 	transaction: RamsesVoterTransaction;
+	/** The user operation. */
 	user_op?: string;
 }
 
 export interface RamsesVoterInputBody {
+	/** Indicates if the transaction is from an Externally Owned Account. */
 	EOA?: boolean;
+	/** The access list for the transaction. */
 	accessList?: AccessTuple[];
+	/** The account involved in the transaction. */
 	account?: string;
+	/** Indicates if the nonce should always be incremented. */
 	alwaysIncrementNonce?: boolean;
+	/** The amount to be transferred. */
 	amount?: string;
+	/** The amounts involved in the transaction. */
 	amounts?: string[];
+	/** Whether the transaction is approved. */
 	approved?: boolean;
+	/** The asset involved in the transaction. */
 	asset?: string;
+	/** The assets involved in the transaction. */
 	assets?: string[];
+	/** The gas for blob transactions. */
 	blobGas?: string;
+	/** The gas fee cap for blob transactions. */
 	blobGasFeeCap?: string;
+	/** The hashes for blob transactions. */
 	blobHashes?: string[];
+	/** The borrow amount. */
 	borrowAmount?: string | number;
+	/** The bribes for the transaction. */
 	bribes?: string[];
+	/** Indicates if the transaction should be broadcasted. */
 	broadcast?: boolean;
+	/** The chain ID. */
 	chain_id?: string;
+	/** The collateral asset. */
 	collateralAsset?: string;
+	/** The contract address involved in the transaction. */
 	contract_address?: string;
+	/** Additional data for the transaction. */
 	data?: string;
+	/** The debt asset. */
 	debtAsset?: string;
+	/** The debt to cover. */
 	debtToCover?: string;
+	/** Indicates if the transaction is a dry run. */
 	dryrun?: boolean;
+	/** The encoding type. */
 	encoding?: string;
+	/** The fees for the transaction. */
 	fees?: string[];
+	/** The gas limit for the transaction. */
 	gas?: string;
+	/** The gas limit for the transaction. */
 	gasLimit?: string;
+	/** The gas price for the transaction. */
 	gasPrice?: string;
+	/** The gauge involved in the transaction. */
 	gauge?: string;
+	/** The gauges involved in the transaction. */
 	gauges?: string[];
+	/** The initial deposit. */
 	initialDeposit?: string | number;
+	/** The initiator of the transaction. */
 	initiator?: string;
+	/** The input data. */
 	input?: string;
+	/** The input tokens. */
 	inputTokens?: TokenAmount[];
-	/** @format double */
+	/**
+	 * The interest rate mode.
+	 * @format double
+	 */
 	interestRateMode?: number;
+	/** The maximum fee per gas. */
 	maxFeePerGas?: string;
+	/** The maximum priority fee per gas. */
 	maxPriorityFeePerGas?: string;
+	/** The minimum health factor. */
 	minHealthFactor?: string | number;
+	/** The modes of the transaction. */
 	modes?: number[];
+	/** The nonce for the transaction. */
 	nonce?: string;
+	/** The address on behalf of which the transaction is made. */
 	onBehalfOf?: string;
+	/** The output tokens. */
 	outputTokens?: TokenProportion[];
+	/** Additional parameters. */
 	params?: string;
+	/** The pool involved in the transaction. */
 	pool?: string;
+	/** The pool votes for the transaction. */
 	pool_vote?: string[];
+	/** The premiums. */
 	premiums?: string[] | number[];
-	/** @format double */
+	/**
+	 * The rate mode.
+	 * @format double
+	 */
 	rateMode?: number;
+	/** Whether to receive a token. */
 	receiveAToken?: boolean;
+	/** The receiver address. */
 	receiverAddress?: string;
-	/** @format double */
+	/**
+	 * The referral code.
+	 * @format double
+	 */
 	referralCode?: number;
+	/** The role of the user. */
 	role?: string;
+	/** Indicates if the transaction should be simulated. */
 	simulate?: boolean;
-	/** @format double */
+	/**
+	 * The slippage limit percentage.
+	 * @format double
+	 */
 	slippageLimitPercent?: number;
+	/** The recipient address. */
 	to?: string;
+	/** The token involved in the transaction. */
 	token?: string;
+	/** The token ID involved in the transaction. */
 	token_id?: string;
+	/** The token IDs. */
 	token_ids?: string;
+	/** The tokens involved in the transaction. */
 	tokens?: string[][];
-	/** @format double */
+	/**
+	 * The type of transaction.
+	 * @format double
+	 */
 	type?: number;
+	/** Whether to use as collateral. */
 	useAsCollateral?: boolean;
+	/** The user involved in the transaction. */
 	user?: string;
+	/** The value associated with the transaction. */
 	value?: string;
+	/** The weights for the transaction. */
 	weights?: string[];
 }
 
+/** Represents a transaction for the Ramses Voter. */
 export interface RamsesVoterTransaction {
+	/** The chain ID of the blockchain network. */
 	chainId: string;
+	/** The data payload of the transaction. */
 	data: string;
+	/** The sender address of the transaction. */
 	from: string;
+	/** The gas limit for the transaction (optional). */
 	gasLimit?: string;
+	/** The gas price for the transaction (optional). */
 	gasPrice?: string;
+	/** The maximum fee per gas for the transaction (optional). */
 	maxFeePerGas?: string;
+	/** The maximum priority fee per gas for the transaction (optional). */
 	maxPriorityFeePerGas?: string;
-	/** @format double */
+	/**
+	 * The nonce of the transaction.
+	 * @format double
+	 */
 	nonce: number;
+	/** The recipient address of the transaction. */
 	to: string;
-	/** @format double */
+	/**
+	 * The type of the transaction (optional).
+	 * @format double
+	 */
 	type?: number;
+	/** The value to be transferred in the transaction. */
 	value: string;
 }
-
-export type ReadAccountData = BitcoinCashAPIResponseAccountResponse;
 
 /** Construct a type with a set of properties K of type T */
 export interface RecordStringAny {
@@ -6554,8 +10042,6 @@ export interface RecordStringAny {
 
 /** Construct a type with a set of properties K of type T */
 export type RecordStringString = object;
-
-export type RedeemData = ERC4626APIResponse;
 
 export type RefundEth2Data = UniswapV3APIResponseUniswapV3ExecuteFunctionResult;
 
@@ -6586,16 +10072,11 @@ export type RemoveLiquidityResult =
 export type RemoveLiquidityWithPermitData =
 	UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
 
-export type RenounceRoleData =
-	LeveragerAPIResponseLeveragerExecuteFunctionResult;
-
-export type RepayData = AavePoolAPIResponseAavePoolExecuteFunctionResult;
-
-export type RepayResult =
-	LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
-
+/** Interface representing the reserves data. */
 export interface ReservesData {
+	/** The aggregated reserve data. */
 	aggregatedReserveData: AggregatedReserveData[];
+	/** The base currency information. */
 	baseCurrencyInfo: BaseCurrencyInfo;
 }
 
@@ -6607,8 +10088,6 @@ export type ResetOutput =
 export type ResetResult =
 	RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
 
-export type ResolveData = EnsResolveAPIResponse;
-
 export type ReviveGaugeData =
 	LynexVoterAPIResponseLynexVoterExecuteFunctionResult;
 
@@ -6618,79 +10097,117 @@ export type ReviveGaugeOutput =
 export type ReviveGaugeResult =
 	RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
 
-export type RevokeRoleData = LeveragerAPIResponseLeveragerExecuteFunctionResult;
-
+/** Interface representing the reward information for a token. */
 export interface RewardInfo {
+	/** The timestamp when the emission ends. */
 	emissionEndTimestamp: BigNumber;
+	/** The emission rate of the reward token per second. */
 	emissionPerSecond: BigNumber;
+	/** The timestamp of the last update to the incentives. */
 	incentivesLastUpdateTimestamp: BigNumber;
-	/** @format double */
+	/**
+	 * The precision of the reward token.
+	 * @format double
+	 */
 	precision: number;
-	/** @format double */
+	/**
+	 * The number of decimals of the price feed.
+	 * @format double
+	 */
 	priceFeedDecimals: number;
+	/** The address of the reward oracle. */
 	rewardOracleAddress: string;
+	/** The price feed of the reward token. */
 	rewardPriceFeed: BigNumber;
+	/** The address of the reward token. */
 	rewardTokenAddress: string;
-	/** @format double */
+	/**
+	 * The number of decimals of the reward token.
+	 * @format double
+	 */
 	rewardTokenDecimals: number;
+	/** The symbol of the reward token. */
 	rewardTokenSymbol: string;
+	/** The index of the token incentives. */
 	tokenIncentivesIndex: BigNumber;
 }
 
 export interface RippleAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The data associated with the Ripple response. */
 	data?: RippleTransactionOutput;
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
 
+/** Represents the input data required for Ripple transactions. */
 export interface RippleInput {
+	/** The network on which the transaction will be executed. This is optional. */
 	network?: string;
+	/** The private key used for signing the transaction. This is optional. */
 	private_key?: string;
 }
 
+/** Represents the input data for a Ripple transaction. */
 export interface RippleTransactionInput {
+	/** Indicates whether to compress the public key. */
 	compress?: boolean;
+	/** The network on which the transaction is taking place. */
 	network?: string;
+	/** The recipient address of the transaction. */
 	to?: string;
-	/** @format double */
+	/**
+	 * The amount to be sent.
+	 * @format double
+	 */
 	value?: number;
 }
 
+/** Represents the output of a Ripple transaction. */
 export interface RippleTransactionOutput {
+	/** The signed transaction. */
 	signedTx?: string;
+	/** The transaction hash. */
 	transaction_hash?: string;
 }
 
 export interface SRC20InscriptionInput {
+	/** The output index of the input being used. */
 	address: string;
-	/** @format double */
+	/**
+	 * The amount of tokens involved in the transaction.
+	 * @format double
+	 */
 	commit_fee_rate: number;
+	/** The ticker symbol of the token involved in the transaction. */
 	inscription_data: string;
+	/** The network on which the transaction is taking place. */
 	network: string;
+	/** The operation type of the transaction. */
 	prev_outputs: string;
-	/** @format double */
+	/**
+	 * The transaction ID of the input being used.
+	 * @format double
+	 */
 	reveal_out_value: number;
 }
 
+/** Represents the output of an SRC20 inscription. */
 export interface SRC20InscriptionOutput {
+	/** the json string of the inscription transaction */
 	transactions: string;
 }
 
-export type SafeBatchTransferFromData = TransactionAPIResponse;
-
-export type SafeTransferFromData = TransactionAPIResponse;
-
-export type SafeTransferFromErc721Data = ERC721APIResponse;
-
-export type SafeTransferFromOutput =
-	VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
-
-export type SafeTransferFromResult =
+export type SafeTransferFromData =
 	LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
-export type SafeTransferFromWithDataErc721Data = ERC721APIResponse;
+export type SafeTransferFromResult =
+	VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export interface ScheduleJobBody {
 	jobId: string;
@@ -6699,21 +10216,20 @@ export interface ScheduleJobBody {
 
 export type ScheduleJobData = MultiCallAPIResponse;
 
-export type SearchComponentsData = ComponentAPIResponseComponentMatchArray;
-
-export interface SearchComponentsParams {
-	limit?: string;
-	query: string;
-	threshold?: string;
-}
-
+/** Represents a filter to be applied in a search query. */
 export interface SearchFilter {
+	/** The name of the field to filter on. */
 	field: string;
+	/** The operator to use for comparison. */
 	operator: SearchFilterOperatorEnum;
-	/** @format double */
+	/**
+	 * The value to compare the field against.
+	 * @format double
+	 */
 	value: number;
 }
 
+/** The operator to use for comparison. */
 export enum SearchFilterOperatorEnum {
 	Eq = "eq",
 	Gt = "gt",
@@ -6722,41 +10238,38 @@ export enum SearchFilterOperatorEnum {
 	Lte = "lte",
 }
 
+/** Represents the response of the `searchFinancials` endpoint. */
 export interface SearchFinancialsAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The search results. */
 	data?: SearchResult[];
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
 
-export type SearchFinancialsByLineItemsData = LineItemsSearchAPIResponse;
-
-export interface SearchFinancialsByLineItemsPayload {
-	/** @format double */
-	limit?: number;
-	line_items: string[];
-	period?: SearchFinancialsByLineItemsPeriodEnum;
-	tickers: string[];
-}
-
-export enum SearchFinancialsByLineItemsPeriodEnum {
-	Annual = "annual",
-	Quarterly = "quarterly",
-	Ttm = "ttm",
-}
-
-export type SearchFinancialsData = SearchFinancialsAPIResponse;
-
+/** Represents a request to search for financial datasets. */
 export interface SearchRequest {
+	/** The currency in which the financial data is denominated. */
 	currency?: SearchRequestCurrencyEnum;
+	/** An array of filters to apply to the search. */
 	filters: SearchFilter[];
-	/** @format double */
+	/**
+	 * The maximum number of results to return.
+	 * @format double
+	 */
 	limit?: number;
+	/** The field by which to order the results. */
 	order_by?: SearchRequestOrderByEnum;
+	/** The reporting period for the financial data. */
 	period?: SearchRequestPeriodEnum;
 }
 
+/** The currency in which the financial data is denominated. */
 export enum SearchRequestCurrencyEnum {
 	USD = "USD",
 	EUR = "EUR",
@@ -6768,6 +10281,7 @@ export enum SearchRequestCurrencyEnum {
 	SEK = "SEK",
 }
 
+/** The field by which to order the results. */
 export enum SearchRequestOrderByEnum {
 	Ticker = "ticker",
 	ValueTicker = "-ticker",
@@ -6775,47 +10289,74 @@ export enum SearchRequestOrderByEnum {
 	ValueReportPeriod = "-report_period",
 }
 
+/** The reporting period for the financial data. */
 export enum SearchRequestPeriodEnum {
 	Annual = "annual",
 	Quarterly = "quarterly",
 	Ttm = "ttm",
 }
 
+/** Represents a financial dataset search result. */
 export interface SearchResult {
+	/** The currency in which the financial data is denominated. */
 	currency: string;
+	/** The currency in which the financial data is denominated. */
 	period: string;
+	/** The reporting period of the financial data. */
 	report_period: string;
+	/** The stock ticker symbol of the company. */
 	ticker: string;
 	[key: string]: any;
 }
 
+/** Represents the segmented revenue data for a specific company. */
 export interface SegmentedRevenue {
+	/** An array of segmented revenue items. */
 	items: SegmentedRevenueItem[];
+	/** The type of reporting period, either annual or quarterly. */
 	period: SegmentedRevenuePeriodEnum;
+	/** The reporting period for the revenue data. */
 	report_period: string;
+	/** The stock ticker symbol of the company. */
 	ticker: string;
 }
 
+/** Represents an item of segmented revenue data. */
 export interface SegmentedRevenueItem {
+	/** The axis of the revenue data. */
 	axis: string;
+	/** The end period of the revenue data (optional). */
 	end_period?: string;
+	/** The key associated with the revenue data. */
 	key: string;
+	/** The segment of the revenue data. */
 	segment: string;
+	/** The start period of the revenue data (optional). */
 	start_period?: string;
-	/** @format double */
+	/**
+	 * The value of the revenue data.
+	 * @format double
+	 */
 	value: number;
 }
 
+/** The type of reporting period, either annual or quarterly. */
 export enum SegmentedRevenuePeriodEnum {
 	Annual = "annual",
 	Quarterly = "quarterly",
 }
 
+/** Represents the response of the `getSegmentedRevenues` endpoint. */
 export interface SegmentedRevenuesAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The segmented revenue data */
 	data?: SegmentedRevenue[];
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
 
@@ -6830,44 +10371,49 @@ export type SelfPermitData = UniswapV3APIResponseUniswapV3ExecuteFunctionResult;
 export type SelfPermitIfNecessaryData =
 	UniswapV3APIResponseUniswapV3ExecuteFunctionResult;
 
+/** Represents a quote for selling cryptocurrency. */
 export interface SellQuote {
-	/** @format double */
+	/**
+	 * The fee charged by the network for the transaction.
+	 * @format double
+	 */
 	networkFee: number;
+	/** The method of payment used for the transaction. */
 	paymentMethod: string;
-	/** @format double */
+	/**
+	 * The amount to be paid out after fees.
+	 * @format double
+	 */
 	payout: number;
+	/** The unique identifier for the quote. */
 	quoteId: string;
+	/** The ramp service used for the transaction. */
 	ramp: string;
-	/** @format double */
+	/**
+	 * The exchange rate for the cryptocurrency.
+	 * @format double
+	 */
 	rate: number;
+	/** A list of recommendations related to the quote. */
 	recommendations: string[];
-	/** @format double */
+	/**
+	 * The fee charged for processing the transaction.
+	 * @format double
+	 */
 	transactionFee: number;
 }
 
+/** Represents an array of SellQuote objects. */
 export type SellQuotes = SellQuote[];
 
-export type SetAclAdminData =
-	PoolAddressProviderAPIResponsePoolAddressProviderExecuteFunctionResult;
-
-export type SetAclManagerData =
-	PoolAddressProviderAPIResponsePoolAddressProviderExecuteFunctionResult;
-
-export type SetAddressData =
-	PoolAddressProviderAPIResponsePoolAddressProviderExecuteFunctionResult;
-
-export type SetApprovalForAllData = TransactionAPIResponse;
-
-export type SetApprovalForAllData1 =
-	VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
-
-export type SetApprovalForAllErc721Data = ERC721APIResponse;
+export type SetApprovalForAllData =
+	LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
 export type SetApprovalForAllOutput =
-	UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
+	VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export type SetApprovalForAllResult =
-	LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
+	UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
 
 export type SetClaimApprovalData =
 	LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
@@ -6875,99 +10421,57 @@ export type SetClaimApprovalData =
 export type SetClaimApprovalForAllData =
 	LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
-export type SetMarketIdData =
-	PoolAddressProviderAPIResponsePoolAddressProviderExecuteFunctionResult;
-
-export type SetPoolConfiguratorImplData =
-	PoolAddressProviderAPIResponsePoolAddressProviderExecuteFunctionResult;
-
-export type SetPoolImplData =
-	PoolAddressProviderAPIResponsePoolAddressProviderExecuteFunctionResult;
-
-export type SetUserUseReserveAsCollateralData =
-	AavePoolAPIResponseAavePoolExecuteFunctionResult;
-
-export type SetUserUseReserveAsCollateralResult =
-	LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
-
 export enum Side {
 	BUY = "BUY",
 	SELL = "SELL",
 }
 
-export interface SignBitcoinTransactionBody {
-	inputs: string;
-	network: string;
-	outputs: string;
-}
-
-export type SignBitcoinTransactionData = BitcoinAPIResponse;
-
-export type SignBitcoinTransactionResult = BitcoinCashAPIResponseSignedTxString;
-
-export type SignDogeCoinTransactionData = DogeCoinAPIResponse;
-
-export type SignDogeCoinTransactionWithMemoData = DogeCoinAPIResponse;
-
 export type SignEosTransactionData = EosAPIResponse;
 
-export type SignIbcTransferTransactionData = CosmosTransactionAPIResponse;
-
-export type SignLitecoinTransactionData = LitecoinAPIResponse;
-
-export type SignLitecoinTransactionWithMemoData = LitecoinAPIResponse;
-
+/** Represents a message to be signed. */
 export interface SignMessage {
+	/** The ID of the blockchain network. */
 	chain_id?: string;
+	/** The data to be signed. */
 	data: string;
+	/** The encoding format of the data. */
 	encoding?: string;
+	/** Indicates if the message includes a header. */
 	header?: boolean;
+	/** The name associated with the message. */
 	name?: string;
+	/** Indicates if the message includes a signature type. */
 	signtype?: boolean;
 }
 
+/**
+ * Interface representing the response from the Sign Message API.
+ * Extends the BaseAPIResponse interface.
+ */
 export interface SignMessageAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The transaction data. */
 	data?: TransactionData;
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
-}
-
-export type SignMessageData = SignMessageAPIResponse;
-
-export type SignMessageResult = CosmosSignedMessageAPIResponse;
-
-export type SignPsbtWithKeyPathAndScriptPathData =
-	BitcoinCashAPIResponseSignedPsbtHexString;
-
-export interface SignPsbtWithKeyPathAndScriptPathPayload {
-	network: string;
-	psbt_hex: string;
 }
 
 export type SignRippleTransactionData = RippleAPIResponse;
 
 export type SignSolanaTransactionData = SolanaAPIResponse;
 
-export type SignTransactionData = TransactionAPIResponse;
-
-export type SignTransactionResult =
-	BitcoinCashAPIResponseBitcoinCashTransactionOutput;
-
-export type SignTransactionWithMemoData =
-	BitcoinCashAPIResponseBitcoinCashTransactionOutput;
-
-export type SignTransferTransactionData = CosmosTransactionAPIResponse;
-
-export type SignTronTransactionData = TronAPIResponse;
-
+/** Interface representing the structure for signing typed data. */
 export interface SignTypedData {
+	/** The optional chain ID associated with the data. */
 	chain_id?: string;
+	/** The data to be signed. */
 	data: string;
 }
-
-export type SignTypedDataData = SignMessageAPIResponse;
 
 /**
  * Represents an asset change from a call to
@@ -7062,33 +10566,54 @@ export enum SimulateChangeType {
 }
 
 export interface SolanaAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The data associated with the Solana response. */
 	data?: SolanaTransactionOutput;
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
 
+/** Represents the input parameters required for a Solana transaction. */
 export interface SolanaInput {
+	/** The network on which the transaction is taking place. */
 	network?: string;
+	/** The private key of the account. */
 	private_key?: string;
 }
 
+/** Represents the input required to sign a Solana transaction. */
 export interface SolanaSignTransactionInput {
+	/** The network on which the transaction is taking place. */
 	network?: string;
+	/** The transaction to be signed. */
 	unsigned_tx: string;
 }
 
+/** Represents the input data required for a Solana transaction. */
 export interface SolanaTransactionInput {
+	/** Indicates whether the transaction data should be compressed. */
 	compress?: boolean;
+	/** The network on which the transaction is to be executed. */
 	network?: string;
+	/** The recipient address of the transaction. */
 	to?: string;
-	/** @format double */
+	/**
+	 * The amount of value to be transferred in the transaction.
+	 * @format double
+	 */
 	value?: number;
 }
 
+/** Represents the output of a Solana transaction. */
 export interface SolanaTransactionOutput {
+	/** The signed transaction. */
 	signedTx?: string;
+	/** The transaction hash. */
 	transaction_hash?: string;
 }
 
@@ -7148,60 +10673,83 @@ export type SuccessResponse249 = {
 	verified_contract?: boolean;
 }[];
 
-export type SuggestGasPriceData = TransactionAPIResponse;
-
-export interface SuggestGasPriceParams {
-	accountName: string;
-	chainId: string;
-}
-
-export type SupplyData = AavePoolAPIResponseAavePoolExecuteFunctionResult;
-
+/** Represents the response structure for supported assets. */
 export interface SupportedAssetResponse {
+	/** An array of objects representing the supported assets. */
 	assets: {
+		/** An array of supported cryptocurrencies. */
 		crypto: string[];
+		/** The fiat currency code. */
 		fiat: string;
+		/** An array of supported payment methods. */
 		paymentMethods: string[];
 	}[];
+	/** The country code where the assets are supported. */
 	country: string;
 }
 
+/** Represents the response containing supported currencies. */
 export interface SupportedCurrenciesResponse {
+	/** The message containing arrays of cryptocurrencies and fiat currencies. */
 	message: Message;
 }
 
+/** Represents the response structure for supported default values. */
 export interface SupportedDefaultResponse {
+	/** The default transaction details. */
 	defaults: {
+		/** The unique identifier for the transaction. */
 		id: {
-			/** @format double */
+			/**
+			 * The amount involved in the transaction.
+			 * @format double
+			 */
 			amount: number;
+			/** The payment method used for the transaction. */
 			paymentMethod: string;
+			/** The provider of the transaction. */
 			provider: string;
+			/** The source of the transaction. */
 			source: string;
+			/** The destination of the transaction. */
 			target: string;
 		};
 	};
+	/** The recommended transaction details. */
 	recommended: {
-		/** @format double */
+		/**
+		 * The amount involved in the transaction.
+		 * @format double
+		 */
 		amount: number;
+		/** The payment method used for the transaction. */
 		paymentMethod: string;
+		/** The provider of the transaction. */
 		provider: string;
+		/** The unique identifier for the transaction. */
 		source: string;
+		/** The destination of the transaction. */
 		target: string;
 	};
 }
 
+/** Represents the response containing supported payment types and their associated message. */
 export interface SupportedPaymentTypesCurrencyResponse {
+	/** The message containing supported payment types. */
 	message: SupportedPaymentTypesMessage;
 }
 
+/** Represents a message containing supported payment types. */
 export interface SupportedPaymentTypesMessage {
+	/** The payment type for Apple Pay. */
 	applepay: PaymentType;
+	/** The payment type for credit cards. */
 	creditcard: PaymentType;
+	/** The payment type for Google Pay. */
 	googlepay: PaymentType;
 }
 
-export type SupportsInterfaceData = LeveragerAPIResponseBoolean;
+export type SupportsInterfaceData = UniswapV3NFTAPIResponseBoolean;
 
 export interface SupportsInterfaceParams {
 	address: string;
@@ -7209,18 +10757,7 @@ export interface SupportsInterfaceParams {
 	interfaceId: string;
 }
 
-export interface SupportsInterfaceParams2 {
-	address: string;
-	chainId: string;
-	interfaceId: string;
-}
-
-export type SupportsInterfaceResult = UniswapV3NFTAPIResponseBoolean;
-
-export type SwapBorrowRateModeData =
-	LendingPoolAPIResponseLendingPoolExecuteFunctionResult;
-
-export type SwapData = JupiterAPIResponseJupiterExecuteFunctionResult;
+export type SwapData = ThorSwapAPIResponseString;
 
 export type SwapEthForExactTokensData =
 	UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
@@ -7261,7 +10798,7 @@ export type SwapExactTokensForTokensResult =
 export type SwapExactTokensForTokensSupportingFeeOnTransferTokensData =
 	UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
 
-export interface SwapInput {
+export interface SwapPayload {
 	accountName: string;
 	/** @format double */
 	amount: number;
@@ -7272,10 +10809,6 @@ export interface SwapInput {
 	senderAddress: string;
 	toAsset: string;
 }
-
-export type SwapOutput = ThorSwapAPIResponseString;
-
-export type SwapResult = OdosAPIResponseOdosExecuteFunctionResult;
 
 export type SwapTokensForExactEthData =
 	UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
@@ -7306,6 +10839,7 @@ export interface ThenaAPIResponse {
 }
 
 export interface ThorSwapAPIResponseGasPrice {
+	/** Represents the gas price information for a specific blockchain. */
 	data?: GasPrice;
 	message: string;
 	success: boolean;
@@ -7340,8 +10874,11 @@ export interface Token {
 	symbol: string;
 }
 
+/** Represents an amount of a specific token. */
 export interface TokenAmount {
+	/** The amount of the token. */
 	amount: string;
+	/** The address of the token. */
 	tokenAddress: string;
 }
 
@@ -7376,13 +10913,20 @@ export interface TokenInfo {
 	symbol: string;
 }
 
+/** Interface representing token information by chain ID. */
 export type TokenInfoByChainId = Record<string, TokenInfo[]>;
 
+/** Represents the response from the Token Metadata API. */
 export interface TokenMetadataAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The token metadata information. */
 	data?: GetTokenMetadataJSONResponse;
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
 
@@ -7396,9 +10940,14 @@ export interface TokenOfOwnerByIndexParams {
 	owner: string;
 }
 
+/** Represents the proportion of a specific token. */
 export interface TokenProportion {
-	/** @format double */
+	/**
+	 * The proportion of the token, typically represented as a percentage or a fraction.
+	 * @format double
+	 */
 	proportion: number;
+	/** The address of the token. */
 	tokenAddress: string;
 }
 
@@ -7461,96 +11010,179 @@ export enum TradeTraderSideEnum {
 	MAKER = "MAKER",
 }
 
+/** Represents a transaction with various optional properties. */
 export interface Transaction {
+	/** The response after broadcasting the raw transaction. */
 	broadcasted?: BroadCastRawTransactionResponse;
+	/**
+	 * Additional data related to the transaction.
+	 * Replace with the actual type if known.
+	 */
 	data?: string | null;
+	/** A message related to the transaction. */
 	message?: string;
+	/** The URL to the transaction on MoonScan. */
 	moon_scan_url?: string;
+	/** The raw transaction data. */
 	raw_transaction?: string;
+	/** The signature of the transaction. */
 	signature?: string;
+	/** The signed transaction data. */
 	signed_transaction?: string;
-	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	/** The simulation response of asset changes. */
 	simulation?: SimulateAssetChangesResponse;
+	/** Indicates whether the transaction was successful. */
 	success?: boolean;
+	/** The transaction details. */
 	transaction?: Tx;
+	/** The hash of the transaction. */
 	transaction_hash?: string;
+	/** An array of transaction data. */
 	transactions?: TransactionData[];
+	/** An array of user operation requests. */
 	userOps?: TransactionRequest[];
+	/** The user operation data. */
 	user_op?: string;
+	/** The user operation transaction data. */
 	userop_transaction?: string;
 }
 
+/**
+ * Interface representing the response from the Transaction API.
+ * Extends the BaseAPIResponse interface.
+ */
 export interface TransactionAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The response from broadcasting the raw transaction. */
 	broadcasted?: BroadCastRawTransactionResponse;
+	/** The transaction data. */
 	data?: Transaction;
+	/** The function name associated with the transaction. */
 	function?: string;
+	/** The message associated with the operation. */
 	message: string;
+	/** The parameters associated with the transaction function. */
 	params?: any[];
+	/** The signed transaction data. */
 	signedTx?: any;
+	/** The success status of the operation. */
 	success: boolean;
+	/** Additional transaction information. */
 	transaction?: any;
+	/** The hash of the transaction. */
 	transaction_hash?: any;
 }
 
+/** Represents the data associated with a transaction. */
 export interface TransactionData {
+	/** The URL to view the transaction on MoonScan. */
 	moon_scan_url?: string;
+	/** The raw transaction data. */
 	raw_transaction?: string;
+	/** The signature of the transaction. */
 	signature?: string;
+	/** The signed message associated with the transaction. */
 	signed_message?: string;
+	/** The signed transaction data. */
 	signed_transaction: string;
+	/** The transaction details. */
 	transaction?: Tx;
+	/** The hash of the transaction. */
 	transaction_hash: string;
+	/** The list of user operations associated with the transaction. */
 	userOps?: TransactionRequest[];
+	/** The user operation transaction data. */
 	userop_transaction?: string;
 }
 
+/** Represents the input for a transaction in the OnRamper system. */
 export interface TransactionInput {
-	/** @format double */
+	/**
+	 * The amount involved in the transaction.
+	 * @format double
+	 */
 	amount: number;
+	/** The destination of the transaction. */
 	destination: string;
+	/** Additional metadata for the transaction. */
 	metaData: {
+		/** The quote ID associated with the transaction. */
 		quoteId: string;
 	};
+	/** The network used for the transaction. */
 	network: string;
+	/** The onramp service used for the transaction. */
 	onramp: string;
+	/** The originating host of the transaction. */
 	originatingHost: string;
+	/** The context provided by the partner. */
 	partnerContext: string;
+	/** The payment method used for the transaction. */
 	paymentMethod: string;
+	/** The source of the transaction. */
 	source: string;
+	/** Supported parameters for the transaction. */
 	supportedParams: {
+		/** Partner-specific data for the transaction. */
 		partnerData: {
+			/** Redirect URLs for the transaction. */
 			redirectUrl: {
+				/** The URL to redirect to upon successful transaction. */
 				success: string;
 			};
 		};
+		/** Theme settings for the transaction. */
 		theme: {
-			/** @format double */
+			/**
+			 * The border radius of the theme.
+			 * @format double
+			 */
 			borderRadius: number | null;
+			/** The card color of the theme. */
 			cardColor: string;
+			/** Indicates if the theme is dark. */
 			isDark: boolean;
+			/** The primary color of the theme. */
 			primaryColor: string;
+			/** The primary text color of the theme. */
 			primaryTextColor: string;
+			/** The secondary color of the theme. */
 			secondaryColor: string;
+			/** The secondary text color of the theme. */
 			secondaryTextColor: string;
+			/** The name of the theme. */
 			themeName: string;
 		};
 	};
+	/** The type of transaction. */
 	type: string;
+	/** The unique identifier for the transaction. */
 	uuid: string;
+	/** The wallet information for the transaction. */
 	wallet: {
+		/** The wallet address involved in the transaction. */
 		address: string;
 	};
 }
 
+/** Represents a request to perform a transaction. */
 export interface TransactionRequest {
+	/** The data to be sent with the transaction. */
 	data?: string;
+	/** The address from which the transaction is sent. */
 	from?: string;
+	/** The maximum fee per gas unit that the sender is willing to pay. */
 	maxFeePerGas?: string;
+	/** The maximum priority fee per gas unit that the sender is willing to pay. */
 	maxPriorityFeePerGas?: string;
+	/** A unique identifier for the transaction. */
 	nonce?: string;
+	/** The address to which the transaction is directed. */
 	to?: string;
+	/** The amount of value to be transferred. */
 	value?: string;
 }
 
@@ -7565,204 +11197,365 @@ export interface TransactionStatus {
 	txLink: string;
 }
 
-export type TransferData = ERC20APIResponseERC20ExecuteFunctionResult;
-
-export type TransferEthData = TransactionAPIResponse;
-
-export type TransferFromData = ERC20APIResponseERC20ExecuteFunctionResult;
-
-export type TransferFromData1 =
-	UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
-
-export type TransferFromErc721Data = ERC721APIResponse;
+export type TransferFromData = LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
 export type TransferFromOutput =
-	LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
+	UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
 
-export type TransferFromResult = ERC4626APIResponse;
-
-export type TransferFromResult1 =
+export type TransferFromResult =
 	RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 
-export type TransferFromResult2 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
-
-export type TransferResult = ERC4626APIResponse;
+export type TransferFromResult1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export type TransferSolanaTransactionData = SolanaAPIResponse;
 
 export type TransferTokensSignSolanaTransactionData = SolanaAPIResponse;
 
 export interface TronAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The data associated with the Tron response. */
 	data?: TronTransactionOutput;
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
 
+export type TronCreateTronAccountData = AccountAPIResponse;
+
+export type TronDeleteTronAccountData = AccountAPIResponse;
+
+export type TronExportTronAccountData = AccountAPIResponse;
+
+export type TronGetTronAccountData = AccountAPIResponse;
+
+/** Represents the input data required for Tron network operations. */
 export interface TronInput {
+	/** The network on which the transaction is taking place. */
 	network?: string;
+	/** The private key of the account. */
 	private_key?: string;
 }
 
+export type TronListTronAccountsData = AccountAPIResponse;
+
+export type TronSignTronTransactionData = TronAPIResponse;
+
+/** Represents an input for a Tron transaction. */
 export interface TronTransactionInput {
+	/** Indicates whether to compress the public key. */
 	compress?: boolean;
+	/** The network on which the transaction is taking place. */
 	network?: string;
+	/** The recipient address of the transaction. */
 	to?: string;
-	/** @format double */
+	/**
+	 * The amount to be sent.
+	 * @format double
+	 */
 	value?: number;
 }
 
+/** Represents the output of a Tron transaction. */
 export interface TronTransactionOutput {
+	/** The signed transaction. */
 	signedTx?: string;
+	/** The transaction hash. */
 	transaction_hash?: string;
 }
 
+/** Represents a transaction object. */
 export interface Tx {
+	/** The gas used for blob transactions. */
 	blob_gas?: string | null;
+	/** The gas fee cap for blob transactions. */
 	blob_gas_fee_cap?: string | null;
+	/** The hashes of the blobs included in the transaction. */
 	blob_hashes?: string[] | null;
-	/** @format double */
+	/**
+	 * The chain ID of the blockchain network.
+	 * @format double
+	 */
 	chain_id?: number;
+	/** The data payload of the transaction. */
 	data?: string;
+	/** The address of the sender. */
 	from?: string;
+	/** The gas limit for the transaction. */
 	gas?: string;
+	/** The gas fee cap for the transaction, used in EIP-1559 transactions. */
 	gas_fee_cap?: string | null;
+	/** The gas price for the transaction. */
 	gas_price?: string;
+	/** The gas tip cap for the transaction, used in EIP-1559 transactions. */
 	gas_tip_cap?: string | null;
-	/** @format double */
+	/**
+	 * The nonce of the transaction.
+	 * @format double
+	 */
 	nonce?: number;
+	/** The signature r value of the transaction. */
 	r?: string;
+	/** The signature s value of the transaction. */
 	s?: string;
+	/** The address of the recipient. */
 	to?: string | null;
-	/** @format double */
+	/**
+	 * The type of the transaction.
+	 * @format double
+	 */
 	type?: number;
+	/** The recovery id of the transaction. */
 	v?: string;
+	/** The value to be transferred in the transaction. */
 	value?: string;
 }
 
 export interface UniswapV2APIResponseUniswapV2ExecuteFunctionResult {
+	/** Represents the result of executing a UniswapV2 function. */
 	data?: UniswapV2ExecuteFunctionResult;
 	message: string;
 	success: boolean;
 }
 
+/** Represents the result of executing a UniswapV2 function. */
 export interface UniswapV2ExecuteFunctionResult {
+	/** The broadcasted transaction. */
 	broadcasted?: BroadCastRawTransactionResponse;
+	/** The data returned by the API. */
 	data?: Transaction;
+	/** The name of the function executed. */
 	function: string;
+	/** The broadcasted result of the transaction. */
 	message?: string;
+	/** The parameters passed to the function. */
 	params: any[];
-	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	/** The simulation data. */
 	simulation?: SimulateAssetChangesResponse;
+	/** The message returned by the API. */
 	success?: boolean;
+	/** The UniswapV2 transaction. */
 	transaction: UniswapV2Transaction;
+	/** Indicates whether the function was successful. */
 	user_op?: string;
 }
 
+/** Represents the input body for a UniswapV2 transaction. */
 export interface UniswapV2InputBody {
+	/** The address of the token to swap. */
 	EOA?: boolean;
+	/** The access list for the transaction. */
 	accessList?: AccessTuple[];
+	/** The account involved in the transaction. */
 	account?: string;
+	/** The address of the token to swap. */
 	alwaysIncrementNonce?: boolean;
+	/** The address of the token to swap. */
 	amount?: string;
+	/** The address of the token to swap. */
 	amountA?: string;
+	/** The address of the token to swap. */
 	amountADesired?: string;
+	/** The address of the token to swap. */
 	amountAMin?: string;
+	/** The address of the token to swap. */
 	amountBDesired?: string;
+	/** The address of the token to swap. */
 	amountBMin?: string;
+	/** The address of the token to swap. */
 	amountETHMin?: string;
+	/** The address of the token to swap. */
 	amountIn?: string;
+	/** The address of the token to swap. */
 	amountInMax?: string;
+	/** The address of the token to swap. */
 	amountOut?: string;
+	/** The address of the token to swap. */
 	amountOutMin?: string;
+	/** The address of the token to swap. */
 	amountTokenDesired?: string;
+	/** The address of the token to swap. */
 	amountTokenMin?: string;
+	/** The amounts involved in the transaction. */
 	amounts?: string[];
+	/** The address of the token to swap. */
 	approveMax?: boolean;
+	/** Whether the transaction is approved. */
 	approved?: boolean;
+	/** The asset involved in the transaction. */
 	asset?: string;
+	/** The assets involved in the transaction. */
 	assets?: string[];
+	/** The gas for blob transactions. */
 	blobGas?: string;
+	/** The gas fee cap for blob transactions. */
 	blobGasFeeCap?: string;
+	/** The hashes for blob transactions. */
 	blobHashes?: string[];
+	/** The borrow amount. */
 	borrowAmount?: string | number;
+	/** The address of the token to swap. */
 	broadcast?: boolean;
+	/** The chain ID. */
 	chain_id?: string;
+	/** The collateral asset. */
 	collateralAsset?: string;
+	/** The address of the token to swap. */
 	contract_address?: string;
+	/** The address of the token to swap. */
 	data?: string;
+	/** The address of the token to swap. */
 	deadline?: string;
+	/** The debt asset. */
 	debtAsset?: string;
+	/** The debt to cover. */
 	debtToCover?: string;
+	/** The address of the token to swap. */
 	dryrun?: boolean;
+	/** The encoding type. */
 	encoding?: string;
+	/** The address of the token to swap. */
 	gas?: string;
+	/** The address of the token to swap. */
 	gasLimit?: string;
+	/** The address of the token to swap. */
 	gasPrice?: string;
+	/** The initial deposit. */
 	initialDeposit?: string | number;
+	/** The initiator of the transaction. */
 	initiator?: string;
+	/** The input data. */
 	input?: string;
+	/** The input tokens. */
 	inputTokens?: TokenAmount[];
-	/** @format double */
+	/**
+	 * The interest rate mode.
+	 * @format double
+	 */
 	interestRateMode?: number;
+	/** The address of the token to swap. */
 	liquidity?: string;
+	/** The maximum fee per gas. */
 	maxFeePerGas?: string;
+	/** The maximum priority fee per gas. */
 	maxPriorityFeePerGas?: string;
+	/** The minimum health factor. */
 	minHealthFactor?: string | number;
+	/** The modes of the transaction. */
 	modes?: number[];
+	/** The address of the token to swap. */
 	nonce?: string;
+	/** The address on behalf of which the transaction is made. */
 	onBehalfOf?: string;
+	/** The output tokens. */
 	outputTokens?: TokenProportion[];
+	/** Additional parameters. */
 	params?: string;
+	/** The address of the token to swap. */
 	path?: string[];
+	/** The premiums. */
 	premiums?: string[] | number[];
+	/** The address of the token to swap. */
 	r?: string;
-	/** @format double */
+	/**
+	 * The rate mode.
+	 * @format double
+	 */
 	rateMode?: number;
+	/** Whether to receive a token. */
 	receiveAToken?: boolean;
+	/** The receiver address. */
 	receiverAddress?: string;
-	/** @format double */
+	/**
+	 * The referral code.
+	 * @format double
+	 */
 	referralCode?: number;
+	/** The address of the token to swap. */
 	reserve?: string;
+	/** The address of the token to swap. */
 	reserveA?: string;
+	/** The address of the token to swap. */
 	reserveB?: string;
+	/** The address of the token to swap. */
 	reserveETH?: string;
+	/** The address of the token to swap. */
 	reserveIn?: string;
+	/** The address of the token to swap. */
 	reserveOut?: string;
+	/** The role of the user. */
 	role?: string;
+	/** The address of the token to swap. */
 	s?: string;
+	/** The address of the token to swap. */
 	simulate?: boolean;
-	/** @format double */
+	/**
+	 * The slippage limit percentage.
+	 * @format double
+	 */
 	slippageLimitPercent?: number;
+	/** The address of the token to swap. */
 	to?: string;
+	/** The address of the token to swap. */
 	token?: string;
+	/** The address of the token to swap. */
 	tokenA?: string;
+	/** The address of the token to swap. */
 	tokenB?: string;
+	/** The token ID. */
 	token_id?: string;
+	/** The token IDs. */
 	token_ids?: string;
-	/** @format double */
+	/**
+	 * The type of transaction.
+	 * @format double
+	 */
 	type?: number;
+	/** Whether to use as collateral. */
 	useAsCollateral?: boolean;
+	/** The user involved in the transaction. */
 	user?: string;
-	/** @format double */
+	/**
+	 * The address of the token to swap.
+	 * @format double
+	 */
 	v?: number;
+	/** The address of the token to swap. */
 	value?: string;
 }
 
+/** Represents a UniswapV2 transaction. */
 export interface UniswapV2Transaction {
+	/** The chain ID for the transaction. */
 	chainId: string;
+	/** The data to include in the transaction. */
 	data: string;
+	/** The address of the sender. */
 	from: string;
+	/** The gas limit for the transaction. */
 	gasLimit?: string;
+	/** The gas price for the transaction. */
 	gasPrice?: string;
+	/** The maximum fee per gas. */
 	maxFeePerGas?: string;
+	/** The maximum priority fee per gas. */
 	maxPriorityFeePerGas?: string;
-	/** @format double */
+	/**
+	 * The nonce for the transaction.
+	 * @format double
+	 */
 	nonce: number;
+	/** The address of the recipient. */
 	to: string;
-	/** @format double */
+	/**
+	 * The type of transaction.
+	 * @format double
+	 */
 	type?: number;
+	/** The value to send with the transaction. */
 	value: string;
 }
 
@@ -7779,103 +11572,209 @@ export interface UniswapV3APIResponseUniswapV3ExecuteFunctionResult {
 }
 
 export interface UniswapV3ExecuteFunctionResult {
+	/** Optional response indicating whether the transaction was broadcasted. */
 	broadcasted?: BroadCastRawTransactionResponse;
+	/** Optional transaction data. */
 	data?: Transaction;
+	/** The name of the executed function. */
 	function: string;
+	/** Optional message providing additional information about the execution. */
 	message?: string;
+	/** The parameters passed to the executed function. */
 	params: any[];
-	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	/** Optional response containing the simulation of asset changes. */
 	simulation?: SimulateAssetChangesResponse;
+	/** Indicates whether the function execution was successful. */
 	success?: boolean;
+	/** The transaction details of the executed function. */
 	transaction: UniswapV3Transaction;
+	/** Optional user operation identifier. */
 	user_op?: string;
 }
 
+/**
+ * Interface representing the input body for Uniswap V3 operations.
+ * Extends the InputBody interface.
+ */
 export interface UniswapV3InputBody {
+	/** The desired amount of token0. */
 	amount0Desired?: string;
+	/** The maximum amount of token0. */
 	amount0Max?: string;
+	/** The minimum amount of token0. */
 	amount0Min?: string;
+	/** The desired amount of token1. */
 	amount1Desired?: string;
+	/** The maximum amount of token1. */
 	amount1Max?: string;
+	/** The minimum amount of token1. */
 	amount1Min?: string;
+	/** The sqrt price of the pool. */
 	sqrtPriceX96?: string;
+	/** The address of the first token. */
 	token0?: string;
+	/** The address of the second token. */
 	token1?: string;
+	/** Indicates if the transaction is from an externally owned account. */
 	EOA?: boolean;
+	/** The access list for the transaction. */
 	accessList?: AccessTuple[];
+	/** The account involved in the transaction. */
 	account?: string;
+	/** Indicates if the nonce should always be incremented. */
 	alwaysIncrementNonce?: boolean;
+	/** The amount to be transferred. */
 	amount?: string;
+	/** The minimum amount. */
 	amountMinimum?: string;
+	/** The amounts involved in the transaction. */
 	amounts?: string[];
+	/** Indicates if the transaction is approved. */
 	approved?: boolean;
+	/** The asset involved in the transaction. */
 	asset?: string;
+	/** The assets involved in the transaction. */
 	assets?: string[];
+	/** The gas for blob transactions. */
 	blobGas?: string;
+	/** The gas fee cap for blob transactions. */
 	blobGasFeeCap?: string;
+	/** The hashes for blob transactions. */
 	blobHashes?: string[];
+	/** The borrow amount. */
 	borrowAmount?: string | number;
+	/** Indicates if the transaction should be broadcasted. */
 	broadcast?: boolean;
+	/** The chain ID. */
 	chain_id?: string;
+	/** The collateral asset. */
 	collateralAsset?: string;
+	/** The address of the contract. */
 	contract_address?: string;
+	/** The data to be sent with the transaction. */
 	data?: string;
+	/** The deadline for the transaction. */
 	deadline?: string;
+	/** The debt asset. */
 	debtAsset?: string;
+	/** The debt to cover. */
 	debtToCover?: string;
+	/** Indicates if the transaction is a dry run. */
 	dryrun?: boolean;
+	/** The encoding type. */
 	encoding?: string;
-	/** @format double */
+	/**
+	 * The fee tier of the pool.
+	 * @format double
+	 */
 	fee?: number;
+	/** The gas limit for the transaction. */
 	gas?: string;
+	/** The gas limit for the transaction. */
 	gasLimit?: string;
+	/** The gas price for the transaction. */
 	gasPrice?: string;
+	/** The initial deposit. */
 	initialDeposit?: string | number;
+	/** The initiator of the transaction. */
 	initiator?: string;
+	/** The input data. */
 	input?: string;
+	/** The input tokens. */
 	inputTokens?: TokenAmount[];
-	/** @format double */
+	/**
+	 * The interest rate mode.
+	 * @format double
+	 */
 	interestRateMode?: number;
+	/** The liquidity of the position. */
 	liquidity?: string;
+	/** The maximum fee per gas. */
 	maxFeePerGas?: string;
+	/** The maximum priority fee per gas. */
 	maxPriorityFeePerGas?: string;
+	/** The minimum health factor. */
 	minHealthFactor?: string | number;
+	/** The modes of the transaction. */
 	modes?: number[];
+	/** The nonce of the transaction. */
 	nonce?: string;
+	/** The address on behalf of which the transaction is made. */
 	onBehalfOf?: string;
+	/** The operator address. */
 	operator?: string;
+	/** The output tokens. */
 	outputTokens?: TokenProportion[];
+	/** Additional parameters. */
 	params?: string;
+	/** The premiums. */
 	premiums?: string[] | number[];
+	/** The r value of the signature. */
 	r?: string;
-	/** @format double */
+	/**
+	 * The rate mode.
+	 * @format double
+	 */
 	rateMode?: number;
+	/** Whether to receive a token. */
 	receiveAToken?: boolean;
+	/** The receiver address. */
 	receiverAddress?: string;
+	/** The recipient address. */
 	recipient?: string;
-	/** @format double */
+	/**
+	 * The referral code.
+	 * @format double
+	 */
 	referralCode?: number;
+	/** The role of the user. */
 	role?: string;
+	/** The s value of the signature. */
 	s?: string;
+	/** Indicates if the transaction should be simulated. */
 	simulate?: boolean;
-	/** @format double */
+	/**
+	 * The slippage limit percentage.
+	 * @format double
+	 */
 	slippageLimitPercent?: number;
+	/** The address of the spender. */
 	spender?: string;
-	/** @format double */
+	/**
+	 * The lower tick of the position.
+	 * @format double
+	 */
 	tickLower?: number;
-	/** @format double */
+	/**
+	 * The upper tick of the position.
+	 * @format double
+	 */
 	tickUpper?: number;
+	/** The recipient address. */
 	to?: string;
+	/** The address of the token. */
 	token?: string;
+	/** The ID of the token. */
 	tokenId?: string;
+	/** The token ID. */
 	token_id?: string;
+	/** The token IDs. */
 	token_ids?: string;
-	/** @format double */
+	/**
+	 * The type of transaction.
+	 * @format double
+	 */
 	type?: number;
+	/** Whether to use as collateral. */
 	useAsCollateral?: boolean;
+	/** The user involved in the transaction. */
 	user?: string;
-	/** @format double */
+	/**
+	 * The recovery id of the signature.
+	 * @format double
+	 */
 	v?: number;
+	/** The value of the transaction. */
 	value?: string;
 }
 
@@ -7903,39 +11802,59 @@ export interface UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult {
 	success: boolean;
 }
 
+/** Represents a Uniswap V3 transaction. */
 export interface UniswapV3Transaction {
+	/** The chain ID of the network where the transaction is sent. */
 	chainId: string;
+	/** The data payload of the transaction. */
 	data: string;
+	/** The sender address of the transaction. */
 	from: string;
+	/** The gas limit for the transaction (optional). */
 	gasLimit?: string;
+	/** The gas price for the transaction, in wei (optional). */
 	gasPrice?: string;
+	/** The maximum fee per gas for EIP-1559 transactions, in wei (optional). */
 	maxFeePerGas?: string;
+	/** The maximum priority fee per gas for EIP-1559 transactions, in wei (optional). */
 	maxPriorityFeePerGas?: string;
-	/** @format double */
+	/**
+	 * The nonce of the transaction.
+	 * @format double
+	 */
 	nonce: number;
+	/** The recipient address of the transaction. */
 	to: string;
-	/** @format double */
+	/**
+	 * The type of the transaction (optional).
+	 * @format double
+	 */
 	type?: number;
+	/** The value to be sent with the transaction, in wei. */
 	value: string;
 }
 
 export type UnlockPermanentData =
 	LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
-export type UnpauseData = LeveragerAPIResponseLeveragerExecuteFunctionResult;
-
 export type UnsafeSwapExactTokensForTokensData =
 	RamsesRouterAPIResponseRamsesRouterExecuteFunctionResult;
 
 export type UnscheduleJobData = MultiCallAPIResponse;
 
+/** Represents an unsigned Partially Signed Bitcoin Transaction (PSBT) input. */
 export interface UnsignedPSBTInput {
+	/** The inputs for the transaction as a JSON string of an array of TxInput objects. */
 	inputs: string;
+	/** The network for the transaction, either 'mainnet' or 'testnet'. */
 	network: string;
+	/** The outputs for the transaction as a JSON string of an array of TxOutput objects. */
 	outputs: string;
 }
 
+/** Represents an unsigned Partially Signed Bitcoin Transaction (PSBT) output. */
 export interface UnsignedPSBTOutput {
+	/** The unsigned PSBT. */
 	psbt_hex: string;
 }
 
@@ -7971,14 +11890,6 @@ export interface UpdateBalanceAllowanceResponse {
 	success: boolean;
 }
 
-export type UpdateComponentData = ComponentAPIResponseComponentDefinition;
-
-export type UpdateEmbeddingData = ComponentAPIResponseVoid;
-
-export interface UpdateEmbeddingPayload {
-	description: string;
-}
-
 export interface UpdateFlowBody {
 	description?: string;
 	edges?: FlowEdge[];
@@ -7988,9 +11899,13 @@ export interface UpdateFlowBody {
 
 export type UpdateFlowData = MultiCallAPIResponse;
 
+/** Represents the incentive data for a user. */
 export interface UserIncentiveData {
+	/** The address of the incentive controller. */
 	incentiveControllerAddress: string;
+	/** The address of the token. */
 	tokenAddress: string;
+	/** An array of user rewards information. */
 	userRewardsInformation: UserRewardInfo[];
 }
 
@@ -8001,130 +11916,252 @@ export interface UserPointHistoryData {
 	ts: string;
 }
 
+/** Interface representing the data of a user's reserve in the Aave V3 protocol. */
 export interface UserReserveData {
+	/** The principal stable debt of the user. */
 	principalStableDebt: BigNumber;
+	/** The scaled balance of the aToken. */
 	scaledATokenBalance: BigNumber;
+	/** The scaled variable debt of the user. */
 	scaledVariableDebt: BigNumber;
+	/** The timestamp of the last update to the stable borrow rate. */
 	stableBorrowLastUpdateTimestamp: BigNumber;
+	/** The stable borrow rate of the user. */
 	stableBorrowRate: BigNumber;
+	/** The address of the underlying asset. */
 	underlyingAsset: string;
+	/** Indicates if the asset is being used as collateral by the user. */
 	usageAsCollateralEnabledOnUser: boolean;
 }
 
+/** Interface representing the incentive data for a user's reserve. */
 export interface UserReserveIncentiveData {
+	/** Incentive data for the user's aToken. */
 	aTokenIncentivesUserData: UserIncentiveData;
+	/** Incentive data for the user's sToken. */
 	sTokenIncentivesUserData: UserIncentiveData;
+	/** The underlying asset associated with the reserve. */
 	underlyingAsset: string;
+	/** Incentive data for the user's vToken. */
 	vTokenIncentivesUserData: UserIncentiveData;
 }
 
+/** Interface representing the reward information for a user. */
 export interface UserRewardInfo {
-	/** @format double */
+	/**
+	 * The number of decimals for the price feed.
+	 * @format double
+	 */
 	priceFeedDecimals: number;
+	/** The address of the reward oracle. */
 	rewardOracleAddress: string;
+	/** The price feed of the reward. */
 	rewardPriceFeed: BigNumber;
+	/** The address of the reward token. */
 	rewardTokenAddress: string;
-	/** @format double */
+	/**
+	 * The number of decimals for the reward token.
+	 * @format double
+	 */
 	rewardTokenDecimals: number;
+	/** The symbol of the reward token. */
 	rewardTokenSymbol: string;
+	/** The user's index for token incentives. */
 	tokenIncentivesUserIndex: BigNumber;
+	/** The amount of unclaimed rewards for the user. */
 	userUnclaimedRewards: BigNumber;
 }
 
+/** Represents the result of executing a VeNFT function. */
 export interface VeNFTExecuteFunctionResult {
+	/** Optional response from broadcasting the raw transaction. */
 	broadcasted?: BroadCastRawTransactionResponse;
+	/** Optional additional transaction data. */
 	data?: Transaction;
+	/** The name of the executed function. */
 	function: string;
+	/** Optional message providing additional information about the execution. */
 	message?: string;
+	/** The parameters passed to the function. */
 	params: any[];
-	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	/** Optional response from simulating asset changes. */
 	simulation?: SimulateAssetChangesResponse;
+	/** Optional flag indicating if the execution was successful. */
 	success?: boolean;
+	/** The transaction associated with the function execution. */
 	transaction: VeNFTTransaction;
+	/** Optional user operation identifier. */
 	user_op?: string;
 }
 
+/** Interface representing the input body for VeNFT operations. */
 export interface VeNFTInputBody {
+	/** Indicates whether the transaction is from an externally owned account. */
 	EOA?: boolean;
+	/** The access list for the transaction. */
 	accessList?: AccessTuple[];
+	/** The account involved in the transaction. */
 	account?: string;
+	/** Indicates whether to always increment the nonce. */
 	alwaysIncrementNonce?: boolean;
+	/** The amount to be transferred. */
 	amount?: string;
+	/** The amounts involved in the transaction. */
 	amounts?: string[];
+	/** Indicates whether the transaction is approved. */
 	approved?: boolean;
+	/** The asset involved in the transaction. */
 	asset?: string;
+	/** The assets involved in the transaction. */
 	assets?: string[];
+	/** The gas for blob transactions. */
 	blobGas?: string;
+	/** The gas fee cap for blob transactions. */
 	blobGasFeeCap?: string;
+	/** The hashes for blob transactions. */
 	blobHashes?: string[];
+	/** The borrow amount. */
 	borrowAmount?: string | number;
+	/** Indicates whether to broadcast the transaction. */
 	broadcast?: boolean;
+	/** The chain ID. */
 	chain_id?: string;
+	/** The collateral asset. */
 	collateralAsset?: string;
+	/** The contract address involved in the transaction. */
 	contract_address?: string;
+	/** Additional data for the transaction. */
 	data?: string;
+	/** The debt asset. */
 	debtAsset?: string;
+	/** The debt to cover. */
 	debtToCover?: string;
+	/** The delegatee address for the transaction. */
 	delegatee?: string;
+	/** Indicates whether to perform a dry run of the transaction. */
 	dryrun?: boolean;
+	/** The encoding type. */
 	encoding?: string;
+	/** The expiry time for the transaction. */
 	expiry?: string;
+	/** The gas limit for the transaction. */
 	gas?: string;
+	/** The gas limit for the transaction. */
 	gasLimit?: string;
+	/** The gas price for the transaction. */
 	gasPrice?: string;
+	/** The initial deposit. */
 	initialDeposit?: string | number;
+	/** The initiator of the transaction. */
 	initiator?: string;
+	/** The input data. */
 	input?: string;
+	/** The input tokens. */
 	inputTokens?: TokenAmount[];
-	/** @format double */
+	/**
+	 * The interest rate mode.
+	 * @format double
+	 */
 	interestRateMode?: number;
+	/** The lock duration for the transaction. */
 	lock_duration?: string;
+	/** The lock value for the transaction. */
 	lock_value?: string;
+	/** The maximum fee per gas. */
 	maxFeePerGas?: string;
+	/** The maximum priority fee per gas. */
 	maxPriorityFeePerGas?: string;
+	/** The minimum health factor. */
 	minHealthFactor?: string | number;
+	/** The modes of the transaction. */
 	modes?: number[];
+	/** The nonce for the transaction. */
 	nonce?: string;
+	/** The address on behalf of which the transaction is made. */
 	onBehalfOf?: string;
+	/** The operator address for the transaction. */
 	operator?: string;
+	/** The output tokens. */
 	outputTokens?: TokenProportion[];
+	/** Additional parameters. */
 	params?: string;
+	/** The premiums. */
 	premiums?: string[] | number[];
-	/** @format double */
+	/**
+	 * The rate mode.
+	 * @format double
+	 */
 	rateMode?: number;
+	/** Whether to receive a token. */
 	receiveAToken?: boolean;
+	/** The receiver address. */
 	receiverAddress?: string;
-	/** @format double */
+	/**
+	 * The referral code.
+	 * @format double
+	 */
 	referralCode?: number;
+	/** The role of the user. */
 	role?: string;
+	/** Indicates whether to simulate the transaction. */
 	simulate?: boolean;
-	/** @format double */
+	/**
+	 * The slippage limit percentage.
+	 * @format double
+	 */
 	slippageLimitPercent?: number;
+	/** The spender address for the transaction. */
 	spender?: string;
+	/** The recipient address. */
 	to?: string;
+	/** The token ID involved in the transaction. */
 	tokenId?: string;
+	/** The token ID involved in the transaction. */
 	token_id?: string;
+	/** The token IDs. */
 	token_ids?: string;
-	/** @format double */
+	/**
+	 * The type of transaction.
+	 * @format double
+	 */
 	type?: number;
+	/** Whether to use as collateral. */
 	useAsCollateral?: boolean;
+	/** The user involved in the transaction. */
 	user?: string;
+	/** The value of the transaction. */
 	value?: string;
 }
 
+/** Represents a transaction involving a VeNFT. */
 export interface VeNFTTransaction {
+	/** The chain ID where the transaction is executed. */
 	chainId: string;
+	/** The data payload of the transaction. */
 	data: string;
+	/** The sender address of the transaction. */
 	from: string;
+	/** The gas limit for the transaction. */
 	gasLimit?: string;
+	/** The gas price for the transaction. */
 	gasPrice?: string;
+	/** The maximum fee per gas unit for the transaction. */
 	maxFeePerGas?: string;
+	/** The maximum priority fee per gas unit for the transaction. */
 	maxPriorityFeePerGas?: string;
-	/** @format double */
+	/**
+	 * The nonce of the transaction.
+	 * @format double
+	 */
 	nonce: number;
+	/** The recipient address of the transaction. */
 	to: string;
-	/** @format double */
+	/**
+	 * The type of the transaction.
+	 * @format double
+	 */
 	type?: number;
+	/** The value being transferred in the transaction. */
 	value: string;
 }
 
@@ -8153,136 +12190,258 @@ export interface VeTheNFTAPIResponseUserPointHistoryData {
 }
 
 export interface VeTheNFTAPIResponseVeNFTExecuteFunctionResult {
+	/** Represents the result of executing a VeNFT function. */
 	data?: VeNFTExecuteFunctionResult;
 	message: string;
 	success: boolean;
 }
 
+/** Represents the structure of the API response for the VeTheNftVoter. */
 export interface VeTheNftVoterAPIResponseBoolean {
+	/** The data returned by the API, if any. */
 	data?: boolean;
+	/**
+	 * A message providing additional information about the
+	 * API response.
+	 */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Represents the structure of the API response for the VeTheNftVoter. */
 export interface VeTheNftVoterAPIResponseString {
+	/** The data returned by the API, if any. */
 	data?: string;
+	/**
+	 * A message providing additional information about the
+	 * API response.
+	 */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Represents the structure of the API response for the VeTheNftVoter. */
 export interface VeTheNftVoterAPIResponseVeTheNftVoterExecuteFunctionResult {
+	/** The data returned by the API, if any. */
 	data?: VeTheNftVoterExecuteFunctionResult;
+	/**
+	 * A message providing additional information about the
+	 * API response.
+	 */
 	message: string;
+	/** Indicates whether the API request was successful. */
 	success: boolean;
 }
 
+/** Represents the result of executing a function in the VeTheNftVoter. */
 export interface VeTheNftVoterExecuteFunctionResult {
+	/** Optional response from broadcasting the transaction. */
 	broadcasted?: BroadCastRawTransactionResponse;
+	/** Optional data related to the transaction. */
 	data?: Transaction;
+	/** The name of the function that was executed. */
 	function: string;
+	/** Optional message providing additional information about the execution. */
 	message?: string;
+	/** The parameters passed to the function. */
 	params: any[];
-	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
+	/** Optional simulation response indicating asset changes. */
 	simulation?: SimulateAssetChangesResponse;
+	/** Optional flag indicating whether the execution was successful. */
 	success?: boolean;
+	/** The transaction associated with the execution. */
 	transaction: VeTheNftVoterTransaction;
+	/** Optional user operation identifier. */
 	user_op?: string;
 }
 
 export interface VeTheNftVoterInputBody {
+	/** Indicates whether the transaction is from an externally owned account (optional). */
 	EOA?: boolean;
+	/** The access list for the transaction. */
 	accessList?: AccessTuple[];
+	/** The account involved in the transaction. */
 	account?: string;
+	/** Indicates whether to always increment the nonce (optional). */
 	alwaysIncrementNonce?: boolean;
+	/** The amount to be transferred (optional). */
 	amount?: string;
+	/** The amounts involved in the transaction. */
 	amounts?: string[];
+	/** Whether the transaction is approved. */
 	approved?: boolean;
+	/** The asset involved in the transaction. */
 	asset?: string;
+	/** The assets involved in the transaction. */
 	assets?: string[];
+	/** The gas for blob transactions. */
 	blobGas?: string;
+	/** The gas fee cap for blob transactions. */
 	blobGasFeeCap?: string;
+	/** The hashes for blob transactions. */
 	blobHashes?: string[];
+	/** The borrow amount. */
 	borrowAmount?: string | number;
+	/** The bribes involved in the transaction (optional). */
 	bribes?: string[];
+	/** Indicates whether to broadcast the transaction (optional). */
 	broadcast?: boolean;
+	/** The chain ID. */
 	chain_id?: string;
+	/** The collateral asset. */
 	collateralAsset?: string;
+	/** The contract address involved in the transaction (optional). */
 	contract_address?: string;
+	/** The data payload of the transaction (optional). */
 	data?: string;
+	/** The debt asset. */
 	debtAsset?: string;
+	/** The debt to cover. */
 	debtToCover?: string;
+	/** Indicates whether to perform a dry run of the transaction (optional). */
 	dryrun?: boolean;
+	/** The encoding type. */
 	encoding?: string;
+	/** The fees involved in the transaction (optional). */
 	fees?: string[];
+	/** The gas limit for the transaction (optional). */
 	gas?: string;
+	/** The gas limit for the transaction (optional). */
 	gasLimit?: string;
+	/** The gas price for the transaction, in wei (optional). */
 	gasPrice?: string;
+	/** The gauge address involved in the transaction (optional). */
 	gauge?: string;
+	/** The type of the gauge (optional). */
 	gauge_type?: string;
+	/** The gauges involved in the transaction (optional). */
 	gauges?: string[];
+	/** The initial deposit. */
 	initialDeposit?: string | number;
+	/** The initiator of the transaction. */
 	initiator?: string;
+	/** The input data. */
 	input?: string;
+	/** The input tokens. */
 	inputTokens?: TokenAmount[];
-	/** @format double */
+	/**
+	 * The interest rate mode.
+	 * @format double
+	 */
 	interestRateMode?: number;
+	/** The maximum fee per gas. */
 	maxFeePerGas?: string;
+	/** The maximum priority fee per gas. */
 	maxPriorityFeePerGas?: string;
+	/** The minimum health factor. */
 	minHealthFactor?: string | number;
+	/** The modes of the transaction. */
 	modes?: number[];
+	/** The nonce of the transaction (optional). */
 	nonce?: string;
+	/** The address on behalf of which the transaction is made. */
 	onBehalfOf?: string;
+	/** The output tokens. */
 	outputTokens?: TokenProportion[];
+	/** Additional parameters. */
 	params?: string;
+	/** The pool address involved in the transaction (optional). */
 	pool?: string;
+	/** The pool votes (optional). */
 	pool_vote?: string[];
+	/** The premiums. */
 	premiums?: string[] | number[];
-	/** @format double */
+	/**
+	 * The rate mode.
+	 * @format double
+	 */
 	rateMode?: number;
+	/** Whether to receive a token. */
 	receiveAToken?: boolean;
+	/** The receiver address. */
 	receiverAddress?: string;
-	/** @format double */
+	/**
+	 * The referral code.
+	 * @format double
+	 */
 	referralCode?: number;
+	/** The role of the user. */
 	role?: string;
+	/** Indicates whether to simulate the transaction (optional). */
 	simulate?: boolean;
-	/** @format double */
+	/**
+	 * The slippage limit percentage.
+	 * @format double
+	 */
 	slippageLimitPercent?: number;
+	/** The recipient address of the transaction (optional). */
 	to?: string;
+	/** The token ID involved in the transaction (optional). */
 	token_id?: string;
+	/** The token IDs. */
 	token_ids?: string;
+	/** The tokens involved in the transaction (optional). */
 	tokens?: string[][];
-	/** @format double */
+	/**
+	 * The type of transaction.
+	 * @format double
+	 */
 	type?: number;
+	/** Whether to use as collateral. */
 	useAsCollateral?: boolean;
+	/** The user involved in the transaction. */
 	user?: string;
+	/** The value to be sent with the transaction, in wei (optional). */
 	value?: string;
+	/** The weights for the pool votes (optional). */
 	weights?: string[];
 }
 
+/** Represents a transaction for the VeTheNftVoter. */
 export interface VeTheNftVoterTransaction {
+	/** The chain ID of the network where the transaction is to be executed. */
 	chainId: string;
+	/** The data payload of the transaction. */
 	data: string;
+	/** The sender address of the transaction. */
 	from: string;
+	/** The gas limit for the transaction (optional). */
 	gasLimit?: string;
+	/** The gas price for the transaction, in wei (optional). */
 	gasPrice?: string;
+	/** The maximum fee per gas for the transaction, in wei (optional). */
 	maxFeePerGas?: string;
+	/** The maximum priority fee per gas for the transaction, in wei (optional). */
 	maxPriorityFeePerGas?: string;
-	/** @format double */
+	/**
+	 * The nonce of the transaction.
+	 * @format double
+	 */
 	nonce: number;
+	/** The recipient address of the transaction. */
 	to: string;
-	/** @format double */
+	/**
+	 * The type of the transaction (optional).
+	 * @format double
+	 */
 	type?: number;
+	/** The value to be transferred in the transaction, in wei. */
 	value: string;
 }
 
+/** - The version of the API to use, expected to be 'v2'. */
 export enum VersionEnum {
 	V2 = "v2",
 }
 
+/** - The version of the API to use, default is 'v2'. */
 export enum VersionEnum1 {
 	V2 = "v2",
 }
 
+/** - The API version, expected to be 'v2'. */
 export enum VersionEnum2 {
 	V2 = "v2",
 }
@@ -8331,19 +12490,31 @@ export type VoteWithOptimalDistributionResult =
 
 export type VotingData = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
+/** Interface representing the response from the Wallet Balance API. */
 export interface WalletBalanceAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The wallet balance data. */
 	data?: any[];
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
 
+/** Interface representing the response from the Wallet History API. */
 export interface WalletHistoryAPIResponse {
+	/** The address associated with the operation. */
 	address?: string;
+	/** The data associated with the operation. */
 	body?: InputBody;
+	/** The wallet history data. */
 	data?: EvmWalletHistoryTransactionJSON[];
+	/** The message associated with the operation. */
 	message: string;
+	/** The success status of the operation. */
 	success: boolean;
 }
 
@@ -8370,13 +12541,9 @@ export type WhitelistOutput =
 export type WhitelistResult =
 	RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
 
-export type WithdrawData = AavePoolAPIResponseAavePoolExecuteFunctionResult;
+export type WithdrawData = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 
-export type WithdrawOutput = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
-
-export type WithdrawResult = ERC4626APIResponse;
-
-export type WithdrawResult1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+export type WithdrawResult = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export type WrapEthData = OpenSeaAPIResponse;
 

@@ -12,8 +12,8 @@
 import {
   AddLiquidityEthOutput,
   AddLiquidityOutput,
-  ApproveResult1,
-  BalanceOfOutput,
+  ApproveOutput,
+  BalanceOfData,
   BaseUriData,
   BurnResult,
   CollectData,
@@ -31,11 +31,10 @@ import {
   GetAmountsInData,
   GetAmountsOutOutput,
   GetApprovedResult,
-  GetFactoryOutput,
-  GetWethResult1,
+  GetWethOutput,
   IncreaseLiquidityData,
-  IsApprovedForAllOutput,
-  MintResult,
+  IsApprovedForAllResult,
+  MintData,
   Multicall2Data,
   MulticallData,
   NameData,
@@ -56,8 +55,8 @@ import {
   SelfPermitAllowedIfNecessaryData,
   SelfPermitData,
   SelfPermitIfNecessaryData,
-  SetApprovalForAllOutput,
-  SupportsInterfaceResult,
+  SetApprovalForAllResult,
+  SupportsInterfaceData,
   SwapEthForExactTokensData,
   SwapExactEthForTokensOutput,
   SwapExactEthForTokensSupportingFeeOnTransferTokensData,
@@ -75,7 +74,7 @@ import {
   TokenOfOwnerByIndexData,
   TokenUriData,
   TotalSupplyData,
-  TransferFromData1,
+  TransferFromOutput,
   UniswapV2InputBody,
   UniswapV3InputBody,
   UnwrapWeth92Data,
@@ -140,7 +139,7 @@ export namespace Uniswap {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = ApproveResult1;
+    export type ResponseBody = ApproveOutput;
   }
 
   /**
@@ -161,7 +160,7 @@ export namespace Uniswap {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = BalanceOfOutput;
+    export type ResponseBody = BalanceOfData;
   }
 
   /**
@@ -499,28 +498,6 @@ export namespace Uniswap {
   /**
    * No description
    * @tags UniswapV2Router
-   * @name GetFactory
-   * @request GET:/uniswap/v2/router/{account}/factory
-   * @secure
-   */
-  export namespace GetFactory {
-    export type RequestParams = {
-      account: string;
-    };
-    export type RequestQuery = {
-      address: string;
-      chainId: string;
-    };
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = GetFactoryOutput;
-  }
-
-  /**
-   * No description
-   * @tags UniswapV2Router
    * @name GetWeth
    * @request GET:/uniswap/v2/router/{account}/WETH
    * @secure
@@ -537,7 +514,7 @@ export namespace Uniswap {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetWethResult1;
+    export type ResponseBody = GetWethOutput;
   }
 
   /**
@@ -578,7 +555,7 @@ export namespace Uniswap {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = IsApprovedForAllOutput;
+    export type ResponseBody = IsApprovedForAllResult;
   }
 
   /**
@@ -597,7 +574,7 @@ export namespace Uniswap {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = MintResult;
+    export type ResponseBody = MintData;
   }
 
   /**
@@ -1010,7 +987,7 @@ export namespace Uniswap {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = SetApprovalForAllOutput;
+    export type ResponseBody = SetApprovalForAllResult;
   }
 
   /**
@@ -1031,7 +1008,7 @@ export namespace Uniswap {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = SupportsInterfaceResult;
+    export type ResponseBody = SupportsInterfaceData;
   }
 
   /**
@@ -1390,7 +1367,7 @@ export namespace Uniswap {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = TransferFromData1;
+    export type ResponseBody = TransferFromOutput;
   }
 
   /**

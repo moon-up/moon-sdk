@@ -12,9 +12,9 @@
 import {
   AddLiquidityEthOutput,
   AddLiquidityOutput,
-  ApproveResult1,
-  BalanceOfOutput,
-  BalanceOfParams3,
+  ApproveOutput,
+  BalanceOfData,
+  BalanceOfParams,
   BaseUriData,
   BaseUriParams,
   BurnResult,
@@ -37,14 +37,12 @@ import {
   GetAmountsOutOutput,
   GetApprovedParams2,
   GetApprovedResult,
-  GetFactoryOutput,
-  GetFactoryParams4,
-  GetWethParams6,
-  GetWethResult1,
+  GetWethOutput,
+  GetWethParams4,
   IncreaseLiquidityData,
-  IsApprovedForAllOutput,
-  IsApprovedForAllParams3,
-  MintResult,
+  IsApprovedForAllParams2,
+  IsApprovedForAllResult,
+  MintData,
   Multicall2Data,
   MulticallData,
   NameData,
@@ -69,9 +67,9 @@ import {
   SelfPermitAllowedIfNecessaryData,
   SelfPermitData,
   SelfPermitIfNecessaryData,
-  SetApprovalForAllOutput,
-  SupportsInterfaceParams2,
-  SupportsInterfaceResult,
+  SetApprovalForAllResult,
+  SupportsInterfaceData,
+  SupportsInterfaceParams,
   SwapEthForExactTokensData,
   SwapExactEthForTokensOutput,
   SwapExactEthForTokensSupportingFeeOnTransferTokensData,
@@ -94,7 +92,7 @@ import {
   TokenUriParams,
   TotalSupplyData,
   TotalSupplyParams,
-  TransferFromData1,
+  TransferFromOutput,
   UniswapV2InputBody,
   UniswapV3InputBody,
   UnwrapWeth92Data,
@@ -171,7 +169,7 @@ export class Uniswap<SecurityDataType = unknown> {
     data: UniswapV3InputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<ApproveResult1, any>({
+    this.http.request<ApproveOutput, any>({
       path: `/uniswap/v3/nft/${address}/approve`,
       method: 'POST',
       body: data,
@@ -188,8 +186,8 @@ export class Uniswap<SecurityDataType = unknown> {
    * @request GET:/uniswap/v3/nft/balanceOf
    * @secure
    */
-  balanceOf = (query: BalanceOfParams3, params: RequestParams = {}) =>
-    this.http.request<BalanceOfOutput, any>({
+  balanceOf = (query: BalanceOfParams, params: RequestParams = {}) =>
+    this.http.request<BalanceOfData, any>({
       path: `/uniswap/v3/nft/balanceOf`,
       method: 'GET',
       query: query,
@@ -555,35 +553,15 @@ export class Uniswap<SecurityDataType = unknown> {
    * No description
    *
    * @tags UniswapV2Router
-   * @name GetFactory
-   * @request GET:/uniswap/v2/router/{account}/factory
-   * @secure
-   */
-  getFactory = (
-    { account, ...query }: GetFactoryParams4,
-    params: RequestParams = {}
-  ) =>
-    this.http.request<GetFactoryOutput, any>({
-      path: `/uniswap/v2/router/${account}/factory`,
-      method: 'GET',
-      query: query,
-      secure: true,
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags UniswapV2Router
    * @name GetWeth
    * @request GET:/uniswap/v2/router/{account}/WETH
    * @secure
    */
   getWeth = (
-    { account, ...query }: GetWethParams6,
+    { account, ...query }: GetWethParams4,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetWethResult1, any>({
+    this.http.request<GetWethOutput, any>({
       path: `/uniswap/v2/router/${account}/WETH`,
       method: 'GET',
       query: query,
@@ -622,10 +600,10 @@ export class Uniswap<SecurityDataType = unknown> {
    * @secure
    */
   isApprovedForAll = (
-    query: IsApprovedForAllParams3,
+    query: IsApprovedForAllParams2,
     params: RequestParams = {}
   ) =>
-    this.http.request<IsApprovedForAllOutput, any>({
+    this.http.request<IsApprovedForAllResult, any>({
       path: `/uniswap/v3/nft/isApprovedForAll`,
       method: 'GET',
       query: query,
@@ -646,7 +624,7 @@ export class Uniswap<SecurityDataType = unknown> {
     data: UniswapV3InputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<MintResult, any>({
+    this.http.request<MintData, any>({
       path: `/uniswap/v3/nft/${address}/mint`,
       method: 'POST',
       body: data,
@@ -1097,7 +1075,7 @@ export class Uniswap<SecurityDataType = unknown> {
     data: UniswapV3InputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<SetApprovalForAllOutput, any>({
+    this.http.request<SetApprovalForAllResult, any>({
       path: `/uniswap/v3/nft/${address}/setApprovalForAll`,
       method: 'POST',
       body: data,
@@ -1115,10 +1093,10 @@ export class Uniswap<SecurityDataType = unknown> {
    * @secure
    */
   supportsInterface = (
-    query: SupportsInterfaceParams2,
+    query: SupportsInterfaceParams,
     params: RequestParams = {}
   ) =>
-    this.http.request<SupportsInterfaceResult, any>({
+    this.http.request<SupportsInterfaceData, any>({
       path: `/uniswap/v3/nft/supportsInterface`,
       method: 'GET',
       query: query,
@@ -1502,7 +1480,7 @@ export class Uniswap<SecurityDataType = unknown> {
     data: UniswapV3InputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<TransferFromData1, any>({
+    this.http.request<TransferFromOutput, any>({
       path: `/uniswap/v3/nft/${address}/transferFrom`,
       method: 'POST',
       body: data,

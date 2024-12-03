@@ -11,18 +11,18 @@
 
 import {
   BRC20TransactionInput,
+  BitcoinBitcoinCreateAccountData,
+  BitcoinBitcoinCreateBrc20TransactionData,
+  BitcoinBitcoinCreateSrc20InscriptionData,
+  BitcoinBitcoinDeleteAccountData,
+  BitcoinBitcoinExportAccountData,
+  BitcoinBitcoinGenerateUnsignedPsbtHexData,
+  BitcoinBitcoinGetAccountData,
+  BitcoinBitcoinSignTransactionData,
   BitcoinInput,
+  BitcoinListAccountsData,
   BitcoinTransactionInput,
-  CreateBitcoinAccountData,
-  CreateBrc20TransactionData,
-  CreateSrc20InscriptionData,
-  DeleteBitcoinAccountData,
-  ExportBitcoinAccountData,
-  GenerateUnsignedPsbtHexData,
-  GetBitcoinAccountData,
-  ListBitcoinAccountsData,
   SRC20InscriptionInput,
-  SignBitcoinTransactionData,
   UnsignedPSBTInput,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
@@ -35,15 +35,18 @@ export class Bitcoin<SecurityDataType = unknown> {
   }
 
   /**
-   * No description
+   * @description Creates a new Bitcoin account.
    *
    * @tags Bitcoin
-   * @name CreateBitcoinAccount
+   * @name BitcoinBitcoinCreateAccount
    * @request POST:/bitcoin
    * @secure
    */
-  createBitcoinAccount = (data: BitcoinInput, params: RequestParams = {}) =>
-    this.http.request<CreateBitcoinAccountData, any>({
+  bitcoinBitcoinCreateAccount = (
+    data: BitcoinInput,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<BitcoinBitcoinCreateAccountData, any>({
       path: `/bitcoin`,
       method: 'POST',
       body: data,
@@ -53,19 +56,19 @@ export class Bitcoin<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Creates a BRC20 transaction.
    *
    * @tags Bitcoin
-   * @name CreateBrc20Transaction
+   * @name BitcoinBitcoinCreateBrc20Transaction
    * @request POST:/bitcoin/{accountName}/brc20-tx
    * @secure
    */
-  createBrc20Transaction = (
+  bitcoinBitcoinCreateBrc20Transaction = (
     accountName: string,
     data: BRC20TransactionInput,
     params: RequestParams = {}
   ) =>
-    this.http.request<CreateBrc20TransactionData, any>({
+    this.http.request<BitcoinBitcoinCreateBrc20TransactionData, any>({
       path: `/bitcoin/${accountName}/brc20-tx`,
       method: 'POST',
       body: data,
@@ -75,19 +78,19 @@ export class Bitcoin<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Creates an SRC20 inscription using the provided account name and inscription input.
    *
    * @tags Bitcoin
-   * @name CreateSrc20Inscription
+   * @name BitcoinBitcoinCreateSrc20Inscription
    * @request POST:/bitcoin/{accountName}/src20-inscription
    * @secure
    */
-  createSrc20Inscription = (
+  bitcoinBitcoinCreateSrc20Inscription = (
     accountName: string,
     data: SRC20InscriptionInput,
     params: RequestParams = {}
   ) =>
-    this.http.request<CreateSrc20InscriptionData, any>({
+    this.http.request<BitcoinBitcoinCreateSrc20InscriptionData, any>({
       path: `/bitcoin/${accountName}/src20-inscription`,
       method: 'POST',
       body: data,
@@ -97,15 +100,18 @@ export class Bitcoin<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Deletes a Bitcoin account.
    *
    * @tags Bitcoin
-   * @name DeleteBitcoinAccount
+   * @name BitcoinBitcoinDeleteAccount
    * @request POST:/bitcoin/{accountName}/delete
    * @secure
    */
-  deleteBitcoinAccount = (accountName: string, params: RequestParams = {}) =>
-    this.http.request<DeleteBitcoinAccountData, any>({
+  bitcoinBitcoinDeleteAccount = (
+    accountName: string,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<BitcoinBitcoinDeleteAccountData, any>({
       path: `/bitcoin/${accountName}/delete`,
       method: 'POST',
       secure: true,
@@ -113,15 +119,18 @@ export class Bitcoin<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Exports the account details for the specified account name.
    *
    * @tags Bitcoin
-   * @name ExportBitcoinAccount
+   * @name BitcoinBitcoinExportAccount
    * @request POST:/bitcoin/{accountName}/export
    * @secure
    */
-  exportBitcoinAccount = (accountName: string, params: RequestParams = {}) =>
-    this.http.request<ExportBitcoinAccountData, any>({
+  bitcoinBitcoinExportAccount = (
+    accountName: string,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<BitcoinBitcoinExportAccountData, any>({
       path: `/bitcoin/${accountName}/export`,
       method: 'POST',
       secure: true,
@@ -129,19 +138,19 @@ export class Bitcoin<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Generates an unsigned PSBT (Partially Signed Bitcoin Transaction) hex string.
    *
    * @tags Bitcoin
-   * @name GenerateUnsignedPsbtHex
+   * @name BitcoinBitcoinGenerateUnsignedPsbtHex
    * @request POST:/bitcoin/{accountName}/generate-unsigned-psbt
    * @secure
    */
-  generateUnsignedPsbtHex = (
+  bitcoinBitcoinGenerateUnsignedPsbtHex = (
     accountName: string,
     data: UnsignedPSBTInput,
     params: RequestParams = {}
   ) =>
-    this.http.request<GenerateUnsignedPsbtHexData, any>({
+    this.http.request<BitcoinBitcoinGenerateUnsignedPsbtHexData, any>({
       path: `/bitcoin/${accountName}/generate-unsigned-psbt`,
       method: 'POST',
       body: data,
@@ -151,15 +160,18 @@ export class Bitcoin<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves the account information for a given account name.
    *
    * @tags Bitcoin
-   * @name GetBitcoinAccount
+   * @name BitcoinBitcoinGetAccount
    * @request GET:/bitcoin/{accountName}
    * @secure
    */
-  getBitcoinAccount = (accountName: string, params: RequestParams = {}) =>
-    this.http.request<GetBitcoinAccountData, any>({
+  bitcoinBitcoinGetAccount = (
+    accountName: string,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<BitcoinBitcoinGetAccountData, any>({
       path: `/bitcoin/${accountName}`,
       method: 'GET',
       secure: true,
@@ -167,40 +179,40 @@ export class Bitcoin<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Signs a Bitcoin transaction using the provided account name and transaction input.
    *
    * @tags Bitcoin
-   * @name ListBitcoinAccounts
-   * @request GET:/bitcoin
-   * @secure
-   */
-  listBitcoinAccounts = (params: RequestParams = {}) =>
-    this.http.request<ListBitcoinAccountsData, any>({
-      path: `/bitcoin`,
-      method: 'GET',
-      secure: true,
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags Bitcoin
-   * @name SignBitcoinTransaction
+   * @name BitcoinBitcoinSignTransaction
    * @request POST:/bitcoin/{accountName}/sign-tx
    * @secure
    */
-  signBitcoinTransaction = (
+  bitcoinBitcoinSignTransaction = (
     accountName: string,
     data: BitcoinTransactionInput,
     params: RequestParams = {}
   ) =>
-    this.http.request<SignBitcoinTransactionData, any>({
+    this.http.request<BitcoinBitcoinSignTransactionData, any>({
       path: `/bitcoin/${accountName}/sign-tx`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * @description Lists the accounts associated with the provided authorization token.
+   *
+   * @tags Bitcoin
+   * @name BitcoinListAccounts
+   * @request GET:/bitcoin
+   * @secure
+   */
+  bitcoinListAccounts = (params: RequestParams = {}) =>
+    this.http.request<BitcoinListAccountsData, any>({
+      path: `/bitcoin`,
+      method: 'GET',
+      secure: true,
       format: 'json',
       ...params,
     });

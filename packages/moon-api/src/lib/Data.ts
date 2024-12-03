@@ -10,21 +10,21 @@
  */
 
 import {
-  GetChartAnalysisData,
-  GetChartAnalysisParamsEnum,
-  GetNfTsData,
-  GetNfTsParams,
-  GetPortfolioStatusData,
-  GetTokenMetadataData,
-  GetTokenMetadataParams,
-  GetUserPortfolioData,
-  GetUserPortfolioParams,
-  GetWalletBalanceData,
-  GetWalletBalanceParams,
-  GetWalletHistoryData,
-  GetWalletHistoryParams,
-  QueryData,
-  QueryPayload,
+  ChartsGetChartAnalysisData,
+  ChartsGetChartAnalysisParamsEnum,
+  DataExecuteCustomSupabaseQueryData,
+  DataExecuteCustomSupabaseQueryPayload,
+  DataGetPortfolioFetchStatusData,
+  DataGetTokensMetadataData,
+  DataGetTokensMetadataParams,
+  DataGetUserWalletPortfolioData,
+  DataGetUserWalletPortfolioParams,
+  DataGetWalletNfTsData,
+  DataGetWalletNfTsParams,
+  DataGetWalletTokenBalancesData,
+  DataGetWalletTokenBalancesParams,
+  DataGetWalletTransactionHistoryData,
+  DataGetWalletTransactionHistoryParams,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
@@ -36,19 +36,19 @@ export class Data<SecurityDataType = unknown> {
   }
 
   /**
-   * No description
+   * @description Retrieves the chart analysis for a given trading symbol and timeframe.
    *
    * @tags Data
-   * @name GetChartAnalysis
+   * @name ChartsGetChartAnalysis
    * @request GET:/data/analysis/{symbol}/{timeframe}
    * @secure
    */
-  getChartAnalysis = (
+  chartsGetChartAnalysis = (
     symbol: string,
-    timeframe: GetChartAnalysisParamsEnum,
+    timeframe: ChartsGetChartAnalysisParamsEnum,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetChartAnalysisData, any>({
+    this.http.request<ChartsGetChartAnalysisData, any>({
       path: `/data/analysis/${symbol}/${timeframe}`,
       method: 'GET',
       secure: true,
@@ -56,35 +56,36 @@ export class Data<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Executes a query using the LLMSupabaseQueryGenerator and returns the result.
    *
    * @tags Data
-   * @name GetNfTs
-   * @request GET:/data/{address}/nfts
+   * @name DataExecuteCustomSupabaseQuery
+   * @request POST:/data/query
    * @secure
    */
-  getNfTs = (
-    { address, ...query }: GetNfTsParams,
+  dataExecuteCustomSupabaseQuery = (
+    data: DataExecuteCustomSupabaseQueryPayload,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetNfTsData, any>({
-      path: `/data/${address}/nfts`,
-      method: 'GET',
-      query: query,
+    this.http.request<DataExecuteCustomSupabaseQueryData, any>({
+      path: `/data/query`,
+      method: 'POST',
+      body: data,
       secure: true,
+      type: ContentType.Json,
       format: 'json',
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves the status of a portfolio job.
    *
    * @tags Data
-   * @name GetPortfolioStatus
+   * @name DataGetPortfolioFetchStatus
    * @request GET:/data/portfolio/status/{jobId}
    * @secure
    */
-  getPortfolioStatus = (jobId: string, params: RequestParams = {}) =>
-    this.http.request<GetPortfolioStatusData, any>({
+  dataGetPortfolioFetchStatus = (jobId: string, params: RequestParams = {}) =>
+    this.http.request<DataGetPortfolioFetchStatusData, any>({
       path: `/data/portfolio/status/${jobId}`,
       method: 'GET',
       secure: true,
@@ -92,18 +93,18 @@ export class Data<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves token metadata from the Moralis service.
    *
    * @tags Data
-   * @name GetTokenMetadata
+   * @name DataGetTokensMetadata
    * @request GET:/data/token-metadata
    * @secure
    */
-  getTokenMetadata = (
-    query: GetTokenMetadataParams,
+  dataGetTokensMetadata = (
+    query: DataGetTokensMetadataParams,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetTokenMetadataData, any>({
+    this.http.request<DataGetTokensMetadataData, any>({
       path: `/data/token-metadata`,
       method: 'GET',
       query: query,
@@ -112,18 +113,18 @@ export class Data<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves the user's portfolio based on the provided wallet address.
    *
    * @tags Data
-   * @name GetUserPortfolio
+   * @name DataGetUserWalletPortfolio
    * @request GET:/data/{address}/portfolio
    * @secure
    */
-  getUserPortfolio = (
-    { address, ...query }: GetUserPortfolioParams,
+  dataGetUserWalletPortfolio = (
+    { address, ...query }: DataGetUserWalletPortfolioParams,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetUserPortfolioData, any>({
+    this.http.request<DataGetUserWalletPortfolioData, any>({
       path: `/data/${address}/portfolio`,
       method: 'GET',
       query: query,
@@ -135,15 +136,35 @@ export class Data<SecurityDataType = unknown> {
    * No description
    *
    * @tags Data
-   * @name GetWalletBalance
+   * @name DataGetWalletNfTs
+   * @request GET:/data/{address}/nfts
+   * @secure
+   */
+  dataGetWalletNfTs = (
+    { address, ...query }: DataGetWalletNfTsParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<DataGetWalletNfTsData, any>({
+      path: `/data/${address}/nfts`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * @description Retrieves the wallet balance for a given address.
+   *
+   * @tags Data
+   * @name DataGetWalletTokenBalances
    * @request GET:/data/{address}/balance
    * @secure
    */
-  getWalletBalance = (
-    { address, ...query }: GetWalletBalanceParams,
+  dataGetWalletTokenBalances = (
+    { address, ...query }: DataGetWalletTokenBalancesParams,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetWalletBalanceData, any>({
+    this.http.request<DataGetWalletTokenBalancesData, any>({
       path: `/data/${address}/balance`,
       method: 'GET',
       query: query,
@@ -152,40 +173,22 @@ export class Data<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves the wallet history for a given address and blockchain chain.
    *
    * @tags Data
-   * @name GetWalletHistory
+   * @name DataGetWalletTransactionHistory
    * @request GET:/data/{address}/history
    * @secure
    */
-  getWalletHistory = (
-    { address, ...query }: GetWalletHistoryParams,
+  dataGetWalletTransactionHistory = (
+    { address, ...query }: DataGetWalletTransactionHistoryParams,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetWalletHistoryData, any>({
+    this.http.request<DataGetWalletTransactionHistoryData, any>({
       path: `/data/${address}/history`,
       method: 'GET',
       query: query,
       secure: true,
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags Data
-   * @name Query
-   * @request POST:/data/query
-   * @secure
-   */
-  query = (data: QueryPayload, params: RequestParams = {}) =>
-    this.http.request<QueryData, any>({
-      path: `/data/query`,
-      method: 'POST',
-      body: data,
-      secure: true,
-      type: ContentType.Json,
       format: 'json',
       ...params,
     });

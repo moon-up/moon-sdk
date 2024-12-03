@@ -29,7 +29,7 @@ export class Eos<SecurityDataType = unknown> {
   }
 
   /**
-   * No description
+   * @description Creates a new EOS account.
    *
    * @tags eos
    * @name CreateEosAccount
@@ -47,7 +47,7 @@ export class Eos<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Deletes an EOS account.
    *
    * @tags eos
    * @name DeleteEosAccount
@@ -63,7 +63,7 @@ export class Eos<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Exports the account information for a given EOS account name.
    *
    * @tags eos
    * @name ExportEosAccount
@@ -79,7 +79,7 @@ export class Eos<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves account information from the EOS blockchain.
    *
    * @tags eos
    * @name GetEosAccount
@@ -95,7 +95,7 @@ export class Eos<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Lists EOS accounts associated with the provided authorization token.
    *
    * @tags eos
    * @name ListEosAccounts
@@ -111,7 +111,7 @@ export class Eos<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Signs an EOS transaction.
    *
    * @tags eos
    * @name SignEosTransaction

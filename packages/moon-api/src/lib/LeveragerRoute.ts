@@ -10,37 +10,37 @@
  */
 
 import {
-  DeleverageErc20Data,
-  DeleverageNativeData,
-  ExecuteOperationData,
-  GetAddressesProviderOutput,
-  GetDefaultAdminRoleData,
-  GetLendingPoolData,
-  GetMinHfData,
-  GetRoleAdminData,
-  GetWethData,
-  GrantRoleData,
-  HasRoleData,
-  IsPausedResult,
-  LeverageErc20Data,
-  LeverageNativeData,
+  LeveragerDeleverageErc20Data,
+  LeveragerDeleverageNativeData,
+  LeveragerExecuteOperationData,
+  LeveragerGetAddressesProviderData,
+  LeveragerGetDefaultAdminRoleData,
+  LeveragerGetLendingPoolData,
+  LeveragerGetMinHfData,
+  LeveragerGetRoleAdminData,
+  LeveragerGetWethData,
+  LeveragerGrantRoleData,
+  LeveragerHasRoleData,
   LeveragerInputBody,
-  PauseData,
-  RenounceRoleData,
-  RevokeRoleData,
-  SupportsInterfaceData,
-  UnpauseData,
+  LeveragerIsPausedData,
+  LeveragerLeverageErc20Data,
+  LeveragerLeverageNativeData,
+  LeveragerPauseData,
+  LeveragerRenounceRoleData,
+  LeveragerRevokeRoleData,
+  LeveragerSupportsInterfaceData,
+  LeveragerUnpauseData,
 } from './data-contracts';
 
 export namespace Leverager {
   /**
    * No description
    * @tags Leverager
-   * @name DeleverageErc20
+   * @name LeveragerDeleverageErc20
    * @request POST:/leverager/{accountName}/deleverage-erc20
    * @secure
    */
-  export namespace DeleverageErc20 {
+  export namespace LeveragerDeleverageErc20 {
     export type RequestParams = {
       accountName: string;
     };
@@ -49,17 +49,17 @@ export namespace Leverager {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = DeleverageErc20Data;
+    export type ResponseBody = LeveragerDeleverageErc20Data;
   }
 
   /**
    * No description
    * @tags Leverager
-   * @name DeleverageNative
+   * @name LeveragerDeleverageNative
    * @request POST:/leverager/{accountName}/deleverage-native
    * @secure
    */
-  export namespace DeleverageNative {
+  export namespace LeveragerDeleverageNative {
     export type RequestParams = {
       accountName: string;
     };
@@ -68,17 +68,17 @@ export namespace Leverager {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = DeleverageNativeData;
+    export type ResponseBody = LeveragerDeleverageNativeData;
   }
 
   /**
    * No description
    * @tags Leverager
-   * @name ExecuteOperation
+   * @name LeveragerExecuteOperation
    * @request POST:/leverager/{accountName}/execute-operation
    * @secure
    */
-  export namespace ExecuteOperation {
+  export namespace LeveragerExecuteOperation {
     export type RequestParams = {
       accountName: string;
     };
@@ -87,17 +87,17 @@ export namespace Leverager {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = ExecuteOperationData;
+    export type ResponseBody = LeveragerExecuteOperationData;
   }
 
   /**
    * No description
    * @tags Leverager
-   * @name GetAddressesProvider
+   * @name LeveragerGetAddressesProvider
    * @request GET:/leverager/addresses-provider
    * @secure
    */
-  export namespace GetAddressesProvider {
+  export namespace LeveragerGetAddressesProvider {
     export type RequestParams = {};
     export type RequestQuery = {
       address: string;
@@ -107,17 +107,17 @@ export namespace Leverager {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetAddressesProviderOutput;
+    export type ResponseBody = LeveragerGetAddressesProviderData;
   }
 
   /**
    * No description
    * @tags Leverager
-   * @name GetDefaultAdminRole
+   * @name LeveragerGetDefaultAdminRole
    * @request GET:/leverager/default-admin-role
    * @secure
    */
-  export namespace GetDefaultAdminRole {
+  export namespace LeveragerGetDefaultAdminRole {
     export type RequestParams = {};
     export type RequestQuery = {
       address: string;
@@ -127,17 +127,17 @@ export namespace Leverager {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetDefaultAdminRoleData;
+    export type ResponseBody = LeveragerGetDefaultAdminRoleData;
   }
 
   /**
    * No description
    * @tags Leverager
-   * @name GetLendingPool
+   * @name LeveragerGetLendingPool
    * @request GET:/leverager/lending-pool
    * @secure
    */
-  export namespace GetLendingPool {
+  export namespace LeveragerGetLendingPool {
     export type RequestParams = {};
     export type RequestQuery = {
       address: string;
@@ -147,17 +147,17 @@ export namespace Leverager {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetLendingPoolData;
+    export type ResponseBody = LeveragerGetLendingPoolData;
   }
 
   /**
    * No description
    * @tags Leverager
-   * @name GetMinHf
+   * @name LeveragerGetMinHf
    * @request GET:/leverager/min-hf
    * @secure
    */
-  export namespace GetMinHf {
+  export namespace LeveragerGetMinHf {
     export type RequestParams = {};
     export type RequestQuery = {
       address: string;
@@ -167,17 +167,17 @@ export namespace Leverager {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetMinHfData;
+    export type ResponseBody = LeveragerGetMinHfData;
   }
 
   /**
    * No description
    * @tags Leverager
-   * @name GetRoleAdmin
+   * @name LeveragerGetRoleAdmin
    * @request GET:/leverager/role-admin
    * @secure
    */
-  export namespace GetRoleAdmin {
+  export namespace LeveragerGetRoleAdmin {
     export type RequestParams = {};
     export type RequestQuery = {
       address: string;
@@ -188,17 +188,17 @@ export namespace Leverager {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetRoleAdminData;
+    export type ResponseBody = LeveragerGetRoleAdminData;
   }
 
   /**
    * No description
    * @tags Leverager
-   * @name GetWeth
+   * @name LeveragerGetWeth
    * @request GET:/leverager/weth
    * @secure
    */
-  export namespace GetWeth {
+  export namespace LeveragerGetWeth {
     export type RequestParams = {};
     export type RequestQuery = {
       address: string;
@@ -208,17 +208,17 @@ export namespace Leverager {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetWethData;
+    export type ResponseBody = LeveragerGetWethData;
   }
 
   /**
    * No description
    * @tags Leverager
-   * @name GrantRole
+   * @name LeveragerGrantRole
    * @request POST:/leverager/{accountName}/grant-role
    * @secure
    */
-  export namespace GrantRole {
+  export namespace LeveragerGrantRole {
     export type RequestParams = {
       accountName: string;
     };
@@ -227,17 +227,17 @@ export namespace Leverager {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GrantRoleData;
+    export type ResponseBody = LeveragerGrantRoleData;
   }
 
   /**
    * No description
    * @tags Leverager
-   * @name HasRole
+   * @name LeveragerHasRole
    * @request GET:/leverager/has-role
    * @secure
    */
-  export namespace HasRole {
+  export namespace LeveragerHasRole {
     export type RequestParams = {};
     export type RequestQuery = {
       account: string;
@@ -249,17 +249,17 @@ export namespace Leverager {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = HasRoleData;
+    export type ResponseBody = LeveragerHasRoleData;
   }
 
   /**
    * No description
    * @tags Leverager
-   * @name IsPaused
+   * @name LeveragerIsPaused
    * @request GET:/leverager/paused
    * @secure
    */
-  export namespace IsPaused {
+  export namespace LeveragerIsPaused {
     export type RequestParams = {};
     export type RequestQuery = {
       address: string;
@@ -269,17 +269,17 @@ export namespace Leverager {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = IsPausedResult;
+    export type ResponseBody = LeveragerIsPausedData;
   }
 
   /**
    * No description
    * @tags Leverager
-   * @name LeverageErc20
+   * @name LeveragerLeverageErc20
    * @request POST:/leverager/{accountName}/leverage-erc20
    * @secure
    */
-  export namespace LeverageErc20 {
+  export namespace LeveragerLeverageErc20 {
     export type RequestParams = {
       accountName: string;
     };
@@ -288,17 +288,17 @@ export namespace Leverager {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = LeverageErc20Data;
+    export type ResponseBody = LeveragerLeverageErc20Data;
   }
 
   /**
    * No description
    * @tags Leverager
-   * @name LeverageNative
+   * @name LeveragerLeverageNative
    * @request POST:/leverager/{accountName}/leverage-native
    * @secure
    */
-  export namespace LeverageNative {
+  export namespace LeveragerLeverageNative {
     export type RequestParams = {
       accountName: string;
     };
@@ -307,17 +307,17 @@ export namespace Leverager {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = LeverageNativeData;
+    export type ResponseBody = LeveragerLeverageNativeData;
   }
 
   /**
    * No description
    * @tags Leverager
-   * @name Pause
+   * @name LeveragerPause
    * @request POST:/leverager/{accountName}/pause
    * @secure
    */
-  export namespace Pause {
+  export namespace LeveragerPause {
     export type RequestParams = {
       accountName: string;
     };
@@ -326,17 +326,17 @@ export namespace Leverager {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = PauseData;
+    export type ResponseBody = LeveragerPauseData;
   }
 
   /**
    * No description
    * @tags Leverager
-   * @name RenounceRole
+   * @name LeveragerRenounceRole
    * @request POST:/leverager/{accountName}/renounce-role
    * @secure
    */
-  export namespace RenounceRole {
+  export namespace LeveragerRenounceRole {
     export type RequestParams = {
       accountName: string;
     };
@@ -345,17 +345,17 @@ export namespace Leverager {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = RenounceRoleData;
+    export type ResponseBody = LeveragerRenounceRoleData;
   }
 
   /**
    * No description
    * @tags Leverager
-   * @name RevokeRole
+   * @name LeveragerRevokeRole
    * @request POST:/leverager/{accountName}/revoke-role
    * @secure
    */
-  export namespace RevokeRole {
+  export namespace LeveragerRevokeRole {
     export type RequestParams = {
       accountName: string;
     };
@@ -364,17 +364,17 @@ export namespace Leverager {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = RevokeRoleData;
+    export type ResponseBody = LeveragerRevokeRoleData;
   }
 
   /**
    * No description
    * @tags Leverager
-   * @name SupportsInterface
+   * @name LeveragerSupportsInterface
    * @request GET:/leverager/supports-interface
    * @secure
    */
-  export namespace SupportsInterface {
+  export namespace LeveragerSupportsInterface {
     export type RequestParams = {};
     export type RequestQuery = {
       address: string;
@@ -385,17 +385,17 @@ export namespace Leverager {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = SupportsInterfaceData;
+    export type ResponseBody = LeveragerSupportsInterfaceData;
   }
 
   /**
    * No description
    * @tags Leverager
-   * @name Unpause
+   * @name LeveragerUnpause
    * @request POST:/leverager/{accountName}/unpause
    * @secure
    */
-  export namespace Unpause {
+  export namespace LeveragerUnpause {
     export type RequestParams = {
       accountName: string;
     };
@@ -404,6 +404,6 @@ export namespace Leverager {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = UnpauseData;
+    export type ResponseBody = LeveragerUnpauseData;
   }
 }

@@ -11,7 +11,7 @@
 
 import {
   AbstainResult,
-  ApproveData1,
+  ApproveResult1,
   AttachResult,
   AttachTokenToGaugeResult,
   CalculateOptimalVoteDistributionOutput,
@@ -19,7 +19,7 @@ import {
   CheckpointResult,
   ClaimBribesOutput,
   ClaimFeesOutput,
-  ClaimRewardsResult1,
+  ClaimRewardsOutput,
   CreateGaugeOutput,
   CreateLockForResult,
   CreateLockOutput,
@@ -33,10 +33,10 @@ import {
   GetApprovedParams4,
   GetBalanceOfAtNftData,
   GetBalanceOfAtNftParams,
-  GetBalanceOfData1,
   GetBalanceOfNftOutput,
   GetBalanceOfNftParams4,
-  GetBalanceOfParams8,
+  GetBalanceOfOutput,
+  GetBalanceOfParams4,
   GetDelegatesOutput,
   GetDelegatesParams4,
   GetFusionByAddressData,
@@ -66,8 +66,8 @@ import {
   GetTotalSupplyAtParams,
   GetTotalSupplyAtTData,
   GetTotalSupplyAtTParams,
-  GetTotalSupplyParams8,
-  GetTotalSupplyResult1,
+  GetTotalSupplyOutput,
+  GetTotalSupplyParams4,
   GetTotalValueLockedOutput,
   GetTotalWeightOutput,
   GetTotalWeightParams4,
@@ -81,8 +81,8 @@ import {
   GetWeightsParams4,
   IncreaseLockAmountResult,
   IncreaseUnlockTimeOutput,
-  IsApprovedForAllParams5,
-  IsApprovedForAllResult1,
+  IsApprovedForAllOutput,
+  IsApprovedForAllParams4,
   IsGaugeOutput,
   IsGaugeParams4,
   IsWhitelistedOutput,
@@ -97,10 +97,10 @@ import {
   PoolVoteLengthParams,
   ResetOutput,
   ReviveGaugeOutput,
-  SafeTransferFromOutput,
-  SetApprovalForAllData1,
+  SafeTransferFromResult,
+  SetApprovalForAllOutput,
   SplitOutput,
-  TransferFromResult2,
+  TransferFromResult1,
   VeNFTInputBody,
   VeTheNftVoterInputBody,
   VoteOutput,
@@ -108,7 +108,7 @@ import {
   VoteWithOptimalDistributionOutput,
   VotingData,
   WhitelistOutput,
-  WithdrawResult1,
+  WithdrawResult,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
@@ -154,7 +154,7 @@ export class Thena<SecurityDataType = unknown> {
     data: VeNFTInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<ApproveData1, any>({
+    this.http.request<ApproveResult1, any>({
       path: `/thena/nft/${address}/approve`,
       method: 'POST',
       body: data,
@@ -306,7 +306,7 @@ export class Thena<SecurityDataType = unknown> {
     data: VeTheNftVoterInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<ClaimRewardsResult1, any>({
+    this.http.request<ClaimRewardsOutput, any>({
       path: `/thena/voter/${address}/claimRewards`,
       method: 'POST',
       body: data,
@@ -542,10 +542,10 @@ export class Thena<SecurityDataType = unknown> {
    * @secure
    */
   getBalanceOf = (
-    { account, ...query }: GetBalanceOfParams8,
+    { account, ...query }: GetBalanceOfParams4,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetBalanceOfData1, any>({
+    this.http.request<GetBalanceOfOutput, any>({
       path: `/thena/nft/${account}/balanceOf`,
       method: 'GET',
       query: query,
@@ -863,8 +863,8 @@ export class Thena<SecurityDataType = unknown> {
    * @request GET:/thena/nft/totalSupply
    * @secure
    */
-  getTotalSupply = (query: GetTotalSupplyParams8, params: RequestParams = {}) =>
-    this.http.request<GetTotalSupplyResult1, any>({
+  getTotalSupply = (query: GetTotalSupplyParams4, params: RequestParams = {}) =>
+    this.http.request<GetTotalSupplyOutput, any>({
       path: `/thena/nft/totalSupply`,
       method: 'GET',
       query: query,
@@ -1075,10 +1075,10 @@ export class Thena<SecurityDataType = unknown> {
    * @secure
    */
   isApprovedForAll = (
-    { owner, ...query }: IsApprovedForAllParams5,
+    { owner, ...query }: IsApprovedForAllParams4,
     params: RequestParams = {}
   ) =>
-    this.http.request<IsApprovedForAllResult1, any>({
+    this.http.request<IsApprovedForAllOutput, any>({
       path: `/thena/nft/${owner}/isApprovedForAll`,
       method: 'GET',
       query: query,
@@ -1295,7 +1295,7 @@ export class Thena<SecurityDataType = unknown> {
     data: VeNFTInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<SafeTransferFromOutput, any>({
+    this.http.request<SafeTransferFromResult, any>({
       path: `/thena/nft/${address}/safeTransferFrom`,
       method: 'POST',
       body: data,
@@ -1317,7 +1317,7 @@ export class Thena<SecurityDataType = unknown> {
     data: VeNFTInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<SetApprovalForAllData1, any>({
+    this.http.request<SetApprovalForAllOutput, any>({
       path: `/thena/nft/${address}/setApprovalForAll`,
       method: 'POST',
       body: data,
@@ -1357,7 +1357,7 @@ export class Thena<SecurityDataType = unknown> {
     data: VeNFTInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<TransferFromResult2, any>({
+    this.http.request<TransferFromResult1, any>({
       path: `/thena/nft/${address}/transferFrom`,
       method: 'POST',
       body: data,
@@ -1467,7 +1467,7 @@ export class Thena<SecurityDataType = unknown> {
     data: VeNFTInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<WithdrawResult1, any>({
+    this.http.request<WithdrawResult, any>({
       path: `/thena/nft/${address}/withdraw`,
       method: 'POST',
       body: data,

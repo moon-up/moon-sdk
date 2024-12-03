@@ -10,19 +10,19 @@
  */
 
 import {
-  CreateComponentData,
-  ForceEmbeddingData,
-  ForceEmbeddingPayload,
-  GetComponentCapabilitiesDescriptionData,
-  GetComponentData,
-  GetComponentsData,
+  ComponentsCreateComponentData,
+  ComponentsForceEmbeddingData,
+  ComponentsForceEmbeddingPayload,
+  ComponentsGetComponentCapabilitiesDescriptionData,
+  ComponentsGetComponentData,
+  ComponentsGetComponentsData,
+  ComponentsSearchComponentsData,
+  ComponentsSearchComponentsParams,
+  ComponentsUpdateComponentData,
+  ComponentsUpdateEmbeddingData,
+  ComponentsUpdateEmbeddingPayload,
   OmitComponentDefinitionId,
   PartialComponentDefinition,
-  SearchComponentsData,
-  SearchComponentsParams,
-  UpdateComponentData,
-  UpdateEmbeddingData,
-  UpdateEmbeddingPayload,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
@@ -34,18 +34,18 @@ export class Components<SecurityDataType = unknown> {
   }
 
   /**
-   * No description
+   * @description Creates a new component in the database.
    *
    * @tags Components
-   * @name CreateComponent
+   * @name ComponentsCreateComponent
    * @request POST:/components
    * @secure
    */
-  createComponent = (
+  componentsCreateComponent = (
     data: OmitComponentDefinitionId,
     params: RequestParams = {}
   ) =>
-    this.http.request<CreateComponentData, any>({
+    this.http.request<ComponentsCreateComponentData, any>({
       path: `/components`,
       method: 'POST',
       body: data,
@@ -55,19 +55,19 @@ export class Components<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Forces the embedding of a description for a component.
    *
    * @tags Components
-   * @name ForceEmbedding
+   * @name ComponentsForceEmbedding
    * @request POST:/components/{id}/embedding/force
    * @secure
    */
-  forceEmbedding = (
+  componentsForceEmbedding = (
     id: string,
-    data: ForceEmbeddingPayload,
+    data: ComponentsForceEmbeddingPayload,
     params: RequestParams = {}
   ) =>
-    this.http.request<ForceEmbeddingData, any>({
+    this.http.request<ComponentsForceEmbeddingData, any>({
       path: `/components/${id}/embedding/force`,
       method: 'POST',
       body: data,
@@ -77,15 +77,15 @@ export class Components<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves a component by its ID.
    *
    * @tags Components
-   * @name GetComponent
+   * @name ComponentsGetComponent
    * @request GET:/components/{id}
    * @secure
    */
-  getComponent = (id: string, params: RequestParams = {}) =>
-    this.http.request<GetComponentData, any>({
+  componentsGetComponent = (id: string, params: RequestParams = {}) =>
+    this.http.request<ComponentsGetComponentData, any>({
       path: `/components/${id}`,
       method: 'GET',
       secure: true,
@@ -93,15 +93,17 @@ export class Components<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves the capabilities description of components from the database.
    *
    * @tags Components
-   * @name GetComponentCapabilitiesDescription
+   * @name ComponentsGetComponentCapabilitiesDescription
    * @request GET:/components/capabilities
    * @secure
    */
-  getComponentCapabilitiesDescription = (params: RequestParams = {}) =>
-    this.http.request<GetComponentCapabilitiesDescriptionData, any>({
+  componentsGetComponentCapabilitiesDescription = (
+    params: RequestParams = {}
+  ) =>
+    this.http.request<ComponentsGetComponentCapabilitiesDescriptionData, any>({
       path: `/components/capabilities`,
       method: 'GET',
       secure: true,
@@ -109,15 +111,15 @@ export class Components<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves a list of components from the database.
    *
    * @tags Components
-   * @name GetComponents
+   * @name ComponentsGetComponents
    * @request GET:/components
    * @secure
    */
-  getComponents = (params: RequestParams = {}) =>
-    this.http.request<GetComponentsData, any>({
+  componentsGetComponents = (params: RequestParams = {}) =>
+    this.http.request<ComponentsGetComponentsData, any>({
       path: `/components`,
       method: 'GET',
       secure: true,
@@ -125,18 +127,18 @@ export class Components<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Searches for components similar to the specified query.
    *
    * @tags Components
-   * @name SearchComponents
+   * @name ComponentsSearchComponents
    * @request GET:/components/search
    * @secure
    */
-  searchComponents = (
-    query: SearchComponentsParams,
+  componentsSearchComponents = (
+    query: ComponentsSearchComponentsParams,
     params: RequestParams = {}
   ) =>
-    this.http.request<SearchComponentsData, any>({
+    this.http.request<ComponentsSearchComponentsData, any>({
       path: `/components/search`,
       method: 'GET',
       query: query,
@@ -145,19 +147,19 @@ export class Components<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Updates a component in the database.
    *
    * @tags Components
-   * @name UpdateComponent
+   * @name ComponentsUpdateComponent
    * @request POST:/components/{id}
    * @secure
    */
-  updateComponent = (
+  componentsUpdateComponent = (
     id: string,
     data: PartialComponentDefinition,
     params: RequestParams = {}
   ) =>
-    this.http.request<UpdateComponentData, any>({
+    this.http.request<ComponentsUpdateComponentData, any>({
       path: `/components/${id}`,
       method: 'POST',
       body: data,
@@ -167,19 +169,19 @@ export class Components<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Updates the embedding of a component's description.
    *
    * @tags Components
-   * @name UpdateEmbedding
+   * @name ComponentsUpdateEmbedding
    * @request POST:/components/{id}/embedding
    * @secure
    */
-  updateEmbedding = (
+  componentsUpdateEmbedding = (
     id: string,
-    data: UpdateEmbeddingPayload,
+    data: ComponentsUpdateEmbeddingPayload,
     params: RequestParams = {}
   ) =>
-    this.http.request<UpdateEmbeddingData, any>({
+    this.http.request<ComponentsUpdateEmbeddingData, any>({
       path: `/components/${id}/embedding`,
       method: 'POST',
       body: data,

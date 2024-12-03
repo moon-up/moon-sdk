@@ -11,332 +11,364 @@
 
 import {
   AbiEncodeInput,
+  AccountsBroadcastEthreeumTransactionData,
+  AccountsCreateEthereumAccountData,
+  AccountsDeleteEthereumAccountData,
+  AccountsDeployContractData,
+  AccountsEncodeAbiDataData,
+  AccountsEstimateGasData,
+  AccountsEthereumGetNativeBalanceData,
+  AccountsEthereumGetNonceData,
+  AccountsExportEthreumAccountData,
+  AccountsGetEthreumAccountData,
+  AccountsListEthereumAccountsData,
+  AccountsSignEthereumTransactionData,
+  AccountsSignEthereumTypedDataData,
+  AccountsSignEthreumMessageData,
+  AccountsSuggestGasPriceData,
+  AccountsTransferEthData,
   BroadcastInput,
-  BroadcastTxData,
-  CreateAccountData,
   CreateAccountInput,
-  DeleteAccountData,
-  DeployContractData,
   DeployInput,
-  EncodeDataData,
-  EstimateGasData,
-  ExportAccountData,
-  GetAccountData,
-  GetBalanceData,
-  GetNonceData,
   InputBody,
-  ListAccountsData,
   SignMessage,
-  SignMessageData,
-  SignTransactionData,
   SignTypedData,
-  SignTypedDataData,
-  SuggestGasPriceData,
-  TransferEthData,
 } from './data-contracts';
 
 export namespace Accounts {
   /**
-   * No description
+   * @description Broadcasts a transaction using the provided account name and transaction details.
    * @tags Accounts
-   * @name BroadcastTx
+   * @name AccountsBroadcastEthreeumTransaction
    * @request POST:/accounts/{accountName}/broadcast-tx
    * @secure
    */
-  export namespace BroadcastTx {
+  export namespace AccountsBroadcastEthreeumTransaction {
     export type RequestParams = {
+      /** - The name of the account to broadcast the transaction from. */
       accountName: string;
     };
     export type RequestQuery = {};
     export type RequestBody = BroadcastInput;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = BroadcastTxData;
+    export type ResponseBody = AccountsBroadcastEthreeumTransactionData;
   }
 
   /**
-   * No description
+   * @description Creates a new account using the provided authorization token and account input data.
    * @tags Accounts
-   * @name CreateAccount
+   * @name AccountsCreateEthereumAccount
    * @request POST:/accounts
    * @secure
    */
-  export namespace CreateAccount {
+  export namespace AccountsCreateEthereumAccount {
     export type RequestParams = {};
     export type RequestQuery = {};
     export type RequestBody = CreateAccountInput;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = CreateAccountData;
+    export type ResponseBody = AccountsCreateEthereumAccountData;
   }
 
   /**
-   * No description
+   * @description Deletes an account based on the provided account name.
    * @tags Accounts
-   * @name DeleteAccount
+   * @name AccountsDeleteEthereumAccount
    * @request DELETE:/accounts/{accountName}
    * @secure
    */
-  export namespace DeleteAccount {
+  export namespace AccountsDeleteEthereumAccount {
     export type RequestParams = {
+      /** - The name of the account to be deleted. */
       accountName: string;
     };
     export type RequestQuery = {};
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = DeleteAccountData;
+    export type ResponseBody = AccountsDeleteEthereumAccountData;
   }
 
   /**
-   * No description
+   * @description Deploys a contract using the provided account name and deployment input.
    * @tags Accounts
-   * @name DeployContract
+   * @name AccountsDeployContract
    * @request POST:/accounts/{accountName}/deploy
    * @secure
    */
-  export namespace DeployContract {
+  export namespace AccountsDeployContract {
     export type RequestParams = {
+      /** - The name of the account to deploy the contract to. */
       accountName: string;
     };
     export type RequestQuery = {};
     export type RequestBody = DeployInput;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = DeployContractData;
+    export type ResponseBody = AccountsDeployContractData;
   }
 
   /**
-   * No description
+   * @description Encodes data using the provided ABI and function parameters.
    * @tags Accounts
-   * @name EncodeData
+   * @name AccountsEncodeAbiData
    * @request POST:/accounts/encode-data
    * @secure
    */
-  export namespace EncodeData {
+  export namespace AccountsEncodeAbiData {
     export type RequestParams = {};
     export type RequestQuery = {};
     export type RequestBody = AbiEncodeInput;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = EncodeDataData;
+    export type ResponseBody = AccountsEncodeAbiDataData;
   }
 
   /**
-   * No description
+   * @description Estimates the gas required for a transaction.
    * @tags Accounts
-   * @name EstimateGas
+   * @name AccountsEstimateGas
    * @request POST:/accounts/{accountName}/estimate
    * @secure
    */
-  export namespace EstimateGas {
+  export namespace AccountsEstimateGas {
     export type RequestParams = {
+      /** - The name of the account for which to estimate gas. */
       accountName: string;
     };
     export type RequestQuery = {};
     export type RequestBody = InputBody;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = EstimateGasData;
+    export type ResponseBody = AccountsEstimateGasData;
   }
 
   /**
-   * No description
+   * @description Retrieves the balance of a specified account.
    * @tags Accounts
-   * @name ExportAccount
-   * @request GET:/accounts/{accountName}/export
-   * @secure
-   */
-  export namespace ExportAccount {
-    export type RequestParams = {
-      accountName: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = ExportAccountData;
-  }
-
-  /**
-   * No description
-   * @tags Accounts
-   * @name GetAccount
-   * @request GET:/accounts/{accountName}
-   * @secure
-   */
-  export namespace GetAccount {
-    export type RequestParams = {
-      accountName: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = GetAccountData;
-  }
-
-  /**
-   * No description
-   * @tags Accounts
-   * @name GetBalance
+   * @name AccountsEthereumGetNativeBalance
    * @request GET:/accounts/{accountName}/balance
    * @secure
    */
-  export namespace GetBalance {
+  export namespace AccountsEthereumGetNativeBalance {
     export type RequestParams = {
+      /** - The name of the account to retrieve the balance for. */
       accountName: string;
     };
     export type RequestQuery = {
+      /** - The ID of the blockchain network. */
       chainId: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token for the request. */
       Authorization: string;
     };
-    export type ResponseBody = GetBalanceData;
+    export type ResponseBody = AccountsEthereumGetNativeBalanceData;
   }
 
   /**
-   * No description
+   * @description Retrieves the nonce for a given account.
    * @tags Accounts
-   * @name GetNonce
+   * @name AccountsEthereumGetNonce
    * @request GET:/accounts/{accountName}/nonce
    * @secure
    */
-  export namespace GetNonce {
+  export namespace AccountsEthereumGetNonce {
     export type RequestParams = {
+      /** - The name of the account to retrieve the nonce for. */
       accountName: string;
     };
     export type RequestQuery = {
+      /** - The ID of the blockchain network. */
       chainId: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = GetNonceData;
+    export type ResponseBody = AccountsEthereumGetNonceData;
   }
 
   /**
-   * No description
+   * @description Exports the account details including address, private key, and public key.
    * @tags Accounts
-   * @name ListAccounts
+   * @name AccountsExportEthreumAccount
+   * @request GET:/accounts/{accountName}/export
+   * @secure
+   */
+  export namespace AccountsExportEthreumAccount {
+    export type RequestParams = {
+      /** - The name of the account to be exported. */
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token for the request. */
+      Authorization: string;
+    };
+    export type ResponseBody = AccountsExportEthreumAccountData;
+  }
+
+  /**
+   * @description Retrieves the account details for a given account name.
+   * @tags Accounts
+   * @name AccountsGetEthreumAccount
+   * @request GET:/accounts/{accountName}
+   * @secure
+   */
+  export namespace AccountsGetEthreumAccount {
+    export type RequestParams = {
+      /** - The name of the account to retrieve. */
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token from the request header. */
+      Authorization: string;
+    };
+    export type ResponseBody = AccountsGetEthreumAccountData;
+  }
+
+  /**
+   * @description Lists accounts using the provided authorization token.
+   * @tags Accounts
+   * @name AccountsListEthereumAccounts
    * @request GET:/accounts
    * @secure
    */
-  export namespace ListAccounts {
+  export namespace AccountsListEthereumAccounts {
     export type RequestParams = {};
     export type RequestQuery = {};
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = ListAccountsData;
+    export type ResponseBody = AccountsListEthereumAccountsData;
   }
 
   /**
-   * No description
+   * @description Signs a transaction for the specified account.
    * @tags Accounts
-   * @name SignMessage
-   * @request POST:/accounts/{accountName}/sign-message
-   * @secure
-   */
-  export namespace SignMessage {
-    export type RequestParams = {
-      accountName: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = SignMessage;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = SignMessageData;
-  }
-
-  /**
-   * No description
-   * @tags Accounts
-   * @name SignTransaction
+   * @name AccountsSignEthereumTransaction
    * @request POST:/accounts/{accountName}/sign-transaction
    * @secure
    */
-  export namespace SignTransaction {
+  export namespace AccountsSignEthereumTransaction {
     export type RequestParams = {
+      /** - The name of the account for which the transaction is to be signed. */
       accountName: string;
     };
     export type RequestQuery = {};
     export type RequestBody = InputBody;
     export type RequestHeaders = {
+      /** - The authorization token for the request. */
       Authorization: string;
     };
-    export type ResponseBody = SignTransactionData;
+    export type ResponseBody = AccountsSignEthereumTransactionData;
   }
 
   /**
-   * No description
+   * @description Handles the signing of typed data for a given account.
    * @tags Accounts
-   * @name SignTypedData
+   * @name AccountsSignEthereumTypedData
    * @request POST:/accounts/{accountName}/sign-typed-data
    * @secure
    */
-  export namespace SignTypedData {
+  export namespace AccountsSignEthereumTypedData {
     export type RequestParams = {
+      /** - The name of the account for which the data is to be signed. */
       accountName: string;
     };
     export type RequestQuery = {};
     export type RequestBody = SignTypedData;
     export type RequestHeaders = {
+      /** - The authorization token for the request. */
       Authorization: string;
     };
-    export type ResponseBody = SignTypedDataData;
+    export type ResponseBody = AccountsSignEthereumTypedDataData;
   }
 
   /**
-   * No description
+   * @description Signs a message using the provided account name and authorization token.
    * @tags Accounts
-   * @name SuggestGasPrice
+   * @name AccountsSignEthreumMessage
+   * @request POST:/accounts/{accountName}/sign-message
+   * @secure
+   */
+  export namespace AccountsSignEthreumMessage {
+    export type RequestParams = {
+      /** - The name of the account to sign the message with. */
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = SignMessage;
+    export type RequestHeaders = {
+      /** - The authorization token for the request. */
+      Authorization: string;
+    };
+    export type ResponseBody = AccountsSignEthreumMessageData;
+  }
+
+  /**
+   * @description Suggests the gas price for a given account and chain ID.
+   * @tags Accounts
+   * @name AccountsSuggestGasPrice
    * @request GET:/accounts/{accountName}/suggest-gas
    * @secure
    */
-  export namespace SuggestGasPrice {
+  export namespace AccountsSuggestGasPrice {
     export type RequestParams = {
+      /** - The name of the account for which to suggest the gas price. */
       accountName: string;
     };
     export type RequestQuery = {
+      /** - The ID of the blockchain network. */
       chainId: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = SuggestGasPriceData;
+    export type ResponseBody = AccountsSuggestGasPriceData;
   }
 
   /**
-   * No description
+   * @description Transfers Ethereum from one account to another.
    * @tags Accounts
-   * @name TransferEth
+   * @name AccountsTransferEth
    * @request POST:/accounts/{accountName}/transfer-eth
    * @secure
    */
-  export namespace TransferEth {
+  export namespace AccountsTransferEth {
     export type RequestParams = {
+      /** - The name of the account from which Ethereum will be transferred. */
       accountName: string;
     };
     export type RequestQuery = {};
     export type RequestBody = InputBody;
     export type RequestHeaders = {
+      /** - The authorization token for the request. */
       Authorization: string;
     };
-    export type ResponseBody = TransferEthData;
+    export type ResponseBody = AccountsTransferEthData;
   }
 }

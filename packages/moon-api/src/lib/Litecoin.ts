@@ -10,15 +10,15 @@
  */
 
 import {
-  CreateLitecoinAccountData,
-  DeleteLitecoinAccountData,
-  ExportLitecoinAccountData,
-  GetLitecoinAccountData,
   ListLitecoinAccountsData,
+  LitecoinCreateLitecoinAccountData,
+  LitecoinDeleteLitecoinAccountData,
+  LitecoinExportLitecoinAccountData,
+  LitecoinGetLitecoinAccountData,
   LitecoinInput,
+  LitecoinSignLitecoinTransactionData,
+  LitecoinSignLitecoinTransactionWithMemoData,
   LitecoinTransactionInput,
-  SignLitecoinTransactionData,
-  SignLitecoinTransactionWithMemoData,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
@@ -30,73 +30,7 @@ export class Litecoin<SecurityDataType = unknown> {
   }
 
   /**
-   * No description
-   *
-   * @tags Litecoin
-   * @name CreateLitecoinAccount
-   * @request POST:/litecoin
-   * @secure
-   */
-  createLitecoinAccount = (data: LitecoinInput, params: RequestParams = {}) =>
-    this.http.request<CreateLitecoinAccountData, any>({
-      path: `/litecoin`,
-      method: 'POST',
-      body: data,
-      secure: true,
-      type: ContentType.Json,
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags Litecoin
-   * @name DeleteLitecoinAccount
-   * @request POST:/litecoin/{accountName}/delete
-   * @secure
-   */
-  deleteLitecoinAccount = (accountName: string, params: RequestParams = {}) =>
-    this.http.request<DeleteLitecoinAccountData, any>({
-      path: `/litecoin/${accountName}/delete`,
-      method: 'POST',
-      secure: true,
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags Litecoin
-   * @name ExportLitecoinAccount
-   * @request POST:/litecoin/{accountName}/export
-   * @secure
-   */
-  exportLitecoinAccount = (accountName: string, params: RequestParams = {}) =>
-    this.http.request<ExportLitecoinAccountData, any>({
-      path: `/litecoin/${accountName}/export`,
-      method: 'POST',
-      secure: true,
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags Litecoin
-   * @name GetLitecoinAccount
-   * @request GET:/litecoin/{accountName}
-   * @secure
-   */
-  getLitecoinAccount = (accountName: string, params: RequestParams = {}) =>
-    this.http.request<GetLitecoinAccountData, any>({
-      path: `/litecoin/${accountName}`,
-      method: 'GET',
-      secure: true,
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
+   * @description Lists the accounts associated with the provided authorization token.
    *
    * @tags Litecoin
    * @name ListLitecoinAccounts
@@ -112,19 +46,97 @@ export class Litecoin<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Creates a new Litecoin account.
    *
    * @tags Litecoin
-   * @name SignLitecoinTransaction
+   * @name LitecoinCreateLitecoinAccount
+   * @request POST:/litecoin
+   * @secure
+   */
+  litecoinCreateLitecoinAccount = (
+    data: LitecoinInput,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<LitecoinCreateLitecoinAccountData, any>({
+      path: `/litecoin`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * @description Deletes a Litecoin account.
+   *
+   * @tags Litecoin
+   * @name LitecoinDeleteLitecoinAccount
+   * @request POST:/litecoin/{accountName}/delete
+   * @secure
+   */
+  litecoinDeleteLitecoinAccount = (
+    accountName: string,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<LitecoinDeleteLitecoinAccountData, any>({
+      path: `/litecoin/${accountName}/delete`,
+      method: 'POST',
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * @description Exports the account information for a given account name.
+   *
+   * @tags Litecoin
+   * @name LitecoinExportLitecoinAccount
+   * @request POST:/litecoin/{accountName}/export
+   * @secure
+   */
+  litecoinExportLitecoinAccount = (
+    accountName: string,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<LitecoinExportLitecoinAccountData, any>({
+      path: `/litecoin/${accountName}/export`,
+      method: 'POST',
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * @description Retrieves account information for a specified account name.
+   *
+   * @tags Litecoin
+   * @name LitecoinGetLitecoinAccount
+   * @request GET:/litecoin/{accountName}
+   * @secure
+   */
+  litecoinGetLitecoinAccount = (
+    accountName: string,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<LitecoinGetLitecoinAccountData, any>({
+      path: `/litecoin/${accountName}`,
+      method: 'GET',
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * @description Signs a Litecoin transaction.
+   *
+   * @tags Litecoin
+   * @name LitecoinSignLitecoinTransaction
    * @request POST:/litecoin/{accountName}/sign-tx
    * @secure
    */
-  signLitecoinTransaction = (
+  litecoinSignLitecoinTransaction = (
     accountName: string,
     data: LitecoinTransactionInput,
     params: RequestParams = {}
   ) =>
-    this.http.request<SignLitecoinTransactionData, any>({
+    this.http.request<LitecoinSignLitecoinTransactionData, any>({
       path: `/litecoin/${accountName}/sign-tx`,
       method: 'POST',
       body: data,
@@ -134,19 +146,19 @@ export class Litecoin<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Signs a Litecoin transaction with a memo.
    *
    * @tags Litecoin
-   * @name SignLitecoinTransactionWithMemo
+   * @name LitecoinSignLitecoinTransactionWithMemo
    * @request POST:/litecoin/{accountName}/memo-sign-tx
    * @secure
    */
-  signLitecoinTransactionWithMemo = (
+  litecoinSignLitecoinTransactionWithMemo = (
     accountName: string,
     data: LitecoinTransactionInput,
     params: RequestParams = {}
   ) =>
-    this.http.request<SignLitecoinTransactionWithMemoData, any>({
+    this.http.request<LitecoinSignLitecoinTransactionWithMemoData, any>({
       path: `/litecoin/${accountName}/memo-sign-tx`,
       method: 'POST',
       body: data,

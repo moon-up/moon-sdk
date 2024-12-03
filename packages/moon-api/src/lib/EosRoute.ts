@@ -22,7 +22,7 @@ import {
 
 export namespace Eos {
   /**
-   * No description
+   * @description Creates a new EOS account.
    * @tags eos
    * @name CreateEosAccount
    * @request POST:/eos
@@ -33,13 +33,14 @@ export namespace Eos {
     export type RequestQuery = {};
     export type RequestBody = EosInput;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
     export type ResponseBody = CreateEosAccountData;
   }
 
   /**
-   * No description
+   * @description Deletes an EOS account.
    * @tags eos
    * @name DeleteEosAccount
    * @request POST:/eos/{accountName}/delete
@@ -47,18 +48,20 @@ export namespace Eos {
    */
   export namespace DeleteEosAccount {
     export type RequestParams = {
+      /** - The name of the EOS account to be deleted. */
       accountName: string;
     };
     export type RequestQuery = {};
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
     export type ResponseBody = DeleteEosAccountData;
   }
 
   /**
-   * No description
+   * @description Exports the account information for a given EOS account name.
    * @tags eos
    * @name ExportEosAccount
    * @request POST:/eos/{accountName}/export
@@ -66,18 +69,20 @@ export namespace Eos {
    */
   export namespace ExportEosAccount {
     export type RequestParams = {
+      /** - The name of the EOS account to export. */
       accountName: string;
     };
     export type RequestQuery = {};
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
     export type ResponseBody = ExportEosAccountData;
   }
 
   /**
-   * No description
+   * @description Retrieves account information from the EOS blockchain.
    * @tags eos
    * @name GetEosAccount
    * @request GET:/eos/{accountName}
@@ -85,18 +90,20 @@ export namespace Eos {
    */
   export namespace GetEosAccount {
     export type RequestParams = {
+      /** - The name of the EOS account to retrieve information for. */
       accountName: string;
     };
     export type RequestQuery = {};
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
     export type ResponseBody = GetEosAccountData;
   }
 
   /**
-   * No description
+   * @description Lists EOS accounts associated with the provided authorization token.
    * @tags eos
    * @name ListEosAccounts
    * @request GET:/eos
@@ -107,13 +114,14 @@ export namespace Eos {
     export type RequestQuery = {};
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
     export type ResponseBody = ListEosAccountsData;
   }
 
   /**
-   * No description
+   * @description Signs an EOS transaction.
    * @tags eos
    * @name SignEosTransaction
    * @request POST:/eos/{accountName}/sign-tx
@@ -121,11 +129,13 @@ export namespace Eos {
    */
   export namespace SignEosTransaction {
     export type RequestParams = {
+      /** - The EOS account name from the request path. */
       accountName: string;
     };
     export type RequestQuery = {};
     export type RequestBody = EosTransactionInput;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
     export type ResponseBody = SignEosTransactionData;

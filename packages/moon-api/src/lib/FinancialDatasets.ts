@@ -10,28 +10,28 @@
  */
 
 import {
-  GetAllFinancialsData,
-  GetAllFinancialsParams,
-  GetAvailableTickersData,
-  GetBalanceSheetsData,
-  GetBalanceSheetsParams,
-  GetCashFlowStatementsData,
-  GetCashFlowStatementsParams,
-  GetCompanyFactsData,
-  GetIncomeStatementsData,
-  GetIncomeStatementsParams,
-  GetInsiderTransactionsData,
-  GetInsiderTransactionsParams,
-  GetOptionsChainData,
-  GetOptionsChainParams,
-  GetPriceSnapshotData,
-  GetPricesData,
-  GetPricesParams,
-  GetSegmentedRevenuesData,
-  GetSegmentedRevenuesParams,
-  SearchFinancialsByLineItemsData,
-  SearchFinancialsByLineItemsPayload,
-  SearchFinancialsData,
+  FinancialDatasetsGetAllFinancialsData,
+  FinancialDatasetsGetAllFinancialsParams,
+  FinancialDatasetsGetAvailableTickersData,
+  FinancialDatasetsGetBalanceSheetsData,
+  FinancialDatasetsGetBalanceSheetsParams,
+  FinancialDatasetsGetCashFlowStatementsData,
+  FinancialDatasetsGetCashFlowStatementsParams,
+  FinancialDatasetsGetCompanyFactsData,
+  FinancialDatasetsGetIncomeStatementsData,
+  FinancialDatasetsGetIncomeStatementsParams,
+  FinancialDatasetsGetInsiderTransactionsData,
+  FinancialDatasetsGetInsiderTransactionsParams,
+  FinancialDatasetsGetOptionsChainData,
+  FinancialDatasetsGetOptionsChainParams,
+  FinancialDatasetsGetPriceSnapshotData,
+  FinancialDatasetsGetPricesData,
+  FinancialDatasetsGetPricesParams,
+  FinancialDatasetsGetSegmentedRevenuesData,
+  FinancialDatasetsGetSegmentedRevenuesParams,
+  FinancialDatasetsSearchFinancialsByLineItemsData,
+  FinancialDatasetsSearchFinancialsByLineItemsPayload,
+  FinancialDatasetsSearchFinancialsData,
   SearchRequest,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
@@ -44,18 +44,18 @@ export class FinancialDatasets<SecurityDataType = unknown> {
   }
 
   /**
-   * No description
+   * @description Retrieves all financials for a given ticker symbol.
    *
    * @tags Financial Datasets
-   * @name GetAllFinancials
+   * @name FinancialDatasetsGetAllFinancials
    * @request GET:/financial-datasets/all-financials/{ticker}
    * @secure
    */
-  getAllFinancials = (
-    { ticker, ...query }: GetAllFinancialsParams,
+  financialDatasetsGetAllFinancials = (
+    { ticker, ...query }: FinancialDatasetsGetAllFinancialsParams,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetAllFinancialsData, any>({
+    this.http.request<FinancialDatasetsGetAllFinancialsData, any>({
       path: `/financial-datasets/all-financials/${ticker}`,
       method: 'GET',
       query: query,
@@ -64,15 +64,15 @@ export class FinancialDatasets<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves the available tickers.
    *
    * @tags Financial Datasets
-   * @name GetAvailableTickers
+   * @name FinancialDatasetsGetAvailableTickers
    * @request GET:/financial-datasets/available-tickers
    * @secure
    */
-  getAvailableTickers = (params: RequestParams = {}) =>
-    this.http.request<GetAvailableTickersData, any>({
+  financialDatasetsGetAvailableTickers = (params: RequestParams = {}) =>
+    this.http.request<FinancialDatasetsGetAvailableTickersData, any>({
       path: `/financial-datasets/available-tickers`,
       method: 'GET',
       secure: true,
@@ -80,18 +80,18 @@ export class FinancialDatasets<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves the balance sheets for a given ticker symbol.
    *
    * @tags Financial Datasets
-   * @name GetBalanceSheets
+   * @name FinancialDatasetsGetBalanceSheets
    * @request GET:/financial-datasets/balance-sheets/{ticker}
    * @secure
    */
-  getBalanceSheets = (
-    { ticker, ...query }: GetBalanceSheetsParams,
+  financialDatasetsGetBalanceSheets = (
+    { ticker, ...query }: FinancialDatasetsGetBalanceSheetsParams,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetBalanceSheetsData, any>({
+    this.http.request<FinancialDatasetsGetBalanceSheetsData, any>({
       path: `/financial-datasets/balance-sheets/${ticker}`,
       method: 'GET',
       query: query,
@@ -100,18 +100,18 @@ export class FinancialDatasets<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves the cash flow statements for a given ticker symbol.
    *
    * @tags Financial Datasets
-   * @name GetCashFlowStatements
+   * @name FinancialDatasetsGetCashFlowStatements
    * @request GET:/financial-datasets/cash-flow-statements/{ticker}
    * @secure
    */
-  getCashFlowStatements = (
-    { ticker, ...query }: GetCashFlowStatementsParams,
+  financialDatasetsGetCashFlowStatements = (
+    { ticker, ...query }: FinancialDatasetsGetCashFlowStatementsParams,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetCashFlowStatementsData, any>({
+    this.http.request<FinancialDatasetsGetCashFlowStatementsData, any>({
       path: `/financial-datasets/cash-flow-statements/${ticker}`,
       method: 'GET',
       query: query,
@@ -120,15 +120,18 @@ export class FinancialDatasets<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves the company facts for a given ticker symbol.
    *
    * @tags Financial Datasets
-   * @name GetCompanyFacts
+   * @name FinancialDatasetsGetCompanyFacts
    * @request GET:/financial-datasets/company-facts/{ticker}
    * @secure
    */
-  getCompanyFacts = (ticker: string, params: RequestParams = {}) =>
-    this.http.request<GetCompanyFactsData, any>({
+  financialDatasetsGetCompanyFacts = (
+    ticker: string,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<FinancialDatasetsGetCompanyFactsData, any>({
       path: `/financial-datasets/company-facts/${ticker}`,
       method: 'GET',
       secure: true,
@@ -136,18 +139,18 @@ export class FinancialDatasets<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves the income statements for a given ticker symbol.
    *
    * @tags Financial Datasets
-   * @name GetIncomeStatements
+   * @name FinancialDatasetsGetIncomeStatements
    * @request GET:/financial-datasets/income-statements/{ticker}
    * @secure
    */
-  getIncomeStatements = (
-    { ticker, ...query }: GetIncomeStatementsParams,
+  financialDatasetsGetIncomeStatements = (
+    { ticker, ...query }: FinancialDatasetsGetIncomeStatementsParams,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetIncomeStatementsData, any>({
+    this.http.request<FinancialDatasetsGetIncomeStatementsData, any>({
       path: `/financial-datasets/income-statements/${ticker}`,
       method: 'GET',
       query: query,
@@ -156,18 +159,18 @@ export class FinancialDatasets<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves the insider transactions for a given ticker symbol.
    *
    * @tags Financial Datasets
-   * @name GetInsiderTransactions
+   * @name FinancialDatasetsGetInsiderTransactions
    * @request GET:/financial-datasets/insider-transactions/{ticker}
    * @secure
    */
-  getInsiderTransactions = (
-    { ticker, ...query }: GetInsiderTransactionsParams,
+  financialDatasetsGetInsiderTransactions = (
+    { ticker, ...query }: FinancialDatasetsGetInsiderTransactionsParams,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetInsiderTransactionsData, any>({
+    this.http.request<FinancialDatasetsGetInsiderTransactionsData, any>({
       path: `/financial-datasets/insider-transactions/${ticker}`,
       method: 'GET',
       query: query,
@@ -176,18 +179,18 @@ export class FinancialDatasets<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves the options chain for a given ticker symbol.
    *
    * @tags Financial Datasets
-   * @name GetOptionsChain
+   * @name FinancialDatasetsGetOptionsChain
    * @request GET:/financial-datasets/options-chain/{ticker}
    * @secure
    */
-  getOptionsChain = (
-    { ticker, ...query }: GetOptionsChainParams,
+  financialDatasetsGetOptionsChain = (
+    { ticker, ...query }: FinancialDatasetsGetOptionsChainParams,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetOptionsChainData, any>({
+    this.http.request<FinancialDatasetsGetOptionsChainData, any>({
       path: `/financial-datasets/options-chain/${ticker}`,
       method: 'GET',
       query: query,
@@ -196,18 +199,18 @@ export class FinancialDatasets<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves the price data for a given ticker symbol.
    *
    * @tags Financial Datasets
-   * @name GetPrices
+   * @name FinancialDatasetsGetPrices
    * @request GET:/financial-datasets/prices/{ticker}
    * @secure
    */
-  getPrices = (
-    { ticker, ...query }: GetPricesParams,
+  financialDatasetsGetPrices = (
+    { ticker, ...query }: FinancialDatasetsGetPricesParams,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetPricesData, any>({
+    this.http.request<FinancialDatasetsGetPricesData, any>({
       path: `/financial-datasets/prices/${ticker}`,
       method: 'GET',
       query: query,
@@ -216,15 +219,18 @@ export class FinancialDatasets<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves the price snapshot for a given ticker symbol.
    *
    * @tags Financial Datasets
-   * @name GetPriceSnapshot
+   * @name FinancialDatasetsGetPriceSnapshot
    * @request GET:/financial-datasets/price-snapshot/{ticker}
    * @secure
    */
-  getPriceSnapshot = (ticker: string, params: RequestParams = {}) =>
-    this.http.request<GetPriceSnapshotData, any>({
+  financialDatasetsGetPriceSnapshot = (
+    ticker: string,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<FinancialDatasetsGetPriceSnapshotData, any>({
       path: `/financial-datasets/price-snapshot/${ticker}`,
       method: 'GET',
       secure: true,
@@ -232,18 +238,18 @@ export class FinancialDatasets<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves the segmented revenues for a given ticker symbol.
    *
    * @tags Financial Datasets
-   * @name GetSegmentedRevenues
+   * @name FinancialDatasetsGetSegmentedRevenues
    * @request GET:/financial-datasets/segmented-revenues/{ticker}
    * @secure
    */
-  getSegmentedRevenues = (
-    { ticker, ...query }: GetSegmentedRevenuesParams,
+  financialDatasetsGetSegmentedRevenues = (
+    { ticker, ...query }: FinancialDatasetsGetSegmentedRevenuesParams,
     params: RequestParams = {}
   ) =>
-    this.http.request<GetSegmentedRevenuesData, any>({
+    this.http.request<FinancialDatasetsGetSegmentedRevenuesData, any>({
       path: `/financial-datasets/segmented-revenues/${ticker}`,
       method: 'GET',
       query: query,
@@ -252,15 +258,18 @@ export class FinancialDatasets<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Searches financials for a given search request.
    *
    * @tags Financial Datasets
-   * @name SearchFinancials
+   * @name FinancialDatasetsSearchFinancials
    * @request POST:/financial-datasets/search-financials
    * @secure
    */
-  searchFinancials = (data: SearchRequest, params: RequestParams = {}) =>
-    this.http.request<SearchFinancialsData, any>({
+  financialDatasetsSearchFinancials = (
+    data: SearchRequest,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<FinancialDatasetsSearchFinancialsData, any>({
       path: `/financial-datasets/search-financials`,
       method: 'POST',
       body: data,
@@ -270,18 +279,18 @@ export class FinancialDatasets<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Searches financials by line items.
    *
    * @tags Financial Datasets
-   * @name SearchFinancialsByLineItems
+   * @name FinancialDatasetsSearchFinancialsByLineItems
    * @request POST:/financial-datasets/search-line-items
    * @secure
    */
-  searchFinancialsByLineItems = (
-    data: SearchFinancialsByLineItemsPayload,
+  financialDatasetsSearchFinancialsByLineItems = (
+    data: FinancialDatasetsSearchFinancialsByLineItemsPayload,
     params: RequestParams = {}
   ) =>
-    this.http.request<SearchFinancialsByLineItemsData, any>({
+    this.http.request<FinancialDatasetsSearchFinancialsByLineItemsData, any>({
       path: `/financial-datasets/search-line-items`,
       method: 'POST',
       body: data,

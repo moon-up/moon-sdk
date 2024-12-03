@@ -10,15 +10,15 @@
  */
 
 import {
-  CreateDogeCoinAccountData,
-  DeleteDogeCoinAccountData,
   DogeCoinInput,
+  DogeCoinListAccountsData,
   DogeCoinTransactionInput,
-  ExportDogeCoinAccountData,
-  GetDogeCoinAccountData,
-  ListDogeCoinAccountsData,
-  SignDogeCoinTransactionData,
-  SignDogeCoinTransactionWithMemoData,
+  DogecoinDogeCoinCreateNewAccountData,
+  DogecoinDogeCoinDeleteAccountData,
+  DogecoinDogeCoinExportAccountDetailsData,
+  DogecoinDogeCoinGetAccountDetailsData,
+  DogecoinDogeCoinSignTransactionData,
+  DogecoinDogeCoinSignTransactionWithMemoData,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
@@ -30,15 +30,18 @@ export class Dogecoin<SecurityDataType = unknown> {
   }
 
   /**
-   * No description
+   * @description Creates a new Dogecoin account.
    *
    * @tags DogeCoin
-   * @name CreateDogeCoinAccount
+   * @name DogecoinDogeCoinCreateNewAccount
    * @request POST:/dogecoin
    * @secure
    */
-  createDogeCoinAccount = (data: DogeCoinInput, params: RequestParams = {}) =>
-    this.http.request<CreateDogeCoinAccountData, any>({
+  dogecoinDogeCoinCreateNewAccount = (
+    data: DogeCoinInput,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<DogecoinDogeCoinCreateNewAccountData, any>({
       path: `/dogecoin`,
       method: 'POST',
       body: data,
@@ -48,15 +51,18 @@ export class Dogecoin<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Deletes a Dogecoin account.
    *
    * @tags DogeCoin
-   * @name DeleteDogeCoinAccount
+   * @name DogecoinDogeCoinDeleteAccount
    * @request POST:/dogecoin/{accountName}/delete
    * @secure
    */
-  deleteDogeCoinAccount = (accountName: string, params: RequestParams = {}) =>
-    this.http.request<DeleteDogeCoinAccountData, any>({
+  dogecoinDogeCoinDeleteAccount = (
+    accountName: string,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<DogecoinDogeCoinDeleteAccountData, any>({
       path: `/dogecoin/${accountName}/delete`,
       method: 'POST',
       secure: true,
@@ -64,15 +70,18 @@ export class Dogecoin<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Exports the account details for a given account name.
    *
    * @tags DogeCoin
-   * @name ExportDogeCoinAccount
+   * @name DogecoinDogeCoinExportAccountDetails
    * @request POST:/dogecoin/{accountName}/export
    * @secure
    */
-  exportDogeCoinAccount = (accountName: string, params: RequestParams = {}) =>
-    this.http.request<ExportDogeCoinAccountData, any>({
+  dogecoinDogeCoinExportAccountDetails = (
+    accountName: string,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<DogecoinDogeCoinExportAccountDetailsData, any>({
       path: `/dogecoin/${accountName}/export`,
       method: 'POST',
       secure: true,
@@ -80,15 +89,18 @@ export class Dogecoin<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves the account information for a given account name.
    *
    * @tags DogeCoin
-   * @name GetDogeCoinAccount
+   * @name DogecoinDogeCoinGetAccountDetails
    * @request GET:/dogecoin/{accountName}
    * @secure
    */
-  getDogeCoinAccount = (accountName: string, params: RequestParams = {}) =>
-    this.http.request<GetDogeCoinAccountData, any>({
+  dogecoinDogeCoinGetAccountDetails = (
+    accountName: string,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<DogecoinDogeCoinGetAccountDetailsData, any>({
       path: `/dogecoin/${accountName}`,
       method: 'GET',
       secure: true,
@@ -96,35 +108,19 @@ export class Dogecoin<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Signs a Dogecoin transaction.
    *
    * @tags DogeCoin
-   * @name ListDogeCoinAccounts
-   * @request GET:/dogecoin
-   * @secure
-   */
-  listDogeCoinAccounts = (params: RequestParams = {}) =>
-    this.http.request<ListDogeCoinAccountsData, any>({
-      path: `/dogecoin`,
-      method: 'GET',
-      secure: true,
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @tags DogeCoin
-   * @name SignDogeCoinTransaction
+   * @name DogecoinDogeCoinSignTransaction
    * @request POST:/dogecoin/{accountName}/sign-tx
    * @secure
    */
-  signDogeCoinTransaction = (
+  dogecoinDogeCoinSignTransaction = (
     accountName: string,
     data: DogeCoinTransactionInput,
     params: RequestParams = {}
   ) =>
-    this.http.request<SignDogeCoinTransactionData, any>({
+    this.http.request<DogecoinDogeCoinSignTransactionData, any>({
       path: `/dogecoin/${accountName}/sign-tx`,
       method: 'POST',
       body: data,
@@ -134,24 +130,40 @@ export class Dogecoin<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Signs a Dogecoin transaction with a memo.
    *
    * @tags DogeCoin
-   * @name SignDogeCoinTransactionWithMemo
+   * @name DogecoinDogeCoinSignTransactionWithMemo
    * @request POST:/dogecoin/{accountName}/memo-sign-tx
    * @secure
    */
-  signDogeCoinTransactionWithMemo = (
+  dogecoinDogeCoinSignTransactionWithMemo = (
     accountName: string,
     data: DogeCoinTransactionInput,
     params: RequestParams = {}
   ) =>
-    this.http.request<SignDogeCoinTransactionWithMemoData, any>({
+    this.http.request<DogecoinDogeCoinSignTransactionWithMemoData, any>({
       path: `/dogecoin/${accountName}/memo-sign-tx`,
       method: 'POST',
       body: data,
       secure: true,
       type: ContentType.Json,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * @description Lists the accounts associated with the provided Dogecoin token.
+   *
+   * @tags DogeCoin
+   * @name DogeCoinListAccounts
+   * @request GET:/dogecoin
+   * @secure
+   */
+  dogeCoinListAccounts = (params: RequestParams = {}) =>
+    this.http.request<DogeCoinListAccountsData, any>({
+      path: `/dogecoin`,
+      method: 'GET',
+      secure: true,
       format: 'json',
       ...params,
     });

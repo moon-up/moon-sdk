@@ -9,7 +9,12 @@
  * ---------------------------------------------------------------
  */
 
-import { EnsResolveInput, ResolveData } from './data-contracts';
+import {
+  ENSReverseResolveInput,
+  EnsResolveData,
+  EnsResolveInput,
+  EnsReverseResolveData,
+} from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
 export class Ens<SecurityDataType = unknown> {
@@ -20,16 +25,37 @@ export class Ens<SecurityDataType = unknown> {
   }
 
   /**
-   * No description
+   * @description Resolves an ENS (Ethereum Name Service) name to its corresponding address.
    *
    * @tags ENS
-   * @name Resolve
+   * @name EnsResolve
    * @request POST:/ens/resolve
    * @secure
    */
-  resolve = (data: EnsResolveInput, params: RequestParams = {}) =>
-    this.http.request<ResolveData, any>({
+  ensResolve = (data: EnsResolveInput, params: RequestParams = {}) =>
+    this.http.request<EnsResolveData, any>({
       path: `/ens/resolve`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * @description Resolves an ENS (Ethereum Name Service) address to its corresponding name.
+   *
+   * @tags ENS
+   * @name EnsReverseResolve
+   * @request POST:/ens/reverse
+   * @secure
+   */
+  ensReverseResolve = (
+    data: ENSReverseResolveInput,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<EnsReverseResolveData, any>({
+      path: `/ens/reverse`,
       method: 'POST',
       body: data,
       secure: true,

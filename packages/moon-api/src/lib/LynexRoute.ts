@@ -12,7 +12,7 @@
 import {
   AddLiquidityData,
   AddLiquidityEthData,
-  ApproveOutput,
+  ApproveData,
   BurnData,
   CalculateOptimalVoteDistributionData,
   CheckpointData,
@@ -20,7 +20,7 @@ import {
   ClaimBribesData,
   ClaimData,
   ClaimFeesData,
-  ClaimRewardsResult,
+  ClaimRewardsData,
   CreateDelegatedLockForData,
   CreateGaugeData,
   CreateLockData,
@@ -33,27 +33,27 @@ import {
   GetApprovedData,
   GetAssetByAddressData,
   GetAssetsData,
+  GetBalanceOfData,
   GetBalanceOfNftAtData,
   GetBalanceOfNftData,
-  GetBalanceOfOutput,
   GetDelegatesData,
   GetFactoryData,
   GetLastVotedData,
   GetLockDetailsData,
-  GetNameResult,
+  GetNameData,
   GetOwnerOfData,
   GetPastVotesData,
   GetPoolByAddressData,
   GetPoolVoteLengthData,
   GetPoolsByTypeData,
   GetPoolsData,
-  GetSymbolResult,
+  GetSymbolData,
   GetTokenByIndexData,
   GetTokenOfOwnerByIndexData,
   GetTokenUriData,
   GetTopAprPoolsData,
   GetTotalNftsMintedData,
-  GetTotalSupplyOutput,
+  GetTotalSupplyData,
   GetTotalValueLockedData,
   GetTotalWeightData,
   GetVestedPayoutAtTimeData,
@@ -62,11 +62,11 @@ import {
   GetVestingPeriodData,
   GetVotesData,
   GetWeightsData,
-  GetWethResult,
+  GetWethData,
   GlobalCheckpointData,
   IncreaseLockAmountData,
   IncreaseUnlockTimeData,
-  IsApprovedForAllResult,
+  IsApprovedForAllData,
   IsGaugeData,
   IsWhitelistedData,
   KillGaugeData,
@@ -78,15 +78,15 @@ import {
   PokeData,
   ResetData,
   ReviveGaugeData,
-  SafeTransferFromResult,
-  SetApprovalForAllResult,
+  SafeTransferFromData,
+  SetApprovalForAllData,
   SetClaimApprovalData,
   SetClaimApprovalForAllData,
   SplitData,
   SwapExactEthForTokensData,
   SwapExactTokensForEthData,
   SwapExactTokensForTokensData,
-  TransferFromOutput,
+  TransferFromData,
   UnlockPermanentData,
   VoteData,
   VoteWithOptimalDistributionData,
@@ -149,7 +149,7 @@ export namespace Lynex {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = ApproveOutput;
+    export type ResponseBody = ApproveData;
   }
 
   /**
@@ -304,7 +304,7 @@ export namespace Lynex {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = ClaimRewardsResult;
+    export type ResponseBody = ClaimRewardsData;
   }
 
   /**
@@ -507,7 +507,7 @@ export namespace Lynex {
   }
 
   /**
-   * No description
+   * @description Retrieves an asset by its address.
    * @tags Lynex
    * @name GetAssetByAddress
    * @request GET:/lynex/data/assets/{address}
@@ -515,18 +515,20 @@ export namespace Lynex {
    */
   export namespace GetAssetByAddress {
     export type RequestParams = {
+      /** - The address of the asset to retrieve. */
       address: string;
     };
     export type RequestQuery = {};
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
     export type ResponseBody = GetAssetByAddressData;
   }
 
   /**
-   * No description
+   * @description Retrieves the assets using the provided authorization token.
    * @tags Lynex
    * @name GetAssets
    * @request GET:/lynex/data/assets
@@ -537,6 +539,7 @@ export namespace Lynex {
     export type RequestQuery = {};
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
     export type ResponseBody = GetAssetsData;
@@ -560,7 +563,7 @@ export namespace Lynex {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetBalanceOfOutput;
+    export type ResponseBody = GetBalanceOfData;
   }
 
   /**
@@ -707,7 +710,7 @@ export namespace Lynex {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetNameResult;
+    export type ResponseBody = GetNameData;
   }
 
   /**
@@ -846,7 +849,7 @@ export namespace Lynex {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetSymbolResult;
+    export type ResponseBody = GetSymbolData;
   }
 
   /**
@@ -970,7 +973,7 @@ export namespace Lynex {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetTotalSupplyOutput;
+    export type ResponseBody = GetTotalSupplyData;
   }
 
   /**
@@ -1154,7 +1157,7 @@ export namespace Lynex {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = GetWethResult;
+    export type ResponseBody = GetWethData;
   }
 
   /**
@@ -1233,7 +1236,7 @@ export namespace Lynex {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = IsApprovedForAllResult;
+    export type ResponseBody = IsApprovedForAllData;
   }
 
   /**
@@ -1408,7 +1411,7 @@ export namespace Lynex {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = SafeTransferFromResult;
+    export type ResponseBody = SafeTransferFromData;
   }
 
   /**
@@ -1427,7 +1430,7 @@ export namespace Lynex {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = SetApprovalForAllResult;
+    export type ResponseBody = SetApprovalForAllData;
   }
 
   /**
@@ -1560,7 +1563,7 @@ export namespace Lynex {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = TransferFromOutput;
+    export type ResponseBody = TransferFromData;
   }
 
   /**

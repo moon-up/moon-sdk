@@ -10,265 +10,302 @@
  */
 
 import {
-  ApproveErc721Data,
-  GetErc721ApprovedData,
-  GetErc721BalanceOfData,
-  GetErc721IsApprovedForAllData,
-  GetErc721NameData,
-  GetErc721OwnerOfData,
-  GetErc721SymbolData,
-  GetErc721TokenUriData,
+  Erc721ApproveErc721Data,
+  Erc721GetErc721ApprovedData,
+  Erc721GetErc721BalanceOfData,
+  Erc721GetErc721IsApprovedForAllData,
+  Erc721GetErc721NameData,
+  Erc721GetErc721OwnerOfData,
+  Erc721GetErc721SymbolData,
+  Erc721GetErc721TokenUriData,
+  Erc721SafeTransferFromErc721Data,
+  Erc721SafeTransferFromWithDataErc721Data,
+  Erc721SetApprovalForAllErc721Data,
+  Erc721TransferFromErc721Data,
   InputBody,
-  SafeTransferFromErc721Data,
-  SafeTransferFromWithDataErc721Data,
-  SetApprovalForAllErc721Data,
-  TransferFromErc721Data,
 } from './data-contracts';
 
 export namespace Erc721 {
   /**
-   * No description
+   * @description Approves an ERC721 token for a given address.
    * @tags ERC721
-   * @name ApproveErc721
+   * @name Erc721ApproveErc721
    * @request POST:/erc721/{address}/approve
    * @secure
    */
-  export namespace ApproveErc721 {
+  export namespace Erc721ApproveErc721 {
     export type RequestParams = {
+      /** - The address to approve the token for. */
       address: string;
     };
     export type RequestQuery = {};
     export type RequestBody = InputBody;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = ApproveErc721Data;
+    export type ResponseBody = Erc721ApproveErc721Data;
   }
 
   /**
-   * No description
+   * @description Retrieves the approved address for a specific ERC721 token.
    * @tags ERC721
-   * @name GetErc721Approved
+   * @name Erc721GetErc721Approved
    * @request GET:/erc721/{tokenId}/getApproved
    * @secure
    */
-  export namespace GetErc721Approved {
+  export namespace Erc721GetErc721Approved {
     export type RequestParams = {
+      /** - The ID of the token to check approval for. */
       tokenId: string;
     };
     export type RequestQuery = {
+      /** - The address of the ERC721 contract. */
       address: string;
+      /** - The ID of the blockchain network. */
       chainId: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token for the request. */
       Authorization: string;
     };
-    export type ResponseBody = GetErc721ApprovedData;
+    export type ResponseBody = Erc721GetErc721ApprovedData;
   }
 
   /**
-   * No description
+   * @description Retrieves the balance of ERC721 tokens for a given account.
    * @tags ERC721
-   * @name GetErc721BalanceOf
+   * @name Erc721GetErc721BalanceOf
    * @request GET:/erc721/{account}/balanceOf
    * @secure
    */
-  export namespace GetErc721BalanceOf {
+  export namespace Erc721GetErc721BalanceOf {
     export type RequestParams = {
+      /** - The account address to query the balance for. */
       account: string;
     };
     export type RequestQuery = {
+      /** - The contract address of the ERC721 token. */
       address: string;
+      /** - The ID of the blockchain network. */
       chainId: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token for accessing the ERC721 instance. */
       Authorization: string;
     };
-    export type ResponseBody = GetErc721BalanceOfData;
+    export type ResponseBody = Erc721GetErc721BalanceOfData;
   }
 
   /**
-   * No description
+   * @description Checks if an operator is approved to manage all assets of a given owner.
    * @tags ERC721
-   * @name GetErc721IsApprovedForAll
+   * @name Erc721GetErc721IsApprovedForAll
    * @request GET:/erc721/{owner}/{operator}/isApprovedForAll
    * @secure
    */
-  export namespace GetErc721IsApprovedForAll {
+  export namespace Erc721GetErc721IsApprovedForAll {
     export type RequestParams = {
+      /** - The address of the operator to check for approval. */
       operator: string;
+      /** - The address of the owner of the assets. */
       owner: string;
     };
     export type RequestQuery = {
+      /** - The address of the ERC721 contract. */
       address: string;
+      /** - The ID of the blockchain network. */
       chainId: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token for the request. */
       Authorization: string;
     };
-    export type ResponseBody = GetErc721IsApprovedForAllData;
+    export type ResponseBody = Erc721GetErc721IsApprovedForAllData;
   }
 
   /**
-   * No description
+   * @description Retrieves the name of an ERC721 token.
    * @tags ERC721
-   * @name GetErc721Name
+   * @name Erc721GetErc721Name
    * @request GET:/erc721/name
    * @secure
    */
-  export namespace GetErc721Name {
+  export namespace Erc721GetErc721Name {
     export type RequestParams = {};
     export type RequestQuery = {
+      /** - The address of the ERC721 contract. */
       address: string;
+      /** - The ID of the blockchain network. */
       chainId: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = GetErc721NameData;
+    export type ResponseBody = Erc721GetErc721NameData;
   }
 
   /**
-   * No description
+   * @description Retrieves the owner of a specified ERC721 token.
    * @tags ERC721
-   * @name GetErc721OwnerOf
+   * @name Erc721GetErc721OwnerOf
    * @request GET:/erc721/{tokenId}/ownerOf
    * @secure
    */
-  export namespace GetErc721OwnerOf {
+  export namespace Erc721GetErc721OwnerOf {
     export type RequestParams = {
+      /** - The ID of the token to query. */
       tokenId: string;
     };
     export type RequestQuery = {
+      /** - The address of the ERC721 contract. */
       address: string;
+      /** - The ID of the blockchain network. */
       chainId: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token for the request. */
       Authorization: string;
     };
-    export type ResponseBody = GetErc721OwnerOfData;
+    export type ResponseBody = Erc721GetErc721OwnerOfData;
   }
 
   /**
-   * No description
+   * @description Retrieves the symbol of an ERC721 token.
    * @tags ERC721
-   * @name GetErc721Symbol
+   * @name Erc721GetErc721Symbol
    * @request GET:/erc721/symbol
    * @secure
    */
-  export namespace GetErc721Symbol {
+  export namespace Erc721GetErc721Symbol {
     export type RequestParams = {};
     export type RequestQuery = {
+      /** - The address of the ERC721 contract. */
       address: string;
+      /** - The ID of the blockchain network. */
       chainId: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = GetErc721SymbolData;
+    export type ResponseBody = Erc721GetErc721SymbolData;
   }
 
   /**
-   * No description
+   * @description Retrieves the token URI for a given ERC721 token.
    * @tags ERC721
-   * @name GetErc721TokenUri
+   * @name Erc721GetErc721TokenUri
    * @request GET:/erc721/{tokenId}/tokenURI
    * @secure
    */
-  export namespace GetErc721TokenUri {
+  export namespace Erc721GetErc721TokenUri {
     export type RequestParams = {
+      /** - The ID of the token to retrieve the URI for. */
       tokenId: string;
     };
     export type RequestQuery = {
+      /** - The address of the ERC721 contract. */
       address: string;
+      /** - The ID of the blockchain network. */
       chainId: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = GetErc721TokenUriData;
+    export type ResponseBody = Erc721GetErc721TokenUriData;
   }
 
   /**
-   * No description
+   * @description Safely transfers an ERC721 token from one address to another.
    * @tags ERC721
-   * @name SafeTransferFromErc721
+   * @name Erc721SafeTransferFromErc721
    * @request POST:/erc721/{address}/safeTransferFrom
    * @secure
    */
-  export namespace SafeTransferFromErc721 {
+  export namespace Erc721SafeTransferFromErc721 {
     export type RequestParams = {
+      /** - The address from which the token is being transferred. */
       address: string;
     };
     export type RequestQuery = {};
     export type RequestBody = InputBody;
     export type RequestHeaders = {
+      /** - The authorization token for the request. */
       Authorization: string;
     };
-    export type ResponseBody = SafeTransferFromErc721Data;
+    export type ResponseBody = Erc721SafeTransferFromErc721Data;
   }
 
   /**
-   * No description
+   * @description Safely transfers an ERC721 token from one address to another with additional data.
    * @tags ERC721
-   * @name SafeTransferFromWithDataErc721
+   * @name Erc721SafeTransferFromWithDataErc721
    * @request POST:/erc721/{address}/safeTransferFromWithData
    * @secure
    */
-  export namespace SafeTransferFromWithDataErc721 {
+  export namespace Erc721SafeTransferFromWithDataErc721 {
     export type RequestParams = {
+      /** - The address to transfer the token to. */
       address: string;
     };
     export type RequestQuery = {};
     export type RequestBody = InputBody;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = SafeTransferFromWithDataErc721Data;
+    export type ResponseBody = Erc721SafeTransferFromWithDataErc721Data;
   }
 
   /**
-   * No description
+   * @description Sets approval for all ERC721 tokens for a given address.
    * @tags ERC721
-   * @name SetApprovalForAllErc721
+   * @name Erc721SetApprovalForAllErc721
    * @request POST:/erc721/{address}/setApprovalForAll
    * @secure
    */
-  export namespace SetApprovalForAllErc721 {
+  export namespace Erc721SetApprovalForAllErc721 {
     export type RequestParams = {
+      /** - The address to set approval for. */
       address: string;
     };
     export type RequestQuery = {};
     export type RequestBody = InputBody;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = SetApprovalForAllErc721Data;
+    export type ResponseBody = Erc721SetApprovalForAllErc721Data;
   }
 
   /**
-   * No description
+   * @description Transfers an ERC721 token from one address to another.
    * @tags ERC721
-   * @name TransferFromErc721
+   * @name Erc721TransferFromErc721
    * @request POST:/erc721/{address}/transferFrom
    * @secure
    */
-  export namespace TransferFromErc721 {
+  export namespace Erc721TransferFromErc721 {
     export type RequestParams = {
+      /** - The address from which the token is being transferred. */
       address: string;
     };
     export type RequestQuery = {};
     export type RequestBody = InputBody;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = TransferFromErc721Data;
+    export type ResponseBody = Erc721TransferFromErc721Data;
   }
 }

@@ -11,344 +11,1162 @@
 
 import {
   AAVEv3RewardsInputBody,
+  AavEv3IncentiveDataProviderGetFullReservesDataData,
+  AavEv3IncentiveDataProviderGetReservesDataData,
+  AavEv3IncentiveDataProviderGetUserReservesDataData,
+  AavEv3RewardsClaimAllRewardsData,
+  AavEv3RewardsClaimAllRewardsOnBehalfData,
+  AavEv3RewardsClaimAllRewardsToSelfData,
+  AavEv3RewardsClaimRewardsData,
+  AavEv3RewardsClaimRewardsOnBehalfData,
+  AavEv3RewardsClaimRewardsToSelfData,
+  AavEv3RewardsGetRewardsByAssetData,
+  AavEv3RewardsGetRewardsDataData,
+  AavEv3RewardsGetUserRewardsData,
   AavePoolInputBody,
-  BalanceOfData,
-  BatchBalanceOfData,
-  BorrowData,
-  ClaimAllRewardsData,
-  ClaimAllRewardsOnBehalfData,
-  ClaimAllRewardsToSelfData,
-  ClaimRewardsData,
-  ClaimRewardsOnBehalfData,
-  ClaimRewardsToSelfData,
-  GetATokenTotalSupplyData,
-  GetAclAdminData,
-  GetAclManagerData,
-  GetAddressData,
-  GetAddressesProviderData,
-  GetAllATokensData,
+  AaveV3UiPoolDataProviderEthCurrencyUnitData,
+  AaveV3UiPoolDataProviderMarketReferenceCurrencyPriceInUsdProxyAggregatorData,
+  AaveV3UiPoolDataProviderNetworkBaseTokenPriceInUsdProxyAggregatorData,
+  AaveV3UiPoolDataProviderReservesListData,
+  AaveV3UiPoolDataProviderUserReservesDataData,
+  AaveV3WalletBalanceOfData,
+  AaveV3WalletBatchBalanceOfData,
+  AaveV3WalletUserWalletBalancesData,
+  Aavev3PoolAddressProviderGetAclAdminData,
+  Aavev3PoolAddressProviderGetAclManagerData,
+  Aavev3PoolAddressProviderGetAddressData,
+  Aavev3PoolAddressProviderGetMarketIdData,
+  Aavev3PoolAddressProviderGetPoolConfiguratorData,
+  Aavev3PoolAddressProviderGetPoolData,
+  Aavev3PoolAddressProviderGetPriceOracleData,
+  Aavev3PoolAddressProviderRegistryGetATokenTotalSupplyData,
+  Aavev3PoolAddressProviderRegistryGetAddressesProviderData,
+  Aavev3PoolAddressProviderRegistryGetAllATokensData,
+  Aavev3PoolAddressProviderRegistryGetDebtCeilingData,
+  Aavev3PoolAddressProviderSetAclAdminData,
+  Aavev3PoolAddressProviderSetAclManagerData,
+  Aavev3PoolAddressProviderSetAddressData,
+  Aavev3PoolAddressProviderSetMarketIdData,
+  Aavev3PoolAddressProviderSetPoolConfiguratorImplData,
+  Aavev3PoolAddressProviderSetPoolImplData,
+  Aavev3PoolBorrowData,
+  Aavev3PoolGetReserveDataData,
+  Aavev3PoolGetUserAccountDataData,
+  Aavev3PoolLiquidationCallData,
+  Aavev3PoolRepayData,
+  Aavev3PoolSetUserUseReserveAsCollateralData,
+  Aavev3PoolSupplyData,
+  Aavev3PoolWithdrawData,
   GetAllReservesTokensData,
-  GetDebtCeilingData,
-  GetEthCurrencyUnitData,
-  GetFullReservesIncentiveDataData,
-  GetMarketIdData,
-  GetMarketReferenceCurrencyPriceInUsdProxyAggregatorData,
-  GetNetworkBaseTokenPriceInUsdProxyAggregatorData,
-  GetPoolConfiguratorData,
-  GetPoolData,
-  GetPriceOracleData,
-  GetReserveDataData,
   GetReservesDataData,
-  GetReservesIncentivesDataData,
-  GetReservesListData,
-  GetRewardsByAssetData,
-  GetRewardsDataData,
-  GetUserAccountDataData,
-  GetUserReservesDataData,
-  GetUserReservesIncentivesDataData,
-  GetUserRewardsData,
-  GetUserWalletBalancesData,
-  LiquidationCallData,
   PoolAddressProviderInputBody,
-  RepayData,
-  SetAclAdminData,
-  SetAclManagerData,
-  SetAddressData,
-  SetMarketIdData,
-  SetPoolConfiguratorImplData,
-  SetPoolImplData,
-  SetUserUseReserveAsCollateralData,
-  SupplyData,
-  WithdrawData,
 } from './data-contracts';
 
 export namespace Aave {
   /**
-   * No description
-   * @tags AAVE v3 Wallet Balance Provider
-   * @name BalanceOf
-   * @request GET:/aave/v3/wallet-balance/balance-of
+   * @description Retrieves full incentive data for all reserves and user positions
+   * @tags AAVE v3 UI Incentive Data Provider
+   * @name AavEv3IncentiveDataProviderGetFullReservesData
+   * @request GET:/aave/v3/incentives/fullReservesIncentiveData
    * @secure
    */
-  export namespace BalanceOf {
+  export namespace AavEv3IncentiveDataProviderGetFullReservesData {
     export type RequestParams = {};
     export type RequestQuery = {
+      /** - Chain ID to target */
       chain_id: string;
+      /** - Address of the incentive data provider contract */
       contract_address: string;
-      token_address: string;
+      /** - Address of the pool address provider */
+      provider: string;
+      /** - Address of the user to get incentive data for */
       user: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - Authorization token from request header */
       Authorization: string;
     };
-    export type ResponseBody = BalanceOfData;
+    export type ResponseBody =
+      AavEv3IncentiveDataProviderGetFullReservesDataData;
   }
 
   /**
-   * No description
-   * @tags AAVE v3 Wallet Balance Provider
-   * @name BatchBalanceOf
-   * @request GET:/aave/v3/wallet-balance/batch-balance-of
+   * @description Retrieves incentive data for all reserves in the pool
+   * @tags AAVE v3 UI Incentive Data Provider
+   * @name AavEv3IncentiveDataProviderGetReservesData
+   * @request GET:/aave/v3/incentives/reservesIncentivesData
    * @secure
    */
-  export namespace BatchBalanceOf {
+  export namespace AavEv3IncentiveDataProviderGetReservesData {
     export type RequestParams = {};
     export type RequestQuery = {
+      /** - Chain ID to target */
       chain_id: string;
+      /** - Address of the incentive data provider contract */
       contract_address: string;
-      tokens: string[];
-      users: string[];
+      /** - Address of the pool address provider */
+      provider: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - Authorization token from request header */
       Authorization: string;
     };
-    export type ResponseBody = BatchBalanceOfData;
+    export type ResponseBody = AavEv3IncentiveDataProviderGetReservesDataData;
   }
 
   /**
-   * No description
+   * @description Retrieves incentive data for a user's positions in all reserves
+   * @tags AAVE v3 UI Incentive Data Provider
+   * @name AavEv3IncentiveDataProviderGetUserReservesData
+   * @request GET:/aave/v3/incentives/userReservesIncentivesData
+   * @secure
+   */
+  export namespace AavEv3IncentiveDataProviderGetUserReservesData {
+    export type RequestParams = {};
+    export type RequestQuery = {
+      /** - Chain ID to target */
+      chain_id: string;
+      /** - Address of the incentive data provider contract */
+      contract_address: string;
+      /** - Address of the pool address provider */
+      provider: string;
+      /** - Address of the user to get incentive data for */
+      user: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - Authorization token from request header */
+      Authorization: string;
+    };
+    export type ResponseBody =
+      AavEv3IncentiveDataProviderGetUserReservesDataData;
+  }
+
+  /**
+   * @description Retrieves the ACL (Access Control List) admin address for a given account.
+   * @tags Pool Address Provider
+   * @name Aavev3PoolAddressProviderGetAclAdmin
+   * @request GET:/aave/v3/poolAddressProvider/{account}/getACLAdmin
+   * @secure
+   */
+  export namespace Aavev3PoolAddressProviderGetAclAdmin {
+    export type RequestParams = {
+      /** - The account address to query. */
+      account: string;
+    };
+    export type RequestQuery = {
+      /** - The address of the pool address provider. */
+      address: string;
+      /** - The chain ID of the blockchain network. */
+      chainId: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token for the request. */
+      Authorization: string;
+    };
+    export type ResponseBody = Aavev3PoolAddressProviderGetAclAdminData;
+  }
+
+  /**
+   * @description Retrieves the ACL Manager address from the Pool Address Provider.
+   * @tags Pool Address Provider
+   * @name Aavev3PoolAddressProviderGetAclManager
+   * @request GET:/aave/v3/poolAddressProvider/{account}/getACLManager
+   * @secure
+   */
+  export namespace Aavev3PoolAddressProviderGetAclManager {
+    export type RequestParams = {
+      /** - The account path parameter. */
+      account: string;
+    };
+    export type RequestQuery = {
+      /** - The address query parameter. */
+      address: string;
+      /** - The chain ID query parameter. */
+      chainId: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token from the request header. */
+      Authorization: string;
+    };
+    export type ResponseBody = Aavev3PoolAddressProviderGetAclManagerData;
+  }
+
+  /**
+   * @description Retrieves an address from the Pool Address Provider.
+   * @tags Pool Address Provider
+   * @name Aavev3PoolAddressProviderGetAddress
+   * @request GET:/aave/v3/poolAddressProvider/{account}/getAddress
+   * @secure
+   */
+  export namespace Aavev3PoolAddressProviderGetAddress {
+    export type RequestParams = {
+      /** - The account path parameter. */
+      account: string;
+    };
+    export type RequestQuery = {
+      /** - The address from the query parameters. */
+      address: string;
+      /** - The chain ID from the query parameters. */
+      chainId: string;
+      /** - The ID from the query parameters. */
+      id: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token from the request header. */
+      Authorization: string;
+    };
+    export type ResponseBody = Aavev3PoolAddressProviderGetAddressData;
+  }
+
+  /**
+   * @description Retrieves the market ID from the Pool Address Provider.
+   * @tags Pool Address Provider
+   * @name Aavev3PoolAddressProviderGetMarketId
+   * @request GET:/aave/v3/poolAddressProvider/{account}/getMarketId
+   * @secure
+   */
+  export namespace Aavev3PoolAddressProviderGetMarketId {
+    export type RequestParams = {
+      /** - The account path parameter. */
+      account: string;
+    };
+    export type RequestQuery = {
+      /** - The address from the query parameters. */
+      address: string;
+      /** - The chain ID from the query parameters. */
+      chainId: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token from the request header. */
+      Authorization: string;
+    };
+    export type ResponseBody = Aavev3PoolAddressProviderGetMarketIdData;
+  }
+
+  /**
+   * @description Retrieves the pool address from the Aave protocol.
+   * @tags Pool Address Provider
+   * @name Aavev3PoolAddressProviderGetPool
+   * @request GET:/aave/v3/poolAddressProvider/{account}/getPool
+   * @secure
+   */
+  export namespace Aavev3PoolAddressProviderGetPool {
+    export type RequestParams = {
+      /** - The account identifier. */
+      account: string;
+    };
+    export type RequestQuery = {
+      /** - The address to query. */
+      address: string;
+      /** - The blockchain network identifier. */
+      chainId: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token. */
+      Authorization: string;
+    };
+    export type ResponseBody = Aavev3PoolAddressProviderGetPoolData;
+  }
+
+  /**
+   * @description Retrieves the pool configurator for a given account.
+   * @tags Pool Address Provider
+   * @name Aavev3PoolAddressProviderGetPoolConfigurator
+   * @request GET:/aave/v3/poolAddressProvider/{account}/getPoolConfigurator
+   * @secure
+   */
+  export namespace Aavev3PoolAddressProviderGetPoolConfigurator {
+    export type RequestParams = {
+      /** - The account identifier. */
+      account: string;
+    };
+    export type RequestQuery = {
+      /** - The address of the pool. */
+      address: string;
+      /** - The chain identifier. */
+      chainId: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token. */
+      Authorization: string;
+    };
+    export type ResponseBody = Aavev3PoolAddressProviderGetPoolConfiguratorData;
+  }
+
+  /**
+   * @description Retrieves the price oracle address from the Aave pool address provider.
+   * @tags Pool Address Provider
+   * @name Aavev3PoolAddressProviderGetPriceOracle
+   * @request GET:/aave/v3/poolAddressProvider/{account}/getPriceOracle
+   * @secure
+   */
+  export namespace Aavev3PoolAddressProviderGetPriceOracle {
+    export type RequestParams = {
+      /** - The account identifier. */
+      account: string;
+    };
+    export type RequestQuery = {
+      /** - The address of the pool address provider. */
+      address: string;
+      /** - The blockchain chain identifier. */
+      chainId: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token. */
+      Authorization: string;
+    };
+    export type ResponseBody = Aavev3PoolAddressProviderGetPriceOracleData;
+  }
+
+  /**
+   * @description Retrieves the addresses provider from the Aave V3 Pool Address Provider Registry.
+   * @tags PoolAddressProviderRegistry
+   * @name Aavev3PoolAddressProviderRegistryGetAddressesProvider
+   * @request GET:/aave/v3/poolAddressProviderRegistry/{account}/getAddressesProvider
+   * @secure
+   */
+  export namespace Aavev3PoolAddressProviderRegistryGetAddressesProvider {
+    export type RequestParams = {
+      /** - The account identifier. */
+      account: string;
+    };
+    export type RequestQuery = {
+      /** - The address of the registry. */
+      address: string;
+      /** - The blockchain chain identifier. */
+      chainId: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token. */
+      Authorization: string;
+    };
+    export type ResponseBody =
+      Aavev3PoolAddressProviderRegistryGetAddressesProviderData;
+  }
+
+  /**
+   * @description Retrieves all ATokens associated with the specified account.
+   * @tags PoolAddressProviderRegistry
+   * @name Aavev3PoolAddressProviderRegistryGetAllATokens
+   * @request GET:/aave/v3/poolAddressProviderRegistry/{account}/getAllATokens
+   * @secure
+   */
+  export namespace Aavev3PoolAddressProviderRegistryGetAllATokens {
+    export type RequestParams = {
+      /** - The account identifier. */
+      account: string;
+    };
+    export type RequestQuery = {
+      /** - The address to query. */
+      address: string;
+      /** - The blockchain chain identifier. */
+      chainId: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token. */
+      Authorization: string;
+    };
+    export type ResponseBody =
+      Aavev3PoolAddressProviderRegistryGetAllATokensData;
+  }
+
+  /**
+   * @description Retrieves the total supply of a specific AToken.
+   * @tags PoolAddressProviderRegistry
+   * @name Aavev3PoolAddressProviderRegistryGetATokenTotalSupply
+   * @request GET:/aave/v3/poolAddressProviderRegistry/{account}/getATokenTotalSupply
+   * @secure
+   */
+  export namespace Aavev3PoolAddressProviderRegistryGetATokenTotalSupply {
+    export type RequestParams = {
+      /** - The account address. */
+      account: string;
+    };
+    export type RequestQuery = {
+      /** - The address of the pool address provider registry. */
+      address: string;
+      /** - The asset for which to get the total supply. */
+      asset: string;
+      /** - The chain ID. */
+      chainId: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token. */
+      Authorization: string;
+    };
+    export type ResponseBody =
+      Aavev3PoolAddressProviderRegistryGetATokenTotalSupplyData;
+  }
+
+  /**
+   * @description Retrieves the debt ceiling for a specified asset from the Aave V3 Pool Address Provider Registry.
+   * @tags PoolAddressProviderRegistry
+   * @name Aavev3PoolAddressProviderRegistryGetDebtCeiling
+   * @request GET:/aave/v3/poolAddressProviderRegistry/{account}/getDebtCeiling
+   * @secure
+   */
+  export namespace Aavev3PoolAddressProviderRegistryGetDebtCeiling {
+    export type RequestParams = {
+      /** - The account identifier. */
+      account: string;
+    };
+    export type RequestQuery = {
+      /** - The address of the Pool Address Provider Registry. */
+      address: string;
+      /** - The asset for which to retrieve the debt ceiling. */
+      asset: string;
+      /** - The blockchain chain identifier. */
+      chainId: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token. */
+      Authorization: string;
+    };
+    export type ResponseBody =
+      Aavev3PoolAddressProviderRegistryGetDebtCeilingData;
+  }
+
+  /**
+   * @description Sets the ACL (Access Control List) admin for the specified address.
+   * @tags Pool Address Provider
+   * @name Aavev3PoolAddressProviderSetAclAdmin
+   * @request POST:/aave/v3/poolAddressProvider/{address}/setACLAdmin
+   * @secure
+   */
+  export namespace Aavev3PoolAddressProviderSetAclAdmin {
+    export type RequestParams = {
+      /** - The address for which the ACL admin is being set. */
+      address: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = PoolAddressProviderInputBody;
+    export type RequestHeaders = {
+      /** - The authorization token for the request. */
+      Authorization: string;
+    };
+    export type ResponseBody = Aavev3PoolAddressProviderSetAclAdminData;
+  }
+
+  /**
+   * @description Sets the ACL Manager for the specified pool address provider.
+   * @tags Pool Address Provider
+   * @name Aavev3PoolAddressProviderSetAclManager
+   * @request POST:/aave/v3/poolAddressProvider/{address}/setACLManager
+   * @secure
+   */
+  export namespace Aavev3PoolAddressProviderSetAclManager {
+    export type RequestParams = {
+      /** - The address of the pool address provider. */
+      address: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = PoolAddressProviderInputBody;
+    export type RequestHeaders = {
+      /** - The authorization token. */
+      Authorization: string;
+    };
+    export type ResponseBody = Aavev3PoolAddressProviderSetAclManagerData;
+  }
+
+  /**
+   * @description Sets the address for the Pool Address Provider.
+   * @tags Pool Address Provider
+   * @name Aavev3PoolAddressProviderSetAddress
+   * @request POST:/aave/v3/poolAddressProvider/{address}/setAddress
+   * @secure
+   */
+  export namespace Aavev3PoolAddressProviderSetAddress {
+    export type RequestParams = {
+      /** - The address to be set. */
+      address: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = PoolAddressProviderInputBody;
+    export type RequestHeaders = {
+      /** - The authorization token. */
+      Authorization: string;
+    };
+    export type ResponseBody = Aavev3PoolAddressProviderSetAddressData;
+  }
+
+  /**
+   * @description Sets the market ID for the given pool address provider.
+   * @tags Pool Address Provider
+   * @name Aavev3PoolAddressProviderSetMarketId
+   * @request POST:/aave/v3/poolAddressProvider/{address}/setMarketId
+   * @secure
+   */
+  export namespace Aavev3PoolAddressProviderSetMarketId {
+    export type RequestParams = {
+      /** - The address of the pool address provider. */
+      address: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = PoolAddressProviderInputBody;
+    export type RequestHeaders = {
+      /** - The authorization token. */
+      Authorization: string;
+    };
+    export type ResponseBody = Aavev3PoolAddressProviderSetMarketIdData;
+  }
+
+  /**
+   * @description Sets the Pool Configurator implementation for the given address.
+   * @tags Pool Address Provider
+   * @name Aavev3PoolAddressProviderSetPoolConfiguratorImpl
+   * @request POST:/aave/v3/poolAddressProvider/{address}/setPoolConfiguratorImpl
+   * @secure
+   */
+  export namespace Aavev3PoolAddressProviderSetPoolConfiguratorImpl {
+    export type RequestParams = {
+      /** - The address of the pool. */
+      address: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = PoolAddressProviderInputBody;
+    export type RequestHeaders = {
+      /** - The authorization token. */
+      Authorization: string;
+    };
+    export type ResponseBody =
+      Aavev3PoolAddressProviderSetPoolConfiguratorImplData;
+  }
+
+  /**
+   * @description Sets the pool implementation address for the given address.
+   * @tags Pool Address Provider
+   * @name Aavev3PoolAddressProviderSetPoolImpl
+   * @request POST:/aave/v3/poolAddressProvider/{address}/setPoolImpl
+   * @secure
+   */
+  export namespace Aavev3PoolAddressProviderSetPoolImpl {
+    export type RequestParams = {
+      /** - The address of the pool. */
+      address: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = PoolAddressProviderInputBody;
+    export type RequestHeaders = {
+      /** - The authorization token. */
+      Authorization: string;
+    };
+    export type ResponseBody = Aavev3PoolAddressProviderSetPoolImplData;
+  }
+
+  /**
+   * @description Borrows assets from the Aave pool.
    * @tags AAVEv3 Pool
-   * @name Borrow
+   * @name Aavev3PoolBorrow
    * @request POST:/aave/v3/pool/{address}/borrow
    * @secure
    */
-  export namespace Borrow {
+  export namespace Aavev3PoolBorrow {
     export type RequestParams = {
+      /** - The address of the borrower. */
       address: string;
     };
     export type RequestQuery = {};
     export type RequestBody = AavePoolInputBody;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = BorrowData;
+    export type ResponseBody = Aavev3PoolBorrowData;
   }
 
   /**
-   * No description
+   * @description Retrieves reserve data for a specific asset from the Aave pool.
+   * @tags AAVEv3 Pool
+   * @name Aavev3PoolGetReserveData
+   * @request GET:/aave/v3/pool/{account}/getReserveData
+   * @secure
+   */
+  export namespace Aavev3PoolGetReserveData {
+    export type RequestParams = {
+      /** - The account identifier. */
+      account: string;
+    };
+    export type RequestQuery = {
+      /** - The address of the Aave pool. */
+      address: string;
+      /** - The asset for which to retrieve reserve data. */
+      asset: string;
+      /** - The blockchain chain ID. */
+      chainId: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token. */
+      Authorization: string;
+    };
+    export type ResponseBody = Aavev3PoolGetReserveDataData;
+  }
+
+  /**
+   * @description Retrieves user account data from the Aave pool.
+   * @tags AAVEv3 Pool
+   * @name Aavev3PoolGetUserAccountData
+   * @request GET:/aave/v3/pool/{account}/getUserAccountData
+   * @secure
+   */
+  export namespace Aavev3PoolGetUserAccountData {
+    export type RequestParams = {
+      /** - The account identifier from the path. */
+      account: string;
+    };
+    export type RequestQuery = {
+      /** - The address from the query parameters. */
+      address: string;
+      /** - The chain ID from the query parameters. */
+      chainId: string;
+      /** - The user identifier from the query parameters. */
+      user: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token from the header. */
+      Authorization: string;
+    };
+    export type ResponseBody = Aavev3PoolGetUserAccountDataData;
+  }
+
+  /**
+   * @description Handles the liquidation call to the Aave pool.
+   * @tags AAVEv3 Pool
+   * @name Aavev3PoolLiquidationCall
+   * @request POST:/aave/v3/pool/{address}/liquidationCall
+   * @secure
+   */
+  export namespace Aavev3PoolLiquidationCall {
+    export type RequestParams = {
+      /** - The address to be liquidated. */
+      address: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = AavePoolInputBody;
+    export type RequestHeaders = {
+      /** - The authorization token. */
+      Authorization: string;
+    };
+    export type ResponseBody = Aavev3PoolLiquidationCallData;
+  }
+
+  /**
+   * @description Repays a loan on the Aave protocol.
+   * @tags AAVEv3 Pool
+   * @name Aavev3PoolRepay
+   * @request POST:/aave/v3/pool/{address}/repay
+   * @secure
+   */
+  export namespace Aavev3PoolRepay {
+    export type RequestParams = {
+      /** - The address of the borrower. */
+      address: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = AavePoolInputBody;
+    export type RequestHeaders = {
+      /** - The authorization token. */
+      Authorization: string;
+    };
+    export type ResponseBody = Aavev3PoolRepayData;
+  }
+
+  /**
+   * @description Sets the user's reserve as collateral in the Aave pool.
+   * @tags AAVEv3 Pool
+   * @name Aavev3PoolSetUserUseReserveAsCollateral
+   * @request POST:/aave/v3/pool/{address}/setUserUseReserveAsCollateral
+   * @secure
+   */
+  export namespace Aavev3PoolSetUserUseReserveAsCollateral {
+    export type RequestParams = {
+      /** - The address of the user. */
+      address: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = AavePoolInputBody;
+    export type RequestHeaders = {
+      /** - The authorization token. */
+      Authorization: string;
+    };
+    export type ResponseBody = Aavev3PoolSetUserUseReserveAsCollateralData;
+  }
+
+  /**
+   * @description Supplies assets to the Aave pool.
+   * @tags AAVEv3 Pool
+   * @name Aavev3PoolSupply
+   * @request POST:/aave/v3/pool/{address}/supply
+   * @secure
+   */
+  export namespace Aavev3PoolSupply {
+    export type RequestParams = {
+      /** - The address of the user supplying the assets. */
+      address: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = AavePoolInputBody;
+    export type RequestHeaders = {
+      /** - The authorization token. */
+      Authorization: string;
+    };
+    export type ResponseBody = Aavev3PoolSupplyData;
+  }
+
+  /**
+   * @description Withdraws assets from the Aave pool.
+   * @tags AAVEv3 Pool
+   * @name Aavev3PoolWithdraw
+   * @request POST:/aave/v3/pool/{address}/withdraw
+   * @secure
+   */
+  export namespace Aavev3PoolWithdraw {
+    export type RequestParams = {
+      /** - The address from which to withdraw assets. */
+      address: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = AavePoolInputBody;
+    export type RequestHeaders = {
+      /** - The authorization token. */
+      Authorization: string;
+    };
+    export type ResponseBody = Aavev3PoolWithdrawData;
+  }
+
+  /**
+   * @description Claims all available rewards for the specified assets
    * @tags AAVEv3Rewards
-   * @name ClaimAllRewards
+   * @name AavEv3RewardsClaimAllRewards
    * @request POST:/aave/v3/rewards/{address}/claimAllRewards
    * @secure
    */
-  export namespace ClaimAllRewards {
+  export namespace AavEv3RewardsClaimAllRewards {
     export type RequestParams = {
+      /** - Address claiming the rewards */
       address: string;
     };
     export type RequestQuery = {};
     export type RequestBody = AAVEv3RewardsInputBody;
     export type RequestHeaders = {
+      /** - Authorization token from the request header */
       Authorization: string;
     };
-    export type ResponseBody = ClaimAllRewardsData;
+    export type ResponseBody = AavEv3RewardsClaimAllRewardsData;
   }
 
   /**
-   * No description
+   * @description Claims all rewards on behalf of another address
    * @tags AAVEv3Rewards
-   * @name ClaimAllRewardsOnBehalf
+   * @name AavEv3RewardsClaimAllRewardsOnBehalf
    * @request POST:/aave/v3/rewards/{address}/claimAllRewardsOnBehalf
    * @secure
    */
-  export namespace ClaimAllRewardsOnBehalf {
+  export namespace AavEv3RewardsClaimAllRewardsOnBehalf {
     export type RequestParams = {
+      /** - Address claiming the rewards */
       address: string;
     };
     export type RequestQuery = {};
     export type RequestBody = AAVEv3RewardsInputBody;
     export type RequestHeaders = {
+      /** - Authorization token from the request header */
       Authorization: string;
     };
-    export type ResponseBody = ClaimAllRewardsOnBehalfData;
+    export type ResponseBody = AavEv3RewardsClaimAllRewardsOnBehalfData;
   }
 
   /**
-   * No description
+   * @description Claims all rewards to the calling address
    * @tags AAVEv3Rewards
-   * @name ClaimAllRewardsToSelf
+   * @name AavEv3RewardsClaimAllRewardsToSelf
    * @request POST:/aave/v3/rewards/{address}/claimAllRewardsToSelf
    * @secure
    */
-  export namespace ClaimAllRewardsToSelf {
+  export namespace AavEv3RewardsClaimAllRewardsToSelf {
     export type RequestParams = {
+      /** - Address claiming the rewards */
       address: string;
     };
     export type RequestQuery = {};
     export type RequestBody = AAVEv3RewardsInputBody;
     export type RequestHeaders = {
+      /** - Authorization token from the request header */
       Authorization: string;
     };
-    export type ResponseBody = ClaimAllRewardsToSelfData;
+    export type ResponseBody = AavEv3RewardsClaimAllRewardsToSelfData;
   }
 
   /**
-   * No description
+   * @description Claims rewards for the specified assets and rewards
    * @tags AAVEv3Rewards
-   * @name ClaimRewards
+   * @name AavEv3RewardsClaimRewards
    * @request POST:/aave/v3/rewards/{address}/claimRewards
    * @secure
    */
-  export namespace ClaimRewards {
+  export namespace AavEv3RewardsClaimRewards {
     export type RequestParams = {
+      /** - Address claiming the rewards */
       address: string;
     };
     export type RequestQuery = {};
     export type RequestBody = AAVEv3RewardsInputBody;
     export type RequestHeaders = {
+      /** - Authorization token from the request header */
       Authorization: string;
     };
-    export type ResponseBody = ClaimRewardsData;
+    export type ResponseBody = AavEv3RewardsClaimRewardsData;
   }
 
   /**
-   * No description
+   * @description Claims rewards on behalf of another address
    * @tags AAVEv3Rewards
-   * @name ClaimRewardsOnBehalf
+   * @name AavEv3RewardsClaimRewardsOnBehalf
    * @request POST:/aave/v3/rewards/{address}/claimRewardsOnBehalf
    * @secure
    */
-  export namespace ClaimRewardsOnBehalf {
+  export namespace AavEv3RewardsClaimRewardsOnBehalf {
     export type RequestParams = {
+      /** - Address claiming the rewards */
       address: string;
     };
     export type RequestQuery = {};
     export type RequestBody = AAVEv3RewardsInputBody;
     export type RequestHeaders = {
+      /** - Authorization token from the request header */
       Authorization: string;
     };
-    export type ResponseBody = ClaimRewardsOnBehalfData;
+    export type ResponseBody = AavEv3RewardsClaimRewardsOnBehalfData;
   }
 
   /**
-   * No description
+   * @description Claims rewards to the calling address
    * @tags AAVEv3Rewards
-   * @name ClaimRewardsToSelf
+   * @name AavEv3RewardsClaimRewardsToSelf
    * @request POST:/aave/v3/rewards/{address}/claimRewardsToSelf
    * @secure
    */
-  export namespace ClaimRewardsToSelf {
+  export namespace AavEv3RewardsClaimRewardsToSelf {
     export type RequestParams = {
+      /** - Address claiming the rewards */
       address: string;
     };
     export type RequestQuery = {};
     export type RequestBody = AAVEv3RewardsInputBody;
     export type RequestHeaders = {
+      /** - Authorization token from the request header */
       Authorization: string;
     };
-    export type ResponseBody = ClaimRewardsToSelfData;
+    export type ResponseBody = AavEv3RewardsClaimRewardsToSelfData;
   }
 
   /**
-   * No description
-   * @tags Pool Address Provider
-   * @name GetAclAdmin
-   * @request GET:/aave/v3/poolAddressProvider/{account}/getACLAdmin
+   * @description Retrieves all rewards for a specific asset
+   * @tags AAVEv3Rewards
+   * @name AavEv3RewardsGetRewardsByAsset
+   * @request GET:/aave/v3/rewards/{account}/rewardsByAsset
    * @secure
    */
-  export namespace GetAclAdmin {
+  export namespace AavEv3RewardsGetRewardsByAsset {
     export type RequestParams = {
+      /** - Account identifier for the request */
       account: string;
     };
     export type RequestQuery = {
+      /** - Contract address */
       address: string;
+      /** - Asset address to query rewards for */
+      asset: string;
+      /** - Chain ID to target */
       chainId: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - Authorization token from the request header */
       Authorization: string;
     };
-    export type ResponseBody = GetAclAdminData;
+    export type ResponseBody = AavEv3RewardsGetRewardsByAssetData;
   }
 
   /**
-   * No description
-   * @tags Pool Address Provider
-   * @name GetAclManager
-   * @request GET:/aave/v3/poolAddressProvider/{account}/getACLManager
+   * @description Retrieves rewards configuration data for an asset
+   * @tags AAVEv3Rewards
+   * @name AavEv3RewardsGetRewardsData
+   * @request GET:/aave/v3/rewards/{account}/rewardsData
    * @secure
    */
-  export namespace GetAclManager {
+  export namespace AavEv3RewardsGetRewardsData {
     export type RequestParams = {
+      /** - Account identifier for the request */
       account: string;
     };
     export type RequestQuery = {
+      /** - Contract address */
       address: string;
+      /** - Asset address to get rewards data for */
+      asset: string;
+      /** - Chain ID to target */
       chainId: string;
+      /** - Reward token address */
+      reward: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - Authorization token from the request header */
       Authorization: string;
     };
-    export type ResponseBody = GetAclManagerData;
+    export type ResponseBody = AavEv3RewardsGetRewardsDataData;
   }
 
   /**
-   * No description
-   * @tags Pool Address Provider
-   * @name GetAddress
-   * @request GET:/aave/v3/poolAddressProvider/{account}/getAddress
+   * @description Gets reward data for a specific user
+   * @tags AAVEv3Rewards
+   * @name AavEv3RewardsGetUserRewards
+   * @request GET:/aave/v3/rewards/{account}/userRewards
    * @secure
    */
-  export namespace GetAddress {
+  export namespace AavEv3RewardsGetUserRewards {
     export type RequestParams = {
+      /** - Account identifier for the request */
       account: string;
     };
     export type RequestQuery = {
+      /** - Contract address */
       address: string;
+      /** - Array of asset addresses to check rewards for */
+      assets: string[];
+      /** - Chain ID to target */
       chainId: string;
-      id: string;
+      /** - Reward token address */
+      reward: string;
+      /** - User address to check rewards for */
+      user: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - Authorization token from the request header */
       Authorization: string;
     };
-    export type ResponseBody = GetAddressData;
+    export type ResponseBody = AavEv3RewardsGetUserRewardsData;
   }
 
   /**
-   * No description
-   * @tags PoolAddressProviderRegistry
-   * @name GetAddressesProvider
-   * @request GET:/aave/v3/poolAddressProviderRegistry/{account}/getAddressesProvider
+   * @description Retrieves the ETH currency unit from the AAVE V3 UI Pool Data Provider.
+   * @tags AAVE v3 UI Pool Data Provider
+   * @name AaveV3UiPoolDataProviderEthCurrencyUnit
+   * @request GET:/aave/v3/pool-data/eth-currency-unit
    * @secure
    */
-  export namespace GetAddressesProvider {
-    export type RequestParams = {
-      account: string;
-    };
+  export namespace AaveV3UiPoolDataProviderEthCurrencyUnit {
+    export type RequestParams = {};
     export type RequestQuery = {
-      address: string;
-      chainId: string;
+      /** - The chain ID to query. */
+      chain_id: string;
+      /** - The contract address to query. */
+      contract_address: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token for the request. */
       Authorization: string;
     };
-    export type ResponseBody = GetAddressesProviderData;
+    export type ResponseBody = AaveV3UiPoolDataProviderEthCurrencyUnitData;
   }
 
   /**
-   * No description
-   * @tags PoolAddressProviderRegistry
-   * @name GetAllATokens
-   * @request GET:/aave/v3/poolAddressProviderRegistry/{account}/getAllATokens
+   * @description Retrieves the market reference currency price in USD using the proxy aggregator.
+   * @tags AAVE v3 UI Pool Data Provider
+   * @name AaveV3UiPoolDataProviderMarketReferenceCurrencyPriceInUsdProxyAggregator
+   * @request GET:/aave/v3/pool-data/market-reference-currency-price-in-usd-proxy-aggregator
    * @secure
    */
-  export namespace GetAllATokens {
-    export type RequestParams = {
-      account: string;
-    };
+  export namespace AaveV3UiPoolDataProviderMarketReferenceCurrencyPriceInUsdProxyAggregator {
+    export type RequestParams = {};
     export type RequestQuery = {
-      address: string;
-      chainId: string;
+      /** - The chain ID to query. */
+      chain_id: string;
+      /** - The contract address to query. */
+      contract_address: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = GetAllATokensData;
+    export type ResponseBody =
+      AaveV3UiPoolDataProviderMarketReferenceCurrencyPriceInUsdProxyAggregatorData;
+  }
+
+  /**
+   * @description Retrieves the network base token price in USD using the proxy aggregator.
+   * @tags AAVE v3 UI Pool Data Provider
+   * @name AaveV3UiPoolDataProviderNetworkBaseTokenPriceInUsdProxyAggregator
+   * @request GET:/aave/v3/pool-data/network-base-token-price-in-usd-proxy-aggregator
+   * @secure
+   */
+  export namespace AaveV3UiPoolDataProviderNetworkBaseTokenPriceInUsdProxyAggregator {
+    export type RequestParams = {};
+    export type RequestQuery = {
+      /** - The chain ID to query. */
+      chain_id: string;
+      /** - The contract address to query. */
+      contract_address: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token. */
+      Authorization: string;
+    };
+    export type ResponseBody =
+      AaveV3UiPoolDataProviderNetworkBaseTokenPriceInUsdProxyAggregatorData;
+  }
+
+  /**
+   * @description Retrieves the list of reserves from the AAVE V3 UI Pool Data Provider.
+   * @tags AAVE v3 UI Pool Data Provider
+   * @name AaveV3UiPoolDataProviderReservesList
+   * @request GET:/aave/v3/pool-data/reserves-list
+   * @secure
+   */
+  export namespace AaveV3UiPoolDataProviderReservesList {
+    export type RequestParams = {};
+    export type RequestQuery = {
+      /** - The chain ID to query. */
+      chain_id: string;
+      /** - The contract address to query. */
+      contract_address: string;
+      /** - The provider to use for querying the reserves list. */
+      provider: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token. */
+      Authorization: string;
+    };
+    export type ResponseBody = AaveV3UiPoolDataProviderReservesListData;
+  }
+
+  /**
+   * @description Retrieves the user's reserve data from the AAVE v3 UI Pool Data Provider.
+   * @tags AAVE v3 UI Pool Data Provider
+   * @name AaveV3UiPoolDataProviderUserReservesData
+   * @request GET:/aave/v3/pool-data/user-reserves-data
+   * @secure
+   */
+  export namespace AaveV3UiPoolDataProviderUserReservesData {
+    export type RequestParams = {};
+    export type RequestQuery = {
+      /** - The chain ID where the contract is deployed. */
+      chain_id: string;
+      /** - The contract address of the AAVE v3 UI Pool Data Provider. */
+      contract_address: string;
+      /** - The provider address. */
+      provider: string;
+      /** - The user address whose reserve data is to be fetched. */
+      user: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token. */
+      Authorization: string;
+    };
+    export type ResponseBody = AaveV3UiPoolDataProviderUserReservesDataData;
+  }
+
+  /**
+   * @description Retrieves the balance of a specific token for a user from the AAVE v3 Wallet Balance Provider.
+   * @tags AAVE v3 Wallet Balance Provider
+   * @name AaveV3WalletBalanceOf
+   * @request GET:/aave/v3/wallet-balance/balance-of
+   * @secure
+   */
+  export namespace AaveV3WalletBalanceOf {
+    export type RequestParams = {};
+    export type RequestQuery = {
+      /** - The ID of the blockchain network. */
+      chain_id: string;
+      /** - The address of the contract to query. */
+      contract_address: string;
+      /** - The address of the token to query the balance for. */
+      token_address: string;
+      /** - The address of the user whose balance is being queried. */
+      user: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token for the request. */
+      Authorization: string;
+    };
+    export type ResponseBody = AaveV3WalletBalanceOfData;
+  }
+
+  /**
+   * @description Retrieves the batch balance of multiple users for specified tokens.
+   * @tags AAVE v3 Wallet Balance Provider
+   * @name AaveV3WalletBatchBalanceOf
+   * @request GET:/aave/v3/wallet-balance/batch-balance-of
+   * @secure
+   */
+  export namespace AaveV3WalletBatchBalanceOf {
+    export type RequestParams = {};
+    export type RequestQuery = {
+      /** - The ID of the blockchain network. */
+      chain_id: string;
+      /** - The address of the contract. */
+      contract_address: string;
+      /** - An array of token addresses to retrieve balances for. */
+      tokens: string[];
+      /** - An array of user addresses to retrieve balances for. */
+      users: string[];
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token. */
+      Authorization: string;
+    };
+    export type ResponseBody = AaveV3WalletBatchBalanceOfData;
+  }
+
+  /**
+   * @description Retrieves the wallet balances for a user from the AAVE v3 Wallet Balance Provider.
+   * @tags AAVE v3 Wallet Balance Provider
+   * @name AaveV3WalletUserWalletBalances
+   * @request GET:/aave/v3/wallet-balance/user-wallet-balances
+   * @secure
+   */
+  export namespace AaveV3WalletUserWalletBalances {
+    export type RequestParams = {};
+    export type RequestQuery = {
+      /** - The chain ID to query. */
+      chain_id: string;
+      /** - The contract address to query. */
+      contract_address: string;
+      /** - The provider to use for querying balances. */
+      provider: string;
+      /** - The user address to query balances for. */
+      user: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token from the request header. */
+      Authorization: string;
+    };
+    export type ResponseBody = AaveV3WalletUserWalletBalancesData;
   }
 
   /**
@@ -375,246 +1193,6 @@ export namespace Aave {
 
   /**
    * No description
-   * @tags PoolAddressProviderRegistry
-   * @name GetATokenTotalSupply
-   * @request GET:/aave/v3/poolAddressProviderRegistry/{account}/getATokenTotalSupply
-   * @secure
-   */
-  export namespace GetATokenTotalSupply {
-    export type RequestParams = {
-      account: string;
-    };
-    export type RequestQuery = {
-      address: string;
-      asset: string;
-      chainId: string;
-    };
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = GetATokenTotalSupplyData;
-  }
-
-  /**
-   * No description
-   * @tags PoolAddressProviderRegistry
-   * @name GetDebtCeiling
-   * @request GET:/aave/v3/poolAddressProviderRegistry/{account}/getDebtCeiling
-   * @secure
-   */
-  export namespace GetDebtCeiling {
-    export type RequestParams = {
-      account: string;
-    };
-    export type RequestQuery = {
-      address: string;
-      asset: string;
-      chainId: string;
-    };
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = GetDebtCeilingData;
-  }
-
-  /**
-   * No description
-   * @tags AAVE v3 UI Pool Data Provider
-   * @name GetEthCurrencyUnit
-   * @request GET:/aave/v3/pool-data/eth-currency-unit
-   * @secure
-   */
-  export namespace GetEthCurrencyUnit {
-    export type RequestParams = {};
-    export type RequestQuery = {
-      chain_id: string;
-      contract_address: string;
-    };
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = GetEthCurrencyUnitData;
-  }
-
-  /**
-   * No description
-   * @tags AAVE v3 UI Incentive Data Provider
-   * @name GetFullReservesIncentiveData
-   * @request GET:/aave/v3/incentives/fullReservesIncentiveData
-   * @secure
-   */
-  export namespace GetFullReservesIncentiveData {
-    export type RequestParams = {};
-    export type RequestQuery = {
-      chain_id: string;
-      contract_address: string;
-      provider: string;
-      user: string;
-    };
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = GetFullReservesIncentiveDataData;
-  }
-
-  /**
-   * No description
-   * @tags Pool Address Provider
-   * @name GetMarketId
-   * @request GET:/aave/v3/poolAddressProvider/{account}/getMarketId
-   * @secure
-   */
-  export namespace GetMarketId {
-    export type RequestParams = {
-      account: string;
-    };
-    export type RequestQuery = {
-      address: string;
-      chainId: string;
-    };
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = GetMarketIdData;
-  }
-
-  /**
-   * No description
-   * @tags AAVE v3 UI Pool Data Provider
-   * @name GetMarketReferenceCurrencyPriceInUsdProxyAggregator
-   * @request GET:/aave/v3/pool-data/market-reference-currency-price-in-usd-proxy-aggregator
-   * @secure
-   */
-  export namespace GetMarketReferenceCurrencyPriceInUsdProxyAggregator {
-    export type RequestParams = {};
-    export type RequestQuery = {
-      chain_id: string;
-      contract_address: string;
-    };
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody =
-      GetMarketReferenceCurrencyPriceInUsdProxyAggregatorData;
-  }
-
-  /**
-   * No description
-   * @tags AAVE v3 UI Pool Data Provider
-   * @name GetNetworkBaseTokenPriceInUsdProxyAggregator
-   * @request GET:/aave/v3/pool-data/network-base-token-price-in-usd-proxy-aggregator
-   * @secure
-   */
-  export namespace GetNetworkBaseTokenPriceInUsdProxyAggregator {
-    export type RequestParams = {};
-    export type RequestQuery = {
-      chain_id: string;
-      contract_address: string;
-    };
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = GetNetworkBaseTokenPriceInUsdProxyAggregatorData;
-  }
-
-  /**
-   * No description
-   * @tags Pool Address Provider
-   * @name GetPool
-   * @request GET:/aave/v3/poolAddressProvider/{account}/getPool
-   * @secure
-   */
-  export namespace GetPool {
-    export type RequestParams = {
-      account: string;
-    };
-    export type RequestQuery = {
-      address: string;
-      chainId: string;
-    };
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = GetPoolData;
-  }
-
-  /**
-   * No description
-   * @tags Pool Address Provider
-   * @name GetPoolConfigurator
-   * @request GET:/aave/v3/poolAddressProvider/{account}/getPoolConfigurator
-   * @secure
-   */
-  export namespace GetPoolConfigurator {
-    export type RequestParams = {
-      account: string;
-    };
-    export type RequestQuery = {
-      address: string;
-      chainId: string;
-    };
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = GetPoolConfiguratorData;
-  }
-
-  /**
-   * No description
-   * @tags Pool Address Provider
-   * @name GetPriceOracle
-   * @request GET:/aave/v3/poolAddressProvider/{account}/getPriceOracle
-   * @secure
-   */
-  export namespace GetPriceOracle {
-    export type RequestParams = {
-      account: string;
-    };
-    export type RequestQuery = {
-      address: string;
-      chainId: string;
-    };
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = GetPriceOracleData;
-  }
-
-  /**
-   * No description
-   * @tags AAVEv3 Pool
-   * @name GetReserveData
-   * @request GET:/aave/v3/pool/{account}/getReserveData
-   * @secure
-   */
-  export namespace GetReserveData {
-    export type RequestParams = {
-      account: string;
-    };
-    export type RequestQuery = {
-      address: string;
-      asset: string;
-      chainId: string;
-    };
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = GetReserveDataData;
-  }
-
-  /**
-   * No description
    * @tags AAVE v3 UI Pool Data Provider
    * @name GetReservesData
    * @request GET:/aave/v3/pool-data/reserves-data
@@ -632,417 +1210,5 @@ export namespace Aave {
       Authorization: string;
     };
     export type ResponseBody = GetReservesDataData;
-  }
-
-  /**
-   * No description
-   * @tags AAVE v3 UI Incentive Data Provider
-   * @name GetReservesIncentivesData
-   * @request GET:/aave/v3/incentives/reservesIncentivesData
-   * @secure
-   */
-  export namespace GetReservesIncentivesData {
-    export type RequestParams = {};
-    export type RequestQuery = {
-      chain_id: string;
-      contract_address: string;
-      provider: string;
-    };
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = GetReservesIncentivesDataData;
-  }
-
-  /**
-   * No description
-   * @tags AAVE v3 UI Pool Data Provider
-   * @name GetReservesList
-   * @request GET:/aave/v3/pool-data/reserves-list
-   * @secure
-   */
-  export namespace GetReservesList {
-    export type RequestParams = {};
-    export type RequestQuery = {
-      chain_id: string;
-      contract_address: string;
-      provider: string;
-    };
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = GetReservesListData;
-  }
-
-  /**
-   * No description
-   * @tags AAVEv3Rewards
-   * @name GetRewardsByAsset
-   * @request GET:/aave/v3/rewards/{account}/rewardsByAsset
-   * @secure
-   */
-  export namespace GetRewardsByAsset {
-    export type RequestParams = {
-      account: string;
-    };
-    export type RequestQuery = {
-      address: string;
-      asset: string;
-      chainId: string;
-    };
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = GetRewardsByAssetData;
-  }
-
-  /**
-   * No description
-   * @tags AAVEv3Rewards
-   * @name GetRewardsData
-   * @request GET:/aave/v3/rewards/{account}/rewardsData
-   * @secure
-   */
-  export namespace GetRewardsData {
-    export type RequestParams = {
-      account: string;
-    };
-    export type RequestQuery = {
-      address: string;
-      asset: string;
-      chainId: string;
-      reward: string;
-    };
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = GetRewardsDataData;
-  }
-
-  /**
-   * No description
-   * @tags AAVEv3 Pool
-   * @name GetUserAccountData
-   * @request GET:/aave/v3/pool/{account}/getUserAccountData
-   * @secure
-   */
-  export namespace GetUserAccountData {
-    export type RequestParams = {
-      account: string;
-    };
-    export type RequestQuery = {
-      address: string;
-      chainId: string;
-      user: string;
-    };
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = GetUserAccountDataData;
-  }
-
-  /**
-   * No description
-   * @tags AAVE v3 UI Pool Data Provider
-   * @name GetUserReservesData
-   * @request GET:/aave/v3/pool-data/user-reserves-data
-   * @secure
-   */
-  export namespace GetUserReservesData {
-    export type RequestParams = {};
-    export type RequestQuery = {
-      chain_id: string;
-      contract_address: string;
-      provider: string;
-      user: string;
-    };
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = GetUserReservesDataData;
-  }
-
-  /**
-   * No description
-   * @tags AAVE v3 UI Incentive Data Provider
-   * @name GetUserReservesIncentivesData
-   * @request GET:/aave/v3/incentives/userReservesIncentivesData
-   * @secure
-   */
-  export namespace GetUserReservesIncentivesData {
-    export type RequestParams = {};
-    export type RequestQuery = {
-      chain_id: string;
-      contract_address: string;
-      provider: string;
-      user: string;
-    };
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = GetUserReservesIncentivesDataData;
-  }
-
-  /**
-   * No description
-   * @tags AAVEv3Rewards
-   * @name GetUserRewards
-   * @request GET:/aave/v3/rewards/{account}/userRewards
-   * @secure
-   */
-  export namespace GetUserRewards {
-    export type RequestParams = {
-      account: string;
-    };
-    export type RequestQuery = {
-      address: string;
-      assets: string[];
-      chainId: string;
-      reward: string;
-      user: string;
-    };
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = GetUserRewardsData;
-  }
-
-  /**
-   * No description
-   * @tags AAVE v3 Wallet Balance Provider
-   * @name GetUserWalletBalances
-   * @request GET:/aave/v3/wallet-balance/user-wallet-balances
-   * @secure
-   */
-  export namespace GetUserWalletBalances {
-    export type RequestParams = {};
-    export type RequestQuery = {
-      chain_id: string;
-      contract_address: string;
-      provider: string;
-      user: string;
-    };
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = GetUserWalletBalancesData;
-  }
-
-  /**
-   * No description
-   * @tags AAVEv3 Pool
-   * @name LiquidationCall
-   * @request POST:/aave/v3/pool/{address}/liquidationCall
-   * @secure
-   */
-  export namespace LiquidationCall {
-    export type RequestParams = {
-      address: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = AavePoolInputBody;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = LiquidationCallData;
-  }
-
-  /**
-   * No description
-   * @tags AAVEv3 Pool
-   * @name Repay
-   * @request POST:/aave/v3/pool/{address}/repay
-   * @secure
-   */
-  export namespace Repay {
-    export type RequestParams = {
-      address: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = AavePoolInputBody;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = RepayData;
-  }
-
-  /**
-   * No description
-   * @tags Pool Address Provider
-   * @name SetAclAdmin
-   * @request POST:/aave/v3/poolAddressProvider/{address}/setACLAdmin
-   * @secure
-   */
-  export namespace SetAclAdmin {
-    export type RequestParams = {
-      address: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = PoolAddressProviderInputBody;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = SetAclAdminData;
-  }
-
-  /**
-   * No description
-   * @tags Pool Address Provider
-   * @name SetAclManager
-   * @request POST:/aave/v3/poolAddressProvider/{address}/setACLManager
-   * @secure
-   */
-  export namespace SetAclManager {
-    export type RequestParams = {
-      address: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = PoolAddressProviderInputBody;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = SetAclManagerData;
-  }
-
-  /**
-   * No description
-   * @tags Pool Address Provider
-   * @name SetAddress
-   * @request POST:/aave/v3/poolAddressProvider/{address}/setAddress
-   * @secure
-   */
-  export namespace SetAddress {
-    export type RequestParams = {
-      address: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = PoolAddressProviderInputBody;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = SetAddressData;
-  }
-
-  /**
-   * No description
-   * @tags Pool Address Provider
-   * @name SetMarketId
-   * @request POST:/aave/v3/poolAddressProvider/{address}/setMarketId
-   * @secure
-   */
-  export namespace SetMarketId {
-    export type RequestParams = {
-      address: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = PoolAddressProviderInputBody;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = SetMarketIdData;
-  }
-
-  /**
-   * No description
-   * @tags Pool Address Provider
-   * @name SetPoolConfiguratorImpl
-   * @request POST:/aave/v3/poolAddressProvider/{address}/setPoolConfiguratorImpl
-   * @secure
-   */
-  export namespace SetPoolConfiguratorImpl {
-    export type RequestParams = {
-      address: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = PoolAddressProviderInputBody;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = SetPoolConfiguratorImplData;
-  }
-
-  /**
-   * No description
-   * @tags Pool Address Provider
-   * @name SetPoolImpl
-   * @request POST:/aave/v3/poolAddressProvider/{address}/setPoolImpl
-   * @secure
-   */
-  export namespace SetPoolImpl {
-    export type RequestParams = {
-      address: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = PoolAddressProviderInputBody;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = SetPoolImplData;
-  }
-
-  /**
-   * No description
-   * @tags AAVEv3 Pool
-   * @name SetUserUseReserveAsCollateral
-   * @request POST:/aave/v3/pool/{address}/setUserUseReserveAsCollateral
-   * @secure
-   */
-  export namespace SetUserUseReserveAsCollateral {
-    export type RequestParams = {
-      address: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = AavePoolInputBody;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = SetUserUseReserveAsCollateralData;
-  }
-
-  /**
-   * No description
-   * @tags AAVEv3 Pool
-   * @name Supply
-   * @request POST:/aave/v3/pool/{address}/supply
-   * @secure
-   */
-  export namespace Supply {
-    export type RequestParams = {
-      address: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = AavePoolInputBody;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = SupplyData;
-  }
-
-  /**
-   * No description
-   * @tags AAVEv3 Pool
-   * @name Withdraw
-   * @request POST:/aave/v3/pool/{address}/withdraw
-   * @secure
-   */
-  export namespace Withdraw {
-    export type RequestParams = {
-      address: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = AavePoolInputBody;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = WithdrawData;
   }
 }

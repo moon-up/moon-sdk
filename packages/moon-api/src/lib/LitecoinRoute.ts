@@ -10,94 +10,20 @@
  */
 
 import {
-  CreateLitecoinAccountData,
-  DeleteLitecoinAccountData,
-  ExportLitecoinAccountData,
-  GetLitecoinAccountData,
   ListLitecoinAccountsData,
+  LitecoinCreateLitecoinAccountData,
+  LitecoinDeleteLitecoinAccountData,
+  LitecoinExportLitecoinAccountData,
+  LitecoinGetLitecoinAccountData,
   LitecoinInput,
+  LitecoinSignLitecoinTransactionData,
+  LitecoinSignLitecoinTransactionWithMemoData,
   LitecoinTransactionInput,
-  SignLitecoinTransactionData,
-  SignLitecoinTransactionWithMemoData,
 } from './data-contracts';
 
 export namespace Litecoin {
   /**
-   * No description
-   * @tags Litecoin
-   * @name CreateLitecoinAccount
-   * @request POST:/litecoin
-   * @secure
-   */
-  export namespace CreateLitecoinAccount {
-    export type RequestParams = {};
-    export type RequestQuery = {};
-    export type RequestBody = LitecoinInput;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = CreateLitecoinAccountData;
-  }
-
-  /**
-   * No description
-   * @tags Litecoin
-   * @name DeleteLitecoinAccount
-   * @request POST:/litecoin/{accountName}/delete
-   * @secure
-   */
-  export namespace DeleteLitecoinAccount {
-    export type RequestParams = {
-      accountName: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = DeleteLitecoinAccountData;
-  }
-
-  /**
-   * No description
-   * @tags Litecoin
-   * @name ExportLitecoinAccount
-   * @request POST:/litecoin/{accountName}/export
-   * @secure
-   */
-  export namespace ExportLitecoinAccount {
-    export type RequestParams = {
-      accountName: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = ExportLitecoinAccountData;
-  }
-
-  /**
-   * No description
-   * @tags Litecoin
-   * @name GetLitecoinAccount
-   * @request GET:/litecoin/{accountName}
-   * @secure
-   */
-  export namespace GetLitecoinAccount {
-    export type RequestParams = {
-      accountName: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = GetLitecoinAccountData;
-  }
-
-  /**
-   * No description
+   * @description Lists the accounts associated with the provided authorization token.
    * @tags Litecoin
    * @name ListLitecoinAccounts
    * @request GET:/litecoin
@@ -108,46 +34,132 @@ export namespace Litecoin {
     export type RequestQuery = {};
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
     export type ResponseBody = ListLitecoinAccountsData;
   }
 
   /**
-   * No description
+   * @description Creates a new Litecoin account.
    * @tags Litecoin
-   * @name SignLitecoinTransaction
-   * @request POST:/litecoin/{accountName}/sign-tx
+   * @name LitecoinCreateLitecoinAccount
+   * @request POST:/litecoin
    * @secure
    */
-  export namespace SignLitecoinTransaction {
-    export type RequestParams = {
-      accountName: string;
-    };
+  export namespace LitecoinCreateLitecoinAccount {
+    export type RequestParams = {};
     export type RequestQuery = {};
-    export type RequestBody = LitecoinTransactionInput;
+    export type RequestBody = LitecoinInput;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = SignLitecoinTransactionData;
+    export type ResponseBody = LitecoinCreateLitecoinAccountData;
   }
 
   /**
-   * No description
+   * @description Deletes a Litecoin account.
    * @tags Litecoin
-   * @name SignLitecoinTransactionWithMemo
-   * @request POST:/litecoin/{accountName}/memo-sign-tx
+   * @name LitecoinDeleteLitecoinAccount
+   * @request POST:/litecoin/{accountName}/delete
    * @secure
    */
-  export namespace SignLitecoinTransactionWithMemo {
+  export namespace LitecoinDeleteLitecoinAccount {
     export type RequestParams = {
+      /** - The name of the account to be deleted. */
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token from the request header. */
+      Authorization: string;
+    };
+    export type ResponseBody = LitecoinDeleteLitecoinAccountData;
+  }
+
+  /**
+   * @description Exports the account information for a given account name.
+   * @tags Litecoin
+   * @name LitecoinExportLitecoinAccount
+   * @request POST:/litecoin/{accountName}/export
+   * @secure
+   */
+  export namespace LitecoinExportLitecoinAccount {
+    export type RequestParams = {
+      /** - The name of the account to be exported. */
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token from the request header. */
+      Authorization: string;
+    };
+    export type ResponseBody = LitecoinExportLitecoinAccountData;
+  }
+
+  /**
+   * @description Retrieves account information for a specified account name.
+   * @tags Litecoin
+   * @name LitecoinGetLitecoinAccount
+   * @request GET:/litecoin/{accountName}
+   * @secure
+   */
+  export namespace LitecoinGetLitecoinAccount {
+    export type RequestParams = {
+      /** - The name of the account to retrieve information for. */
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token provided in the request header. */
+      Authorization: string;
+    };
+    export type ResponseBody = LitecoinGetLitecoinAccountData;
+  }
+
+  /**
+   * @description Signs a Litecoin transaction.
+   * @tags Litecoin
+   * @name LitecoinSignLitecoinTransaction
+   * @request POST:/litecoin/{accountName}/sign-tx
+   * @secure
+   */
+  export namespace LitecoinSignLitecoinTransaction {
+    export type RequestParams = {
+      /** - The name of the account to sign the transaction for. */
       accountName: string;
     };
     export type RequestQuery = {};
     export type RequestBody = LitecoinTransactionInput;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = SignLitecoinTransactionWithMemoData;
+    export type ResponseBody = LitecoinSignLitecoinTransactionData;
+  }
+
+  /**
+   * @description Signs a Litecoin transaction with a memo.
+   * @tags Litecoin
+   * @name LitecoinSignLitecoinTransactionWithMemo
+   * @request POST:/litecoin/{accountName}/memo-sign-tx
+   * @secure
+   */
+  export namespace LitecoinSignLitecoinTransactionWithMemo {
+    export type RequestParams = {
+      /** - The account name from the request path. */
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = LitecoinTransactionInput;
+    export type RequestHeaders = {
+      /** - The authorization token from the request header. */
+      Authorization: string;
+    };
+    export type ResponseBody = LitecoinSignLitecoinTransactionWithMemoData;
   }
 }

@@ -5340,7 +5340,7 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"SuccessResponse$9": {
+			"SuccessResponse%249": {
 				"items": {
 					"properties": {
 						"verified_contract": {
@@ -5404,7 +5404,7 @@
 				"type": "array"
 			},
 			"GetTokenMetadataJSONResponse": {
-				"$ref": "#/components/schemas/SuccessResponse$9"
+				"$ref": "#/components/schemas/SuccessResponse%249"
 			},
 			"TokenMetadataAPIResponse": {
 				"description": "Represents the response from the Token Metadata API.",
@@ -11935,6 +11935,505 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"MakeFunTokenHelperAPIResponse_string_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"MakeFunTokenHelperAPIResponse_number_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"MakeFunTokenHelperTransaction": {
+				"properties": {
+					"data": {
+						"type": "string"
+					},
+					"value": {
+						"type": "string"
+					},
+					"to": {
+						"type": "string"
+					},
+					"from": {
+						"type": "string"
+					},
+					"gasPrice": {
+						"type": "string"
+					},
+					"gasLimit": {
+						"type": "string"
+					},
+					"maxPriorityFeePerGas": {
+						"type": "string"
+					},
+					"maxFeePerGas": {
+						"type": "string"
+					},
+					"nonce": {
+						"type": "number",
+						"format": "double"
+					},
+					"type": {
+						"type": "number",
+						"format": "double"
+					},
+					"chainId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"data",
+					"value",
+					"to",
+					"from",
+					"nonce",
+					"chainId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"MakeFunTokenHelperExecuteFunctionResult": {
+				"properties": {
+					"simulation": {
+						"$ref": "#/components/schemas/SimulateAssetChangesResponse"
+					},
+					"broadcasted": {
+						"$ref": "#/components/schemas/BroadCastRawTransactionResponse"
+					},
+					"message": {
+						"type": "string"
+					},
+					"success": {
+						"type": "boolean"
+					},
+					"user_op": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/Transaction"
+					},
+					"params": {
+						"items": {},
+						"type": "array"
+					},
+					"function": {
+						"type": "string"
+					},
+					"transaction": {
+						"$ref": "#/components/schemas/MakeFunTokenHelperTransaction"
+					}
+				},
+				"required": [
+					"params",
+					"function",
+					"transaction"
+				],
+				"type": "object"
+			},
+			"MakeFunTokenHelperAPIResponse_MakeFunTokenHelperExecuteFunctionResult_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/MakeFunTokenHelperExecuteFunctionResult"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"MakeFunTokenHelperInputBody": {
+				"description": "Interface representing the input body for the MakeFunTokenHelper function.",
+				"properties": {
+					"to": {
+						"type": "string",
+						"description": "The address to which the tokens will be sent.",
+						"default": "\"\""
+					},
+					"data": {
+						"type": "string",
+						"description": "Additional data to be sent with the transaction.",
+						"default": "\"\""
+					},
+					"value": {
+						"type": "string",
+						"description": "The value associated with the transaction.",
+						"default": "\"\""
+					},
+					"gasLimit": {
+						"type": "string",
+						"description": "The gas limit for the transaction.",
+						"default": "\"\""
+					},
+					"nonce": {
+						"type": "string",
+						"description": "The nonce to be used for the transaction.",
+						"default": "\"\""
+					},
+					"simulate": {
+						"type": "boolean",
+						"description": "Indicates if the transaction should be simulated.",
+						"default": "false"
+					},
+					"gas": {
+						"type": "string",
+						"description": "The gas limit for the transaction.",
+						"default": "\"\""
+					},
+					"gasPrice": {
+						"type": "string",
+						"description": "The gas price for the transaction.",
+						"default": "\"\""
+					},
+					"maxFeePerGas": {
+						"type": "string",
+						"description": "The maximum fee per gas."
+					},
+					"maxPriorityFeePerGas": {
+						"type": "string",
+						"description": "The maximum priority fee per gas."
+					},
+					"chain_id": {
+						"type": "string",
+						"description": "The chain ID."
+					},
+					"encoding": {
+						"type": "string",
+						"description": "The encoding type."
+					},
+					"type": {
+						"type": "number",
+						"format": "double",
+						"description": "The type of transaction."
+					},
+					"accessList": {
+						"items": {
+							"$ref": "#/components/schemas/AccessTuple"
+						},
+						"type": "array",
+						"description": "The access list for the transaction."
+					},
+					"blobGas": {
+						"type": "string",
+						"description": "The gas for blob transactions."
+					},
+					"blobGasFeeCap": {
+						"type": "string",
+						"description": "The gas fee cap for blob transactions."
+					},
+					"blobHashes": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array",
+						"description": "The hashes for blob transactions."
+					},
+					"dryrun": {
+						"type": "boolean",
+						"description": "Indicates if the transaction should be a dry run.",
+						"default": "false"
+					},
+					"input": {
+						"type": "string",
+						"description": "The input data."
+					},
+					"EOA": {
+						"type": "boolean",
+						"description": "Indicates if the transaction is from an Externally Owned Account.",
+						"default": "false"
+					},
+					"contract_address": {
+						"type": "string",
+						"description": "The address of the contract.",
+						"default": "\"\""
+					},
+					"token_id": {
+						"type": "string",
+						"description": "The token ID."
+					},
+					"token_ids": {
+						"type": "string",
+						"description": "The token IDs."
+					},
+					"approved": {
+						"type": "boolean",
+						"description": "Whether the transaction is approved."
+					},
+					"broadcast": {
+						"type": "boolean",
+						"description": "\nIndicates if the transaction should be broadcasted.",
+						"default": "false"
+					},
+					"alwaysIncrementNonce": {
+						"type": "boolean",
+						"description": "Indicates if the nonce should always be incremented.",
+						"default": "false"
+					},
+					"asset": {
+						"type": "string",
+						"description": "The asset involved in the transaction."
+					},
+					"amount": {
+						"type": "string",
+						"description": "The amount of tokens to be sent.",
+						"default": "\"\""
+					},
+					"interestRateMode": {
+						"type": "number",
+						"format": "double",
+						"description": "The interest rate mode."
+					},
+					"referralCode": {
+						"type": "number",
+						"format": "double",
+						"description": "The referral code."
+					},
+					"onBehalfOf": {
+						"type": "string",
+						"description": "The address on behalf of which the transaction is made."
+					},
+					"receiverAddress": {
+						"type": "string",
+						"description": "The receiver address."
+					},
+					"assets": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array",
+						"description": "The assets involved in the transaction."
+					},
+					"amounts": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array",
+						"description": "The amounts involved in the transaction."
+					},
+					"modes": {
+						"items": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "array",
+						"description": "The modes of the transaction."
+					},
+					"params": {
+						"type": "string",
+						"description": "Additional parameters."
+					},
+					"rateMode": {
+						"type": "number",
+						"format": "double",
+						"description": "The rate mode."
+					},
+					"useAsCollateral": {
+						"type": "boolean",
+						"description": "Whether to use as collateral."
+					},
+					"collateralAsset": {
+						"type": "string",
+						"description": "The collateral asset."
+					},
+					"debtAsset": {
+						"type": "string",
+						"description": "The debt asset."
+					},
+					"user": {
+						"type": "string",
+						"description": "The user involved in the transaction."
+					},
+					"debtToCover": {
+						"type": "string",
+						"description": "The debt to cover."
+					},
+					"receiveAToken": {
+						"type": "boolean",
+						"description": "Whether to receive a token."
+					},
+					"inputTokens": {
+						"items": {
+							"$ref": "#/components/schemas/TokenAmount"
+						},
+						"type": "array",
+						"description": "The input tokens."
+					},
+					"outputTokens": {
+						"items": {
+							"$ref": "#/components/schemas/TokenProportion"
+						},
+						"type": "array",
+						"description": "The output tokens."
+					},
+					"slippageLimitPercent": {
+						"type": "number",
+						"format": "double",
+						"description": "The slippage limit percentage."
+					},
+					"minHealthFactor": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						],
+						"description": "The minimum health factor."
+					},
+					"premiums": {
+						"anyOf": [
+							{
+								"items": {
+									"type": "string"
+								},
+								"type": "array"
+							},
+							{
+								"items": {
+									"type": "number",
+									"format": "double"
+								},
+								"type": "array"
+							}
+						],
+						"description": "The premiums."
+					},
+					"initiator": {
+						"type": "string",
+						"description": "The initiator of the transaction."
+					},
+					"role": {
+						"type": "string",
+						"description": "The role of the user."
+					},
+					"account": {
+						"type": "string",
+						"description": "The account involved in the transaction."
+					},
+					"initialDeposit": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						],
+						"description": "The initial deposit."
+					},
+					"borrowAmount": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "number",
+								"format": "double"
+							}
+						],
+						"description": "The borrow amount."
+					},
+					"name": {
+						"type": "string",
+						"description": "The name of the token.",
+						"default": "\"\""
+					},
+					"symbol": {
+						"type": "string",
+						"description": "The symbol of the token.",
+						"default": "\"\""
+					},
+					"totalSupply": {
+						"type": "string",
+						"description": "\nThe total supply of the token.",
+						"default": "\"\""
+					},
+					"_params": {
+						"type": "string",
+						"description": "Additional parameters for the transaction.",
+						"default": "\"\""
+					},
+					"salt": {
+						"type": "string",
+						"description": "The salt to be used for the transaction.",
+						"default": "\"\""
+					},
+					"startingTick": {
+						"type": "string",
+						"description": "The starting tick for the transaction.",
+						"default": "\"\""
+					},
+					"feeRecipients": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array",
+						"description": "The recipients of the fees.",
+						"default": "[]"
+					},
+					"feeBPS": {
+						"items": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "array"
+					},
+					"tick": {
+						"type": "number",
+						"format": "double"
+					},
+					"minTick": {
+						"type": "number",
+						"format": "double"
+					},
+					"minTotalSupply": {},
+					"maxTotalSupply": {},
+					"maxTick": {}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
 			"MultiCallAPIResponse_string_": {
 				"properties": {
 					"success": {
@@ -16246,7 +16745,7 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"RamsesRouterAPIResponse__reserve0:string--reserve1:string__": {
+			"RamsesRouterAPIResponse__reserve0%3Astring--reserve1%3Astring__": {
 				"properties": {
 					"success": {
 						"type": "boolean"
@@ -39783,6 +40282,378 @@
 				}
 			}
 		},
+		"/makefuntoken/{account}/CLFactory": {
+			"get": {
+				"operationId": "MakeFunToken_GetCLFactory",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MakeFunTokenHelperAPIResponse_string_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MakeFunToken"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/makefuntoken/{account}/maxTick": {
+			"get": {
+				"operationId": "MakeFunToken_GetMaxTick",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MakeFunTokenHelperAPIResponse_number_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MakeFunToken"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/makefuntoken/{account}/minTick": {
+			"get": {
+				"operationId": "MakeFunToken_GetMinTick",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MakeFunTokenHelperAPIResponse_number_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MakeFunToken"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/makefuntoken/{address}/makeToken": {
+			"post": {
+				"operationId": "MakeFunToken_MakeToken",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MakeFunTokenHelperAPIResponse_MakeFunTokenHelperExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MakeFunToken"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MakeFunTokenHelperInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/makefuntoken/{address}/setTickLimits": {
+			"post": {
+				"operationId": "MakeFunToken_SetTickLimits",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MakeFunTokenHelperAPIResponse_MakeFunTokenHelperExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MakeFunToken"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MakeFunTokenHelperInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/makefuntoken/{address}/setSupplyLimits": {
+			"post": {
+				"operationId": "MakeFunToken_SetSupplyLimits",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MakeFunTokenHelperAPIResponse_MakeFunTokenHelperExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"MakeFunToken"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/MakeFunTokenHelperInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/multicall/create-job": {
 			"post": {
 				"operationId": "CreateJob",
@@ -46042,7 +46913,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/RamsesRouterAPIResponse__reserve0:string--reserve1:string__"
+									"$ref": "#/components/schemas/RamsesRouterAPIResponse__reserve0%3Astring--reserve1%3Astring__"
 								}
 							}
 						}
@@ -57552,7 +58423,7 @@
 	},
 	"servers": [
 		{
-			"url": "https://beta.usemoon.ai/"
+			"url": "https://beta.usemoon.ai"
 		}
 	]
 }

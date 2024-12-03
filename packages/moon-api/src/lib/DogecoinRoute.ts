@@ -10,144 +10,156 @@
  */
 
 import {
-  CreateDogeCoinAccountData,
-  DeleteDogeCoinAccountData,
   DogeCoinInput,
+  DogeCoinListAccountsData,
   DogeCoinTransactionInput,
-  ExportDogeCoinAccountData,
-  GetDogeCoinAccountData,
-  ListDogeCoinAccountsData,
-  SignDogeCoinTransactionData,
-  SignDogeCoinTransactionWithMemoData,
+  DogecoinDogeCoinCreateNewAccountData,
+  DogecoinDogeCoinDeleteAccountData,
+  DogecoinDogeCoinExportAccountDetailsData,
+  DogecoinDogeCoinGetAccountDetailsData,
+  DogecoinDogeCoinSignTransactionData,
+  DogecoinDogeCoinSignTransactionWithMemoData,
 } from './data-contracts';
 
 export namespace Dogecoin {
   /**
-   * No description
+   * @description Creates a new Dogecoin account.
    * @tags DogeCoin
-   * @name CreateDogeCoinAccount
+   * @name DogecoinDogeCoinCreateNewAccount
    * @request POST:/dogecoin
    * @secure
    */
-  export namespace CreateDogeCoinAccount {
+  export namespace DogecoinDogeCoinCreateNewAccount {
     export type RequestParams = {};
     export type RequestQuery = {};
     export type RequestBody = DogeCoinInput;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = CreateDogeCoinAccountData;
+    export type ResponseBody = DogecoinDogeCoinCreateNewAccountData;
   }
 
   /**
-   * No description
+   * @description Deletes a Dogecoin account.
    * @tags DogeCoin
-   * @name DeleteDogeCoinAccount
+   * @name DogecoinDogeCoinDeleteAccount
    * @request POST:/dogecoin/{accountName}/delete
    * @secure
    */
-  export namespace DeleteDogeCoinAccount {
+  export namespace DogecoinDogeCoinDeleteAccount {
     export type RequestParams = {
+      /** - The name of the account to be deleted. */
       accountName: string;
     };
     export type RequestQuery = {};
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = DeleteDogeCoinAccountData;
+    export type ResponseBody = DogecoinDogeCoinDeleteAccountData;
   }
 
   /**
-   * No description
+   * @description Exports the account details for a given account name.
    * @tags DogeCoin
-   * @name ExportDogeCoinAccount
+   * @name DogecoinDogeCoinExportAccountDetails
    * @request POST:/dogecoin/{accountName}/export
    * @secure
    */
-  export namespace ExportDogeCoinAccount {
+  export namespace DogecoinDogeCoinExportAccountDetails {
     export type RequestParams = {
+      /** - The name of the account to be exported. */
       accountName: string;
     };
     export type RequestQuery = {};
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = ExportDogeCoinAccountData;
+    export type ResponseBody = DogecoinDogeCoinExportAccountDetailsData;
   }
 
   /**
-   * No description
+   * @description Retrieves the account information for a given account name.
    * @tags DogeCoin
-   * @name GetDogeCoinAccount
+   * @name DogecoinDogeCoinGetAccountDetails
    * @request GET:/dogecoin/{accountName}
    * @secure
    */
-  export namespace GetDogeCoinAccount {
+  export namespace DogecoinDogeCoinGetAccountDetails {
     export type RequestParams = {
+      /** - The name of the account to retrieve. */
       accountName: string;
     };
     export type RequestQuery = {};
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = GetDogeCoinAccountData;
+    export type ResponseBody = DogecoinDogeCoinGetAccountDetailsData;
   }
 
   /**
-   * No description
+   * @description Signs a Dogecoin transaction.
    * @tags DogeCoin
-   * @name ListDogeCoinAccounts
+   * @name DogecoinDogeCoinSignTransaction
+   * @request POST:/dogecoin/{accountName}/sign-tx
+   * @secure
+   */
+  export namespace DogecoinDogeCoinSignTransaction {
+    export type RequestParams = {
+      /** - The name of the account for which the transaction is being signed. */
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = DogeCoinTransactionInput;
+    export type RequestHeaders = {
+      /** - The authorization token from the request header. */
+      Authorization: string;
+    };
+    export type ResponseBody = DogecoinDogeCoinSignTransactionData;
+  }
+
+  /**
+   * @description Signs a Dogecoin transaction with a memo.
+   * @tags DogeCoin
+   * @name DogecoinDogeCoinSignTransactionWithMemo
+   * @request POST:/dogecoin/{accountName}/memo-sign-tx
+   * @secure
+   */
+  export namespace DogecoinDogeCoinSignTransactionWithMemo {
+    export type RequestParams = {
+      /** - The name of the account to sign the transaction for. */
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = DogeCoinTransactionInput;
+    export type RequestHeaders = {
+      /** - The authorization token from the request header. */
+      Authorization: string;
+    };
+    export type ResponseBody = DogecoinDogeCoinSignTransactionWithMemoData;
+  }
+
+  /**
+   * @description Lists the accounts associated with the provided Dogecoin token.
+   * @tags DogeCoin
+   * @name DogeCoinListAccounts
    * @request GET:/dogecoin
    * @secure
    */
-  export namespace ListDogeCoinAccounts {
+  export namespace DogeCoinListAccounts {
     export type RequestParams = {};
     export type RequestQuery = {};
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token for accessing Dogecoin accounts. */
       Authorization: string;
     };
-    export type ResponseBody = ListDogeCoinAccountsData;
-  }
-
-  /**
-   * No description
-   * @tags DogeCoin
-   * @name SignDogeCoinTransaction
-   * @request POST:/dogecoin/{accountName}/sign-tx
-   * @secure
-   */
-  export namespace SignDogeCoinTransaction {
-    export type RequestParams = {
-      accountName: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = DogeCoinTransactionInput;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = SignDogeCoinTransactionData;
-  }
-
-  /**
-   * No description
-   * @tags DogeCoin
-   * @name SignDogeCoinTransactionWithMemo
-   * @request POST:/dogecoin/{accountName}/memo-sign-tx
-   * @secure
-   */
-  export namespace SignDogeCoinTransactionWithMemo {
-    export type RequestParams = {
-      accountName: string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = DogeCoinTransactionInput;
-    export type RequestHeaders = {
-      Authorization: string;
-    };
-    export type ResponseBody = SignDogeCoinTransactionWithMemoData;
+    export type ResponseBody = DogeCoinListAccountsData;
   }
 }

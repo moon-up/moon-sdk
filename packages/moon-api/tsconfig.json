@@ -2,14 +2,11 @@
     "extends": "@tsconfig/recommended/tsconfig.json",
     "include": [
         "src",
-        "types"
+        "types",
     ],
     "compilerOptions": {
-        "module": "esnext",
+        "module": "ESNext",
         "moduleResolution": "Bundler",
-        "preserveSymlinks": true,
-        "exactOptionalPropertyTypes": false,
-        "strict": false,
-        "noImplicitAny": true,
+        "preserveSymlinks": true
     }
 }

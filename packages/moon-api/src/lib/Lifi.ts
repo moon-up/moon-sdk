@@ -10,23 +10,23 @@
  */
 
 import {
-  FetchTokenDetailsData,
-  FetchTokenDetailsParams,
-  FetchTokensData,
-  GetAllPossibleConnectionsData,
-  GetAllPossibleConnectionsParams,
-  GetChainsData,
-  GetChainsParams,
-  GetConnectionsData,
-  GetConnectionsParams,
-  GetQuoteParams1,
-  GetQuoteResult,
   GetToolsData,
   GetToolsParams,
-  GetstatusData,
-  GetstatusParams,
-  PostQuoteData,
-  PostQuoteParams,
+  LifiGetAllPossibleConnectionsData,
+  LifiGetAllPossibleConnectionsParams,
+  LifiGetChainsData,
+  LifiGetChainsParams,
+  LifiGetConnectionsData,
+  LifiGetConnectionsParams,
+  LifiGetQuoteData,
+  LifiGetQuoteParams,
+  LifiGetStatusData,
+  LifiGetStatusParams,
+  LifiGetTokenDetailsData,
+  LifiGetTokenDetailsParams,
+  LifiGetTokensData,
+  LifiPostQuoteData,
+  LifiPostQuoteParams,
 } from './data-contracts';
 import { HttpClient, RequestParams } from './http-client';
 
@@ -38,110 +38,7 @@ export class Lifi<SecurityDataType = unknown> {
   }
 
   /**
-   * No description
-   *
-   * @name FetchTokenDetails
-   * @request GET:/lifi/token
-   */
-  fetchTokenDetails = (
-    query: FetchTokenDetailsParams,
-    params: RequestParams = {}
-  ) =>
-    this.http.request<FetchTokenDetailsData, any>({
-      path: `/lifi/token`,
-      method: 'GET',
-      query: query,
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @name FetchTokens
-   * @request GET:/lifi/tokens
-   */
-  fetchTokens = (params: RequestParams = {}) =>
-    this.http.request<FetchTokensData, any>({
-      path: `/lifi/tokens`,
-      method: 'GET',
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @name GetAllPossibleConnections
-   * @request GET:/lifi/allPossibleConnections
-   */
-  getAllPossibleConnections = (
-    query: GetAllPossibleConnectionsParams,
-    params: RequestParams = {}
-  ) =>
-    this.http.request<GetAllPossibleConnectionsData, any>({
-      path: `/lifi/allPossibleConnections`,
-      method: 'GET',
-      query: query,
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @name GetChains
-   * @request GET:/lifi/chains
-   */
-  getChains = (query: GetChainsParams, params: RequestParams = {}) =>
-    this.http.request<GetChainsData, any>({
-      path: `/lifi/chains`,
-      method: 'GET',
-      query: query,
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @name GetConnections
-   * @request GET:/lifi/connections
-   */
-  getConnections = (query: GetConnectionsParams, params: RequestParams = {}) =>
-    this.http.request<GetConnectionsData, any>({
-      path: `/lifi/connections`,
-      method: 'GET',
-      query: query,
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @name GetQuote
-   * @request GET:/lifi/quote
-   */
-  getQuote = (query: GetQuoteParams1, params: RequestParams = {}) =>
-    this.http.request<GetQuoteResult, any>({
-      path: `/lifi/quote`,
-      method: 'GET',
-      query: query,
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
-   *
-   * @name Getstatus
-   * @request GET:/lifi/status
-   */
-  getstatus = (query: GetstatusParams, params: RequestParams = {}) =>
-    this.http.request<GetstatusData, any>({
-      path: `/lifi/status`,
-      method: 'GET',
-      query: query,
-      format: 'json',
-      ...params,
-    });
-  /**
-   * No description
+   * @description Retrieves tools based on the provided chains.
    *
    * @name GetTools
    * @request GET:/lifi/tools
@@ -155,16 +52,122 @@ export class Lifi<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * No description
+   * @description Retrieves all possible connections for a given chain and token.
    *
-   * @name PostQuote
-   * @request POST:/lifi/{accountName}/quote
+   * @name LifiGetAllPossibleConnections
+   * @request GET:/lifi/allPossibleConnections
    */
-  postQuote = (
-    { accountName, ...query }: PostQuoteParams,
+  lifiGetAllPossibleConnections = (
+    query: LifiGetAllPossibleConnectionsParams,
     params: RequestParams = {}
   ) =>
-    this.http.request<PostQuoteData, any>({
+    this.http.request<LifiGetAllPossibleConnectionsData, any>({
+      path: `/lifi/allPossibleConnections`,
+      method: 'GET',
+      query: query,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * @description Retrieves a list of supported chains.
+   *
+   * @name LifiGetChains
+   * @request GET:/lifi/chains
+   */
+  lifiGetChains = (query: LifiGetChainsParams, params: RequestParams = {}) =>
+    this.http.request<LifiGetChainsData, any>({
+      path: `/lifi/chains`,
+      method: 'GET',
+      query: query,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * @description Retrieves connections between specified chains and tokens.
+   *
+   * @name LifiGetConnections
+   * @request GET:/lifi/connections
+   */
+  lifiGetConnections = (
+    query: LifiGetConnectionsParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<LifiGetConnectionsData, any>({
+      path: `/lifi/connections`,
+      method: 'GET',
+      query: query,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * @description Retrieves a quote for a token swap between different chains.
+   *
+   * @name LifiGetQuote
+   * @request GET:/lifi/quote
+   */
+  lifiGetQuote = (query: LifiGetQuoteParams, params: RequestParams = {}) =>
+    this.http.request<LifiGetQuoteData, any>({
+      path: `/lifi/quote`,
+      method: 'GET',
+      query: query,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * @description Retrieves the status of a transaction based on the provided transaction hash.
+   *
+   * @name LifiGetStatus
+   * @request GET:/lifi/status
+   */
+  lifiGetStatus = (query: LifiGetStatusParams, params: RequestParams = {}) =>
+    this.http.request<LifiGetStatusData, any>({
+      path: `/lifi/status`,
+      method: 'GET',
+      query: query,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * @description Fetches the details of a specified token on a given blockchain.
+   *
+   * @name LifiGetTokenDetails
+   * @request GET:/lifi/token
+   */
+  lifiGetTokenDetails = (
+    query: LifiGetTokenDetailsParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<LifiGetTokenDetailsData, any>({
+      path: `/lifi/token`,
+      method: 'GET',
+      query: query,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * @description Fetches tokens from the LiFi service.
+   *
+   * @name LifiGetTokens
+   * @request GET:/lifi/tokens
+   */
+  lifiGetTokens = (params: RequestParams = {}) =>
+    this.http.request<LifiGetTokensData, any>({
+      path: `/lifi/tokens`,
+      method: 'GET',
+      format: 'json',
+      ...params,
+    });
+  /**
+   * @description Handles the retrieval of a quote for a token swap between different chains.
+   *
+   * @name LifiPostQuote
+   * @request POST:/lifi/{accountName}/quote
+   */
+  lifiPostQuote = (
+    { accountName, ...query }: LifiPostQuoteParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<LifiPostQuoteData, any>({
       path: `/lifi/${accountName}/quote`,
       method: 'POST',
       query: query,

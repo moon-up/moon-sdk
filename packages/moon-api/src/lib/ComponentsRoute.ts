@@ -10,166 +10,182 @@
  */
 
 import {
-  CreateComponentData,
-  ForceEmbeddingData,
-  ForceEmbeddingPayload,
-  GetComponentCapabilitiesDescriptionData,
-  GetComponentData,
-  GetComponentsData,
+  ComponentsCreateComponentData,
+  ComponentsForceEmbeddingData,
+  ComponentsForceEmbeddingPayload,
+  ComponentsGetComponentCapabilitiesDescriptionData,
+  ComponentsGetComponentData,
+  ComponentsGetComponentsData,
+  ComponentsSearchComponentsData,
+  ComponentsUpdateComponentData,
+  ComponentsUpdateEmbeddingData,
+  ComponentsUpdateEmbeddingPayload,
   OmitComponentDefinitionId,
   PartialComponentDefinition,
-  SearchComponentsData,
-  UpdateComponentData,
-  UpdateEmbeddingData,
-  UpdateEmbeddingPayload,
 } from './data-contracts';
 
 export namespace Components {
   /**
-   * No description
+   * @description Creates a new component in the database.
    * @tags Components
-   * @name CreateComponent
+   * @name ComponentsCreateComponent
    * @request POST:/components
    * @secure
    */
-  export namespace CreateComponent {
+  export namespace ComponentsCreateComponent {
     export type RequestParams = {};
     export type RequestQuery = {};
     export type RequestBody = OmitComponentDefinitionId;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = CreateComponentData;
+    export type ResponseBody = ComponentsCreateComponentData;
   }
 
   /**
-   * No description
+   * @description Forces the embedding of a description for a component.
    * @tags Components
-   * @name ForceEmbedding
+   * @name ComponentsForceEmbedding
    * @request POST:/components/{id}/embedding/force
    * @secure
    */
-  export namespace ForceEmbedding {
+  export namespace ComponentsForceEmbedding {
     export type RequestParams = {
+      /** - The ID of the component. */
       id: string;
     };
     export type RequestQuery = {};
-    export type RequestBody = ForceEmbeddingPayload;
+    export type RequestBody = ComponentsForceEmbeddingPayload;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = ForceEmbeddingData;
+    export type ResponseBody = ComponentsForceEmbeddingData;
   }
 
   /**
-   * No description
+   * @description Retrieves a component by its ID.
    * @tags Components
-   * @name GetComponent
+   * @name ComponentsGetComponent
    * @request GET:/components/{id}
    * @secure
    */
-  export namespace GetComponent {
+  export namespace ComponentsGetComponent {
     export type RequestParams = {
+      /** - The ID of the component to retrieve. */
       id: string;
     };
     export type RequestQuery = {};
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = GetComponentData;
+    export type ResponseBody = ComponentsGetComponentData;
   }
 
   /**
-   * No description
+   * @description Retrieves the capabilities description of components from the database.
    * @tags Components
-   * @name GetComponentCapabilitiesDescription
+   * @name ComponentsGetComponentCapabilitiesDescription
    * @request GET:/components/capabilities
    * @secure
    */
-  export namespace GetComponentCapabilitiesDescription {
+  export namespace ComponentsGetComponentCapabilitiesDescription {
     export type RequestParams = {};
     export type RequestQuery = {};
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token provided in the request header. */
       Authorization: string;
     };
-    export type ResponseBody = GetComponentCapabilitiesDescriptionData;
+    export type ResponseBody =
+      ComponentsGetComponentCapabilitiesDescriptionData;
   }
 
   /**
-   * No description
+   * @description Retrieves a list of components from the database.
    * @tags Components
-   * @name GetComponents
+   * @name ComponentsGetComponents
    * @request GET:/components
    * @secure
    */
-  export namespace GetComponents {
+  export namespace ComponentsGetComponents {
     export type RequestParams = {};
     export type RequestQuery = {};
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token from the request header. */
       Authorization: string;
     };
-    export type ResponseBody = GetComponentsData;
+    export type ResponseBody = ComponentsGetComponentsData;
   }
 
   /**
-   * No description
+   * @description Searches for components similar to the specified query.
    * @tags Components
-   * @name SearchComponents
+   * @name ComponentsSearchComponents
    * @request GET:/components/search
    * @secure
    */
-  export namespace SearchComponents {
+  export namespace ComponentsSearchComponents {
     export type RequestParams = {};
     export type RequestQuery = {
+      /** - The maximum number of results to return. */
       limit?: string;
+      /** - The query to search for. */
       query: string;
+      /** - The similarity threshold for the search. */
       threshold?: string;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = SearchComponentsData;
+    export type ResponseBody = ComponentsSearchComponentsData;
   }
 
   /**
-   * No description
+   * @description Updates a component in the database.
    * @tags Components
-   * @name UpdateComponent
+   * @name ComponentsUpdateComponent
    * @request POST:/components/{id}
    * @secure
    */
-  export namespace UpdateComponent {
+  export namespace ComponentsUpdateComponent {
     export type RequestParams = {
+      /** The ID of the component. */
       id: string;
     };
     export type RequestQuery = {};
     export type RequestBody = PartialComponentDefinition;
     export type RequestHeaders = {
+      /** The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = UpdateComponentData;
+    export type ResponseBody = ComponentsUpdateComponentData;
   }
 
   /**
-   * No description
+   * @description Updates the embedding of a component's description.
    * @tags Components
-   * @name UpdateEmbedding
+   * @name ComponentsUpdateEmbedding
    * @request POST:/components/{id}/embedding
    * @secure
    */
-  export namespace UpdateEmbedding {
+  export namespace ComponentsUpdateEmbedding {
     export type RequestParams = {
+      /** - The ID of the component. */
       id: string;
     };
     export type RequestQuery = {};
-    export type RequestBody = UpdateEmbeddingPayload;
+    export type RequestBody = ComponentsUpdateEmbeddingPayload;
     export type RequestHeaders = {
+      /** - The authorization token. */
       Authorization: string;
     };
-    export type ResponseBody = UpdateEmbeddingData;
+    export type ResponseBody = ComponentsUpdateEmbeddingData;
   }
 }
