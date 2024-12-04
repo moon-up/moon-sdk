@@ -54,11 +54,11 @@ export class BitcoinNetwork implements INetwork {
 		throw new Error("Method not implemented.");
 	}
 
-	async createAccount(input: any): Promise<any> {
+	async createAccount(input: any): Promise<string> {
 		const response = await this.moon
 			.getBitcoinSDK()
-			.createBitcoinAccount(input);
-		return response.data;
+			.bitcoinBitcoinCreateAccount(input);
+		return response.data?.data.address || "";
 	}
 
 	/**
@@ -70,7 +70,7 @@ export class BitcoinNetwork implements INetwork {
 	async deleteAccount(accountName: string): Promise<any> {
 		const response = await this.moon
 			.getBitcoinSDK()
-			.deleteBitcoinAccount(accountName);
+			.bitcoinBitcoinDeleteAccount(accountName);
 		return response.data;
 	}
 
@@ -83,7 +83,7 @@ export class BitcoinNetwork implements INetwork {
 	async exportAccount(accountName: string): Promise<any> {
 		const response = await this.moon
 			.getBitcoinSDK()
-			.exportBitcoinAccount(accountName);
+			.bitcoinBitcoinExportAccount(accountName);
 		return response.data;
 	}
 
@@ -93,11 +93,11 @@ export class BitcoinNetwork implements INetwork {
 	 * @param accountName - The name of the account to retrieve.
 	 * @returns A promise that resolves to the account details.
 	 */
-	async getAccount(accountName: string): Promise<any> {
+	async getAccount(accountName: string): Promise<string[]> {
 		const response = await this.moon
 			.getBitcoinSDK()
-			.getBitcoinAccount(accountName);
-		return response.data;
+			.bitcoinBitcoinGetAccount(accountName);
+		return response.data?.keys || [];
 	}
 
 	/**
@@ -106,7 +106,7 @@ export class BitcoinNetwork implements INetwork {
 	 * @returns {Promise<any>} A promise that resolves to the data containing the list of Bitcoin accounts.
 	 */
 	async listAccounts(): Promise<string[]> {
-		const response = await this.moon.getBitcoinSDK().listBitcoinAccounts();
+		const response = await this.moon.getBitcoinSDK().bitcoinListAccounts();
 		return response.data?.keys || [];
 	}
 
@@ -120,7 +120,7 @@ export class BitcoinNetwork implements INetwork {
 	async signTransaction(accountName: string, transaction: any): Promise<any> {
 		const response = await this.moon
 			.getBitcoinSDK()
-			.signBitcoinTransaction(accountName, transaction);
+			.bitcoinBitcoinSignTransaction(accountName, transaction);
 		return response.data;
 	}
 
@@ -168,7 +168,7 @@ export class BitcoinNetwork implements INetwork {
 	): Promise<any> {
 		const response = await this.moon
 			.getBitcoinSDK()
-			.createBrc20Transaction(accountName, transactionInput);
+			.bitcoinBitcoinCreateBrc20Transaction(accountName, transactionInput);
 		return response.data;
 	}
 
@@ -185,7 +185,7 @@ export class BitcoinNetwork implements INetwork {
 	): Promise<any> {
 		const response = await this.moon
 			.getBitcoinSDK()
-			.createSrc20Inscription(accountName, inscriptionInput);
+			.bitcoinBitcoinCreateSrc20Inscription(accountName, inscriptionInput);
 		return response.data;
 	}
 
@@ -202,7 +202,7 @@ export class BitcoinNetwork implements INetwork {
 	): Promise<any> {
 		const response = await this.moon
 			.getBitcoinSDK()
-			.generateUnsignedPsbtHex(accountName, psbtInput);
+			.bitcoinBitcoinGenerateUnsignedPsbtHex(accountName, psbtInput);
 		return response.data;
 	}
 }

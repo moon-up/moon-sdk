@@ -3,12 +3,12 @@ import { safelyParseUnits, weiStringAsFloat } from "@/utils/parse";
 import type {
 	ERC20InputBody,
 	Erc20,
-	GetAllowanceParams,
-	GetBalanceOfParams,
-	GetDecimalsParams,
-	GetNameParams,
-	GetSymbolParams,
-	GetTotalSupplyParams,
+	Erc20GetErc20TokenAllowanceParams,
+	Erc20GetErc20TokenBalanceParams,
+	Erc20GetErc20TokenDecimalsParams,
+	Erc20GetErc20TokenNameParams,
+	Erc20GetErc20TokenSymbolParams,
+	Erc20GetErc20TokenTotalSupplyParams,
 	Transaction,
 } from "@moonup/moon-api";
 import { useCallback } from "react";
@@ -149,7 +149,7 @@ export const useErc20 = () => {
 					payload.accountName,
 					payload.transaction,
 				);
-				const response = await erc20SDK.approve(
+				const response = await erc20SDK.erc20ApproveErc20TokenSpending(
 					payload.accountName,
 					preparedTransaction,
 				);
@@ -178,7 +178,7 @@ export const useErc20 = () => {
 					payload.accountName,
 					payload.transaction,
 				);
-				const response = await erc20SDK.transfer(
+				const response = await erc20SDK.erc20TransferErc20Token(
 					payload.accountName,
 					preparedTransaction,
 				);
@@ -207,7 +207,7 @@ export const useErc20 = () => {
 					payload.accountName,
 					payload.transaction,
 				);
-				const response = await erc20SDK.transferFrom(
+				const response = await erc20SDK.erc20TransferFromErc20Token(
 					payload.accountName,
 					preparedTransaction,
 				);
@@ -225,10 +225,12 @@ export const useErc20 = () => {
 	 * @throws Will throw an error if the transaction fails or if the response indicates failure.
 	 */
 	const balanceOfErc20 = useCallback(
-		async (payload: GetBalanceOfParams): Promise<{ balance: string }> => {
+		async (
+			payload: Erc20GetErc20TokenBalanceParams,
+		): Promise<{ balance: string }> => {
 			return handleTransaction("balanceOfErc20", async () => {
 				const erc20SDK = getErc20SDK();
-				const response = await erc20SDK.getBalanceOf(payload);
+				const response = await erc20SDK.erc20GetErc20TokenBalance(payload);
 				if (!response.success) {
 					throw new Error(response.message);
 				}
@@ -249,10 +251,10 @@ export const useErc20 = () => {
 	 * console.log(`Allowance: ${allowance}`);
 	 */
 	const allowanceErc20 = useCallback(
-		async (payload: GetAllowanceParams): Promise<string> => {
+		async (payload: Erc20GetErc20TokenAllowanceParams): Promise<string> => {
 			return handleTransaction("allowanceErc20", async () => {
 				const erc20SDK = getErc20SDK();
-				const response = await erc20SDK.getAllowance(payload);
+				const response = await erc20SDK.erc20GetErc20TokenAllowance(payload);
 				return response.data;
 			});
 		},
@@ -266,10 +268,10 @@ export const useErc20 = () => {
 	 * @returns A promise that resolves to the number of decimals for the specified ERC-20 token.
 	 */
 	const getDecimalsErc20 = useCallback(
-		async (payload: GetDecimalsParams): Promise<number> => {
+		async (payload: Erc20GetErc20TokenDecimalsParams): Promise<number> => {
 			return handleTransaction("getDecimalsErc20", async () => {
 				const erc20SDK = getErc20SDK();
-				const response = await erc20SDK.getDecimals(payload);
+				const response = await erc20SDK.erc20GetErc20TokenDecimals(payload);
 				return response.data;
 			});
 		},
@@ -289,10 +291,10 @@ export const useErc20 = () => {
 	 * ```
 	 */
 	const getNameErc20 = useCallback(
-		async (payload: GetNameParams): Promise<string> => {
+		async (payload: Erc20GetErc20TokenNameParams): Promise<string> => {
 			return handleTransaction("getNameErc20", async () => {
 				const erc20SDK = getErc20SDK();
-				const response = await erc20SDK.getName(payload);
+				const response = await erc20SDK.erc20GetErc20TokenName(payload);
 				return response.data;
 			});
 		},
@@ -312,10 +314,10 @@ export const useErc20 = () => {
 	 * ```
 	 */
 	const getSymbolErc20 = useCallback(
-		async (payload: GetSymbolParams): Promise<string> => {
+		async (payload: Erc20GetErc20TokenSymbolParams): Promise<string> => {
 			return handleTransaction("getSymbolErc20", async () => {
 				const erc20SDK = getErc20SDK();
-				const response = await erc20SDK.getSymbol(payload);
+				const response = await erc20SDK.erc20GetErc20TokenSymbol(payload);
 				return response.data;
 			});
 		},
@@ -335,10 +337,10 @@ export const useErc20 = () => {
 	 * ```
 	 */
 	const getTotalSupplyErc20 = useCallback(
-		async (payload: GetTotalSupplyParams): Promise<string> => {
+		async (payload: Erc20GetErc20TokenTotalSupplyParams): Promise<string> => {
 			return handleTransaction("getTotalSupplyErc20", async () => {
 				const erc20SDK = getErc20SDK();
-				const response = await erc20SDK.getTotalSupply(payload);
+				const response = await erc20SDK.erc20GetErc20TokenTotalSupply(payload);
 				return response.data;
 			});
 		},

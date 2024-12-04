@@ -1,44 +1,35 @@
 import { useMoonTransaction } from "@/hooks";
 import type {
-	ApproveResult,
-	DepositData,
 	Erc4626,
-	GetAllowanceParams2,
-	GetAllowanceResult,
-	GetAssetData,
-	GetAssetParams,
-	GetBalanceOfParams2,
-	GetBalanceOfResult,
-	GetConvertToAssetsData,
-	GetConvertToAssetsParams,
-	GetConvertToSharesData,
-	GetConvertToSharesParams,
-	GetMaxDepositData,
-	GetMaxDepositParams,
-	GetMaxMintData,
-	GetMaxMintParams,
-	GetMaxRedeemData,
-	GetMaxRedeemParams,
-	GetMaxWithdrawData,
-	GetMaxWithdrawParams,
-	GetPreviewDepositData,
-	GetPreviewDepositParams,
-	GetPreviewMintData,
-	GetPreviewMintParams,
-	GetPreviewRedeemData,
-	GetPreviewRedeemParams,
-	GetPreviewWithdrawData,
-	GetPreviewWithdrawParams,
-	GetTotalAssetsData,
-	GetTotalAssetsParams,
-	GetTotalSupplyParams2,
-	GetTotalSupplyResult,
+	Erc4626GetErc4626AllowanceData,
+	Erc4626GetErc4626AllowanceParams,
+	Erc4626GetErc4626AssetData,
+	Erc4626GetErc4626AssetParams,
+	Erc4626GetErc4626ConvertToAssetsData,
+	Erc4626GetErc4626ConvertToAssetsParams,
+	Erc4626GetErc4626ConvertToSharesData,
+	Erc4626GetErc4626ConvertToSharesParams,
+	Erc4626GetErc4626MaxDepositData,
+	Erc4626GetErc4626MaxDepositParams,
+	Erc4626GetErc4626MaxMintData,
+	Erc4626GetErc4626MaxMintParams,
+	Erc4626GetErc4626MaxRedeemData,
+	Erc4626GetErc4626MaxRedeemParams,
+	Erc4626GetErc4626MaxWithdrawData,
+	Erc4626GetErc4626MaxWithdrawParams,
+	Erc4626GetErc4626PreviewDepositData,
+	Erc4626GetErc4626PreviewDepositParams,
+	Erc4626GetErc4626PreviewMintData,
+	Erc4626GetErc4626PreviewMintParams,
+	Erc4626GetErc4626PreviewRedeemData,
+	Erc4626GetErc4626PreviewRedeemParams,
+	Erc4626GetErc4626PreviewWithdrawData,
+	Erc4626GetErc4626PreviewWithdrawParams,
+	Erc4626GetErc4626TotalAssetsData,
+	Erc4626GetErc4626TotalAssetsParams,
+	Erc4626GetErc4626TotalSupplyData,
+	Erc4626GetErc4626TotalSupplyParams,
 	InputBody,
-	MintData,
-	RedeemData,
-	TransferFromResult,
-	TransferResult,
-	WithdrawResult,
 } from "@moonup/moon-api";
 import { useCallback } from "react";
 import {
@@ -99,11 +90,14 @@ export const useErc4626 = () => {
 	 * @returns {Promise<ApproveResult>} - A promise that resolves to the result of the approval.
 	 */
 	const approve = useCallback(
-		async (address: string, data: InputBody): Promise<ApproveResult> => {
+		async (address: string, data: InputBody) => {
 			return handleTransaction("approveErc4626", async () => {
 				const erc4626SDK = getErc4626SDK();
 				const preparedTransaction = prepareTransaction(address, data);
-				const response = await erc4626SDK.approve(address, preparedTransaction);
+				const response = await erc4626SDK.erc4626ApproveErc4626(
+					address,
+					preparedTransaction,
+				);
 				return handleWagmiTransaction(response.data);
 			});
 		},
@@ -151,11 +145,14 @@ export const useErc4626 = () => {
 	 * @returns {Promise<DepositData>} A promise that resolves to the deposit data.
 	 */
 	const deposit = useCallback(
-		async (address: string, data: InputBody): Promise<DepositData> => {
+		async (address: string, data: InputBody) => {
 			return handleTransaction("depositErc4626", async () => {
 				const erc4626SDK = getErc4626SDK();
 				const preparedTransaction = prepareTransaction(address, data);
-				const response = await erc4626SDK.deposit(address, preparedTransaction);
+				const response = await erc4626SDK.erc4626DepositToErc4626(
+					address,
+					preparedTransaction,
+				);
 				return handleWagmiTransaction(response.data);
 			});
 		},
@@ -173,10 +170,12 @@ export const useErc4626 = () => {
 	 * const allowance = await getAllowance(params);
 	 */
 	const getAllowance = useCallback(
-		async (params: GetAllowanceParams2): Promise<GetAllowanceResult> => {
+		async (
+			params: Erc4626GetErc4626AllowanceParams,
+		): Promise<Erc4626GetErc4626AllowanceData> => {
 			return handleTransaction("getAllowanceErc4626", async () => {
 				const erc4626SDK = getErc4626SDK();
-				const response = await erc4626SDK.getAllowance(params);
+				const response = await erc4626SDK.erc4626GetErc4626Allowance(params);
 				return response.data;
 			});
 		},
@@ -197,10 +196,12 @@ export const useErc4626 = () => {
 	 * It relies on the `getErc4626SDK` function to obtain an instance of the ERC-4626 SDK.
 	 */
 	const getAsset = useCallback(
-		async (params: GetAssetParams): Promise<GetAssetData> => {
+		async (
+			params: Erc4626GetErc4626AssetParams,
+		): Promise<Erc4626GetErc4626AssetData> => {
 			return handleTransaction("getAssetErc4626", async () => {
 				const erc4626SDK = getErc4626SDK();
-				const response = await erc4626SDK.getAsset(params);
+				const response = await erc4626SDK.erc4626GetErc4626Asset(params);
 				return response.data;
 			});
 		},
@@ -225,10 +226,12 @@ export const useErc4626 = () => {
 	 * ```
 	 */
 	const getBalanceOf = useCallback(
-		async (params: GetBalanceOfParams2): Promise<GetBalanceOfResult> => {
-			return handleTransaction("getBalanceOfErc4626", async () => {
+		async (
+			params: Erc4626GetErc4626AssetParams,
+		): Promise<Erc4626GetErc4626AssetData> => {
+			return handleTransaction("getAssetErc4626", async () => {
 				const erc4626SDK = getErc4626SDK();
-				const response = await erc4626SDK.getBalanceOf(params);
+				const response = await erc4626SDK.erc4626GetErc4626Asset(params);
 				return response.data;
 			});
 		},
@@ -250,11 +253,12 @@ export const useErc4626 = () => {
 	 */
 	const getConvertToAssets = useCallback(
 		async (
-			params: GetConvertToAssetsParams,
-		): Promise<GetConvertToAssetsData> => {
+			params: Erc4626GetErc4626ConvertToAssetsParams,
+		): Promise<Erc4626GetErc4626ConvertToAssetsData> => {
 			return handleTransaction("getConvertToAssetsErc4626", async () => {
 				const erc4626SDK = getErc4626SDK();
-				const response = await erc4626SDK.getConvertToAssets(params);
+				const response =
+					await erc4626SDK.erc4626GetErc4626ConvertToAssets(params);
 				return response.data;
 			});
 		},
@@ -276,11 +280,12 @@ export const useErc4626 = () => {
 	 */
 	const getConvertToShares = useCallback(
 		async (
-			params: GetConvertToSharesParams,
-		): Promise<GetConvertToSharesData> => {
+			params: Erc4626GetErc4626ConvertToSharesParams,
+		): Promise<Erc4626GetErc4626ConvertToSharesData> => {
 			return handleTransaction("getConvertToSharesErc4626", async () => {
 				const erc4626SDK = getErc4626SDK();
-				const response = await erc4626SDK.getConvertToShares(params);
+				const response =
+					await erc4626SDK.erc4626GetErc4626ConvertToShares(params);
 				return response.data;
 			});
 		},
@@ -299,10 +304,12 @@ export const useErc4626 = () => {
 	 * console.log(maxDepositData);
 	 */
 	const getMaxDeposit = useCallback(
-		async (params: GetMaxDepositParams): Promise<GetMaxDepositData> => {
+		async (
+			params: Erc4626GetErc4626MaxDepositParams,
+		): Promise<Erc4626GetErc4626MaxDepositData> => {
 			return handleTransaction("getMaxDepositErc4626", async () => {
 				const erc4626SDK = getErc4626SDK();
-				const response = await erc4626SDK.getMaxDeposit(params);
+				const response = await erc4626SDK.erc4626GetErc4626MaxDeposit(params);
 				return response.data;
 			});
 		},
@@ -321,10 +328,12 @@ export const useErc4626 = () => {
 	 * console.log(maxMintData);
 	 */
 	const getMaxMint = useCallback(
-		async (params: GetMaxMintParams): Promise<GetMaxMintData> => {
+		async (
+			params: Erc4626GetErc4626MaxMintParams,
+		): Promise<Erc4626GetErc4626MaxMintData> => {
 			return handleTransaction("getMaxMintErc4626", async () => {
 				const erc4626SDK = getErc4626SDK();
-				const response = await erc4626SDK.getMaxMint(params);
+				const response = await erc4626SDK.erc4626GetErc4626MaxMint(params);
 				return response.data;
 			});
 		},
@@ -343,10 +352,12 @@ export const useErc4626 = () => {
 	 * console.log(maxRedeemData);
 	 */
 	const getMaxRedeem = useCallback(
-		async (params: GetMaxRedeemParams): Promise<GetMaxRedeemData> => {
+		async (
+			params: Erc4626GetErc4626MaxRedeemParams,
+		): Promise<Erc4626GetErc4626MaxRedeemData> => {
 			return handleTransaction("getMaxRedeemErc4626", async () => {
 				const erc4626SDK = getErc4626SDK();
-				const response = await erc4626SDK.getMaxRedeem(params);
+				const response = await erc4626SDK.erc4626GetErc4626MaxRedeem(params);
 				return response.data;
 			});
 		},
@@ -365,10 +376,12 @@ export const useErc4626 = () => {
 	 * console.log(maxWithdrawData);
 	 */
 	const getMaxWithdraw = useCallback(
-		async (params: GetMaxWithdrawParams): Promise<GetMaxWithdrawData> => {
+		async (
+			params: Erc4626GetErc4626MaxWithdrawParams,
+		): Promise<Erc4626GetErc4626MaxWithdrawData> => {
 			return handleTransaction("getMaxWithdrawErc4626", async () => {
 				const erc4626SDK = getErc4626SDK();
-				const response = await erc4626SDK.getMaxWithdraw(params);
+				const response = await erc4626SDK.erc4626GetErc4626MaxWithdraw(params);
 				return response.data;
 			});
 		},
@@ -389,10 +402,13 @@ export const useErc4626 = () => {
 	 * ```
 	 */
 	const getPreviewDeposit = useCallback(
-		async (params: GetPreviewDepositParams): Promise<GetPreviewDepositData> => {
+		async (
+			params: Erc4626GetErc4626PreviewDepositParams,
+		): Promise<Erc4626GetErc4626PreviewDepositData> => {
 			return handleTransaction("getPreviewDepositErc4626", async () => {
 				const erc4626SDK = getErc4626SDK();
-				const response = await erc4626SDK.getPreviewDeposit(params);
+				const response =
+					await erc4626SDK.erc4626GetErc4626PreviewDeposit(params);
 				return response.data;
 			});
 		},
@@ -413,10 +429,12 @@ export const useErc4626 = () => {
 	 * ```
 	 */
 	const getPreviewMint = useCallback(
-		async (params: GetPreviewMintParams): Promise<GetPreviewMintData> => {
+		async (
+			params: Erc4626GetErc4626PreviewMintParams,
+		): Promise<Erc4626GetErc4626PreviewMintData> => {
 			return handleTransaction("getPreviewMintErc4626", async () => {
 				const erc4626SDK = getErc4626SDK();
-				const response = await erc4626SDK.getPreviewMint(params);
+				const response = await erc4626SDK.erc4626GetErc4626PreviewMint(params);
 				return response.data;
 			});
 		},
@@ -435,10 +453,13 @@ export const useErc4626 = () => {
 	 * console.log(previewData);
 	 */
 	const getPreviewRedeem = useCallback(
-		async (params: GetPreviewRedeemParams): Promise<GetPreviewRedeemData> => {
+		async (
+			params: Erc4626GetErc4626PreviewRedeemParams,
+		): Promise<Erc4626GetErc4626PreviewRedeemData> => {
 			return handleTransaction("getPreviewRedeemErc4626", async () => {
 				const erc4626SDK = getErc4626SDK();
-				const response = await erc4626SDK.getPreviewRedeem(params);
+				const response =
+					await erc4626SDK.erc4626GetErc4626PreviewRedeem(params);
 				return response.data;
 			});
 		},
@@ -462,11 +483,12 @@ export const useErc4626 = () => {
 	 */
 	const getPreviewWithdraw = useCallback(
 		async (
-			params: GetPreviewWithdrawParams,
-		): Promise<GetPreviewWithdrawData> => {
+			params: Erc4626GetErc4626PreviewWithdrawParams,
+		): Promise<Erc4626GetErc4626PreviewWithdrawData> => {
 			return handleTransaction("getPreviewWithdrawErc4626", async () => {
 				const erc4626SDK = getErc4626SDK();
-				const response = await erc4626SDK.getPreviewWithdraw(params);
+				const response =
+					await erc4626SDK.erc4626GetErc4626PreviewWithdraw(params);
 				return response.data;
 			});
 		},
@@ -487,10 +509,12 @@ export const useErc4626 = () => {
 	 * ```
 	 */
 	const getTotalAssets = useCallback(
-		async (params: GetTotalAssetsParams): Promise<GetTotalAssetsData> => {
+		async (
+			params: Erc4626GetErc4626TotalAssetsParams,
+		): Promise<Erc4626GetErc4626TotalAssetsData> => {
 			return handleTransaction("getTotalAssetsErc4626", async () => {
 				const erc4626SDK = getErc4626SDK();
-				const response = await erc4626SDK.getTotalAssets(params);
+				const response = await erc4626SDK.erc4626GetErc4626TotalAssets(params);
 				return response.data;
 			});
 		},
@@ -511,10 +535,12 @@ export const useErc4626 = () => {
 	 * ```
 	 */
 	const getTotalSupply = useCallback(
-		async (params: GetTotalSupplyParams2): Promise<GetTotalSupplyResult> => {
+		async (
+			params: Erc4626GetErc4626TotalSupplyParams,
+		): Promise<Erc4626GetErc4626TotalSupplyData> => {
 			return handleTransaction("getTotalSupplyErc4626", async () => {
 				const erc4626SDK = getErc4626SDK();
-				const response = await erc4626SDK.getTotalSupply(params);
+				const response = await erc4626SDK.erc4626GetErc4626TotalSupply(params);
 				return response.data;
 			});
 		},
@@ -529,11 +555,14 @@ export const useErc4626 = () => {
 	 * @returns {Promise<MintData>} A promise that resolves to the mint data.
 	 */
 	const mint = useCallback(
-		async (address: string, data: InputBody): Promise<MintData> => {
+		async (address: string, data: InputBody) => {
 			return handleTransaction("mintErc4626", async () => {
 				const erc4626SDK = getErc4626SDK();
 				const preparedTransaction = prepareTransaction(address, data);
-				const response = await erc4626SDK.mint(address, preparedTransaction);
+				const response = await erc4626SDK.erc4626MintErc4626Shares(
+					address,
+					preparedTransaction,
+				);
 				return handleWagmiTransaction(response.data);
 			});
 		},
@@ -556,11 +585,14 @@ export const useErc4626 = () => {
 	 * ```
 	 */
 	const redeem = useCallback(
-		async (address: string, data: InputBody): Promise<RedeemData> => {
+		async (address: string, data: InputBody) => {
 			return handleTransaction("redeemErc4626", async () => {
 				const erc4626SDK = getErc4626SDK();
 				const preparedTransaction = prepareTransaction(address, data);
-				const response = await erc4626SDK.redeem(address, preparedTransaction);
+				const response = await erc4626SDK.erc4626RedeemErc4626Shares(
+					address,
+					preparedTransaction,
+				);
 				return handleWagmiTransaction(response.data);
 			});
 		},
@@ -575,11 +607,11 @@ export const useErc4626 = () => {
 	 * @returns A promise that resolves to the result of the transfer operation.
 	 */
 	const transfer = useCallback(
-		async (address: string, data: InputBody): Promise<TransferResult> => {
+		async (address: string, data: InputBody) => {
 			return handleTransaction("transferErc4626", async () => {
 				const erc4626SDK = getErc4626SDK();
 				const preparedTransaction = prepareTransaction(address, data);
-				const response = await erc4626SDK.transfer(
+				const response = await erc4626SDK.erc4626TransferErc4626(
 					address,
 					preparedTransaction,
 				);
@@ -597,11 +629,11 @@ export const useErc4626 = () => {
 	 * @returns A promise that resolves to the result of the transfer operation.
 	 */
 	const transferFrom = useCallback(
-		async (address: string, data: InputBody): Promise<TransferFromResult> => {
+		async (address: string, data: InputBody) => {
 			return handleTransaction("transferFromErc4626", async () => {
 				const erc4626SDK = getErc4626SDK();
 				const preparedTransaction = prepareTransaction(address, data);
-				const response = await erc4626SDK.transferFrom(
+				const response = await erc4626SDK.erc4626TransferFromErc4626(
 					address,
 					preparedTransaction,
 				);
@@ -619,11 +651,11 @@ export const useErc4626 = () => {
 	 * @returns {Promise<WithdrawResult>} A promise that resolves to the result of the withdrawal.
 	 */
 	const withdraw = useCallback(
-		async (address: string, data: InputBody): Promise<WithdrawResult> => {
+		async (address: string, data: InputBody) => {
 			return handleTransaction("withdrawErc4626", async () => {
 				const erc4626SDK = getErc4626SDK();
 				const preparedTransaction = prepareTransaction(address, data);
-				const response = await erc4626SDK.withdraw(
+				const response = await erc4626SDK.erc4626WithdrawFromErc4626(
 					address,
 					preparedTransaction,
 				);

@@ -133,7 +133,9 @@ export class EthereumNetwork implements INetwork {
 	 * @returns A promise that resolves to the address of the created account.
 	 */
 	async createAccount(input: CreateAccountInput): Promise<string> {
-		const response = await this.moon.getAccountsSDK().createAccount(input);
+		const response = await this.moon
+			.getAccountsSDK()
+			.accountsCreateEthereumAccount(input);
 		if (response.data?.data) {
 			const address = response.data.data.address;
 			if (address) {
@@ -152,7 +154,7 @@ export class EthereumNetwork implements INetwork {
 	async deleteAccount(accountName: string): Promise<any> {
 		const response = await this.moon
 			.getAccountsSDK()
-			.deleteAccount(accountName);
+			.accountsDeleteEthereumAccount(accountName);
 		if (response.data) {
 			return response.data;
 		}
@@ -170,7 +172,7 @@ export class EthereumNetwork implements INetwork {
 	): Promise<{ address: string; privateKey: string; publicKey: string }> {
 		const response = await this.moon
 			.getAccountsSDK()
-			.exportAccount(accountName);
+			.accountsExportEthreumAccount(accountName);
 		if (response.data) {
 			return {
 				address: response.data.address,
@@ -188,7 +190,9 @@ export class EthereumNetwork implements INetwork {
 	 * @returns A promise that resolves to the account address.
 	 */
 	async getAccount(accountName: string): Promise<string> {
-		const response = await this.moon.getAccountsSDK().getAccount(accountName);
+		const response = await this.moon
+			.getAccountsSDK()
+			.accountsGetEthreumAccount(accountName);
 		if (response.data) {
 			const address = response.data.address;
 			if (address) {
@@ -206,7 +210,9 @@ export class EthereumNetwork implements INetwork {
 	 */
 	async listAccounts(): Promise<string[]> {
 		try {
-			const response = await this.moon.getAccountsSDK().listAccounts();
+			const response = await this.moon
+				.getAccountsSDK()
+				.accountsListEthereumAccounts();
 			console.log(response);
 
 			if (response.success && response.data?.data?.keys) {

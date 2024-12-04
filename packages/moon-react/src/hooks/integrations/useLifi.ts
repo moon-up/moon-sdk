@@ -1,16 +1,25 @@
 import { useMoonAuth } from "@/context";
 import { useMoonTransaction } from "@/hooks";
 import {
-	type ApiResponseChainsResponse,
-	type ApiResponseStatusResponse,
-	type ApiResponseTokensResponse,
-	type GetQuoteParams1 as GetQuoteParams,
-	type GetstatusParams,
-	type Lifi,
+	ApiResponseStatusResponse,
+	GetToolsParams,
+	LifiGetAllPossibleConnectionsParams,
+	LifiGetConnectionsParams,
+	LifiGetQuoteParams,
+	LifiGetStatusParams,
+	LifiGetTokenDetailsParams,
+	LifiPostQuoteParams,
+	Lifi,
 	OptionalChainTypesEnum,
-	type PostQuote,
-	type PostQuoteParams,
-	type Quote,
+	ApiResponseQuote,
+	ApiResponseTokenDetails,
+	ApiResponseConnectionsResponse,
+	ApiResponseTokenInfoByChainId,
+	ApiResponseToolsResponse,
+	TokensResponse,
+	Quote,
+	ChainsResponse,
+	PostQuote,
 } from "@moonup/moon-api";
 import { useQuery } from "@tanstack/react-query";
 import { useCallback } from "react";
@@ -89,12 +98,14 @@ export const useLifi = () => {
 	 * The query result is considered fresh for 24 hours (staleTime: 1000 * 60 * 60 * 24).
 	 */
 	const supportedTokensQuery = useQuery({
-		queryKey: ["lifiGetSupportedTokens"],
-		queryFn: async () => {
-			const lifiSDK = moon?.getLifiSDK();
-			if (!lifiSDK) throw new Error("Moon Lifi SDK not initialized");
-			const response = await lifiSDK.fetchTokens();
-			return response as ApiResponseTokensResponse;
+		queryKey: ["lifiGetTokens"],
+		queryFn: async (): Promise<TokensResponse> => {
+			const lifiSDK = getLifiSDK();
+			const response = await lifiSDK.lifiGetTokens();
+			if (!response.data) {
+				throw new Error("Failed to fetch supported tokens");
+			}
+			return response.data;
 		},
 		staleTime: 1000 * 60 * 60 * 24,
 	});
@@ -112,14 +123,14 @@ export const useLifi = () => {
 	 * @see {@link https://react-query.tanstack.com/reference/useQuery} for more information on `useQuery`.
 	 */
 	const supportedChainsQuery = useQuery({
-		queryKey: ["lifiGetSupportedChains"],
-		queryFn: async () => {
-			const lifiSDK = moon?.getLifiSDK();
-			if (!lifiSDK) throw new Error("Moon Lifi SDK not initialized");
-			const response = await lifiSDK.getChains({
-				optionalChainTypes: OptionalChainTypesEnum.EVM,
-			});
-			return response as ApiResponseChainsResponse;
+		queryKey: ["lifiGetChains"],
+		queryFn: async (): Promise<ChainsResponse> => {
+			const lifiSDK = getLifiSDK();
+			const response = await lifiSDK.lifiGetChains({});
+			if (!response.data) {
+				throw new Error("Failed to fetch supported chains");
+			}
+			return response.data;
 		},
 		staleTime: 1000 * 60 * 60 * 24,
 	});
@@ -143,11 +154,12 @@ export const useLifi = () => {
 	 * @returns A promise that resolves to an ApiResponseStatusResponse object containing the status of the transaction.
 	 */
 	const getStatus = useCallback(
-		async (payload: GetstatusParams): Promise<ApiResponseStatusResponse> => {
+		async (
+			payload: LifiGetStatusParams,
+		): Promise<ApiResponseStatusResponse> => {
 			return handleTransaction("getStatus", async () => {
 				const lifiSDK = getLifiSDK();
-				const response = await lifiSDK.getstatus(payload);
-				return response as ApiResponseStatusResponse;
+				return await lifiSDK.lifiGetStatus(payload);
 			});
 		},
 		[moon],
@@ -161,14 +173,15 @@ export const useLifi = () => {
 	 *
 	 * @returns {Promise<ApiResponseTokensResponse>} A promise that resolves to the response containing the supported tokens.
 	 */
-	const getSupportedTokens =
-		useCallback(async (): Promise<ApiResponseTokensResponse> => {
-			return handleTransaction("getSupportedTokens", async () => {
+	const getSupportedTokens = useCallback(
+		async (payload: LifiGetQuoteParams): Promise<ApiResponseQuote> => {
+			return handleTransaction("getQuoteLifi", async () => {
 				const lifiSDK = getLifiSDK();
-				const response = await lifiSDK.fetchTokens();
-				return response as ApiResponseTokensResponse;
+				return await lifiSDK.lifiGetQuote(payload);
 			});
-		}, [moon]);
+		},
+		[moon],
+	);
 
 	/**
 	 * Fetches the supported chains using the LiFi SDK.
@@ -179,16 +192,15 @@ export const useLifi = () => {
 	 *
 	 * @returns {Promise<ApiResponseTokensResponse>} A promise that resolves to the response from the LiFi SDK, cast to `ApiResponseChainsResponse`.
 	 */
-	const getSupportedChains =
-		useCallback(async (): Promise<ApiResponseTokensResponse> => {
-			return handleTransaction("getSupportedChains", async () => {
-				const lifiSDK = getLifiSDK();
-				const response = await lifiSDK.getChains({
-					optionalChainTypes: OptionalChainTypesEnum.EVM,
-				});
-				return response as ApiResponseChainsResponse;
+	const getSupportedChains = useCallback(async (): Promise<ChainsResponse> => {
+		return handleTransaction("getSupportedChains", async () => {
+			const lifiSDK = getLifiSDK();
+			const response = await lifiSDK.lifiGetChains({
+				optionalChainTypes: OptionalChainTypesEnum.EVM,
 			});
-		}, [moon]);
+			return response.data;
+		});
+	}, [moon]);
 
 	/**
 	 * Fetches a quote using the LiFi SDK.
@@ -204,11 +216,11 @@ export const useLifi = () => {
 	 * ```
 	 */
 	const getQuoteLifi = useCallback(
-		async (payload: GetQuoteParams): Promise<Quote> => {
+		async (payload: LifiGetQuoteParams): Promise<Quote> => {
 			return handleTransaction("getQuoteLifi", async () => {
 				const lifiSDK = getLifiSDK();
-				const response = await lifiSDK.getQuote(payload);
-				return response.data as Quote;
+				const response = await lifiSDK.lifiGetQuote(payload);
+				return response.data;
 			});
 		},
 		[moon],
@@ -226,27 +238,77 @@ export const useLifi = () => {
 	 * @returns A promise that resolves to the posted quote.
 	 */
 	const postQuoteLifi = useCallback(
-		async (payload: PostQuoteParams): Promise<PostQuote> => {
+		async (payload: LifiPostQuoteParams): Promise<PostQuote> => {
 			return handleTransaction("postQuoteLifi", async () => {
 				const lifiSDK = getLifiSDK();
 				const preparedPayload = prepareTransaction(
 					payload.accountName,
 					payload,
 				);
-				const response = await lifiSDK.postQuote(preparedPayload);
+				const response = await lifiSDK.lifiPostQuote(preparedPayload);
 				return handleWagmiTransaction(response.data);
 			});
 		},
 		[moon, isConnected, sendTransactionAsync],
 	);
 
+	const getTools = useCallback(
+		async (payload: GetToolsParams): Promise<ApiResponseToolsResponse> => {
+			return handleTransaction("getTools", async () => {
+				const lifiSDK = getLifiSDK();
+				return await lifiSDK.getTools(payload);
+			});
+		},
+		[moon],
+	);
+
+	const getAllPossibleConnections = useCallback(
+		async (
+			payload: LifiGetAllPossibleConnectionsParams,
+		): Promise<ApiResponseTokenInfoByChainId> => {
+			return handleTransaction("getAllPossibleConnections", async () => {
+				const lifiSDK = getLifiSDK();
+				return await lifiSDK.lifiGetAllPossibleConnections(payload);
+			});
+		},
+		[moon],
+	);
+
+	const getConnections = useCallback(
+		async (
+			payload: LifiGetConnectionsParams,
+		): Promise<ApiResponseConnectionsResponse> => {
+			return handleTransaction("getConnections", async () => {
+				const lifiSDK = getLifiSDK();
+				return await lifiSDK.lifiGetConnections(payload);
+			});
+		},
+		[moon],
+	);
+
+	const getTokenDetails = useCallback(
+		async (
+			payload: LifiGetTokenDetailsParams,
+		): Promise<ApiResponseTokenDetails> => {
+			return handleTransaction("getTokenDetails", async () => {
+				const lifiSDK = getLifiSDK();
+				return await lifiSDK.lifiGetTokenDetails(payload);
+			});
+		},
+		[moon],
+	);
+
 	return {
 		getStatus,
 		getQuoteLifi,
 		postQuoteLifi,
-		getSupportedTokens,
-		getSupportedChains,
 		supportedTokensQuery,
 		supportedChainsQuery,
+		getTools,
+		getAllPossibleConnections,
+		getConnections,
+		getTokenDetails,
+		getSupportedChains,
+		getSupportedTokens,
 	};
 };

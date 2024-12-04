@@ -8,19 +8,18 @@ import type {
 	AAVEv3UiIncentiveDataProviderAPIResponseFullReservesIncentiveData,
 	AAVEv3UiPoolDataProviderAPIResponseReservesData,
 	AAVEv3UiPoolDataProviderAPIResponseUserReserveDataArray,
-	Aave,
 	AavePoolAPIResponseAavePoolExecuteFunctionResult,
 	AavePoolAPIResponseAny,
 	AavePoolInputBody,
-	GetAllATokensParams,
-	GetFullReservesIncentiveDataParams,
-	GetReserveDataParams,
 	GetReservesDataParams,
-	GetRewardsByAssetParams,
-	GetRewardsDataParams,
-	GetUserReservesDataParams,
-	GetUserRewardsParams,
 	PoolAddressProviderRegistryAPIResponseAnyArray,
+	Aave,
+	AavEv3IncentiveDataProviderGetFullReservesDataParams,
+	AavEv3IncentiveDataProviderGetUserReservesDataParams,
+	Aavev3PoolAddressProviderRegistryGetAllATokensParams,
+	AavEv3RewardsGetUserRewardsParams,
+	AavEv3RewardsGetRewardsDataParams,
+	AavEv3RewardsGetRewardsByAssetParams,
 } from "@moonup/moon-api";
 import { useCallback } from "react";
 import {
@@ -30,7 +29,6 @@ import {
 	useSwitchChain,
 } from "wagmi";
 import { aaveConfig } from "./types";
-
 /**
  * Custom hook to interact with the Aave protocol using the Moon SDK.
  * Provides various functions to supply, withdraw, borrow, repay, and manage rewards on the Aave platform.
@@ -118,7 +116,7 @@ export const useAave = () => {
 				throw new Error(`Unsupported chain ID: ${chainId}`);
 			}
 			const avveSDK = getAaveSDK();
-			const poolAddress = await avveSDK.getPool({
+			const poolAddress = await avveSDK.aavev3PoolAddressProviderGetPool({
 				account: accountName,
 				address: config.poolAddressesProvider,
 				chainId,
@@ -154,7 +152,7 @@ export const useAave = () => {
 					payload.accountName,
 					payload.data,
 				);
-				const response = await aaveSDK.supply(
+				const response = await aaveSDK.aavev3PoolSupply(
 					payload.accountName,
 					preparedData,
 				);
@@ -178,12 +176,12 @@ export const useAave = () => {
 			data: AavePoolInputBody;
 		}): Promise<AavePoolAPIResponseAavePoolExecuteFunctionResult> => {
 			return handleTransaction("withdraw", async () => {
-				const avveSDK = getAaveSDK();
+				const aaveSDK = getAaveSDK();
 				const preparedData = prepareTransaction(
 					payload.accountName,
 					payload.data,
 				);
-				const response = await avveSDK.withdraw(
+				const response = await aaveSDK.aavev3PoolWithdraw(
 					payload.accountName,
 					preparedData,
 				);
@@ -207,12 +205,12 @@ export const useAave = () => {
 			data: AavePoolInputBody;
 		}): Promise<AavePoolAPIResponseAavePoolExecuteFunctionResult> => {
 			return handleTransaction("borrow", async () => {
-				const avveSDK = getAaveSDK();
+				const aaveSDK = getAaveSDK();
 				const preparedData = prepareTransaction(
 					payload.accountName,
 					payload.data,
 				);
-				const response = await avveSDK.borrow(
+				const response = await aaveSDK.aavev3PoolBorrow(
 					payload.accountName,
 					preparedData,
 				);
@@ -236,12 +234,15 @@ export const useAave = () => {
 			data: AavePoolInputBody;
 		}): Promise<AavePoolAPIResponseAavePoolExecuteFunctionResult> => {
 			return handleTransaction("repay", async () => {
-				const avveSDK = getAaveSDK();
+				const aaveSDK = getAaveSDK();
 				const preparedData = prepareTransaction(
 					payload.accountName,
 					payload.data,
 				);
-				const response = await avveSDK.repay(payload.accountName, preparedData);
+				const response = await aaveSDK.aavev3PoolRepay(
+					payload.accountName,
+					preparedData,
+				);
 				return handleWagmiTransaction(response);
 			});
 		},
@@ -262,12 +263,12 @@ export const useAave = () => {
 			data: AAVEv3RewardsInputBody;
 		}): Promise<AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult> => {
 			return handleTransaction("claimAllRewards", async () => {
-				const avveSDK = getAaveSDK();
+				const aaveSDK = getAaveSDK();
 				const preparedData = prepareTransaction(
 					payload.accountName,
 					payload.data,
 				);
-				const response = await avveSDK.claimAllRewards(
+				const response = await aaveSDK.aavEv3RewardsClaimAllRewards(
 					payload.accountName,
 					preparedData,
 				);
@@ -291,12 +292,12 @@ export const useAave = () => {
 			data: AAVEv3RewardsInputBody;
 		}): Promise<AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult> => {
 			return handleTransaction("claimRewardsOnBehalf", async () => {
-				const avveSDK = getAaveSDK();
+				const aaveSDK = getAaveSDK();
 				const preparedData = prepareTransaction(
 					payload.accountName,
 					payload.data,
 				);
-				const response = await avveSDK.claimRewardsOnBehalf(
+				const response = await aaveSDK.aavEv3RewardsClaimRewardsOnBehalf(
 					payload.accountName,
 					preparedData,
 				);
@@ -320,12 +321,12 @@ export const useAave = () => {
 			data: AAVEv3RewardsInputBody;
 		}): Promise<AAVEv3RewardsAPIResponseAAVEv3RewardsExecuteFunctionResult> => {
 			return handleTransaction("claimRewardsToSelf", async () => {
-				const avveSDK = getAaveSDK();
+				const aaveSDK = getAaveSDK();
 				const preparedData = prepareTransaction(
 					payload.accountName,
 					payload.data,
 				);
-				const response = await avveSDK.claimRewardsToSelf(
+				const response = await aaveSDK.aavEv3RewardsClaimRewardsToSelf(
 					payload.accountName,
 					preparedData,
 				);
@@ -343,11 +344,11 @@ export const useAave = () => {
 	 */
 	const getRewardsByAsset = useCallback(
 		async (
-			payload: GetRewardsByAssetParams,
+			payload: AavEv3RewardsGetRewardsByAssetParams,
 		): Promise<AAVEv3RewardsAPIResponseStringArray> => {
 			return handleTransaction("getRewardsByAsset", async () => {
 				const avveSDK = getAaveSDK();
-				const response = await avveSDK.getRewardsByAsset(payload);
+				const response = await avveSDK.aavEv3RewardsGetRewardsByAsset(payload);
 				return response;
 			});
 		},
@@ -371,11 +372,11 @@ export const useAave = () => {
 	 */
 	const getRewardsData = useCallback(
 		async (
-			payload: GetRewardsDataParams,
+			payload: AavEv3RewardsGetRewardsDataParams,
 		): Promise<AAVEv3RewardsAPIResponseStringArray> => {
 			return handleTransaction("getRewardsData", async () => {
 				const avveSDK = getAaveSDK();
-				const response = await avveSDK.getRewardsData(payload);
+				const response = await avveSDK.aavEv3RewardsGetRewardsData(payload);
 				return response;
 			});
 		},
@@ -390,11 +391,11 @@ export const useAave = () => {
 	 */
 	const getUserRewards = useCallback(
 		async (
-			payload: GetUserRewardsParams,
+			payload: AavEv3RewardsGetUserRewardsParams,
 		): Promise<AAVEv3RewardsAPIResponseString> => {
 			return handleTransaction("getUserRewards", async () => {
 				const avveSDK = getAaveSDK();
-				const response = await avveSDK.getUserRewards(payload);
+				const response = await avveSDK.aavEv3RewardsGetUserRewards(payload);
 				return response;
 			});
 		},
@@ -409,11 +410,12 @@ export const useAave = () => {
 	 */
 	const getAllATokens = useCallback(
 		async (
-			payload: GetAllATokensParams,
+			payload: Aavev3PoolAddressProviderRegistryGetAllATokensParams,
 		): Promise<PoolAddressProviderRegistryAPIResponseAnyArray> => {
 			return handleTransaction("getAllATokens", async () => {
 				const avveSDK = getAaveSDK();
-				const response = await avveSDK.getAllATokens(payload);
+				const response =
+					await avveSDK.aavev3PoolAddressProviderRegistryGetAllATokens(payload);
 				return response;
 			});
 		},
@@ -443,7 +445,7 @@ export const useAave = () => {
 				if (!poolAdd) {
 					throw new Error("Market pool Address not found");
 				}
-				const response = await avveSDK.getUserAccountData({
+				const response = await avveSDK.aavev3PoolGetUserAccountData({
 					account: payload.account,
 					address: poolAdd,
 					chainId: payload.chainId,
@@ -468,11 +470,11 @@ export const useAave = () => {
 	 * ```
 	 */
 	const getReserveData = useCallback(
-		async (payload: GetReserveDataParams): Promise<AavePoolAPIResponseAny> => {
+		async (payload: GetReservesDataParams): Promise<AavePoolAPIResponseAny> => {
 			return handleTransaction("getReserveData", async () => {
 				const avveSDK = getAaveSDK();
 
-				const response = await avveSDK.getReserveData(payload);
+				const response = await avveSDK.getReservesData(payload);
 				return response;
 			});
 		},
@@ -494,11 +496,12 @@ export const useAave = () => {
 	 */
 	const getUserReservesData = useCallback(
 		async (
-			payload: GetUserReservesDataParams,
+			payload: AavEv3IncentiveDataProviderGetUserReservesDataParams,
 		): Promise<AAVEv3UiPoolDataProviderAPIResponseUserReserveDataArray> => {
 			return handleTransaction("getUserReservesData", async () => {
 				const avveSDK = getAaveSDK();
-				const response = await avveSDK.getUserReservesData(payload);
+				const response =
+					await avveSDK.aavEv3IncentiveDataProviderGetUserReservesData(payload);
 				return response;
 			});
 		},
@@ -520,11 +523,12 @@ export const useAave = () => {
 
 	const getFullReservesIncentiveData = useCallback(
 		async (
-			payload: GetFullReservesIncentiveDataParams,
+			payload: AavEv3IncentiveDataProviderGetFullReservesDataParams,
 		): Promise<AAVEv3UiIncentiveDataProviderAPIResponseFullReservesIncentiveData> => {
 			return handleTransaction("getFullReservesIncentiveData", async () => {
 				const avveSDK = getAaveSDK();
-				const response = await avveSDK.getFullReservesIncentiveData(payload);
+				const response =
+					await avveSDK.aavEv3IncentiveDataProviderGetFullReservesData(payload);
 				return response;
 			});
 		},

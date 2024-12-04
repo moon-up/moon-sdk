@@ -90,7 +90,7 @@ export const useErc721 = () => {
 					payload.address,
 					payload.transaction,
 				);
-				const response = await erc721SDK.approveErc721(
+				const response = await erc721SDK.erc721ApproveErc721(
 					payload.address,
 					preparedTransaction,
 				);
@@ -117,7 +117,7 @@ export const useErc721 = () => {
 		}): Promise<Transaction> => {
 			return handleTransaction("getErc721Approved", async () => {
 				const erc721SDK = getErc721SDK();
-				const response = await erc721SDK.getErc721Approved(payload);
+				const response = await erc721SDK.erc721GetErc721Approved(payload);
 				return response.data;
 			});
 		},
@@ -141,7 +141,7 @@ export const useErc721 = () => {
 		}): Promise<{ balance: string }> => {
 			return handleTransaction("getErc721BalanceOf", async () => {
 				const erc721SDK = getErc721SDK();
-				const response = await erc721SDK.getErc721BalanceOf(payload);
+				const response = await erc721SDK.erc721GetErc721BalanceOf(payload);
 				return response.data;
 			});
 		},
@@ -167,7 +167,8 @@ export const useErc721 = () => {
 		}): Promise<{ isApproved: boolean }> => {
 			return handleTransaction("getErc721IsApprovedForAll", async () => {
 				const erc721SDK = getErc721SDK();
-				const response = await erc721SDK.getErc721IsApprovedForAll(payload);
+				const response =
+					await erc721SDK.erc721GetErc721IsApprovedForAll(payload);
 				return response.data;
 			});
 		},
@@ -189,7 +190,7 @@ export const useErc721 = () => {
 		}): Promise<{ name: string }> => {
 			return handleTransaction("getErc721Name", async () => {
 				const erc721SDK = getErc721SDK();
-				const response = await erc721SDK.getErc721Name(payload);
+				const response = await erc721SDK.erc721GetErc721Name(payload);
 				return response.data;
 			});
 		},
@@ -221,7 +222,7 @@ export const useErc721 = () => {
 		}): Promise<{ owner: string }> => {
 			return handleTransaction("getErc721OwnerOf", async () => {
 				const erc721SDK = getErc721SDK();
-				const response = await erc721SDK.getErc721OwnerOf(payload);
+				const response = await erc721SDK.erc721GetErc721OwnerOf(payload);
 				return response.data;
 			});
 		},
@@ -249,7 +250,7 @@ export const useErc721 = () => {
 		}): Promise<{ symbol: string }> => {
 			return handleTransaction("getErc721Symbol", async () => {
 				const erc721SDK = getErc721SDK();
-				const response = await erc721SDK.getErc721Symbol(payload);
+				const response = await erc721SDK.erc721GetErc721Symbol(payload);
 				return response.data;
 			});
 		},
@@ -273,7 +274,7 @@ export const useErc721 = () => {
 		}): Promise<{ tokenUri: string }> => {
 			return handleTransaction("getErc721TokenUri", async () => {
 				const erc721SDK = getErc721SDK();
-				const response = await erc721SDK.getErc721TokenUri(payload);
+				const response = await erc721SDK.erc721GetErc721TokenUri(payload);
 				return response.data;
 			});
 		},
@@ -299,7 +300,7 @@ export const useErc721 = () => {
 					payload.address,
 					payload.transaction,
 				);
-				const response = await erc721SDK.safeTransferFromErc721(
+				const response = await erc721SDK.erc721SafeTransferFromErc721(
 					payload.address,
 					preparedTransaction,
 				);
@@ -328,7 +329,7 @@ export const useErc721 = () => {
 					payload.address,
 					payload.transaction,
 				);
-				const response = await erc721SDK.safeTransferFromWithDataErc721(
+				const response = await erc721SDK.erc721SafeTransferFromWithDataErc721(
 					payload.address,
 					preparedTransaction,
 				);
@@ -357,7 +358,7 @@ export const useErc721 = () => {
 					payload.address,
 					payload.transaction,
 				);
-				const response = await erc721SDK.setApprovalForAllErc721(
+				const response = await erc721SDK.erc721SetApprovalForAllErc721(
 					payload.address,
 					preparedTransaction,
 				);
@@ -385,7 +386,7 @@ export const useErc721 = () => {
 					payload.address,
 					payload.transaction,
 				);
-				const response = await erc721SDK.transferFromErc721(
+				const response = await erc721SDK.erc721TransferFromErc721(
 					payload.address,
 					preparedTransaction,
 				);

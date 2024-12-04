@@ -5,7 +5,7 @@ import type {
 	GetAmountOutParams2,
 	GetAmountsOutParams2,
 	GetBalanceOfNftParams2,
-	GetBalanceOfParams6,
+	GetBalanceOfParams2,
 	GetDelegatesParams2,
 	GetFactoryParams2,
 	GetLastVotedParams2,
@@ -15,7 +15,7 @@ import type {
 	GetReservesParams,
 	GetTokenUriParams2,
 	GetTopAprPoolsParams2,
-	GetTotalSupplyParams6,
+	GetTotalSupplyParams2,
 	GetTotalWeightParams2,
 	GetVotesParams2,
 	GetWeightsParams2,
@@ -464,7 +464,7 @@ export const useRamses = () => {
 	);
 
 	const getBalanceOf = useCallback(
-		async (query: GetBalanceOfParams6) =>
+		async (query: GetBalanceOfParams2) =>
 			handleTransaction("getBalanceOf", async () => {
 				const ramsesSDK = getRamsesSDK();
 				return ramsesSDK.getBalanceOf(query);
@@ -608,7 +608,7 @@ export const useRamses = () => {
 	);
 
 	const getTotalSupply = useCallback(
-		async (query: GetTotalSupplyParams6) =>
+		async (query: GetTotalSupplyParams2) =>
 			handleTransaction("getTotalSupply", async () => {
 				const ramsesSDK = getRamsesSDK();
 				return ramsesSDK.getTotalSupply(query);

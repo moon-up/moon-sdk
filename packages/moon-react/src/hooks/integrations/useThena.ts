@@ -26,7 +26,7 @@ import type {
 	GetBalanceOfData,
 	GetBalanceOfNftOutput,
 	GetBalanceOfNftParams4,
-	GetBalanceOfParams8,
+	GetBalanceOfParams4,
 	GetDelegatesOutput,
 	GetDelegatesParams4,
 	GetFusionByAddressData,
@@ -56,7 +56,7 @@ import type {
 	GetTotalSupplyAtParams,
 	GetTotalSupplyAtTData,
 	GetTotalSupplyAtTParams,
-	GetTotalSupplyParams8,
+	GetTotalSupplyParams4,
 	GetTotalSupplyResult,
 	GetTotalValueLockedOutput,
 	GetTotalWeightOutput,
@@ -72,7 +72,7 @@ import type {
 	IncreaseLockAmountResult,
 	IncreaseUnlockTimeOutput,
 	IsApprovedForAllData,
-	IsApprovedForAllParams5,
+	IsApprovedForAllParams4,
 	IsGaugeOutput,
 	IsGaugeParams4,
 	IsWhitelistedOutput,
@@ -87,7 +87,6 @@ import type {
 	PoolVoteLengthParams,
 	ResetOutput,
 	ReviveGaugeOutput,
-	SafeTransferFromOutput,
 	SetApprovalForAllResult,
 	SplitOutput,
 	TransferFromResult,
@@ -410,7 +409,7 @@ export const useThena = () => {
 	);
 
 	const getBalanceOf = useCallback(
-		(params: GetBalanceOfParams8): Promise<GetBalanceOfData> => {
+		(params: GetBalanceOfParams4): Promise<GetBalanceOfData> => {
 			return handleTransaction("getBalanceOf", async () => {
 				const thenaSDK = getThenaSDK();
 				const response = await thenaSDK.getBalanceOf(params);
@@ -594,7 +593,7 @@ export const useThena = () => {
 	);
 
 	const getTotalSupply = useCallback(
-		(params: GetTotalSupplyParams8): Promise<GetTotalSupplyResult> => {
+		(params: GetTotalSupplyParams4): Promise<GetTotalSupplyResult> => {
 			return handleTransaction("getTotalSupply", async () => {
 				const thenaSDK = getThenaSDK();
 				const response = await thenaSDK.getTotalSupply(params);
@@ -730,7 +729,7 @@ export const useThena = () => {
 	);
 
 	const isApprovedForAll = useCallback(
-		(params: IsApprovedForAllParams5): Promise<IsApprovedForAllData> => {
+		(params: IsApprovedForAllParams4): Promise<IsApprovedForAllData> => {
 			return handleTransaction("isApprovedForAll", async () => {
 				const thenaSDK = getThenaSDK();
 				const response = await thenaSDK.isApprovedForAll(params);
@@ -875,10 +874,7 @@ export const useThena = () => {
 	);
 
 	const safeTransferFrom = useCallback(
-		(
-			address: string,
-			data: VeNFTInputBody,
-		): Promise<SafeTransferFromOutput> => {
+		(address: string, data: VeNFTInputBody) => {
 			return handleTransaction("safeTransferFrom", async () => {
 				const thenaSDK = getThenaSDK();
 				const preparedData = prepareTransaction(address, data);

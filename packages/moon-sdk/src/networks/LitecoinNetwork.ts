@@ -1,3 +1,4 @@
+import { LitecoinInput, LitecoinTransactionInput } from "@moonup/moon-api";
 import type { MoonSDK } from "../moon";
 
 import type { INetwork } from "./INetwork";
@@ -105,17 +106,17 @@ export class LitecoinNetwork implements INetwork {
 	 * @param input - The input data required to create a Litecoin account.
 	 * @returns A promise that resolves to the data of the created Litecoin account.
 	 */
-	async createAccount(input: any): Promise<any> {
+	async createAccount(input: LitecoinInput): Promise<string> {
 		const response = await this.moon
 			.getLitecoinSDK()
-			.createLitecoinAccount(input);
-		return response.data;
+			.litecoinCreateLitecoinAccount(input);
+		return response.data?.address || "";
 	}
 
 	async signTransaction(accountName: string, transaction: any): Promise<any> {
 		const response = await this.moon
 			.getLitecoinSDK()
-			.signLitecoinTransaction(accountName, transaction);
+			.litecoinSignLitecoinTransaction(accountName, transaction);
 		return response.data;
 	}
 
@@ -128,7 +129,7 @@ export class LitecoinNetwork implements INetwork {
 	async deleteAccount(accountName: string): Promise<any> {
 		const response = await this.moon
 			.getLitecoinSDK()
-			.deleteLitecoinAccount(accountName);
+			.litecoinDeleteLitecoinAccount(accountName);
 		return response.data;
 	}
 
@@ -141,7 +142,7 @@ export class LitecoinNetwork implements INetwork {
 	async exportAccount(accountName: string): Promise<any> {
 		const response = await this.moon
 			.getLitecoinSDK()
-			.exportLitecoinAccount(accountName);
+			.litecoinExportLitecoinAccount(accountName);
 		return response.data;
 	}
 
@@ -154,7 +155,7 @@ export class LitecoinNetwork implements INetwork {
 	async getAccount(accountName: string): Promise<any> {
 		const response = await this.moon
 			.getLitecoinSDK()
-			.getLitecoinAccount(accountName);
+			.litecoinGetLitecoinAccount(accountName);
 		return response.data;
 	}
 
@@ -163,9 +164,9 @@ export class LitecoinNetwork implements INetwork {
 	 *
 	 * @returns {Promise<any>} A promise that resolves to the data containing the list of Litecoin accounts.
 	 */
-	async listAccounts(): Promise<any> {
+	async listAccounts(): Promise<string[]> {
 		const response = await this.moon.getLitecoinSDK().listLitecoinAccounts();
-		return response.data;
+		return response.data?.keys || [];
 	}
 
 	/**
@@ -177,11 +178,11 @@ export class LitecoinNetwork implements INetwork {
 	 */
 	async signTransactionWithMemo(
 		accountName: string,
-		transaction: any,
+		transaction: LitecoinTransactionInput,
 	): Promise<any> {
 		const response = await this.moon
 			.getLitecoinSDK()
-			.signLitecoinTransactionWithMemo(accountName, transaction);
+			.litecoinSignLitecoinTransactionWithMemo(accountName, transaction);
 		return response.data;
 	}
 }

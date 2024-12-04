@@ -1,8 +1,8 @@
 import { useChains, useMoonAccount, useMoonTransaction } from "@/hooks";
 import type {
 	Data,
-	GetWalletBalanceParams,
-	GetWalletHistoryParams,
+	DataGetWalletTokenBalancesParams,
+	DataGetWalletTransactionHistoryParams,
 	WalletBalanceAPIResponse,
 	WalletHistoryAPIResponse,
 } from "@moonup/moon-api";
@@ -90,7 +90,7 @@ export const useMoonDataSDK = () => {
 			if (!chainIdToHexMapping[chain.chain_id])
 				throw new Error("useMoonWalletHistory::Chain not supported");
 			const hexChain = chainIdToHexMapping[chain.chain_id].hexId;
-			const response = await dataSDK.getWalletHistory({
+			const response = await dataSDK.dataGetWalletTransactionHistory({
 				address: wallet || "",
 				chain: hexChain,
 			});
@@ -98,6 +98,34 @@ export const useMoonDataSDK = () => {
 		},
 		staleTime: 1000 * 60 * 20,
 	});
+	const walletBalanceChainIdQuery = (chainId?: number) =>
+		useQuery({
+			queryKey: ["useMoonDataWalletBalanceQuery", chainId || chain?.id, wallet],
+			queryFn: async () => {
+				const dataSDK = moon?.getDataSDK();
+				if (!dataSDK)
+					throw new Error("useMoonWalletHistory::Moon SDK not initialized");
+				if (!wallet)
+					throw new Error("useMoonWalletHistory::No wallet address found");
+
+				const selectedChainId = chainId || chain?.chain_id;
+				if (!selectedChainId)
+					throw new Error("useMoonWalletHistory::No chain found");
+				if (!chainIdToHexMapping[selectedChainId])
+					throw new Error("useMoonWalletHistory::Chain not supported");
+
+				const hexChain = chainIdToHexMapping[selectedChainId].hexId;
+				const response = await dataSDK.dataGetWalletTokenBalances({
+					address: wallet || "",
+					chain: hexChain,
+				});
+				if (!response.data) {
+					throw new Error("useMoonDataSDK::Wallet balance query failed");
+				}
+				return response.data;
+			},
+			staleTime: 1000 * 60 * 20,
+		});
 
 	const walletBalanceQuery = useQuery({
 		queryKey: ["useMoonDataWalletBalanceQuery", chain?.id, wallet],
@@ -112,10 +140,13 @@ export const useMoonDataSDK = () => {
 			if (!chainIdToHexMapping[chain.chain_id])
 				throw new Error("useMoonWalletHistory::Chain not supported");
 			const hexChain = chainIdToHexMapping[chain.chain_id].hexId;
-			const response = await dataSDK.getWalletBalance({
+			const response = await dataSDK.dataGetWalletTokenBalances({
 				address: wallet || "",
 				chain: hexChain,
 			});
+			if (!response.data) {
+				throw new Error("useMoonDataSDK::Wallet balance query failed");
+			}
 			return response.data;
 		},
 		staleTime: 1000 * 60 * 20,
@@ -129,12 +160,12 @@ export const useMoonDataSDK = () => {
 
 	const getWalletBalance = useCallback(
 		async (
-			payload: GetWalletBalanceParams,
+			payload: DataGetWalletTokenBalancesParams,
 		): Promise<WalletBalanceAPIResponse> => {
 			return handleTransaction("getWalletBalance", async () => {
 				const dataSDK = getDataSDK();
-				const response = await dataSDK.getWalletBalance(payload);
-				return response;
+				const response = await dataSDK.dataGetWalletTokenBalances(payload);
+				return response.data;
 			});
 		},
 		[moon],
@@ -142,11 +173,11 @@ export const useMoonDataSDK = () => {
 
 	const getWalletHistory = useCallback(
 		async (
-			payload: GetWalletHistoryParams,
+			payload: DataGetWalletTransactionHistoryParams,
 		): Promise<WalletHistoryAPIResponse> => {
 			return handleTransaction("getWalletHistory", async () => {
 				const dataSDK = getDataSDK();
-				const response = await dataSDK.getWalletHistory(payload);
+				const response = await dataSDK.dataGetWalletTransactionHistory(payload);
 				return response;
 			});
 		},
@@ -157,7 +188,7 @@ export const useMoonDataSDK = () => {
 		queryKey: ["nfts", wallet, chain?.chain_id],
 		queryFn: async () => {
 			if (!wallet || !moon) return null;
-			const response = await moon.getDataSDK().getNfTs({
+			const response = await moon.getDataSDK().dataGetWalletNfTs({
 				address: wallet,
 				chain: chain?.chain_id?.toString() || "1",
 			});
@@ -173,5 +204,6 @@ export const useMoonDataSDK = () => {
 		walletHistoryQuery,
 		walletBalanceQuery,
 		walletNFTQuery,
+		walletBalanceChainIdQuery,
 	};
 };

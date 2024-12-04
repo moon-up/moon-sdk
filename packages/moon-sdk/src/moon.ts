@@ -698,7 +698,10 @@ export class MoonSDK extends EventEmitter implements IMoonSDK {
 		try {
 			const signedMessage = await this.moonAPIService
 				.getAccountsSDK()
-				.signMessage(wallet, { data: message.toString(), encoding: "utf-8" });
+				.accountsSignEthreumMessage(wallet, {
+					data: message.toString(),
+					encoding: "utf-8",
+				});
 			this.emit("messageSigned", signedMessage.data?.signed_message);
 			return signedMessage.data?.signed_message || "";
 		} catch (error) {
@@ -732,7 +735,7 @@ export class MoonSDK extends EventEmitter implements IMoonSDK {
 			});
 			const response = await this.moonAPIService
 				.getAccountsSDK()
-				.signTypedData(wallet, { data });
+				.accountsSignEthereumTypedData(wallet, { data });
 			this.emit("typedDataSigned", response.data?.signature);
 			return response.data?.signature || "";
 		} catch (error) {
@@ -758,7 +761,10 @@ export class MoonSDK extends EventEmitter implements IMoonSDK {
 		try {
 			const transactionHash = await this.moonAPIService
 				.getAccountsSDK()
-				.broadcastTx(wallet, { rawTransaction, chainId });
+				.accountsBroadcastEthreeumTransaction(wallet, {
+					rawTransaction,
+					chainId,
+				});
 			this.emit("transactionSent", transactionHash.data?.data);
 			return transactionHash.data?.data || "";
 		} catch (error) {

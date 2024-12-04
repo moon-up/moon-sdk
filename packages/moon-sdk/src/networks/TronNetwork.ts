@@ -32,9 +32,9 @@ export class TronNetwork implements INetwork {
 	 * @param {TronInput} input - The input parameters required to create a Tron account.
 	 * @returns {Promise<any>} A promise that resolves to the response data from the Tron SDK.
 	 */
-	async createAccount(input: TronInput): Promise<any> {
-		const response = await this.moon.getTronSDK().createTronAccount(input);
-		return response.data;
+	async createAccount(input: TronInput): Promise<string> {
+		const response = await this.moon.getTronSDK().tronCreateTronAccount(input);
+		return response.data?.data.address || "";
 	}
 
 	/**
@@ -46,7 +46,7 @@ export class TronNetwork implements INetwork {
 	async deleteAccount(accountName: string): Promise<any> {
 		const response = await this.moon
 			.getTronSDK()
-			.deleteTronAccount(accountName);
+			.tronDeleteTronAccount(accountName);
 		return response.data;
 	}
 
@@ -59,7 +59,7 @@ export class TronNetwork implements INetwork {
 	async exportAccount(accountName: string): Promise<any> {
 		const response = await this.moon
 			.getTronSDK()
-			.exportTronAccount(accountName);
+			.tronExportTronAccount(accountName);
 		return response.data;
 	}
 
@@ -70,7 +70,9 @@ export class TronNetwork implements INetwork {
 	 * @returns A promise that resolves to the account information.
 	 */
 	async getAccount(accountName: string): Promise<any> {
-		const response = await this.moon.getTronSDK().getTronAccount(accountName);
+		const response = await this.moon
+			.getTronSDK()
+			.tronGetTronAccount(accountName);
 		return response.data;
 	}
 
@@ -79,9 +81,9 @@ export class TronNetwork implements INetwork {
 	 *
 	 * @returns {Promise<any>} A promise that resolves to the data containing the list of Tron accounts.
 	 */
-	async listAccounts(): Promise<any> {
-		const response = await this.moon.getTronSDK().listTronAccounts();
-		return response.data;
+	async listAccounts(): Promise<string[]> {
+		const response = await this.moon.getTronSDK().tronListTronAccounts();
+		return response.data?.keys || [];
 	}
 
 	/**
@@ -97,7 +99,7 @@ export class TronNetwork implements INetwork {
 	): Promise<any> {
 		const response = await this.moon
 			.getTronSDK()
-			.signTronTransaction(accountName, transaction);
+			.tronSignTronTransaction(accountName, transaction);
 		return response.data;
 	}
 

@@ -1,15 +1,14 @@
 import { useMoonSDK, useMoonTransaction } from "@/hooks";
 import type {
-	GetGasPriceData,
 	GetGasPriceParams,
-	GetQuoteParams4,
-	GetQuoteResult,
-	GetSupportedChainsParams1,
-	GetSupportedChainsResult,
-	GetSupportedProvidersData,
+	GetQuoteParams,
+	GetSupportedChainsParams,
 	GetSupportedProvidersParams,
-	SwapInput,
-	SwapOutput,
+	SwapPayload,
+	ThorSwapAPIResponseGasPrice,
+	ThorSwapAPIResponseQuote,
+	ThorSwapAPIResponseString,
+	ThorSwapAPIResponseStringArray,
 	Thorswap,
 } from "@moonup/moon-api";
 import { useQuery } from "@tanstack/react-query";
@@ -77,7 +76,7 @@ export const useThorswap = () => {
 					address,
 					chainId,
 				});
-				return response as GetSupportedProvidersData;
+				return response;
 			},
 			staleTime: 1000 * 60 * 60 * 24,
 		});
@@ -101,11 +100,12 @@ export const useThorswap = () => {
 	 * @returns A promise that resolves to the gas price data.
 	 */
 	const getGasPrice = useCallback(
-		async (payload: GetGasPriceParams): Promise<GetGasPriceData> => {
+		async (
+			payload: GetGasPriceParams,
+		): Promise<ThorSwapAPIResponseGasPrice> => {
 			return handleTransaction("getGasPrice", async () => {
 				const thorswapSDK = getThorswapSDK();
-				const response = await thorswapSDK.getGasPrice(payload);
-				return response.data;
+				return await thorswapSDK.getGasPrice(payload);
 			});
 		},
 		[moon],
@@ -118,11 +118,10 @@ export const useThorswap = () => {
 	 * @returns A promise that resolves to the quote result.
 	 */
 	const getQuote = useCallback(
-		async (payload: GetQuoteParams4): Promise<GetQuoteResult> => {
+		async (payload: GetQuoteParams): Promise<ThorSwapAPIResponseQuote> => {
 			return handleTransaction("getQuote", async () => {
 				const thorswapSDK = getThorswapSDK();
-				const response = await thorswapSDK.getQuote(payload);
-				return response.data;
+				return await thorswapSDK.getQuote(payload);
 			});
 		},
 		[moon],
@@ -136,12 +135,11 @@ export const useThorswap = () => {
 	 */
 	const getSupportedChains = useCallback(
 		async (
-			payload: GetSupportedChainsParams1,
-		): Promise<GetSupportedChainsResult> => {
+			payload: GetSupportedChainsParams,
+		): Promise<ThorSwapAPIResponseStringArray> => {
 			return handleTransaction("getSupportedChains", async () => {
 				const thorswapSDK = getThorswapSDK();
-				const response = await thorswapSDK.getSupportedChains(payload);
-				return response.data;
+				return await thorswapSDK.getSupportedChains(payload);
 			});
 		},
 		[moon],
@@ -156,11 +154,10 @@ export const useThorswap = () => {
 	const getSupportedProviders = useCallback(
 		async (
 			payload: GetSupportedProvidersParams,
-		): Promise<GetSupportedProvidersData> => {
+		): Promise<ThorSwapAPIResponseStringArray> => {
 			return handleTransaction("getSupportedProviders", async () => {
 				const thorswapSDK = getThorswapSDK();
-				const response = await thorswapSDK.getSupportedProviders(payload);
-				return response.data;
+				return await thorswapSDK.getSupportedProviders(payload);
 			});
 		},
 		[moon],
@@ -173,11 +170,10 @@ export const useThorswap = () => {
 	 * @returns A promise that resolves to the output of the swap operation.
 	 */
 	const swap = useCallback(
-		async (payload: SwapInput): Promise<SwapOutput> => {
+		async (payload: SwapPayload): Promise<ThorSwapAPIResponseString> => {
 			return handleTransaction("swap", async () => {
 				const thorswapSDK = getThorswapSDK();
-				const response = await thorswapSDK.swap(payload);
-				return response.data;
+				return await thorswapSDK.swap(payload);
 			});
 		},
 		[moon],

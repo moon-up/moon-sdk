@@ -90,7 +90,7 @@ export const useErc1155 = () => {
 		}): Promise<{ balance: string }> => {
 			return handleTransaction("balanceOfErc1155", async () => {
 				const erc1155SDK = getErc1155SDK();
-				const response = await erc1155SDK.balanceOf(
+				const response = await erc1155SDK.erc1155Erc1155BalanceOf(
 					payload.accountName,
 					payload.transaction,
 				);
@@ -119,7 +119,7 @@ export const useErc1155 = () => {
 					payload.accountName,
 					payload.transaction,
 				);
-				const response = await erc1155SDK.safeTransferFrom(
+				const response = await erc1155SDK.erc1155Erc1155SafeTransferFrom(
 					payload.accountName,
 					preparedTransaction,
 				);

@@ -4,8 +4,7 @@ import type {
 	AddLiquidityEthOutput,
 	AddLiquidityOutput,
 	ApproveOutput,
-	BalanceOfOutput,
-	BalanceOfParams3,
+	BalanceOfParams,
 	BaseUriData,
 	BaseUriParams,
 	BurnResult,
@@ -18,24 +17,15 @@ import type {
 	ExactInputSingleData,
 	ExactOutputData,
 	ExactOutputSingleData,
-	Factory2Data,
-	Factory2Params,
-	FactoryData,
-	FactoryParams,
 	GetAmountInData,
 	GetAmountOutOutput,
 	GetAmountsInData,
 	GetAmountsOutOutput,
 	GetApprovedParams2,
 	GetApprovedResult,
-	GetFactoryOutput,
-	GetFactoryParams4,
-	GetWethData,
-	GetWethParams6,
+	GetWethParams4,
 	IncreaseLiquidityData,
-	IsApprovedForAllOutput,
-	IsApprovedForAllParams3,
-	MintResult,
+	IsApprovedForAllParams2,
 	Multicall2Data,
 	MulticallData,
 	NameData,
@@ -61,8 +51,6 @@ import type {
 	SelfPermitData,
 	SelfPermitIfNecessaryData,
 	SetApprovalForAllOutput,
-	SupportsInterfaceParams2,
-	SupportsInterfaceResult,
 	SwapEthForExactTokensData,
 	SwapExactEthForTokensOutput,
 	SwapExactEthForTokensSupportingFeeOnTransferTokensData,
@@ -111,7 +99,6 @@ import {
  * @method getAmountOut - Gets the output amount for a given input amount.
  * @method getAmountsIn - Gets the input amounts required for a given output amount.
  * @method getAmountsOut - Gets the output amounts for a given input amount.
- * @method getFactory - Gets the address of the Uniswap V2 factory.
  * @method getWeth - Gets the address of the WETH token.
  * @method quote - Gets the quote for a given input amount.
  * @method removeLiquidity - Removes liquidity from a Uniswap V2 pool.
@@ -142,8 +129,6 @@ import {
  * @method exactInputSingle - Executes an exact input single swap on Uniswap V3.
  * @method exactOutput - Executes an exact output swap on Uniswap V3.
  * @method exactOutputSingle - Executes an exact output single swap on Uniswap V3.
- * @method factory - Gets the address of the Uniswap V3 factory.
- * @method factory2 - Gets the address of the Uniswap V3 factory (alternative method).
  * @method getApproved - Gets the approved address for a Uniswap V3 NFT.
  * @method increaseLiquidity - Increases liquidity in a Uniswap V3 position.
  * @method isApprovedForAll - Checks if an address is approved for all Uniswap V3 NFTs.
@@ -373,8 +358,8 @@ export const useUniswap = () => {
 	// UniswapV3NFT methods (continued)
 	const balanceOf = useCallback(
 		async (payload: {
-			query: BalanceOfParams3;
-		}): Promise<BalanceOfOutput> => {
+			query: BalanceOfParams;
+		}) => {
 			return handleTransaction("balanceOf", async () => {
 				const uniswapSDK = getUniswapSDK();
 				const response = await uniswapSDK.balanceOf(payload.query);
@@ -579,28 +564,6 @@ export const useUniswap = () => {
 		[moon, isConnected, sendTransactionAsync],
 	);
 
-	const factory = useCallback(
-		async (payload: { query: FactoryParams }): Promise<FactoryData> => {
-			return handleTransaction("factory", async () => {
-				const uniswapSDK = getUniswapSDK();
-				const response = await uniswapSDK.factory(payload.query);
-				return response;
-			});
-		},
-		[moon],
-	);
-
-	const factory2 = useCallback(
-		async (payload: { query: Factory2Params }): Promise<Factory2Data> => {
-			return handleTransaction("factory2", async () => {
-				const uniswapSDK = getUniswapSDK();
-				const response = await uniswapSDK.factory2(payload.query);
-				return response;
-			});
-		},
-		[moon],
-	);
-
 	const getApproved = useCallback(
 		async (payload: {
 			query: GetApprovedParams2;
@@ -637,8 +600,8 @@ export const useUniswap = () => {
 
 	const isApprovedForAll = useCallback(
 		async (payload: {
-			query: IsApprovedForAllParams3;
-		}): Promise<IsApprovedForAllOutput> => {
+			query: IsApprovedForAllParams2;
+		}) => {
 			return handleTransaction("isApprovedForAll", async () => {
 				const uniswapSDK = getUniswapSDK();
 				const response = await uniswapSDK.isApprovedForAll(payload.query);
@@ -652,7 +615,7 @@ export const useUniswap = () => {
 		async (payload: {
 			accountName: string;
 			data: UniswapV3InputBody;
-		}): Promise<MintResult> => {
+		}) => {
 			return handleTransaction("mint", async () => {
 				const uniswapSDK = getUniswapSDK();
 				const preparedData = prepareTransaction(
@@ -925,19 +888,6 @@ export const useUniswap = () => {
 		[moon, isConnected, sendTransactionAsync],
 	);
 
-	const supportsInterface = useCallback(
-		async (payload: {
-			query: SupportsInterfaceParams2;
-		}): Promise<SupportsInterfaceResult> => {
-			return handleTransaction("supportsInterface", async () => {
-				const uniswapSDK = getUniswapSDK();
-				const response = await uniswapSDK.supportsInterface(payload.query);
-				return response;
-			});
-		},
-		[moon],
-	);
-
 	const sweepToken = useCallback(
 		async (payload: {
 			accountName: string;
@@ -1082,21 +1032,9 @@ export const useUniswap = () => {
 		},
 		[moon, isConnected, sendTransactionAsync],
 	);
-	const getFactory = useCallback(
-		async (payload: {
-			query: GetFactoryParams4;
-		}): Promise<GetFactoryOutput> => {
-			return handleTransaction("getFactory", async () => {
-				const uniswapSDK = getUniswapSDK();
-				const response = await uniswapSDK.getFactory(payload.query);
-				return response;
-			});
-		},
-		[moon],
-	);
 
 	const getWeth = useCallback(
-		async (payload: { query: GetWethParams6 }): Promise<GetWethData> => {
+		async (payload: { query: GetWethParams4 }) => {
 			return handleTransaction("getWeth", async () => {
 				const uniswapSDK = getUniswapSDK();
 				const response = await uniswapSDK.getWeth(payload.query);
@@ -1470,7 +1408,6 @@ export const useUniswap = () => {
 		getAmountOut,
 		getAmountsIn,
 		getAmountsOut,
-		getFactory,
 		getWeth,
 		quote,
 		removeLiquidity,
@@ -1502,8 +1439,6 @@ export const useUniswap = () => {
 		exactInputSingle,
 		exactOutput,
 		exactOutputSingle,
-		factory,
-		factory2,
 		getApproved,
 		increaseLiquidity,
 		isApprovedForAll,
@@ -1522,7 +1457,6 @@ export const useUniswap = () => {
 		selfPermitAllowedIfNecessary,
 		selfPermitIfNecessary,
 		setApprovalForAll,
-		supportsInterface,
 		sweepToken,
 		sweepToken2,
 		sweepTokenWithFee,

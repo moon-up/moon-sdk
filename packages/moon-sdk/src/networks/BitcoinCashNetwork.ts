@@ -1,8 +1,8 @@
 import type {
+	BitcoinCashBitcoinCashSignBitcoinTransactionPayload,
+	BitcoinCashBitcoinCashSignPsbtWithKeyPathAndScriptPathPayload,
 	BitcoinCashInput,
 	BitcoinCashTransactionInput,
-	SignBitcoinTransactionBody,
-	SignPsbtWithKeyPathAndScriptPathPayload,
 	UnsignedPSBTInput,
 } from "@moonup/moon-api";
 
@@ -55,9 +55,11 @@ export class BitcoinCashNetwork implements INetwork {
 	 * @param {BitcoinCashInput} input - The input data required to create a Bitcoin Cash account.
 	 * @returns {Promise<any>} A promise that resolves to the response data of the created account.
 	 */
-	async createAccount(input: BitcoinCashInput): Promise<any> {
-		const response = await this.moon.getBitcoincashSDK().createAccount(input);
-		return response.data;
+	async createAccount(input: BitcoinCashInput): Promise<string> {
+		const response = await this.moon
+			.getBitcoincashSDK()
+			.bitcoinCashBitcoinCashCreateAccount(input);
+		return response.data?.address || "";
 	}
 
 	/**
@@ -69,7 +71,7 @@ export class BitcoinCashNetwork implements INetwork {
 	async deleteAccount(accountName: string): Promise<any> {
 		const response = await this.moon
 			.getBitcoincashSDK()
-			.deleteAccount(accountName);
+			.bitcoinCashBitcoinCashDeleteAccount(accountName);
 		return response.data;
 	}
 
@@ -82,7 +84,7 @@ export class BitcoinCashNetwork implements INetwork {
 	async exportAccount(accountName: string): Promise<any> {
 		const response = await this.moon
 			.getBitcoincashSDK()
-			.exportAccount(accountName);
+			.bitcoinCashBitcoinCashExportAccount(accountName);
 		return response.data;
 	}
 
@@ -95,7 +97,7 @@ export class BitcoinCashNetwork implements INetwork {
 	async getAccount(accountName: string): Promise<any> {
 		const response = await this.moon
 			.getBitcoincashSDK()
-			.readAccount(accountName);
+			.bitcoinCashBitcoinCashGetAccount(accountName);
 		return response.data;
 	}
 
@@ -104,9 +106,11 @@ export class BitcoinCashNetwork implements INetwork {
 	 *
 	 * @returns {Promise<any>} A promise that resolves to the data containing the list of accounts.
 	 */
-	async listAccounts(): Promise<any> {
-		const response = await this.moon.getBitcoincashSDK().listAccounts();
-		return response.data;
+	async listAccounts(): Promise<string[]> {
+		const response = await this.moon
+			.getBitcoincashSDK()
+			.bitcoinCashListAccounts();
+		return response.data?.keys || [];
 	}
 
 	/**
@@ -122,7 +126,7 @@ export class BitcoinCashNetwork implements INetwork {
 	): Promise<any> {
 		const response = await this.moon
 			.getBitcoincashSDK()
-			.signTransaction(accountName, transaction);
+			.bitcoinCashBitcoinCashSignTransaction(accountName, transaction);
 		return response.data;
 	}
 
@@ -208,7 +212,7 @@ export class BitcoinCashNetwork implements INetwork {
 	): Promise<any> {
 		const response = await this.moon
 			.getBitcoincashSDK()
-			.generateUnsignedPsbtHex(accountName, input);
+			.bitcoinCashBitcoinCashGenerateUnsignedPsbtHex(accountName, input);
 		return response.data;
 	}
 
@@ -221,11 +225,14 @@ export class BitcoinCashNetwork implements INetwork {
 	 */
 	async signBitcoinTransaction(
 		accountName: string,
-		transactionBody: SignBitcoinTransactionBody,
+		transactionBody: BitcoinCashBitcoinCashSignBitcoinTransactionPayload,
 	): Promise<any> {
 		const response = await this.moon
 			.getBitcoincashSDK()
-			.signBitcoinTransaction(accountName, transactionBody);
+			.bitcoinCashBitcoinCashSignBitcoinTransaction(
+				accountName,
+				transactionBody,
+			);
 		return response.data;
 	}
 
@@ -238,11 +245,14 @@ export class BitcoinCashNetwork implements INetwork {
 	 */
 	async signPsbtWithKeyPathAndScriptPath(
 		accountName: string,
-		payload: SignPsbtWithKeyPathAndScriptPathPayload,
+		payload: BitcoinCashBitcoinCashSignPsbtWithKeyPathAndScriptPathPayload,
 	): Promise<any> {
 		const response = await this.moon
 			.getBitcoincashSDK()
-			.signPsbtWithKeyPathAndScriptPath(accountName, payload);
+			.bitcoinCashBitcoinCashSignPsbtWithKeyPathAndScriptPath(
+				accountName,
+				payload,
+			);
 		return response.data;
 	}
 
@@ -259,7 +269,7 @@ export class BitcoinCashNetwork implements INetwork {
 	): Promise<any> {
 		const response = await this.moon
 			.getBitcoincashSDK()
-			.signTransactionWithMemo(accountName, transaction);
+			.bitcoinCashBitcoinCashSignTransactionWithMemo(accountName, transaction);
 		return response.data;
 	}
 

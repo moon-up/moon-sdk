@@ -1,28 +1,27 @@
 import { useMoonAuth } from "@/context";
 import { useMoonTransaction } from "@/hooks";
 import type {
-	GetAddressesProviderParams2,
-	GetAddressesProviderParams4,
-	GetDefaultAdminRoleParams,
-	GetFlashLoanPremiumTotalParams,
-	GetLendingPoolParams,
-	GetLendingPoolRevisionParams,
-	GetMaxNumberReservesParams,
-	GetMaxStableRateBorrowSizePercentParams,
-	GetMinHfParams,
-	GetReserveDataParams2,
-	GetReservesListParams2,
-	GetRoleAdminParams,
-	GetUserAccountDataParams2,
-	GetWethParams,
-	HasRoleParams,
-	IsPausedParams,
-	IsPausedParams2,
 	LendingPool,
+	LendingPoolGetAddressesProviderParams,
+	LendingPoolGetFlashLoanPremiumTotalParams,
+	LendingPoolGetLendingPoolRevisionParams,
+	LendingPoolGetMaxNumberReservesParams,
+	LendingPoolGetMaxStableRateBorrowSizePercentParams,
+	LendingPoolGetReserveDataParams,
+	LendingPoolGetReservesListParams,
+	LendingPoolGetUserAccountDataParams,
 	LendingPoolInputBody,
+	LendingPoolIsPausedParams,
 	Leverager,
+	LeveragerGetAddressesProviderParams,
+	LeveragerGetDefaultAdminRoleParams,
+	LeveragerGetLendingPoolParams,
+	LeveragerGetMinHfParams,
+	LeveragerGetRoleAdminParams,
+	LeveragerGetWethParams,
+	LeveragerHasRoleParams,
 	LeveragerInputBody,
-	SupportsInterfaceParams,
+	LeveragerIsPausedParams,
 } from "@moonup/moon-api";
 import { useCallback } from "react";
 import {
@@ -31,7 +30,6 @@ import {
 	useSendTransaction,
 	useSwitchChain,
 } from "wagmi";
-
 export type MrpContractMapping = {
 	[key: string]: {
 		lendingPool: string;
@@ -221,7 +219,7 @@ export const useMRP = () => {
 					payload.data,
 				);
 
-				const response = await leveragerSDK.leverageErc20(
+				const response = await leveragerSDK.leveragerLeverageErc20(
 					payload.accountName,
 					preparedData as LeveragerInputBody,
 				);
@@ -247,7 +245,7 @@ export const useMRP = () => {
 					payload.data,
 				);
 
-				const response = await leveragerSDK.leverageNative(
+				const response = await leveragerSDK.leveragerLeverageNative(
 					payload.accountName,
 					preparedData as LeveragerInputBody,
 				);
@@ -291,7 +289,7 @@ export const useMRP = () => {
 					payload.data,
 				);
 
-				const response = await leveragerSDK.deleverageErc20(
+				const response = await leveragerSDK.leveragerDeleverageErc20(
 					payload.accountName,
 					preparedData as LeveragerInputBody,
 				);
@@ -318,7 +316,7 @@ export const useMRP = () => {
 					payload.data,
 				);
 
-				const response = await leveragerSDK.deleverageNative(
+				const response = await leveragerSDK.leveragerDeleverageNative(
 					payload.accountName,
 					preparedData as LeveragerInputBody,
 				);
@@ -346,7 +344,7 @@ export const useMRP = () => {
 					payload.data,
 				);
 
-				const response = await leveragerSDK.executeOperation(
+				const response = await leveragerSDK.leveragerExecuteOperation(
 					payload.accountName,
 					preparedData as LeveragerInputBody,
 				);
@@ -363,9 +361,9 @@ export const useMRP = () => {
 	 * @returns {Promise<AddressesProvider>} A promise that resolves to the addresses provider.
 	 */
 	const getAddressesProvider = useCallback(
-		async (params: GetAddressesProviderParams4) => {
+		async (params: LeveragerGetAddressesProviderParams) => {
 			const leveragerSDK = getLeveragerSDK();
-			return leveragerSDK.getAddressesProvider(params);
+			return leveragerSDK.leveragerGetAddressesProvider(params);
 		},
 		[moon],
 	);
@@ -377,9 +375,9 @@ export const useMRP = () => {
 	 * @returns A promise that resolves to the default admin role.
 	 */
 	const getDefaultAdminRole = useCallback(
-		async (params: GetDefaultAdminRoleParams) => {
+		async (params: LeveragerGetDefaultAdminRoleParams) => {
 			const leveragerSDK = getLeveragerSDK();
-			return leveragerSDK.getDefaultAdminRole(params);
+			return leveragerSDK.leveragerGetDefaultAdminRole(params);
 		},
 		[moon],
 	);
@@ -391,9 +389,9 @@ export const useMRP = () => {
 	 * @returns {Promise<LendingPool>} A promise that resolves to the lending pool details.
 	 */
 	const getLendingPool = useCallback(
-		async (params: GetLendingPoolParams) => {
+		async (params: LeveragerGetLendingPoolParams) => {
 			const leveragerSDK = getLeveragerSDK();
-			return leveragerSDK.getLendingPool(params);
+			return leveragerSDK.leveragerGetLendingPool(params);
 		},
 		[moon],
 	);
@@ -405,9 +403,9 @@ export const useMRP = () => {
 	 * @returns A promise that resolves to the minimum health factor.
 	 */
 	const getMinHf = useCallback(
-		async (params: GetMinHfParams) => {
+		async (params: LeveragerGetMinHfParams) => {
 			const leveragerSDK = getLeveragerSDK();
-			return leveragerSDK.getMinHf(params);
+			return leveragerSDK.leveragerGetMinHf(params);
 		},
 		[moon],
 	);
@@ -419,9 +417,9 @@ export const useMRP = () => {
 	 * @returns {Promise<any>} A promise that resolves to the role admin data.
 	 */
 	const getRoleAdmin = useCallback(
-		async (params: GetRoleAdminParams) => {
+		async (params: LeveragerGetRoleAdminParams) => {
 			const leveragerSDK = getLeveragerSDK();
-			return leveragerSDK.getRoleAdmin(params);
+			return leveragerSDK.leveragerGetRoleAdmin(params);
 		},
 		[moon],
 	);
@@ -433,9 +431,9 @@ export const useMRP = () => {
 	 * @returns {Promise<any>} A promise that resolves to the WETH data.
 	 */
 	const getWeth = useCallback(
-		async (params: GetWethParams) => {
+		async (params: LeveragerGetWethParams) => {
 			const leveragerSDK = getLeveragerSDK();
-			return leveragerSDK.getWeth(params);
+			return leveragerSDK.leveragerGetWeth(params);
 		},
 		[moon],
 	);
@@ -457,7 +455,7 @@ export const useMRP = () => {
 					payload.data,
 				);
 
-				const response = await leveragerSDK.grantRole(
+				const response = await leveragerSDK.leveragerGrantRole(
 					payload.accountName,
 					preparedData as LeveragerInputBody,
 				);
@@ -474,9 +472,9 @@ export const useMRP = () => {
 	 * @returns {Promise<boolean>} - A promise that resolves to a boolean indicating if the user has the role.
 	 */
 	const hasRole = useCallback(
-		async (params: HasRoleParams) => {
+		async (params: LeveragerHasRoleParams) => {
 			const leveragerSDK = getLeveragerSDK();
-			return leveragerSDK.hasRole(params);
+			return leveragerSDK.leveragerHasRole(params);
 		},
 		[moon],
 	);
@@ -488,23 +486,9 @@ export const useMRP = () => {
 	 * @returns {Promise<boolean>} A promise that resolves to a boolean indicating if the SDK is paused.
 	 */
 	const isPaused = useCallback(
-		async (params: IsPausedParams2) => {
+		async (params: LeveragerIsPausedParams) => {
 			const leveragerSDK = getLeveragerSDK();
-			return leveragerSDK.isPaused(params);
-		},
-		[moon],
-	);
-
-	/**
-	 * Checks if the given interface is supported.
-	 *
-	 * @param {SupportsInterfaceParams} params - The parameters required to check interface support.
-	 * @returns {Promise<boolean>} A promise that resolves to a boolean indicating whether the interface is supported.
-	 */
-	const supportsInterface = useCallback(
-		async (params: SupportsInterfaceParams) => {
-			const leveragerSDK = getLeveragerSDK();
-			return leveragerSDK.supportsInterface(params);
+			return leveragerSDK.leveragerIsPaused(params);
 		},
 		[moon],
 	);
@@ -526,7 +510,7 @@ export const useMRP = () => {
 					payload.data,
 				);
 
-				const response = await leveragerSDK.pause(
+				const response = await leveragerSDK.leveragerPause(
 					payload.accountName,
 					preparedData as LeveragerInputBody,
 				);
@@ -553,7 +537,7 @@ export const useMRP = () => {
 					payload.data,
 				);
 
-				const response = await leveragerSDK.renounceRole(
+				const response = await leveragerSDK.leveragerRenounceRole(
 					payload.accountName,
 					preparedData as LeveragerInputBody,
 				);
@@ -580,7 +564,7 @@ export const useMRP = () => {
 					payload.data,
 				);
 
-				const response = await leveragerSDK.revokeRole(
+				const response = await leveragerSDK.leveragerRevokeRole(
 					payload.accountName,
 					preparedData as LeveragerInputBody,
 				);
@@ -618,7 +602,7 @@ export const useMRP = () => {
 					payload.data,
 				);
 
-				const response = await leveragerSDK.unpause(
+				const response = await leveragerSDK.leveragerUnpause(
 					payload.accountName,
 					preparedData as LeveragerInputBody,
 				);
@@ -635,9 +619,9 @@ export const useMRP = () => {
 	 * @returns {Promise<AddressesProvider>} A promise that resolves to the addresses provider.
 	 */
 	const getLendingPoolAddressesProvider = useCallback(
-		async (params: GetAddressesProviderParams2) => {
+		async (params: LendingPoolGetAddressesProviderParams) => {
 			const lendingPoolSDK = getLendingPoolSDK();
-			return lendingPoolSDK.getAddressesProvider(params);
+			return lendingPoolSDK.lendingPoolGetAddressesProvider(params);
 		},
 		[moon],
 	);
@@ -649,9 +633,9 @@ export const useMRP = () => {
 	 * @returns {Promise<number>} - A promise that resolves to the total premium amount.
 	 */
 	const getFlashLoanPremiumTotal = useCallback(
-		async (params: GetFlashLoanPremiumTotalParams) => {
+		async (params: LendingPoolGetFlashLoanPremiumTotalParams) => {
 			const lendingPoolSDK = getLendingPoolSDK();
-			return lendingPoolSDK.getFlashLoanPremiumTotal(params);
+			return lendingPoolSDK.lendingPoolGetFlashLoanPremiumTotal(params);
 		},
 		[moon],
 	);
@@ -663,9 +647,9 @@ export const useMRP = () => {
 	 * @returns {Promise<any>} A promise that resolves to the lending pool revision.
 	 */
 	const getLendingPoolRevision = useCallback(
-		async (params: GetLendingPoolRevisionParams) => {
+		async (params: LendingPoolGetLendingPoolRevisionParams) => {
 			const lendingPoolSDK = getLendingPoolSDK();
-			return lendingPoolSDK.getLendingPoolRevision(params);
+			return lendingPoolSDK.lendingPoolGetLendingPoolRevision(params);
 		},
 		[moon],
 	);
@@ -677,9 +661,9 @@ export const useMRP = () => {
 	 * @returns A promise that resolves to the maximum number of reserves.
 	 */
 	const getMaxNumberReserves = useCallback(
-		async (params: GetMaxNumberReservesParams) => {
+		async (params: LendingPoolGetMaxNumberReservesParams) => {
 			const lendingPoolSDK = getLendingPoolSDK();
-			return lendingPoolSDK.getMaxNumberReserves(params);
+			return lendingPoolSDK.lendingPoolGetMaxNumberReserves(params);
 		},
 		[moon],
 	);
@@ -691,9 +675,11 @@ export const useMRP = () => {
 	 * @returns {Promise<number>} A promise that resolves to the maximum stable rate borrow size percentage.
 	 */
 	const getMaxStableRateBorrowSizePercent = useCallback(
-		async (params: GetMaxStableRateBorrowSizePercentParams) => {
+		async (params: LendingPoolGetMaxStableRateBorrowSizePercentParams) => {
 			const lendingPoolSDK = getLendingPoolSDK();
-			return lendingPoolSDK.getMaxStableRateBorrowSizePercent(params);
+			return lendingPoolSDK.lendingPoolGetMaxStableRateBorrowSizePercent(
+				params,
+			);
 		},
 		[moon],
 	);
@@ -705,9 +691,9 @@ export const useMRP = () => {
 	 * @returns {Promise<any>} A promise that resolves with the reserve data.
 	 */
 	const getReserveData = useCallback(
-		async (params: GetReserveDataParams2) => {
+		async (params: LendingPoolGetReserveDataParams) => {
 			const lendingPoolSDK = getLendingPoolSDK();
-			return lendingPoolSDK.getReserveData(params);
+			return lendingPoolSDK.lendingPoolGetReserveData(params);
 		},
 		[moon],
 	);
@@ -719,9 +705,9 @@ export const useMRP = () => {
 	 * @returns A promise that resolves to the list of reserves.
 	 */
 	const getReservesList = useCallback(
-		async (params: GetReservesListParams2) => {
+		async (params: LendingPoolGetReservesListParams) => {
 			const lendingPoolSDK = getLendingPoolSDK();
-			return lendingPoolSDK.getReservesList(params);
+			return lendingPoolSDK.lendingPoolGetReservesList(params);
 		},
 		[moon],
 	);
@@ -733,9 +719,9 @@ export const useMRP = () => {
 	 * @returns A promise that resolves to the user account data.
 	 */
 	const getUserAccountData = useCallback(
-		async (params: GetUserAccountDataParams2) => {
+		async (params: LendingPoolGetUserAccountDataParams) => {
 			const lendingPoolSDK = getLendingPoolSDK();
-			return lendingPoolSDK.getUserAccountData(params);
+			return lendingPoolSDK.lendingPoolGetUserAccountData(params);
 		},
 		[moon],
 	);
@@ -756,7 +742,7 @@ export const useMRP = () => {
 					payload.data,
 				);
 
-				const response = await lendingPoolSDK.borrow(
+				const response = await lendingPoolSDK.lendingPoolBorrow(
 					payload.accountName,
 					preparedData as LendingPoolInputBody,
 				);
@@ -783,7 +769,7 @@ export const useMRP = () => {
 					payload.data,
 				);
 
-				const response = await lendingPoolSDK.deposit(
+				const response = await lendingPoolSDK.lendingPoolDeposit(
 					payload.accountName,
 					preparedData as LendingPoolInputBody,
 				);
@@ -811,7 +797,7 @@ export const useMRP = () => {
 					payload.data,
 				);
 
-				const response = await lendingPoolSDK.flashLoan(
+				const response = await lendingPoolSDK.lendingPoolFlashLoan(
 					payload.accountName,
 					preparedData as LendingPoolInputBody,
 				);
@@ -838,7 +824,7 @@ export const useMRP = () => {
 					payload.data,
 				);
 
-				const response = await lendingPoolSDK.liquidationCall(
+				const response = await lendingPoolSDK.lendingPoolLiquidationCall(
 					payload.accountName,
 					preparedData as LendingPoolInputBody,
 				);
@@ -865,7 +851,7 @@ export const useMRP = () => {
 					payload.data,
 				);
 
-				const response = await lendingPoolSDK.repay(
+				const response = await lendingPoolSDK.lendingPoolRepay(
 					payload.accountName,
 					preparedData as LendingPoolInputBody,
 				);
@@ -882,9 +868,9 @@ export const useMRP = () => {
 	 * @returns {Promise<boolean>} A promise that resolves to a boolean indicating whether the lending pool is paused.
 	 */
 	const isLendingPoolPaused = useCallback(
-		async (params: IsPausedParams) => {
+		async (params: LendingPoolIsPausedParams) => {
 			const lendingPoolSDK = getLendingPoolSDK();
-			return lendingPoolSDK.isPaused(params);
+			return lendingPoolSDK.lendingPoolIsPaused(params);
 		},
 		[moon],
 	);
@@ -901,7 +887,7 @@ export const useMRP = () => {
 		async (payload: { accountName: string; data: LendingPoolInputBody }) => {
 			return handleTransaction("setUserUseReserveAsCollateral", async () => {
 				const lendingPoolSDK = getLendingPoolSDK();
-				return lendingPoolSDK.setUserUseReserveAsCollateral(
+				return lendingPoolSDK.lendingPoolSetUserUseReserveAsCollateral(
 					payload.accountName,
 					payload.data,
 				);
@@ -922,10 +908,16 @@ export const useMRP = () => {
 		async (payload: { accountName: string; data: LendingPoolInputBody }) => {
 			return handleTransaction("swapBorrowRateMode", async () => {
 				const lendingPoolSDK = getLendingPoolSDK();
-				return lendingPoolSDK.swapBorrowRateMode(
+				const preparedData = prepareTransaction(
 					payload.accountName,
 					payload.data,
 				);
+
+				const response = await lendingPoolSDK.lendingPoolSwapBorrowRateMode(
+					payload.accountName,
+					preparedData as LendingPoolInputBody,
+				);
+				return handleWagmiTransaction(response);
 			});
 		},
 		[moon],
@@ -950,7 +942,6 @@ export const useMRP = () => {
 		pause,
 		renounceRole,
 		revokeRole,
-		supportsInterface,
 		unpause,
 
 		// LendingPool functions

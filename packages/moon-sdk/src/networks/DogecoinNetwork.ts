@@ -48,11 +48,11 @@ export class DogecoinNetwork implements INetwork {
 	 * @param {DogeCoinInput} input - The input data required to create a Dogecoin account.
 	 * @returns {Promise<any>} A promise that resolves to the response data of the created Dogecoin account.
 	 */
-	async createAccount(input: DogeCoinInput): Promise<any> {
+	async createAccount(input: DogeCoinInput): Promise<string> {
 		const response = await this.moon
 			.getDogecoinSDK()
-			.createDogeCoinAccount(input);
-		return response.data;
+			.dogecoinDogeCoinCreateNewAccount(input);
+		return response.data?.data.address || "";
 	}
 
 	/**
@@ -64,7 +64,7 @@ export class DogecoinNetwork implements INetwork {
 	async deleteAccount(accountName: string): Promise<any> {
 		const response = await this.moon
 			.getDogecoinSDK()
-			.deleteDogeCoinAccount(accountName);
+			.dogecoinDogeCoinDeleteAccount(accountName);
 		return response.data;
 	}
 
@@ -77,7 +77,7 @@ export class DogecoinNetwork implements INetwork {
 	async exportAccount(accountName: string): Promise<any> {
 		const response = await this.moon
 			.getDogecoinSDK()
-			.exportDogeCoinAccount(accountName);
+			.dogecoinDogeCoinExportAccountDetails(accountName);
 		return response.data;
 	}
 
@@ -90,7 +90,7 @@ export class DogecoinNetwork implements INetwork {
 	async getAccount(accountName: string): Promise<any> {
 		const response = await this.moon
 			.getDogecoinSDK()
-			.getDogeCoinAccount(accountName);
+			.dogecoinDogeCoinGetAccountDetails(accountName);
 		return response.data;
 	}
 
@@ -99,9 +99,9 @@ export class DogecoinNetwork implements INetwork {
 	 *
 	 * @returns {Promise<any>} A promise that resolves to the data containing the list of Dogecoin accounts.
 	 */
-	async listAccounts(): Promise<any> {
-		const response = await this.moon.getDogecoinSDK().listDogeCoinAccounts();
-		return response.data;
+	async listAccounts(): Promise<string[]> {
+		const response = await this.moon.getDogecoinSDK().dogeCoinListAccounts();
+		return response.data?.keys || [];
 	}
 
 	/**
@@ -117,7 +117,7 @@ export class DogecoinNetwork implements INetwork {
 	): Promise<any> {
 		const response = await this.moon
 			.getDogecoinSDK()
-			.signDogeCoinTransaction(accountName, transaction);
+			.dogecoinDogeCoinSignTransaction(accountName, transaction);
 		return response.data;
 	}
 
@@ -203,7 +203,7 @@ export class DogecoinNetwork implements INetwork {
 	): Promise<any> {
 		const response = await this.moon
 			.getDogecoinSDK()
-			.signDogeCoinTransactionWithMemo(accountName, transaction);
+			.dogecoinDogeCoinSignTransactionWithMemo(accountName, transaction);
 		return response.data;
 	}
 

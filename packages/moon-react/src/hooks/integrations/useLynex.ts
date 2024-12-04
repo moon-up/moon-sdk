@@ -33,7 +33,7 @@ import type {
 	GetBalanceOfNftData,
 	GetBalanceOfNftParams,
 	GetBalanceOfOutput,
-	GetBalanceOfParams4,
+	GetBalanceOfParams,
 	GetDelegatesData,
 	GetDelegatesParams,
 	GetFactoryData,
@@ -42,8 +42,7 @@ import type {
 	GetLastVotedParams,
 	GetLockDetailsData,
 	GetLockDetailsParams,
-	GetNameParams2,
-	GetNameResult,
+	GetNameParams,
 	GetOwnerOfData,
 	GetOwnerOfParams,
 	GetPastVotesData,
@@ -53,8 +52,7 @@ import type {
 	GetPoolVoteLengthParams,
 	GetPoolsByTypeData,
 	GetPoolsData,
-	GetSymbolParams2,
-	GetSymbolResult,
+	GetSymbolParams,
 	GetTokenByIndexData,
 	GetTokenByIndexParams,
 	GetTokenOfOwnerByIndexData,
@@ -87,8 +85,7 @@ import type {
 	GlobalCheckpointData,
 	IncreaseLockAmountData,
 	IncreaseUnlockTimeData,
-	IsApprovedForAllParams1,
-	IsApprovedForAllResult,
+	IsApprovedForAllParams,
 	IsGaugeData,
 	IsGaugeParams,
 	IsWhitelistedData,
@@ -1367,7 +1364,7 @@ export const useLynex = () => {
 	 * @returns {Promise<GetBalanceOfOutput>} A promise that resolves to the balance of the specified account.
 	 */
 	const getBalanceOf = useCallback(
-		async (params: GetBalanceOfParams4): Promise<GetBalanceOfOutput> => {
+		async (params: GetBalanceOfParams): Promise<GetBalanceOfOutput> => {
 			const lynexSDK = getLynexSDK();
 			return lynexSDK.getBalanceOf(params);
 		},
@@ -1465,7 +1462,7 @@ export const useLynex = () => {
 	 * @returns A promise that resolves to the result of the getName operation.
 	 */
 	const getName = useCallback(
-		async (params: GetNameParams2): Promise<GetNameResult> => {
+		async (params: GetNameParams) => {
 			const lynexSDK = getLynexSDK();
 			return lynexSDK.getName(params);
 		},
@@ -1556,10 +1553,10 @@ export const useLynex = () => {
 	 * Fetches the symbol information using the Lynex SDK.
 	 *
 	 * @param {GetSymbolParams2} params - The parameters required to fetch the symbol.
-	 * @returns {Promise<GetSymbolResult>} A promise that resolves to the symbol result.
+	 * @returns {Promise<>} A promise that resolves to the symbol result.
 	 */
 	const getSymbol = useCallback(
-		async (params: GetSymbolParams2): Promise<GetSymbolResult> => {
+		async (params: GetSymbolParams) => {
 			const lynexSDK = getLynexSDK();
 			return lynexSDK.getSymbol(params);
 		},
@@ -1786,9 +1783,7 @@ export const useLynex = () => {
 	 * @returns A promise that resolves to the result of the approval check.
 	 */
 	const isApprovedForAll = useCallback(
-		async (
-			params: IsApprovedForAllParams1,
-		): Promise<IsApprovedForAllResult> => {
+		async (params: IsApprovedForAllParams) => {
 			const lynexSDK = getLynexSDK();
 			return lynexSDK.isApprovedForAll(params);
 		},

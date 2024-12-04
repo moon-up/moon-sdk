@@ -50,9 +50,9 @@ export class RippleNetwork implements INetwork {
 	 * @param {RippleInput} input - The input data required to create a Ripple account.
 	 * @returns {Promise<any>} A promise that resolves to the response data from the Ripple SDK.
 	 */
-	async createAccount(input: RippleInput): Promise<any> {
+	async createAccount(input: RippleInput): Promise<string> {
 		const response = await this.moon.getRippleSDK().createRippleAccount(input);
-		return response.data;
+		return response.data?.data.address || "";
 	}
 
 	/**
@@ -99,9 +99,9 @@ export class RippleNetwork implements INetwork {
 	 *
 	 * @returns {Promise<any>} A promise that resolves to the data containing the list of Ripple accounts.
 	 */
-	async listAccounts(): Promise<any> {
+	async listAccounts(): Promise<string[]> {
 		const response = await this.moon.getRippleSDK().listRippleAccounts();
-		return response.data;
+		return response.data?.keys || [];
 	}
 
 	/**

@@ -1,10 +1,10 @@
 import { useMoonAuth } from "@/context";
 import { useChains, useMoonTransaction } from "@/hooks";
 import type {
-	GetRouterAddressParams,
-	GetSupportedTokensParams,
 	Odos,
 	OdosAPIResponseOdosExecuteFunctionResult,
+	OdosGetRouterAddressParams,
+	OdosGetSupportedTokensParams,
 	OdosSwapInputBody,
 } from "@moonup/moon-api";
 import { useQuery } from "@tanstack/react-query";
@@ -89,7 +89,7 @@ export const useOdos = () => {
 		queryFn: async () => {
 			const odosSDK = moon?.getOdosSDK();
 			if (!odosSDK) throw new Error("Moon Lifi SDK not initialized");
-			const response = await odosSDK.getSupportedTokens({
+			const response = await odosSDK.odosGetSupportedTokens({
 				chainId: selectedChain?.chain_id || 1,
 			});
 			console.log("response", response);
@@ -128,11 +128,11 @@ export const useOdos = () => {
 	 */
 	const getRouterAddress = useCallback(
 		async (
-			payload: GetRouterAddressParams,
+			payload: OdosGetRouterAddressParams,
 		): Promise<OdosAPIResponseOdosExecuteFunctionResult> => {
 			return handleTransaction("getRouterAddressOdos", async () => {
 				const odosSDK = getOdosSDK();
-				const response = await odosSDK.getRouterAddress(payload);
+				const response = await odosSDK.odosGetRouterAddress(payload);
 				return response;
 			});
 		},
@@ -147,11 +147,11 @@ export const useOdos = () => {
 	 */
 	const getSupportedTokens = useCallback(
 		async (
-			payload: GetSupportedTokensParams,
+			payload: OdosGetSupportedTokensParams,
 		): Promise<OdosAPIResponseOdosExecuteFunctionResult> => {
 			return handleTransaction("getQuoteLifi", async () => {
 				const odosSDK = getOdosSDK() as Odos;
-				const response = await odosSDK.getSupportedTokens(payload);
+				const response = await odosSDK.odosGetSupportedTokens(payload);
 				return response.data as OdosAPIResponseOdosExecuteFunctionResult;
 			});
 		},
@@ -173,7 +173,7 @@ export const useOdos = () => {
 		}): Promise<any> => {
 			return handleTransaction("getQuoteLifi", async () => {
 				const odosSDK = getOdosSDK();
-				const response = await odosSDK.getQuote(
+				const response = await odosSDK.odosGetQuote(
 					payload.accountName,
 					payload.data,
 				);
@@ -202,7 +202,7 @@ export const useOdos = () => {
 					payload.accountName,
 					payload.data,
 				);
-				const response = await odosSDK.swap(
+				const response = await odosSDK.odosSwapTokens(
 					payload.accountName,
 					preparedTransaction,
 				);

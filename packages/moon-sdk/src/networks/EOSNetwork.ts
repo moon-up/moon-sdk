@@ -32,9 +32,9 @@ export class EOSNetwork implements INetwork {
 	 * @param {EosInput} input - The input data required to create the EOS account.
 	 * @returns {Promise<any>} A promise that resolves to the response data of the created EOS account.
 	 */
-	async createAccount(input: EosInput): Promise<any> {
+	async createAccount(input: EosInput): Promise<string> {
 		const response = await this.moon.getEosSDK().createEosAccount(input);
-		return response.data;
+		return response.data?.data.address || "";
 	}
 
 	/**
@@ -75,9 +75,9 @@ export class EOSNetwork implements INetwork {
 	 *
 	 * @returns {Promise<any>} A promise that resolves to the data containing the list of EOS accounts.
 	 */
-	async listAccounts(): Promise<any> {
+	async listAccounts(): Promise<string[]> {
 		const response = await this.moon.getEosSDK().listEosAccounts();
-		return response.data;
+		return response.data?.keys || [];
 	}
 
 	/**

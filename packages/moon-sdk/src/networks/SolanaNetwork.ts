@@ -3,6 +3,7 @@ import { PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
 import type { MoonSDK } from "../moon";
 
 import type { INetwork } from "./INetwork";
+import { SolanaInput } from "@moonup/moon-api";
 
 /**
  * The `SolanaNetwork` class provides methods to interact with the Solana blockchain network.
@@ -45,8 +46,11 @@ export class SolanaNetwork implements INetwork {
 	 * @param input - The input data required to create the Solana account.
 	 * @returns A promise that resolves to the result of the account creation.
 	 */
-	async createAccount(input: any): Promise<any> {
-		return this.moonSDK.getSolanaSDK().createSolanaAccount(input);
+	async createAccount(input: SolanaInput): Promise<string> {
+		const response = await this.moonSDK
+			.getSolanaSDK()
+			.createSolanaAccount(input);
+		return response.data?.data.address || "";
 	}
 
 	/**
@@ -84,9 +88,9 @@ export class SolanaNetwork implements INetwork {
 	 *
 	 * @returns {Promise<any>} A promise that resolves to the list of Solana accounts.
 	 */
-	async listAccounts(): Promise<any> {
+	async listAccounts(): Promise<string[]> {
 		const response = await this.moonSDK.getSolanaSDK().listSolanaAccounts();
-		return response.data?.keys;
+		return response.data?.keys || [];
 	}
 
 	/**

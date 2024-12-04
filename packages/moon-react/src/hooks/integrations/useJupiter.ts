@@ -1,18 +1,15 @@
 import { useMoonAuth } from "@/context";
 import { useMoonTransaction } from "@/hooks";
 import type {
-	GetIndexedRouteMapData,
-	GetIndexedRouteMapParams,
-	GetProgramIdToLabelData,
-	GetQuoteData,
-	GetSwapInstructionsData,
-	GetTokensData,
+	JupiterGetIndexedRouteMapParams,
+	JupiterAPIResponseAny,
+	JupiterAPIResponseRecordStringString,
+	JupiterAPIResponseJupiterExecuteFunctionResult,
+	JupiterAPIResponseStringArray,
 	Jupiter,
 	OmitJupiterInputBodyAccountName,
-	SwapData,
 } from "@moonup/moon-api";
 import { useCallback } from "react";
-
 /**
  * Custom hook to interact with the Jupiter SDK within the Moon SDK context.
  *
@@ -48,12 +45,11 @@ export const useJupiter = () => {
 	 */
 	const getIndexedRouteMap = useCallback(
 		async (
-			query: GetIndexedRouteMapParams,
-		): Promise<GetIndexedRouteMapData> => {
+			query: JupiterGetIndexedRouteMapParams,
+		): Promise<JupiterAPIResponseAny> => {
 			return handleTransaction("getIndexedRouteMap", async () => {
 				const jupiterSDK = getJupiterSDK();
-				const response = await jupiterSDK.getIndexedRouteMap(query);
-				return response.data;
+				return jupiterSDK.jupiterGetIndexedRouteMap(query);
 			});
 		},
 		[moon],
@@ -68,11 +64,10 @@ export const useJupiter = () => {
 	 * @returns {Promise<GetProgramIdToLabelData>} A promise that resolves to the data containing the program ID to label mapping.
 	 */
 	const getProgramIdToLabel =
-		useCallback(async (): Promise<GetProgramIdToLabelData> => {
+		useCallback(async (): Promise<JupiterAPIResponseRecordStringString> => {
 			return handleTransaction("getProgramIdToLabel", async () => {
 				const jupiterSDK = getJupiterSDK();
-				const response = await jupiterSDK.getProgramIdToLabel();
-				return response.data;
+				return jupiterSDK.jupiterGetProgramIdToLabel();
 			});
 		}, [moon]);
 
@@ -88,14 +83,10 @@ export const useJupiter = () => {
 		async (payload: {
 			accountName: string;
 			data: OmitJupiterInputBodyAccountName;
-		}): Promise<GetQuoteData> => {
+		}): Promise<JupiterAPIResponseJupiterExecuteFunctionResult> => {
 			return handleTransaction("getQuote", async () => {
 				const jupiterSDK = getJupiterSDK();
-				const response = await jupiterSDK.getQuote(
-					payload.accountName,
-					payload.data,
-				);
-				return response.data;
+				return jupiterSDK.jupiterGetQuote(payload.accountName, payload.data);
 			});
 		},
 		[moon],
@@ -113,14 +104,13 @@ export const useJupiter = () => {
 		async (payload: {
 			accountName: string;
 			data: OmitJupiterInputBodyAccountName;
-		}): Promise<GetSwapInstructionsData> => {
+		}): Promise<JupiterAPIResponseJupiterExecuteFunctionResult> => {
 			return handleTransaction("getSwapInstructions", async () => {
 				const jupiterSDK = getJupiterSDK();
-				const response = await jupiterSDK.getSwapInstructions(
+				return jupiterSDK.jupiterGetSwapInstructions(
 					payload.accountName,
 					payload.data,
 				);
-				return response.data;
 			});
 		},
 		[moon],
@@ -134,13 +124,13 @@ export const useJupiter = () => {
 	 *
 	 * @returns {Promise<GetTokensData>} A promise that resolves to the data containing the tokens.
 	 */
-	const getTokens = useCallback(async (): Promise<GetTokensData> => {
-		return handleTransaction("getTokens", async () => {
-			const jupiterSDK = getJupiterSDK();
-			const response = await jupiterSDK.getTokens();
-			return response.data;
-		});
-	}, [moon]);
+	const getTokens =
+		useCallback(async (): Promise<JupiterAPIResponseStringArray> => {
+			return handleTransaction("getTokens", async () => {
+				const jupiterSDK = getJupiterSDK();
+				return jupiterSDK.jupiterGetTokens();
+			});
+		}, [moon]);
 
 	/**
 	 * Executes a swap transaction using the Jupiter SDK.
@@ -154,14 +144,10 @@ export const useJupiter = () => {
 		async (payload: {
 			accountName: string;
 			data: OmitJupiterInputBodyAccountName;
-		}): Promise<SwapData> => {
+		}): Promise<JupiterAPIResponseJupiterExecuteFunctionResult> => {
 			return handleTransaction("swap", async () => {
 				const jupiterSDK = getJupiterSDK();
-				const response = await jupiterSDK.swap(
-					payload.accountName,
-					payload.data,
-				);
-				return response.data;
+				return jupiterSDK.jupiterSwap(payload.accountName, payload.data);
 			});
 		},
 		[moon],

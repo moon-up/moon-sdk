@@ -26,23 +26,25 @@ export class CosmosNetwork implements INetwork {
 	}
 
 	async createAccount(input: any): Promise<any> {
-		return this.moonSDK.getCosmosSDK().createAccount(input);
+		return this.moonSDK.getCosmosSDK().cosmosCosmosCreateAccount(input);
 	}
 
 	async deleteAccount(accountName: string): Promise<any> {
-		return this.moonSDK.getCosmosSDK().deleteAccount(accountName);
+		return this.moonSDK.getCosmosSDK().cosmosCosmosDeleteAccount(accountName);
 	}
 
 	async exportAccount(accountName: string): Promise<any> {
-		return this.moonSDK.getCosmosSDK().exportAccount(accountName);
+		return this.moonSDK.getCosmosSDK().cosmosCosmosExportAccount(accountName);
 	}
 
 	async getAccount(accountName: string): Promise<any> {
-		return this.moonSDK.getCosmosSDK().getAccount(accountName);
+		return this.moonSDK.getCosmosSDK().cosmosCosmosGetAccount(accountName);
 	}
 
 	async listAccounts(): Promise<any> {
-		const response = await this.moonSDK.getCosmosSDK().listAccounts();
+		const response = await this.moonSDK
+			.getCosmosSDK()
+			.cosmosCosmosListAccounts();
 		return response.data;
 	}
 
@@ -52,7 +54,7 @@ export class CosmosNetwork implements INetwork {
 	): Promise<any> {
 		return this.moonSDK
 			.getCosmosSDK()
-			.signTransferTransaction(accountName, transaction);
+			.cosmosCosmosSignTransferTransaction(accountName, transaction);
 	}
 
 	async signIBCTransaction(
@@ -61,12 +63,12 @@ export class CosmosNetwork implements INetwork {
 	): Promise<any> {
 		return this.moonSDK
 			.getCosmosSDK()
-			.signIbcTransferTransaction(accountName, transaction);
+			.cosmosCosmosSignIbcTransferTransaction(accountName, transaction);
 	}
 
 	async signMessage(accountName: string, message: string): Promise<any> {
-		return this.moonSDK.getCosmosSDK().signMessage(accountName, {
-			message,
+		return this.moonSDK.getCosmosSDK().cosmosCosmosSignMessage(accountName, {
+			message: message,
 		});
 	}
 
