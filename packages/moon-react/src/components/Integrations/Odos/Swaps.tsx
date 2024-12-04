@@ -252,13 +252,13 @@ export const OdosSwap = () => {
 			console.log(result);
 
 			setTransactionData({
-				to: result.data.transaction.to,
-				data: result.data.transaction.data,
-				value: result.data.transaction.value,
-				nonce: result.data.transaction.nonce,
-				gasLimit: result.data.transaction.gasLimit,
-				maxFeePerGas: result.data.transaction.maxFeePerGas,
-				maxPriorityFeePerGas: result.data.transaction.maxPriorityFeePerGas,
+				to: result.transaction.to,
+				data: result.transaction.data,
+				value: result.transaction.value,
+				nonce: result.transaction.nonce,
+				gasLimit: result.transaction.gasLimit,
+				maxFeePerGas: result.transaction.maxFeePerGas,
+				maxPriorityFeePerGas: result.transaction.maxPriorityFeePerGas,
 				chain_id: selectedChain?.chain_id?.toString() || "1",
 			});
 			setShowTransactionDetails(true);

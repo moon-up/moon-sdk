@@ -64,6 +64,7 @@ export const useOdos = () => {
 					chainId: Number.parseInt(transactionData.transaction.chain_id),
 				});
 			}
+			return transactionData;
 		} catch (error) {
 			console.error("handleWagmiTransaction: Error: ", error);
 			return transactionData;
@@ -196,18 +197,16 @@ export const useOdos = () => {
 			accountName: string;
 			data: OdosSwapInputBody;
 		}): Promise<OdosAPIResponseOdosExecuteFunctionResult> => {
-			return handleTransaction("getQuoteLifi", async () => {
-				const odosSDK = getOdosSDK();
-				const preparedTransaction = prepareTransaction(
-					payload.accountName,
-					payload.data,
-				);
-				const response = await odosSDK.odosSwapTokens(
-					payload.accountName,
-					preparedTransaction,
-				);
-				return handleWagmiTransaction(response);
-			});
+			const odosSDK = getOdosSDK();
+			const preparedTransaction = prepareTransaction(
+				payload.accountName,
+				payload.data,
+			);
+			const response = await odosSDK.odosSwapTokens(
+				payload.accountName,
+				preparedTransaction,
+			);
+			return handleWagmiTransaction(response.data);
 		},
 		[moon],
 	);

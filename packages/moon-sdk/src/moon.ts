@@ -676,10 +676,8 @@ export class MoonSDK extends EventEmitter implements IMoonSDK {
 				wallet,
 				transaction,
 			);
-			this.emit("transactionSigned", signedTransaction);
 			return signedTransaction;
 		} catch (error) {
-			this.emit("error", { method: "signTransaction", error });
 			throw new NetworkError(`Failed to sign transaction: ${error}`);
 		}
 	}

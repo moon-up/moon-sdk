@@ -144,15 +144,13 @@ export class MoonAPIService {
 	 * @param transaction - The transaction details to be signed.
 	 * @returns A promise that resolves to the raw signed transaction as a string.
 	 */
-	public async signTransaction(
-		wallet: string,
-		transaction: MoonAPI.InputBody,
-	): Promise<string> {
-		const response = await this.getSDK("Accounts").signTransaction(
-			wallet,
-			transaction,
-		);
-		return response?.data;
+	public async signTransaction(wallet: string, transaction: MoonAPI.InputBody) {
+		const response =
+			await this.getAccountsSDK().accountsSignEthereumTransaction(
+				wallet,
+				transaction,
+			);
+		return response.data;
 	}
 
 	/**

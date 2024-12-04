@@ -105,6 +105,7 @@ const TransactionContent: React.FC<
 					...transaction,
 					simulate: true,
 				});
+				console.log(result);
 				setStatus("ready");
 				return result;
 			} catch (error) {
