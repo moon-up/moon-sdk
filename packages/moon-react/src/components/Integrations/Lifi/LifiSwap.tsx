@@ -56,7 +56,7 @@ export const LifiBridge: React.FC = () => {
 	const [debouncedFromAmount] = useDebounceValue(fromAmount, 500);
 	const { data: walletBalanceData = { balances: {} } } = walletBalanceQuery;
 	const { data: walletBalanceChainIdData = { balances: {} } } =
-		walletBalanceChainIdQuery(toChain.id || 1);
+		walletBalanceChainIdQuery(toChain?.id ?? 1);
 	const { data: tokensData = { tokens: {} } } = supportedTokensQuery;
 
 	const { data: chainsData = { chains: [] } } = supportedChainsQuery;
