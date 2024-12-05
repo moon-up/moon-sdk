@@ -132,6 +132,7 @@ const TransactionContent: React.FC<
 				...transaction,
 				from: wallet,
 			});
+			console.log(txResult);
 			setTxHash(txResult.transaction_hash);
 			watchTransactionStatus(txResult.transaction_hash)
 				.then((result) => {

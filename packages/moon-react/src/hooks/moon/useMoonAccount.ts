@@ -350,7 +350,7 @@ export const useMoonAccount = (): INetwork & {
 							broadcast: true,
 						});
 					console.log("txResponse", txResponse);
-					txHash = txResponse.transaction_hash;
+					txHash = txResponse.transactions.at(0).transaction_hash;
 					console.log("txHash", txHash);
 				}
 				return txResponse;
