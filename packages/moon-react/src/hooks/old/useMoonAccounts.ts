@@ -30,7 +30,7 @@ export const useMoonAccounts = () => {
 			return handleTransaction("transferEth", async () => {
 				const accountsSDK = getAccountsSDK();
 				console.log("transferEth", payload.accountName, payload.transaction);
-				const response = await accountsSDK.transferEth(
+				const response = await accountsSDK.accountsTransferEth(
 					payload.accountName,
 					payload.transaction,
 				);
@@ -47,7 +47,10 @@ export const useMoonAccounts = () => {
 		}): Promise<{ balance: string }> => {
 			return handleTransaction("getBalance", async () => {
 				const accountsSDK = getAccountsSDK();
-				const response = await accountsSDK.getBalance(payload);
+				const response = await accountsSDK.accountsEthereumGetNativeBalance({
+					accountName: payload.accountName,
+					chainId: payload.chainId,
+				});
 				if (!response.success) {
 					throw new Error(response.message);
 				}
@@ -60,7 +63,7 @@ export const useMoonAccounts = () => {
 	const listAccounts = useCallback(async (): Promise<AccountResponse> => {
 		return handleTransaction("listAccounts", async () => {
 			const accountsSDK = getAccountsSDK();
-			const response = await accountsSDK.listAccounts();
+			const response = await accountsSDK.accountsListEthereumAccounts();
 			return response.data;
 		});
 	}, [moon, addTransactionResult]);
@@ -68,7 +71,7 @@ export const useMoonAccounts = () => {
 	const createAccount = useCallback(async (): Promise<AccountResponse> => {
 		return handleTransaction("createAccount", async () => {
 			const accountsSDK = getAccountsSDK();
-			const response = await accountsSDK.createAccount({});
+			const response = await accountsSDK.accountsCreateEthereumAccount({});
 			return response.data;
 		});
 	}, [moon, addTransactionResult]);
@@ -77,7 +80,9 @@ export const useMoonAccounts = () => {
 		async (payload: { id: string }): Promise<AccountResponse> => {
 			return handleTransaction("getAccount", async () => {
 				const accountsSDK = getAccountsSDK();
-				const response = await accountsSDK.getAccount(payload.id);
+				const response = await accountsSDK.accountsGetEthreumAccount(
+					payload.id,
+				);
 				return response.data;
 			});
 		},
@@ -88,7 +93,9 @@ export const useMoonAccounts = () => {
 		async (payload: { id: string }): Promise<AccountResponse> => {
 			return handleTransaction("deleteAccount", async () => {
 				const accountsSDK = getAccountsSDK();
-				const response = await accountsSDK.deleteAccount(payload.id);
+				const response = await accountsSDK.accountsDeleteEthereumAccount(
+					payload.id,
+				);
 				return response.data;
 			});
 		},
@@ -102,7 +109,7 @@ export const useMoonAccounts = () => {
 		}): Promise<Transaction> => {
 			return handleTransaction("signTransaction", async () => {
 				const accountsSDK = getAccountsSDK();
-				const response = await accountsSDK.signTransaction(
+				const response = await accountsSDK.accountsSignEthereumTransaction(
 					payload.accountName,
 					payload.transaction,
 				);
@@ -119,7 +126,7 @@ export const useMoonAccounts = () => {
 		}): Promise<TransactionData> => {
 			return handleTransaction("signMessage", async () => {
 				const accountsSDK = getAccountsSDK();
-				const response = await accountsSDK.signMessage(
+				const response = await accountsSDK.accountsSignEthreumMessage(
 					payload.id,
 					payload.message,
 				);
@@ -136,7 +143,7 @@ export const useMoonAccounts = () => {
 		}): Promise<TransactionData> => {
 			return handleTransaction("signTypedData", async () => {
 				const accountsSDK = getAccountsSDK();
-				const response = await accountsSDK.signTypedData(
+				const response = await accountsSDK.accountsSignEthereumTypedData(
 					payload.id,
 					payload.typedData,
 				);
@@ -154,10 +161,13 @@ export const useMoonAccounts = () => {
 		}): Promise<BroadCastRawTransactionResponse> => {
 			return handleTransaction("broadcastTx", async () => {
 				const accountsSDK = getAccountsSDK();
-				const response = await accountsSDK.broadcastTx(payload.id, {
-					rawTransaction: payload.transaction,
-					chainId: payload.chain_id,
-				});
+				const response = await accountsSDK.accountsBroadcastEthreeumTransaction(
+					payload.id,
+					{
+						rawTransaction: payload.transaction,
+						chainId: payload.chain_id,
+					},
+				);
 				return response.data;
 			});
 		},
