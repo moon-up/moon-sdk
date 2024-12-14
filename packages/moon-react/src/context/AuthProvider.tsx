@@ -123,7 +123,11 @@ export const MoonAuthProvider = ({
 
 	const signOut = useCallback(async () => {
 		setIsLoading(true);
-		await supabase.auth.signOut();
+		await supabase.auth.signOut({});
+
+		setSession(null);
+		setUser(null);
+		setIsAuthenticated(false);
 		setIsLoading(false);
 	}, []);
 
