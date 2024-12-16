@@ -49,6 +49,8 @@ export class MoonAPIService {
 	private initializeSDKInstances() {
 		const sdkClasses = [
 			"Accounts",
+			"Allora",
+			"Cookiefun",
 			"Ens",
 			"Erc20",
 			"Erc1155",
@@ -392,5 +394,23 @@ export class MoonAPIService {
 	 */
 	public getLynexSDK(): MoonAPI.Lynex {
 		return this.getSDK("Lynex") as MoonAPI.Lynex;
+	}
+
+	/**
+	 * Retrieves the Allora SDK instance.
+	 *
+	 * @returns {MoonAPI.Allora} The Allora SDK instance.
+	 */
+	public getAlloraSDK(): MoonAPI.Allora {
+		return this.getSDK("Allora") as MoonAPI.Allora;
+	}
+
+	/**
+	 * Retrieves the Cookiefun SDK instance.
+	 *
+	 * @returns {MoonAPI.Cookiefun} The Cookiefun SDK instance.
+	 */
+	public getCookiefunSDK(): MoonAPI.Cookiefun {
+		return this.getSDK("Cookiefun") as MoonAPI.Cookiefun;
 	}
 }

@@ -6,7 +6,6 @@ import type {
 	AAVEv3RewardsAPIResponseStringArray,
 	AAVEv3RewardsInputBody,
 	AAVEv3UiIncentiveDataProviderAPIResponseFullReservesIncentiveData,
-	AAVEv3UiPoolDataProviderAPIResponseReservesData,
 	AAVEv3UiPoolDataProviderAPIResponseUserReserveDataArray,
 	AavePoolAPIResponseAavePoolExecuteFunctionResult,
 	AavePoolAPIResponseAny,
@@ -509,9 +508,7 @@ export const useAave = () => {
 	);
 
 	const getReservesData = useCallback(
-		async (
-			payload: GetReservesDataParams,
-		): Promise<AAVEv3UiPoolDataProviderAPIResponseReservesData> => {
+		async (payload: GetReservesDataParams): Promise<any> => {
 			return handleTransaction("getReservesData", async () => {
 				const avveSDK = getAaveSDK();
 				const response = await avveSDK.getReservesData(payload);

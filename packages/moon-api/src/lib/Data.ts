@@ -17,6 +17,10 @@ import {
   DataGetPortfolioFetchStatusData,
   DataGetTokensMetadataData,
   DataGetTokensMetadataParams,
+  DataGetUserDebankComplexProtocolListData,
+  DataGetUserDebankComplexProtocolListParams,
+  DataGetUserDebankTokenListData,
+  DataGetUserDebankTokenListParams,
   DataGetUserWalletPortfolioData,
   DataGetUserWalletPortfolioParams,
   DataGetWalletNfTsData,
@@ -106,6 +110,46 @@ export class Data<SecurityDataType = unknown> {
   ) =>
     this.http.request<DataGetTokensMetadataData, any>({
       path: `/data/token-metadata`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * @description Retrieves the user's complex protocol list from Debank.
+   *
+   * @tags Data
+   * @name DataGetUserDebankComplexProtocolList
+   * @request GET:/data/{address}/debank/complex-protocols
+   * @secure
+   */
+  dataGetUserDebankComplexProtocolList = (
+    { address, ...query }: DataGetUserDebankComplexProtocolListParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<DataGetUserDebankComplexProtocolListData, any>({
+      path: `/data/${address}/debank/complex-protocols`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * @description Retrieves the user's token list from Debank.
+   *
+   * @tags Data
+   * @name DataGetUserDebankTokenList
+   * @request GET:/data/{address}/debank/tokens
+   * @secure
+   */
+  dataGetUserDebankTokenList = (
+    { address, ...query }: DataGetUserDebankTokenListParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<DataGetUserDebankTokenListData, any>({
+      path: `/data/${address}/debank/tokens`,
       method: 'GET',
       query: query,
       secure: true,

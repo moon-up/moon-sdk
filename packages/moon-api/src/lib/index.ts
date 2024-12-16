@@ -1,4 +1,6 @@
 export * from "./Aave";
+export * from "./Allora";
+export * from "./Cookiefun";
 export * from "./Accounts";
 export * from "./Bitcoin";
 export * from "./Bitcoincash";

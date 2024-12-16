@@ -11,7 +11,7 @@
 
 import {
   AbstainResult,
-  ApproveResult1,
+  ApproveOutput1,
   AttachResult,
   AttachTokenToGaugeResult,
   CalculateOptimalVoteDistributionOutput,
@@ -154,7 +154,7 @@ export class Thena<SecurityDataType = unknown> {
     data: VeNFTInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<ApproveResult1, any>({
+    this.http.request<ApproveOutput1, any>({
       path: `/thena/nft/${address}/approve`,
       method: 'POST',
       body: data,

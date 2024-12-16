@@ -2183,234 +2183,7 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"AggregatedReserveData": {
-				"description": "Interface representing the aggregated reserve data for a specific asset.",
-				"properties": {
-					"underlyingAsset": {
-						"type": "string",
-						"description": "The address of the underlying asset."
-					},
-					"name": {
-						"type": "string",
-						"description": "The name of the asset."
-					},
-					"symbol": {
-						"type": "string",
-						"description": "The symbol of the asset."
-					},
-					"decimals": {
-						"$ref": "#/components/schemas/BigNumber",
-						"description": "The number of decimals of the asset."
-					},
-					"baseLTVasCollateral": {
-						"$ref": "#/components/schemas/BigNumber",
-						"description": "The loan-to-value ratio used as collateral."
-					},
-					"reserveLiquidationThreshold": {
-						"$ref": "#/components/schemas/BigNumber",
-						"description": "The threshold at which the asset will be liquidated."
-					},
-					"reserveLiquidationBonus": {
-						"$ref": "#/components/schemas/BigNumber",
-						"description": "The bonus applied upon liquidation."
-					},
-					"reserveFactor": {
-						"$ref": "#/components/schemas/BigNumber",
-						"description": "The reserve factor of the asset."
-					},
-					"usageAsCollateralEnabled": {
-						"type": "boolean",
-						"description": "Indicates if the asset can be used as collateral."
-					},
-					"borrowingEnabled": {
-						"type": "boolean",
-						"description": "Indicates if borrowing is enabled for the asset."
-					},
-					"stableBorrowRateEnabled": {
-						"type": "boolean",
-						"description": "Indicates if stable borrow rate is enabled for the asset."
-					},
-					"isActive": {
-						"type": "boolean",
-						"description": "Indicates if the asset is active."
-					},
-					"isFrozen": {
-						"type": "boolean",
-						"description": "Indicates if the asset is frozen."
-					},
-					"liquidityIndex": {
-						"$ref": "#/components/schemas/BigNumber",
-						"description": "The liquidity index of the asset."
-					},
-					"variableBorrowIndex": {
-						"$ref": "#/components/schemas/BigNumber",
-						"description": "The variable borrow index of the asset."
-					},
-					"liquidityRate": {
-						"$ref": "#/components/schemas/BigNumber",
-						"description": "The liquidity rate of the asset."
-					},
-					"variableBorrowRate": {
-						"$ref": "#/components/schemas/BigNumber",
-						"description": "The variable borrow rate of the asset."
-					},
-					"stableBorrowRate": {
-						"$ref": "#/components/schemas/BigNumber",
-						"description": "The stable borrow rate of the asset."
-					},
-					"lastUpdateTimestamp": {
-						"type": "number",
-						"format": "double",
-						"description": "The timestamp of the last update."
-					},
-					"aTokenAddress": {
-						"type": "string",
-						"description": "The address of the aToken associated with the asset."
-					},
-					"stableDebtTokenAddress": {
-						"type": "string",
-						"description": "The address of the stable debt token associated with the asset."
-					},
-					"variableDebtTokenAddress": {
-						"type": "string",
-						"description": "The address of the variable debt token associated with the asset."
-					},
-					"interestRateStrategyAddress": {
-						"type": "string",
-						"description": "The address of the interest rate strategy contract."
-					},
-					"availableLiquidity": {
-						"$ref": "#/components/schemas/BigNumber",
-						"description": "The available liquidity of the asset."
-					},
-					"totalPrincipalStableDebt": {
-						"$ref": "#/components/schemas/BigNumber",
-						"description": "The total principal stable debt of the asset."
-					},
-					"averageStableRate": {
-						"$ref": "#/components/schemas/BigNumber",
-						"description": "The average stable rate of the asset."
-					},
-					"stableDebtLastUpdateTimestamp": {
-						"$ref": "#/components/schemas/BigNumber",
-						"description": "The timestamp of the last update of the stable debt."
-					},
-					"totalScaledVariableDebt": {
-						"$ref": "#/components/schemas/BigNumber",
-						"description": "The total scaled variable debt of the asset."
-					},
-					"priceInMarketReferenceCurrency": {
-						"$ref": "#/components/schemas/BigNumber",
-						"description": "The price of the asset in the market reference currency."
-					},
-					"variableRateSlope1": {
-						"$ref": "#/components/schemas/BigNumber",
-						"description": "The first slope of the variable rate."
-					},
-					"variableRateSlope2": {
-						"$ref": "#/components/schemas/BigNumber",
-						"description": "The second slope of the variable rate."
-					},
-					"stableRateSlope1": {
-						"$ref": "#/components/schemas/BigNumber",
-						"description": "The first slope of the stable rate."
-					},
-					"stableRateSlope2": {
-						"$ref": "#/components/schemas/BigNumber",
-						"description": "The second slope of the stable rate."
-					}
-				},
-				"required": [
-					"underlyingAsset",
-					"name",
-					"symbol",
-					"decimals",
-					"baseLTVasCollateral",
-					"reserveLiquidationThreshold",
-					"reserveLiquidationBonus",
-					"reserveFactor",
-					"usageAsCollateralEnabled",
-					"borrowingEnabled",
-					"stableBorrowRateEnabled",
-					"isActive",
-					"isFrozen",
-					"liquidityIndex",
-					"variableBorrowIndex",
-					"liquidityRate",
-					"variableBorrowRate",
-					"stableBorrowRate",
-					"lastUpdateTimestamp",
-					"aTokenAddress",
-					"stableDebtTokenAddress",
-					"variableDebtTokenAddress",
-					"interestRateStrategyAddress",
-					"availableLiquidity",
-					"totalPrincipalStableDebt",
-					"averageStableRate",
-					"stableDebtLastUpdateTimestamp",
-					"totalScaledVariableDebt",
-					"priceInMarketReferenceCurrency",
-					"variableRateSlope1",
-					"variableRateSlope2",
-					"stableRateSlope1",
-					"stableRateSlope2"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"BaseCurrencyInfo": {
-				"description": "Interface representing the base currency information.",
-				"properties": {
-					"marketReferenceCurrencyUnit": {
-						"$ref": "#/components/schemas/BigNumber",
-						"description": "The unit of the market reference currency."
-					},
-					"marketReferenceCurrencyPriceInUsd": {
-						"$ref": "#/components/schemas/BigNumber",
-						"description": "The price of the market reference currency in USD."
-					},
-					"networkBaseTokenPriceInUsd": {
-						"$ref": "#/components/schemas/BigNumber",
-						"description": "The price of the network base token in USD."
-					},
-					"networkBaseTokenPriceDecimals": {
-						"type": "number",
-						"format": "double",
-						"description": "The number of decimals of the network base token price."
-					}
-				},
-				"required": [
-					"marketReferenceCurrencyUnit",
-					"marketReferenceCurrencyPriceInUsd",
-					"networkBaseTokenPriceInUsd",
-					"networkBaseTokenPriceDecimals"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"ReservesData": {
-				"description": "Interface representing the reserves data.",
-				"properties": {
-					"aggregatedReserveData": {
-						"items": {
-							"$ref": "#/components/schemas/AggregatedReserveData"
-						},
-						"type": "array",
-						"description": "The aggregated reserve data."
-					},
-					"baseCurrencyInfo": {
-						"$ref": "#/components/schemas/BaseCurrencyInfo",
-						"description": "The base currency information."
-					}
-				},
-				"required": [
-					"aggregatedReserveData",
-					"baseCurrencyInfo"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"AAVEv3UiPoolDataProviderAPIResponse_ReservesData_": {
+			"AAVEv3UiPoolDataProviderAPIResponse_any_": {
 				"description": "Interface representing the API response from AAVE v3 UI Pool Data Provider.",
 				"properties": {
 					"success": {
@@ -2422,7 +2195,6 @@
 						"description": "A message providing additional information about the API call."
 					},
 					"data": {
-						"$ref": "#/components/schemas/ReservesData",
 						"description": "The data returned by the API call, if any."
 					}
 				},
@@ -3416,6 +3188,91 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"AlloraInferenceResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"properties": {
+							"confidenceIntervals": {
+								"properties": {
+									"values": {
+										"items": {
+											"type": "number",
+											"format": "double"
+										},
+										"type": "array"
+									},
+									"percentiles": {
+										"items": {
+											"type": "number",
+											"format": "double"
+										},
+										"type": "array"
+									}
+								},
+								"required": [
+									"values",
+									"percentiles"
+								],
+								"type": "object"
+							},
+							"timestamp": {
+								"type": "string"
+							},
+							"percentageChange": {
+								"type": "number",
+								"format": "double"
+							},
+							"impliedFuturePrice": {
+								"type": "number",
+								"format": "double"
+							},
+							"predictedLogReturn": {
+								"type": "number",
+								"format": "double"
+							},
+							"currentPrice": {
+								"type": "number",
+								"format": "double"
+							}
+						},
+						"required": [
+							"confidenceIntervals",
+							"timestamp",
+							"percentageChange",
+							"impliedFuturePrice",
+							"predictedLogReturn",
+							"currentPrice"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Asset": {
+				"type": "string",
+				"enum": [
+					"ETH",
+					"BTC"
+				]
+			},
+			"TimeFrame": {
+				"type": "string",
+				"enum": [
+					"5m",
+					"8h"
+				]
+			},
 			"BitcoinInput": {
 				"description": "Represents the input data required for Bitcoin transactions.",
 				"properties": {
@@ -3882,13 +3739,15 @@
 						"type": "string",
 						"description": "A brief description of the component."
 					},
-					"xmlTag": {
-						"type": "string",
-						"description": "The XML tag associated with the component."
+					"xml_tag": {
+						"type": "string"
 					},
+					"xml_example": {
+						"type": "string"
+					},
+					"property_schema": {},
 					"version": {
-						"type": "string",
-						"description": "The version of the component."
+						"type": "string"
 					},
 					"code": {
 						"type": "string",
@@ -3913,7 +3772,9 @@
 					"id",
 					"name",
 					"description",
-					"xmlTag",
+					"xml_tag",
+					"xml_example",
+					"property_schema",
 					"version",
 					"code"
 				],
@@ -3979,13 +3840,15 @@
 						"type": "string",
 						"description": "A brief description of the component."
 					},
-					"xmlTag": {
-						"type": "string",
-						"description": "The XML tag associated with the component."
+					"xml_tag": {
+						"type": "string"
 					},
+					"xml_example": {
+						"type": "string"
+					},
+					"property_schema": {},
 					"version": {
-						"type": "string",
-						"description": "The version of the component."
+						"type": "string"
 					},
 					"code": {
 						"type": "string",
@@ -4009,7 +3872,9 @@
 				"required": [
 					"name",
 					"description",
-					"xmlTag",
+					"xml_tag",
+					"xml_example",
+					"property_schema",
 					"version",
 					"code"
 				],
@@ -4034,13 +3899,15 @@
 						"type": "string",
 						"description": "A brief description of the component."
 					},
-					"xmlTag": {
-						"type": "string",
-						"description": "The XML tag associated with the component."
+					"xml_tag": {
+						"type": "string"
 					},
+					"xml_example": {
+						"type": "string"
+					},
+					"property_schema": {},
 					"version": {
-						"type": "string",
-						"description": "The version of the component."
+						"type": "string"
 					},
 					"code": {
 						"type": "string",
@@ -4079,13 +3946,15 @@
 						"type": "string",
 						"description": "A brief description of the component."
 					},
-					"xmlTag": {
-						"type": "string",
-						"description": "The XML tag associated with the component."
+					"xml_tag": {
+						"type": "string"
 					},
+					"xml_example": {
+						"type": "string"
+					},
+					"property_schema": {},
 					"version": {
-						"type": "string",
-						"description": "The version of the component."
+						"type": "string"
 					},
 					"code": {
 						"type": "string",
@@ -4115,7 +3984,9 @@
 					"id",
 					"name",
 					"description",
-					"xmlTag",
+					"xml_tag",
+					"xml_example",
+					"property_schema",
 					"version",
 					"code",
 					"similarity"
@@ -4188,6 +4059,495 @@
 						},
 						"type": "array",
 						"description": "The data returned by the API, if any."
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"KOL": {
+				"properties": {
+					"username": {
+						"type": "string"
+					},
+					"followers": {
+						"type": "number",
+						"format": "double"
+					},
+					"mindshare": {
+						"type": "number",
+						"format": "double"
+					},
+					"engagement": {
+						"type": "number",
+						"format": "double"
+					},
+					"posts": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"username",
+					"followers",
+					"mindshare",
+					"engagement",
+					"posts"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"KOLListAPIResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean",
+						"description": "The success status of the operation."
+					},
+					"message": {
+						"type": "string",
+						"description": "The message associated with the operation."
+					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody",
+						"description": "The data associated with the operation."
+					},
+					"address": {
+						"type": "string",
+						"description": "The address associated with the operation."
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/KOL"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"KOLNetwork": {
+				"properties": {
+					"connections": {
+						"type": "number",
+						"format": "double"
+					},
+					"influenceScore": {
+						"type": "number",
+						"format": "double"
+					},
+					"networkStrength": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"connections",
+					"influenceScore",
+					"networkStrength"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"KOLNetworkAPIResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean",
+						"description": "The success status of the operation."
+					},
+					"message": {
+						"type": "string",
+						"description": "The message associated with the operation."
+					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody",
+						"description": "The data associated with the operation."
+					},
+					"address": {
+						"type": "string",
+						"description": "The address associated with the operation."
+					},
+					"data": {
+						"$ref": "#/components/schemas/KOLNetwork"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CommunityMetrics": {
+				"properties": {
+					"size": {
+						"type": "number",
+						"format": "double"
+					},
+					"growth": {
+						"type": "number",
+						"format": "double"
+					},
+					"engagementRate": {
+						"type": "number",
+						"format": "double"
+					},
+					"sentiment": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"size",
+					"growth",
+					"engagementRate",
+					"sentiment"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CommunityMetricsAPIResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean",
+						"description": "The success status of the operation."
+					},
+					"message": {
+						"type": "string",
+						"description": "The message associated with the operation."
+					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody",
+						"description": "The data associated with the operation."
+					},
+					"address": {
+						"type": "string",
+						"description": "The address associated with the operation."
+					},
+					"data": {
+						"$ref": "#/components/schemas/CommunityMetrics"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TrendingTweet": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"text": {
+						"type": "string"
+					},
+					"likes": {
+						"type": "number",
+						"format": "double"
+					},
+					"retweets": {
+						"type": "number",
+						"format": "double"
+					},
+					"engagement": {
+						"type": "number",
+						"format": "double"
+					},
+					"reach": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"id",
+					"text",
+					"likes",
+					"retweets",
+					"engagement",
+					"reach"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TrendingTweetsAPIResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean",
+						"description": "The success status of the operation."
+					},
+					"message": {
+						"type": "string",
+						"description": "The message associated with the operation."
+					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody",
+						"description": "The data associated with the operation."
+					},
+					"address": {
+						"type": "string",
+						"description": "The address associated with the operation."
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/TrendingTweet"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"NarrativeTrend": {
+				"properties": {
+					"topic": {
+						"type": "string"
+					},
+					"strength": {
+						"type": "number",
+						"format": "double"
+					},
+					"velocity": {
+						"type": "number",
+						"format": "double"
+					},
+					"relatedTopics": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"topic",
+					"strength",
+					"velocity",
+					"relatedTopics"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"NarrativeTrendsAPIResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean",
+						"description": "The success status of the operation."
+					},
+					"message": {
+						"type": "string",
+						"description": "The message associated with the operation."
+					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody",
+						"description": "The data associated with the operation."
+					},
+					"address": {
+						"type": "string",
+						"description": "The address associated with the operation."
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/NarrativeTrend"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TokenAnalytics": {
+				"properties": {
+					"price": {
+						"type": "number",
+						"format": "double"
+					},
+					"marketCap": {
+						"type": "number",
+						"format": "double"
+					},
+					"volume": {
+						"type": "number",
+						"format": "double"
+					},
+					"socialEngagement": {
+						"type": "number",
+						"format": "double"
+					},
+					"holders": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"price",
+					"marketCap",
+					"volume",
+					"socialEngagement",
+					"holders"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TokenAnalyticsAPIResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean",
+						"description": "The success status of the operation."
+					},
+					"message": {
+						"type": "string",
+						"description": "The message associated with the operation."
+					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody",
+						"description": "The data associated with the operation."
+					},
+					"address": {
+						"type": "string",
+						"description": "The address associated with the operation."
+					},
+					"data": {
+						"$ref": "#/components/schemas/TokenAnalytics"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TrendingToken": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"symbol": {
+						"type": "string"
+					},
+					"price": {
+						"type": "number",
+						"format": "double"
+					},
+					"priceChange": {
+						"type": "number",
+						"format": "double"
+					},
+					"socialScore": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"symbol",
+					"price",
+					"priceChange",
+					"socialScore"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TrendingTokensAPIResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean",
+						"description": "The success status of the operation."
+					},
+					"message": {
+						"type": "string",
+						"description": "The message associated with the operation."
+					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody",
+						"description": "The data associated with the operation."
+					},
+					"address": {
+						"type": "string",
+						"description": "The address associated with the operation."
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/TrendingToken"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PredictiveMetric": {
+				"properties": {
+					"metric": {
+						"type": "string"
+					},
+					"prediction": {
+						"type": "number",
+						"format": "double"
+					},
+					"confidence": {
+						"type": "number",
+						"format": "double"
+					},
+					"factors": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"metric",
+					"prediction",
+					"confidence",
+					"factors"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PredictiveMetricsAPIResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean",
+						"description": "The success status of the operation."
+					},
+					"message": {
+						"type": "string",
+						"description": "The message associated with the operation."
+					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody",
+						"description": "The data associated with the operation."
+					},
+					"address": {
+						"type": "string",
+						"description": "The address associated with the operation."
+					},
+					"data": {
+						"$ref": "#/components/schemas/PredictiveMetric"
 					}
 				},
 				"required": [
@@ -5543,6 +5903,36 @@
 						},
 						"type": "object",
 						"description": "The data object containing portfolio details."
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"DebankPortfolioAPIResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean",
+						"description": "The success status of the operation."
+					},
+					"message": {
+						"type": "string",
+						"description": "The message associated with the operation."
+					},
+					"body": {
+						"$ref": "#/components/schemas/InputBody",
+						"description": "The data associated with the operation."
+					},
+					"address": {
+						"type": "string",
+						"description": "The address associated with the operation."
+					},
+					"data": {
+						"items": {},
+						"type": "array"
 					}
 				},
 				"required": [
@@ -12025,6 +12415,8 @@
 			},
 			"MakeFunTokenHelperExecuteFunctionResult": {
 				"properties": {
+					"image": {},
+					"description": {},
 					"simulation": {
 						"$ref": "#/components/schemas/SimulateAssetChangesResponse"
 					},
@@ -12429,8 +12821,17 @@
 					},
 					"minTotalSupply": {},
 					"maxTotalSupply": {},
-					"maxTick": {}
+					"maxTick": {},
+					"base64Image": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					}
 				},
+				"required": [
+					"description"
+				],
 				"type": "object",
 				"additionalProperties": false
 			},
@@ -13015,6 +13416,7 @@
 			},
 			"OdosExecuteFunctionResult": {
 				"properties": {
+					"approve": {},
 					"broadcasted": {
 						"$ref": "#/components/schemas/BroadCastRawTransactionResponse",
 						"description": "The broadcasted transaction details."
@@ -14118,48 +14520,6 @@
 				"required": [
 					"success",
 					"message"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"TokenStandard": {
-				"description": "Token standards",
-				"enum": [
-					"ERC20",
-					"ERC721",
-					"ERC1155"
-				],
-				"type": "string"
-			},
-			"Asset": {
-				"description": "Generic Blockchain Asset.",
-				"properties": {
-					"tokenId": {
-						"type": "string",
-						"nullable": true,
-						"description": "The asset's token ID, or null if ERC-20"
-					},
-					"tokenAddress": {
-						"type": "string",
-						"description": "The asset's contract address"
-					},
-					"tokenStandard": {
-						"$ref": "#/components/schemas/TokenStandard",
-						"description": "The token standard (e.g. \"ERC721\") for this asset"
-					},
-					"name": {
-						"type": "string",
-						"description": "Optional for ENS names"
-					},
-					"decimals": {
-						"type": "number",
-						"format": "double",
-						"description": "Optional for fungible items"
-					}
-				},
-				"required": [
-					"tokenId",
-					"tokenAddress"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -20012,6 +20372,232 @@
 				},
 				"type": "object",
 				"additionalProperties": false
+			},
+			"TokenConfig": {
+				"properties": {
+					"tradeTokens": {
+						"items": {
+							"$ref": "#/components/schemas/Token"
+						},
+						"type": "array"
+					},
+					"stablecoin": {
+						"$ref": "#/components/schemas/Token"
+					}
+				},
+				"required": [
+					"tradeTokens",
+					"stablecoin"
+				],
+				"type": "object"
+			},
+			"EmotionalState": {
+				"properties": {
+					"mood": {
+						"type": "number",
+						"format": "double"
+					},
+					"energy": {
+						"type": "number",
+						"format": "double"
+					},
+					"reactivity": {
+						"type": "number",
+						"format": "double"
+					},
+					"dominantEmotion": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"mood",
+					"energy",
+					"reactivity",
+					"dominantEmotion"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PersonalityTraits": {
+				"properties": {
+					"openness": {
+						"type": "number",
+						"format": "double"
+					},
+					"conscientiousness": {
+						"type": "number",
+						"format": "double"
+					},
+					"extraversion": {
+						"type": "number",
+						"format": "double"
+					},
+					"agreeableness": {
+						"type": "number",
+						"format": "double"
+					},
+					"neuroticism": {
+						"type": "number",
+						"format": "double"
+					},
+					"confidence": {
+						"type": "number",
+						"format": "double"
+					},
+					"optimism": {
+						"type": "number",
+						"format": "double"
+					},
+					"formality": {
+						"type": "number",
+						"format": "double"
+					},
+					"humor": {
+						"type": "number",
+						"format": "double"
+					},
+					"empathy": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"openness",
+					"conscientiousness",
+					"extraversion",
+					"agreeableness",
+					"neuroticism",
+					"confidence",
+					"optimism",
+					"formality",
+					"humor",
+					"empathy"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BotConfigType": {
+				"properties": {
+					"twitter_screen_name": {
+						"type": "string"
+					},
+					"twitter_name": {
+						"type": "string"
+					},
+					"is_production": {
+						"type": "boolean"
+					},
+					"life_activity_log": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"personality_traits": {
+						"$ref": "#/components/schemas/PersonalityTraits"
+					},
+					"emotional_state": {
+						"$ref": "#/components/schemas/EmotionalState"
+					},
+					"twitter_posting_enabled": {
+						"type": "boolean"
+					},
+					"eth_wallet": {
+						"type": "string"
+					},
+					"running": {
+						"type": "boolean"
+					},
+					"active": {
+						"type": "boolean"
+					},
+					"session": {
+						"type": "string"
+					},
+					"trading_style": {
+						"type": "string"
+					},
+					"tweet_style": {
+						"type": "string"
+					},
+					"twitter_id": {
+						"type": "string"
+					},
+					"twitter_password": {
+						"type": "string"
+					},
+					"twitter_email": {
+						"type": "string"
+					},
+					"personality": {
+						"type": "string"
+					},
+					"trade_tokens": {
+						"$ref": "#/components/schemas/TokenConfig"
+					},
+					"moon_api_key": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"user_id": {
+						"type": "string"
+					},
+					"id": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"is_production",
+					"trading_style",
+					"tweet_style",
+					"twitter_password",
+					"twitter_email",
+					"personality",
+					"trade_tokens",
+					"moon_api_key",
+					"name",
+					"user_id",
+					"id"
+				],
+				"type": "object"
+			},
+			"PersonalityInput": {
+				"properties": {
+					"personality": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"personality"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"GeneratedTweet": {
+				"properties": {
+					"replyTweets": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"screenshot": {
+						"type": "string"
+					},
+					"replyTweetId": {
+						"type": "string"
+					},
+					"text": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"replyTweets",
+					"text"
+				],
+				"type": "object"
 			}
 		},
 		"securitySchemes": {
@@ -22785,7 +23371,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/AAVEv3UiPoolDataProviderAPIResponse_ReservesData_"
+									"$ref": "#/components/schemas/AAVEv3UiPoolDataProviderAPIResponse_any_"
 								}
 							}
 						}
@@ -24291,6 +24877,241 @@
 				}
 			}
 		},
+		"/allora/inference": {
+			"get": {
+				"operationId": "GetPriceInference",
+				"responses": {
+					"200": {
+						"description": "A promise that resolves to an AlloraInferenceResponse object",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AlloraInferenceResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Get price inference for a specific asset and timeframe",
+				"tags": [
+					"Allora"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "- The asset to get inference for (ETH or BTC)",
+						"in": "query",
+						"name": "asset",
+						"required": true,
+						"schema": {
+							"$ref": "#/components/schemas/Asset"
+						}
+					},
+					{
+						"description": "- The timeframe for the inference (5m or 8h)",
+						"in": "query",
+						"name": "timeframe",
+						"required": true,
+						"schema": {
+							"$ref": "#/components/schemas/TimeFrame"
+						}
+					},
+					{
+						"description": "- The current price of the asset",
+						"in": "query",
+						"name": "currentPrice",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"description": "- The authorization token",
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/allora/log-return-to-percentage": {
+			"get": {
+				"operationId": "LogReturnToPercentage",
+				"responses": {
+					"200": {
+						"description": "A promise that resolves to an object containing the percentage change",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"data": {
+											"properties": {
+												"percentageChange": {
+													"type": "number",
+													"format": "double"
+												}
+											},
+											"required": [
+												"percentageChange"
+											],
+											"type": "object"
+										},
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"required": [
+										"message",
+										"success"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"description": "Convert log return to percentage",
+				"tags": [
+					"Allora"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "- The log return to convert",
+						"in": "query",
+						"name": "logReturn",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"description": "- The authorization token",
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/allora/implied-future-price": {
+			"get": {
+				"operationId": "ImpliedFuturePrice",
+				"responses": {
+					"200": {
+						"description": "A promise that resolves to an object containing the implied future price",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"data": {
+											"properties": {
+												"impliedFuturePrice": {
+													"type": "number",
+													"format": "double"
+												}
+											},
+											"required": [
+												"impliedFuturePrice"
+											],
+											"type": "object"
+										},
+										"message": {
+											"type": "string"
+										},
+										"success": {
+											"type": "boolean"
+										}
+									},
+									"required": [
+										"message",
+										"success"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"description": "Calculate implied future price",
+				"tags": [
+					"Allora"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "- The current price of the asset",
+						"in": "query",
+						"name": "currentPrice",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"description": "- The log return",
+						"in": "query",
+						"name": "logReturn",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"description": "- The authorization token",
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
 		"/bitcoin": {
 			"get": {
 				"operationId": "BitcoinListAccounts",
@@ -25459,7 +26280,8 @@
 							"enum": [
 								"1D",
 								"4H",
-								"1H"
+								"1H",
+								"15m"
 							]
 						}
 					}
@@ -25928,6 +26750,648 @@
 						"required": true,
 						"schema": {
 							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/cookiefun/kols": {
+			"get": {
+				"operationId": "CookieFun_GetKOLList",
+				"responses": {
+					"200": {
+						"description": "A promise that resolves to a KOLListAPIResponse object containing the KOL list.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/KOLListAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves a list of key opinion leaders (KOLs).",
+				"tags": [
+					"CookieFun"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "- The authorization token.",
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The number of results to return (optional).",
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"description": "- The sorting criteria (optional).",
+						"in": "query",
+						"name": "sort",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The filter criteria (optional).",
+						"in": "query",
+						"name": "filter",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The page number for pagination (optional).",
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/cookiefun/kols/{username}/network": {
+			"get": {
+				"operationId": "CookieFun_GetKOLNetwork",
+				"responses": {
+					"200": {
+						"description": "A promise that resolves to a KOLNetworkAPIResponse object containing the KOL's network information.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/KOLNetworkAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves the network information for a specific KOL.",
+				"tags": [
+					"CookieFun"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "- The username of the KOL.",
+						"in": "path",
+						"name": "username",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The authorization token.",
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The depth of the network to retrieve (optional).",
+						"in": "query",
+						"name": "depth",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"description": "- The filter criteria for the network (optional).",
+						"in": "query",
+						"name": "filter",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The metric to analyze the network (optional).",
+						"in": "query",
+						"name": "metric",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/cookiefun/kols/{username}/community": {
+			"get": {
+				"operationId": "CookieFun_GetKOLCommunity",
+				"responses": {
+					"200": {
+						"description": "A promise that resolves to a CommunityMetricsAPIResponse object containing the community metrics.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/CommunityMetricsAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves community metrics for a specific KOL.",
+				"tags": [
+					"CookieFun"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "- The username of the KOL.",
+						"in": "path",
+						"name": "username",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The authorization token.",
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The time period for the metrics.",
+						"in": "query",
+						"name": "period",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The specific metrics to retrieve.",
+						"in": "query",
+						"name": "metrics",
+						"required": true,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"description": "- The filter criteria for the community (optional).",
+						"in": "query",
+						"name": "filter",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/cookiefun/tweets/trending": {
+			"get": {
+				"operationId": "CookieFun_GetTrendingTweets",
+				"responses": {
+					"200": {
+						"description": "A promise that resolves to a TrendingTweetsAPIResponse object containing the trending tweets.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/TrendingTweetsAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves trending tweets.",
+				"tags": [
+					"CookieFun"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "- The authorization token.",
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The metrics to include for each tweet.",
+						"in": "query",
+						"name": "metrics",
+						"required": true,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"description": "- The time period for the trending tweets.",
+						"in": "query",
+						"name": "period",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The number of trending tweets to retrieve (optional).",
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"description": "- The category of tweets to retrieve (optional).",
+						"in": "query",
+						"name": "category",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/cookiefun/narratives/trending": {
+			"get": {
+				"operationId": "CookieFun_GetTrendingNarratives",
+				"responses": {
+					"200": {
+						"description": "A promise that resolves to a NarrativeTrendsAPIResponse object containing the trending narratives.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/NarrativeTrendsAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves trending narratives.",
+				"tags": [
+					"CookieFun"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "- The authorization token.",
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The timeframe for the trending narratives.",
+						"in": "query",
+						"name": "timeframe",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The minimum threshold for trend strength (optional).",
+						"in": "query",
+						"name": "threshold",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"description": "- The category of narratives to retrieve (optional).",
+						"in": "query",
+						"name": "category",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/cookiefun/tokens/{tokenId}/analytics": {
+			"get": {
+				"operationId": "CookieFun_GetTokenAnalytics",
+				"responses": {
+					"200": {
+						"description": "A promise that resolves to a TokenAnalyticsAPIResponse object containing the token analytics.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/TokenAnalyticsAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves token analytics.",
+				"tags": [
+					"CookieFun"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "- The ID of the token.",
+						"in": "path",
+						"name": "tokenId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The authorization token.",
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The metrics to retrieve for the token.",
+						"in": "query",
+						"name": "metrics",
+						"required": true,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"description": "- The time period for the analytics.",
+						"in": "query",
+						"name": "period",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The interval for the data points.",
+						"in": "query",
+						"name": "interval",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/cookiefun/tokens/trending": {
+			"get": {
+				"operationId": "CookieFun_GetTrendingTokens",
+				"responses": {
+					"200": {
+						"description": "A promise that resolves to a TrendingTokensAPIResponse object containing the trending tokens.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/TrendingTokensAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves trending tokens.",
+				"tags": [
+					"CookieFun"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "- The authorization token.",
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The metrics to include for each token.",
+						"in": "query",
+						"name": "metrics",
+						"required": true,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					{
+						"description": "- The sorting criteria for the trending tokens.",
+						"in": "query",
+						"name": "sort",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The filter criteria for the trending tokens (optional).",
+						"in": "query",
+						"name": "filter",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The number of trending tokens to retrieve (optional).",
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/cookiefun/predictive/{metric}": {
+			"get": {
+				"operationId": "CookieFun_GetPredictiveMetrics",
+				"responses": {
+					"200": {
+						"description": "A promise that resolves to a PredictiveMetricsAPIResponse object containing the predictive metrics.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PredictiveMetricsAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves predictive metrics.",
+				"tags": [
+					"CookieFun"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "- The specific metric to predict.",
+						"in": "path",
+						"name": "metric",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The authorization token.",
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The target for the prediction.",
+						"in": "query",
+						"name": "target",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The time horizon for the prediction.",
+						"in": "query",
+						"name": "horizon",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The minimum confidence level for the prediction (optional).",
+						"in": "query",
+						"name": "confidence",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
 						}
 					}
 				]
@@ -26809,6 +28273,128 @@
 						}
 					}
 				}
+			}
+		},
+		"/data/{address}/debank/tokens": {
+			"get": {
+				"operationId": "Data_GetUserDebankTokenList",
+				"responses": {
+					"200": {
+						"description": "A promise that resolves to a WalletBalanceAPIResponse object containing the token list.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/WalletBalanceAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves the user's token list from Debank.",
+				"tags": [
+					"Data"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "- The wallet address of the user.",
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The authorization token.",
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The chain ID to fetch tokens for.",
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/data/{address}/debank/complex-protocols": {
+			"get": {
+				"operationId": "Data_GetUserDebankComplexProtocolList",
+				"responses": {
+					"200": {
+						"description": "A promise that resolves to a PortfolioAPIResponse object containing the complex protocol list.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DebankPortfolioAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves the user's complex protocol list from Debank.",
+				"tags": [
+					"Data"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "- The wallet address of the user.",
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The authorization token.",
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The chain ID to fetch complex protocols for.",
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		},
 		"/dogecoin": {
@@ -58418,6 +60004,600 @@
 						}
 					}
 				}
+			}
+		},
+		"/tradingBot/configs": {
+			"get": {
+				"operationId": "GetConfigs",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/BotConfigType"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"TradingBot"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/tradingBot/{botId}/start": {
+			"get": {
+				"operationId": "StartBot",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"TradingBot"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "botId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/tradingBot/{botId}/stop": {
+			"get": {
+				"operationId": "StopBot",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"TradingBot"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "botId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/tradingBot/{botId}/activate": {
+			"get": {
+				"operationId": "ActivateBot",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"TradingBot"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "botId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/tradingBot/{botId}/deactivate": {
+			"get": {
+				"operationId": "DeactivateBot",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"TradingBot"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "botId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/tradingBot/{botId}/trigger": {
+			"get": {
+				"operationId": "TriggerBot",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"TradingBot"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "botId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/tradingBot/{botId}/restart": {
+			"get": {
+				"operationId": "RestartBot",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"TradingBot"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "botId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/tradingBot/{botId}/status": {
+			"get": {
+				"operationId": "GetBotStatus",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"TradingBot"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "botId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/tradingBot/{botId}/lastRunResults": {
+			"get": {
+				"operationId": "GetBotLastRunResults",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"TradingBot"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "botId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/tradingBot/{botId}/personality": {
+			"patch": {
+				"operationId": "UpdatePersonality",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BotConfigType"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"TradingBot"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "botId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PersonalityInput"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/tradingBot/{botId}/twitter/createTweet": {
+			"post": {
+				"operationId": "CreateTweet",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BotConfigType"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"TradingBot"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "botId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/GeneratedTweet"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/tradingBot/{botId}/twitter/followingTimeline": {
+			"get": {
+				"operationId": "FollowingTimeline",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BotConfigType"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"TradingBot"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "botId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/tradingBot/{botId}/twitter/tweet/history": {
+			"get": {
+				"operationId": "TweetHistory",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BotConfigType"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"TradingBot"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "botId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/tradingBot/{botId}/twitter/conversation/{tweetId}": {
+			"get": {
+				"operationId": "Conversation",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BotConfigType"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"TradingBot"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "botId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "tweetId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		}
 	},

@@ -1486,9 +1486,28 @@ export class MoonSDK extends EventEmitter implements IMoonSDK {
 		return this.moonAPIService.getPolymarketSDK();
 	}
 
+	/**
+	 * Retrieves the Lynex SDK instance from the MoonAPI service.
+	 *
+	 * @returns {MoonAPI.Lynex} The Lynex SDK instance.
+	 */
 	public getLynexSDK(): MoonAPI.Lynex {
 		return this.moonAPIService.getLynexSDK();
 	}
+
+	/**
+	 * Retrieves the Allora SDK instance from the MoonAPI service.
+	 * @returns  {MoonAPI.Allora} The Allora SDK instance.
+	 *
+	 */
+	public getAlloraSDK(): MoonAPI.Allora {
+		return this.moonAPIService.getAlloraSDK();
+	}
+
+	public getCookiefunSDK(): MoonAPI.Cookiefun {
+		return this.moonAPIService.getCookiefunSDK();
+	}
+
 	/**
 	 * Retrieves the balance of a Solana account.
 	 *

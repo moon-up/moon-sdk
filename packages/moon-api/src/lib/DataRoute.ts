@@ -16,6 +16,8 @@ import {
   DataExecuteCustomSupabaseQueryPayload,
   DataGetPortfolioFetchStatusData,
   DataGetTokensMetadataData,
+  DataGetUserDebankComplexProtocolListData,
+  DataGetUserDebankTokenListData,
   DataGetUserWalletPortfolioData,
   DataGetWalletNfTsData,
   DataGetWalletTokenBalancesData,
@@ -109,6 +111,54 @@ export namespace Data {
       Authorization: string;
     };
     export type ResponseBody = DataGetTokensMetadataData;
+  }
+
+  /**
+   * @description Retrieves the user's complex protocol list from Debank.
+   * @tags Data
+   * @name DataGetUserDebankComplexProtocolList
+   * @request GET:/data/{address}/debank/complex-protocols
+   * @secure
+   */
+  export namespace DataGetUserDebankComplexProtocolList {
+    export type RequestParams = {
+      /** - The wallet address of the user. */
+      address: string;
+    };
+    export type RequestQuery = {
+      /** - The chain ID to fetch complex protocols for. */
+      chainId: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token. */
+      Authorization: string;
+    };
+    export type ResponseBody = DataGetUserDebankComplexProtocolListData;
+  }
+
+  /**
+   * @description Retrieves the user's token list from Debank.
+   * @tags Data
+   * @name DataGetUserDebankTokenList
+   * @request GET:/data/{address}/debank/tokens
+   * @secure
+   */
+  export namespace DataGetUserDebankTokenList {
+    export type RequestParams = {
+      /** - The wallet address of the user. */
+      address: string;
+    };
+    export type RequestQuery = {
+      /** - The chain ID to fetch tokens for. */
+      chainId: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token. */
+      Authorization: string;
+    };
+    export type ResponseBody = DataGetUserDebankTokenListData;
   }
 
   /**

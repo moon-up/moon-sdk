@@ -264,9 +264,9 @@ export interface AAVEv3UiIncentiveDataProviderAPIResponseUserReserveIncentiveDat
 }
 
 /** Interface representing the API response from AAVE v3 UI Pool Data Provider. */
-export interface AAVEv3UiPoolDataProviderAPIResponseReservesData {
+export interface AAVEv3UiPoolDataProviderAPIResponseAny {
 	/** The data returned by the API call, if any. */
-	data?: ReservesData;
+	data?: any;
 	/** A message providing additional information about the API call. */
 	message: string;
 	/** Indicates whether the API call was successful. */
@@ -1094,6 +1094,8 @@ export interface Action {
 	toToken: TokenDetails;
 }
 
+export type ActivateBotData = string;
+
 export type AddLiquidityData =
 	LynexRouterAPIResponseLynexRouterExecuteFunctionResult;
 
@@ -1111,79 +1113,6 @@ export type AddLiquidityOutput =
 
 export type AddLiquidityResult =
 	RamsesRouterAPIResponseRamsesRouterExecuteFunctionResult;
-
-/** Interface representing the aggregated reserve data for a specific asset. */
-export interface AggregatedReserveData {
-	/** The first slope of the stable rate. */
-	stableRateSlope1: BigNumber;
-	/** The second slope of the stable rate. */
-	stableRateSlope2: BigNumber;
-	/** The first slope of the variable rate. */
-	variableRateSlope1: BigNumber;
-	/** The second slope of the variable rate. */
-	variableRateSlope2: BigNumber;
-	/** The address of the aToken associated with the asset. */
-	aTokenAddress: string;
-	/** The available liquidity of the asset. */
-	availableLiquidity: BigNumber;
-	/** The average stable rate of the asset. */
-	averageStableRate: BigNumber;
-	/** The loan-to-value ratio used as collateral. */
-	baseLTVasCollateral: BigNumber;
-	/** Indicates if borrowing is enabled for the asset. */
-	borrowingEnabled: boolean;
-	/** The number of decimals of the asset. */
-	decimals: BigNumber;
-	/** The address of the interest rate strategy contract. */
-	interestRateStrategyAddress: string;
-	/** Indicates if the asset is active. */
-	isActive: boolean;
-	/** Indicates if the asset is frozen. */
-	isFrozen: boolean;
-	/**
-	 * The timestamp of the last update.
-	 * @format double
-	 */
-	lastUpdateTimestamp: number;
-	/** The liquidity index of the asset. */
-	liquidityIndex: BigNumber;
-	/** The liquidity rate of the asset. */
-	liquidityRate: BigNumber;
-	/** The name of the asset. */
-	name: string;
-	/** The price of the asset in the market reference currency. */
-	priceInMarketReferenceCurrency: BigNumber;
-	/** The reserve factor of the asset. */
-	reserveFactor: BigNumber;
-	/** The bonus applied upon liquidation. */
-	reserveLiquidationBonus: BigNumber;
-	/** The threshold at which the asset will be liquidated. */
-	reserveLiquidationThreshold: BigNumber;
-	/** The stable borrow rate of the asset. */
-	stableBorrowRate: BigNumber;
-	/** Indicates if stable borrow rate is enabled for the asset. */
-	stableBorrowRateEnabled: boolean;
-	/** The timestamp of the last update of the stable debt. */
-	stableDebtLastUpdateTimestamp: BigNumber;
-	/** The address of the stable debt token associated with the asset. */
-	stableDebtTokenAddress: string;
-	/** The symbol of the asset. */
-	symbol: string;
-	/** The total principal stable debt of the asset. */
-	totalPrincipalStableDebt: BigNumber;
-	/** The total scaled variable debt of the asset. */
-	totalScaledVariableDebt: BigNumber;
-	/** The address of the underlying asset. */
-	underlyingAsset: string;
-	/** Indicates if the asset can be used as collateral. */
-	usageAsCollateralEnabled: boolean;
-	/** The variable borrow index of the asset. */
-	variableBorrowIndex: BigNumber;
-	/** The variable borrow rate of the asset. */
-	variableBorrowRate: BigNumber;
-	/** The address of the variable debt token associated with the asset. */
-	variableDebtTokenAddress: string;
-}
 
 /** Interface representing the aggregated reserve incentive data. */
 export interface AggregatedReserveIncentiveData {
@@ -1218,6 +1147,26 @@ export interface AllFinancialsAPIResponse {
 	/** The message associated with the operation. */
 	message: string;
 	/** The success status of the operation. */
+	success: boolean;
+}
+
+export interface AlloraInferenceResponse {
+	data?: {
+		confidenceIntervals: {
+			percentiles: number[];
+			values: number[];
+		};
+		/** @format double */
+		currentPrice: number;
+		/** @format double */
+		impliedFuturePrice: number;
+		/** @format double */
+		percentageChange: number;
+		/** @format double */
+		predictedLogReturn: number;
+		timestamp: string;
+	};
+	message: string;
 	success: boolean;
 }
 
@@ -1297,9 +1246,9 @@ export type ApproveForPolymarketData = PolymarketAPIResponseAny;
 export type ApproveOutput =
 	UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
 
-export type ApproveResult = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
+export type ApproveOutput1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
-export type ApproveResult1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+export type ApproveResult = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 
 /** Represents a request to assemble a specific path for a user. */
 export interface AssembleRequest {
@@ -1313,21 +1262,9 @@ export interface AssembleRequest {
 	userAddr: string;
 }
 
-/** Generic Blockchain Asset. */
-export interface Asset {
-	/**
-	 * Optional for fungible items
-	 * @format double
-	 */
-	decimals?: number;
-	/** Optional for ENS names */
-	name?: string;
-	/** The asset's contract address */
-	tokenAddress: string;
-	/** The asset's token ID, or null if ERC-20 */
-	tokenId: string | null;
-	/** The token standard (e.g. "ERC721") for this asset */
-	tokenStandard?: TokenStandard;
+export enum Asset {
+	ETH = "ETH",
+	BTC = "BTC",
 }
 
 export type AttachData = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
@@ -1593,21 +1530,6 @@ export interface BaseCosmosAPIResponse {
 	success: boolean;
 }
 
-/** Interface representing the base currency information. */
-export interface BaseCurrencyInfo {
-	/** The price of the market reference currency in USD. */
-	marketReferenceCurrencyPriceInUsd: BigNumber;
-	/** The unit of the market reference currency. */
-	marketReferenceCurrencyUnit: BigNumber;
-	/**
-	 * The number of decimals of the network base token price.
-	 * @format double
-	 */
-	networkBaseTokenPriceDecimals: number;
-	/** The price of the network base token in USD. */
-	networkBaseTokenPriceInUsd: BigNumber;
-}
-
 export type BaseUriData = UniswapV3NFTAPIResponseString;
 
 export interface BaseUriParams {
@@ -1787,6 +1709,31 @@ export interface BitcoinTransactionOutput {
 	signedTx?: string;
 	/** The transaction hash. */
 	transaction_hash?: string;
+}
+
+export interface BotConfigType {
+	active?: boolean;
+	emotional_state?: EmotionalState;
+	eth_wallet?: string;
+	id: string;
+	is_production: boolean;
+	life_activity_log?: string[];
+	moon_api_key: string;
+	name: string;
+	personality: string;
+	personality_traits?: PersonalityTraits;
+	running?: boolean;
+	session?: string;
+	trade_tokens: TokenConfig;
+	trading_style: string;
+	tweet_style: string;
+	twitter_email: string;
+	twitter_id?: string;
+	twitter_name?: string;
+	twitter_password: string;
+	twitter_posting_enabled?: boolean;
+	twitter_screen_name?: string;
+	user_id: string;
 }
 
 export interface Bridge {
@@ -2078,6 +2025,7 @@ export enum ChartsGetChartAnalysisParamsEnum {
 	Value1D = "1D",
 	Value4H = "4H",
 	Value1H = "1H",
+	Value15M = "15m",
 }
 
 /**
@@ -2088,6 +2036,7 @@ export enum ChartsGetChartAnalysisParamsTimeframeEnum {
 	Value1D = "1D",
 	Value4H = "4H",
 	Value1H = "1H",
+	Value15M = "15m",
 }
 
 export type CheckpointData = LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
@@ -2127,6 +2076,29 @@ export type ClaimRewardsResult =
 	RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
 
 export type CollectData = UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
+
+export interface CommunityMetrics {
+	/** @format double */
+	engagementRate: number;
+	/** @format double */
+	growth: number;
+	/** @format double */
+	sentiment: number;
+	/** @format double */
+	size: number;
+}
+
+export interface CommunityMetricsAPIResponse {
+	/** The address associated with the operation. */
+	address?: string;
+	/** The data associated with the operation. */
+	body?: InputBody;
+	data?: CommunityMetrics;
+	/** The message associated with the operation. */
+	message: string;
+	/** The success status of the operation. */
+	success: boolean;
+}
 
 /** Represents the financial and general information of a company. */
 export interface CompanyFacts {
@@ -2248,16 +2220,16 @@ export interface ComponentDefinition {
 	is_active?: boolean;
 	/** The name of the component. */
 	name: string;
+	property_schema: any;
 	/**
 	 * The date and time when the component was last updated.
 	 * Optional.
 	 * @format date-time
 	 */
 	updated_at?: string;
-	/** The version of the component. */
 	version: string;
-	/** The XML tag associated with the component. */
-	xmlTag: string;
+	xml_example: string;
+	xml_tag: string;
 }
 
 /** Represents a component match that extends the ComponentDefinition interface. */
@@ -2281,6 +2253,7 @@ export interface ComponentMatch {
 	is_active?: boolean;
 	/** The name of the component. */
 	name: string;
+	property_schema: any;
 	/**
 	 * The similarity score of the component match.
 	 * @format double
@@ -2292,10 +2265,9 @@ export interface ComponentMatch {
 	 * @format date-time
 	 */
 	updated_at?: string;
-	/** The version of the component. */
 	version: string;
-	/** The XML tag associated with the component. */
-	xmlTag: string;
+	xml_example: string;
+	xml_tag: string;
 }
 
 export type ComponentsCreateComponentData =
@@ -2350,6 +2322,131 @@ export interface Connection {
 
 export interface ConnectionsResponse {
 	connections: Connection[];
+}
+
+export type ConversationData = BotConfigType;
+
+export type CookieFunGetKolCommunityData = CommunityMetricsAPIResponse;
+
+export interface CookieFunGetKolCommunityParams {
+	/** - The filter criteria for the community (optional). */
+	filter?: string;
+	/** - The specific metrics to retrieve. */
+	metrics: string[];
+	/** - The time period for the metrics. */
+	period: string;
+	/** - The username of the KOL. */
+	username: string;
+}
+
+export type CookieFunGetKolListData = KOLListAPIResponse;
+
+export interface CookieFunGetKolListParams {
+	/** - The filter criteria (optional). */
+	filter?: string;
+	/**
+	 * - The number of results to return (optional).
+	 * @format double
+	 */
+	limit?: number;
+	/**
+	 * - The page number for pagination (optional).
+	 * @format double
+	 */
+	page?: number;
+	/** - The sorting criteria (optional). */
+	sort?: string;
+}
+
+export type CookieFunGetKolNetworkData = KOLNetworkAPIResponse;
+
+export interface CookieFunGetKolNetworkParams {
+	/**
+	 * - The depth of the network to retrieve (optional).
+	 * @format double
+	 */
+	depth?: number;
+	/** - The filter criteria for the network (optional). */
+	filter?: string;
+	/** - The metric to analyze the network (optional). */
+	metric?: string;
+	/** - The username of the KOL. */
+	username: string;
+}
+
+export type CookieFunGetPredictiveMetricsData = PredictiveMetricsAPIResponse;
+
+export interface CookieFunGetPredictiveMetricsParams {
+	/**
+	 * - The minimum confidence level for the prediction (optional).
+	 * @format double
+	 */
+	confidence?: number;
+	/** - The time horizon for the prediction. */
+	horizon: string;
+	/** - The specific metric to predict. */
+	metric: string;
+	/** - The target for the prediction. */
+	target: string;
+}
+
+export type CookieFunGetTokenAnalyticsData = TokenAnalyticsAPIResponse;
+
+export interface CookieFunGetTokenAnalyticsParams {
+	/** - The interval for the data points. */
+	interval: string;
+	/** - The metrics to retrieve for the token. */
+	metrics: string[];
+	/** - The time period for the analytics. */
+	period: string;
+	/** - The ID of the token. */
+	tokenId: string;
+}
+
+export type CookieFunGetTrendingNarrativesData = NarrativeTrendsAPIResponse;
+
+export interface CookieFunGetTrendingNarrativesParams {
+	/** - The category of narratives to retrieve (optional). */
+	category?: string;
+	/**
+	 * - The minimum threshold for trend strength (optional).
+	 * @format double
+	 */
+	threshold?: number;
+	/** - The timeframe for the trending narratives. */
+	timeframe: string;
+}
+
+export type CookieFunGetTrendingTokensData = TrendingTokensAPIResponse;
+
+export interface CookieFunGetTrendingTokensParams {
+	/** - The filter criteria for the trending tokens (optional). */
+	filter?: string;
+	/**
+	 * - The number of trending tokens to retrieve (optional).
+	 * @format double
+	 */
+	limit?: number;
+	/** - The metrics to include for each token. */
+	metrics: string[];
+	/** - The sorting criteria for the trending tokens. */
+	sort: string;
+}
+
+export type CookieFunGetTrendingTweetsData = TrendingTweetsAPIResponse;
+
+export interface CookieFunGetTrendingTweetsParams {
+	/** - The category of tweets to retrieve (optional). */
+	category?: string;
+	/**
+	 * - The number of trending tweets to retrieve (optional).
+	 * @format double
+	 */
+	limit?: number;
+	/** - The metrics to include for each tweet. */
+	metrics: string[];
+	/** - The time period for the trending tweets. */
+	period: string;
 }
 
 /** Represents a Cosmos account with an address and a public key. */
@@ -2665,6 +2762,8 @@ export type CreateRippleAccountData = AccountAPIResponse;
 
 export type CreateSolanaAccountData = AccountAPIResponse;
 
+export type CreateTweetData = BotConfigType;
+
 export type CreateUserDefinedFunctionData = MultiCallAPIResponse;
 
 export interface CreateUserDefinedFunctionPayload {
@@ -2717,6 +2816,25 @@ export interface DataGetTokensMetadataParams {
 	chain: string;
 }
 
+export type DataGetUserDebankComplexProtocolListData =
+	DebankPortfolioAPIResponse;
+
+export interface DataGetUserDebankComplexProtocolListParams {
+	/** - The wallet address of the user. */
+	address: string;
+	/** - The chain ID to fetch complex protocols for. */
+	chainId: string;
+}
+
+export type DataGetUserDebankTokenListData = WalletBalanceAPIResponse;
+
+export interface DataGetUserDebankTokenListParams {
+	/** - The wallet address of the user. */
+	address: string;
+	/** - The chain ID to fetch tokens for. */
+	chainId: string;
+}
+
 export type DataGetUserWalletPortfolioData = PortfolioAPIResponse;
 
 export interface DataGetUserWalletPortfolioParams {
@@ -2761,6 +2879,20 @@ export interface DataGetWalletTransactionHistoryParams {
 	address: string;
 	/** - The blockchain chain to retrieve history from. */
 	chain: string;
+}
+
+export type DeactivateBotData = string;
+
+export interface DebankPortfolioAPIResponse {
+	/** The address associated with the operation. */
+	address?: string;
+	/** The data associated with the operation. */
+	body?: InputBody;
+	data?: any[];
+	/** The message associated with the operation. */
+	message: string;
+	/** The success status of the operation. */
+	success: boolean;
 }
 
 export type DecreaseLiquidityData =
@@ -3177,6 +3309,16 @@ export interface ERC721APIResponse {
 	message: string;
 	/** Indicates whether the API request was successful. */
 	success: boolean;
+}
+
+export interface EmotionalState {
+	dominantEmotion: string;
+	/** @format double */
+	energy: number;
+	/** @format double */
+	mood: number;
+	/** @format double */
+	reactivity: number;
 }
 
 /**
@@ -4318,6 +4460,8 @@ export enum FlowNodeTypeEnum {
 	UserFunction = "userFunction",
 }
 
+export type FollowingTimelineData = BotConfigType;
+
 /** Interface representing the full reserves incentive data. */
 export interface FullReservesIncentiveData {
 	/** The aggregated reserve incentive data. */
@@ -4364,6 +4508,13 @@ export interface GasPrice {
 	lastTimestamp: number;
 	/** The unit name of the gas price (e.g., Gwei, Wei). */
 	unitName: string;
+}
+
+export interface GeneratedTweet {
+	replyTweetId?: string;
+	replyTweets: string[];
+	screenshot?: string;
+	text: string;
 }
 
 export type GetAllReservesTokensData =
@@ -4532,6 +4683,10 @@ export interface GetBalanceOfParams4 {
 
 export type GetBalanceOfResult = RamsesNFTAPIResponseString;
 
+export type GetBotLastRunResultsData = any;
+
+export type GetBotStatusData = string;
+
 export type GetCollectionData = OpenSeaAPIResponse;
 
 export interface GetCollectionParams {
@@ -4540,6 +4695,8 @@ export interface GetCollectionParams {
 	chainId?: string;
 	slug: string;
 }
+
+export type GetConfigsData = BotConfigType[];
 
 export type GetDelegatesData = LynexNFTAPIResponseString;
 
@@ -4818,6 +4975,20 @@ export type GetPoolsData = LynexAPIResponse;
 
 export type GetPoolsResult = RamsesAPIResponse;
 
+export type GetPriceInferenceData = AlloraInferenceResponse;
+
+export interface GetPriceInferenceParams {
+	/** - The asset to get inference for (ETH or BTC) */
+	asset: Asset;
+	/**
+	 * - The current price of the asset
+	 * @format double
+	 */
+	currentPrice: number;
+	/** - The timeframe for the inference (5m or 8h) */
+	timeframe: TimeFrame;
+}
+
 export type GetPricesHistoryData = PolymarketAPIResponseMarketPriceArray;
 
 export interface GetPricesHistoryParams {
@@ -4858,8 +5029,7 @@ export interface GetQuoteParams {
 export type GetReservesData =
 	RamsesRouterAPIResponseReserve03AstringReserve13Astring;
 
-export type GetReservesDataData =
-	AAVEv3UiPoolDataProviderAPIResponseReservesData;
+export type GetReservesDataData = AAVEv3UiPoolDataProviderAPIResponseAny;
 
 export interface GetReservesDataParams {
 	chain_id: string;
@@ -5222,6 +5392,28 @@ export type GetZapQuoteData = OdosAPIResponseOdosExecuteFunctionResult;
 
 export type GlobalCheckpointData =
 	LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
+
+export interface ImpliedFuturePriceData {
+	data?: {
+		/** @format double */
+		impliedFuturePrice: number;
+	};
+	message: string;
+	success: boolean;
+}
+
+export interface ImpliedFuturePriceParams {
+	/**
+	 * - The current price of the asset
+	 * @format double
+	 */
+	currentPrice: number;
+	/**
+	 * - The log return
+	 * @format double
+	 */
+	logReturn: number;
+}
 
 /** Interface representing the incentive data for a token. */
 export interface IncentiveData {
@@ -5755,6 +5947,51 @@ export type JupiterGetSwapInstructionsData =
 export type JupiterGetTokensData = JupiterAPIResponseStringArray;
 
 export type JupiterSwapData = JupiterAPIResponseJupiterExecuteFunctionResult;
+
+export interface KOL {
+	/** @format double */
+	engagement: number;
+	/** @format double */
+	followers: number;
+	/** @format double */
+	mindshare: number;
+	/** @format double */
+	posts: number;
+	username: string;
+}
+
+export interface KOLListAPIResponse {
+	/** The address associated with the operation. */
+	address?: string;
+	/** The data associated with the operation. */
+	body?: InputBody;
+	data?: KOL[];
+	/** The message associated with the operation. */
+	message: string;
+	/** The success status of the operation. */
+	success: boolean;
+}
+
+export interface KOLNetwork {
+	/** @format double */
+	connections: number;
+	/** @format double */
+	influenceScore: number;
+	/** @format double */
+	networkStrength: number;
+}
+
+export interface KOLNetworkAPIResponse {
+	/** The address associated with the operation. */
+	address?: string;
+	/** The data associated with the operation. */
+	body?: InputBody;
+	data?: KOLNetwork;
+	/** The message associated with the operation. */
+	message: string;
+	/** The success status of the operation. */
+	success: boolean;
+}
 
 export type KillGaugeData =
 	LynexVoterAPIResponseLynexVoterExecuteFunctionResult;
@@ -6695,6 +6932,23 @@ export interface LockedData {
 	end: string;
 }
 
+export interface LogReturnToPercentageData {
+	data?: {
+		/** @format double */
+		percentageChange: number;
+	};
+	message: string;
+	success: boolean;
+}
+
+export interface LogReturnToPercentageParams {
+	/**
+	 * - The log return to convert
+	 * @format double
+	 */
+	logReturn: number;
+}
+
 /** Represents the response structure from the Lynex API. */
 export interface LynexAPIResponse {
 	/** Optional data returned by the API, if any. */
@@ -7428,7 +7682,9 @@ export interface MakeFunTokenHelperExecuteFunctionResult {
 	broadcasted?: BroadCastRawTransactionResponse;
 	/** Represents a transaction with various optional properties. */
 	data?: Transaction;
+	description?: any;
 	function: string;
+	image?: any;
 	message?: string;
 	params: any[];
 	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
@@ -7440,6 +7696,7 @@ export interface MakeFunTokenHelperExecuteFunctionResult {
 
 /** Interface representing the input body for the MakeFunTokenHelper function. */
 export interface MakeFunTokenHelperInputBody {
+	base64Image?: string;
 	/**
 	 * Indicates if the transaction is from an Externally Owned Account.
 	 * @default "false"
@@ -7504,6 +7761,7 @@ export interface MakeFunTokenHelperInputBody {
 	debtAsset?: string;
 	/** The debt to cover. */
 	debtToCover?: string;
+	description: string;
 	/**
 	 * Indicates if the transaction should be a dry run.
 	 * @default "false"
@@ -7831,6 +8089,27 @@ export interface NameParams {
 	chainId: string;
 }
 
+export interface NarrativeTrend {
+	relatedTopics: string[];
+	/** @format double */
+	strength: number;
+	topic: string;
+	/** @format double */
+	velocity: number;
+}
+
+export interface NarrativeTrendsAPIResponse {
+	/** The address associated with the operation. */
+	address?: string;
+	/** The data associated with the operation. */
+	body?: InputBody;
+	data?: NarrativeTrend[];
+	/** The message associated with the operation. */
+	message: string;
+	/** The success status of the operation. */
+	success: boolean;
+}
+
 /**
  * Represents the response from the API that includes a nonce.
  * Extends the BaseAPIResponse to include additional data specific to nonce responses.
@@ -7887,6 +8166,7 @@ export type OdosAssembleTransactionData =
 
 /** Represents the result of executing an Odos function. */
 export interface OdosExecuteFunctionResult {
+	approve?: any;
 	/** The broadcasted transaction details. */
 	broadcasted?: BroadCastRawTransactionResponse;
 	/** The data returned by the executed function. */
@@ -8578,16 +8858,16 @@ export interface PartialComponentDefinition {
 	is_active?: boolean;
 	/** The name of the component. */
 	name?: string;
+	property_schema?: any;
 	/**
 	 * The date and time when the component was last updated.
 	 * Optional.
 	 * @format date-time
 	 */
 	updated_at?: string;
-	/** The version of the component. */
 	version?: string;
-	/** The XML tag associated with the component. */
-	xmlTag?: string;
+	xml_example?: string;
+	xml_tag?: string;
 }
 
 export interface PathVizImageConfig {
@@ -8664,6 +8944,33 @@ export interface PermitTypehashParams {
 	chainId: string;
 }
 
+export interface PersonalityInput {
+	personality: string;
+}
+
+export interface PersonalityTraits {
+	/** @format double */
+	agreeableness: number;
+	/** @format double */
+	confidence: number;
+	/** @format double */
+	conscientiousness: number;
+	/** @format double */
+	empathy: number;
+	/** @format double */
+	extraversion: number;
+	/** @format double */
+	formality: number;
+	/** @format double */
+	humor: number;
+	/** @format double */
+	neuroticism: number;
+	/** @format double */
+	openness: number;
+	/** @format double */
+	optimism: number;
+}
+
 /** From T, pick a set of properties whose keys are in the union K */
 export interface PickComponentDefinitionExcludeKeysId {
 	/** The code of the component. */
@@ -8683,16 +8990,16 @@ export interface PickComponentDefinitionExcludeKeysId {
 	is_active?: boolean;
 	/** The name of the component. */
 	name: string;
+	property_schema: any;
 	/**
 	 * The date and time when the component was last updated.
 	 * Optional.
 	 * @format date-time
 	 */
 	updated_at?: string;
-	/** The version of the component. */
 	version: string;
-	/** The XML tag associated with the component. */
-	xmlTag: string;
+	xml_example: string;
+	xml_tag: string;
 }
 
 /** From T, pick a set of properties whose keys are in the union K */
@@ -9174,6 +9481,27 @@ export interface PostQuote {
 	quote: Quote;
 	/** The signed transaction. */
 	signed: any;
+}
+
+export interface PredictiveMetric {
+	/** @format double */
+	confidence: number;
+	factors: string[];
+	metric: string;
+	/** @format double */
+	prediction: number;
+}
+
+export interface PredictiveMetricsAPIResponse {
+	/** The address associated with the operation. */
+	address?: string;
+	/** The data associated with the operation. */
+	body?: InputBody;
+	data?: PredictiveMetric;
+	/** The message associated with the operation. */
+	message: string;
+	/** The success status of the operation. */
+	success: boolean;
 }
 
 /** Represents the price data for a financial instrument. */
@@ -10072,14 +10400,6 @@ export type RemoveLiquidityResult =
 export type RemoveLiquidityWithPermitData =
 	UniswapV2APIResponseUniswapV2ExecuteFunctionResult;
 
-/** Interface representing the reserves data. */
-export interface ReservesData {
-	/** The aggregated reserve data. */
-	aggregatedReserveData: AggregatedReserveData[];
-	/** The base currency information. */
-	baseCurrencyInfo: BaseCurrencyInfo;
-}
-
 export type ResetData = LynexVoterAPIResponseLynexVoterExecuteFunctionResult;
 
 export type ResetOutput =
@@ -10087,6 +10407,8 @@ export type ResetOutput =
 
 export type ResetResult =
 	RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
+
+export type RestartBotData = string;
 
 export type ReviveGaugeData =
 	LynexVoterAPIResponseLynexVoterExecuteFunctionResult;
@@ -10637,6 +10959,8 @@ export type SplitOutput = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export type SplitResult = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 
+export type StartBotData = string;
+
 export interface StatusResponse {
 	receiving: TransactionStatus;
 	sending: TransactionStatus;
@@ -10652,6 +10976,8 @@ export interface Step {
 	tool: string;
 	type: string;
 }
+
+export type StopBotData = string;
 
 export type SuccessResponse249 = {
 	address: string;
@@ -10863,6 +11189,11 @@ export interface ThorSwapAPIResponseStringArray {
 	success: boolean;
 }
 
+export enum TimeFrame {
+	Value5M = "5m",
+	Value8H = "8h",
+}
+
 export interface Token {
 	address: string;
 	/** @format double */
@@ -10882,6 +11213,31 @@ export interface TokenAmount {
 	tokenAddress: string;
 }
 
+export interface TokenAnalytics {
+	/** @format double */
+	holders: number;
+	/** @format double */
+	marketCap: number;
+	/** @format double */
+	price: number;
+	/** @format double */
+	socialEngagement: number;
+	/** @format double */
+	volume: number;
+}
+
+export interface TokenAnalyticsAPIResponse {
+	/** The address associated with the operation. */
+	address?: string;
+	/** The data associated with the operation. */
+	body?: InputBody;
+	data?: TokenAnalytics;
+	/** The message associated with the operation. */
+	message: string;
+	/** The success status of the operation. */
+	success: boolean;
+}
+
 export type TokenByIndexData = UniswapV3NFTAPIResponseString;
 
 export interface TokenByIndexParams {
@@ -10889,6 +11245,11 @@ export interface TokenByIndexParams {
 	chainId: string;
 	/** @format double */
 	index: number;
+}
+
+export interface TokenConfig {
+	stablecoin: Token;
+	tradeTokens: Token[];
 }
 
 export interface TokenDetails {
@@ -10949,13 +11310,6 @@ export interface TokenProportion {
 	proportion: number;
 	/** The address of the token. */
 	tokenAddress: string;
-}
-
-/** Token standards */
-export enum TokenStandard {
-	ERC20 = "ERC20",
-	ERC721 = "ERC721",
-	ERC1155 = "ERC1155",
 }
 
 export type TokenUriData = UniswapV3NFTAPIResponseString;
@@ -11211,6 +11565,57 @@ export type TransferSolanaTransactionData = SolanaAPIResponse;
 
 export type TransferTokensSignSolanaTransactionData = SolanaAPIResponse;
 
+export interface TrendingToken {
+	id: string;
+	name: string;
+	/** @format double */
+	price: number;
+	/** @format double */
+	priceChange: number;
+	/** @format double */
+	socialScore: number;
+	symbol: string;
+}
+
+export interface TrendingTokensAPIResponse {
+	/** The address associated with the operation. */
+	address?: string;
+	/** The data associated with the operation. */
+	body?: InputBody;
+	data?: TrendingToken[];
+	/** The message associated with the operation. */
+	message: string;
+	/** The success status of the operation. */
+	success: boolean;
+}
+
+export interface TrendingTweet {
+	/** @format double */
+	engagement: number;
+	id: string;
+	/** @format double */
+	likes: number;
+	/** @format double */
+	reach: number;
+	/** @format double */
+	retweets: number;
+	text: string;
+}
+
+export interface TrendingTweetsAPIResponse {
+	/** The address associated with the operation. */
+	address?: string;
+	/** The data associated with the operation. */
+	body?: InputBody;
+	data?: TrendingTweet[];
+	/** The message associated with the operation. */
+	message: string;
+	/** The success status of the operation. */
+	success: boolean;
+}
+
+export type TriggerBotData = string;
+
 export interface TronAPIResponse {
 	/** The address associated with the operation. */
 	address?: string;
@@ -11266,6 +11671,8 @@ export interface TronTransactionOutput {
 	/** The transaction hash. */
 	transaction_hash?: string;
 }
+
+export type TweetHistoryData = BotConfigType;
 
 /** Represents a transaction object. */
 export interface Tx {
@@ -11898,6 +12305,8 @@ export interface UpdateFlowBody {
 }
 
 export type UpdateFlowData = MultiCallAPIResponse;
+
+export type UpdatePersonalityData = BotConfigType;
 
 /** Represents the incentive data for a user. */
 export interface UserIncentiveData {

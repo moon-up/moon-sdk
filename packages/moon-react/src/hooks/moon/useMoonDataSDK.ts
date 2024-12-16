@@ -5,6 +5,18 @@ import type {
 	DataGetWalletTransactionHistoryParams,
 	WalletBalanceAPIResponse,
 	WalletHistoryAPIResponse,
+	NFTsAPIResponse,
+	ChartAnalysisAPIResponse,
+	ChartsGetChartAnalysisParamsEnum,
+	DataExecuteCustomSupabaseQueryPayload,
+	PortfolioAPIResponse,
+	TokenMetadataAPIResponse,
+	DataGetTokensMetadataParams,
+	DataGetUserDebankComplexProtocolListParams,
+	DebankPortfolioAPIResponse,
+	DataGetUserDebankTokenListParams,
+	DataGetUserWalletPortfolioParams,
+	DataGetWalletNfTsParams,
 } from "@moonup/moon-api";
 import { useQuery } from "@tanstack/react-query";
 import { useCallback } from "react";
@@ -76,6 +88,158 @@ export const useMoonDataSDK = () => {
 
 	const { account: wallet } = useMoonAccount();
 	const { selectedChain: chain } = useChains();
+
+	const getChartAnalysis = useCallback(
+		async (
+			symbol: string,
+			timeframe: ChartsGetChartAnalysisParamsEnum,
+		): Promise<ChartAnalysisAPIResponse> => {
+			return handleTransaction("getChartAnalysis", async () => {
+				const dataSDK = getDataSDK();
+				const response = await dataSDK.chartsGetChartAnalysis(
+					symbol,
+					timeframe,
+				);
+				return response.data;
+			});
+		},
+		[moon],
+	);
+
+	const executeCustomSupabaseQuery = useCallback(
+		async (data: DataExecuteCustomSupabaseQueryPayload): Promise<any> => {
+			return handleTransaction("executeCustomSupabaseQuery", async () => {
+				const dataSDK = getDataSDK();
+				const response = await dataSDK.dataExecuteCustomSupabaseQuery(data);
+				return response.data;
+			});
+		},
+		[moon],
+	);
+
+	const getPortfolioFetchStatus = useCallback(
+		async (jobId: string): Promise<PortfolioAPIResponse> => {
+			return handleTransaction("getPortfolioFetchStatus", async () => {
+				const dataSDK = getDataSDK();
+				const response = await dataSDK.dataGetPortfolioFetchStatus(jobId);
+				return response.data;
+			});
+		},
+		[moon],
+	);
+
+	const getTokensMetadata = useCallback(
+		async (
+			query: DataGetTokensMetadataParams,
+		): Promise<TokenMetadataAPIResponse> => {
+			return handleTransaction("getTokensMetadata", async () => {
+				const dataSDK = getDataSDK();
+				const response = await dataSDK.dataGetTokensMetadata(query);
+				return response.data;
+			});
+		},
+		[moon],
+	);
+
+	const getUserDebankComplexProtocolList = useCallback(
+		async (
+			params: DataGetUserDebankComplexProtocolListParams,
+		): Promise<DebankPortfolioAPIResponse> => {
+			return handleTransaction("getUserDebankComplexProtocolList", async () => {
+				const dataSDK = getDataSDK();
+				const response =
+					await dataSDK.dataGetUserDebankComplexProtocolList(params);
+				return response.data;
+			});
+		},
+		[moon],
+	);
+
+	const getUserDebankTokenList = useCallback(
+		async (
+			params: DataGetUserDebankTokenListParams,
+		): Promise<WalletBalanceAPIResponse> => {
+			return handleTransaction("getUserDebankTokenList", async () => {
+				const dataSDK = getDataSDK();
+				const response = await dataSDK.dataGetUserDebankTokenList(params);
+				return response.data;
+			});
+		},
+		[moon],
+	);
+
+	const getUserWalletPortfolio = useCallback(
+		async (
+			params: DataGetUserWalletPortfolioParams,
+		): Promise<PortfolioAPIResponse> => {
+			return handleTransaction("getUserWalletPortfolio", async () => {
+				const dataSDK = getDataSDK();
+				const response = await dataSDK.dataGetUserWalletPortfolio(params);
+				return response.data;
+			});
+		},
+		[moon],
+	);
+
+	const getWalletNFTs = useCallback(
+		async (params: DataGetWalletNfTsParams): Promise<NFTsAPIResponse> => {
+			return handleTransaction("getWalletNFTs", async () => {
+				const dataSDK = getDataSDK();
+				const response = await dataSDK.dataGetWalletNfTs(params);
+				return response.data;
+			});
+		},
+		[moon],
+	);
+
+	// ... existing getWalletBalance, getWalletHistory, and getWalletNFTs callbacks ...
+
+	// React Query Hooks
+
+	const useChartAnalysisQuery = (
+		symbol: string,
+		timeframe: ChartsGetChartAnalysisParamsEnum,
+	) =>
+		useQuery({
+			queryKey: ["chartAnalysis", symbol, timeframe],
+			queryFn: () => getChartAnalysis(symbol, timeframe),
+		});
+
+	const usePortfolioFetchStatusQuery = (jobId: string) =>
+		useQuery({
+			queryKey: ["portfolioFetchStatus", jobId],
+			queryFn: () => getPortfolioFetchStatus(jobId),
+		});
+
+	const useTokensMetadataQuery = (query: DataGetTokensMetadataParams) =>
+		useQuery({
+			queryKey: ["tokensMetadata", query],
+			queryFn: () => getTokensMetadata(query),
+		});
+
+	const useUserDebankComplexProtocolListQuery = (
+		params: DataGetUserDebankComplexProtocolListParams,
+	) =>
+		useQuery({
+			queryKey: ["userDebankComplexProtocolList", params],
+			queryFn: () => getUserDebankComplexProtocolList(params),
+		});
+
+	const useUserDebankTokenListQuery = (
+		params: DataGetUserDebankTokenListParams,
+	) =>
+		useQuery({
+			queryKey: ["userDebankTokenList", params],
+			queryFn: () => getUserDebankTokenList(params),
+		});
+
+	const useUserWalletPortfolioQuery = (
+		params: DataGetUserWalletPortfolioParams,
+	) =>
+		useQuery({
+			queryKey: ["userWalletPortfolio", params],
+			queryFn: () => getUserWalletPortfolio(params),
+		});
 
 	const walletHistoryQuery = useQuery({
 		queryKey: ["useMoonWalletHistory", chain?.id, wallet],
@@ -199,8 +363,23 @@ export const useMoonDataSDK = () => {
 	});
 
 	return {
+		getChartAnalysis,
+		executeCustomSupabaseQuery,
+		getPortfolioFetchStatus,
+		getTokensMetadata,
+		getUserDebankComplexProtocolList,
+		getUserDebankTokenList,
+		getUserWalletPortfolio,
 		getWalletBalance,
+		getWalletNFTs,
 		getWalletHistory,
+		// React Query Hooks
+		useChartAnalysisQuery,
+		usePortfolioFetchStatusQuery,
+		useTokensMetadataQuery,
+		useUserDebankComplexProtocolListQuery,
+		useUserDebankTokenListQuery,
+		useUserWalletPortfolioQuery,
 		walletHistoryQuery,
 		walletBalanceQuery,
 		walletNFTQuery,
