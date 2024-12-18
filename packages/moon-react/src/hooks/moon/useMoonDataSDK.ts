@@ -347,6 +347,35 @@ export const useMoonDataSDK = () => {
 		},
 		[moon],
 	);
+	const getAllDebankUserTokens = useCallback(
+		async (params: {
+			address: string;
+			isAll: boolean;
+		}): Promise<WalletBalanceAPIResponse> => {
+			return handleTransaction("getAllDebankUserTokens", async () => {
+				const dataSDK = getDataSDK();
+				const response = await dataSDK.getAllDebankUserTokens({
+					address: params.address,
+					isAll: params.isAll,
+				});
+				return response.data;
+			});
+		},
+		[moon],
+	);
+
+	const debankUserTokensQuery = useQuery({
+		queryKey: ["debankUserTokens", wallet],
+		queryFn: async () => {
+			if (!wallet || !moon) return null;
+			const response = await moon.getDataSDK().getAllDebankUserTokens({
+				address: wallet,
+				isAll: true,
+			});
+			return response.data;
+		},
+		enabled: !!wallet && !!moon,
+	});
 
 	const walletNFTQuery = useQuery({
 		queryKey: ["nfts", wallet, chain?.chain_id],
@@ -373,7 +402,9 @@ export const useMoonDataSDK = () => {
 		getWalletBalance,
 		getWalletNFTs,
 		getWalletHistory,
+		getAllDebankUserTokens,
 		// React Query Hooks
+		debankUserTokensQuery,
 		useChartAnalysisQuery,
 		usePortfolioFetchStatusQuery,
 		useTokensMetadataQuery,

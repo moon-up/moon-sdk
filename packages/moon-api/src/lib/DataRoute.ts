@@ -22,6 +22,7 @@ import {
   DataGetWalletNfTsData,
   DataGetWalletTokenBalancesData,
   DataGetWalletTransactionHistoryData,
+  GetAllDebankUserTokensData,
 } from './data-contracts';
 
 export namespace Data {
@@ -114,7 +115,7 @@ export namespace Data {
   }
 
   /**
-   * @description Retrieves the user's complex protocol list from Debank.
+   * @description Retrieves the user's complex protocol list from Debank, with Supabase caching.
    * @tags Data
    * @name DataGetUserDebankComplexProtocolList
    * @request GET:/data/{address}/debank/complex-protocols
@@ -138,7 +139,7 @@ export namespace Data {
   }
 
   /**
-   * @description Retrieves the user's token list from Debank.
+   * @description Retrieves the user's token list from Debank, with Supabase caching.
    * @tags Data
    * @name DataGetUserDebankTokenList
    * @request GET:/data/{address}/debank/tokens
@@ -264,5 +265,26 @@ export namespace Data {
       Authorization: string;
     };
     export type ResponseBody = DataGetWalletTransactionHistoryData;
+  }
+
+  /**
+   * No description
+   * @tags Data
+   * @name GetAllDebankUserTokens
+   * @request GET:/data/{address}/debank/all-tokens
+   * @secure
+   */
+  export namespace GetAllDebankUserTokens {
+    export type RequestParams = {
+      address: string;
+    };
+    export type RequestQuery = {
+      isAll: boolean;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = GetAllDebankUserTokensData;
   }
 }

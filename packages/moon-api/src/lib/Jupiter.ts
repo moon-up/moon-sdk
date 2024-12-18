@@ -10,8 +10,16 @@
  */
 
 import {
+  CreateLimitOrderBody,
+  JupiterCancelLimitOrdersData,
+  JupiterCancelLimitOrdersPayload,
+  JupiterCreateLimitOrderData,
   JupiterGetIndexedRouteMapData,
   JupiterGetIndexedRouteMapParams,
+  JupiterGetOpenOrdersData,
+  JupiterGetOpenOrdersParams,
+  JupiterGetOrderHistoryData,
+  JupiterGetOrderHistoryParams,
   JupiterGetProgramIdToLabelData,
   JupiterGetQuoteData,
   JupiterGetSwapInstructionsData,
@@ -29,6 +37,50 @@ export class Jupiter<SecurityDataType = unknown> {
   }
 
   /**
+   * @description Cancels limit orders for a given account.
+   *
+   * @tags Jupiter
+   * @name JupiterCancelLimitOrders
+   * @request POST:/jupiter/{accountName}/cancelLimitOrders
+   * @secure
+   */
+  jupiterCancelLimitOrders = (
+    accountName: string,
+    data: JupiterCancelLimitOrdersPayload,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<JupiterCancelLimitOrdersData, any>({
+      path: `/jupiter/${accountName}/cancelLimitOrders`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * @description Creates a limit order for a given account.
+   *
+   * @tags Jupiter
+   * @name JupiterCreateLimitOrder
+   * @request POST:/jupiter/{accountName}/createLimitOrder
+   * @secure
+   */
+  jupiterCreateLimitOrder = (
+    accountName: string,
+    data: CreateLimitOrderBody,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<JupiterCreateLimitOrderData, any>({
+      path: `/jupiter/${accountName}/createLimitOrder`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      format: 'json',
+      ...params,
+    });
+  /**
    * @description Retrieves the indexed route map.
    *
    * @tags Jupiter
@@ -42,6 +94,46 @@ export class Jupiter<SecurityDataType = unknown> {
   ) =>
     this.http.request<JupiterGetIndexedRouteMapData, any>({
       path: `/jupiter/indexedRouteMap`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * @description Retrieves open orders for a given wallet address.
+   *
+   * @tags Jupiter
+   * @name JupiterGetOpenOrders
+   * @request GET:/jupiter/openOrders
+   * @secure
+   */
+  jupiterGetOpenOrders = (
+    query: JupiterGetOpenOrdersParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<JupiterGetOpenOrdersData, any>({
+      path: `/jupiter/openOrders`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * @description Retrieves order history for a given wallet address.
+   *
+   * @tags Jupiter
+   * @name JupiterGetOrderHistory
+   * @request GET:/jupiter/orderHistory
+   * @secure
+   */
+  jupiterGetOrderHistory = (
+    query: JupiterGetOrderHistoryParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<JupiterGetOrderHistoryData, any>({
+      path: `/jupiter/orderHistory`,
       method: 'GET',
       query: query,
       secure: true,

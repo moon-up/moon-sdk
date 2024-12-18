@@ -29,6 +29,8 @@ import {
   DataGetWalletTokenBalancesParams,
   DataGetWalletTransactionHistoryData,
   DataGetWalletTransactionHistoryParams,
+  GetAllDebankUserTokensData,
+  GetAllDebankUserTokensParams,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
 
@@ -117,7 +119,7 @@ export class Data<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * @description Retrieves the user's complex protocol list from Debank.
+   * @description Retrieves the user's complex protocol list from Debank, with Supabase caching.
    *
    * @tags Data
    * @name DataGetUserDebankComplexProtocolList
@@ -137,7 +139,7 @@ export class Data<SecurityDataType = unknown> {
       ...params,
     });
   /**
-   * @description Retrieves the user's token list from Debank.
+   * @description Retrieves the user's token list from Debank, with Supabase caching.
    *
    * @tags Data
    * @name DataGetUserDebankTokenList
@@ -230,6 +232,26 @@ export class Data<SecurityDataType = unknown> {
   ) =>
     this.http.request<DataGetWalletTransactionHistoryData, any>({
       path: `/data/${address}/history`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Data
+   * @name GetAllDebankUserTokens
+   * @request GET:/data/{address}/debank/all-tokens
+   * @secure
+   */
+  getAllDebankUserTokens = (
+    { address, ...query }: GetAllDebankUserTokensParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<GetAllDebankUserTokensData, any>({
+      path: `/data/${address}/debank/all-tokens`,
       method: 'GET',
       query: query,
       secure: true,

@@ -8,6 +8,10 @@ import type {
 	JupiterAPIResponseStringArray,
 	Jupiter,
 	OmitJupiterInputBodyAccountName,
+	JupiterCancelLimitOrdersPayload,
+	CreateLimitOrderBody,
+	JupiterGetOpenOrdersParams,
+	JupiterGetOrderHistoryParams,
 } from "@moonup/moon-api";
 import { useCallback } from "react";
 /**
@@ -153,6 +157,62 @@ export const useJupiter = () => {
 		[moon],
 	);
 
+	const cancelLimitOrders = useCallback(
+		async (payload: {
+			accountName: string;
+			data: JupiterCancelLimitOrdersPayload;
+		}): Promise<JupiterAPIResponseJupiterExecuteFunctionResult> => {
+			return handleTransaction("cancelLimitOrders", async () => {
+				const jupiterSDK = getJupiterSDK();
+				return jupiterSDK.jupiterCancelLimitOrders(
+					payload.accountName,
+					payload.data,
+				);
+			});
+		},
+		[moon],
+	);
+
+	const createLimitOrder = useCallback(
+		async (payload: {
+			accountName: string;
+			data: CreateLimitOrderBody;
+		}): Promise<JupiterAPIResponseJupiterExecuteFunctionResult> => {
+			return handleTransaction("createLimitOrder", async () => {
+				const jupiterSDK = getJupiterSDK();
+				return jupiterSDK.jupiterCreateLimitOrder(
+					payload.accountName,
+					payload.data,
+				);
+			});
+		},
+		[moon],
+	);
+
+	const getOpenOrders = useCallback(
+		async (
+			query: JupiterGetOpenOrdersParams,
+		): Promise<JupiterAPIResponseJupiterExecuteFunctionResult> => {
+			return handleTransaction("getOpenOrders", async () => {
+				const jupiterSDK = getJupiterSDK();
+				return jupiterSDK.jupiterGetOpenOrders(query);
+			});
+		},
+		[moon],
+	);
+
+	const getOrderHistory = useCallback(
+		async (
+			query: JupiterGetOrderHistoryParams,
+		): Promise<JupiterAPIResponseJupiterExecuteFunctionResult> => {
+			return handleTransaction("getOrderHistory", async () => {
+				const jupiterSDK = getJupiterSDK();
+				return jupiterSDK.jupiterGetOrderHistory(query);
+			});
+		},
+		[moon],
+	);
+
 	return {
 		getIndexedRouteMap,
 		getProgramIdToLabel,
@@ -160,5 +220,9 @@ export const useJupiter = () => {
 		getSwapInstructions,
 		getTokens,
 		swap,
+		cancelLimitOrders,
+		createLimitOrder,
+		getOpenOrders,
+		getOrderHistory,
 	};
 };

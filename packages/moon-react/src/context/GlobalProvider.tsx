@@ -23,6 +23,7 @@ const queryClient = new QueryClient({
 		queries: {
 			refetchOnWindowFocus: false,
 			gcTime: 1000 * 60 * 60 * 24,
+			staleTime: 1000 * 60 * 60 * 24,
 		},
 	},
 	queryCache: new QueryCache({}),
@@ -30,8 +31,9 @@ const queryClient = new QueryClient({
 
 const persister = createSyncStoragePersister({
 	// make ssr friendly
-	storage: typeof window !== "undefined" ? window.localStorage : null,
+	storage: window.localStorage,
 });
+
 export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
 	children,
 	sdkConfig,

@@ -1237,6 +1237,8 @@ export interface ApiResponseToolsResponse {
 
 export type ApproveData = LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
+export type ApproveData1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
 export interface ApproveForPolymarketBody {
 	chain_id: string;
 }
@@ -1245,8 +1247,6 @@ export type ApproveForPolymarketData = PolymarketAPIResponseAny;
 
 export type ApproveOutput =
 	UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
-
-export type ApproveOutput1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export type ApproveResult = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 
@@ -2687,6 +2687,24 @@ export type CreateGaugeResult =
 	RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
 
 export type CreateJobData = MultiCallAPIResponseString;
+
+export interface CreateLimitOrderBody {
+	broadcast: boolean;
+	computeUnitPrice?: string;
+	dryrun: boolean;
+	expiredAt?: string;
+	feeBps?: string;
+	inputMint: string;
+	inputTokenProgram?: string;
+	maker: string;
+	makingAmount: string;
+	outputMint: string;
+	outputTokenProgram?: string;
+	payer: string;
+	referral?: string;
+	takingAmount: string;
+	wrapAndUnwrapSol?: boolean;
+}
 
 export type CreateLockData = LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
@@ -4517,6 +4535,23 @@ export interface GeneratedTweet {
 	text: string;
 }
 
+export type GetAllDebankUserTokensData =
+	| {
+			data: any;
+			message: string;
+			success: boolean;
+	  }
+	| {
+			data?: any;
+			message: any;
+			success: boolean;
+	  };
+
+export interface GetAllDebankUserTokensParams {
+	address: string;
+	isAll: boolean;
+}
+
 export type GetAllReservesTokensData =
 	PoolAddressProviderRegistryAPIResponseAnyArray;
 
@@ -5908,6 +5943,18 @@ export interface JupiterAPIResponseStringArray {
 	success: boolean;
 }
 
+export type JupiterCancelLimitOrdersData =
+	JupiterAPIResponseJupiterExecuteFunctionResult;
+
+export interface JupiterCancelLimitOrdersPayload {
+	computeUnitPrice?: string;
+	maker: string;
+	orders?: string[];
+}
+
+export type JupiterCreateLimitOrderData =
+	JupiterAPIResponseJupiterExecuteFunctionResult;
+
 /** Represents the result of executing a function in the Jupiter system. */
 export interface JupiterExecuteFunctionResult {
 	/** Additional data returned by the function execution. */
@@ -5933,6 +5980,32 @@ export type JupiterGetIndexedRouteMapData = JupiterAPIResponseAny;
 export interface JupiterGetIndexedRouteMapParams {
 	/** - A boolean value indicating whether to only include direct routes in the map. */
 	onlyDirectRoutes?: boolean;
+}
+
+export type JupiterGetOpenOrdersData =
+	JupiterAPIResponseJupiterExecuteFunctionResult;
+
+export interface JupiterGetOpenOrdersParams {
+	/** - Optional input mint address to filter orders. */
+	inputMint?: string;
+	/** - Optional output mint address to filter orders. */
+	outputMint?: string;
+	/** - The wallet address to get open orders for. */
+	wallet: string;
+}
+
+export type JupiterGetOrderHistoryData =
+	JupiterAPIResponseJupiterExecuteFunctionResult;
+
+export interface JupiterGetOrderHistoryParams {
+	/**
+	 * - The page number for pagination.
+	 * @format double
+	 * @default 1
+	 */
+	page?: number;
+	/** - The wallet address to get order history for. */
+	wallet: string;
 }
 
 export type JupiterGetProgramIdToLabelData =
@@ -7686,7 +7759,7 @@ export interface MakeFunTokenHelperExecuteFunctionResult {
 	function: string;
 	image?: any;
 	message?: string;
-	params: any[];
+	params?: any[];
 	/** Response object for the {@link TransactNamespace.simulateAssetChanges } method. */
 	simulation?: SimulateAssetChangesResponse;
 	success?: boolean;
@@ -7743,6 +7816,7 @@ export interface MakeFunTokenHelperInputBody {
 	 * @default "false"
 	 */
 	broadcast?: boolean;
+	cdxUSDAmount: string;
 	/** The chain ID. */
 	chain_id?: string;
 	/** The collateral asset. */

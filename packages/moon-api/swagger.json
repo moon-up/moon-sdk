@@ -8728,6 +8728,67 @@
 				"$ref": "#/components/schemas/Pick_JupiterInputBody.Exclude_keyofJupiterInputBody.accountName__",
 				"description": "Construct a type with the properties of T except for those in type K."
 			},
+			"CreateLimitOrderBody": {
+				"properties": {
+					"inputMint": {
+						"type": "string"
+					},
+					"outputMint": {
+						"type": "string"
+					},
+					"maker": {
+						"type": "string"
+					},
+					"payer": {
+						"type": "string"
+					},
+					"makingAmount": {
+						"type": "string"
+					},
+					"takingAmount": {
+						"type": "string"
+					},
+					"expiredAt": {
+						"type": "string"
+					},
+					"feeBps": {
+						"type": "string"
+					},
+					"computeUnitPrice": {
+						"type": "string"
+					},
+					"referral": {
+						"type": "string"
+					},
+					"inputTokenProgram": {
+						"type": "string"
+					},
+					"outputTokenProgram": {
+						"type": "string"
+					},
+					"wrapAndUnwrapSol": {
+						"type": "boolean"
+					},
+					"dryrun": {
+						"type": "boolean"
+					},
+					"broadcast": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"inputMint",
+					"outputMint",
+					"maker",
+					"payer",
+					"makingAmount",
+					"takingAmount",
+					"dryrun",
+					"broadcast"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"LendingPoolAPIResponse_number_": {
 				"description": "Represents the structure of the API response for the Lending Pool.",
 				"properties": {
@@ -12447,7 +12508,6 @@
 					}
 				},
 				"required": [
-					"params",
 					"function",
 					"transaction"
 				],
@@ -12827,10 +12887,14 @@
 					},
 					"description": {
 						"type": "string"
+					},
+					"cdxUSDAmount": {
+						"type": "string"
 					}
 				},
 				"required": [
-					"description"
+					"description",
+					"cdxUSDAmount"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -28290,7 +28354,7 @@
 						}
 					}
 				},
-				"description": "Retrieves the user's token list from Debank.",
+				"description": "Retrieves the user's token list from Debank, with Supabase caching.",
 				"tags": [
 					"Data"
 				],
@@ -28351,7 +28415,7 @@
 						}
 					}
 				},
-				"description": "Retrieves the user's complex protocol list from Debank.",
+				"description": "Retrieves the user's complex protocol list from Debank, with Supabase caching.",
 				"tags": [
 					"Data"
 				],
@@ -28392,6 +28456,95 @@
 						"required": true,
 						"schema": {
 							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/data/{address}/debank/all-tokens": {
+			"get": {
+				"operationId": "GetAllDebankUserTokens",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"anyOf": [
+										{
+											"properties": {
+												"message": {
+													"type": "string"
+												},
+												"success": {
+													"type": "boolean"
+												},
+												"data": {}
+											},
+											"required": [
+												"message",
+												"success",
+												"data"
+											],
+											"type": "object"
+										},
+										{
+											"properties": {
+												"data": {},
+												"success": {
+													"type": "boolean"
+												},
+												"message": {}
+											},
+											"required": [
+												"success",
+												"message"
+											],
+											"type": "object"
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Data"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "isAll",
+						"required": true,
+						"schema": {
+							"type": "boolean"
 						}
 					}
 				]
@@ -33908,6 +34061,282 @@
 						}
 					}
 				}
+			}
+		},
+		"/jupiter/{accountName}/createLimitOrder": {
+			"post": {
+				"operationId": "JUPITER_createLimitOrder",
+				"responses": {
+					"200": {
+						"description": "A promise that resolves to a JupiterAPIResponse containing the result of the limit order creation.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/JupiterAPIResponse_JupiterExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"description": "Creates a limit order for a given account.",
+				"tags": [
+					"Jupiter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "- The name of the account to create the limit order for.",
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The authorization token for the request.",
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"description": "- The input body for creating a limit order.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateLimitOrderBody",
+								"description": "- The input body for creating a limit order."
+							}
+						}
+					}
+				}
+			}
+		},
+		"/jupiter/{accountName}/cancelLimitOrders": {
+			"post": {
+				"operationId": "JUPITER_cancelLimitOrders",
+				"responses": {
+					"200": {
+						"description": "A promise that resolves to a JupiterAPIResponse containing the result of the cancellation.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/JupiterAPIResponse_JupiterExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"description": "Cancels limit orders for a given account.",
+				"tags": [
+					"Jupiter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "- The name of the account to cancel limit orders for.",
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The authorization token for the request.",
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"orders": {
+										"items": {
+											"type": "string"
+										},
+										"type": "array"
+									},
+									"computeUnitPrice": {
+										"type": "string"
+									},
+									"maker": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"maker"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/jupiter/openOrders": {
+			"get": {
+				"operationId": "JUPITER_getOpenOrders",
+				"responses": {
+					"200": {
+						"description": "A promise that resolves to a JupiterAPIResponse containing the open orders.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/JupiterAPIResponse_JupiterExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves open orders for a given wallet address.",
+				"tags": [
+					"Jupiter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "- The authorization token for the request.",
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The wallet address to get open orders for.",
+						"in": "query",
+						"name": "wallet",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- Optional input mint address to filter orders.",
+						"in": "query",
+						"name": "inputMint",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- Optional output mint address to filter orders.",
+						"in": "query",
+						"name": "outputMint",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/jupiter/orderHistory": {
+			"get": {
+				"operationId": "JUPITER_getOrderHistory",
+				"responses": {
+					"200": {
+						"description": "A promise that resolves to a JupiterAPIResponse containing the order history.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/JupiterAPIResponse_JupiterExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves order history for a given wallet address.",
+				"tags": [
+					"Jupiter"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "- The authorization token for the request.",
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The wallet address to get order history for.",
+						"in": "query",
+						"name": "wallet",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The page number for pagination.",
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"default": 1,
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
 			}
 		},
 		"/lending-pool/flash-loan-premium": {

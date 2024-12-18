@@ -73,8 +73,8 @@ import type {
 	TokenUriParams,
 	TotalSupplyData,
 	TotalSupplyParams,
-	TransferFromResult1,
 	UniswapV2InputBody,
+	UniswapV3APIResponseUniswapV3ExecuteFunctionResult,
 	UniswapV3InputBody,
 } from "@moonup/moon-api";
 import { useCallback } from "react";
@@ -1016,7 +1016,7 @@ export const useUniswap = () => {
 		async (payload: {
 			accountName: string;
 			data: UniswapV3InputBody;
-		}): Promise<TransferFromResult1> => {
+		}): Promise<UniswapV3APIResponseUniswapV3ExecuteFunctionResult> => {
 			return handleTransaction("transferFrom", async () => {
 				const uniswapSDK = getUniswapSDK();
 				const preparedData = prepareTransaction(
