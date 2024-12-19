@@ -370,7 +370,7 @@ export const useMoonDataSDK = () => {
 			if (!wallet || !moon) return null;
 			const response = await moon.getDataSDK().getAllDebankUserTokens({
 				address: wallet,
-				isAll: true,
+				isAll: false,
 			});
 			return response.data;
 		},

@@ -105,7 +105,7 @@ export const useMoonAccount = (): INetwork & {
 	const [accounts, setAccounts] = useLocalStorage<string[]>("accounts", []);
 	const [account, setAccount] = useLocalStorage<string>("account", "");
 
-	const { address, isConnected } = useAccount();
+	const { address, isConnected, status } = useAccount();
 	const { signMessageAsync } = useSignMessage();
 	const { signTypedDataAsync } = useSignTypedData();
 	const { sendTransactionAsync } = useSendTransaction();
@@ -180,6 +180,10 @@ export const useMoonAccount = (): INetwork & {
 
 	const listAccounts = useCallback(async (): Promise<void> => {
 		try {
+			console.log("chainType", chainType);
+			console.log("isConnected", isConnected);
+			console.log("address", address);
+			console.log("status", status);
 			const accountList = await moon
 				.getTransactionService()
 				.listAccounts(chainType);
@@ -187,14 +191,18 @@ export const useMoonAccount = (): INetwork & {
 
 			const updatedAccountList = [...accountList];
 
-			if (isConnected && address && !updatedAccountList.includes(address)) {
+			if (address && !updatedAccountList.includes(address)) {
 				updatedAccountList.push(address);
 			}
 
-			setAccounts(updatedAccountList);
+			setAccounts([...updatedAccountList]);
 		} catch (error) {
+			const updatedAccountList = [];
 			console.error("Error fetching accounts:", error);
-			setAccounts([]);
+			if (address) {
+				updatedAccountList.push(address);
+			}
+			setAccounts([...updatedAccountList]);
 		}
 	}, [moon, chainType, address, isConnected]);
 

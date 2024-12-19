@@ -10,29 +10,16 @@ import type { AuthModalConfig } from "../types/types";
 import { MoonAuthProvider } from "./AuthProvider";
 import { MoonSDKProvider } from "./MoonProvider";
 import { ThemeProvider } from "./ThemeProvider";
-import { WagmiWrapper } from "./WagmiProvider";
+import { config } from "./WagmiProvider";
 import type { Theme } from "../types/theme";
+import { WagmiProvider } from "wagmi";
+import { Config, reconnect } from "@wagmi/core";
 
 type GlobalStateProviderProps = {
 	children: ReactNode;
 	sdkConfig?: MoonSDKConfig;
 	authConfig?: AuthModalConfig;
 };
-const queryClient = new QueryClient({
-	defaultOptions: {
-		queries: {
-			refetchOnWindowFocus: false,
-			gcTime: 1000 * 60 * 60 * 24,
-			staleTime: 1000 * 60 * 60 * 24,
-		},
-	},
-	queryCache: new QueryCache({}),
-});
-
-const persister = createSyncStoragePersister({
-	// make ssr friendly
-	storage: window.localStorage,
-});
 
 export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
 	children,
@@ -43,6 +30,29 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
 		...defaultTheme,
 		...(authConfig.theming || {}),
 	};
+	const [queryClient] = React.useState(
+		() =>
+			new QueryClient({
+				defaultOptions: {
+					queries: {
+						refetchOnWindowFocus: false,
+						gcTime: 1000 * 60 * 60 * 24,
+						staleTime: 1000 * 60 * 60 * 24,
+					},
+				},
+				queryCache: new QueryCache({}),
+			}),
+	);
+
+	const persister = createSyncStoragePersister({
+		// make ssr friendly
+		storage: window.localStorage,
+	});
+	React.useEffect(() => {
+		setTimeout(() => {
+			reconnect(config as Config);
+		});
+	}, []);
 
 	return (
 		<PersistQueryClientProvider
@@ -51,11 +61,11 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
 		>
 			<ThemeProvider theme={theme}>
 				<MoonAuthProvider sdkConfig={sdkConfig}>
-					<WagmiWrapper>
+					<WagmiProvider config={config}>
 						<MoonSDKProvider authConfig={authConfig}>
 							<AuthModal config={authConfig}>{children}</AuthModal>
 						</MoonSDKProvider>
-					</WagmiWrapper>
+					</WagmiProvider>
 				</MoonAuthProvider>
 			</ThemeProvider>
 		</PersistQueryClientProvider>
