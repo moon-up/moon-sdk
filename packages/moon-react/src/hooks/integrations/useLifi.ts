@@ -64,19 +64,25 @@ export const useLifi = () => {
 
 	const handleWagmiTransaction = async (transactionData: any) => {
 		try {
-			if (isConnected && address === transactionData.transaction.from) {
-				if (chainId !== Number.parseInt(transactionData.transaction.chainId)) {
+			if (isConnected && address === transactionData.signed.transaction.from) {
+				if (
+					chainId !==
+					Number.parseInt(transactionData.signed.transaction.chainId)
+				) {
 					await switchChain({
-						chainId: Number.parseInt(transactionData.transaction.chainId),
+						chainId: Number.parseInt(
+							transactionData.signed.transaction.chainId,
+						),
 					});
 				}
 				// Use wagmi's sendTransaction if a wagmi account is connected
 				await sendTransactionAsync({
-					to: transactionData.transaction.to,
-					data: transactionData.transaction.data,
-					value: BigInt(transactionData.transaction.value),
-					chainId: Number.parseInt(transactionData.transaction.chain_id),
+					to: transactionData.signed.transaction.to,
+					data: transactionData.signed.transaction.data,
+					value: BigInt(transactionData.signed.transaction.value),
+					chainId: Number.parseInt(transactionData.signed.transaction.chain_id),
 				});
+				return transactionData;
 			}
 		} catch (error) {
 			console.error("handleWagmiTransaction: Error: ", error);

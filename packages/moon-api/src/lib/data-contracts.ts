@@ -1237,8 +1237,6 @@ export interface ApiResponseToolsResponse {
 
 export type ApproveData = LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
-export type ApproveData1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
-
 export interface ApproveForPolymarketBody {
 	chain_id: string;
 }
@@ -1247,6 +1245,8 @@ export type ApproveForPolymarketData = PolymarketAPIResponseAny;
 
 export type ApproveOutput =
 	UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
+
+export type ApproveOutput1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export type ApproveResult = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 
@@ -6856,10 +6856,12 @@ export interface LifiPostQuoteParams {
 	allowBridges?: string[];
 	/** - (Optional) The list of allowed exchanges for the swap. */
 	allowExchanges?: string[];
+	broadcast?: boolean;
 	/** - (Optional) The list of denied bridges for the swap. */
 	denyBridges?: string[];
 	/** - (Optional) The list of denied exchanges for the swap. */
 	denyExchanges?: string[];
+	dryRun?: boolean;
 	/**
 	 * - (Optional) The fee for the swap.
 	 * @format double
@@ -9548,13 +9550,13 @@ export interface PostOrderResponse {
 /** Interface representing the structure of a post quote. */
 export interface PostQuote {
 	/** The broadcasted transaction. */
-	broadcast: any;
+	broadcast?: any;
 	/** The input body. */
 	input: InputBody;
 	/** The quote object. */
 	quote: Quote;
 	/** The signed transaction. */
-	signed: any;
+	signed?: any;
 }
 
 export interface PredictiveMetric {

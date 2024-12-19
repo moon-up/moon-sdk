@@ -10110,9 +10110,7 @@
 				},
 				"required": [
 					"quote",
-					"input",
-					"signed",
-					"broadcast"
+					"input"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -36918,6 +36916,22 @@
 							"items": {
 								"type": "string"
 							}
+						}
+					},
+					{
+						"in": "query",
+						"name": "dryRun",
+						"required": false,
+						"schema": {
+							"type": "boolean"
+						}
+					},
+					{
+						"in": "query",
+						"name": "broadcast",
+						"required": false,
+						"schema": {
+							"type": "boolean"
 						}
 					}
 				]

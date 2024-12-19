@@ -217,10 +217,12 @@ export namespace Lifi {
       allowBridges?: string[];
       /** - (Optional) The list of allowed exchanges for the swap. */
       allowExchanges?: string[];
+      broadcast?: boolean;
       /** - (Optional) The list of denied bridges for the swap. */
       denyBridges?: string[];
       /** - (Optional) The list of denied exchanges for the swap. */
       denyExchanges?: string[];
+      dryRun?: boolean;
       /**
        * - (Optional) The fee for the swap.
        * @format double
