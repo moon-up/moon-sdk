@@ -1,6 +1,10 @@
 import type { MoonSDKConfig } from "@moonup/moon-sdk";
-import { QueryCache, QueryClient } from "@tanstack/react-query";
-import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
+import {
+	QueryCache,
+	QueryClient,
+	QueryClientProvider,
+} from "@tanstack/react-query";
+import { persistQueryClient } from "@tanstack/react-query-persist-client";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 
 import type { ReactNode } from "react";
@@ -53,12 +57,13 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
 			reconnect(config as Config);
 		});
 	}, []);
+	persistQueryClient({
+		queryClient,
+		persister: persister,
+	});
 
 	return (
-		<PersistQueryClientProvider
-			client={queryClient}
-			persistOptions={{ persister }}
-		>
+		<QueryClientProvider client={queryClient}>
 			<ThemeProvider theme={theme}>
 				<MoonAuthProvider sdkConfig={sdkConfig}>
 					<WagmiProvider config={config}>
@@ -68,6 +73,6 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
 					</WagmiProvider>
 				</MoonAuthProvider>
 			</ThemeProvider>
-		</PersistQueryClientProvider>
+		</QueryClientProvider>
 	);
 };

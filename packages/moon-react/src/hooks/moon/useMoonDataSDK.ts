@@ -259,6 +259,17 @@ export const useMoonDataSDK = () => {
       queryFn: () => getUserWalletPortfolio( params ),
     } );
 
+  const useDebankUserTokensQuery = (
+    address: string,
+    isAll: boolean,
+  ) => useQuery( {
+    queryKey: [ "debankUserTokens", address, isAll ],
+    queryFn: () => getAllDebankUserTokens( {
+      address,
+      isAll,
+    } ),
+  } );
+
   const walletHistoryQuery = useQuery( {
     queryKey: [ "useMoonWalletHistory", chain?.id, wallet ],
     queryFn: async () => {
@@ -373,6 +384,8 @@ export const useMoonDataSDK = () => {
     } ): Promise<WalletBalanceAPIResponse> => {
       return handleTransaction( "getAllDebankUserTokens", async () => {
         const dataSDK = getDataSDK();
+        console.log( "getAllDebankUserTokens", params );
+
         const response = await dataSDK.getAllDebankUserTokens( {
           address: params.address,
           isAll: params.isAll,
@@ -427,6 +440,7 @@ export const useMoonDataSDK = () => {
     useDebankUserTotalBalanceQuery,
     // React Query Hooks
     debankUserTokensQuery,
+    useDebankUserTokensQuery,
     useChartAnalysisQuery,
     usePortfolioFetchStatusQuery,
     useTokensMetadataQuery,
