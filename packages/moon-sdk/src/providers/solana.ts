@@ -41,9 +41,9 @@ export class MoonSolanaProvider {
    * @param moonSDK - An instance of the MoonSDK.
    * @param endpoint - The endpoint URL for the Solana connection.
    */
-  constructor(moonSDK: MoonSDK, endpoint: string) {
+  constructor ( moonSDK: MoonSDK, endpoint: string ) {
     this.moonSDK = moonSDK;
-    this.connection = new Connection(endpoint);
+    this.connection = new Connection( endpoint );
   }
 
   /**
@@ -61,9 +61,9 @@ export class MoonSolanaProvider {
    * @param pubkey - The new public key to set.
    * @fires moonSDK#solanaPublicKeyChanged - Emits an event when the Solana public key is changed.
    */
-  setCustomPubkey(pubkey: PublicKey) {
+  setCustomPubkey( pubkey: PublicKey ) {
     this.customPubkey = pubkey;
-    this.moonSDK.emit('solanaPublicKeyChanged', pubkey.toBase58());
+    this.moonSDK.emit( 'solanaPublicKeyChanged', pubkey.toBase58() );
   }
 
   /**
@@ -76,29 +76,29 @@ export class MoonSolanaProvider {
    * @fires MoonSDK#solanaTransactionSent - Emits an event when the transaction is successfully sent.
    * @fires MoonSDK#error - Emits an error event if an error occurs during the process.
    */
-  async signAndSendTransaction(transaction: Transaction): Promise<string> {
+  async signAndSendTransaction( transaction: Transaction ): Promise<string> {
     try {
-      if (!this.customPubkey) {
-        throw new Error('Custom pubkey not set');
+      if ( !this.customPubkey ) {
+        throw new Error( 'Custom pubkey not set' );
       }
       const serializedTx = transaction
-        .serialize({ requireAllSignatures: false })
-        .toString('base64');
+        .serialize( { requireAllSignatures: false } )
+        .toString( 'base64' );
       const signedTx = await this.moonSDK
         .getSolanaService()
-        .signTransction(this.customPubkey.toBase58(), {
+        .signTransction( this.customPubkey.toBase58(), {
           unsigned_tx: serializedTx,
-        });
+        } );
       const txHash = await this.connection.sendRawTransaction(
-        Buffer.from(signedTx?.signedTx || '', 'base64')
+        Buffer.from( signedTx?.signed_tx || '', 'base64' )
       );
-      this.moonSDK.emit('solanaTransactionSent', txHash);
+      this.moonSDK.emit( 'solanaTransactionSent', txHash );
       return txHash;
-    } catch (error) {
-      this.moonSDK.emit('error', {
+    } catch ( error ) {
+      this.moonSDK.emit( 'error', {
         method: 'MoonSolanaProvider.signAndSendTransaction',
         error,
-      });
+      } );
       throw error;
     }
   }
