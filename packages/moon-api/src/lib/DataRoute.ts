@@ -18,6 +18,7 @@ import {
   DataGetTokensMetadataData,
   DataGetUserDebankComplexProtocolListData,
   DataGetUserDebankTokenListData,
+  DataGetUserDebankTotalBalanceData,
   DataGetUserWalletPortfolioData,
   DataGetWalletNfTsData,
   DataGetWalletTokenBalancesData,
@@ -127,8 +128,7 @@ export namespace Data {
       address: string;
     };
     export type RequestQuery = {
-      /** - The chain ID to fetch complex protocols for. */
-      chainId: string;
+      refresh?: boolean;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
@@ -153,6 +153,7 @@ export namespace Data {
     export type RequestQuery = {
       /** - The chain ID to fetch tokens for. */
       chainId: string;
+      refresh?: boolean;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
@@ -160,6 +161,27 @@ export namespace Data {
       Authorization: string;
     };
     export type ResponseBody = DataGetUserDebankTokenListData;
+  }
+
+  /**
+   * No description
+   * @tags Data
+   * @name DataGetUserDebankTotalBalance
+   * @request GET:/data/{address}/debank/total-balance
+   * @secure
+   */
+  export namespace DataGetUserDebankTotalBalance {
+    export type RequestParams = {
+      address: string;
+    };
+    export type RequestQuery = {
+      refresh?: boolean;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = DataGetUserDebankTotalBalanceData;
   }
 
   /**
@@ -280,6 +302,7 @@ export namespace Data {
     };
     export type RequestQuery = {
       isAll: boolean;
+      refresh?: boolean;
     };
     export type RequestBody = never;
     export type RequestHeaders = {

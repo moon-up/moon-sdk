@@ -21,6 +21,8 @@ import {
   DataGetUserDebankComplexProtocolListParams,
   DataGetUserDebankTokenListData,
   DataGetUserDebankTokenListParams,
+  DataGetUserDebankTotalBalanceData,
+  DataGetUserDebankTotalBalanceParams,
   DataGetUserWalletPortfolioData,
   DataGetUserWalletPortfolioParams,
   DataGetWalletNfTsData,
@@ -152,6 +154,26 @@ export class Data<SecurityDataType = unknown> {
   ) =>
     this.http.request<DataGetUserDebankTokenListData, any>({
       path: `/data/${address}/debank/tokens`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Data
+   * @name DataGetUserDebankTotalBalance
+   * @request GET:/data/{address}/debank/total-balance
+   * @secure
+   */
+  dataGetUserDebankTotalBalance = (
+    { address, ...query }: DataGetUserDebankTotalBalanceParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<DataGetUserDebankTotalBalanceData, any>({
+      path: `/data/${address}/debank/total-balance`,
       method: 'GET',
       query: query,
       secure: true,

@@ -5930,10 +5930,7 @@
 						"type": "string",
 						"description": "The address associated with the operation."
 					},
-					"data": {
-						"items": {},
-						"type": "array"
-					}
+					"data": {}
 				},
 				"required": [
 					"success",
@@ -17926,7 +17923,7 @@
 			"SolanaTransactionOutput": {
 				"description": "Represents the output of a Solana transaction.",
 				"properties": {
-					"signedTx": {
+					"signed_tx": {
 						"type": "string",
 						"description": "The signed transaction."
 					},
@@ -20540,6 +20537,9 @@
 			},
 			"BotConfigType": {
 				"properties": {
+					"status": {
+						"type": "string"
+					},
 					"twitter_screen_name": {
 						"type": "string"
 					},
@@ -20656,7 +20656,6 @@
 					}
 				},
 				"required": [
-					"replyTweets",
 					"text"
 				],
 				"type": "object"
@@ -28394,6 +28393,14 @@
 						"schema": {
 							"type": "string"
 						}
+					},
+					{
+						"in": "query",
+						"name": "refresh",
+						"required": false,
+						"schema": {
+							"type": "boolean"
+						}
 					}
 				]
 			}
@@ -28448,12 +28455,11 @@
 						}
 					},
 					{
-						"description": "- The chain ID to fetch complex protocols for.",
 						"in": "query",
-						"name": "chainId",
-						"required": true,
+						"name": "refresh",
+						"required": false,
 						"schema": {
-							"type": "string"
+							"type": "boolean"
 						}
 					}
 				]
@@ -28541,6 +28547,71 @@
 						"in": "query",
 						"name": "isAll",
 						"required": true,
+						"schema": {
+							"type": "boolean"
+						}
+					},
+					{
+						"in": "query",
+						"name": "refresh",
+						"required": false,
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				]
+			}
+		},
+		"/data/{address}/debank/total-balance": {
+			"get": {
+				"operationId": "Data_GetUserDebankTotalBalance",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DebankPortfolioAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Data"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "refresh",
+						"required": false,
 						"schema": {
 							"type": "boolean"
 						}
