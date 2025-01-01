@@ -84,7 +84,7 @@ export const chainIdToHexMapping: { [ key: number ]: ChainInfo; } = {
 export const useMoonDataSDK = () => {
   const { handleTransaction } = useMoonTransaction();
 
-  const { moon } = useMoonAuth();
+  const { moon, session } = useMoonAuth();
 
   const { account: wallet } = useMoonAccount();
   const { selectedChain: chain } = useChains();
@@ -160,6 +160,9 @@ export const useMoonDataSDK = () => {
       params: DataGetUserDebankTokenListParams,
     ): Promise<WalletBalanceAPIResponse> => {
       return handleTransaction( "getUserDebankTokenList", async () => {
+        if ( !params.address ) {
+          throw new Error( "getUserDebankTokenList::Address is required" );
+        }
         const dataSDK = getDataSDK();
         const response = await dataSDK.dataGetUserDebankTokenList( params );
         return response.data;
@@ -204,8 +207,6 @@ export const useMoonDataSDK = () => {
     [ moon ],
   );
 
-  // ... existing getWalletBalance, getWalletHistory, and getWalletNFTs callbacks ...
-
   // React Query Hooks
 
   const useChartAnalysisQuery = (
@@ -249,6 +250,7 @@ export const useMoonDataSDK = () => {
     useQuery( {
       queryKey: [ "userDebankTokenList", params ],
       queryFn: () => getUserDebankTokenList( params ),
+      enabled: !!params.address && !!session,
     } );
 
   const useUserWalletPortfolioQuery = (
@@ -268,6 +270,7 @@ export const useMoonDataSDK = () => {
       address,
       isAll,
     } ),
+    enabled: !!address && !!moon,
   } );
 
   const walletHistoryQuery = useQuery( {
@@ -384,7 +387,6 @@ export const useMoonDataSDK = () => {
     } ): Promise<WalletBalanceAPIResponse> => {
       return handleTransaction( "getAllDebankUserTokens", async () => {
         const dataSDK = getDataSDK();
-        console.log( "getAllDebankUserTokens", params );
 
         const response = await dataSDK.getAllDebankUserTokens( {
           address: params.address,
