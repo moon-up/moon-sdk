@@ -9,7 +9,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import type React from "react";
 import { useEffect, useState, useCallback } from "react";
 import { CheckCircleIcon, XCircleIcon } from "lucide-react";
-import { CopyToClipboard } from "react-copy-to-clipboard";
+import pkg from "react-copy-to-clipboard";
+const { CopyToClipboard } = pkg;
 import { Tooltip, Button } from "@/components";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 

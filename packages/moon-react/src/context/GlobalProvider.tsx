@@ -4,9 +4,6 @@ import {
 	QueryClient,
 	QueryClientProvider,
 } from "@tanstack/react-query";
-import { persistQueryClient } from "@tanstack/react-query-persist-client";
-import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
-
 import type { ReactNode } from "react";
 import React from "react";
 import { AuthModal, DEFAULT_AUTH_CONFIG, defaultTheme } from "..";
@@ -19,7 +16,7 @@ import type { Theme } from "../types/theme";
 import { WagmiProvider } from "wagmi";
 import { Config, reconnect } from "@wagmi/core";
 
-type GlobalStateProviderProps = {
+export type GlobalStateProviderProps = {
 	children: ReactNode;
 	sdkConfig?: MoonSDKConfig;
 	authConfig?: AuthModalConfig;
@@ -48,19 +45,11 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
 			}),
 	);
 
-	const persister = createSyncStoragePersister({
-		// make ssr friendly
-		storage: window.localStorage,
-	});
 	React.useEffect(() => {
 		setTimeout(() => {
 			reconnect(config as Config);
 		});
-	}, []);
-	persistQueryClient({
-		queryClient,
-		persister: persister,
-	});
+	}, [queryClient]);
 
 	return (
 		<QueryClientProvider client={queryClient}>
