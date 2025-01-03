@@ -25,6 +25,8 @@ import {
   StopBotData,
   TriggerBotData,
   TweetHistoryData,
+  TweetReplyTestData,
+  TweetReplyTestPayload,
   UpdatePersonalityData,
 } from './data-contracts';
 import { ContentType, HttpClient, RequestParams } from './http-client';
@@ -247,6 +249,28 @@ export class TradingBot<SecurityDataType = unknown> {
       path: `/tradingBot/${botId}/twitter/tweet/history`,
       method: 'GET',
       secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags TradingBot
+   * @name TweetReplyTest
+   * @request POST:/tradingBot/{botId}/tweetReplyTest
+   * @secure
+   */
+  tweetReplyTest = (
+    botId: string,
+    data: TweetReplyTestPayload,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<TweetReplyTestData, any>({
+      path: `/tradingBot/${botId}/tweetReplyTest`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
       format: 'json',
       ...params,
     });

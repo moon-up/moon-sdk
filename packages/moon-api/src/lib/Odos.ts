@@ -12,13 +12,21 @@
 import {
   AssembleRequest,
   GetZapQuoteData,
+  OdosAssembleLimitOrderData,
+  OdosAssembleLimitOrderPayload,
   OdosAssembleTransactionData,
+  OdosCancelLimitOrderData,
+  OdosCancelLimitOrderParams,
+  OdosCreateLimitOrderData,
+  OdosCreateLimitOrderPayload,
   OdosGetContractInfoData,
   OdosGetContractInfoParams,
   OdosGetCurrentBlockData,
   OdosGetCurrentBlockParams,
   OdosGetExecutorAddressData,
   OdosGetExecutorAddressParams,
+  OdosGetLimitOrdersData,
+  OdosGetLimitOrdersParams,
   OdosGetLiquiditySourcesData,
   OdosGetLiquiditySourcesParams,
   OdosGetQuoteData,
@@ -27,6 +35,8 @@ import {
   OdosGetSupportedChainsData,
   OdosGetSupportedTokensData,
   OdosGetSupportedTokensParams,
+  OdosLoginData,
+  OdosLoginParams,
   OdosSwapInputBody,
   OdosSwapTokensData,
   ZapData,
@@ -63,6 +73,28 @@ export class Odos<SecurityDataType = unknown> {
       ...params,
     });
   /**
+   * @description Assembles a limit order for a given account.
+   *
+   * @tags Odos
+   * @name OdosAssembleLimitOrder
+   * @request POST:/odos/{accountName}/assemble-limit-order
+   * @secure
+   */
+  odosAssembleLimitOrder = (
+    accountName: string,
+    data: OdosAssembleLimitOrderPayload,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<OdosAssembleLimitOrderData, any>({
+      path: `/odos/${accountName}/assemble-limit-order`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      format: 'json',
+      ...params,
+    });
+  /**
    * @description Assembles a transaction using the provided authorization token and request body.
    *
    * @tags Odos
@@ -76,6 +108,48 @@ export class Odos<SecurityDataType = unknown> {
   ) =>
     this.http.request<OdosAssembleTransactionData, any>({
       path: `/odos/assemble-transaction`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * @description Cancels a limit order for a given account.
+   *
+   * @tags Odos
+   * @name OdosCancelLimitOrder
+   * @request POST:/odos/{accountName}/cancel-limit-order
+   * @secure
+   */
+  odosCancelLimitOrder = (
+    { accountName, ...query }: OdosCancelLimitOrderParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<OdosCancelLimitOrderData, any>({
+      path: `/odos/${accountName}/cancel-limit-order`,
+      method: 'POST',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * @description Creates a limit order for a given account.
+   *
+   * @tags Odos
+   * @name OdosCreateLimitOrder
+   * @request POST:/odos/{accountName}/create-limit-order
+   * @secure
+   */
+  odosCreateLimitOrder = (
+    accountName: string,
+    data: OdosCreateLimitOrderPayload,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<OdosCreateLimitOrderData, any>({
+      path: `/odos/${accountName}/create-limit-order`,
       method: 'POST',
       body: data,
       secure: true,
@@ -137,6 +211,26 @@ export class Odos<SecurityDataType = unknown> {
   ) =>
     this.http.request<OdosGetExecutorAddressData, any>({
       path: `/odos/executor-address`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * @description Retrieves limit orders for a given account.
+   *
+   * @tags Odos
+   * @name OdosGetLimitOrders
+   * @request GET:/odos/{accountName}/limit-orders
+   * @secure
+   */
+  odosGetLimitOrders = (
+    { accountName, ...query }: OdosGetLimitOrdersParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<OdosGetLimitOrdersData, any>({
+      path: `/odos/${accountName}/limit-orders`,
       method: 'GET',
       query: query,
       secure: true,
@@ -236,6 +330,26 @@ export class Odos<SecurityDataType = unknown> {
     this.http.request<OdosGetSupportedTokensData, any>({
       path: `/odos/supported-tokens`,
       method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * @description Logs in a user to the Odos platform.
+   *
+   * @tags Odos
+   * @name OdosLogin
+   * @request POST:/odos/{accountName}/login
+   * @secure
+   */
+  odosLogin = (
+    { accountName, ...query }: OdosLoginParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<OdosLoginData, any>({
+      path: `/odos/${accountName}/login`,
+      method: 'POST',
       query: query,
       secure: true,
       format: 'json',

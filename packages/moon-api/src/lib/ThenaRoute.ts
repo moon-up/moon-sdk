@@ -11,7 +11,7 @@
 
 import {
   AbstainResult,
-  ApproveResult1,
+  ApproveData1,
   AttachResult,
   AttachTokenToGaugeResult,
   CalculateOptimalVoteDistributionOutput,
@@ -118,7 +118,7 @@ export namespace Thena {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = ApproveResult1;
+    export type ResponseBody = ApproveData1;
   }
 
   /**

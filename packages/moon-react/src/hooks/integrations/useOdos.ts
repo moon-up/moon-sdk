@@ -6,7 +6,12 @@ import type {
 	OdosGetRouterAddressParams,
 	OdosGetSupportedTokensParams,
 	OdosSwapInputBody,
+	OdosAssembleLimitOrderPayload,
+	OdosCreateLimitOrderPayload,
+	OdosCancelLimitOrderParams,
+	OdosGetLimitOrdersParams,
 } from "@moonup/moon-api";
+
 import { useQuery } from "@tanstack/react-query";
 import { useCallback } from "react";
 import {
@@ -211,11 +216,95 @@ export const useOdos = () => {
 		[moon],
 	);
 
+	/**
+	 * Assembles a limit order using the Odos SDK.
+	 *
+	 * @param payload - The payload containing the account name and limit order data.
+	 * @returns A promise that resolves to the result of the Odos API response.
+	 */
+	const assembleLimitOrder = useCallback(
+		async (payload: {
+			accountName: string;
+			data: OdosAssembleLimitOrderPayload;
+		}): Promise<any> => {
+			return handleTransaction("assembleLimitOrder", async () => {
+				const odosSDK = getOdosSDK();
+				const response = await odosSDK.odosAssembleLimitOrder(
+					payload.accountName,
+					payload.data,
+				);
+				return response.data;
+			});
+		},
+		[moon],
+	);
+
+	/**
+	 * Creates a limit order using the Odos SDK.
+	 *
+	 * @param payload - The payload containing the account name and limit order data.
+	 * @returns A promise that resolves to the result of the Odos API response.
+	 */
+	const createLimitOrder = useCallback(
+		async (payload: {
+			accountName: string;
+			data: OdosCreateLimitOrderPayload;
+		}): Promise<any> => {
+			return handleTransaction("createLimitOrder", async () => {
+				const odosSDK = getOdosSDK();
+				const response = await odosSDK.odosCreateLimitOrder(
+					payload.accountName,
+					payload.data,
+				);
+				return response.data;
+			});
+		},
+		[moon],
+	);
+
+	/**
+	 * Cancels a limit order using the Odos SDK.
+	 *
+	 * @param payload - The parameters required to cancel a limit order.
+	 * @returns A promise that resolves to the result of the Odos API response.
+	 */
+	const cancelLimitOrder = useCallback(
+		async (payload: OdosCancelLimitOrderParams): Promise<any> => {
+			return handleTransaction("cancelLimitOrder", async () => {
+				const odosSDK = getOdosSDK();
+				const response = await odosSDK.odosCancelLimitOrder(payload);
+				return response.data;
+			});
+		},
+		[moon],
+	);
+
+	/**
+	 * Retrieves limit orders using the Odos SDK.
+	 *
+	 * @param payload - The parameters required to get limit orders.
+	 * @returns A promise that resolves to the result of the Odos API response.
+	 */
+	const getLimitOrders = useCallback(
+		async (payload: OdosGetLimitOrdersParams): Promise<any> => {
+			return handleTransaction("getLimitOrders", async () => {
+				const odosSDK = getOdosSDK();
+				const response = await odosSDK.odosGetLimitOrders(payload);
+				return response.data;
+			});
+		},
+		[moon],
+	);
+
 	return {
 		getRouterAddress,
 		getQuoteOdos,
 		swapOdos,
 		getSupportedTokens,
 		supportedTokensQuery,
+		assembleLimitOrder,
+		createLimitOrder,
+		cancelLimitOrder,
+		getLimitOrders,
 	};
 };

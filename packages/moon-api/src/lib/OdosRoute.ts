@@ -12,18 +12,25 @@
 import {
   AssembleRequest,
   GetZapQuoteData,
+  OdosAssembleLimitOrderData,
+  OdosAssembleLimitOrderPayload,
   OdosAssembleTransactionData,
+  OdosCancelLimitOrderData,
+  OdosCreateLimitOrderData,
+  OdosCreateLimitOrderPayload,
   OdosGetContractInfoData,
   OdosGetContractInfoParams1VersionEnum,
   OdosGetCurrentBlockData,
   OdosGetExecutorAddressData,
   OdosGetExecutorAddressParams1VersionEnum,
+  OdosGetLimitOrdersData,
   OdosGetLiquiditySourcesData,
   OdosGetQuoteData,
   OdosGetRouterAddressData,
   OdosGetRouterAddressParams1VersionEnum,
   OdosGetSupportedChainsData,
   OdosGetSupportedTokensData,
+  OdosLoginData,
   OdosSwapInputBody,
   OdosSwapTokensData,
   ZapData,
@@ -50,6 +57,27 @@ export namespace Odos {
   }
 
   /**
+   * @description Assembles a limit order for a given account.
+   * @tags Odos
+   * @name OdosAssembleLimitOrder
+   * @request POST:/odos/{accountName}/assemble-limit-order
+   * @secure
+   */
+  export namespace OdosAssembleLimitOrder {
+    export type RequestParams = {
+      /** - The name of the account to assemble the limit order for. */
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = OdosAssembleLimitOrderPayload;
+    export type RequestHeaders = {
+      /** - The authorization token from the request header. */
+      Authorization: string;
+    };
+    export type ResponseBody = OdosAssembleLimitOrderData;
+  }
+
+  /**
    * @description Assembles a transaction using the provided authorization token and request body.
    * @tags Odos
    * @name OdosAssembleTransaction
@@ -65,6 +93,51 @@ export namespace Odos {
       Authorization: string;
     };
     export type ResponseBody = OdosAssembleTransactionData;
+  }
+
+  /**
+   * @description Cancels a limit order for a given account.
+   * @tags Odos
+   * @name OdosCancelLimitOrder
+   * @request POST:/odos/{accountName}/cancel-limit-order
+   * @secure
+   */
+  export namespace OdosCancelLimitOrder {
+    export type RequestParams = {
+      /** - The name of the account to cancel the limit order for. */
+      accountName: string;
+    };
+    export type RequestQuery = {
+      /** - The hash of the order to cancel. */
+      orderHash: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token from the request header. */
+      Authorization: string;
+    };
+    export type ResponseBody = OdosCancelLimitOrderData;
+  }
+
+  /**
+   * @description Creates a limit order for a given account.
+   * @tags Odos
+   * @name OdosCreateLimitOrder
+   * @request POST:/odos/{accountName}/create-limit-order
+   * @secure
+   */
+  export namespace OdosCreateLimitOrder {
+    export type RequestParams = {
+      /** - The name of the account to create the limit order for. */
+      accountName: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = OdosCreateLimitOrderPayload;
+    export type RequestHeaders = {
+      /** - The authorization token from the request header. */
+      Authorization: string;
+    };
+    export type ResponseBody = OdosCreateLimitOrderData;
   }
 
   /**
@@ -141,6 +214,30 @@ export namespace Odos {
       Authorization: string;
     };
     export type ResponseBody = OdosGetExecutorAddressData;
+  }
+
+  /**
+   * @description Retrieves limit orders for a given account.
+   * @tags Odos
+   * @name OdosGetLimitOrders
+   * @request GET:/odos/{accountName}/limit-orders
+   * @secure
+   */
+  export namespace OdosGetLimitOrders {
+    export type RequestParams = {
+      /** - The name of the account to retrieve limit orders for. */
+      accountName: string;
+    };
+    export type RequestQuery = {
+      /** - The status of the orders to retrieve. */
+      orderStatus: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token from the request header. */
+      Authorization: string;
+    };
+    export type ResponseBody = OdosGetLimitOrdersData;
   }
 
   /**
@@ -254,6 +351,33 @@ export namespace Odos {
       Authorization: string;
     };
     export type ResponseBody = OdosGetSupportedTokensData;
+  }
+
+  /**
+   * @description Logs in a user to the Odos platform.
+   * @tags Odos
+   * @name OdosLogin
+   * @request POST:/odos/{accountName}/login
+   * @secure
+   */
+  export namespace OdosLogin {
+    export type RequestParams = {
+      /** - The name of the account to log in. */
+      accountName: string;
+    };
+    export type RequestQuery = {
+      /**
+       * - The ID of the blockchain network.
+       * @format double
+       */
+      chainId: number;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      /** - The authorization token from the request header. */
+      Authorization: string;
+    };
+    export type ResponseBody = OdosLoginData;
   }
 
   /**

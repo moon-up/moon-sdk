@@ -44363,6 +44363,426 @@
 				]
 			}
 		},
+		"/odos/{accountName}/login": {
+			"post": {
+				"operationId": "ODOS_Login",
+				"responses": {
+					"200": {
+						"description": "A promise that resolves to an OdosAPIResponse containing the login result.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OdosAPIResponse_OdosExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"description": "Logs in a user to the Odos platform.",
+				"tags": [
+					"Odos"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "- The name of the account to log in.",
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The authorization token from the request header.",
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The ID of the blockchain network.",
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/odos/{accountName}/limit-orders": {
+			"get": {
+				"operationId": "ODOS_GetLimitOrders",
+				"responses": {
+					"200": {
+						"description": "A promise that resolves to an OdosAPIResponse containing the limit orders.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OdosAPIResponse_OdosExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"description": "Retrieves limit orders for a given account.",
+				"tags": [
+					"Odos"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "- The name of the account to retrieve limit orders for.",
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The authorization token from the request header.",
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The status of the orders to retrieve.",
+						"in": "query",
+						"name": "orderStatus",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/odos/{accountName}/assemble-limit-order": {
+			"post": {
+				"operationId": "ODOS_AssembleLimitOrder",
+				"responses": {
+					"200": {
+						"description": "A promise that resolves to an OdosAPIResponse containing the assembled limit order.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OdosAPIResponse_OdosExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"description": "Assembles a limit order for a given account.",
+				"tags": [
+					"Odos"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "- The name of the account to assemble the limit order for.",
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The authorization token from the request header.",
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"description": "- The body containing the limit order parameters.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"permit2": {
+										"type": "boolean"
+									},
+									"validationMethod": {
+										"type": "string"
+									},
+									"partiallyFillable": {
+										"type": "boolean"
+									},
+									"referralCode": {
+										"type": "number",
+										"format": "double"
+									},
+									"expiry": {
+										"type": "number",
+										"format": "double"
+									},
+									"outputTokens": {
+										"items": {
+											"$ref": "#/components/schemas/TokenAmount"
+										},
+										"type": "array"
+									},
+									"inputTokens": {
+										"items": {
+											"$ref": "#/components/schemas/TokenAmount"
+										},
+										"type": "array"
+									},
+									"chainId": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"permit2",
+									"validationMethod",
+									"partiallyFillable",
+									"referralCode",
+									"expiry",
+									"outputTokens",
+									"inputTokens",
+									"chainId"
+								],
+								"type": "object",
+								"description": "- The body containing the limit order parameters."
+							}
+						}
+					}
+				}
+			}
+		},
+		"/odos/{accountName}/create-limit-order": {
+			"post": {
+				"operationId": "ODOS_CreateLimitOrder",
+				"responses": {
+					"200": {
+						"description": "A promise that resolves to an OdosAPIResponse containing the created limit order.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OdosAPIResponse_OdosExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"description": "Creates a limit order for a given account.",
+				"tags": [
+					"Odos"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "- The name of the account to create the limit order for.",
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The authorization token from the request header.",
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"description": "- The body containing the limit order parameters.",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"validationMethod": {
+										"type": "string"
+									},
+									"signature": {
+										"type": "string"
+									},
+									"orderHash": {
+										"type": "string"
+									},
+									"salt": {
+										"type": "string"
+									},
+									"permit2Nonce": {
+										"type": "string"
+									},
+									"permit2Address": {
+										"type": "string"
+									},
+									"permit2": {
+										"type": "boolean"
+									},
+									"partiallyFillable": {
+										"type": "boolean"
+									},
+									"referralCode": {
+										"type": "number",
+										"format": "double"
+									},
+									"expiry": {
+										"type": "number",
+										"format": "double"
+									},
+									"outputTokens": {
+										"items": {
+											"$ref": "#/components/schemas/TokenAmount"
+										},
+										"type": "array"
+									},
+									"inputTokens": {
+										"items": {
+											"$ref": "#/components/schemas/TokenAmount"
+										},
+										"type": "array"
+									},
+									"chainId": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"validationMethod",
+									"signature",
+									"orderHash",
+									"salt",
+									"permit2Nonce",
+									"permit2Address",
+									"permit2",
+									"partiallyFillable",
+									"referralCode",
+									"expiry",
+									"outputTokens",
+									"inputTokens",
+									"chainId"
+								],
+								"type": "object",
+								"description": "- The body containing the limit order parameters."
+							}
+						}
+					}
+				}
+			}
+		},
+		"/odos/{accountName}/cancel-limit-order": {
+			"post": {
+				"operationId": "ODOS_CancelLimitOrder",
+				"responses": {
+					"200": {
+						"description": "A promise that resolves to an OdosAPIResponse containing the result of the cancellation.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OdosAPIResponse_OdosExecuteFunctionResult_"
+								}
+							}
+						}
+					}
+				},
+				"description": "Cancels a limit order for a given account.",
+				"tags": [
+					"Odos"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"description": "- The name of the account to cancel the limit order for.",
+						"in": "path",
+						"name": "accountName",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The authorization token from the request header.",
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"description": "- The hash of the order to cancel.",
+						"in": "query",
+						"name": "orderHash",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
 		"/onramper/currencies": {
 			"get": {
 				"operationId": "OnRamperGetSupportedCurrencies",
@@ -60758,6 +61178,57 @@
 						}
 					}
 				]
+			}
+		},
+		"/tradingBot/{botId}/tweetReplyTest": {
+			"post": {
+				"operationId": "TweetReplyTest",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"TradingBot"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "botId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "string"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/tradingBot/{botId}/restart": {

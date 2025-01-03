@@ -25,6 +25,8 @@ import {
   StopBotData,
   TriggerBotData,
   TweetHistoryData,
+  TweetReplyTestData,
+  TweetReplyTestPayload,
   UpdatePersonalityData,
 } from './data-contracts';
 
@@ -247,6 +249,23 @@ export namespace TradingBot {
     export type RequestBody = never;
     export type RequestHeaders = {};
     export type ResponseBody = TweetHistoryData;
+  }
+
+  /**
+   * No description
+   * @tags TradingBot
+   * @name TweetReplyTest
+   * @request POST:/tradingBot/{botId}/tweetReplyTest
+   * @secure
+   */
+  export namespace TweetReplyTest {
+    export type RequestParams = {
+      botId: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = TweetReplyTestPayload;
+    export type RequestHeaders = {};
+    export type ResponseBody = TweetReplyTestData;
   }
 
   /**
