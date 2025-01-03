@@ -12,6 +12,7 @@ export * from "./Dogecoin";
 export * from "./Ens";
 export * from "./Eos";
 export * from "./Erc1155";
+export * from "./Makefuntoken";
 export * from "./Erc20";
 export * from "./Erc4626";
 export * from "./Erc721";

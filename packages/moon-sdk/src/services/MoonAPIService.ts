@@ -76,6 +76,7 @@ export class MoonAPIService {
       "Thorswap",
       "Aave",
       "Multicall",
+      "Makefuntoken",
       "Data",
       "Thena",
       "Jupiter",
@@ -412,5 +413,15 @@ export class MoonAPIService {
    */
   public getCookiefunSDK(): MoonAPI.Cookiefun {
     return this.getSDK( "Cookiefun" ) as MoonAPI.Cookiefun;
+  }
+
+  /**
+   * Retrieves the Makefuntoken SDK instance.
+   * 
+   * @returns {MoonAPI.Makefuntoken} The Makefuntoken SDK instance.
+   */
+
+  public getMakefuntokenSDK(): MoonAPI.Makefuntoken {
+    return this.getSDK( "Makefuntoken" ) as MoonAPI.Makefuntoken;
   }
 }

@@ -47,7 +47,7 @@ export const EmailLogin = ({ config }: EmailLoginProps) => {
 		try {
 			setIsLoggingIn(true);
 			const response = await signInWithEmail(email, password);
-			console.log("login response", response);
+			// console.log("login response", response);
 			if (!response) {
 				setError("Invalid email or password");
 				setIsLoggingIn(false);

@@ -1504,9 +1504,22 @@ export class MoonSDK extends EventEmitter implements IMoonSDK {
     return this.moonAPIService.getAlloraSDK();
   }
 
+  /**
+   * Retrieves the Cookiefun SDK instance from the MoonAPI service.
+   * @returns {MoonAPI.Cookiefun} The Cookiefun SDK instance.
+   */
   public getCookiefunSDK(): MoonAPI.Cookiefun {
     return this.moonAPIService.getCookiefunSDK();
   }
+
+  /**
+   * Retrieves the Makefuntoken SDK instance from the MoonAPI service.
+   * @returns {MoonAPI.Makefuntoken} The Makefuntoken SDK instance.
+   */
+  public getMakeFunTokenSDK(): MoonAPI.Makefuntoken {
+    return this.moonAPIService.getMakefuntokenSDK();
+  }
+
 
   /**
    * Retrieves the balance of a Solana account.

@@ -11,19 +11,12 @@ const MotionRadixContent = motion(RadixDialog.Content);
 export type ChainSelectionModalProps = {
 	chainIdFilterList?: number[];
 	title?: string;
-	position?:
-		| "center"
-		| "top-right"
-		| "top-left"
-		| "bottom-right"
-		| "bottom-left";
 	onChange?: (e: any) => void;
 };
 
 export const ChainSelectionModal: React.FC<ChainSelectionModalProps> = ({
 	chainIdFilterList,
-	title = "Select Chain",
-	position = "center",
+	title = "Select Network",
 	onChange,
 }) => {
 	const { selectedChain, switchChain, chains } = useChains();
@@ -57,22 +50,6 @@ export const ChainSelectionModal: React.FC<ChainSelectionModalProps> = ({
 		onChange && onChange(fakeEvent);
 	};
 
-	const getPositionStyles = () => {
-		switch (position) {
-			case "top-right":
-				return "top-4 right-4";
-			case "top-left":
-				return "top-4 left-4";
-			case "bottom-right":
-				return "bottom-4 right-4";
-			case "bottom-left":
-				return "bottom-4 left-4";
-			case "center":
-			default:
-				return "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2";
-		}
-	};
-
 	const Row = useCallback(
 		({ index, style }: { index: number; style: React.CSSProperties }) => {
 			const chain = filteredChains[index];
@@ -96,18 +73,16 @@ export const ChainSelectionModal: React.FC<ChainSelectionModalProps> = ({
 				</div>
 			);
 		},
-		[filteredChains, handleChainSelect],
+		[filteredChains],
 	);
 
 	return (
 		<RadixDialog.Root open={isOpen} onOpenChange={setIsOpen}>
-			<RadixDialog.Trigger
-				asChild
-				style={{
-					transform: "translate(-50%, 0)",
-				}}
-			>
-				<div className="flex items-center cursor-pointer" onClick={handleOpen}>
+			<RadixDialog.Trigger asChild>
+				<button
+					className="flex items-center bg-gray-700 text-white rounded-md px-3 py-2 cursor-pointer"
+					onClick={handleOpen}
+				>
 					<img
 						src={
 							selectedChain?.icon
@@ -117,50 +92,51 @@ export const ChainSelectionModal: React.FC<ChainSelectionModalProps> = ({
 						alt={selectedChain?.name || "Unknown Chain"}
 						className="w-6 h-6 mr-2"
 					/>
-					<span>{selectedChain?.name || "Select Chain"}</span>
-				</div>
+					<span>{selectedChain?.name || "Select Network"}</span>
+				</button>
 			</RadixDialog.Trigger>
-
-			<MotionRadixContent
-				initial={{ opacity: 0, y: 20 }}
-				animate={{ opacity: 1, y: 0 }}
-				exit={{ opacity: 0, y: -20 }}
-				transition={{ duration: 0.3 }}
-				className={`fixed z-50 ${getPositionStyles()} bg-gray-800 rounded-lg shadow-lg p-6 max-w-md`}
-				style={{ width: "50%", transform: "translate(-50%, -50%)" }}
-			>
-				<RadixDialog.Title className="text-lg font-semibold mb-4 text-white">
-					{title}
-				</RadixDialog.Title>
-				<div className="flex items-center mb-4">
-					<FaSearch className="mr-2 text-gray-400" />
-					<Input
-						type="text"
-						placeholder="Search chains..."
-						value={searchTerm}
-						onChange={(e) => setSearchTerm(e.target.value)}
-						className="flex-1 px-2 py-1 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-					/>
-				</div>
-				<div className="max-h-60 overflow-y-auto">
-					<List
-						height={240}
-						itemCount={filteredChains.length}
-						itemSize={50}
-						width="100%"
-					>
-						{Row}
-					</List>
-				</div>
-				<RadixDialog.Close asChild>
-					<button
-						className="px-4 py-2 mt-4 ml-auto text-sm font-semibold text-blue-500 hover:text-blue-700 rounded-md"
-						onClick={handleClose}
-					>
-						Close
-					</button>
-				</RadixDialog.Close>
-			</MotionRadixContent>
+			<RadixDialog.Portal>
+				<RadixDialog.Overlay className="fixed inset-0 bg-black bg-opacity-50" />
+				<MotionRadixContent
+					initial={{ opacity: 0, scale: 0.95 }}
+					animate={{ opacity: 1, scale: 1 }}
+					exit={{ opacity: 0, scale: 0.95 }}
+					transition={{ duration: 0.2 }}
+					className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md"
+				>
+					<RadixDialog.Title className="text-lg font-semibold mb-4 text-white">
+						{title}
+					</RadixDialog.Title>
+					<div className="flex items-center mb-4">
+						<FaSearch className="mr-2 text-gray-400" />
+						<Input
+							type="text"
+							placeholder="Search chains..."
+							value={searchTerm}
+							onChange={(e) => setSearchTerm(e.target.value)}
+							className="flex-1 px-2 py-1 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+						/>
+					</div>
+					<div className="max-h-60 overflow-y-auto">
+						<List
+							height={240}
+							itemCount={filteredChains.length}
+							itemSize={50}
+							width="100%"
+						>
+							{Row}
+						</List>
+					</div>
+					<RadixDialog.Close asChild>
+						<button
+							className="px-4 py-2 mt-4 ml-auto text-sm font-semibold text-blue-500 hover:text-blue-700 rounded-md"
+							onClick={handleClose}
+						>
+							Close
+						</button>
+					</RadixDialog.Close>
+				</MotionRadixContent>
+			</RadixDialog.Portal>
 		</RadixDialog.Root>
 	);
 };
