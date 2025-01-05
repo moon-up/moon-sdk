@@ -4975,693 +4975,296 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"EvmAddressJSON": {
-				"type": "string"
-			},
-			"BigNumberJSON": {
-				"type": "string"
-			},
-			"EvmInternalTransactionJSON": {
+			"HistoryResponse": {
 				"properties": {
-					"transaction_hash": {
-						"type": "string"
+					"cate_dict": {
+						"properties": {},
+						"additionalProperties": {
+							"properties": {
+								"name": {
+									"type": "string"
+								},
+								"id": {
+									"type": "string"
+								}
+							},
+							"required": [
+								"name",
+								"id"
+							],
+							"type": "object"
+						},
+						"type": "object"
 					},
-					"block_number": {
-						"type": "string"
+					"history_list": {
+						"items": {
+							"properties": {
+								"tx": {
+									"properties": {
+										"value": {
+											"type": "number",
+											"format": "double"
+										},
+										"usd_gas_fee": {
+											"type": "number",
+											"format": "double"
+										},
+										"to_addr": {
+											"type": "string"
+										},
+										"status": {
+											"type": "number",
+											"format": "double"
+										},
+										"params": {
+											"items": {},
+											"type": "array"
+										},
+										"name": {
+											"type": "string"
+										},
+										"from_addr": {
+											"type": "string"
+										},
+										"eth_gas_fee": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"value",
+										"usd_gas_fee",
+										"to_addr",
+										"status",
+										"params",
+										"name",
+										"from_addr",
+										"eth_gas_fee"
+									],
+									"type": "object"
+								},
+								"token_approve": {
+									"properties": {
+										"value": {
+											"type": "number",
+											"format": "double"
+										},
+										"token_id": {
+											"type": "string"
+										},
+										"spender": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"value",
+										"token_id",
+										"spender"
+									],
+									"type": "object",
+									"nullable": true
+								},
+								"time_at": {
+									"type": "number",
+									"format": "double"
+								},
+								"sends": {
+									"items": {
+										"properties": {
+											"token_id": {
+												"type": "string"
+											},
+											"to_addr": {
+												"type": "string"
+											},
+											"amount": {
+												"type": "number",
+												"format": "double"
+											}
+										},
+										"required": [
+											"token_id",
+											"to_addr",
+											"amount"
+										],
+										"type": "object"
+									},
+									"type": "array"
+								},
+								"cex_id": {
+									"type": "string",
+									"nullable": true
+								},
+								"receives": {
+									"items": {},
+									"type": "array"
+								},
+								"project_id": {
+									"type": "string",
+									"nullable": true
+								},
+								"id": {
+									"type": "string"
+								},
+								"chain": {
+									"type": "string"
+								},
+								"cate_id": {
+									"type": "string"
+								}
+							},
+							"required": [
+								"tx",
+								"token_approve",
+								"time_at",
+								"sends",
+								"cex_id",
+								"receives",
+								"project_id",
+								"id",
+								"chain",
+								"cate_id"
+							],
+							"type": "object"
+						},
+						"type": "array"
 					},
-					"block_hash": {
-						"type": "string"
+					"cex_dict": {
+						"properties": {},
+						"additionalProperties": {
+							"properties": {
+								"name": {
+									"type": "string"
+								},
+								"logo_url": {
+									"type": "string"
+								},
+								"is_vault": {
+									"type": "boolean"
+								},
+								"id": {
+									"type": "string"
+								}
+							},
+							"required": [
+								"name",
+								"logo_url",
+								"is_vault",
+								"id"
+							],
+							"type": "object"
+						},
+						"type": "object"
 					},
-					"type": {
-						"type": "string"
+					"project_dict": {
+						"properties": {},
+						"additionalProperties": {
+							"properties": {
+								"site_url": {
+									"type": "string"
+								},
+								"name": {
+									"type": "string"
+								},
+								"logo_url": {
+									"type": "string"
+								},
+								"id": {
+									"type": "string"
+								},
+								"chain": {
+									"type": "string"
+								}
+							},
+							"required": [
+								"site_url",
+								"name",
+								"logo_url",
+								"id",
+								"chain"
+							],
+							"type": "object"
+						},
+						"type": "object"
 					},
-					"from": {
-						"type": "string"
-					},
-					"to": {
-						"type": "string"
-					},
-					"value": {
-						"type": "string"
-					},
-					"gas": {
-						"type": "string"
-					},
-					"gas_used": {
-						"type": "string"
-					},
-					"input": {
-						"type": "string"
-					},
-					"output": {
-						"type": "string"
+					"token_dict": {
+						"properties": {},
+						"additionalProperties": {
+							"properties": {
+								"time_at": {
+									"type": "number",
+									"format": "double"
+								},
+								"symbol": {
+									"type": "string"
+								},
+								"protocol_id": {
+									"type": "string"
+								},
+								"price": {
+									"type": "number",
+									"format": "double"
+								},
+								"optimized_symbol": {
+									"type": "string"
+								},
+								"name": {
+									"type": "string"
+								},
+								"logo_url": {
+									"type": "string"
+								},
+								"is_wallet": {
+									"type": "boolean"
+								},
+								"is_verified": {
+									"type": "boolean"
+								},
+								"is_core": {
+									"type": "boolean"
+								},
+								"id": {
+									"type": "string"
+								},
+								"display_symbol": {
+									"type": "string",
+									"nullable": true
+								},
+								"decimals": {
+									"type": "number",
+									"format": "double"
+								},
+								"chain": {
+									"type": "string"
+								}
+							},
+							"required": [
+								"time_at",
+								"symbol",
+								"protocol_id",
+								"price",
+								"optimized_symbol",
+								"name",
+								"logo_url",
+								"is_wallet",
+								"is_verified",
+								"is_core",
+								"id",
+								"display_symbol",
+								"decimals",
+								"chain"
+							],
+							"type": "object"
+						},
+						"type": "object"
 					}
 				},
 				"required": [
-					"transaction_hash",
-					"block_number",
-					"block_hash",
-					"type",
-					"from",
-					"to",
-					"value",
-					"gas",
-					"gas_used",
-					"input",
-					"output"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"EvmETransactionCategoryJSON": {
-				"type": "string",
-				"enum": [
-					"send",
-					"receive",
-					"token send",
-					"token receive",
-					"nft send",
-					"nft receive",
-					"token swap",
-					"deposit",
-					"withdraw",
-					"nft purchase",
-					"nft sale",
-					"airdrop",
-					"mint",
-					"burn",
-					"borrow",
-					"contract interaction"
-				]
-			},
-			"EvmContractTokenDetailsJSON": {
-				"properties": {
-					"address": {
-						"$ref": "#/components/schemas/EvmAddressJSON"
-					},
-					"address_label": {
-						"type": "string"
-					},
-					"token_name": {
-						"type": "string"
-					},
-					"token_logo": {
-						"type": "string"
-					},
-					"token_symbol": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"address",
-					"token_name",
-					"token_logo",
-					"token_symbol"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"EvmContractSpenderDetailsJSON": {
-				"properties": {
-					"address": {
-						"$ref": "#/components/schemas/EvmAddressJSON"
-					},
-					"address_label": {
-						"type": "string"
-					},
-					"name": {
-						"type": "string"
-					},
-					"symbol": {
-						"type": "string"
-					},
-					"logo": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"address"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"EvmCommonContractDataJSON": {
-				"properties": {
-					"value": {
-						"type": "string"
-					},
-					"value_formatted": {
-						"type": "string"
-					},
-					"token": {
-						"$ref": "#/components/schemas/EvmContractTokenDetailsJSON"
-					},
-					"spender": {
-						"$ref": "#/components/schemas/EvmContractSpenderDetailsJSON"
-					}
-				},
-				"required": [
-					"value",
-					"token",
-					"spender"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"EvmResolveContractInteractionResponseJSON": {
-				"properties": {
-					"approvals": {
-						"items": {
-							"$ref": "#/components/schemas/EvmCommonContractDataJSON"
-						},
-						"type": "array"
-					},
-					"revokes": {
-						"items": {
-							"$ref": "#/components/schemas/EvmCommonContractDataJSON"
-						},
-						"type": "array"
-					},
-					"approvalsAll": {
-						"items": {
-							"$ref": "#/components/schemas/EvmCommonContractDataJSON"
-						},
-						"type": "array"
-					},
-					"revokesAll": {
-						"items": {
-							"$ref": "#/components/schemas/EvmCommonContractDataJSON"
-						},
-						"type": "array"
-					}
-				},
-				"type": "object",
-				"additionalProperties": false
-			},
-			"EvmNormalizedMetadataAttributeValueJSON": {
-				"additionalProperties": false,
-				"type": "object"
-			},
-			"EvmNormalizedMetadataAttributeJSON": {
-				"properties": {
-					"trait_type": {
-						"type": "string"
-					},
-					"value": {
-						"$ref": "#/components/schemas/EvmNormalizedMetadataAttributeValueJSON"
-					},
-					"display_type": {
-						"type": "string"
-					},
-					"max_value": {
-						"type": "number",
-						"format": "double"
-					},
-					"trait_count": {
-						"type": "number",
-						"format": "double"
-					},
-					"order": {
-						"type": "number",
-						"format": "double"
-					}
-				},
-				"type": "object",
-				"additionalProperties": false
-			},
-			"EvmNormalizedMetadataJSON": {
-				"properties": {
-					"name": {
-						"type": "string"
-					},
-					"description": {
-						"type": "string"
-					},
-					"image": {
-						"type": "string"
-					},
-					"external_link": {
-						"type": "string"
-					},
-					"animation_url": {
-						"type": "string"
-					},
-					"attributes": {
-						"items": {
-							"$ref": "#/components/schemas/EvmNormalizedMetadataAttributeJSON"
-						},
-						"type": "array"
-					}
-				},
-				"type": "object",
-				"additionalProperties": false
-			},
-			"EvmWalletHistoryNftTransferJSON": {
-				"properties": {
-					"token_address": {
-						"$ref": "#/components/schemas/EvmAddressJSON"
-					},
-					"token_id": {
-						"type": "string"
-					},
-					"from_address_entity": {
-						"type": "string"
-					},
-					"from_address_entity_logo": {
-						"type": "string"
-					},
-					"from_address": {
-						"$ref": "#/components/schemas/EvmAddressJSON"
-					},
-					"from_address_label": {
-						"type": "string"
-					},
-					"to_address_entity": {
-						"type": "string"
-					},
-					"to_address_entity_logo": {
-						"type": "string"
-					},
-					"to_address": {
-						"$ref": "#/components/schemas/EvmAddressJSON"
-					},
-					"to_address_label": {
-						"type": "string"
-					},
-					"value": {
-						"type": "string"
-					},
-					"amount": {
-						"type": "string"
-					},
-					"contract_type": {
-						"type": "string"
-					},
-					"transaction_type": {
-						"type": "string"
-					},
-					"log_index": {
-						"type": "number",
-						"format": "double"
-					},
-					"operator": {
-						"type": "string"
-					},
-					"possible_spam": {
-						"type": "boolean"
-					},
-					"verified_collection": {
-						"type": "boolean"
-					},
-					"direction": {
-						"type": "string"
-					},
-					"collection_logo": {
-						"type": "string"
-					},
-					"collection_banner_image": {
-						"type": "string"
-					},
-					"normalized_metadata": {
-						"$ref": "#/components/schemas/EvmNormalizedMetadataJSON"
-					}
-				},
-				"required": [
-					"token_address",
-					"token_id",
-					"from_address",
-					"value",
-					"amount",
-					"contract_type",
-					"transaction_type",
-					"log_index",
-					"possible_spam",
-					"direction"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"EvmWalletHistoryErc20TransferJSON": {
-				"properties": {
-					"token_name": {
-						"type": "string"
-					},
-					"token_symbol": {
-						"type": "string"
-					},
-					"token_logo": {
-						"type": "string"
-					},
-					"token_decimals": {
-						"type": "string"
-					},
-					"address": {
-						"$ref": "#/components/schemas/EvmAddressJSON"
-					},
-					"block_timestamp": {
-						"type": "string"
-					},
-					"to_address_entity": {
-						"type": "string"
-					},
-					"to_address_entity_logo": {
-						"type": "string"
-					},
-					"to_address": {
-						"$ref": "#/components/schemas/EvmAddressJSON"
-					},
-					"to_address_label": {
-						"type": "string"
-					},
-					"from_address_entity": {
-						"type": "string"
-					},
-					"from_address_entity_logo": {
-						"type": "string"
-					},
-					"from_address": {
-						"$ref": "#/components/schemas/EvmAddressJSON"
-					},
-					"from_address_label": {
-						"type": "string"
-					},
-					"value": {
-						"type": "string"
-					},
-					"value_formatted": {
-						"type": "string"
-					},
-					"log_index": {
-						"type": "number",
-						"format": "double"
-					},
-					"possible_spam": {
-						"type": "boolean"
-					},
-					"verified_contract": {
-						"type": "boolean"
-					}
-				},
-				"required": [
-					"token_name",
-					"token_symbol",
-					"token_logo",
-					"token_decimals",
-					"address",
-					"from_address",
-					"value",
-					"value_formatted",
-					"log_index",
-					"possible_spam",
-					"verified_contract"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"EvmNativeTransferJSON": {
-				"properties": {
-					"from_address_entity": {
-						"type": "string"
-					},
-					"from_address_entity_logo": {
-						"type": "string"
-					},
-					"from_address": {
-						"$ref": "#/components/schemas/EvmAddressJSON"
-					},
-					"from_address_label": {
-						"type": "string"
-					},
-					"to_address_entity": {
-						"type": "string"
-					},
-					"to_address_entity_logo": {
-						"type": "string"
-					},
-					"to_address": {
-						"$ref": "#/components/schemas/EvmAddressJSON"
-					},
-					"to_address_label": {
-						"type": "string"
-					},
-					"value": {
-						"type": "string"
-					},
-					"value_formatted": {
-						"type": "string"
-					},
-					"direction": {
-						"type": "string"
-					},
-					"internal_transaction": {
-						"type": "boolean"
-					},
-					"token_symbol": {
-						"type": "string"
-					},
-					"token_logo": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"from_address",
-					"value",
-					"value_formatted",
-					"internal_transaction",
-					"token_symbol",
-					"token_logo"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"EvmDecodedEventParamsItemJSON": {
-				"properties": {
-					"name": {
-						"type": "string"
-					},
-					"value": {
-						"type": "string"
-					},
-					"type": {
-						"type": "string"
-					}
-				},
-				"type": "object",
-				"additionalProperties": false
-			},
-			"EvmDecodedEventJSON": {
-				"properties": {
-					"signature": {
-						"type": "string"
-					},
-					"label": {
-						"type": "string"
-					},
-					"type": {
-						"type": "string"
-					},
-					"params": {
-						"items": {
-							"$ref": "#/components/schemas/EvmDecodedEventParamsItemJSON"
-						},
-						"type": "array"
-					}
-				},
-				"type": "object",
-				"additionalProperties": false
-			},
-			"EvmLogVerboseJSON": {
-				"properties": {
-					"log_index": {
-						"type": "string"
-					},
-					"transaction_hash": {
-						"type": "string"
-					},
-					"transaction_index": {
-						"type": "string"
-					},
-					"address": {
-						"$ref": "#/components/schemas/EvmAddressJSON"
-					},
-					"data": {
-						"type": "string"
-					},
-					"topic0": {
-						"type": "string"
-					},
-					"topic1": {
-						"type": "string"
-					},
-					"topic2": {
-						"type": "string"
-					},
-					"topic3": {
-						"type": "string"
-					},
-					"block_timestamp": {
-						"type": "string"
-					},
-					"block_number": {
-						"$ref": "#/components/schemas/BigNumberJSON"
-					},
-					"block_hash": {
-						"type": "string"
-					},
-					"decoded_event": {
-						"$ref": "#/components/schemas/EvmDecodedEventJSON"
-					}
-				},
-				"required": [
-					"log_index",
-					"transaction_hash",
-					"transaction_index",
-					"address",
-					"data",
-					"topic0",
-					"block_timestamp",
-					"block_number",
-					"block_hash",
-					"decoded_event"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"EvmWalletHistoryTransactionJSON": {
-				"properties": {
-					"hash": {
-						"type": "string"
-					},
-					"nonce": {
-						"type": "string"
-					},
-					"transaction_index": {
-						"type": "string"
-					},
-					"from_address_entity": {
-						"type": "string"
-					},
-					"from_address_entity_logo": {
-						"type": "string"
-					},
-					"from_address": {
-						"$ref": "#/components/schemas/EvmAddressJSON"
-					},
-					"from_address_label": {
-						"type": "string"
-					},
-					"to_address_entity": {
-						"type": "string"
-					},
-					"to_address_entity_logo": {
-						"type": "string"
-					},
-					"to_address": {
-						"$ref": "#/components/schemas/EvmAddressJSON"
-					},
-					"to_address_label": {
-						"type": "string"
-					},
-					"value": {
-						"type": "string"
-					},
-					"gas": {
-						"type": "string"
-					},
-					"gas_price": {
-						"type": "string"
-					},
-					"input": {
-						"type": "string"
-					},
-					"receipt_cumulative_gas_used": {
-						"type": "string"
-					},
-					"receipt_gas_used": {
-						"type": "string"
-					},
-					"receipt_contract_address": {
-						"type": "string"
-					},
-					"receipt_status": {
-						"type": "string"
-					},
-					"transaction_fee": {
-						"type": "string"
-					},
-					"block_timestamp": {
-						"type": "string"
-					},
-					"block_number": {
-						"$ref": "#/components/schemas/BigNumberJSON"
-					},
-					"block_hash": {
-						"type": "string"
-					},
-					"internal_transactions": {
-						"items": {
-							"$ref": "#/components/schemas/EvmInternalTransactionJSON"
-						},
-						"type": "array"
-					},
-					"category": {
-						"$ref": "#/components/schemas/EvmETransactionCategoryJSON"
-					},
-					"contract_interactions": {
-						"$ref": "#/components/schemas/EvmResolveContractInteractionResponseJSON"
-					},
-					"possible_spam": {
-						"type": "boolean"
-					},
-					"method_label": {
-						"type": "string"
-					},
-					"summary": {
-						"type": "string"
-					},
-					"nft_transfers": {
-						"items": {
-							"$ref": "#/components/schemas/EvmWalletHistoryNftTransferJSON"
-						},
-						"type": "array"
-					},
-					"erc20_transfers": {
-						"items": {
-							"$ref": "#/components/schemas/EvmWalletHistoryErc20TransferJSON"
-						},
-						"type": "array"
-					},
-					"native_transfers": {
-						"items": {
-							"$ref": "#/components/schemas/EvmNativeTransferJSON"
-						},
-						"type": "array"
-					},
-					"logs": {
-						"items": {
-							"$ref": "#/components/schemas/EvmLogVerboseJSON"
-						},
-						"type": "array"
-					}
-				},
-				"required": [
-					"hash",
-					"nonce",
-					"transaction_index",
-					"from_address",
-					"value",
-					"gas_price",
-					"receipt_cumulative_gas_used",
-					"receipt_gas_used",
-					"receipt_status",
-					"block_timestamp",
-					"block_number",
-					"block_hash",
-					"category",
-					"summary",
-					"nft_transfers",
-					"erc20_transfers",
-					"native_transfers"
+					"cate_dict",
+					"history_list",
+					"cex_dict",
+					"project_dict",
+					"token_dict"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -5686,10 +5289,7 @@
 						"description": "The address associated with the operation."
 					},
 					"data": {
-						"items": {
-							"$ref": "#/components/schemas/EvmWalletHistoryTransactionJSON"
-						},
-						"type": "array",
+						"$ref": "#/components/schemas/HistoryResponse",
 						"description": "The wallet history data."
 					}
 				},
@@ -28025,12 +27625,33 @@
 						}
 					},
 					{
-						"description": "- The blockchain chain to retrieve history from.",
 						"in": "query",
-						"name": "chain",
-						"required": true,
+						"name": "startTime",
+						"required": false,
 						"schema": {
-							"type": "string"
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "pageCount",
+						"required": false,
+						"schema": {
+							"default": 20,
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainIds",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
 						}
 					}
 				]
@@ -28148,10 +27769,22 @@
 					},
 					{
 						"in": "query",
-						"name": "chain",
-						"required": true,
+						"name": "isAll",
+						"required": false,
 						"schema": {
-							"type": "string"
+							"default": false,
+							"type": "boolean"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainIds",
+						"required": false,
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
 						}
 					}
 				]
@@ -28614,6 +28247,812 @@
 						"required": false,
 						"schema": {
 							"type": "boolean"
+						}
+					}
+				]
+			}
+		},
+		"/data/{address}/debank/nfts": {
+			"get": {
+				"operationId": "Data_GetUserDebankNFTList",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/NFTsAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Data"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "isAll",
+						"required": false,
+						"schema": {
+							"default": false,
+							"type": "boolean"
+						}
+					},
+					{
+						"in": "query",
+						"name": "refresh",
+						"required": false,
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				]
+			}
+		},
+		"/data/{address}/debank/all-nfts": {
+			"get": {
+				"operationId": "Data_GetAllUserDebankNFTs",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/NFTsAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Data"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "isAll",
+						"required": false,
+						"schema": {
+							"default": false,
+							"type": "boolean"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainIds",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "refresh",
+						"required": false,
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				]
+			}
+		},
+		"/data/{address}/bitcoin/transactions": {
+			"get": {
+				"operationId": "Data_GetBitcoinTransactions",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Data"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "pageSize",
+						"required": false,
+						"schema": {
+							"default": 10,
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "offset",
+						"required": false,
+						"schema": {
+							"default": 0,
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "blockFrom",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "blockTo",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "txType",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/data/{address}/bitcoin/balance": {
+			"get": {
+				"operationId": "Data_GetBitcoinBalance",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Data"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/data/{address}/dogecoin/transactions": {
+			"get": {
+				"operationId": "Data_GetDogecoinTransactions",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Data"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "pageSize",
+						"required": false,
+						"schema": {
+							"default": 10,
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "offset",
+						"required": false,
+						"schema": {
+							"default": 0,
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "blockFrom",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "blockTo",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/data/{address}/dogecoin/balance": {
+			"get": {
+				"operationId": "Data_GetDogecoinBalance",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Data"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/data/{address}/litecoin/transactions": {
+			"get": {
+				"operationId": "Data_GetLitecoinTransactions",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Data"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "pageSize",
+						"required": false,
+						"schema": {
+							"default": 10,
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "offset",
+						"required": false,
+						"schema": {
+							"default": 0,
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "blockFrom",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "blockTo",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/data/{address}/litecoin/balance": {
+			"get": {
+				"operationId": "Data_GetLitecoinBalance",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Data"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/data/{account}/xrp/balance": {
+			"get": {
+				"operationId": "Data_GetXRPBalance",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Data"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/data/{account}/xrp/transactions": {
+			"get": {
+				"operationId": "Data_GetXRPTransactions",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Data"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/data/{address}/tron/balance": {
+			"get": {
+				"operationId": "Data_GetTronBalance",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Data"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/data/{address}/tron/transactions": {
+			"get": {
+				"operationId": "Data_GetTronTransactions",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Data"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "next",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "onlyConfirmed",
+						"required": false,
+						"schema": {
+							"type": "boolean"
+						}
+					},
+					{
+						"in": "query",
+						"name": "onlyUnconfirmed",
+						"required": false,
+						"schema": {
+							"type": "boolean"
+						}
+					},
+					{
+						"in": "query",
+						"name": "onlyTo",
+						"required": false,
+						"schema": {
+							"type": "boolean"
+						}
+					},
+					{
+						"in": "query",
+						"name": "onlyFrom",
+						"required": false,
+						"schema": {
+							"type": "boolean"
+						}
+					},
+					{
+						"in": "query",
+						"name": "orderBy",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "minTimestamp",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "maxTimestamp",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
 						}
 					}
 				]

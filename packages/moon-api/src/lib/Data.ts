@@ -14,11 +14,27 @@ import {
   ChartsGetChartAnalysisParamsEnum,
   DataExecuteCustomSupabaseQueryData,
   DataExecuteCustomSupabaseQueryPayload,
+  DataGetAllUserDebankNfTsData,
+  DataGetAllUserDebankNfTsParams,
+  DataGetBitcoinBalanceData,
+  DataGetBitcoinTransactionsData,
+  DataGetBitcoinTransactionsParams,
+  DataGetDogecoinBalanceData,
+  DataGetDogecoinTransactionsData,
+  DataGetDogecoinTransactionsParams,
+  DataGetLitecoinBalanceData,
+  DataGetLitecoinTransactionsData,
+  DataGetLitecoinTransactionsParams,
   DataGetPortfolioFetchStatusData,
   DataGetTokensMetadataData,
   DataGetTokensMetadataParams,
+  DataGetTronBalanceData,
+  DataGetTronTransactionsData,
+  DataGetTronTransactionsParams,
   DataGetUserDebankComplexProtocolListData,
   DataGetUserDebankComplexProtocolListParams,
+  DataGetUserDebankNftListData,
+  DataGetUserDebankNftListParams,
   DataGetUserDebankTokenListData,
   DataGetUserDebankTokenListParams,
   DataGetUserDebankTotalBalanceData,
@@ -31,6 +47,8 @@ import {
   DataGetWalletTokenBalancesParams,
   DataGetWalletTransactionHistoryData,
   DataGetWalletTransactionHistoryParams,
+  DataGetXrpBalanceData,
+  DataGetXrpTransactionsData,
   GetAllDebankUserTokensData,
   GetAllDebankUserTokensParams,
 } from './data-contracts';
@@ -85,6 +103,134 @@ export class Data<SecurityDataType = unknown> {
       ...params,
     });
   /**
+   * No description
+   *
+   * @tags Data
+   * @name DataGetAllUserDebankNfTs
+   * @request GET:/data/{address}/debank/all-nfts
+   * @secure
+   */
+  dataGetAllUserDebankNfTs = (
+    { address, ...query }: DataGetAllUserDebankNfTsParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<DataGetAllUserDebankNfTsData, any>({
+      path: `/data/${address}/debank/all-nfts`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Data
+   * @name DataGetBitcoinBalance
+   * @request GET:/data/{address}/bitcoin/balance
+   * @secure
+   */
+  dataGetBitcoinBalance = (address: string, params: RequestParams = {}) =>
+    this.http.request<DataGetBitcoinBalanceData, any>({
+      path: `/data/${address}/bitcoin/balance`,
+      method: 'GET',
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Data
+   * @name DataGetBitcoinTransactions
+   * @request GET:/data/{address}/bitcoin/transactions
+   * @secure
+   */
+  dataGetBitcoinTransactions = (
+    { address, ...query }: DataGetBitcoinTransactionsParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<DataGetBitcoinTransactionsData, any>({
+      path: `/data/${address}/bitcoin/transactions`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Data
+   * @name DataGetDogecoinBalance
+   * @request GET:/data/{address}/dogecoin/balance
+   * @secure
+   */
+  dataGetDogecoinBalance = (address: string, params: RequestParams = {}) =>
+    this.http.request<DataGetDogecoinBalanceData, any>({
+      path: `/data/${address}/dogecoin/balance`,
+      method: 'GET',
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Data
+   * @name DataGetDogecoinTransactions
+   * @request GET:/data/{address}/dogecoin/transactions
+   * @secure
+   */
+  dataGetDogecoinTransactions = (
+    { address, ...query }: DataGetDogecoinTransactionsParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<DataGetDogecoinTransactionsData, any>({
+      path: `/data/${address}/dogecoin/transactions`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Data
+   * @name DataGetLitecoinBalance
+   * @request GET:/data/{address}/litecoin/balance
+   * @secure
+   */
+  dataGetLitecoinBalance = (address: string, params: RequestParams = {}) =>
+    this.http.request<DataGetLitecoinBalanceData, any>({
+      path: `/data/${address}/litecoin/balance`,
+      method: 'GET',
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Data
+   * @name DataGetLitecoinTransactions
+   * @request GET:/data/{address}/litecoin/transactions
+   * @secure
+   */
+  dataGetLitecoinTransactions = (
+    { address, ...query }: DataGetLitecoinTransactionsParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<DataGetLitecoinTransactionsData, any>({
+      path: `/data/${address}/litecoin/transactions`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
    * @description Retrieves the status of a portfolio job.
    *
    * @tags Data
@@ -121,6 +267,42 @@ export class Data<SecurityDataType = unknown> {
       ...params,
     });
   /**
+   * No description
+   *
+   * @tags Data
+   * @name DataGetTronBalance
+   * @request GET:/data/{address}/tron/balance
+   * @secure
+   */
+  dataGetTronBalance = (address: string, params: RequestParams = {}) =>
+    this.http.request<DataGetTronBalanceData, any>({
+      path: `/data/${address}/tron/balance`,
+      method: 'GET',
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Data
+   * @name DataGetTronTransactions
+   * @request GET:/data/{address}/tron/transactions
+   * @secure
+   */
+  dataGetTronTransactions = (
+    { address, ...query }: DataGetTronTransactionsParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<DataGetTronTransactionsData, any>({
+      path: `/data/${address}/tron/transactions`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
    * @description Retrieves the user's complex protocol list from Debank, with Supabase caching.
    *
    * @tags Data
@@ -134,6 +316,26 @@ export class Data<SecurityDataType = unknown> {
   ) =>
     this.http.request<DataGetUserDebankComplexProtocolListData, any>({
       path: `/data/${address}/debank/complex-protocols`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Data
+   * @name DataGetUserDebankNftList
+   * @request GET:/data/{address}/debank/nfts
+   * @secure
+   */
+  dataGetUserDebankNftList = (
+    { address, ...query }: DataGetUserDebankNftListParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<DataGetUserDebankNftListData, any>({
+      path: `/data/${address}/debank/nfts`,
       method: 'GET',
       query: query,
       secure: true,
@@ -256,6 +458,38 @@ export class Data<SecurityDataType = unknown> {
       path: `/data/${address}/history`,
       method: 'GET',
       query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Data
+   * @name DataGetXrpBalance
+   * @request GET:/data/{account}/xrp/balance
+   * @secure
+   */
+  dataGetXrpBalance = (account: string, params: RequestParams = {}) =>
+    this.http.request<DataGetXrpBalanceData, any>({
+      path: `/data/${account}/xrp/balance`,
+      method: 'GET',
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Data
+   * @name DataGetXrpTransactions
+   * @request GET:/data/{account}/xrp/transactions
+   * @secure
+   */
+  dataGetXrpTransactions = (account: string, params: RequestParams = {}) =>
+    this.http.request<DataGetXrpTransactionsData, any>({
+      path: `/data/${account}/xrp/transactions`,
+      method: 'GET',
       secure: true,
       format: 'json',
       ...params,

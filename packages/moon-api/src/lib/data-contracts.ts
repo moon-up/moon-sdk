@@ -1237,8 +1237,6 @@ export interface ApiResponseToolsResponse {
 
 export type ApproveData = LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
-export type ApproveData1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
-
 export interface ApproveForPolymarketBody {
 	chain_id: string;
 }
@@ -1249,6 +1247,8 @@ export type ApproveOutput =
 	UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
 
 export type ApproveResult = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
+
+export type ApproveResult1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 /** Represents a request to assemble a specific path for a user. */
 export interface AssembleRequest {
@@ -1538,8 +1538,6 @@ export interface BaseUriParams {
 }
 
 export type BigNumber = any;
-
-export type BigNumberJSON = string;
 
 export interface BitcoinAPIResponse {
 	data?:
@@ -2824,6 +2822,83 @@ export type DataExecuteCustomSupabaseQueryData = any;
 /** - The query string to be executed. */
 export type DataExecuteCustomSupabaseQueryPayload = string;
 
+export type DataGetAllUserDebankNfTsData = NFTsAPIResponse;
+
+export interface DataGetAllUserDebankNfTsParams {
+	address: string;
+	chainIds?: string;
+	/** @default false */
+	isAll?: boolean;
+	refresh?: boolean;
+}
+
+export type DataGetBitcoinBalanceData = any;
+
+export type DataGetBitcoinTransactionsData = any;
+
+export interface DataGetBitcoinTransactionsParams {
+	address: string;
+	/** @format double */
+	blockFrom?: number;
+	/** @format double */
+	blockTo?: number;
+	/**
+	 * @format double
+	 * @default 0
+	 */
+	offset?: number;
+	/**
+	 * @format double
+	 * @default 10
+	 */
+	pageSize?: number;
+	txType?: string;
+}
+
+export type DataGetDogecoinBalanceData = any;
+
+export type DataGetDogecoinTransactionsData = any;
+
+export interface DataGetDogecoinTransactionsParams {
+	address: string;
+	/** @format double */
+	blockFrom?: number;
+	/** @format double */
+	blockTo?: number;
+	/**
+	 * @format double
+	 * @default 0
+	 */
+	offset?: number;
+	/**
+	 * @format double
+	 * @default 10
+	 */
+	pageSize?: number;
+}
+
+export type DataGetLitecoinBalanceData = any;
+
+export type DataGetLitecoinTransactionsData = any;
+
+export interface DataGetLitecoinTransactionsParams {
+	address: string;
+	/** @format double */
+	blockFrom?: number;
+	/** @format double */
+	blockTo?: number;
+	/**
+	 * @format double
+	 * @default 0
+	 */
+	offset?: number;
+	/**
+	 * @format double
+	 * @default 10
+	 */
+	pageSize?: number;
+}
+
 export type DataGetPortfolioFetchStatusData = PortfolioAPIResponse;
 
 export type DataGetTokensMetadataData = TokenMetadataAPIResponse;
@@ -2835,12 +2910,40 @@ export interface DataGetTokensMetadataParams {
 	chain: string;
 }
 
+export type DataGetTronBalanceData = any;
+
+export type DataGetTronTransactionsData = any;
+
+export interface DataGetTronTransactionsParams {
+	address: string;
+	/** @format double */
+	maxTimestamp?: number;
+	/** @format double */
+	minTimestamp?: number;
+	next?: string;
+	onlyConfirmed?: boolean;
+	onlyFrom?: boolean;
+	onlyTo?: boolean;
+	onlyUnconfirmed?: boolean;
+	orderBy?: string;
+}
+
 export type DataGetUserDebankComplexProtocolListData =
 	DebankPortfolioAPIResponse;
 
 export interface DataGetUserDebankComplexProtocolListParams {
 	/** - The wallet address of the user. */
 	address: string;
+	refresh?: boolean;
+}
+
+export type DataGetUserDebankNftListData = NFTsAPIResponse;
+
+export interface DataGetUserDebankNftListParams {
+	address: string;
+	chainId: string;
+	/** @default false */
+	isAll?: boolean;
 	refresh?: boolean;
 }
 
@@ -2884,7 +2987,9 @@ export type DataGetWalletNfTsData = NFTsAPIResponse;
 
 export interface DataGetWalletNfTsParams {
 	address: string;
-	chain: string;
+	chainIds?: string[];
+	/** @default false */
+	isAll?: boolean;
 }
 
 export type DataGetWalletTokenBalancesData = WalletBalanceAPIResponse;
@@ -2903,9 +3008,19 @@ export type DataGetWalletTransactionHistoryData = WalletHistoryAPIResponse;
 export interface DataGetWalletTransactionHistoryParams {
 	/** - The wallet address to retrieve history for. */
 	address: string;
-	/** - The blockchain chain to retrieve history from. */
-	chain: string;
+	chainIds?: string[];
+	/**
+	 * @format double
+	 * @default 20
+	 */
+	pageCount?: number;
+	/** @format double */
+	startTime?: number;
 }
+
+export type DataGetXrpBalanceData = any;
+
+export type DataGetXrpTransactionsData = any;
 
 export type DeactivateBotData = string;
 
@@ -3941,225 +4056,6 @@ export interface Estimate {
 	toAmount: string;
 	toAmountMin: string;
 	toAmountUSD: string;
-}
-
-export type EvmAddressJSON = string;
-
-export interface EvmCommonContractDataJSON {
-	spender: EvmContractSpenderDetailsJSON;
-	token: EvmContractTokenDetailsJSON;
-	value: string;
-	value_formatted?: string;
-}
-
-export interface EvmContractSpenderDetailsJSON {
-	address: EvmAddressJSON;
-	address_label?: string;
-	logo?: string;
-	name?: string;
-	symbol?: string;
-}
-
-export interface EvmContractTokenDetailsJSON {
-	address: EvmAddressJSON;
-	address_label?: string;
-	token_logo: string;
-	token_name: string;
-	token_symbol: string;
-}
-
-export interface EvmDecodedEventJSON {
-	label?: string;
-	params?: EvmDecodedEventParamsItemJSON[];
-	signature?: string;
-	type?: string;
-}
-
-export interface EvmDecodedEventParamsItemJSON {
-	name?: string;
-	type?: string;
-	value?: string;
-}
-
-export enum EvmETransactionCategoryJSON {
-	Send = "send",
-	Receive = "receive",
-	TokenSend = "token send",
-	TokenReceive = "token receive",
-	NftSend = "nft send",
-	NftReceive = "nft receive",
-	TokenSwap = "token swap",
-	Deposit = "deposit",
-	Withdraw = "withdraw",
-	NftPurchase = "nft purchase",
-	NftSale = "nft sale",
-	Airdrop = "airdrop",
-	Mint = "mint",
-	Burn = "burn",
-	Borrow = "borrow",
-	ContractInteraction = "contract interaction",
-}
-
-export interface EvmInternalTransactionJSON {
-	block_hash: string;
-	block_number: string;
-	from: string;
-	gas: string;
-	gas_used: string;
-	input: string;
-	output: string;
-	to: string;
-	transaction_hash: string;
-	type: string;
-	value: string;
-}
-
-export interface EvmLogVerboseJSON {
-	topic0: string;
-	topic1?: string;
-	topic2?: string;
-	topic3?: string;
-	address: EvmAddressJSON;
-	block_hash: string;
-	block_number: BigNumberJSON;
-	block_timestamp: string;
-	data: string;
-	decoded_event: EvmDecodedEventJSON;
-	log_index: string;
-	transaction_hash: string;
-	transaction_index: string;
-}
-
-export interface EvmNativeTransferJSON {
-	direction?: string;
-	from_address: EvmAddressJSON;
-	from_address_entity?: string;
-	from_address_entity_logo?: string;
-	from_address_label?: string;
-	internal_transaction: boolean;
-	to_address?: EvmAddressJSON;
-	to_address_entity?: string;
-	to_address_entity_logo?: string;
-	to_address_label?: string;
-	token_logo: string;
-	token_symbol: string;
-	value: string;
-	value_formatted: string;
-}
-
-export interface EvmNormalizedMetadataAttributeJSON {
-	display_type?: string;
-	/** @format double */
-	max_value?: number;
-	/** @format double */
-	order?: number;
-	/** @format double */
-	trait_count?: number;
-	trait_type?: string;
-	value?: EvmNormalizedMetadataAttributeValueJSON;
-}
-
-export type EvmNormalizedMetadataAttributeValueJSON = object;
-
-export interface EvmNormalizedMetadataJSON {
-	animation_url?: string;
-	attributes?: EvmNormalizedMetadataAttributeJSON[];
-	description?: string;
-	external_link?: string;
-	image?: string;
-	name?: string;
-}
-
-export interface EvmResolveContractInteractionResponseJSON {
-	approvals?: EvmCommonContractDataJSON[];
-	approvalsAll?: EvmCommonContractDataJSON[];
-	revokes?: EvmCommonContractDataJSON[];
-	revokesAll?: EvmCommonContractDataJSON[];
-}
-
-export interface EvmWalletHistoryErc20TransferJSON {
-	address: EvmAddressJSON;
-	block_timestamp?: string;
-	from_address: EvmAddressJSON;
-	from_address_entity?: string;
-	from_address_entity_logo?: string;
-	from_address_label?: string;
-	/** @format double */
-	log_index: number;
-	possible_spam: boolean;
-	to_address?: EvmAddressJSON;
-	to_address_entity?: string;
-	to_address_entity_logo?: string;
-	to_address_label?: string;
-	token_decimals: string;
-	token_logo: string;
-	token_name: string;
-	token_symbol: string;
-	value: string;
-	value_formatted: string;
-	verified_contract: boolean;
-}
-
-export interface EvmWalletHistoryNftTransferJSON {
-	amount: string;
-	collection_banner_image?: string;
-	collection_logo?: string;
-	contract_type: string;
-	direction: string;
-	from_address: EvmAddressJSON;
-	from_address_entity?: string;
-	from_address_entity_logo?: string;
-	from_address_label?: string;
-	/** @format double */
-	log_index: number;
-	normalized_metadata?: EvmNormalizedMetadataJSON;
-	operator?: string;
-	possible_spam: boolean;
-	to_address?: EvmAddressJSON;
-	to_address_entity?: string;
-	to_address_entity_logo?: string;
-	to_address_label?: string;
-	token_address: EvmAddressJSON;
-	token_id: string;
-	transaction_type: string;
-	value: string;
-	verified_collection?: boolean;
-}
-
-export interface EvmWalletHistoryTransactionJSON {
-	erc20_transfers: EvmWalletHistoryErc20TransferJSON[];
-	block_hash: string;
-	block_number: BigNumberJSON;
-	block_timestamp: string;
-	category: EvmETransactionCategoryJSON;
-	contract_interactions?: EvmResolveContractInteractionResponseJSON;
-	from_address: EvmAddressJSON;
-	from_address_entity?: string;
-	from_address_entity_logo?: string;
-	from_address_label?: string;
-	gas?: string;
-	gas_price: string;
-	hash: string;
-	input?: string;
-	internal_transactions?: EvmInternalTransactionJSON[];
-	logs?: EvmLogVerboseJSON[];
-	method_label?: string;
-	native_transfers: EvmNativeTransferJSON[];
-	nft_transfers: EvmWalletHistoryNftTransferJSON[];
-	nonce: string;
-	possible_spam?: boolean;
-	receipt_contract_address?: string;
-	receipt_cumulative_gas_used: string;
-	receipt_gas_used: string;
-	receipt_status: string;
-	summary: string;
-	to_address?: EvmAddressJSON;
-	to_address_entity?: string;
-	to_address_entity_logo?: string;
-	to_address_label?: string;
-	transaction_fee?: string;
-	transaction_index: string;
-	value: string;
 }
 
 export type ExactInputData = UniswapV3APIResponseUniswapV3ExecuteFunctionResult;
@@ -5436,6 +5332,93 @@ export type GetZapQuoteData = OdosAPIResponseOdosExecuteFunctionResult;
 
 export type GlobalCheckpointData =
 	LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
+
+export interface HistoryResponse {
+	cate_dict: Record<
+		string,
+		{
+			id: string;
+			name: string;
+		}
+	>;
+	cex_dict: Record<
+		string,
+		{
+			id: string;
+			is_vault: boolean;
+			logo_url: string;
+			name: string;
+		}
+	>;
+	history_list: {
+		cate_id: string;
+		cex_id: string | null;
+		chain: string;
+		id: string;
+		project_id: string | null;
+		receives: any[];
+		sends: {
+			/** @format double */
+			amount: number;
+			to_addr: string;
+			token_id: string;
+		}[];
+		/** @format double */
+		time_at: number;
+		token_approve: {
+			spender: string;
+			token_id: string;
+			/** @format double */
+			value: number;
+		} | null;
+		tx: {
+			/** @format double */
+			eth_gas_fee: number;
+			from_addr: string;
+			name: string;
+			params: any[];
+			/** @format double */
+			status: number;
+			to_addr: string;
+			/** @format double */
+			usd_gas_fee: number;
+			/** @format double */
+			value: number;
+		};
+	}[];
+	project_dict: Record<
+		string,
+		{
+			chain: string;
+			id: string;
+			logo_url: string;
+			name: string;
+			site_url: string;
+		}
+	>;
+	token_dict: Record<
+		string,
+		{
+			chain: string;
+			/** @format double */
+			decimals: number;
+			display_symbol: string | null;
+			id: string;
+			is_core: boolean;
+			is_verified: boolean;
+			is_wallet: boolean;
+			logo_url: string;
+			name: string;
+			optimized_symbol: string;
+			/** @format double */
+			price: number;
+			protocol_id: string;
+			symbol: string;
+			/** @format double */
+			time_at: number;
+		}
+	>;
+}
 
 export interface ImpliedFuturePriceData {
 	data?: {
@@ -11706,13 +11689,13 @@ export interface TransactionStatus {
 
 export type TransferFromData = LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
+export type TransferFromData1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
 export type TransferFromOutput =
 	UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
 
 export type TransferFromResult =
 	RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
-
-export type TransferFromResult1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export type TransferSolanaTransactionData = SolanaAPIResponse;
 
@@ -13077,7 +13060,7 @@ export interface WalletHistoryAPIResponse {
 	/** The data associated with the operation. */
 	body?: InputBody;
 	/** The wallet history data. */
-	data?: EvmWalletHistoryTransactionJSON[];
+	data?: HistoryResponse;
 	/** The message associated with the operation. */
 	message: string;
 	/** The success status of the operation. */

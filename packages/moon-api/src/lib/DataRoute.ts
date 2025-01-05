@@ -14,15 +14,27 @@ import {
   ChartsGetChartAnalysisParamsTimeframeEnum,
   DataExecuteCustomSupabaseQueryData,
   DataExecuteCustomSupabaseQueryPayload,
+  DataGetAllUserDebankNfTsData,
+  DataGetBitcoinBalanceData,
+  DataGetBitcoinTransactionsData,
+  DataGetDogecoinBalanceData,
+  DataGetDogecoinTransactionsData,
+  DataGetLitecoinBalanceData,
+  DataGetLitecoinTransactionsData,
   DataGetPortfolioFetchStatusData,
   DataGetTokensMetadataData,
+  DataGetTronBalanceData,
+  DataGetTronTransactionsData,
   DataGetUserDebankComplexProtocolListData,
+  DataGetUserDebankNftListData,
   DataGetUserDebankTokenListData,
   DataGetUserDebankTotalBalanceData,
   DataGetUserWalletPortfolioData,
   DataGetWalletNfTsData,
   DataGetWalletTokenBalancesData,
   DataGetWalletTransactionHistoryData,
+  DataGetXrpBalanceData,
+  DataGetXrpTransactionsData,
   GetAllDebankUserTokensData,
 } from './data-contracts';
 
@@ -72,6 +84,190 @@ export namespace Data {
   }
 
   /**
+   * No description
+   * @tags Data
+   * @name DataGetAllUserDebankNfTs
+   * @request GET:/data/{address}/debank/all-nfts
+   * @secure
+   */
+  export namespace DataGetAllUserDebankNfTs {
+    export type RequestParams = {
+      address: string;
+    };
+    export type RequestQuery = {
+      chainIds?: string;
+      /** @default false */
+      isAll?: boolean;
+      refresh?: boolean;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = DataGetAllUserDebankNfTsData;
+  }
+
+  /**
+   * No description
+   * @tags Data
+   * @name DataGetBitcoinBalance
+   * @request GET:/data/{address}/bitcoin/balance
+   * @secure
+   */
+  export namespace DataGetBitcoinBalance {
+    export type RequestParams = {
+      address: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = DataGetBitcoinBalanceData;
+  }
+
+  /**
+   * No description
+   * @tags Data
+   * @name DataGetBitcoinTransactions
+   * @request GET:/data/{address}/bitcoin/transactions
+   * @secure
+   */
+  export namespace DataGetBitcoinTransactions {
+    export type RequestParams = {
+      address: string;
+    };
+    export type RequestQuery = {
+      /** @format double */
+      blockFrom?: number;
+      /** @format double */
+      blockTo?: number;
+      /**
+       * @format double
+       * @default 0
+       */
+      offset?: number;
+      /**
+       * @format double
+       * @default 10
+       */
+      pageSize?: number;
+      txType?: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = DataGetBitcoinTransactionsData;
+  }
+
+  /**
+   * No description
+   * @tags Data
+   * @name DataGetDogecoinBalance
+   * @request GET:/data/{address}/dogecoin/balance
+   * @secure
+   */
+  export namespace DataGetDogecoinBalance {
+    export type RequestParams = {
+      address: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = DataGetDogecoinBalanceData;
+  }
+
+  /**
+   * No description
+   * @tags Data
+   * @name DataGetDogecoinTransactions
+   * @request GET:/data/{address}/dogecoin/transactions
+   * @secure
+   */
+  export namespace DataGetDogecoinTransactions {
+    export type RequestParams = {
+      address: string;
+    };
+    export type RequestQuery = {
+      /** @format double */
+      blockFrom?: number;
+      /** @format double */
+      blockTo?: number;
+      /**
+       * @format double
+       * @default 0
+       */
+      offset?: number;
+      /**
+       * @format double
+       * @default 10
+       */
+      pageSize?: number;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = DataGetDogecoinTransactionsData;
+  }
+
+  /**
+   * No description
+   * @tags Data
+   * @name DataGetLitecoinBalance
+   * @request GET:/data/{address}/litecoin/balance
+   * @secure
+   */
+  export namespace DataGetLitecoinBalance {
+    export type RequestParams = {
+      address: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = DataGetLitecoinBalanceData;
+  }
+
+  /**
+   * No description
+   * @tags Data
+   * @name DataGetLitecoinTransactions
+   * @request GET:/data/{address}/litecoin/transactions
+   * @secure
+   */
+  export namespace DataGetLitecoinTransactions {
+    export type RequestParams = {
+      address: string;
+    };
+    export type RequestQuery = {
+      /** @format double */
+      blockFrom?: number;
+      /** @format double */
+      blockTo?: number;
+      /**
+       * @format double
+       * @default 0
+       */
+      offset?: number;
+      /**
+       * @format double
+       * @default 10
+       */
+      pageSize?: number;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = DataGetLitecoinTransactionsData;
+  }
+
+  /**
    * @description Retrieves the status of a portfolio job.
    * @tags Data
    * @name DataGetPortfolioFetchStatus
@@ -116,6 +312,55 @@ export namespace Data {
   }
 
   /**
+   * No description
+   * @tags Data
+   * @name DataGetTronBalance
+   * @request GET:/data/{address}/tron/balance
+   * @secure
+   */
+  export namespace DataGetTronBalance {
+    export type RequestParams = {
+      address: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = DataGetTronBalanceData;
+  }
+
+  /**
+   * No description
+   * @tags Data
+   * @name DataGetTronTransactions
+   * @request GET:/data/{address}/tron/transactions
+   * @secure
+   */
+  export namespace DataGetTronTransactions {
+    export type RequestParams = {
+      address: string;
+    };
+    export type RequestQuery = {
+      /** @format double */
+      maxTimestamp?: number;
+      /** @format double */
+      minTimestamp?: number;
+      next?: string;
+      onlyConfirmed?: boolean;
+      onlyFrom?: boolean;
+      onlyTo?: boolean;
+      onlyUnconfirmed?: boolean;
+      orderBy?: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = DataGetTronTransactionsData;
+  }
+
+  /**
    * @description Retrieves the user's complex protocol list from Debank, with Supabase caching.
    * @tags Data
    * @name DataGetUserDebankComplexProtocolList
@@ -136,6 +381,30 @@ export namespace Data {
       Authorization: string;
     };
     export type ResponseBody = DataGetUserDebankComplexProtocolListData;
+  }
+
+  /**
+   * No description
+   * @tags Data
+   * @name DataGetUserDebankNftList
+   * @request GET:/data/{address}/debank/nfts
+   * @secure
+   */
+  export namespace DataGetUserDebankNftList {
+    export type RequestParams = {
+      address: string;
+    };
+    export type RequestQuery = {
+      chainId: string;
+      /** @default false */
+      isAll?: boolean;
+      refresh?: boolean;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = DataGetUserDebankNftListData;
   }
 
   /**
@@ -230,7 +499,9 @@ export namespace Data {
       address: string;
     };
     export type RequestQuery = {
-      chain: string;
+      chainIds?: string[];
+      /** @default false */
+      isAll?: boolean;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
@@ -278,8 +549,14 @@ export namespace Data {
       address: string;
     };
     export type RequestQuery = {
-      /** - The blockchain chain to retrieve history from. */
-      chain: string;
+      chainIds?: string[];
+      /**
+       * @format double
+       * @default 20
+       */
+      pageCount?: number;
+      /** @format double */
+      startTime?: number;
     };
     export type RequestBody = never;
     export type RequestHeaders = {
@@ -287,6 +564,44 @@ export namespace Data {
       Authorization: string;
     };
     export type ResponseBody = DataGetWalletTransactionHistoryData;
+  }
+
+  /**
+   * No description
+   * @tags Data
+   * @name DataGetXrpBalance
+   * @request GET:/data/{account}/xrp/balance
+   * @secure
+   */
+  export namespace DataGetXrpBalance {
+    export type RequestParams = {
+      account: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = DataGetXrpBalanceData;
+  }
+
+  /**
+   * No description
+   * @tags Data
+   * @name DataGetXrpTransactions
+   * @request GET:/data/{account}/xrp/transactions
+   * @secure
+   */
+  export namespace DataGetXrpTransactions {
+    export type RequestParams = {
+      account: string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = DataGetXrpTransactionsData;
   }
 
   /**

@@ -11,7 +11,7 @@
 
 import {
   AbstainResult,
-  ApproveData1,
+  ApproveResult1,
   AttachResult,
   AttachTokenToGaugeResult,
   CalculateOptimalVoteDistributionOutput,
@@ -71,7 +71,7 @@ import {
   SafeTransferFromResult,
   SetApprovalForAllOutput,
   SplitOutput,
-  TransferFromResult1,
+  TransferFromData1,
   VeNFTInputBody,
   VeTheNftVoterInputBody,
   VoteOutput,
@@ -118,7 +118,7 @@ export namespace Thena {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = ApproveData1;
+    export type ResponseBody = ApproveResult1;
   }
 
   /**
@@ -1328,7 +1328,7 @@ export namespace Thena {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = TransferFromResult1;
+    export type ResponseBody = TransferFromData1;
   }
 
   /**
