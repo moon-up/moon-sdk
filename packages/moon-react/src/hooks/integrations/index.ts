@@ -13,3 +13,4 @@ export * from "./useUniswap";
 export * from "./useAllora";
 export * from "./useCookiefun";
 export * from "./useMakeFun";
+export * from "./useFinancialDatasets";
