@@ -11,7 +11,7 @@
 
 import {
   AbstainResult,
-  ApproveResult1,
+  ApproveOutput1,
   AttachResult,
   AttachTokenToGaugeResult,
   CalculateOptimalVoteDistributionOutput,
@@ -100,7 +100,7 @@ import {
   SafeTransferFromResult,
   SetApprovalForAllOutput,
   SplitOutput,
-  TransferFromData1,
+  TransferFromResult1,
   VeNFTInputBody,
   VeTheNftVoterInputBody,
   VoteOutput,
@@ -154,7 +154,7 @@ export class Thena<SecurityDataType = unknown> {
     data: VeNFTInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<ApproveResult1, any>({
+    this.http.request<ApproveOutput1, any>({
       path: `/thena/nft/${address}/approve`,
       method: 'POST',
       body: data,
@@ -1357,7 +1357,7 @@ export class Thena<SecurityDataType = unknown> {
     data: VeNFTInputBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<TransferFromData1, any>({
+    this.http.request<TransferFromResult1, any>({
       path: `/thena/nft/${address}/transferFrom`,
       method: 'POST',
       body: data,

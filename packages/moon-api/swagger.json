@@ -14310,6 +14310,422 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"SocialMediaAccount": {
+				"description": "Social media account",
+				"properties": {
+					"platform": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"platform",
+					"username"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"OpenSeaAccount": {
+				"description": "OpenSea Account",
+				"properties": {
+					"address": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					},
+					"profileImageUrl": {
+						"type": "string"
+					},
+					"bannerImageUrl": {
+						"type": "string"
+					},
+					"website": {
+						"type": "string"
+					},
+					"socialMediaAccounts": {
+						"items": {
+							"$ref": "#/components/schemas/SocialMediaAccount"
+						},
+						"type": "array"
+					},
+					"bio": {
+						"type": "string"
+					},
+					"joinedDate": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"address",
+					"username",
+					"profileImageUrl",
+					"bannerImageUrl",
+					"website",
+					"socialMediaAccounts",
+					"bio",
+					"joinedDate"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ProtocolData": {
+				"properties": {
+					"parameters": {
+						"properties": {
+							"nonce": {
+								"type": "string"
+							},
+							"conduitKey": {
+								"type": "string"
+							},
+							"salt": {
+								"type": "string"
+							},
+							"totalOriginalConsiderationItems": {
+								"type": "number",
+								"format": "double"
+							},
+							"consideration": {
+								"items": {
+									"properties": {
+										"recipient": {
+											"type": "string"
+										},
+										"endAmount": {
+											"type": "string"
+										},
+										"startAmount": {
+											"type": "string"
+										},
+										"identifierOrCriteria": {
+											"type": "string"
+										},
+										"token": {
+											"type": "string"
+										},
+										"itemType": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"recipient",
+										"endAmount",
+										"startAmount",
+										"identifierOrCriteria",
+										"token",
+										"itemType"
+									],
+									"type": "object"
+								},
+								"type": "array"
+							},
+							"offer": {
+								"items": {
+									"properties": {
+										"endAmount": {
+											"type": "string"
+										},
+										"startAmount": {
+											"type": "string"
+										},
+										"identifierOrCriteria": {
+											"type": "string"
+										},
+										"token": {
+											"type": "string"
+										},
+										"itemType": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"endAmount",
+										"startAmount",
+										"identifierOrCriteria",
+										"token",
+										"itemType"
+									],
+									"type": "object"
+								},
+								"type": "array"
+							},
+							"zoneHash": {
+								"type": "string"
+							},
+							"endTime": {
+								"type": "string"
+							},
+							"startTime": {
+								"type": "string"
+							},
+							"orderType": {
+								"type": "number",
+								"format": "double"
+							},
+							"zone": {
+								"type": "string"
+							},
+							"offerer": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"nonce",
+							"conduitKey",
+							"salt",
+							"totalOriginalConsiderationItems",
+							"consideration",
+							"offer",
+							"zoneHash",
+							"endTime",
+							"startTime",
+							"orderType",
+							"zone",
+							"offerer"
+						],
+						"type": "object"
+					},
+					"signature": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"parameters",
+					"signature"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"OrderFee": {
+				"properties": {
+					"account": {
+						"$ref": "#/components/schemas/OpenSeaAccount"
+					},
+					"basisPoints": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"account",
+					"basisPoints"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"OrderSide": {
+				"description": "Order side: listing (ask) or offer (bid)",
+				"enum": [
+					"ask",
+					"bid"
+				],
+				"type": "string"
+			},
+			"OrderType": {
+				"enum": [
+					"basic",
+					"english",
+					"criteria"
+				],
+				"type": "string"
+			},
+			"OrderV2": {
+				"properties": {
+					"createdDate": {
+						"type": "string",
+						"description": "The date the order was created."
+					},
+					"closingDate": {
+						"type": "string",
+						"nullable": true,
+						"description": "The date the order was closed."
+					},
+					"listingTime": {
+						"type": "number",
+						"format": "double",
+						"description": "The date the order was listed. Order can be created before the listing time."
+					},
+					"expirationTime": {
+						"type": "number",
+						"format": "double",
+						"description": "The date the order expires."
+					},
+					"orderHash": {
+						"type": "string",
+						"nullable": true,
+						"description": "The hash of the order."
+					},
+					"maker": {
+						"$ref": "#/components/schemas/OpenSeaAccount",
+						"description": "The account that created the order."
+					},
+					"taker": {
+						"allOf": [
+							{
+								"$ref": "#/components/schemas/OpenSeaAccount"
+							}
+						],
+						"nullable": true,
+						"description": "The account that filled the order."
+					},
+					"protocolData": {
+						"$ref": "#/components/schemas/ProtocolData",
+						"description": "The protocol data for the order. Only 'seaport' is currently supported."
+					},
+					"protocolAddress": {
+						"type": "string",
+						"description": "The contract address of the protocol."
+					},
+					"currentPrice": {
+						"type": "string",
+						"description": "The current price of the order."
+					},
+					"makerFees": {
+						"items": {
+							"$ref": "#/components/schemas/OrderFee"
+						},
+						"type": "array",
+						"description": "The maker fees for the order."
+					},
+					"takerFees": {
+						"items": {
+							"$ref": "#/components/schemas/OrderFee"
+						},
+						"type": "array",
+						"description": "The taker fees for the order."
+					},
+					"side": {
+						"$ref": "#/components/schemas/OrderSide",
+						"description": "The side of the order. Listing/Offer"
+					},
+					"orderType": {
+						"$ref": "#/components/schemas/OrderType",
+						"description": "The type of the order. Basic/English/Criteria"
+					},
+					"cancelled": {
+						"type": "boolean",
+						"description": "Whether or not the maker has cancelled the order."
+					},
+					"finalized": {
+						"type": "boolean",
+						"description": "Whether or not the order is finalized."
+					},
+					"markedInvalid": {
+						"type": "boolean",
+						"description": "Whether or not the order is marked invalid and therefore not fillable."
+					},
+					"clientSignature": {
+						"type": "string",
+						"nullable": true,
+						"description": "The signature the order is signed with."
+					},
+					"remainingQuantity": {
+						"type": "number",
+						"format": "double",
+						"description": "Amount of items left in the order which can be taken."
+					}
+				},
+				"required": [
+					"createdDate",
+					"closingDate",
+					"listingTime",
+					"expirationTime",
+					"orderHash",
+					"maker",
+					"taker",
+					"protocolData",
+					"protocolAddress",
+					"currentPrice",
+					"makerFees",
+					"takerFees",
+					"side",
+					"orderType",
+					"cancelled",
+					"finalized",
+					"markedInvalid",
+					"clientSignature",
+					"remainingQuantity"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Price": {
+				"properties": {
+					"current": {
+						"properties": {
+							"value": {
+								"type": "string"
+							},
+							"decimals": {
+								"type": "number",
+								"format": "double"
+							},
+							"currency": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"value",
+							"decimals",
+							"currency"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"current"
+				],
+				"type": "object",
+				"description": "Price response."
+			},
+			"Order": {
+				"properties": {
+					"price": {
+						"$ref": "#/components/schemas/Price",
+						"description": "The price of the order."
+					},
+					"protocol_address": {
+						"type": "string",
+						"description": "The contract address of the protocol."
+					},
+					"protocol_data": {
+						"$ref": "#/components/schemas/ProtocolData",
+						"description": "The protocol data for the order. Only 'seaport' is currently supported."
+					},
+					"chain": {
+						"type": "string",
+						"description": "Chain the offer exists on"
+					},
+					"order_hash": {
+						"type": "string",
+						"description": "Offer Identifier"
+					}
+				},
+				"required": [
+					"price",
+					"protocol_address",
+					"protocol_data",
+					"chain",
+					"order_hash"
+				],
+				"type": "object",
+				"description": "Base Order type shared between Listings and Offers."
+			},
+			"CollectionOrderByOption": {
+				"enum": [
+					"created_date",
+					"one_day_change",
+					"seven_day_volume",
+					"seven_day_change",
+					"num_owners",
+					"market_cap"
+				],
+				"type": "string"
+			},
 			"PingResponse": {
 				"properties": {
 					"message": {
@@ -46207,6 +46623,1218 @@
 						}
 					}
 				}
+			}
+		},
+		"/opensea/{account}/fulfillOrder": {
+			"post": {
+				"operationId": "FulfillOrder",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OpenSeaAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"OpenSea"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"chainId": {
+										"type": "string"
+									},
+									"order": {
+										"anyOf": [
+											{
+												"$ref": "#/components/schemas/OrderV2"
+											},
+											{
+												"$ref": "#/components/schemas/Order"
+											}
+										]
+									}
+								},
+								"required": [
+									"chainId",
+									"order"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/opensea/{account}/getOrders": {
+			"get": {
+				"operationId": "GetOrders",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OpenSeaAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"OpenSea"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": false,
+						"schema": {
+							"default": "1",
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "options",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/opensea/{account}/getAllOffers/{collectionSlug}": {
+			"get": {
+				"operationId": "GetAllOffers",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OpenSeaAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"OpenSea"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "collectionSlug",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": false,
+						"schema": {
+							"default": "1",
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "next",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/opensea/{account}/getBestOffer/{collectionSlug}/{tokenId}": {
+			"get": {
+				"operationId": "GetBestOffer",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OpenSeaAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"OpenSea"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "collectionSlug",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "tokenId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": false,
+						"schema": {
+							"default": "1",
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/opensea/{account}/getBestListing/{collectionSlug}/{tokenId}": {
+			"get": {
+				"operationId": "GetBestListing",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OpenSeaAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"OpenSea"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "collectionSlug",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "tokenId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": false,
+						"schema": {
+							"default": "1",
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/opensea/{account}/getCollectionStats/{slug}": {
+			"get": {
+				"operationId": "GetCollectionStats",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OpenSeaAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"OpenSea"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "slug",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": false,
+						"schema": {
+							"default": "1",
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/opensea/{account}/getPaymentToken/{address}": {
+			"get": {
+				"operationId": "GetPaymentToken",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OpenSeaAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"OpenSea"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": false,
+						"schema": {
+							"default": "1",
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/opensea/{account}/getAccount/{address}": {
+			"get": {
+				"operationId": "GetAccount",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OpenSeaAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"OpenSea"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": false,
+						"schema": {
+							"default": "1",
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/opensea/{account}/offchainCancelOrder": {
+			"post": {
+				"operationId": "OffchainCancelOrder",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OpenSeaAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"OpenSea"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"offererSignature": {
+										"type": "string"
+									},
+									"chainId": {
+										"type": "string"
+									},
+									"orderHash": {
+										"type": "string"
+									},
+									"protocolAddress": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"chainId",
+									"orderHash",
+									"protocolAddress"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/opensea/{account}/createListing": {
+			"post": {
+				"operationId": "CreateListing",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OpenSeaAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"OpenSea"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/OpenSeaNFTInputBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/opensea/{account}/cancelOrder": {
+			"post": {
+				"operationId": "CancelOrder",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OpenSeaAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"OpenSea"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"chainId": {
+										"type": "string"
+									},
+									"order": {
+										"$ref": "#/components/schemas/OrderV2"
+									}
+								},
+								"required": [
+									"chainId",
+									"order"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/opensea/{account}/getAllListings/{collectionSlug}": {
+			"get": {
+				"operationId": "GetAllListings",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OpenSeaAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"OpenSea"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "collectionSlug",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": false,
+						"schema": {
+							"default": "1",
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "next",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/opensea/{account}/getNFTsByCollection/{slug}": {
+			"get": {
+				"operationId": "GetNFTsByCollection",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OpenSeaAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"OpenSea"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "slug",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": false,
+						"schema": {
+							"default": "1",
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "next",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/opensea/{account}/getNFTsByContract/{address}": {
+			"get": {
+				"operationId": "GetNFTsByContract",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OpenSeaAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"OpenSea"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": false,
+						"schema": {
+							"default": "1",
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "next",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/opensea/{account}/getNFTsByAccount/{address}": {
+			"get": {
+				"operationId": "GetNFTsByAccount",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OpenSeaAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"OpenSea"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "address",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": false,
+						"schema": {
+							"default": "1",
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "next",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/opensea/{account}/getCollections": {
+			"get": {
+				"operationId": "GetCollections",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OpenSeaAPIResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"OpenSea"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "account",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "chainId",
+						"required": false,
+						"schema": {
+							"default": "1",
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "orderBy",
+						"required": false,
+						"schema": {
+							"$ref": "#/components/schemas/CollectionOrderByOption"
+						}
+					},
+					{
+						"in": "query",
+						"name": "creatorUsername",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "includeHidden",
+						"required": false,
+						"schema": {
+							"type": "boolean"
+						}
+					},
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "next",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		},
 		"/ping": {

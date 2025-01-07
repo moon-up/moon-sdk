@@ -1246,9 +1246,9 @@ export type ApproveForPolymarketData = PolymarketAPIResponseAny;
 export type ApproveOutput =
 	UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
 
-export type ApproveResult = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
+export type ApproveOutput1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
-export type ApproveResult1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+export type ApproveResult = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
 
 /** Represents a request to assemble a specific path for a user. */
 export interface AssembleRequest {
@@ -1832,12 +1832,19 @@ export interface CancelOrderBody {
 	orderID: string;
 }
 
-export type CancelOrderData = PolymarketAPIResponseCancelOrderResponse;
+export type CancelOrderData = OpenSeaAPIResponse;
+
+export interface CancelOrderPayload {
+	chainId: string;
+	order: OrderV2;
+}
 
 export interface CancelOrderResponse {
 	orderID: string;
 	success: boolean;
 }
+
+export type CancelOrderResult = PolymarketAPIResponseCancelOrderResponse;
 
 export interface CancelOrdersBody {
 	chain_id: string;
@@ -2075,6 +2082,15 @@ export type ClaimRewardsResult =
 	RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
 
 export type CollectData = UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
+
+export enum CollectionOrderByOption {
+	CreatedDate = "created_date",
+	OneDayChange = "one_day_change",
+	SevenDayVolume = "seven_day_volume",
+	SevenDayChange = "seven_day_change",
+	NumOwners = "num_owners",
+	MarketCap = "market_cap",
+}
 
 export interface CommunityMetrics {
 	/** @format double */
@@ -2704,6 +2720,8 @@ export interface CreateLimitOrderBody {
 	takingAmount: string;
 	wrapAndUnwrapSol?: boolean;
 }
+
+export type CreateListingData = OpenSeaAPIResponse;
 
 export type CreateLockData = LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
@@ -4384,6 +4402,13 @@ export enum FlowNodeTypeEnum {
 
 export type FollowingTimelineData = BotConfigType;
 
+export type FulfillOrderData = OpenSeaAPIResponse;
+
+export interface FulfillOrderPayload {
+	chainId: string;
+	order: OrderV2 | Order;
+}
+
 /** Interface representing the full reserves incentive data. */
 export interface FullReservesIncentiveData {
 	/** The aggregated reserve incentive data. */
@@ -4439,6 +4464,15 @@ export interface GeneratedTweet {
 	text: string;
 }
 
+export type GetAccountData = OpenSeaAPIResponse;
+
+export interface GetAccountParams {
+	account: string;
+	address: string;
+	/** @default "1" */
+	chainId?: string;
+}
+
 export type GetAllDebankUserTokensData =
 	| {
 			data: any;
@@ -4455,6 +4489,30 @@ export interface GetAllDebankUserTokensParams {
 	address: string;
 	isAll: boolean;
 	refresh?: boolean;
+}
+
+export type GetAllListingsData = OpenSeaAPIResponse;
+
+export interface GetAllListingsParams {
+	account: string;
+	/** @default "1" */
+	chainId?: string;
+	collectionSlug: string;
+	/** @format double */
+	limit?: number;
+	next?: string;
+}
+
+export type GetAllOffersData = OpenSeaAPIResponse;
+
+export interface GetAllOffersParams {
+	account: string;
+	/** @default "1" */
+	chainId?: string;
+	collectionSlug: string;
+	/** @format double */
+	limit?: number;
+	next?: string;
 }
 
 export type GetAllReservesTokensData =
@@ -4623,6 +4681,26 @@ export interface GetBalanceOfParams4 {
 
 export type GetBalanceOfResult = RamsesNFTAPIResponseString;
 
+export type GetBestListingData = OpenSeaAPIResponse;
+
+export interface GetBestListingParams {
+	account: string;
+	/** @default "1" */
+	chainId?: string;
+	collectionSlug: string;
+	tokenId: string;
+}
+
+export type GetBestOfferData = OpenSeaAPIResponse;
+
+export interface GetBestOfferParams {
+	account: string;
+	/** @default "1" */
+	chainId?: string;
+	collectionSlug: string;
+	tokenId: string;
+}
+
 export type GetBotLastRunResultsData = any;
 
 export type GetBotStatusData = string;
@@ -4634,6 +4712,29 @@ export interface GetCollectionParams {
 	/** @default "1" */
 	chainId?: string;
 	slug: string;
+}
+
+export type GetCollectionStatsData = OpenSeaAPIResponse;
+
+export interface GetCollectionStatsParams {
+	account: string;
+	/** @default "1" */
+	chainId?: string;
+	slug: string;
+}
+
+export type GetCollectionsData = OpenSeaAPIResponse;
+
+export interface GetCollectionsParams {
+	account: string;
+	/** @default "1" */
+	chainId?: string;
+	creatorUsername?: string;
+	includeHidden?: boolean;
+	/** @format double */
+	limit?: number;
+	next?: string;
+	orderBy?: CollectionOrderByOption;
 }
 
 export type GetConfigsData = BotConfigType[];
@@ -4790,6 +4891,42 @@ export interface GetNameParams {
 	chainId: string;
 }
 
+export type GetNfTsByAccountData = OpenSeaAPIResponse;
+
+export interface GetNfTsByAccountParams {
+	account: string;
+	address: string;
+	/** @default "1" */
+	chainId?: string;
+	/** @format double */
+	limit?: number;
+	next?: string;
+}
+
+export type GetNfTsByCollectionData = OpenSeaAPIResponse;
+
+export interface GetNfTsByCollectionParams {
+	account: string;
+	/** @default "1" */
+	chainId?: string;
+	/** @format double */
+	limit?: number;
+	next?: string;
+	slug: string;
+}
+
+export type GetNfTsByContractData = OpenSeaAPIResponse;
+
+export interface GetNfTsByContractParams {
+	account: string;
+	address: string;
+	/** @default "1" */
+	chainId?: string;
+	/** @format double */
+	limit?: number;
+	next?: string;
+}
+
 export type GetNftData = OpenSeaAPIResponse;
 
 export interface GetNftParams {
@@ -4834,6 +4971,15 @@ export interface GetOrderParams {
 	account: string;
 	chainId: string;
 	orderId: string;
+}
+
+export type GetOrdersData = OpenSeaAPIResponse;
+
+export interface GetOrdersParams {
+	account: string;
+	/** @default "1" */
+	chainId?: string;
+	options: string;
 }
 
 export type GetOwnerOfData = LynexNFTAPIResponseString;
@@ -4894,6 +5040,15 @@ export interface GetPastVotesParams4 {
 }
 
 export type GetPastVotesResult = RamsesNFTAPIResponseString;
+
+export type GetPaymentTokenData = OpenSeaAPIResponse;
+
+export interface GetPaymentTokenParams {
+	account: string;
+	address: string;
+	/** @default "1" */
+	chainId?: string;
+}
 
 export type GetPoolByAddressData = LynexAPIResponse;
 
@@ -8636,6 +8791,15 @@ export interface OdosTransaction {
 	value: string;
 }
 
+export type OffchainCancelOrderData = OpenSeaAPIResponse;
+
+export interface OffchainCancelOrderPayload {
+	chainId: string;
+	offererSignature?: string;
+	orderHash: string;
+	protocolAddress: string;
+}
+
 /** Construct a type with the properties of T except for those in type K. */
 export type OmitComponentDefinitionId = PickComponentDefinitionExcludeKeysId;
 
@@ -8743,6 +8907,18 @@ export interface OpenSeaAPIResponse {
 	data?: any;
 	message: string;
 	success: boolean;
+}
+
+/** OpenSea Account */
+export interface OpenSeaAccount {
+	address: string;
+	bannerImageUrl: string;
+	bio: string;
+	joinedDate: string;
+	profileImageUrl: string;
+	socialMediaAccounts: SocialMediaAccount[];
+	username: string;
+	website: string;
 }
 
 /**
@@ -8917,6 +9093,20 @@ export enum OptionsChainItemTypeEnum {
 	Put = "Put",
 }
 
+/** Base Order type shared between Listings and Offers. */
+export interface Order {
+	/** Chain the offer exists on */
+	chain: string;
+	/** Offer Identifier */
+	order_hash: string;
+	/** The price of the order. */
+	price: Price;
+	/** The contract address of the protocol. */
+	protocol_address: string;
+	/** The protocol data for the order. Only 'seaport' is currently supported. */
+	protocol_data: ProtocolData;
+}
+
 export interface OrderBookSummary {
 	asks: OrderSummary[];
 	asset_id: string;
@@ -8940,9 +9130,77 @@ export enum OrderEnum1 {
 	BEST_FEE_GAS = "BEST_FEE_GAS",
 }
 
+export interface OrderFee {
+	/** OpenSea Account */
+	account: OpenSeaAccount;
+	basisPoints: string;
+}
+
+/** Order side: listing (ask) or offer (bid) */
+export enum OrderSide {
+	Ask = "ask",
+	Bid = "bid",
+}
+
 export interface OrderSummary {
 	price: string;
 	size: string;
+}
+
+export enum OrderType {
+	Basic = "basic",
+	English = "english",
+	Criteria = "criteria",
+}
+
+export interface OrderV2 {
+	/** Whether or not the maker has cancelled the order. */
+	cancelled: boolean;
+	/** The signature the order is signed with. */
+	clientSignature: string | null;
+	/** The date the order was closed. */
+	closingDate: string | null;
+	/** The date the order was created. */
+	createdDate: string;
+	/** The current price of the order. */
+	currentPrice: string;
+	/**
+	 * The date the order expires.
+	 * @format double
+	 */
+	expirationTime: number;
+	/** Whether or not the order is finalized. */
+	finalized: boolean;
+	/**
+	 * The date the order was listed. Order can be created before the listing time.
+	 * @format double
+	 */
+	listingTime: number;
+	/** The account that created the order. */
+	maker: OpenSeaAccount;
+	/** The maker fees for the order. */
+	makerFees: OrderFee[];
+	/** Whether or not the order is marked invalid and therefore not fillable. */
+	markedInvalid: boolean;
+	/** The hash of the order. */
+	orderHash: string | null;
+	/** The type of the order. Basic/English/Criteria */
+	orderType: OrderType;
+	/** The contract address of the protocol. */
+	protocolAddress: string;
+	/** The protocol data for the order. Only 'seaport' is currently supported. */
+	protocolData: ProtocolData;
+	/**
+	 * Amount of items left in the order which can be taken.
+	 * @format double
+	 */
+	remainingQuantity: number;
+	/** The side of the order. Listing/Offer */
+	side: OrderSide;
+	/** The account that filled the order. */
+	taker: OpenSeaAccount | null;
+	/** The taker fees for the order. */
+	takerFees: OrderFee[];
 }
 
 export type OwnerOfData = UniswapV3NFTAPIResponseString;
@@ -9640,6 +9898,16 @@ export interface PredictiveMetricsAPIResponse {
 	success: boolean;
 }
 
+/** Price response. */
+export interface Price {
+	current: {
+		currency: string;
+		/** @format double */
+		decimals: number;
+		value: string;
+	};
+}
+
 /** Represents the price data for a financial instrument. */
 export interface PriceData {
 	/**
@@ -9741,6 +10009,41 @@ export interface PricesAPIResponse {
 	message: string;
 	/** The success status of the operation. */
 	success: boolean;
+}
+
+export interface ProtocolData {
+	parameters: {
+		conduitKey: string;
+		consideration: {
+			endAmount: string;
+			identifierOrCriteria: string;
+			/** @format double */
+			itemType: number;
+			recipient: string;
+			startAmount: string;
+			token: string;
+		}[];
+		endTime: string;
+		nonce: string;
+		offer: {
+			endAmount: string;
+			identifierOrCriteria: string;
+			/** @format double */
+			itemType: number;
+			startAmount: string;
+			token: string;
+		}[];
+		offerer: string;
+		/** @format double */
+		orderType: number;
+		salt: string;
+		startTime: string;
+		/** @format double */
+		totalOriginalConsiderationItems: number;
+		zone: string;
+		zoneHash: string;
+	};
+	signature: string;
 }
 
 export interface Quote {
@@ -11023,6 +11326,12 @@ export enum SimulateChangeType {
 	TRANSFER = "TRANSFER",
 }
 
+/** Social media account */
+export interface SocialMediaAccount {
+	platform: string;
+	username: string;
+}
+
 export interface SolanaAPIResponse {
 	/** The address associated with the operation. */
 	address?: string;
@@ -11689,13 +11998,13 @@ export interface TransactionStatus {
 
 export type TransferFromData = LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
-export type TransferFromData1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
-
 export type TransferFromOutput =
 	UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
 
 export type TransferFromResult =
 	RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
+
+export type TransferFromResult1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export type TransferSolanaTransactionData = SolanaAPIResponse;
 

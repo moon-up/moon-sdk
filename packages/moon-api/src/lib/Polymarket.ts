@@ -15,7 +15,7 @@ import {
   CancelMarketOrdersBody,
   CancelMarketOrdersData,
   CancelOrderBody,
-  CancelOrderData,
+  CancelOrderResult,
   CancelOrdersBody,
   CancelOrdersData,
   CreateMarketBuyOrderBody,
@@ -115,7 +115,7 @@ export class Polymarket<SecurityDataType = unknown> {
     data: CancelOrderBody,
     params: RequestParams = {}
   ) =>
-    this.http.request<CancelOrderData, any>({
+    this.http.request<CancelOrderResult, any>({
       path: `/polymarket/${account}/cancelOrder`,
       method: 'POST',
       body: data,

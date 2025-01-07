@@ -15,7 +15,7 @@ import {
   CancelMarketOrdersBody,
   CancelMarketOrdersData,
   CancelOrderBody,
-  CancelOrderData,
+  CancelOrderResult,
   CancelOrdersBody,
   CancelOrdersData,
   CreateMarketBuyOrderBody,
@@ -95,7 +95,7 @@ export namespace Polymarket {
     export type RequestHeaders = {
       Authorization: string;
     };
-    export type ResponseBody = CancelOrderData;
+    export type ResponseBody = CancelOrderResult;
   }
 
   /**
