@@ -19,6 +19,12 @@ import {
   DataGetBitcoinBalanceData,
   DataGetBitcoinTransactionsData,
   DataGetBitcoinTransactionsParams,
+  DataGetCoinGeckoCoinInfoData,
+  DataGetCoinGeckoCoinInfoParams,
+  DataGetCoinGeckoCoinListData,
+  DataGetCoinGeckoCoinListParams,
+  DataGetCoinGeckoCoinMarketsData,
+  DataGetCoinGeckoCoinMarketsParams,
   DataGetDogecoinBalanceData,
   DataGetDogecoinTransactionsData,
   DataGetDogecoinTransactionsParams,
@@ -152,6 +158,66 @@ export class Data<SecurityDataType = unknown> {
   ) =>
     this.http.request<DataGetBitcoinTransactionsData, any>({
       path: `/data/${address}/bitcoin/transactions`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Data
+   * @name DataGetCoinGeckoCoinInfo
+   * @request GET:/data/coingecko/coin/{id}
+   * @secure
+   */
+  dataGetCoinGeckoCoinInfo = (
+    { id, ...query }: DataGetCoinGeckoCoinInfoParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<DataGetCoinGeckoCoinInfoData, any>({
+      path: `/data/coingecko/coin/${id}`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Data
+   * @name DataGetCoinGeckoCoinList
+   * @request GET:/data/coingecko/coins/list
+   * @secure
+   */
+  dataGetCoinGeckoCoinList = (
+    query: DataGetCoinGeckoCoinListParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<DataGetCoinGeckoCoinListData, any>({
+      path: `/data/coingecko/coins/list`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      format: 'json',
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags Data
+   * @name DataGetCoinGeckoCoinMarkets
+   * @request GET:/data/coingecko/coins/markets
+   * @secure
+   */
+  dataGetCoinGeckoCoinMarkets = (
+    query: DataGetCoinGeckoCoinMarketsParams,
+    params: RequestParams = {}
+  ) =>
+    this.http.request<DataGetCoinGeckoCoinMarketsData, any>({
+      path: `/data/coingecko/coins/markets`,
       method: 'GET',
       query: query,
       secure: true,

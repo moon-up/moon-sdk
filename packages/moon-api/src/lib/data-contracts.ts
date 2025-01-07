@@ -1246,9 +1246,9 @@ export type ApproveForPolymarketData = PolymarketAPIResponseAny;
 export type ApproveOutput =
 	UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
 
-export type ApproveOutput1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
-
 export type ApproveResult = RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
+
+export type ApproveResult1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 /** Represents a request to assemble a specific path for a user. */
 export interface AssembleRequest {
@@ -1522,6 +1522,84 @@ export interface BalanceSheetsAPIResponse {
 	success: boolean;
 }
 
+export interface BaseAPIResponseBitcoinBalance {
+	data?: BitcoinBalance;
+	message: string;
+	success: boolean;
+}
+
+export interface BaseAPIResponseBitcoinTransactionArray {
+	data?: BitcoinTransaction[];
+	message: string;
+	success: boolean;
+}
+
+export interface BaseAPIResponseCoinFullInfo {
+	data?: CoinFullInfo;
+	message: string;
+	success: boolean;
+}
+
+export interface BaseAPIResponseCoinListItemArray {
+	data?: CoinListItem[];
+	message: string;
+	success: boolean;
+}
+
+export interface BaseAPIResponseCoinMarketArray {
+	data?: CoinMarket[];
+	message: string;
+	success: boolean;
+}
+
+export interface BaseAPIResponseDogecoinBalance {
+	data?: DogecoinBalance;
+	message: string;
+	success: boolean;
+}
+
+export interface BaseAPIResponseDogecoinTransactionArray {
+	data?: DogecoinTransaction[];
+	message: string;
+	success: boolean;
+}
+
+export interface BaseAPIResponseLitecoinBalance {
+	data?: LitecoinBalance;
+	message: string;
+	success: boolean;
+}
+
+export interface BaseAPIResponseLitecoinTransactionArray {
+	data?: LitecoinTransaction[];
+	message: string;
+	success: boolean;
+}
+
+export interface BaseAPIResponseTronBalance {
+	data?: TronBalance;
+	message: string;
+	success: boolean;
+}
+
+export interface BaseAPIResponseTronTransactionResponse {
+	data?: TronTransactionResponse;
+	message: string;
+	success: boolean;
+}
+
+export interface BaseAPIResponseXRPBalance {
+	data?: XRPBalance;
+	message: string;
+	success: boolean;
+}
+
+export interface BaseAPIResponseXRPTransactionArray {
+	data?: XRPTransaction[];
+	message: string;
+	success: boolean;
+}
+
 /** Represents the base structure of a response from the Cosmos API. */
 export interface BaseCosmosAPIResponse {
 	/** A message providing additional information about the API response. */
@@ -1547,6 +1625,13 @@ export interface BitcoinAPIResponse {
 		| UnsignedPSBTOutput;
 	message: string;
 	success: boolean;
+}
+
+export interface BitcoinBalance {
+	incoming: string;
+	incomingPending: string;
+	outgoing: string;
+	outgoingPending: string;
 }
 
 export type BitcoinBitcoinCreateAccountData = AccountAPIResponse;
@@ -1685,6 +1770,55 @@ export interface BitcoinInput {
 }
 
 export type BitcoinListAccountsData = AccountAPIResponse;
+
+export interface BitcoinTransaction {
+	/** @format double */
+	blockNumber: number;
+	/** @format double */
+	fee: number;
+	flag: string | null;
+	hash: string;
+	/** @format double */
+	index: number;
+	inputs: {
+		coin: {
+			address: string;
+			coinbase: boolean;
+			/** @format double */
+			height: number;
+			script: string;
+			value: string;
+			/** @format double */
+			version: number;
+		};
+		prevout: {
+			hash: string;
+			/** @format double */
+			index: number;
+		};
+		script: string;
+		/** @format double */
+		sequence: number;
+		witness: string;
+	}[];
+	/** @format double */
+	locktime: number;
+	/** @format double */
+	mtime: number;
+	outputs: {
+		address: string;
+		script: string;
+		value: string;
+	}[];
+	ps: string | null;
+	/** @format double */
+	rate: number;
+	/** @format double */
+	time: number;
+	/** @format double */
+	version: number;
+	witnessHash: string;
+}
 
 /** Represents an input for a Bitcoin transaction. */
 export interface BitcoinTransactionInput {
@@ -2080,6 +2214,133 @@ export type ClaimRewardsOutput =
 
 export type ClaimRewardsResult =
 	RamsesVoterAPIResponseRamsesVoterExecuteFunctionResult;
+
+export interface CoinFullInfo {
+	additional_notices: string[];
+	asset_platform_id: string | null;
+	/** @format double */
+	block_time_in_minutes: number;
+	categories: string[];
+	/** @format double */
+	coingecko_rank: number;
+	/** @format double */
+	coingecko_score: number;
+	/** Construct a type with a set of properties K of type T */
+	community_data: RecordStringAny;
+	/** @format double */
+	community_score: number;
+	country_origin: string;
+	/** Construct a type with a set of properties K of type T */
+	description: RecordStringString;
+	/** Construct a type with a set of properties K of type T */
+	detail_platforms: RecordStringDecimalPlaceNumberOrNullContractAddressString;
+	/** Construct a type with a set of properties K of type T */
+	developer_data: RecordStringAny;
+	/** @format double */
+	developer_score: number;
+	genesis_date: string | null;
+	hashing_algorithm: string | null;
+	id: string;
+	/** Construct a type with a set of properties K of type T */
+	image: RecordStringString;
+	last_updated: string;
+	/** Construct a type with a set of properties K of type T */
+	links: RecordStringAny;
+	/** @format double */
+	liquidity_score: number;
+	/** Construct a type with a set of properties K of type T */
+	localization: RecordStringString;
+	/** @format double */
+	market_cap_rank: number;
+	/** Construct a type with a set of properties K of type T */
+	market_data: RecordStringAny;
+	name: string;
+	/** Construct a type with a set of properties K of type T */
+	platforms: RecordStringString;
+	preview_listing: boolean;
+	/** @format double */
+	public_interest_score: number;
+	/** Construct a type with a set of properties K of type T */
+	public_interest_stats: RecordStringAny;
+	public_notice: string | null;
+	/** @format double */
+	sentiment_votes_down_percentage: number;
+	/** @format double */
+	sentiment_votes_up_percentage: number;
+	status_updates: any[];
+	symbol: string;
+	tickers: any[];
+}
+
+export interface CoinListItem {
+	id: string;
+	name: string;
+	/** Construct a type with a set of properties K of type T */
+	platforms?: RecordStringString;
+	symbol: string;
+}
+
+export interface CoinMarket {
+	/** @format double */
+	high_24h: number;
+	/** @format double */
+	low_24h: number;
+	/** @format double */
+	market_cap_change_24h: number;
+	/** @format double */
+	market_cap_change_percentage_24h: number;
+	/** @format double */
+	price_change_24h: number;
+	/** @format double */
+	price_change_percentage_1h_in_currency?: number;
+	/** @format double */
+	price_change_percentage_24h: number;
+	/** @format double */
+	price_change_percentage_24h_in_currency?: number;
+	/** @format double */
+	price_change_percentage_7d_in_currency?: number;
+	sparkline_in_7d?: {
+		price: number[];
+	};
+	/** @format double */
+	ath: number;
+	/** @format double */
+	ath_change_percentage: number;
+	ath_date: string;
+	/** @format double */
+	atl: number;
+	/** @format double */
+	atl_change_percentage: number;
+	atl_date: string;
+	/** @format double */
+	circulating_supply: number;
+	/** @format double */
+	current_price: number;
+	/** @format double */
+	fully_diluted_valuation: number | null;
+	id: string;
+	image: string;
+	last_updated: string;
+	/** @format double */
+	market_cap: number;
+	/** @format double */
+	market_cap_rank: number;
+	/** @format double */
+	max_supply: number | null;
+	name: string;
+	roi: {
+		currency: string;
+		/** @format double */
+		percentage: number;
+		/** @format double */
+		times: number;
+	} | null;
+	symbol: string;
+	/** @format double */
+	total_supply: number | null;
+	/** @format double */
+	total_volume: number;
+}
 
 export type CollectData = UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
 
@@ -2850,9 +3111,10 @@ export interface DataGetAllUserDebankNfTsParams {
 	refresh?: boolean;
 }
 
-export type DataGetBitcoinBalanceData = any;
+export type DataGetBitcoinBalanceData = BaseAPIResponseBitcoinBalance;
 
-export type DataGetBitcoinTransactionsData = any;
+export type DataGetBitcoinTransactionsData =
+	BaseAPIResponseBitcoinTransactionArray;
 
 export interface DataGetBitcoinTransactionsParams {
 	address: string;
@@ -2873,9 +3135,48 @@ export interface DataGetBitcoinTransactionsParams {
 	txType?: string;
 }
 
-export type DataGetDogecoinBalanceData = any;
+export type DataGetCoinGeckoCoinInfoData = BaseAPIResponseCoinFullInfo;
 
-export type DataGetDogecoinTransactionsData = any;
+export interface DataGetCoinGeckoCoinInfoParams {
+	id: string;
+	refresh?: boolean;
+}
+
+export type DataGetCoinGeckoCoinListData = BaseAPIResponseCoinListItemArray;
+
+export interface DataGetCoinGeckoCoinListParams {
+	/** @default false */
+	includePlatform?: boolean;
+	refresh?: boolean;
+}
+
+export type DataGetCoinGeckoCoinMarketsData = BaseAPIResponseCoinMarketArray;
+
+export interface DataGetCoinGeckoCoinMarketsParams {
+	ids?: string;
+	/** @default "market_cap_desc" */
+	order?: string;
+	/**
+	 * @format double
+	 * @default 1
+	 */
+	page?: number;
+	/**
+	 * @format double
+	 * @default 100
+	 */
+	perPage?: number;
+	priceChangePercentage?: string;
+	refresh?: boolean;
+	/** @default false */
+	sparkline?: boolean;
+	vsCurrency: string;
+}
+
+export type DataGetDogecoinBalanceData = BaseAPIResponseDogecoinBalance;
+
+export type DataGetDogecoinTransactionsData =
+	BaseAPIResponseDogecoinTransactionArray;
 
 export interface DataGetDogecoinTransactionsParams {
 	address: string;
@@ -2895,9 +3196,10 @@ export interface DataGetDogecoinTransactionsParams {
 	pageSize?: number;
 }
 
-export type DataGetLitecoinBalanceData = any;
+export type DataGetLitecoinBalanceData = BaseAPIResponseLitecoinBalance;
 
-export type DataGetLitecoinTransactionsData = any;
+export type DataGetLitecoinTransactionsData =
+	BaseAPIResponseLitecoinTransactionArray;
 
 export interface DataGetLitecoinTransactionsParams {
 	address: string;
@@ -2928,9 +3230,10 @@ export interface DataGetTokensMetadataParams {
 	chain: string;
 }
 
-export type DataGetTronBalanceData = any;
+export type DataGetTronBalanceData = BaseAPIResponseTronBalance;
 
-export type DataGetTronTransactionsData = any;
+export type DataGetTronTransactionsData =
+	BaseAPIResponseTronTransactionResponse;
 
 export interface DataGetTronTransactionsParams {
 	address: string;
@@ -3036,9 +3339,9 @@ export interface DataGetWalletTransactionHistoryParams {
 	startTime?: number;
 }
 
-export type DataGetXrpBalanceData = any;
+export type DataGetXrpBalanceData = BaseAPIResponseXRPBalance;
 
-export type DataGetXrpTransactionsData = any;
+export type DataGetXrpTransactionsData = BaseAPIResponseXRPTransactionArray;
 
 export type DeactivateBotData = string;
 
@@ -3163,6 +3466,13 @@ export interface DogeCoinTransactionOutput {
 	transaction_hash?: string;
 }
 
+export interface DogecoinBalance {
+	incoming: string;
+	incomingPending: string;
+	outgoing: string;
+	outgoingPending: string;
+}
+
 export type DogecoinDogeCoinCreateNewAccountData = AccountAPIResponse;
 
 export type DogecoinDogeCoinDeleteAccountData = AccountAPIResponse;
@@ -3174,6 +3484,51 @@ export type DogecoinDogeCoinGetAccountDetailsData = AccountAPIResponse;
 export type DogecoinDogeCoinSignTransactionData = DogeCoinAPIResponse;
 
 export type DogecoinDogeCoinSignTransactionWithMemoData = DogeCoinAPIResponse;
+
+export interface DogecoinTransaction {
+	/** @format double */
+	blockNumber: number;
+	fee: string;
+	hash: string;
+	/** @format double */
+	index: number;
+	inputs: {
+		coin: {
+			address: string;
+			coinbase: boolean;
+			/** @format double */
+			height: number;
+			script: string;
+			value: string;
+			/** @format double */
+			version: number;
+		};
+		prevout: {
+			hash: string;
+			/** @format double */
+			index: number;
+		};
+		script: string;
+		/** @format double */
+		sequence: number;
+	}[];
+	/** @format double */
+	locktime: number;
+	outputs: {
+		address: string;
+		script: string;
+		value: string;
+	}[];
+	/** @format double */
+	size: number;
+	/** @format double */
+	time: number;
+	/** @format double */
+	version: number;
+	/** @format double */
+	vsize: number;
+	witnessHash: string;
+}
 
 export type DomainSeparatorData = UniswapV3NFTAPIResponseString;
 
@@ -7106,6 +7461,13 @@ export interface LitecoinAPIResponse {
 	success: boolean;
 }
 
+export interface LitecoinBalance {
+	incoming: string;
+	incomingPending: string;
+	outgoing: string;
+	outgoingPending: string;
+}
+
 export type LitecoinCreateLitecoinAccountData = AccountAPIResponse;
 
 export type LitecoinDeleteLitecoinAccountData = AccountAPIResponse;
@@ -7125,6 +7487,14 @@ export interface LitecoinInput {
 export type LitecoinSignLitecoinTransactionData = LitecoinAPIResponse;
 
 export type LitecoinSignLitecoinTransactionWithMemoData = LitecoinAPIResponse;
+
+export interface LitecoinTransaction {
+	/** @format double */
+	blockNumber: number;
+	/** @format double */
+	fee: number;
+	hash: string;
+}
 
 /** Represents an input for a Litecoin transaction. */
 export interface LitecoinTransactionInput {
@@ -10808,6 +11178,9 @@ export interface RecordStringAny {
 }
 
 /** Construct a type with a set of properties K of type T */
+export type RecordStringDecimalPlaceNumberOrNullContractAddressString = object;
+
+/** Construct a type with a set of properties K of type T */
 export type RecordStringString = object;
 
 export type RefundEth2Data = UniswapV3APIResponseUniswapV3ExecuteFunctionResult;
@@ -11998,13 +12371,13 @@ export interface TransactionStatus {
 
 export type TransferFromData = LynexNFTAPIResponseLynexNFTExecuteFunctionResult;
 
+export type TransferFromData1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
+
 export type TransferFromOutput =
 	UniswapV3NFTAPIResponseUniswapV3ExecuteFunctionResult;
 
 export type TransferFromResult =
 	RamsesNFTAPIResponseRamsesNFTExecuteFunctionResult;
-
-export type TransferFromResult1 = VeTheNFTAPIResponseVeNFTExecuteFunctionResult;
 
 export type TransferSolanaTransactionData = SolanaAPIResponse;
 
@@ -12074,6 +12447,23 @@ export interface TronAPIResponse {
 	success: boolean;
 }
 
+export interface TronBalance {
+	trc10: {
+		key: string;
+		/** @format double */
+		value: number;
+	}[];
+	trc20: RecordStringString[];
+	/** @format double */
+	balance: number;
+	/** @format double */
+	bandwidth: number;
+	/** @format double */
+	createTime: number;
+	/** @format double */
+	freeNetLimit: number;
+}
+
 export type TronCreateTronAccountData = AccountAPIResponse;
 
 export type TronDeleteTronAccountData = AccountAPIResponse;
@@ -12093,6 +12483,71 @@ export interface TronInput {
 export type TronListTronAccountsData = AccountAPIResponse;
 
 export type TronSignTronTransactionData = TronAPIResponse;
+
+export interface TronTransaction {
+	/** @format double */
+	blockNumber: number;
+	/** @format double */
+	energyFee: number;
+	/** @format double */
+	energyUsage: number;
+	/** @format double */
+	energyUsageTotal: number;
+	internalTransactions: {
+		fromAddressBase58: string;
+		toAddressBase58: string;
+		/** @format double */
+		block_timestamp: number;
+		data: {
+			call_value: {
+				/** @format double */
+				_: number;
+			};
+			note: string;
+			rejected: boolean;
+		};
+		from_address: string;
+		internal_tx_id: string;
+		to_address: string;
+		tx_id: string;
+	}[];
+	/** @format double */
+	netFee: number;
+	/** @format double */
+	netUsage: number;
+	rawData: {
+		contract: {
+			parameter: {
+				type_url: string;
+				value: {
+					assetNameUtf8: string;
+					ownerAddressBase58: string;
+					toAddressBase58: string;
+					/** @format double */
+					amount: number;
+					asset_name: string;
+					owner_address: string;
+					to_address: string;
+				};
+			};
+			type: string;
+		}[];
+		data: string;
+		/** @format double */
+		expiration: number;
+		ref_block_bytes: string;
+		ref_block_hash: string;
+		/** @format double */
+		timestamp: number;
+	};
+	ret: {
+		contractRet: string;
+		/** @format double */
+		fee: number;
+	}[];
+	signature: string[];
+	txID: string;
+}
 
 /** Represents an input for a Tron transaction. */
 export interface TronTransactionInput {
@@ -12115,6 +12570,11 @@ export interface TronTransactionOutput {
 	signedTx?: string;
 	/** The transaction hash. */
 	transaction_hash?: string;
+}
+
+export interface TronTransactionResponse {
+	next: string;
+	transactions: TronTransaction[];
 }
 
 export type TweetHistoryData = BotConfigType;
@@ -13408,6 +13868,87 @@ export type WrapEthData = OpenSeaAPIResponse;
 export interface WrapEthPayload {
 	amountInEth: string;
 	chainId: string;
+}
+
+export interface XRPBalance {
+	assets: {
+		balance: string;
+		currency: string;
+	}[];
+	balance: string;
+}
+
+export interface XRPTransaction {
+	account: string;
+	/** @format double */
+	ledger_index_max: number;
+	/** @format double */
+	ledger_index_min: number;
+	/** @format double */
+	limit: number;
+	marker: {
+		/** @format double */
+		ledger: number;
+		/** @format double */
+		seq: number;
+	};
+	transactions: {
+		meta: {
+			AffectedNodes: {
+				ModifiedNode: {
+					FinalFields: {
+						Account: string;
+						Balance: string;
+						/** @format double */
+						Flags: number;
+						/** @format double */
+						OwnerCount: number;
+						/** @format double */
+						Sequence: number;
+					};
+					LedgerEntryType: string;
+					LedgerIndex: string;
+					PreviousFields: {
+						Balance: string;
+						/** @format double */
+						Sequence: number;
+					};
+					PreviousTxnID: string;
+					/** @format double */
+					PreviousTxnLgrSeq: number;
+				};
+			}[];
+			/** @format double */
+			TransactionIndex: number;
+			TransactionResult: string;
+			delivered_amount: string;
+		};
+		tx: {
+			Account: string;
+			Amount: string;
+			DeliverMax: string;
+			Destination: string;
+			Fee: string;
+			/** @format double */
+			Flags: number;
+			/** @format double */
+			LastLedgerSequence: number;
+			/** @format double */
+			Sequence: number;
+			SigningPubKey: string;
+			TransactionType: string;
+			TxnSignature: string;
+			/** @format double */
+			date: number;
+			hash: string;
+			/** @format double */
+			inLedger: number;
+			/** @format double */
+			ledger_index: number;
+		};
+		validated: boolean;
+	}[];
+	validated: boolean;
 }
 
 export type ZapData = OdosAPIResponseOdosExecuteFunctionResult;

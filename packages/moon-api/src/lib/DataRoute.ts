@@ -17,6 +17,9 @@ import {
   DataGetAllUserDebankNfTsData,
   DataGetBitcoinBalanceData,
   DataGetBitcoinTransactionsData,
+  DataGetCoinGeckoCoinInfoData,
+  DataGetCoinGeckoCoinListData,
+  DataGetCoinGeckoCoinMarketsData,
   DataGetDogecoinBalanceData,
   DataGetDogecoinTransactionsData,
   DataGetLitecoinBalanceData,
@@ -159,6 +162,84 @@ export namespace Data {
       Authorization: string;
     };
     export type ResponseBody = DataGetBitcoinTransactionsData;
+  }
+
+  /**
+   * No description
+   * @tags Data
+   * @name DataGetCoinGeckoCoinInfo
+   * @request GET:/data/coingecko/coin/{id}
+   * @secure
+   */
+  export namespace DataGetCoinGeckoCoinInfo {
+    export type RequestParams = {
+      id: string;
+    };
+    export type RequestQuery = {
+      refresh?: boolean;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = DataGetCoinGeckoCoinInfoData;
+  }
+
+  /**
+   * No description
+   * @tags Data
+   * @name DataGetCoinGeckoCoinList
+   * @request GET:/data/coingecko/coins/list
+   * @secure
+   */
+  export namespace DataGetCoinGeckoCoinList {
+    export type RequestParams = {};
+    export type RequestQuery = {
+      /** @default false */
+      includePlatform?: boolean;
+      refresh?: boolean;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = DataGetCoinGeckoCoinListData;
+  }
+
+  /**
+   * No description
+   * @tags Data
+   * @name DataGetCoinGeckoCoinMarkets
+   * @request GET:/data/coingecko/coins/markets
+   * @secure
+   */
+  export namespace DataGetCoinGeckoCoinMarkets {
+    export type RequestParams = {};
+    export type RequestQuery = {
+      ids?: string;
+      /** @default "market_cap_desc" */
+      order?: string;
+      /**
+       * @format double
+       * @default 1
+       */
+      page?: number;
+      /**
+       * @format double
+       * @default 100
+       */
+      perPage?: number;
+      priceChangePercentage?: string;
+      refresh?: boolean;
+      /** @default false */
+      sparkline?: boolean;
+      vsCurrency: string;
+    };
+    export type RequestBody = never;
+    export type RequestHeaders = {
+      Authorization: string;
+    };
+    export type ResponseBody = DataGetCoinGeckoCoinMarketsData;
   }
 
   /**

@@ -31,6 +31,16 @@ import type {
 	DataGetTronTransactionsData,
 	DataGetXrpBalanceData,
 	DataGetXrpTransactionsData,
+	DataGetCoinGeckoCoinInfoParams,
+	DataGetCoinGeckoCoinInfoData,
+	DataGetCoinGeckoCoinListParams,
+	DataGetCoinGeckoCoinListData,
+	DataGetCoinGeckoCoinMarketsParams,
+	DataGetCoinGeckoCoinMarketsData,
+	DataGetAllUserDebankNfTsParams,
+	DataGetAllUserDebankNfTsData,
+	DataGetUserDebankNftListParams,
+	DataGetUserDebankNftListData,
 } from "@moonup/moon-api";
 import { useQuery } from "@tanstack/react-query";
 import { useCallback } from "react";
@@ -602,6 +612,103 @@ export const useMoonDataSDK = () => {
 			queryFn: () => getWalletNFTs(params),
 			enabled: !!params.address,
 		});
+	const getCoinGeckoCoinInfo = useCallback(
+		async (
+			params: DataGetCoinGeckoCoinInfoParams,
+		): Promise<DataGetCoinGeckoCoinInfoData> => {
+			return handleTransaction("getCoinGeckoCoinInfo", async () => {
+				const dataSDK = getDataSDK();
+				const response = await dataSDK.dataGetCoinGeckoCoinInfo(params);
+				return response.data;
+			});
+		},
+		[moon],
+	);
+
+	const getCoinGeckoCoinList = useCallback(
+		async (
+			params: DataGetCoinGeckoCoinListParams,
+		): Promise<DataGetCoinGeckoCoinListData> => {
+			return handleTransaction("getCoinGeckoCoinList", async () => {
+				const dataSDK = getDataSDK();
+				const response = await dataSDK.dataGetCoinGeckoCoinList(params);
+				return response.data;
+			});
+		},
+		[moon],
+	);
+
+	const getCoinGeckoCoinMarkets = useCallback(
+		async (
+			params: DataGetCoinGeckoCoinMarketsParams,
+		): Promise<DataGetCoinGeckoCoinMarketsData> => {
+			return handleTransaction("getCoinGeckoCoinMarkets", async () => {
+				const dataSDK = getDataSDK();
+				const response = await dataSDK.dataGetCoinGeckoCoinMarkets(params);
+				return response.data;
+			});
+		},
+		[moon],
+	);
+
+	const getAllUserDebankNfTs = useCallback(
+		async (
+			params: DataGetAllUserDebankNfTsParams,
+		): Promise<DataGetAllUserDebankNfTsData> => {
+			return handleTransaction("getAllUserDebankNfTs", async () => {
+				const dataSDK = getDataSDK();
+				const response = await dataSDK.dataGetAllUserDebankNfTs(params);
+				return response.data;
+			});
+		},
+		[moon],
+	);
+
+	const getUserDebankNftList = useCallback(
+		async (
+			params: DataGetUserDebankNftListParams,
+		): Promise<DataGetUserDebankNftListData> => {
+			return handleTransaction("getUserDebankNftList", async () => {
+				const dataSDK = getDataSDK();
+				const response = await dataSDK.dataGetUserDebankNftList(params);
+				return response.data;
+			});
+		},
+		[moon],
+	);
+
+	// React Query Hooks for new methods
+	const useCoinGeckoCoinInfoQuery = (params: DataGetCoinGeckoCoinInfoParams) =>
+		useQuery({
+			queryKey: ["coinGeckoCoinInfo", params],
+			queryFn: () => getCoinGeckoCoinInfo(params),
+		});
+
+	const useCoinGeckoCoinListQuery = (params: DataGetCoinGeckoCoinListParams) =>
+		useQuery({
+			queryKey: ["coinGeckoCoinList", params],
+			queryFn: () => getCoinGeckoCoinList(params),
+		});
+
+	const useCoinGeckoCoinMarketsQuery = (
+		params: DataGetCoinGeckoCoinMarketsParams,
+	) =>
+		useQuery({
+			queryKey: ["coinGeckoCoinMarkets", params],
+			queryFn: () => getCoinGeckoCoinMarkets(params),
+		});
+
+	const useAllUserDebankNfTsQuery = (params: DataGetAllUserDebankNfTsParams) =>
+		useQuery({
+			queryKey: ["allUserDebankNfTs", params],
+			queryFn: () => getAllUserDebankNfTs(params),
+		});
+
+	const useUserDebankNftListQuery = (params: DataGetUserDebankNftListParams) =>
+		useQuery({
+			queryKey: ["userDebankNftList", params],
+			queryFn: () => getUserDebankNftList(params),
+		});
 
 	return {
 		getChartAnalysis,
@@ -650,5 +757,15 @@ export const useMoonDataSDK = () => {
 		useTronTransactionsQuery,
 		useXrpBalanceQuery,
 		useXrpTransactionsQuery,
+		getCoinGeckoCoinInfo,
+		getCoinGeckoCoinList,
+		getCoinGeckoCoinMarkets,
+		getAllUserDebankNfTs,
+		getUserDebankNftList,
+		useCoinGeckoCoinInfoQuery,
+		useCoinGeckoCoinListQuery,
+		useCoinGeckoCoinMarketsQuery,
+		useAllUserDebankNfTsQuery,
+		useUserDebankNftListQuery,
 	};
 };

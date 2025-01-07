@@ -5539,6 +5539,1649 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"BitcoinTransaction": {
+				"properties": {
+					"blockNumber": {
+						"type": "number",
+						"format": "double"
+					},
+					"fee": {
+						"type": "number",
+						"format": "double"
+					},
+					"flag": {
+						"type": "string",
+						"nullable": true
+					},
+					"hash": {
+						"type": "string"
+					},
+					"index": {
+						"type": "number",
+						"format": "double"
+					},
+					"inputs": {
+						"items": {
+							"properties": {
+								"coin": {
+									"properties": {
+										"coinbase": {
+											"type": "boolean"
+										},
+										"address": {
+											"type": "string"
+										},
+										"script": {
+											"type": "string"
+										},
+										"value": {
+											"type": "string"
+										},
+										"height": {
+											"type": "number",
+											"format": "double"
+										},
+										"version": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"coinbase",
+										"address",
+										"script",
+										"value",
+										"height",
+										"version"
+									],
+									"type": "object"
+								},
+								"sequence": {
+									"type": "number",
+									"format": "double"
+								},
+								"witness": {
+									"type": "string"
+								},
+								"script": {
+									"type": "string"
+								},
+								"prevout": {
+									"properties": {
+										"index": {
+											"type": "number",
+											"format": "double"
+										},
+										"hash": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"index",
+										"hash"
+									],
+									"type": "object"
+								}
+							},
+							"required": [
+								"coin",
+								"sequence",
+								"witness",
+								"script",
+								"prevout"
+							],
+							"type": "object"
+						},
+						"type": "array"
+					},
+					"locktime": {
+						"type": "number",
+						"format": "double"
+					},
+					"mtime": {
+						"type": "number",
+						"format": "double"
+					},
+					"outputs": {
+						"items": {
+							"properties": {
+								"address": {
+									"type": "string"
+								},
+								"script": {
+									"type": "string"
+								},
+								"value": {
+									"type": "string"
+								}
+							},
+							"required": [
+								"address",
+								"script",
+								"value"
+							],
+							"type": "object"
+						},
+						"type": "array"
+					},
+					"ps": {
+						"type": "string",
+						"nullable": true
+					},
+					"rate": {
+						"type": "number",
+						"format": "double"
+					},
+					"version": {
+						"type": "number",
+						"format": "double"
+					},
+					"witnessHash": {
+						"type": "string"
+					},
+					"time": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"blockNumber",
+					"fee",
+					"flag",
+					"hash",
+					"index",
+					"inputs",
+					"locktime",
+					"mtime",
+					"outputs",
+					"ps",
+					"rate",
+					"version",
+					"witnessHash",
+					"time"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BaseAPIResponse_BitcoinTransaction-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/BitcoinTransaction"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BitcoinBalance": {
+				"properties": {
+					"incoming": {
+						"type": "string"
+					},
+					"outgoing": {
+						"type": "string"
+					},
+					"incomingPending": {
+						"type": "string"
+					},
+					"outgoingPending": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"incoming",
+					"outgoing",
+					"incomingPending",
+					"outgoingPending"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BaseAPIResponse_BitcoinBalance_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/BitcoinBalance"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"DogecoinTransaction": {
+				"properties": {
+					"blockNumber": {
+						"type": "number",
+						"format": "double"
+					},
+					"fee": {
+						"type": "string"
+					},
+					"hash": {
+						"type": "string"
+					},
+					"index": {
+						"type": "number",
+						"format": "double"
+					},
+					"inputs": {
+						"items": {
+							"properties": {
+								"coin": {
+									"properties": {
+										"coinbase": {
+											"type": "boolean"
+										},
+										"address": {
+											"type": "string"
+										},
+										"script": {
+											"type": "string"
+										},
+										"value": {
+											"type": "string"
+										},
+										"height": {
+											"type": "number",
+											"format": "double"
+										},
+										"version": {
+											"type": "number",
+											"format": "double"
+										}
+									},
+									"required": [
+										"coinbase",
+										"address",
+										"script",
+										"value",
+										"height",
+										"version"
+									],
+									"type": "object"
+								},
+								"script": {
+									"type": "string"
+								},
+								"sequence": {
+									"type": "number",
+									"format": "double"
+								},
+								"prevout": {
+									"properties": {
+										"index": {
+											"type": "number",
+											"format": "double"
+										},
+										"hash": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"index",
+										"hash"
+									],
+									"type": "object"
+								}
+							},
+							"required": [
+								"coin",
+								"script",
+								"sequence",
+								"prevout"
+							],
+							"type": "object"
+						},
+						"type": "array"
+					},
+					"locktime": {
+						"type": "number",
+						"format": "double"
+					},
+					"outputs": {
+						"items": {
+							"properties": {
+								"address": {
+									"type": "string"
+								},
+								"script": {
+									"type": "string"
+								},
+								"value": {
+									"type": "string"
+								}
+							},
+							"required": [
+								"address",
+								"script",
+								"value"
+							],
+							"type": "object"
+						},
+						"type": "array"
+					},
+					"size": {
+						"type": "number",
+						"format": "double"
+					},
+					"time": {
+						"type": "number",
+						"format": "double"
+					},
+					"version": {
+						"type": "number",
+						"format": "double"
+					},
+					"vsize": {
+						"type": "number",
+						"format": "double"
+					},
+					"witnessHash": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"blockNumber",
+					"fee",
+					"hash",
+					"index",
+					"inputs",
+					"locktime",
+					"outputs",
+					"size",
+					"time",
+					"version",
+					"vsize",
+					"witnessHash"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BaseAPIResponse_DogecoinTransaction-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/DogecoinTransaction"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"DogecoinBalance": {
+				"properties": {
+					"incoming": {
+						"type": "string"
+					},
+					"outgoing": {
+						"type": "string"
+					},
+					"incomingPending": {
+						"type": "string"
+					},
+					"outgoingPending": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"incoming",
+					"outgoing",
+					"incomingPending",
+					"outgoingPending"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BaseAPIResponse_DogecoinBalance_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/DogecoinBalance"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Record_string.string_": {
+				"properties": {},
+				"type": "object",
+				"description": "Construct a type with a set of properties K of type T"
+			},
+			"Record_string._decimal_place-number-or-null--contract_address-string__": {
+				"properties": {},
+				"type": "object",
+				"description": "Construct a type with a set of properties K of type T"
+			},
+			"Record_string.any_": {
+				"properties": {
+					"message": {
+						"type": "string",
+						"description": "The error message."
+					}
+				},
+				"required": [
+					"message"
+				],
+				"type": "object",
+				"description": "Construct a type with a set of properties K of type T"
+			},
+			"CoinFullInfo": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"symbol": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"asset_platform_id": {
+						"type": "string",
+						"nullable": true
+					},
+					"platforms": {
+						"$ref": "#/components/schemas/Record_string.string_"
+					},
+					"detail_platforms": {
+						"$ref": "#/components/schemas/Record_string._decimal_place-number-or-null--contract_address-string__"
+					},
+					"block_time_in_minutes": {
+						"type": "number",
+						"format": "double"
+					},
+					"hashing_algorithm": {
+						"type": "string",
+						"nullable": true
+					},
+					"categories": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"preview_listing": {
+						"type": "boolean"
+					},
+					"public_notice": {
+						"type": "string",
+						"nullable": true
+					},
+					"additional_notices": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"localization": {
+						"$ref": "#/components/schemas/Record_string.string_"
+					},
+					"description": {
+						"$ref": "#/components/schemas/Record_string.string_"
+					},
+					"links": {
+						"$ref": "#/components/schemas/Record_string.any_"
+					},
+					"image": {
+						"$ref": "#/components/schemas/Record_string.string_"
+					},
+					"country_origin": {
+						"type": "string"
+					},
+					"genesis_date": {
+						"type": "string",
+						"nullable": true
+					},
+					"sentiment_votes_up_percentage": {
+						"type": "number",
+						"format": "double"
+					},
+					"sentiment_votes_down_percentage": {
+						"type": "number",
+						"format": "double"
+					},
+					"market_cap_rank": {
+						"type": "number",
+						"format": "double"
+					},
+					"coingecko_rank": {
+						"type": "number",
+						"format": "double"
+					},
+					"coingecko_score": {
+						"type": "number",
+						"format": "double"
+					},
+					"developer_score": {
+						"type": "number",
+						"format": "double"
+					},
+					"community_score": {
+						"type": "number",
+						"format": "double"
+					},
+					"liquidity_score": {
+						"type": "number",
+						"format": "double"
+					},
+					"public_interest_score": {
+						"type": "number",
+						"format": "double"
+					},
+					"market_data": {
+						"$ref": "#/components/schemas/Record_string.any_"
+					},
+					"community_data": {
+						"$ref": "#/components/schemas/Record_string.any_"
+					},
+					"developer_data": {
+						"$ref": "#/components/schemas/Record_string.any_"
+					},
+					"public_interest_stats": {
+						"$ref": "#/components/schemas/Record_string.any_"
+					},
+					"status_updates": {
+						"items": {},
+						"type": "array"
+					},
+					"last_updated": {
+						"type": "string"
+					},
+					"tickers": {
+						"items": {},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"symbol",
+					"name",
+					"asset_platform_id",
+					"platforms",
+					"detail_platforms",
+					"block_time_in_minutes",
+					"hashing_algorithm",
+					"categories",
+					"preview_listing",
+					"public_notice",
+					"additional_notices",
+					"localization",
+					"description",
+					"links",
+					"image",
+					"country_origin",
+					"genesis_date",
+					"sentiment_votes_up_percentage",
+					"sentiment_votes_down_percentage",
+					"market_cap_rank",
+					"coingecko_rank",
+					"coingecko_score",
+					"developer_score",
+					"community_score",
+					"liquidity_score",
+					"public_interest_score",
+					"market_data",
+					"community_data",
+					"developer_data",
+					"public_interest_stats",
+					"status_updates",
+					"last_updated",
+					"tickers"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BaseAPIResponse_CoinFullInfo_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/CoinFullInfo"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CoinListItem": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"symbol": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"platforms": {
+						"$ref": "#/components/schemas/Record_string.string_"
+					}
+				},
+				"required": [
+					"id",
+					"symbol",
+					"name"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BaseAPIResponse_CoinListItem-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/CoinListItem"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CoinMarket": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"symbol": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"image": {
+						"type": "string"
+					},
+					"current_price": {
+						"type": "number",
+						"format": "double"
+					},
+					"market_cap": {
+						"type": "number",
+						"format": "double"
+					},
+					"market_cap_rank": {
+						"type": "number",
+						"format": "double"
+					},
+					"fully_diluted_valuation": {
+						"type": "number",
+						"format": "double",
+						"nullable": true
+					},
+					"total_volume": {
+						"type": "number",
+						"format": "double"
+					},
+					"high_24h": {
+						"type": "number",
+						"format": "double"
+					},
+					"low_24h": {
+						"type": "number",
+						"format": "double"
+					},
+					"price_change_24h": {
+						"type": "number",
+						"format": "double"
+					},
+					"price_change_percentage_24h": {
+						"type": "number",
+						"format": "double"
+					},
+					"market_cap_change_24h": {
+						"type": "number",
+						"format": "double"
+					},
+					"market_cap_change_percentage_24h": {
+						"type": "number",
+						"format": "double"
+					},
+					"circulating_supply": {
+						"type": "number",
+						"format": "double"
+					},
+					"total_supply": {
+						"type": "number",
+						"format": "double",
+						"nullable": true
+					},
+					"max_supply": {
+						"type": "number",
+						"format": "double",
+						"nullable": true
+					},
+					"ath": {
+						"type": "number",
+						"format": "double"
+					},
+					"ath_change_percentage": {
+						"type": "number",
+						"format": "double"
+					},
+					"ath_date": {
+						"type": "string"
+					},
+					"atl": {
+						"type": "number",
+						"format": "double"
+					},
+					"atl_change_percentage": {
+						"type": "number",
+						"format": "double"
+					},
+					"atl_date": {
+						"type": "string"
+					},
+					"roi": {
+						"properties": {
+							"percentage": {
+								"type": "number",
+								"format": "double"
+							},
+							"currency": {
+								"type": "string"
+							},
+							"times": {
+								"type": "number",
+								"format": "double"
+							}
+						},
+						"required": [
+							"percentage",
+							"currency",
+							"times"
+						],
+						"type": "object",
+						"nullable": true
+					},
+					"last_updated": {
+						"type": "string"
+					},
+					"sparkline_in_7d": {
+						"properties": {
+							"price": {
+								"items": {
+									"type": "number",
+									"format": "double"
+								},
+								"type": "array"
+							}
+						},
+						"required": [
+							"price"
+						],
+						"type": "object"
+					},
+					"price_change_percentage_1h_in_currency": {
+						"type": "number",
+						"format": "double"
+					},
+					"price_change_percentage_24h_in_currency": {
+						"type": "number",
+						"format": "double"
+					},
+					"price_change_percentage_7d_in_currency": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"id",
+					"symbol",
+					"name",
+					"image",
+					"current_price",
+					"market_cap",
+					"market_cap_rank",
+					"fully_diluted_valuation",
+					"total_volume",
+					"high_24h",
+					"low_24h",
+					"price_change_24h",
+					"price_change_percentage_24h",
+					"market_cap_change_24h",
+					"market_cap_change_percentage_24h",
+					"circulating_supply",
+					"total_supply",
+					"max_supply",
+					"ath",
+					"ath_change_percentage",
+					"ath_date",
+					"atl",
+					"atl_change_percentage",
+					"atl_date",
+					"roi",
+					"last_updated"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BaseAPIResponse_CoinMarket-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/CoinMarket"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LitecoinTransaction": {
+				"properties": {
+					"blockNumber": {
+						"type": "number",
+						"format": "double"
+					},
+					"fee": {
+						"type": "number",
+						"format": "double"
+					},
+					"hash": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"blockNumber",
+					"fee",
+					"hash"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BaseAPIResponse_LitecoinTransaction-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/LitecoinTransaction"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"LitecoinBalance": {
+				"properties": {
+					"incoming": {
+						"type": "string"
+					},
+					"outgoing": {
+						"type": "string"
+					},
+					"incomingPending": {
+						"type": "string"
+					},
+					"outgoingPending": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"incoming",
+					"outgoing",
+					"incomingPending",
+					"outgoingPending"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BaseAPIResponse_LitecoinBalance_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/LitecoinBalance"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"XRPBalance": {
+				"properties": {
+					"balance": {
+						"type": "string"
+					},
+					"assets": {
+						"items": {
+							"properties": {
+								"currency": {
+									"type": "string"
+								},
+								"balance": {
+									"type": "string"
+								}
+							},
+							"required": [
+								"currency",
+								"balance"
+							],
+							"type": "object"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"balance",
+					"assets"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BaseAPIResponse_XRPBalance_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/XRPBalance"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"XRPTransaction": {
+				"properties": {
+					"account": {
+						"type": "string"
+					},
+					"ledger_index_max": {
+						"type": "number",
+						"format": "double"
+					},
+					"ledger_index_min": {
+						"type": "number",
+						"format": "double"
+					},
+					"limit": {
+						"type": "number",
+						"format": "double"
+					},
+					"marker": {
+						"properties": {
+							"seq": {
+								"type": "number",
+								"format": "double"
+							},
+							"ledger": {
+								"type": "number",
+								"format": "double"
+							}
+						},
+						"required": [
+							"seq",
+							"ledger"
+						],
+						"type": "object"
+					},
+					"transactions": {
+						"items": {
+							"properties": {
+								"validated": {
+									"type": "boolean"
+								},
+								"tx": {
+									"properties": {
+										"ledger_index": {
+											"type": "number",
+											"format": "double"
+										},
+										"inLedger": {
+											"type": "number",
+											"format": "double"
+										},
+										"hash": {
+											"type": "string"
+										},
+										"date": {
+											"type": "number",
+											"format": "double"
+										},
+										"TxnSignature": {
+											"type": "string"
+										},
+										"TransactionType": {
+											"type": "string"
+										},
+										"SigningPubKey": {
+											"type": "string"
+										},
+										"Sequence": {
+											"type": "number",
+											"format": "double"
+										},
+										"LastLedgerSequence": {
+											"type": "number",
+											"format": "double"
+										},
+										"Flags": {
+											"type": "number",
+											"format": "double"
+										},
+										"Fee": {
+											"type": "string"
+										},
+										"Destination": {
+											"type": "string"
+										},
+										"DeliverMax": {
+											"type": "string"
+										},
+										"Amount": {
+											"type": "string"
+										},
+										"Account": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"ledger_index",
+										"inLedger",
+										"hash",
+										"date",
+										"TxnSignature",
+										"TransactionType",
+										"SigningPubKey",
+										"Sequence",
+										"LastLedgerSequence",
+										"Flags",
+										"Fee",
+										"Destination",
+										"DeliverMax",
+										"Amount",
+										"Account"
+									],
+									"type": "object"
+								},
+								"meta": {
+									"properties": {
+										"delivered_amount": {
+											"type": "string"
+										},
+										"TransactionResult": {
+											"type": "string"
+										},
+										"TransactionIndex": {
+											"type": "number",
+											"format": "double"
+										},
+										"AffectedNodes": {
+											"items": {
+												"properties": {
+													"ModifiedNode": {
+														"properties": {
+															"PreviousTxnLgrSeq": {
+																"type": "number",
+																"format": "double"
+															},
+															"PreviousTxnID": {
+																"type": "string"
+															},
+															"PreviousFields": {
+																"properties": {
+																	"Sequence": {
+																		"type": "number",
+																		"format": "double"
+																	},
+																	"Balance": {
+																		"type": "string"
+																	}
+																},
+																"required": [
+																	"Sequence",
+																	"Balance"
+																],
+																"type": "object"
+															},
+															"LedgerIndex": {
+																"type": "string"
+															},
+															"LedgerEntryType": {
+																"type": "string"
+															},
+															"FinalFields": {
+																"properties": {
+																	"Sequence": {
+																		"type": "number",
+																		"format": "double"
+																	},
+																	"OwnerCount": {
+																		"type": "number",
+																		"format": "double"
+																	},
+																	"Flags": {
+																		"type": "number",
+																		"format": "double"
+																	},
+																	"Balance": {
+																		"type": "string"
+																	},
+																	"Account": {
+																		"type": "string"
+																	}
+																},
+																"required": [
+																	"Sequence",
+																	"OwnerCount",
+																	"Flags",
+																	"Balance",
+																	"Account"
+																],
+																"type": "object"
+															}
+														},
+														"required": [
+															"PreviousTxnLgrSeq",
+															"PreviousTxnID",
+															"PreviousFields",
+															"LedgerIndex",
+															"LedgerEntryType",
+															"FinalFields"
+														],
+														"type": "object"
+													}
+												},
+												"required": [
+													"ModifiedNode"
+												],
+												"type": "object"
+											},
+											"type": "array"
+										}
+									},
+									"required": [
+										"delivered_amount",
+										"TransactionResult",
+										"TransactionIndex",
+										"AffectedNodes"
+									],
+									"type": "object"
+								}
+							},
+							"required": [
+								"validated",
+								"tx",
+								"meta"
+							],
+							"type": "object"
+						},
+						"type": "array"
+					},
+					"validated": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"account",
+					"ledger_index_max",
+					"ledger_index_min",
+					"limit",
+					"marker",
+					"transactions",
+					"validated"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BaseAPIResponse_XRPTransaction-Array_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/XRPTransaction"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TronBalance": {
+				"properties": {
+					"balance": {
+						"type": "number",
+						"format": "double"
+					},
+					"createTime": {
+						"type": "number",
+						"format": "double"
+					},
+					"trc10": {
+						"items": {
+							"properties": {
+								"value": {
+									"type": "number",
+									"format": "double"
+								},
+								"key": {
+									"type": "string"
+								}
+							},
+							"required": [
+								"value",
+								"key"
+							],
+							"type": "object"
+						},
+						"type": "array"
+					},
+					"trc20": {
+						"items": {
+							"$ref": "#/components/schemas/Record_string.string_"
+						},
+						"type": "array"
+					},
+					"freeNetLimit": {
+						"type": "number",
+						"format": "double"
+					},
+					"bandwidth": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"balance",
+					"createTime",
+					"trc10",
+					"trc20",
+					"freeNetLimit",
+					"bandwidth"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BaseAPIResponse_TronBalance_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/TronBalance"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TronTransaction": {
+				"properties": {
+					"ret": {
+						"items": {
+							"properties": {
+								"fee": {
+									"type": "number",
+									"format": "double"
+								},
+								"contractRet": {
+									"type": "string"
+								}
+							},
+							"required": [
+								"fee",
+								"contractRet"
+							],
+							"type": "object"
+						},
+						"type": "array"
+					},
+					"signature": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					},
+					"blockNumber": {
+						"type": "number",
+						"format": "double"
+					},
+					"txID": {
+						"type": "string"
+					},
+					"netFee": {
+						"type": "number",
+						"format": "double"
+					},
+					"netUsage": {
+						"type": "number",
+						"format": "double"
+					},
+					"energyFee": {
+						"type": "number",
+						"format": "double"
+					},
+					"energyUsage": {
+						"type": "number",
+						"format": "double"
+					},
+					"energyUsageTotal": {
+						"type": "number",
+						"format": "double"
+					},
+					"internalTransactions": {
+						"items": {
+							"properties": {
+								"toAddressBase58": {
+									"type": "string"
+								},
+								"fromAddressBase58": {
+									"type": "string"
+								},
+								"from_address": {
+									"type": "string"
+								},
+								"tx_id": {
+									"type": "string"
+								},
+								"to_address": {
+									"type": "string"
+								},
+								"block_timestamp": {
+									"type": "number",
+									"format": "double"
+								},
+								"data": {
+									"properties": {
+										"call_value": {
+											"properties": {
+												"_": {
+													"type": "number",
+													"format": "double"
+												}
+											},
+											"required": [
+												"_"
+											],
+											"type": "object"
+										},
+										"rejected": {
+											"type": "boolean"
+										},
+										"note": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"call_value",
+										"rejected",
+										"note"
+									],
+									"type": "object"
+								},
+								"internal_tx_id": {
+									"type": "string"
+								}
+							},
+							"required": [
+								"toAddressBase58",
+								"fromAddressBase58",
+								"from_address",
+								"tx_id",
+								"to_address",
+								"block_timestamp",
+								"data",
+								"internal_tx_id"
+							],
+							"type": "object"
+						},
+						"type": "array"
+					},
+					"rawData": {
+						"properties": {
+							"timestamp": {
+								"type": "number",
+								"format": "double"
+							},
+							"expiration": {
+								"type": "number",
+								"format": "double"
+							},
+							"ref_block_hash": {
+								"type": "string"
+							},
+							"ref_block_bytes": {
+								"type": "string"
+							},
+							"contract": {
+								"items": {
+									"properties": {
+										"type": {
+											"type": "string"
+										},
+										"parameter": {
+											"properties": {
+												"type_url": {
+													"type": "string"
+												},
+												"value": {
+													"properties": {
+														"toAddressBase58": {
+															"type": "string"
+														},
+														"ownerAddressBase58": {
+															"type": "string"
+														},
+														"assetNameUtf8": {
+															"type": "string"
+														},
+														"to_address": {
+															"type": "string"
+														},
+														"owner_address": {
+															"type": "string"
+														},
+														"asset_name": {
+															"type": "string"
+														},
+														"amount": {
+															"type": "number",
+															"format": "double"
+														}
+													},
+													"required": [
+														"toAddressBase58",
+														"ownerAddressBase58",
+														"assetNameUtf8",
+														"to_address",
+														"owner_address",
+														"asset_name",
+														"amount"
+													],
+													"type": "object"
+												}
+											},
+											"required": [
+												"type_url",
+												"value"
+											],
+											"type": "object"
+										}
+									},
+									"required": [
+										"type",
+										"parameter"
+									],
+									"type": "object"
+								},
+								"type": "array"
+							},
+							"data": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"timestamp",
+							"expiration",
+							"ref_block_hash",
+							"ref_block_bytes",
+							"contract",
+							"data"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"ret",
+					"signature",
+					"blockNumber",
+					"txID",
+					"netFee",
+					"netUsage",
+					"energyFee",
+					"energyUsage",
+					"energyUsageTotal",
+					"internalTransactions",
+					"rawData"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TronTransactionResponse": {
+				"properties": {
+					"transactions": {
+						"items": {
+							"$ref": "#/components/schemas/TronTransaction"
+						},
+						"type": "array"
+					},
+					"next": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"transactions",
+					"next"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"BaseAPIResponse_TronTransactionResponse_": {
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/TronTransactionResponse"
+					}
+				},
+				"required": [
+					"success",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"DogeCoinInput": {
 				"description": "Represents the input required for DogeCoin transactions.",
 				"properties": {
@@ -8138,11 +9781,6 @@
 				],
 				"type": "object",
 				"additionalProperties": false
-			},
-			"Record_string.string_": {
-				"properties": {},
-				"type": "object",
-				"description": "Construct a type with a set of properties K of type T"
 			},
 			"JupiterAPIResponse_Record_string.string__": {
 				"description": "Represents the structure of a response from the Jupiter API.",
@@ -12575,19 +14213,6 @@
 				],
 				"type": "object",
 				"additionalProperties": false
-			},
-			"Record_string.any_": {
-				"properties": {
-					"message": {
-						"type": "string",
-						"description": "The error message."
-					}
-				},
-				"required": [
-					"message"
-				],
-				"type": "object",
-				"description": "Construct a type with a set of properties K of type T"
 			},
 			"MultiCallInputBody": {
 				"properties": {
@@ -28824,7 +30449,9 @@
 						"description": "Ok",
 						"content": {
 							"application/json": {
-								"schema": {}
+								"schema": {
+									"$ref": "#/components/schemas/BaseAPIResponse_BitcoinTransaction-Array_"
+								}
 							}
 						}
 					}
@@ -28917,7 +30544,9 @@
 						"description": "Ok",
 						"content": {
 							"application/json": {
-								"schema": {}
+								"schema": {
+									"$ref": "#/components/schemas/BaseAPIResponse_BitcoinBalance_"
+								}
 							}
 						}
 					}
@@ -28964,7 +30593,9 @@
 						"description": "Ok",
 						"content": {
 							"application/json": {
-								"schema": {}
+								"schema": {
+									"$ref": "#/components/schemas/BaseAPIResponse_DogecoinTransaction-Array_"
+								}
 							}
 						}
 					}
@@ -29049,7 +30680,9 @@
 						"description": "Ok",
 						"content": {
 							"application/json": {
-								"schema": {}
+								"schema": {
+									"$ref": "#/components/schemas/BaseAPIResponse_DogecoinBalance_"
+								}
 							}
 						}
 					}
@@ -29088,6 +30721,232 @@
 				]
 			}
 		},
+		"/data/coingecko/coin/{id}": {
+			"get": {
+				"operationId": "Data_GetCoinGeckoCoinInfo",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BaseAPIResponse_CoinFullInfo_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Data"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "refresh",
+						"required": false,
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				]
+			}
+		},
+		"/data/coingecko/coins/list": {
+			"get": {
+				"operationId": "Data_GetCoinGeckoCoinList",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BaseAPIResponse_CoinListItem-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Data"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "includePlatform",
+						"required": false,
+						"schema": {
+							"default": false,
+							"type": "boolean"
+						}
+					},
+					{
+						"in": "query",
+						"name": "refresh",
+						"required": false,
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				]
+			}
+		},
+		"/data/coingecko/coins/markets": {
+			"get": {
+				"operationId": "Data_GetCoinGeckoCoinMarkets",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BaseAPIResponse_CoinMarket-Array_"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Data"
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					},
+					{
+						"Oauth2": []
+					},
+					{
+						"ApiKeyAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "header",
+						"name": "Authorization",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "vsCurrency",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "ids",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "order",
+						"required": false,
+						"schema": {
+							"default": "market_cap_desc",
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "perPage",
+						"required": false,
+						"schema": {
+							"default": 100,
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"default": 1,
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "sparkline",
+						"required": false,
+						"schema": {
+							"default": false,
+							"type": "boolean"
+						}
+					},
+					{
+						"in": "query",
+						"name": "priceChangePercentage",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "refresh",
+						"required": false,
+						"schema": {
+							"type": "boolean"
+						}
+					}
+				]
+			}
+		},
 		"/data/{address}/litecoin/transactions": {
 			"get": {
 				"operationId": "Data_GetLitecoinTransactions",
@@ -29096,7 +30955,9 @@
 						"description": "Ok",
 						"content": {
 							"application/json": {
-								"schema": {}
+								"schema": {
+									"$ref": "#/components/schemas/BaseAPIResponse_LitecoinTransaction-Array_"
+								}
 							}
 						}
 					}
@@ -29181,7 +31042,9 @@
 						"description": "Ok",
 						"content": {
 							"application/json": {
-								"schema": {}
+								"schema": {
+									"$ref": "#/components/schemas/BaseAPIResponse_LitecoinBalance_"
+								}
 							}
 						}
 					}
@@ -29228,7 +31091,9 @@
 						"description": "Ok",
 						"content": {
 							"application/json": {
-								"schema": {}
+								"schema": {
+									"$ref": "#/components/schemas/BaseAPIResponse_XRPBalance_"
+								}
 							}
 						}
 					}
@@ -29275,7 +31140,9 @@
 						"description": "Ok",
 						"content": {
 							"application/json": {
-								"schema": {}
+								"schema": {
+									"$ref": "#/components/schemas/BaseAPIResponse_XRPTransaction-Array_"
+								}
 							}
 						}
 					}
@@ -29322,7 +31189,9 @@
 						"description": "Ok",
 						"content": {
 							"application/json": {
-								"schema": {}
+								"schema": {
+									"$ref": "#/components/schemas/BaseAPIResponse_TronBalance_"
+								}
 							}
 						}
 					}
@@ -29369,7 +31238,9 @@
 						"description": "Ok",
 						"content": {
 							"application/json": {
-								"schema": {}
+								"schema": {
+									"$ref": "#/components/schemas/BaseAPIResponse_TronTransactionResponse_"
+								}
 							}
 						}
 					}
