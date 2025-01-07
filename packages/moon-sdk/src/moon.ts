@@ -1538,6 +1538,14 @@ export class MoonSDK extends EventEmitter implements IMoonSDK {
 		return this.moonAPIService.getFinancialDatasetsSDK();
 	}
 
+	/**
+	 * Retrieves the Opensea SDK instance from the Moon API service.
+	 * @returns {MoonAPI.Opensea} The Opensea SDK instance.
+	 */
+	getOpenseaSDK(): MoonAPI.Opensea {
+		return this.moonAPIService.getOpenseaSDK();
+	}
+
 	// Event listener methods
 	/**
 	 * Registers an event listener for the specified event.

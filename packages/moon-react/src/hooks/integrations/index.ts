@@ -14,3 +14,4 @@ export * from "./useAllora";
 export * from "./useCookiefun";
 export * from "./useMakeFun";
 export * from "./useFinancialDatasets";
+export * from "./useOpensea";

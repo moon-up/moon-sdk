@@ -72,6 +72,7 @@ export class MoonAPIService {
 			"Leverager",
 			"Lifi",
 			"Odos",
+			"Opensea",
 			"Onramper",
 			"Thorswap",
 			"Aave",
@@ -431,5 +432,13 @@ export class MoonAPIService {
 	 */
 	public getFinancialDatasetsSDK(): MoonAPI.FinancialDatasets {
 		return this.getSDK("FinancialDatasets") as MoonAPI.FinancialDatasets;
+	}
+
+	/**
+	 * Retrieves the Opensea SDK instance.
+	 * @returns {MoonAPI.Opensea} The Opensea SDK instance.
+	 */
+	public getOpenseaSDK(): MoonAPI.Opensea {
+		return this.getSDK("Opensea") as MoonAPI.Opensea;
 	}
 }
